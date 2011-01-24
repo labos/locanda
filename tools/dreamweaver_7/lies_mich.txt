@@ -1,0 +1,24 @@
+/**
+* "Yet Another Multicolumn Layout" - (X)HTML/CSS Framework
+*
+* YAML in MACROMEDIA DREAMWEAVER 7 (MX 2004)
+*
+* @copyright       Copyright 2005-2010, Dirk Jesse
+* @license         CC-A 2.0 (http://creativecommons.org/licenses/by/2.0/),
+*                  YAML-C (http://www.yaml.de/en/license/license-conditions.html)
+* @link            http://www.yaml.de
+* @package         yaml
+* @version         3.3
+* @revision        $Revision: 466 $
+* @lastmodified    $Date: 2010-09-14 21:19:30 +0200 (Di, 14 Sep 2010) $
+*/
+
+für die Arbeit mit YAML-basierten Layouts im DREAMWEAVER MX 2004 sind geringe Anpassungen erforderlich. Um mit YAML-basierten Layouts in der Entwurfsansicht des Dreamweavers zu arbeiten muss die CSS-Datei 'base.css' aus dem /core/ Verzeichnis des YAML-Frameworks gegen eine spezielle Version für die Entwurfsansicht im Dreamveaver ausgetauscht werden. Damit Sie in der Entwurfsansicht mit alternativen Stylesheets arbeiten können, müssen in den Einstellungen Ihres Projekts die 'Design Notes' aktiviert sein. Die Anpassung der Entwurfsstylesheets erfolgt in zwei Schritten.
+
+Im ersten Schritt wird die normale base.css in der Entwurfsansicht ausgeblendet. Das Ausblenden dieser Datei erfolgt innerhalb des Fensters 'CSS-Stile'. Rufen Sie in diesem Fenter das Kontextmenü auf (rechte Maustaste) und wählen Sie den Menüpunkt "Entwurfsphase ...". In dem nun erscheinenden Fenster wählen Sie nun unter 'Während Entwurfsphase ausblenden' die im Layout verwendete base.css des YAML-Frameworks aus.
+
+Im zweiten Schritt wiederholen Sie den Vorgang und wählen unter 'Nur während Entwurfphase anzeigen' die speziell für die Entwurfsansicht des DREAMWEAVER MX 2004 modifizierte Datei 'base_dw7.css' aus dem Verzeichnis /tools/dreamweaver_7/ des YAML-Download-Paketes aus.
+
+Im Anschluss können Sie YAML-basierte Layouts recht komfortabel in der Entwurfsansicht des DREAMWEAVER MX 2004 bearbeiten.
+
+Viel Spaß mit YAML.

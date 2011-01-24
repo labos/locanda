@@ -1,0 +1,24 @@
+/**
+* "Yet Another Multicolumn Layout" - (X)HTML/CSS Framework
+*
+* YAML in Adobe DREAMWEAVER 8
+*
+* @copyright       Copyright 2005-2010, Dirk Jesse
+* @license         CC-A 2.0 (http://creativecommons.org/licenses/by/2.0/),
+*                  YAML-C (http://www.yaml.de/en/license/license-conditions.html)
+* @link            http://www.yaml.de
+* @package         yaml
+* @version         3.3
+* @revision        $Revision: 466 $
+* @lastmodified    $Date: 2010-09-14 21:19:30 +0200 (Di, 14 Sep 2010) $
+*/
+
+Die Arbeit mit YAML gestaltet sich mit der aktuellen Version des DREAMWEAVER relativ problemfrei. Als einzige notwendige Anpassung müssen in der Entwurfsansicht die Print-Stylesheets ausblenden. Der DREAMWEAVER interpretiert bei der Entwurfsdarstellung die CSS-Regel @media print falsch und vermischt daher Screen- und Print-Layout miteinander. Damit Sie in der Entwurfsansicht mit alternativen Stylesheets arbeiten können, müssen in den Einstellungen Ihres Projekts die 'Design Notes' aktiviert sein.
+
+Das Ausblenden der Printstylesheets erfolgt innerhalb des Fensters 'CSS-Stile' im Feld 'Eigenschaften'. Rufen Sie in diesem Feld das Kontextmenü auf (rechte Maustaste) und wählen Sie den Menüpunkt "Entwurfsphase ...". In dem nun erscheinenden Fenster wählen Sie nun unter 'Während Entwurfsphase ausblenden' das im Layout eingebundene Print-Stylesheet aus.
+
+Schließen Sie nun Ihr HTML-Dokument und öffnen Sie es erneut. Die geänderten Einstellungen sollten nun aktiv sein und Ihr YAML-basiertes Layout wird im Entwurfsmodus in der Regel fehlerfrei dargestellt.
+
+Im Anschluss können Sie YAML-basierte Layouts sehr komfortabel in der Entwurfsansicht des DREAMWEAVER bearbeiten.
+
+Viel Spaß mit YAML.
