@@ -2,7 +2,7 @@
  * jQuery.weekCalendar v1.2.3-pre
  * http://www.redredred.com.au/
  *
- * Requires:
+ * Requires:updateBookEvent
  * - jquery.weekcalendar.css
  * - jquery 1.3.x
  * - jquery-ui 1.7.x (widget, drag, drop, resize)
@@ -35,6 +35,7 @@
          newEventText : "New Event",
          timeslotHeight: 20,
          defaultEventLength : 2,
+         defaultEventWidth: 88,
          timeslotsPerHour : 4,
          buttons : true,
          buttonText : {
@@ -207,6 +208,10 @@
       updateEvent : function (calEvent) {
          this._updateEventInCalendar(calEvent);
       },
+      
+      updateBookEvent : function (calEvent) {
+          this._updateBookInCalendar(calEvent);
+       },
 
       /*
        * Returns an array of timeslot start and end times based on
@@ -381,13 +386,28 @@
          $calendarContainer = $("<div class=\"wc-container\">").appendTo(self.element);
 
          if (options.buttons) {
-            calendarNavHtml = "<div class=\"wc-nav\">\
+            calendarNavHtml = "<div class=\"wc-nav\"><span id=\"toolbar\" class=\"ui-widget-header ui-corner-all\">\
                     <button class=\"wc-today\">" + options.buttonText.today + "</button>\
                     <button class=\"wc-prev\">" + options.buttonText.lastWeek + "</button>\
                     <button class=\"wc-next\">" + options.buttonText.nextWeek + "</button>\
-                    </div>";
+                    </span></div>";
 
+
+            
             $(calendarNavHtml).appendTo($calendarContainer);
+            
+            $(".wc-today").button({
+                icons: {
+                    primary: "ui-icon-pin-s"
+                }}).next().button({
+                    icons: {
+                        primary: "ui-icon-triangle-1-w"
+                    }
+                }).next().button({
+                    icons: {
+                             secondary: "ui-icon-triangle-1-e"
+                    }
+                })
 
             $calendarContainer.find(".wc-nav .wc-today").click(function() {
                self.element.weekCalendar("today");
@@ -451,8 +471,15 @@
 
          calendarBodyHtml += "</td>";
 
+
+
+
          for (var i = 1; i <= options.daysToShow; i++) {
-            calendarBodyHtml += "<td class=\"wc-day-column day-" + i + "\"><div class=\"wc-day-column-inner\"></div></td>"
+        	 //aggiungiamo la colonna relativa al giorno corrente, ed aggiungiamo anche un campo nascosto contenente la data 
+        	 //corrente.
+            calendarBodyHtml += "<td class=\"wc-day-column day-" + i + "\">" +
+            "<div class=\"wc-day-column-inner\"></div></td>"
+      
          }
 
          calendarBodyHtml += "</tr></tbody></table></div>";
@@ -488,7 +515,10 @@
 _setupEventCreationForRoom : function($weekDay) {
          var self = this;
          var options = this.options;
+         //IL SEGUENTE ARRAY CONTIENE LA LISTA DEI TD DELLA TABELLA INTERESSATI CORRENTEMENTE AD UN
+         //NUOVO BOOKING
          self.day_booked = new Array();  
+         /* ADD MOUSEDOWN EVENT LISTENER */
          $weekDay.mousedown(function(event) {
             var $target = $(event.target);
             var number_slots=0;
@@ -514,23 +544,16 @@ _setupEventCreationForRoom : function($weekDay) {
                 /****************************************************************/  
 					/* ADESSO SETTIAMO PER LE SELEZIONI ORIZZONTALI MULTIPLE */
 
-                 				
-					
-					//offset() è una funzione di jquery che dà la posizione di un elemento.
-       
 					//ora assegno l'evento mousemove. Quindi se oltre avere cliccato su una casella, con il mousedown,
 					//muovo il mouse, vuol dire che voglio settare più appuntamenti di seguito e vado a vedere dove si trova
-					//la cordinata corrente Y del puntatore, per poi 
-
-					               
-					//ora assegno l'evento mousemove. Quindi se oltre avere cliccato su una casella, con il mousedown,
-					//muovo il mouse, vuol dire che voglio settare più appuntamenti di seguito e vado a vedere dove si trova
-					//la cordinata corrente Y del puntatore, per poi 
+					//la cordinata corrente X del puntatore, per poi verificare quanti giorni ho selezionato.
                $target.parent().parent().bind("mousemove.newevent", function(event) {
-               //ora che muovo il mouse come effetto mostro il div dell'appuntamento arrotondato.
+            	   
+               //ora che muovo il mouse come effetto mostro il div dell'evento.
                   $newEvent.show();
                   //rendo il div anche redimensionabile.
                   $newEvent.addClass("ui-resizable-resizing");
+                  /* ora effettuo alcune operazioni nel caso di selezione verticale */
                   //adesso calcolo la lunghezza corrente del tratto verticale selezionato.
                   var height = Math.round(event.pageY - columnOffset - topPosition);
                   //adesso calcolo la porzione di timeslots che avanzano nel tratto verticale selezionato.
@@ -547,36 +570,62 @@ _setupEventCreationForRoom : function($weekDay) {
                      $newEvent.css("height", height + (options.timeslotHeight - remainder));
                   }
                   
-var rowOffset = $target.offset().left;                  
-var clickX = event.pageX - rowOffset;           
-     if (clickX > 44) {
-					
+                  /******* ora effettuo una serie di operazioni per gestire lo spostamento a destra/sinistra del mousee ********/
+				 //trovo la posizione del lato sinistro della casella in cui ho cliccato                                  
+				var rowOffset = $target.offset().left;        
+				//calcolo la distanza tra la posizione del click del mouse ed il lato sinistro della casella cliccata.
+				var clickX = event.pageX - rowOffset; 
+				//ora calcoliamo una lunghezza. Quante volte questa lunghezza è contenuta nella distanza 
+				//dal lato sinistro alla posizione del mouse, mi dà il numero di caselle che aggiungo.
+				var halfWidthEvent = Math.round(options.defaultEventWidth/2)
+				//se lo spostamento con il mouse è almeno la metà della lunghezza di default di una casella, allora....
+				     if (clickX > halfWidthEvent) {
+					//trovo sempre il parent della casella cliccata.
 					self.day_booked[0]=$target.parent();
-				if( Math.floor(clickX/44)>number_slots )
+				if( Math.floor(clickX/halfWidthEvent)>number_slots )
 				{
-					number_slots= Math.floor(clickX/44);	
+					number_slots= Math.floor(clickX/halfWidthEvent);	
 
 var $newEventHor2 = $("<div class=\"wc-cal-event wc-new-cal-event wc-new-cal-event-creating\"></div>");
 					//adesso regoliamo il css
-               $newEventHor2.css( "width", "88px");
+               //--$newEventHor2.css( "width", options.defaultEventWidth+"px");
    				$newEventHor2.css( "height",  options.timeslotHeight);
    				$newEventHor2.css({top: topPosition});
                //adesso appendo il div creato dell'appuntamento.
               //-- var next= $target.siblings();
               //-- next= next.prevObject;
+   				
+   				//ora assegno come elemento dell'array il td successivo a quello corrente.
             self.day_booked[number_slots]= self.day_booked[number_slots-1].next();
-              
+              //ora aggiungo il div evento al td che ho appena aggiunto.
                self.day_booked[number_slots].children().append($newEventHor2);
                 //rendo il div anche redimensionabile.
                   $newEventHor2.addClass("ui-resizable-resizing");	
                  //-- $newEventHor2.addClass("ui-corner-all");
                      $newEventHor2.show();								        					
 
+					}// se invece il mouse lo stò spostando in una posizione all'indietro...
+				else if (number_slots > 0 && Math.floor(clickX/halfWidthEvent)<number_slots)
+					{
+					//ora ciclo a partire dall'ultimo giorno selezionato sino al punto mouse in cui mi sono fermato
+					var i;
+					for(i=number_slots; i>=Math.floor(clickX/halfWidthEvent); i--){
+						/*var prova = self.day_booked[i].children().children(".wc-cal-event").find(".wc-time");*/
+						
+						self.day_booked[i].children().children(".wc-cal-event:empty").remove();
+
+						
+					
 					}
-							
+					self.day_booked.slice(0, Math.floor(clickX/halfWidthEvent));
+					number_slots= Math.floor(clickX/halfWidthEvent);
+					//una volta che ho cancellato gli eventi tra l'ultimo giorno selezionato e quello in cui mi sono
+					//fermato tornando indietro, allora ridimensiono l'array dei giorni bookati.
+
 					}
-                 
-                  
+					}
+				
+				
                }).mouseup(function() {
                //ora che rilascio il pulsante del mouse tolgo l'ascolto all'evento del movimento del mouse.
                   $target.parent().parent().unbind("mousemove.newevent");
@@ -641,7 +690,7 @@ $.each(self.day_booked, function(key,value){
                    $newEvent.css({width: 288}).show();
                }
                var top = parseInt($newEvent.css("top"));
-               var eventDuration = self._getEventDurationFromPositionedEventElement($weekDay, $newEvent, top);
+               var eventDuration = self._getEventDetails($weekDay, $newEvent, top);
 
                $newEvent.remove();
                var newCalEvent = {start: eventDuration.start, end: eventDuration.end, title: options.newEventText, top:eventDuration.topY};
@@ -654,12 +703,41 @@ $.each(self.day_booked, function(key,value){
                   self._adjustOverlappingEvents($weekDay);
                }
 
-           //---    options.eventNew(eventDuration, $renderedCalEvent);
+              //--options.eventNew(eventDuration, $renderedCalEvent);
             }
+            
+
+            
 });
 /******************************************************************/
 /******************************************************************/
-            
+//ORA APRO LA FINESTRA DI DIALOGO CON LA QUALE EFFETTUO IL BOOKING E SULLA QUALE PRENDERÒ IN INGRESSO
+//1)LA DATA DI INIZIO DEL BOOKING, 2)LA DATA DI FINE DEL BOOKING, 3)L'ID DELLA CAMERA SULLA QUALE FACCIO IL BOOKING.
+var start_booking=new Date();
+var end_booking=new Date();
+var id_booked_room=0;
+if($.isArray(self.day_booked))
+{
+try{
+	start_booking= self.day_booked[0].children().data("startDate");
+	end_booking = self.day_booked[self.day_booked.length-1].children().data("startDate");
+	id_booked_room= $renderedCalEvent.find('input[name="id_booked_room"]').val();
+}
+catch(e){
+//gestisci eccezzioni
+	
+}
+}
+
+/**********************************************
+ * Ora settiamo una struttare dati, un oggetto che contiene:
+ * start: --> la data di inizio del booking
+ * end: ---> la data di fine del booking
+ * id: ---> l'id della camera da bookare
+ */
+
+
+options.eventNew({start: self.formatDate(new Date(start_booking),"d/M/Y"), end:self.formatDate(new Date(end_booking),"d/M/Y"), id_booked:id_booked_room}, $renderedCalEvent);        
             
             
             
@@ -669,8 +747,20 @@ $.each(self.day_booked, function(key,value){
       },
       
       
-      
-      
+      /*
+       * get list of booking days from day_booked
+       * 
+       */     
+      _getDaysByTd : function(){
+    	  var startDay=0;
+    	  var endDay=0;
+    	  $.each(self.day_booked, function(key,value){
+    	  value.find('input[name=="current_day"]').val();
+    		  
+    	  
+    	  });
+    	  return {start: startDay,end: endDay};
+    	  },
       
       
       
@@ -741,8 +831,13 @@ $.each(self.day_booked, function(key,value){
          self.element.find(".wc-header td.wc-day-column-header").each(function(i, val) {
 
             var dayName = options.useShortDayNames ? options.shortDays[currentDay.getDay()] : options.longDays[currentDay.getDay()];
-
-            $(this).html(dayName + "<br/>" + self._formatDate(currentDay, options.dateFormat));
+            //ora aggiungiamo anche un campo nascosto che contiene il valore della data corrente:
+            var current_day_number=i+1;
+            $(this).html(dayName + "<br/>" + self._formatDate(currentDay, options.dateFormat)+
+             '<input type="hidden" name="day-'+ current_day_number + '" value="' + self._formatDate(currentDay, options.dateFormat) + '" />'		
+            );
+            
+           
             if (self._isToday(currentDay)) {
                $(this).addClass("wc-today");
             } else {
@@ -780,7 +875,7 @@ $.each(self.day_booked, function(key,value){
          var options = this.options;
          var eventsToRender;
 			/********************************************/
-			/**** ORA SETTO eventsToRender  che contiene***********/
+			/**** ORA SETTO eventsToRender  che contiene gli eventi ripuliti ***********/
          if ($.isArray(data)) {
             eventsToRender = self._cleanEvents(data);
          } else if (data.events) {
@@ -855,17 +950,17 @@ calEvent.top= self._getRoomTopById(calEvent.id);
          $modifiedEvent = options.eventRender(calEvent, $calEvent);
          $calEvent = $modifiedEvent ? $modifiedEvent.appendTo($weekDay) : $calEvent.appendTo($weekDay);
          $calEvent.css({lineHeight: (options.timeslotHeight - 2) + "px", fontSize: (options.timeslotHeight / 2) + "px"});
-// ADESSO CON IL METODO EVENTRENDER SETTIAMO L'EVENTO, IN PARTICOLARE AGGIUNGIAMO DEL TESTO DENTRO I DIVs..
-//INOLTRE INSERIAMO IL CALEVENT DENTRO L'HTML CON DATA
+         // ADESSO CON IL METODO EVENTRENDER SETTIAMO L'EVENTO, IN PARTICOLARE AGGIUNGIAMO DEL TESTO DENTRO I DIVs..
+         //INOLTRE INSERIAMO IL CALEVENT DENTRO L'HTML CON DATA
          self._refreshEventBooked(calEvent, $calEvent);
          self._positionEvent($weekDay, $calEvent);
          $calEvent.show();
-
+         
          if (!options.readonly && options.resizable(calEvent, $calEvent)) {
-            self._addResizableToCalEvent(calEvent, $calEvent, $weekDay)
+         //---   self._addResizableToCalEvent(calEvent, $calEvent, $weekDay)
          }
          if (!options.readonly && options.draggable(calEvent, $calEvent)) {
-            self._addDraggableToCalEvent(calEvent, $calEvent);
+         //---   self._addDraggableToCalEvent(calEvent, $calEvent);
          }
 
          options.eventAfterRender(calEvent, $calEvent);
@@ -874,7 +969,7 @@ calEvent.top= self._getRoomTopById(calEvent.id);
 
       },
       
-            /*
+       /*
        * Refresh the displayed details of a booked day for a room
        */
       _refreshEventBooked : function(calEvent, $calEvent) {
@@ -882,9 +977,11 @@ calEvent.top= self._getRoomTopById(calEvent.id);
          var options = this.options;
 
            $calEvent.find(".wc-time").html("booked");
-           var position= calEvent.top/options.timeslotHeight;
+           //ora calcolo l'id della camera da bookare considerando l'altezza della casella in cui ho bookato
+           //e facendo riferimento alla prima colonna del planner, dove è contenuto l'id di ogni camera.
+           var position= (calEvent.top/options.timeslotHeight)+1;
           var id_room= $('div.wc-time-header-cell#' + position + '  > input[name="id_room"]').val();
-           $calEvent.find(".wc-time").append('<input type="hidden"  value="' +  id_room  + '" />');
+           $calEvent.find(".wc-time").append('<input type="hidden" name="id_booked_room"  value="' +  id_room  + '" />');
 
          $calEvent.find(".wc-title").html(calEvent.title);
          //con la seguente istruzione inseriamo in data l'evento del calendario.
@@ -1035,7 +1132,13 @@ calEvent.top= self._getRoomTopById(calEvent.id);
       _findWeekDayForEvent : function(calEvent, $weekDayColumns) {
 
          var $weekDay;
+
          $weekDayColumns.each(function() {
+             var uu=calEvent.start.getTime();
+             var ff= $(this).data("startDate").getTime();
+             var ii=$(this).data("endDate").getTime() ;
+             var gg=calEvent.end.getTime();
+             
             if ($(this).data("startDate").getTime() <= calEvent.start.getTime() && $(this).data("endDate").getTime() >= calEvent.end.getTime()) {
                $weekDay = $(this);
                return false;
@@ -1070,6 +1173,60 @@ calEvent.top= self._getRoomTopById(calEvent.id);
             self._adjustOverlappingEvents($weekDay);
          }
       },
+      /*
+       * renderizza i booking effettuati dopo che si chiude la finestra di dialogo con il save
+       */
+      _updateBookInCalendar : function (calEvent) {
+          var self = this;
+          var options = this.options;
+          self._cleanEvent(calEvent);
+
+
+          	//ora individuiamo i giorni che sono presenti nell'intervallo start ed end del booking
+          var $weekDays = self._getWeekDaysForInterval(calEvent, self.element.find(".wc-time-slots .wc-day-column-inner"));
+          //ora, per ogni giorno, controllo che i giorni presenti nell'intervallo di giorni
+          //che coinvolgono il booking e li confronto con i div wc-new-cal-event segnalati 
+          //nel planner, per vedere se ci sono inconsistenze.
+/*          self.element.find(".wc-new-cal-event").each(function() {
+              $(this).remove();
+           });*/
+          var prova = self.element.find(".wc-new-cal-event").size();
+          if ($.isArray($weekDays) && $weekDays.length===self.element.find(".wc-new-cal-event").size()) {
+        	  $.each($weekDays, function(key, $day){
+        		  
+        	 var $calEvent = self._renderEvent(calEvent, $day);
+             self._adjustForEventCollisions($day, $calEvent, calEvent, calEvent);
+             self._refreshEventDetails(calEvent, $calEvent);
+             self._positionEvent($day, $calEvent);
+             self._adjustOverlappingEvents($day);  
+        		  
+        		  
+        	  });
+
+          }
+       },
+       
+       /*
+        * find the weekday in the current calendar that the calEvent falls within
+        */
+       _getWeekDaysForInterval : function(calEvent, $weekDayColumns) {
+
+          var $weekDays=new Array();
+
+          $weekDayColumns.each(function() {
+              var ff= $(this).data("startDate");
+              var uu=calEvent.start;
+            
+              var gg=calEvent.end;
+        	  	//ora controlliamo che la data ad ogni colpo di ciclo sia interna all'intervallo delle date del booking
+             if ($(this).data("startDate").getTime() >= calEvent.start.getTime() && $(this).data("startDate").getTime() <= calEvent.end.getTime()) {
+                $weekDays.push($(this));
+               
+             }
+          });
+          return $weekDays;
+       },
+       
 
       /*
        * Position the event element within the weekday based on it's start / end dates.
@@ -1109,6 +1266,13 @@ var pxTop = calEvent.top;
          
          return {start: start, end: end, topY:top };
       },
+      
+      _getEventDetails : function($weekDay, $calEvent, top) {
+    	  var start = new Date($weekDay.data("startDate"));
+          var end = new Date(start.getTime());
+                 
+          return {start: start, end: end, topY:top };
+       },
 
       /*
        * If the calendar does not allow event overlap, adjust the start or end date if necessary to

@@ -23,6 +23,9 @@ table {
 fieldset, img {
     border: 0;
 }
+fieldset {
+ float:left;
+}
 /*
 address, caption, cite, code, dfn, em, strong, th, var {
     font-style: normal;
@@ -73,4 +76,36 @@ input, textarea, select {
 
 legend {
     color: #000;
+}
+div.header_btn p{
+text-align:right;
+}
+/* Alberto Editing*/
+#date_booking{
+font-weight:600;
+}
+
+ul.money {
+font-size:14px;
+font-weight:600;
+}
+fieldset legend {
+font-size: 18px;
+font-weight:600;
+}
+
+span.green{
+color: #99CC66;
+font-size:13px;
+}
+
+div.header_booking{
+border-bottom:1px dotted grey;
+margin-bottom:10px;
+margin-top:10px;
+padding-bottom:7px;
+}
+#toolbar{
+padding-top:12px;
+padding-bottom:12px;
 }

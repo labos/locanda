@@ -8,15 +8,15 @@
         <link rel='stylesheet' type='text/css' href='http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/start/jquery-ui.css' />
         -->
   <link rel='stylesheet' type='text/css' href=
-  'css/smoothness/jquery-ui-1.8rc3.custom.css' />
+  'css/south-street/jquery-ui-1.8.9.custom.css' />
   <link rel='stylesheet' type='text/css' href='css/jquery.weekcalendar.css' />
   <link rel='stylesheet' type='text/css' href='css/calendar.css' />
-  <script type='text/javascript' src='js/lib/jquery-1.4.2.min.js'>
+  <script type='text/javascript' src='js/lib/jquery-1.4.4.min.js'>
 </script><!--
     <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js'></script>
     -->
 
-  <script type='text/javascript' src='js/lib/jquery-ui-1.8.4.custom.min.js'>
+  <script type='text/javascript' src='js/lib/jquery-ui-1.8.9.custom.min.js'>
 </script>
   <script type='text/javascript' src='js/jquery.weekcalendar.js'>
 </script>
@@ -50,8 +50,8 @@
           "#">Imprint</a></span>
         </div>
 
-        <h1>Locanda <em>&laquo;OpenSource Booking Software&raquo;</em></h1><span>Open
-        Source Lab &bull; Locanda</span>
+        <h1>
+        <span>&nbsp;</span><em>&nbsp;</em></h1><span></span>
       </div><!-- begin: main navigation #nav -->
 
       <div id="nav" role="navigation">
@@ -59,13 +59,15 @@
           <ul>
             <li class="active"><strong>Planner</strong></li>
 
-            <li><a href="rooms.html">Rooms</a></li>
+            <li><a href="rooms.html">Accomodation</a></li>
 
-            <li><a href="#">Configuration</a></li>
+            <li><a href="#">Guests</a></li>
 
-            <li><a href="#">Widgets</a></li>
+            <li><a href="#">Reports</a></li>
 
-            <li><a href="#">IDS Management</a></li>
+            <li><a href="#">Settings</a></li>
+            
+            <li><a href="#">Help</a></li>
           </ul>
         </div>
       </div><!-- end: main navigation -->
@@ -76,35 +78,27 @@
 
         <div id="col1" role="complementary">
           <div id="col1_content" class="clearfix">
-            <h2>Tools</h2>
-
-            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nullam malesuada
-            suscipit pede. Nullam ipsum lacus, varius vel, nonummy in, consequat ut,
-            neque.</p>
-
-            <h3>Lorem ipsum ...</h3>
-
-            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nullam malesuada
-            suscipit pede. Nullam ipsum lacus, varius vel, nonummy in, consequat ut,
-            neque. Vivamus viverra. Duis dolor arcu, lacinia sit amet, sollicitudin sed,
-            aliquet vel, quam. Pellentesque molestie laoreet tortor. Aenean quam.
-            Pellentesque magna metus, venenatis sit amet, congue nec, dictum in, est.
-            Aliquam nibh.</p>
           </div>
         </div><!-- end: #col1 -->
         <!-- begin: #col3 static column -->
 
         <div id="col3" role="main">
           <div id="col3_content" class="clearfix">
+          <div class="header_btn">
+          <p>
+          <a href="book.html" /><img alt="add new booking" src="images/locanda_add.png" /></a>
+          </p></div>
             <div id='calendar'></div>
 
             <div id="event_edit_container">
               <form>
+                             <div class="header_booking"><span>Camera Singola &nbsp;</span><span>Date: </span><span id="date_booking" ></span><span>&nbsp;<select name="confirm"><option value="1">Confirmed</option><option value="0">Provisional</option></select></span></li>
+              </div>
+              <fieldset>
+    <legend>Booking Details:</legend>
                 <input type="hidden" />
 
                 <ul>
-                  <li><span>Date:</span></li>
-
                   <li><label for="fullname">Full Name:</label> <input type="text" name=
                   "fullname" /></li>
 
@@ -119,26 +113,21 @@
 
                   <li><label for="postcode">PostCode:</label> <input type="text" name=
                   "postcode" /></li>
-
-                  <li><label for="start">Start Time:</label> <select name="start">
-                    <option value="">
-                      Select Start Time
+                  
+                   <li><label for="end">Guests:</label> <select name="end">
+                    <option value="1">
+                      1 Guests
+                    </option>
+                    <option value="2">
+                      2 Guests
+                    </option>
+                     <option value="3">
+                      3 Guests
+                    </option>
+                    <option value="4">
+                      4 Guests
                     </option>
                   </select></li>
-
-                  <li><label for="end">End Time:</label> <select name="end">
-                    <option value="">
-                      Select End Time
-                    </option>
-                  </select></li>
-
-                  <li><label for="title">Title:</label> <input type="text" name=
-                  "title" /></li>
-
-                  <li><label for="body">Note:</label> 
-                  <textarea name="body">
-</textarea></li>
-
                   <li>
                     <div class="type_rooms">
                       <input type="checkbox" name="per_room" value="1" /><label for=
@@ -152,10 +141,33 @@
 
                     <div class="type_rooms">
                       <input type="checkbox" name="per_person value=" /><label for=
-                      "per_person">Per Night:</label>
+                      "per_person">Per Person:</label>
                     </div>
                   </li>
+                  <li>
+                  <div class="type_rooms">
+                      <span>30&euro;</span><span>/Room</span><span>/night</span>
+                    </div>
+                  </li>
+                 <li><label for="title">Title:</label> <input type="text" name=
+                  "title" /></li>
+
+                  <li><label for="body">Note:</label> 
+                  <textarea name="body">
+</textarea></li>
                 </ul>
+                </fieldset>
+                <fieldset><legend>Money</legend>
+                   <ul class="money">
+                  <li><span>Room: </span><span id="price_room" ></span></li>
+                  <li><span>Extras: </span><span id="extras_room" ></span></li>
+                  <li><span class="green">&nbsp;Adjustment: </span><span id="adjust_room" ></span></li>
+                  <li><span>Subtotal: </span><span id="subtotal_room" ></span></li>
+                  <li><hr/></li>
+                  <li><span class="green">&nbsp;Payment Received: </span><span id="payment_room" ></span></li>
+                  <li><span>Balance Due: </span><span id="balance_room" ></span></li>
+                </ul>
+                </fieldset>
               </form>
             </div>
           </div>
@@ -168,8 +180,8 @@
       <!-- begin: #footer -->
 
       <div id="footer" role="contentinfo">
-        Footer with copyright notice and status information<br />
-        Layout based on <a href="http://www.yaml.de/">YAML</a>
+        Locanda<br />
+        Open Source Booking Software
       </div><!-- end: #footer -->
     </div>
   </div><!-- full skiplink functionality in webkit browsers -->

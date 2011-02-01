@@ -22,3 +22,13 @@
   .hlist {background-color: #c8ddf3}
   .hlist ul { padding-left: 0}
 }
+
+h1 span {
+background:url("../../images/logo_locanda.png") no-repeat scroll 0 0 transparent;
+height:100%;
+margin-top: -45px;
+margin-left: -10px;
+position:absolute;
+width:100%;
+}
+

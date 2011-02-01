@@ -1,6 +1,5 @@
 $(document).ready(function() {
 
-
    var $calendar = $('#calendar');
    var id = 10;
    /* setting rooms_list array */
@@ -20,7 +19,7 @@ $(document).ready(function() {
       daysToShow :10,
       //added by Alberto
       listRooms: list_rooms,
-      buttonText:{today : "today", lastWeek : "&nbsp;&lt;&nbsp;Indietro", nextWeek : "Avanti&nbsp;&gt;&nbsp"},
+      buttonText:{today : "today", lastWeek : "Prev", nextWeek : "Next"},
       height : function($calendar) {
          return $(window).height() - $("h1").outerHeight() - 1;
       },
@@ -39,34 +38,38 @@ $(document).ready(function() {
       resizable : function(calEvent, $event) {
          return calEvent.readOnly != true;
       },
+      //metodo per la creazione di una nuova casella
       eventNew : function(calEvent, $event) {
          var $dialogContent = $("#event_edit_container");
          resetForm($dialogContent);
-         var startField = $dialogContent.find("select[name='start']").val(calEvent.start);
-         var endField = $dialogContent.find("select[name='end']").val(calEvent.end);
+         $dialogContent.find("#date_booking").html(calEvent.start + ' - ' + calEvent.end);
+         var startField = calEvent.start;
+         var endField = calEvent.end;
+         var id_booked = calEvent.id_booked;
          var titleField = $dialogContent.find("input[name='title']");
          var bodyField = $dialogContent.find("textarea[name='body']");
 
 
          $dialogContent.dialog({
             modal: true,
-            title: "New Calendar Event",
+            width:650,
+            title: "New Booking Event",
             close: function() {
                $dialogContent.dialog("destroy");
                $dialogContent.hide();
-               $('#calendar').weekCalendar("removeUnsavedEvents");
+               //--$('#calendar').weekCalendar("removeUnsavedEvents");
             },
             buttons: {
                save : function() {
                   calEvent.id = id;
                   id++;
-                  calEvent.start = new Date(startField.val());
-                  calEvent.end = new Date(endField.val());
+                  calEvent.start = new Date(startField);
+                  calEvent.end = new Date(endField);
                   calEvent.title = titleField.val();
                   calEvent.body = bodyField.val();
 
-                  $calendar.weekCalendar("removeUnsavedEvents");
-                  $calendar.weekCalendar("updateEvent", calEvent);
+                  //--$calendar.weekCalendar("removeUnsavedEvents");
+                 //-- $calendar.weekCalendar("updateBookEvent", calEvent);
                   $dialogContent.dialog("close");
                },
                cancel : function() {
@@ -84,6 +87,7 @@ $(document).ready(function() {
       },
       eventResize : function(calEvent, $event) {
       },
+      //metodo che viene richiamato quando clicco su una casella
       eventClick : function(calEvent, $event) {
 
          if (calEvent.readOnly) {
@@ -95,16 +99,19 @@ $(document).ready(function() {
          //calEvent è un tipo di dato data, che è un oggetto con degli attributi start end e title
          //per cui, se clicco in una casella che ha già un data calEvent, allora setterò con 
          //questi valori i campi di testo nella finestra di dialogo.
-         var startField = $dialogContent.find("select[name='start']").val(calEvent.start);
-         var endField = $dialogContent.find("select[name='end']").val(calEvent.end);
-         var titleField = $dialogContent.find("input[name='title']").val(calEvent.title);
+         
+         $dialogContent.find("#date_booking").html(calEvent.start + ' - ' + calEvent.end);
+         var startField = calEvent.start;
+         var endField = calEvent.end;
+         var id_booked = calEvent.id_booked;
+         var titleField = $dialogContent.find("input[name='title']");
          var bodyField = $dialogContent.find("textarea[name='body']");
          bodyField.val(calEvent.body);
 
          $dialogContent.dialog({
             modal: true,
-            width: 350,
-            title: "New Booking - " + calEvent.title,
+            width: 650,
+            title: "Modify Booking - " + calEvent.title,
             close: function() {
                $dialogContent.dialog("destroy");
                $dialogContent.hide();
