@@ -33,7 +33,8 @@
 }
 
 .wc-header .wc-time-column-header {
-	width: 6%;	
+	width: 8%;	
+	font-weight:600;
 }
 
 .wc-header .wc-scrollbar-shim {
@@ -99,6 +100,7 @@ table.wc-time-slots {
 .wc-time-header-cell {
 	padding: 5px;	
 	height: 80px; /* reference height */
+	text-align:center;
 }
 
 
@@ -141,6 +143,8 @@ table.wc-time-slots {
 
 .wc-header .wc-today  {
 	font-weight: bold;
+	color:red;
+
 }
 
 .wc-time-slots .wc-today {
@@ -184,6 +188,7 @@ table.wc-time-slots {
 
 .wc-cal-event .wc-title {
 	position: relative;	
+	font-size: 10px;
 }
 
 .wc-container .ui-resizable-s {

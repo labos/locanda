@@ -43,12 +43,14 @@ $(document).ready(function() {
          var $dialogContent = $("#event_edit_container");
          resetForm($dialogContent);
          $dialogContent.find("#date_booking").html(calEvent.start + ' - ' + calEvent.end);
+         var duration = days_between(new Date(calEvent.end), new Date(calEvent.start)) + 1;
+         $dialogContent.find("#duration").html(' ( ' + duration + ' days )');
          var startField = calEvent.start;
          var endField = calEvent.end;
          var id_booked = calEvent.id_booked;
-         var titleField = $dialogContent.find("input[name='title']");
+         var titleField = $dialogContent.find("input[name='fullname']");
          var bodyField = $dialogContent.find("textarea[name='body']");
-
+         var confirmField = $dialogContent.find("select[name='confirm']");
 
          $dialogContent.dialog({
             modal: true,
@@ -61,15 +63,16 @@ $(document).ready(function() {
             },
             buttons: {
                save : function() {
-                  calEvent.id = id;
+                  calEvent.id = id_booked;
                   id++;
                   calEvent.start = new Date(startField);
                   calEvent.end = new Date(endField);
                   calEvent.title = titleField.val();
                   calEvent.body = bodyField.val();
+                  calEvent.confirm = confirmField.val();
 
                   //--$calendar.weekCalendar("removeUnsavedEvents");
-                 //-- $calendar.weekCalendar("updateBookEvent", calEvent);
+                 $calendar.weekCalendar("updateBookEvent", calEvent);
                   $dialogContent.dialog("close");
                },
                cancel : function() {
@@ -104,7 +107,7 @@ $(document).ready(function() {
          var startField = calEvent.start;
          var endField = calEvent.end;
          var id_booked = calEvent.id_booked;
-         var titleField = $dialogContent.find("input[name='title']");
+         var titleField = $dialogContent.find("input[name='fullname']");
          var bodyField = $dialogContent.find("textarea[name='body']");
          bodyField.val(calEvent.body);
 
@@ -119,13 +122,13 @@ $(document).ready(function() {
             },
             buttons: {
                save : function() {
-
+            	  calEvent.id =id_booked;
                   calEvent.start = new Date(startField.val());
                   calEvent.end = new Date(endField.val());
                   calEvent.title = titleField.val();
                   calEvent.body = bodyField.val();
 
-                  $calendar.weekCalendar("updateEvent", calEvent);
+                  $calendar.weekCalendar("updateBookEvent", calEvent);
                   $dialogContent.dialog("close");
                },
                "delete" : function() {
@@ -161,6 +164,24 @@ $(document).ready(function() {
       $dialogContent.find("input").val("");
       $dialogContent.find("textarea").val("");
    }
+   
+   function days_between(date1, date2) {
+
+	    // The number of milliseconds in one day
+	    var ONE_DAY = 1000 * 60 * 60 * 24;
+
+	    // Convert both dates to milliseconds
+	    var date1_ms = date1.getTime();
+	    var date2_ms = date2.getTime();
+
+	    // Calculate the difference in milliseconds
+	    var difference_ms = Math.abs(date1_ms - date2_ms);
+	    
+	    // Convert back to days and return
+	    return Math.round(difference_ms/ONE_DAY);
+
+	}
+
 
    function getEventData() {
       var year = new Date().getFullYear();

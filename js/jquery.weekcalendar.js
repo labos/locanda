@@ -338,9 +338,13 @@
             if ($target.data("preventClick")) {
                return;
             }
+            //dovrei ora settare la data di start e di end nel caso in cui clicchi su un booking (ovvero caselle adiacenti bookate).
+            
+           start_date_click= self.formatDate(new Date($target.data("calEvent").start),"d/M/Y");
+           end_date_click= self.formatDate(new Date($target.data("calEvent").end),"d/M/Y");
             //se il target del click  ha la classe wc-cal-event, allora 
-            if ($target.hasClass("wc-cal-event")) {
-               options.eventClick($target.data("calEvent"), $target, event);
+               if ($target.hasClass("wc-cal-event")) {
+               options.eventClick({start: start_date_click, end: end_date_click}, $target, event);
             } else if ($target.parent().hasClass("wc-cal-event")) {
                options.eventClick($target.parent().data("calEvent"), $target.parent(), event);
             }//ora controlliamo l'evento mouseover per l'elemento sul quale c'è stato un mouseover.
@@ -384,6 +388,7 @@
          var options = this.options;
 
          $calendarContainer = $("<div class=\"wc-container\">").appendTo(self.element);
+        
 
          if (options.buttons) {
             calendarNavHtml = "<div class=\"wc-nav\"><span id=\"toolbar\" class=\"ui-widget-header ui-corner-all\">\
@@ -396,6 +401,7 @@
             
             $(calendarNavHtml).appendTo($calendarContainer);
             
+            
             $(".wc-today").button({
                 icons: {
                     primary: "ui-icon-pin-s"
@@ -407,7 +413,8 @@
                     icons: {
                              secondary: "ui-icon-triangle-1-e"
                     }
-                })
+                });
+            
 
             $calendarContainer.find(".wc-nav .wc-today").click(function() {
                self.element.weekCalendar("today");
@@ -427,7 +434,7 @@
          }
 
          //render calendar header
-         calendarHeaderHtml = "<table class=\"wc-header\"><tbody><tr><td class=\"wc-time-column-header\"></td>";
+         calendarHeaderHtml = "<table class=\"wc-header\"><tbody><tr><td class=\"wc-time-column-header\" width=\"70px\">&nbsp;Rooms</td>";
          for (var i = 1; i <= options.daysToShow; i++) {
          //crea l'header del giorno come colonna.
             calendarHeaderHtml += "<td class=\"wc-day-column-header wc-day-" + i + "\"></td>";
@@ -486,6 +493,13 @@
 
          //append all calendar parts to container
          $(calendarHeaderHtml + calendarBodyHtml).appendTo($calendarContainer);
+         
+         //ora aggiungiamo il pulsante per l'aggiunta delle rooms
+         $('<a class="wc-add" href="rooms.html">ADD ROOM</a>').appendTo($calendarContainer);
+         $(".wc-add").button({
+             icons: {
+                 secondary: "ui-icon-circle-plus"
+             }});
 
          $weekDayColumns = $calendarContainer.find(".wc-day-column-inner");
          $weekDayColumns.each(function(i, val) {
@@ -527,7 +541,7 @@ _setupEventCreationForRoom : function($weekDay) {
 					// iniziamo a costruire i div che contengono la casella con il nuovo appuntamento.
                var $newEvent = $("<div class=\"wc-cal-event wc-new-cal-event wc-new-cal-event-creating\"></div>");
 					//adesso regoliamo il css
-               $newEvent.css({lineHeight: (options.timeslotHeight - 2) + "px", fontSize: (options.timeslotHeight / 2) + "px"});
+               $newEvent.css({lineHeight: (options.timeslotHeight - 15) + "px", fontSize: (options.timeslotHeight / 2) + "px"});
                //adesso appendo il div creato dell'appuntamento.
                $target.append($newEvent);
 					//offset() è una funzione di jquery che dà la posizione di un elemento.
@@ -737,7 +751,7 @@ catch(e){
  */
 
 
-options.eventNew({start: self.formatDate(new Date(start_booking),"d/M/Y"), end:self.formatDate(new Date(end_booking),"d/M/Y"), id_booked:id_booked_room}, $renderedCalEvent);        
+options.eventNew({start: self.formatDate(new Date(start_booking),"M/d/Y"), end:self.formatDate(new Date(end_booking),"M/d/Y"), id_booked:id_booked_room}, $renderedCalEvent);        
             
             
             
@@ -949,7 +963,7 @@ calEvent.top= self._getRoomTopById(calEvent.id);
          //ADESSO RICHIAMIAMO UNA FUNZIONE CHE EFFETTUA AZIONI SULL'ASPETTO DEL DIV DELL'EVENTO
          $modifiedEvent = options.eventRender(calEvent, $calEvent);
          $calEvent = $modifiedEvent ? $modifiedEvent.appendTo($weekDay) : $calEvent.appendTo($weekDay);
-         $calEvent.css({lineHeight: (options.timeslotHeight - 2) + "px", fontSize: (options.timeslotHeight / 2) + "px"});
+         $calEvent.css({lineHeight: (options.timeslotHeight - 15) + "px", fontSize: (options.timeslotHeight / 2) + "px"});
          // ADESSO CON IL METODO EVENTRENDER SETTIAMO L'EVENTO, IN PARTICOLARE AGGIUNGIAMO DEL TESTO DENTRO I DIVs..
          //INOLTRE INSERIAMO IL CALEVENT DENTRO L'HTML CON DATA
          self._refreshEventBooked(calEvent, $calEvent);
@@ -1183,23 +1197,34 @@ calEvent.top= self._getRoomTopById(calEvent.id);
 
 
           	//ora individuiamo i giorni che sono presenti nell'intervallo start ed end del booking
-          var $weekDays = self._getWeekDaysForInterval(calEvent, self.element.find(".wc-time-slots .wc-day-column-inner"));
+          var intervalDays = self._getWeekDaysForInterval(calEvent, self.element.find(".wc-time-slots .wc-day-column-inner"));
           //ora, per ogni giorno, controllo che i giorni presenti nell'intervallo di giorni
           //che coinvolgono il booking e li confronto con i div wc-new-cal-event segnalati 
           //nel planner, per vedere se ci sono inconsistenze.
 /*          self.element.find(".wc-new-cal-event").each(function() {
               $(this).remove();
            });*/
-          var prova = self.element.find(".wc-new-cal-event").size();
-          if ($.isArray($weekDays) && $weekDays.length===self.element.find(".wc-new-cal-event").size()) {
-        	  $.each($weekDays, function(key, $day){
-        		  
-        	 var $calEvent = self._renderEvent(calEvent, $day);
-             self._adjustForEventCollisions($day, $calEvent, calEvent, calEvent);
-             self._refreshEventDetails(calEvent, $calEvent);
-             self._positionEvent($day, $calEvent);
-             self._adjustOverlappingEvents($day);  
-        		  
+          
+          var booked_slots= $(intervalDays).find(".wc-cal-event").filter(function(){
+        	 //--var valore=$(this).find('input[name="id_booked_room"]').val();
+        	  return $(this).find('input[name="id_booked_room"]').val() == calEvent.id;
+        	  });
+          
+          
+          if ($.isArray(intervalDays) && intervalDays.length===self.element.find(".wc-new-cal-event").size()) {
+        	  $.each(booked_slots, function(key, day_column){
+        		 //--- var pippo = $(day_column).find('input[name="id_booked_room"]');
+        	//---var $calEvent = self._renderEvent(calEvent, day_column);
+            //-- self._adjustForEventCollisions($day, $calEvent, calEvent, calEvent);
+            //------- self._refreshEventDetails(calEvent, $calEvent);
+            //--- self._positionEvent($day, $calEvent);
+           //---  self._adjustOverlappingEvents($day);  
+        	         $(day_column).find(".wc-title").html(calEvent.title);
+        	         $(day_column).data("calEvent", calEvent);  
+        	         $(day_column).removeClass("wc-new-cal-event");
+//        	         if(calEvent.confirm != 'undefined' && calEvent.confirm==0)
+//        	        	 $(".wc-time").css({"color": "red"});
+        	        	 
         		  
         	  });
 
@@ -1220,7 +1245,7 @@ calEvent.top= self._getRoomTopById(calEvent.id);
               var gg=calEvent.end;
         	  	//ora controlliamo che la data ad ogni colpo di ciclo sia interna all'intervallo delle date del booking
              if ($(this).data("startDate").getTime() >= calEvent.start.getTime() && $(this).data("startDate").getTime() <= calEvent.end.getTime()) {
-                $weekDays.push($(this));
+                $weekDays.push(this);
                
              }
           });
