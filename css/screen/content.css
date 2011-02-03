@@ -202,6 +202,25 @@
   * @section content-misc
   */
 
+
+.right {
+  	float:right;
+  }
+  
+  .left {
+  	float:left;
+  }
+  
+  .center {
+    text-align:center;
+  }
+  
+  #home {
+    font-size: 120%;
+    padding: 3%;
+  }
+  
+
  /**
   * (en) Emphasizing external Hyperlinks via CSS
   * (de) Hervorhebung externer Hyperlinks mit CSS
