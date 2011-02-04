@@ -48,3 +48,13 @@ function RemoveText(el){
 function RandomNumber(n1,n2){
 return(Math.floor(Math.random()*(n2-n1))+n1);
 }
+
+$().ready(function() {
+	$(".hlist ul li").bind({"mouseover click":function(){
+		
+		$(this).children(".sub_menu").show();
+		
+		
+	}, "mouseout": function(){$(this).children(".sub_menu").hide();}});
+	
+});

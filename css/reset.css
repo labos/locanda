@@ -77,7 +77,7 @@ input, textarea, select {
 legend {
     color: #000;
 }
-div.header_btn p{
+div.header_section p{
 text-align:right;
 }
 /* Alberto Editing*/
@@ -109,4 +109,8 @@ text-align:left;
 #toolbar{
 padding-top:12px;
 padding-bottom:12px;
+}
+
+.ui-autocomplete {
+text-align: left;
 }

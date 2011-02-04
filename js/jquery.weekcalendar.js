@@ -1222,8 +1222,9 @@ calEvent.top= self._getRoomTopById(calEvent.id);
         	         $(day_column).find(".wc-title").html(calEvent.title);
         	         $(day_column).data("calEvent", calEvent);  
         	         $(day_column).removeClass("wc-new-cal-event");
-//        	         if(calEvent.confirm != 'undefined' && calEvent.confirm==0)
-//        	        	 $(".wc-time").css({"color": "red"});
+        	         //ora controlliamo che il booking sia stato confermato o meno
+        	         if(calEvent.confirm != 'undefined' && calEvent.confirm==0)
+        	        	 $(day_column).find(".wc-time").css({"background-color": "#FE9A2E"});
         	        	 
         		  
         	  });

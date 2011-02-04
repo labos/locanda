@@ -19,8 +19,13 @@
   /* (en) Repeat the main color from the header above the navigation */
   /* (de) Wiederholung der Hauptfarbe aus dem Header oberhalb der Navigation */
   #header { background: #edf2f8 url("../../images/bg_header.png") repeat-x bottom left;}
+#header span{ font-size:103%; font-weight:600;}
+#topnav span{ font-size:100.01%;}
   .hlist {background-color: #c8ddf3}
-  .hlist ul { padding-left: 0}
+  .hlist ul { padding-left: 0;
+ float: right;
+margin-right:15px;
+}
 }
 
 h1 span {

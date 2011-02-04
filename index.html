@@ -22,7 +22,8 @@
 </script>
   <script type='text/javascript' src='js/planner.js'>
 </script>
-
+  <script type='text/javascript' src='js/ftod.js'>
+</script>
   <title>LOCANDA - Open Source Booking Tool</title><!-- (en) Add your meta data here -->
   <!-- (de) Fuegen Sie hier ihre Meta-Daten ein -->
   <link href="css/layout_sliding_door.css" rel="stylesheet" type="text/css" />
@@ -46,12 +47,11 @@
     <div class="page">
       <div id="header" role="banner">
         <div id="topnav" role="contentinfo">
-          <span><a href="#">Login</a> | <a href="#">Contact</a> | <a href=
-          "#">Imprint</a></span>
+          <span><a href="#">Not Logged In</a> | <a href="#">Login/Signup</a></span>
         </div>
 
         <h1>
-        <span>&nbsp;</span><em>&nbsp;</em></h1><span></span>
+        <span>&nbsp;</span><em>&nbsp;</em></h1><span>Polaris</span>
       </div><!-- begin: main navigation #nav -->
 
       <div id="nav" role="navigation">
@@ -59,7 +59,12 @@
           <ul>
             <li class="active"><strong>Planner</strong></li>
 
-            <li><a href="rooms.html">Accomodation</a></li>
+            <li><a href="rooms.html">Accomodation</a>
+            <ul class="sub_menu ui-menu ui-widget ui-widget-content ui-corner-all" style="">
+    <li class="ui-menu-item"><a class="ui-corner-all" href="accomodation.html">ACCOMODATION</a></li>
+    <li class="ui-menu-item"><a class="ui-corner-all" href="extras.html">EXTRAS</a></li>
+  </ul>
+            </li>
 
             <li><a href="#">Guests</a></li>
 
@@ -84,10 +89,10 @@
 
         <div id="col3" role="main">
           <div id="col3_content" class="clearfix">
-          <div class="header_btn">
-          <p>
-          <a href="book.html" /><img alt="add new booking" src="images/locanda_add.png" /></a>
-          </p></div>
+          <div class="header_section">
+          <span class="name_section">Planner</span>
+               <a class="btn_right" href="book.html" title="Add new booking" /></a>
+               </div>
             <div id='calendar'></div>
 
             <div id="event_edit_container">
@@ -175,8 +180,10 @@
           <div id="ie_clearing">
             &nbsp;
           </div><!-- End: IE Column Clearing -->
-          
-      <div id="footer" role="contentinfo">
+        </div><!-- end: #col3 -->
+      </div><!-- end: #main -->
+      <!-- begin: #footer -->
+   <div id="footer" role="contentinfo">
         <img src="images/labos-small.png" alt="Laboratorio Open Source" class="left" />
         <img src="images/sardegna_ricerche.png" alt="Sardegna Ricerche" class="left" />
         <img src="images/regione.gif" alt="Regione Autonoma della Sardegna" class="right" />
@@ -185,12 +192,6 @@
         <span class="center">Locanda<br />
         Open Source Booking Software<br /><br /></span>
       </div><!-- end: #footer -->
-      
-        </div><!-- end: #col3 -->
-      </div><!-- end: #main -->
-      <!-- begin: #footer -->
-
-      
     </div>
   </div><!-- full skiplink functionality in webkit browsers -->
   <script src="yaml/core/js/yaml-focusfix.js" type="text/javascript">

@@ -51,7 +51,12 @@ $(document).ready(function() {
          var titleField = $dialogContent.find("input[name='fullname']");
          var bodyField = $dialogContent.find("textarea[name='body']");
          var confirmField = $dialogContent.find("select[name='confirm']");
-
+         getCustomers("input[name='fullname']");
+         
+         
+         
+         
+         
          $dialogContent.dialog({
             modal: true,
             width:650,
@@ -181,6 +186,34 @@ $(document).ready(function() {
 	    return Math.round(difference_ms/ONE_DAY);
 
 	}
+   
+   
+   function getCustomers(selector)
+   {
+		var cache = {},
+		lastXhr;
+
+	   $(selector ).autocomplete({
+			minLength: 2,
+			source: function( request, response ) {
+				var term = request.term;
+				if ( term in cache ) {
+					response( cache[ term ] );
+					return;
+				}
+
+				lastXhr = $.getJSON( "customer.json", request, function( data, status, xhr ) {
+					cache[ term ] = data.customers;
+					if ( xhr === lastXhr ) {
+						response( data.customers );
+					}
+				});
+			}
+		});
+
+
+	   
+   }
 
 
    function getEventData() {
