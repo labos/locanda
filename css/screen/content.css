@@ -268,11 +268,37 @@ width: 191px;
 height: 44px;
 
 }
+
 div.header_section a.btn_right:hover {
 
 background-position:0 -44px;
 
 }
+
+
+a.btn_season {
+float:left;
+background:url('../../images/locanda_add_season.png') no-repeat scroll 0 0 transparent;
+width: 191px;
+height: 44px;
+}
+a.btn_season:hover {
+
+background-position:0 -44px;
+
+}
+a.btn_save_all {
+float:left;
+background:url('../../images/btn_save_all.png') no-repeat scroll 0 0 transparent;
+width: 191px;
+height: 44px;
+}
+a.btn_save_all:hover {
+
+background-position:0 -44px;
+
+}
+
 
 ul.sub_menu{
 display: none;
@@ -306,4 +332,9 @@ display: none;
 .yform .error {
 color: #880000;
 font-weight: 600;
+}
+
+.c10l, .c10r {
+width:10%;
+float:left;
 }
