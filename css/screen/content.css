@@ -74,7 +74,7 @@
   ol { list-style-type:decimal; }
   ol ol { list-style-type:lower-latin; margin-bottom:0; }
 
-  li { margin-left:0.8em; line-height:1.5em; }
+  li { margin-left:0.8em; line-height:1.5em; position: relative; }
 
   dt { font-weight:bold; }
   dd { margin:0 0 1em 0.8em; }
@@ -239,4 +239,71 @@
     background-position:0 0.45em;
   }
   */
+}
+
+ /**
+  * Locanda customization
+  *
+  */
+div.header_section {
+position: relative;
+height:	50px;
+}
+div.header_section span.name_section {
+float:left;
+font-size: 250%;
+font-weight: 600;
+}
+div.header_section span.btn_right {
+float:right;
+background-image:url('../images/logo_add.png');
+background-position:0 0;
+
+}
+
+div.header_section a.btn_right {
+float:right;
+background:url('../../images/locanda_add.png') no-repeat scroll 0 0 transparent;
+width: 191px;
+height: 44px;
+
+}
+div.header_section a.btn_right:hover {
+
+background-position:0 -44px;
+
+}
+
+ul.sub_menu{
+display: none;
+position: absolute;
+margin: 0;
+padding: 0;
+clear: both;
+margin-left: 0! important;
+margin-top: 0px;
+z-index:1000;
+left: 0;
+}
+ul.sub_menu li, ul.sub_menu li a{
+background: none;
+border: none;
+}
+ul.sub_menu li:hover,ul.sub_menu li a:hover {
+background: none;
+background-color: #AFD775;
+
+
+}
+
+.yform {
+background: none;
+border: none;
+}
+.yform div.chng_pwd{
+display: none;
+}
+.yform .error {
+color: #880000;
+font-weight: 600;
 }

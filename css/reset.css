@@ -23,7 +23,7 @@ table {
 fieldset, img {
     border: 0;
 }
-fieldset {
+event_edit_container fieldset {
  float:left;
 }
 /*
