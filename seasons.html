@@ -22,14 +22,15 @@
 <script type="text/javascript">
 $(document).ready(function(){
 
-  $(".btn_save").button({
-      icons: {
-          primary: "ui-icon-check"
-      }});
-  $(".btn_reset").button({
-      icons: {
-          primary: "ui-icon-cancel"
-      }});
+	 $(".btn_season").button({
+	     icons: {
+	         primary: "ui-icon-circle-plus"
+	     }});
+	 $(".btn_save_all").button({
+	     icons: {
+	         primary: "ui-icon-check"
+	     }});
+	 
   $("#rename_season").toggle(function(){
 	  $('input[name="season_name"]').focus().css("border","1px solid");
   }, 
@@ -143,8 +144,8 @@ $(document).ready(function(){
               </fieldset>
             <div class="type-button">
             <input type="text" name="new_name_season" id="chng_season_name" value=""/>
-            <a class="btn_season" href="add_season.html" title="Add new season" /></a>
-            <a class="btn_save_all" href="save_season.html" title="Save all seasons" /></a>
+            <button class="btn_season">ADD NEW SEASON</button>
+            <button class="btn_save_all">SAVE ALL</button>
             </div>
           </form>        
 		</div>        

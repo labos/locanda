@@ -66,6 +66,16 @@ $(document).ready(function(){
 	$(this).closest(".subcolumns").remove();
 
  });
+ 
+ $(".btn_save").button({
+     icons: {
+         primary: "ui-icon-check"
+     }});
+ $(".btn_delete").button({
+     icons: {
+         primary: "ui-icon-trash"
+     }});
+ 
   
 });
 
@@ -143,7 +153,8 @@ $(document).ready(function(){
              <span>Any night of the week </span>
              </div>
               <div class="subcolumns">
-              &nbsp;
+              <input  type="text" name="description" value="" style="float: right;"/>
+              <a href="#" title="describe" style="float: right;">Describe As:</a>
               </div>
              <div class="subcolumns">
       <span class="title_season">All Year round</span>&nbsp; <input type="text" name="room_price" value="30" />
@@ -159,7 +170,13 @@ $(document).ready(function(){
             <a href="#" title="day by day" >Day-by-Day</a>         
               </div>
             <div class="subcolumns">
+              &nbsp;
+              </div>
+            <div class="subcolumns">
+            <div class="c10l">
       		<span class="title_season">Price Type:</span>&nbsp;
+      		</div>
+      		<div class="c10l">
       		                    <div class="type_rooms">
                       <input type="checkbox" name="per_room" value="1" /><label for=
                       "per_room">Per Room:</label>
@@ -168,6 +185,8 @@ $(document).ready(function(){
                       <input type="checkbox" name="per_night" value="2" /><label for=
                       "per_night">Per Night:</label>
                     </div>
+                    </div>
+                    <div class="c10l">
                     <div class="type_rooms">
                       <input type="checkbox" name="per_person" value="3" /><label for=
                       "per_person">Per Person:</label>
@@ -176,19 +195,76 @@ $(document).ready(function(){
                       <input type="checkbox" name="per_week" value="4" /><label for=
                       "per_person">Per Week:</label>
                     </div>
+                    </div>
               </div>
                <div class="subcolumns">
               &nbsp;
               </div>
               <div class="subcolumns">
-              <a href="#" id="add_period" title="add period">Add New Period</a></div>
-              </fieldset>
+            <div class="c10l">
+      		<span class="title_season">Sleeps:</span>&nbsp;
+      		</div>
+      		<div class="c10l">
+      		        <div class="type_rooms">
+                      <input type="input" name="sleeps" value="1" />
+                    </div>                
+                    </div>
+              </div>
+			 <div class="subcolumns">
+              &nbsp;
+              </div>
+             <div class="subcolumns">
+            <div class="c10l">
+      		<span class="title_season"></span>&nbsp;
+      		</div>
+      		<div class="c20l">
+                    <div class="type_rooms">
+                      <input type="checkbox" name="single_occ" value="12" /><label for=
+                      "per_person">Discount for single occupancy</label>
+                    </div>   
+                   <div class="type_rooms">
+                      <input type="checkbox" name="twin_double" value="13" /><label for=
+                      "per_person">Can be twin or double</label>
+                    </div>               
+                    </div>
+              </div>
+               <div class="subcolumns">
+              &nbsp;
+              </div>
+             <div class="subcolumns">
+                   <div class="type_rooms">
+                      <input type="checkbox" name="several_rooms" value="13" /><label for=
+                      "per_person">I have several rooms like this:</label>
+                    </div> 
+                    <div class="type_rooms">
+                     <span>Number of Rooms</span>
+    				<select name="num_rooms" size="1" aria-required="true">
+					<option selected="selected" value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+                </select>
+                    </div> 
+              </div>
+              <div class="subcolumns">
+              &nbsp;
+              </div>
+            <div class="subcolumns">
+            <div class="c10l">
+      		<span class="title_season">Note:</span>&nbsp;
+      		<textarea name="note" rows="5" cols="60"></textarea>
+      		</div>
+      		<div class="subcolumns">
+              &nbsp;
+              </div>
             <div class="type-button">
             <input type="text" name="new_name_season" id="chng_season_name" value=""/>
-            <a class="btn_season" href="add_season.html" title="Add new season" /></a>
-            <a class="btn_save_all" href="save_season.html" title="Save all seasons" /></a>
+            <button class="btn_save">SAVE</button>
+            <button class="btn_delete">DELETE</button>
             </div>
-          </form>        
+              </fieldset>
+           </form>        
 		</div>        
           </div>
           <div id="ie_clearing">

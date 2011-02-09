@@ -384,3 +384,8 @@ outline: none;
 .yform div.type-select {
 font-weight: 600;
 }
+
+div.type_rooms label{
+display: inline;
+
+}
