@@ -338,3 +338,29 @@ font-weight: 600;
 width:10%;
 float:left;
 }
+
+span.title_season{
+font-size: 13px;
+font-weight:600;
+}
+span.title_season input{
+border: 1px solid #fff;
+}
+#chng_season_name
+{
+display: none;
+float:left;
+background: none;
+margin-top: 6px;
+cursor: text;
+color: #000;
+font-weight: 600;
+font-size: 15px;
+}
+.type-button a:focus{
+text-decoration: none;
+outline: none;
+}
+.yform div.type-select {
+font-weight: 600;
+}
