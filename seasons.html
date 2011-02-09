@@ -1,6 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
@@ -9,16 +8,6 @@
         -->
   <link rel='stylesheet' type='text/css' href=
   'css/south-street/jquery-ui-1.8.9.custom.css' />
-  <!-- embedded styles for dynamic layout options -->
-<style type="text/css">
-  #js-info { display:block; padding: 10px 20px; background: #fee; color: #800; margin: 0 0 10px 0; }
-  .js #js-info { display:none; }
-
-  p.switch { display:none; }
-  .js p.switch { display:block; }
-  
-  .active { font-weight:bold; color: #800 !important; }
-</style>
   <script type='text/javascript' src='js/lib/jquery-1.4.4.min.js'>
 </script><!--
     <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js'></script>
@@ -33,21 +22,6 @@
 <script type="text/javascript">
 $(document).ready(function(){
 
-  $('a[id*=toggle]').click(function(){
-    if ($(this).hasClass('active') === true) {
-      $('a').removeClass('active');
-      $('body').removeAttr('class');
-    } else {
-      $('a').removeClass('active');
-      $('body').removeAttr('class').addClass($(this).text());
-      $(this).addClass('active');
-    }     
-  });
-  $('a#formReset').click(function(){
-      $('a').removeClass('active');
-      $('body').removeAttr('class');
-      $(this).addClass('active');
-  });
   $(".btn_save").button({
       icons: {
           primary: "ui-icon-check"
@@ -62,9 +36,6 @@ $(document).ready(function(){
   function(){
 	  $('input[name="season_name"]').css("border","none");
   });
-  
-  
-  
   
   
  /* Hide/Show password change */
