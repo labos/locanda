@@ -8,6 +8,8 @@
   <link type='text/css' href='css/south-street/jquery-ui-1.8.9.custom.css' rel='stylesheet' />
   <link type="text/css" href="css/layout_sliding_door.css" rel="stylesheet"  />
   
+  <!-- embedded styles for dynamic layout options -->
+  
   <script type='text/javascript' src='js/lib/jquery-1.4.4.min.js'></script>
   <!--
     <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js'></script>
@@ -15,6 +17,13 @@
   <script type='text/javascript' src='js/lib/jquery-ui-1.8.9.custom.min.js'></script>
   <script type='text/javascript' src='js/jquery.weekcalendar.js'></script>
   <script type='text/javascript' src='js/planner.js'></script>
+  <script type='text/javascript' src='js/jquery.validate.min.js'></script>
+  <script type='text/javascript' src='js/ftod.js'>
+</script>
+  
+  <script type="text/javascript">
+	 $(".yform").validate();
+</script>
 
   <title>LOCANDA - Open Source Booking Tool</title><!-- (en) Add your meta data here -->
   <!-- (de) Fuegen Sie hier ihre Meta-Daten ein -->
@@ -44,13 +53,24 @@
       </div><!-- begin: main navigation #nav -->
 
       <div id="home">
-      	<h1>Locanda - The Open Source Booking Software</h1>
-      	<p>Easy booking management for your hotel, B&B and guesthouse.</p>
-      	<p id="home_images">
-      	<img src="images/pan_small.jpg" alt="img_home1" />
-        <img src="images/horse_small.jpg" alt="img_home2" />
-        <img src="images/water_small.jpg" alt="img_home3" />
-      	</p>
+      	<h1>Log In</h1>
+      	<p>Not yet registered? <a href="signup.html">Signup</a></span>.</p>
+      	<form method="post" action="" class="yform" role="application">
+            <fieldset>
+              <legend>Log In data</legend>
+              <div class="type-text">
+                <label for="email">E-Mail <sup title="This field is mandatory.">*</sup></label>
+                <input type="text" class="required" name="email" id="email" size="20"  aria-required="true"/>
+              </div>
+              <div class="type-text">
+                <label for="password">Password <sup title="This field is mandatory.">*</sup></label>
+                <input type="password" class="required" name="password" id="password" size="20"  aria-required="true"/>
+              </div>
+            </fieldset>
+            <div class="type-button">
+              <button class="btn_save" type="submit">Log In</button>
+            </div>
+          </form>
       </div>
 
           <div id="ie_clearing">
