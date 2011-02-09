@@ -294,11 +294,31 @@ width: 191px;
 height: 44px;
 }
 a.btn_save_all:hover {
-
 background-position:0 -44px;
-
 }
 
+a.btn_right_save_all
+{
+float:right;
+background:url('../../images/btn_save_all.png') no-repeat scroll 0 0 transparent;
+width: 129px;
+height: 44px;
+}
+a.btn_right_save_all:hover {
+background-position:0 -44px;
+}
+
+a.btn_right_add_new
+{
+float:right;
+background:url('../../images/btn_add_new.png') no-repeat scroll 0 0 transparent;
+width: 129px;
+height: 44px;
+}
+
+a.btn_right_add_new:hover {
+background-position:0 -44px;
+}
 
 ul.sub_menu{
 display: none;

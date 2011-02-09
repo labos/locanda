@@ -1,6 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
@@ -9,68 +8,104 @@
         -->
   <link rel='stylesheet' type='text/css' href=
   'css/south-street/jquery-ui-1.8.9.custom.css' />
-  <link rel='stylesheet' type='text/css' href='css/jquery.weekcalendar.css' />
-  <link rel='stylesheet' type='text/css' href='css/calendar.css' />
   <script type='text/javascript' src='js/lib/jquery-1.4.4.min.js'>
 </script><!--
     <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js'></script>
     -->
-
   <script type='text/javascript' src='js/lib/jquery-ui-1.8.9.custom.min.js'>
 </script>
-  <script type='text/javascript' src='js/jquery.weekcalendar.js'>
-</script>
-  <script type='text/javascript' src='js/planner.js'>
 </script>
   <script type='text/javascript' src='js/ftod.js'>
+</script>
+  <script type='text/javascript' src='js/jquery.validate.min.js'>
+</script>
+<script type="text/javascript">
+$(document).ready(function(){
+
+  $(".btn_save").button({
+      icons: {
+          primary: "ui-icon-check"
+      }});
+  $(".btn_reset").button({
+      icons: {
+          primary: "ui-icon-cancel"
+      }});
+  $("#rename_season").toggle(function(){
+	  $('input[name="season_name"]').focus().css("border","1px solid");
+  }, 
+  function(){
+	  $('input[name="season_name"]').css("border","none");
+  });
+  
+  
+ /* Hide/Show password change */
+ 
+ $(".btn_season").toggle( function(){
+	 
+	 $("#chng_season_name").show();
+ }, function(){
+	 
+	 $("#chng_season_name").hide();
+	 
+ });
+ 
+
+ $("#add_period").click( function(){
+	 var dd=  $(".subcolumns").eq(0);
+
+	 var added= $("#to_add_period").clone().insertAfter(dd).removeAttr("id").show();
+		added.find(".erase_period").click( function(){
+			 
+			$(this).closest(".subcolumns").remove();
+
+		 });
+ });
+ 
+ $(".erase_period").click( function(){
+	 
+	$(this).closest(".subcolumns").remove();
+
+ });
+  
+});
+
+
 </script>
   <title>LOCANDA - Open Source Booking Tool</title><!-- (en) Add your meta data here -->
   <!-- (de) Fuegen Sie hier ihre Meta-Daten ein -->
   <link href="css/layout_sliding_door.css" rel="stylesheet" type="text/css" />
   <!--[if lte IE 7]>
-
 <link href="css/patches/patch_sliding_door.css" rel="stylesheet" type="text/css" />
-
 <![endif]-->
 </head>
-
 <body>
   <!-- skip link navigation -->
-
   <ul id="skiplinks">
     <li><a class="skip" href="#nav">Skip to navigation (Press Enter).</a></li>
-
     <li><a class="skip" href="#col3">Skip to main content (Press Enter).</a></li>
   </ul>
-
   <div class="page_margins">
     <div class="page">
       <div id="header" role="banner">
         <div id="topnav" role="contentinfo">
           <span><a href="#">Not Logged In</a> | <a href="#">Login/Signup</a></span>
         </div>
-
         <h1>
         <span>&nbsp;</span><em>&nbsp;</em></h1><span>Polaris</span>
       </div><!-- begin: main navigation #nav -->
-
       <div id="nav" role="navigation">
         <div class="hlist">
           <ul>
-            <li class="active"><strong>Planner</strong></li>
-
+            <li><a href="index.html">Planner</a></li>
             <li><a href="rooms.html">Accomodation</a>
             <ul class="sub_menu ui-menu ui-widget ui-widget-content ui-corner-all">
     			<li class="ui-menu-item"><a href="accomodation.html">ACCOMODATION</a></li>
     			<li class="ui-menu-item"><a href="extras.html">EXTRAS</a></li>
   			</ul>
             </li>
-
             <li><a href="#">Guests</a></li>
-
             <li><a href="#">Reports</a></li>
-
-            <li><a href="#">Settings</a>
+            <li class="active"><strong>Settings</strong>
                 <ul class="sub_menu ui-menu ui-widget ui-widget-content ui-corner-all">
     			<li class="ui-menu-item"><a href="online.html">ONLINE BOOKINGS</a></li>
     			<li class="ui-menu-item"><a href="seasons.html">SEASONS</a></li>
@@ -78,71 +113,54 @@
     			<li class="ui-menu-item"><a href="details.html">YOUR DETAILS</a></li>
     			<li class="ui-menu-item"><a href="discount.html">DISCOUNT</a></li>
   			</ul>
-            </li>
-            
+            </li>         
             <li><a href="#">Help</a></li>
           </ul>
         </div>
       </div><!-- end: main navigation -->
       <!-- begin: main content area #main -->
-
       <div id="main">
         <!-- begin: #col1 - first float column -->
-
         <div id="col1" role="complementary">
           <div id="col1_content" class="clearfix">
           </div>
         </div><!-- end: #col1 -->
         <!-- begin: #col3 static column -->
-
         <div id="col3" role="main">
           <div id="col3_content" class="clearfix">
           <div class="header_section">
-          <span class="name_section">Planner</span>
-               <a class="btn_right" href="book.html" title="Add new booking" /></a>
-               </div>
-            <div id='calendar'></div>
-
-            <div id="event_edit_container">
-              <form>
-                             <div class="header_booking"><span>Camera Singola - &nbsp;</span><span>Date: </span><span id="date_booking" ></span><span id="duration"></span><span>&nbsp;<select name="confirm"><option value="1">Confirmed</option><option value="0">Provisional</option></select></span></li>
+          <span class="name_section">Manage Rooms</span>
+		   <a class="btn_right_save_all" href="add_season.html" title="Add new season" /></a>
+            <a class="btn_right_add_new" href="save_season.html" title="Save all seasons" /></a>
+          </div>
+          <div>
+		 <form method="post" action="" class="yform full" role="application">
+            <fieldset>
+              <legend>Camera Singola</legend>
+             <div class="subcolumns">
+             <span>Show: </span><a href="#" title="price">Price</a>|<a href="#" title="stay">Min Stay</a>
+             <br />
+             <span>Any night of the week </span>
+             </div>
+              <div class="subcolumns">
+              &nbsp;
               </div>
-              <fieldset>
-    <legend>Booking Details:</legend>
-                <input type="hidden" />
-
-                <ul>
-                  <li><label for="fullname">Full Name:</label> <input type="text" name=
-                  "fullname" /></li>
-
-                  <li><label for="phone">Phone:</label> <input type="text" name=
-                  "phone" /></li>
-
-                  <li><label for="address">Address:</label> <input type="text" name=
-                  "address" /></li>
-
-                  <li><label for="country">Country:</label> <input type="text" name=
-                  "country" /></li>
-
-                  <li><label for="postcode">PostCode:</label> <input type="text" name=
-                  "postcode" /></li>
-                  
-                   <li><label for="end">Guests:</label> <select name="end">
-                    <option value="1">
-                      1 Guests
-                    </option>
-                    <option value="2">
-                      2 Guests
-                    </option>
-                     <option value="3">
-                      3 Guests
-                    </option>
-                    <option value="4">
-                      4 Guests
-                    </option>
-                  </select></li>
-                  <li>
-                    <div class="type_rooms">
+             <div class="subcolumns">
+      <span class="title_season">All Year round</span>&nbsp; <input type="text" name="room_price" value="30" />
+              </div>
+               <div class="subcolumns">
+              &nbsp;
+              </div>
+              <div class="subcolumns">
+              <span class="title_season"><a href="#" title="edit">Edit Seasons</a></span>&nbsp;
+              Switch to:
+            <a href="#" title="save every day" >Same every day</a>,
+            <a href="#" title="mideweek" >Midweek/weekend</a>,
+            <a href="#" title="day by day" >Day-by-Day</a>         
+              </div>
+            <div class="subcolumns">
+      		<span class="title_season">Price Type:</span>&nbsp;
+      		                    <div class="type_rooms">
                       <input type="checkbox" name="per_room" value="1" /><label for=
                       "per_room">Per Room:</label>
                     </div>
@@ -158,35 +176,21 @@
                       <input type="checkbox" name="per_week" value="4" /><label for=
                       "per_person">Per Week:</label>
                     </div>
-                  </li>
-                  <li>
-                  <div class="type_rooms">
-                      <span>30&euro;</span><span>/Room</span><span>/night</span>
-                    </div>
-                  </li>
-                 <li><label for="title">Title:</label> <input type="text" name=
-                  "title" /></li>
-
-                  <li><label for="body">Note:</label> 
-                  <textarea name="body">
-</textarea></li>
-                </ul>
-                </fieldset>
-                <fieldset><legend>Money</legend>
-                   <ul class="money">
-                  <li><span>Room: </span><span id="price_room" ></span></li>
-                  <li><span>Extras: </span><span id="extras_room" ></span></li>
-                  <li><span class="green">&nbsp;Adjustment: </span><span id="adjust_room" ></span></li>
-                  <li><span>Subtotal: </span><span id="subtotal_room" ></span></li>
-                  <li><hr/></li>
-                  <li><span class="green">&nbsp;Payment Received: </span><span id="payment_room" ></span></li>
-                  <li><span>Balance Due: </span><span id="balance_room" ></span></li>
-                </ul>
-                </fieldset>
-              </form>
+              </div>
+               <div class="subcolumns">
+              &nbsp;
+              </div>
+              <div class="subcolumns">
+              <a href="#" id="add_period" title="add period">Add New Period</a></div>
+              </fieldset>
+            <div class="type-button">
+            <input type="text" name="new_name_season" id="chng_season_name" value=""/>
+            <a class="btn_season" href="add_season.html" title="Add new season" /></a>
+            <a class="btn_save_all" href="save_season.html" title="Save all seasons" /></a>
             </div>
+          </form>        
+		</div>        
           </div>
-
           <div id="ie_clearing">
             &nbsp;
           </div><!-- End: IE Column Clearing -->
