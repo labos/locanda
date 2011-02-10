@@ -389,3 +389,22 @@ div.type_rooms label{
 display: inline;
 
 }
+div.type-text div input.describe {
+border: none;
+padding: 3px;
+display: inline;
+width: 60px;
+font-weight: 600;
+
+}
+.num_of_rooms {
+display: none;
+}
+.full div.type-text input.small_input {
+width:30px;
+display: inline;
+}
+
+a.describe_edit:visited {
+outline: none;
+}

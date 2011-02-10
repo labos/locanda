@@ -22,14 +22,14 @@
 <script type="text/javascript">
 $(document).ready(function(){
 
-  $(".btn_save").button({
-      icons: {
-          primary: "ui-icon-check"
-      }});
-  $(".btn_reset").button({
-      icons: {
-          primary: "ui-icon-cancel"
-      }});
+	 $(".btn_add_new").button({
+	     icons: {
+	         primary: "ui-icon-circle-plus"
+	     }});
+	 $(".btn_save_all").button({
+	     icons: {
+	         primary: "ui-icon-check"
+	     }});
   $("#rename_season").toggle(function(){
 	  $('input[name="season_name"]').focus().css("border","1px solid");
   }, 
@@ -76,6 +76,36 @@ $(document).ready(function(){
          primary: "ui-icon-trash"
      }});
  
+ /* describe editing handler */
+ $(".describe_edit").toggle(function(){
+	
+	 $(this).siblings(":input").removeClass("describe").attr('readonly', false) ;
+	 
+ }, function(){
+
+	 $(this).siblings(":input").addClass("describe").attr('readonly', true) ; 
+	 
+ });
+ 
+ $('input[name="several_rooms"]').click(function(){
+   if($(this).is(":checked") ) {
+  $(".num_of_rooms").show();
+ $(this).attr("checked", "checked");
+ }
+ else
+ {
+  $(".num_of_rooms").hide();
+ $(this).removeAttr('checked');
+
+ }
+ });
+ 
+ $(".min_stay").toggle(function(){
+	$(".price_type").hide();
+ },function(){
+	 $(".price_type").show();
+	 
+ })
   
 });
 
@@ -140,24 +170,31 @@ $(document).ready(function(){
           <div id="col3_content" class="clearfix">
           <div class="header_section">
           <span class="name_section">Manage Rooms</span>
-		   <a class="btn_right_save_all" href="add_season.html" title="Add new season" /></a>
-            <a class="btn_right_add_new" href="save_season.html" title="Save all seasons" /></a>
+          <div class="right">
+		    <button class="btn_add_new">ADD NEW</button>
+            <button class="btn_save_all">SAVE ALL</button>
+            </div>
           </div>
           <div>
 		 <form method="post" action="" class="yform full" role="application">
             <fieldset>
               <legend>Camera Singola</legend>
              <div class="subcolumns">
-             <span>Show: </span><a href="#" title="price">Price</a>|<a href="#" title="stay">Min Stay</a>
+             <span>Show: </span><a href="#" title="price">Price</a>|<a href="#" class="min_stay" title="stay">Min Stay</a>
              <br />
              <span>Any night of the week </span>
              </div>
-              <div class="subcolumns">
-              <input  type="text" name="description" value="" style="float: right;"/>
-              <a href="#" title="describe" style="float: right;">Describe As:</a>
+              <div class="subcolumns type-text">
+              <div class="c33r">
+              <span>Describe As:&nbsp;</span>
+              <input class="describe" style="width:60px; display: inline;" readonly="true" type="text" name="description" value="room"  />
+            	<a class="describe_edit" href="#" title="describe"><img src="images/sign-up-icon.png" alt="edit" /></a>
+              <p>(e.g. room or villa)</p>
               </div>
-             <div class="subcolumns">
-      <span class="title_season">All Year round</span>&nbsp; <input type="text" name="room_price" value="30" />
+              </div>
+             <div class="subcolumns type-text">
+      <span class="title_season">All Year round</span>&nbsp; <input type="text" class="small_input" name="room_price" value="30" />
+             <span>&euro;</span>
               </div>
                <div class="subcolumns">
               &nbsp;
@@ -172,12 +209,12 @@ $(document).ready(function(){
             <div class="subcolumns">
               &nbsp;
               </div>
-            <div class="subcolumns">
+            <div class="subcolumns price_type">
             <div class="c10l">
       		<span class="title_season">Price Type:</span>&nbsp;
       		</div>
       		<div class="c10l">
-      		                    <div class="type_rooms">
+      		       <div class="type_rooms">
                       <input type="checkbox" name="per_room" value="1" /><label for=
                       "per_room">Per Room:</label>
                     </div>
@@ -200,13 +237,13 @@ $(document).ready(function(){
                <div class="subcolumns">
               &nbsp;
               </div>
-              <div class="subcolumns">
+              <div class="subcolumns type-text">
             <div class="c10l">
       		<span class="title_season">Sleeps:</span>&nbsp;
       		</div>
       		<div class="c10l">
       		        <div class="type_rooms">
-                      <input type="input" name="sleeps" value="1" />
+                      <input type="input" class="small_input" name="sleeps" value="1" />
                     </div>                
                     </div>
               </div>
@@ -217,7 +254,7 @@ $(document).ready(function(){
             <div class="c10l">
       		<span class="title_season"></span>&nbsp;
       		</div>
-      		<div class="c20l">
+      		<div class="c25l">
                     <div class="type_rooms">
                       <input type="checkbox" name="single_occ" value="12" /><label for=
                       "per_person">Discount for single occupancy</label>
@@ -236,7 +273,7 @@ $(document).ready(function(){
                       <input type="checkbox" name="several_rooms" value="13" /><label for=
                       "per_person">I have several rooms like this:</label>
                     </div> 
-                    <div class="type_rooms">
+                    <div class="type_rooms num_of_rooms">
                      <span>Number of Rooms</span>
     				<select name="num_rooms" size="1" aria-required="true">
 					<option selected="selected" value="1">1</option>
@@ -250,8 +287,8 @@ $(document).ready(function(){
               <div class="subcolumns">
               &nbsp;
               </div>
-            <div class="subcolumns">
-            <div class="c10l">
+            <div class="subcolumns type-text">
+            <div class="c50l">
       		<span class="title_season">Note:</span>&nbsp;
       		<textarea name="note" rows="5" cols="60"></textarea>
       		</div>
