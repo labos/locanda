@@ -405,6 +405,22 @@ width:30px;
 display: inline;
 }
 
-a.describe_edit:visited {
+a.describe_edit:focus {
 outline: none;
+}
+
+.clickable {
+color: blue;
+cursor: pointer;
+}
+span.price_show, span.save_every_day
+{
+color: #808080;
+}
+.yform .type-select select.confirm{
+width: 130px;}
+.hasDatepicker {
+width: 80px;
+line-height: 1.2em;
+font-weight: 600;
 }

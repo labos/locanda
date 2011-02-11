@@ -14,7 +14,6 @@
     -->
   <script type='text/javascript' src='js/lib/jquery-ui-1.8.9.custom.min.js'>
 </script>
-</script>
   <script type='text/javascript' src='js/ftod.js'>
 </script>
   <script type='text/javascript' src='js/jquery.validate.min.js'>
@@ -100,12 +99,25 @@ $(document).ready(function(){
  }
  });
  
- $(".min_stay").toggle(function(){
-	$(".price_type").hide();
- },function(){
-	 $(".price_type").show();
+ $(".min_stay").click(function(){
+	 if($(this).hasClass("clickable"))
+		 {
+		 $(".price_show").addClass("clickable");
+		 $(this).removeClass("clickable");
+		 $(".price_type").hide();
+		 }
+
+ });
+ 
+ $(".price_show").click(function(){
+ if($(this).hasClass("clickable"))
+ {
+ $(".min_stay").addClass("clickable");
+ $(this).removeClass("clickable");
+ $(".price_type").show();
+ }
 	 
- })
+ });
   
 });
 
@@ -180,7 +192,7 @@ $(document).ready(function(){
             <fieldset>
               <legend>Camera Singola</legend>
              <div class="subcolumns">
-             <span>Show: </span><a href="#" title="price">Price</a>|<a href="#" class="min_stay" title="stay">Min Stay</a>
+             <span>Show: </span><span class="price_show">Price</span>|<span class="min_stay clickable">Min Stay</span>
              <br />
              <span>Any night of the week </span>
              </div>
@@ -194,17 +206,17 @@ $(document).ready(function(){
               </div>
              <div class="subcolumns type-text">
       <span class="title_season">All Year round</span>&nbsp; <input type="text" class="small_input" name="room_price" value="30" />
-             <span>&euro;</span>
+             <span>&nbsp;&euro;</span>
               </div>
                <div class="subcolumns">
               &nbsp;
               </div>
               <div class="subcolumns">
-              <span class="title_season"><a href="#" title="edit">Edit Seasons</a></span>&nbsp;
-              Switch to:
-            <a href="#" title="save every day" >Same every day</a>,
-            <a href="#" title="mideweek" >Midweek/weekend</a>,
-            <a href="#" title="day by day" >Day-by-Day</a>         
+              <span class="title_season"><a href="seasons.html" title="edit">Edit Seasons</a></span>&nbsp;
+              <span>&nbsp;&nbsp;&nbsp;&nbsp;Switch to:</span>
+            <span class="save_every_day" >Same every day</span>,
+            <span class="mideweek clickable" >Midweek/weekend</span>,
+            <span class="day_by_day clickable" >Day-by-Day</span>         
               </div>
             <div class="subcolumns">
               &nbsp;
