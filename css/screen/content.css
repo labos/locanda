@@ -202,25 +202,6 @@
   * @section content-misc
   */
 
-
-.right {
-  	float:right;
-  }
-  
-  .left {
-  	float:left;
-  }
-  
-  .center {
-    text-align:center;
-  }
-  
-  #home {
-    font-size: 120%;
-    padding: 3%;
-  }
-  
-
  /**
   * (en) Emphasizing external Hyperlinks via CSS
   * (de) Hervorhebung externer Hyperlinks mit CSS
@@ -387,40 +368,34 @@ font-weight: 600;
 
 div.type_rooms label{
 display: inline;
-
-}
-div.type-text div input.describe {
-border: none;
-padding: 3px;
-display: inline;
-width: 60px;
-font-weight: 600;
-
-}
-.num_of_rooms {
-display: none;
-}
-.full div.type-text input.small_input {
-width:30px;
-display: inline;
 }
 
-a.describe_edit:focus {
-outline: none;
-}
-
-.clickable {
-color: blue;
-cursor: pointer;
-}
-span.price_show, span.save_every_day
-{
-color: #808080;
-}
-.yform .type-select select.confirm{
-width: 130px;}
-.hasDatepicker {
-width: 80px;
-line-height: 1.2em;
-font-weight: 600;
-}
+ .right {
+  	float:right;
+  }
+  
+  .left {
+  	float:left;
+  }
+  
+  .center {
+    text-align:center;
+  }
+  
+  #home {
+    font-size: 120%;
+    padding: 3%;
+  }
+  
+  .btn_addExtra {
+  	display: none;
+  }
+  
+  #extraForm {
+  	display: none;
+  }
+  
+  #extraList {
+  	display: none;
+  }
+ 

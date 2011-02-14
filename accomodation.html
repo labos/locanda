@@ -21,14 +21,14 @@
 <script type="text/javascript">
 $(document).ready(function(){
 
-	 $(".btn_add_new").button({
-	     icons: {
-	         primary: "ui-icon-circle-plus"
-	     }});
-	 $(".btn_save_all").button({
-	     icons: {
-	         primary: "ui-icon-check"
-	     }});
+  $(".btn_save").button({
+      icons: {
+          primary: "ui-icon-check"
+      }});
+  $(".btn_reset").button({
+      icons: {
+          primary: "ui-icon-cancel"
+      }});
   $("#rename_season").toggle(function(){
 	  $('input[name="season_name"]').focus().css("border","1px solid");
   }, 
@@ -321,7 +321,7 @@ $(document).ready(function(){
           </div><!-- End: IE Column Clearing -->
         </div><!-- end: #col3 -->
       </div><!-- end: #main -->
-      <!-- begin: #footer -->
+	<!-- begin: #footer -->
    <div id="footer" role="contentinfo">
         <img src="images/labos-small.png" alt="Laboratorio Open Source" class="left" />
         <img src="images/sardegna_ricerche.png" alt="Sardegna Ricerche" class="left" />

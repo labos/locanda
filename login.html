@@ -6,22 +6,23 @@
   <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />  
   <link type='text/css' href='css/south-street/jquery-ui-1.8.9.custom.css' rel='stylesheet' />
   <link type="text/css" href="css/layout_sliding_door.css" rel="stylesheet"  />  
-  <!-- embedded styles for dynamic layout options -->  
+ 
   <script type='text/javascript' src='js/lib/jquery-1.4.4.min.js'></script>
   <!--
     <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js'></script>
   -->
   <script type='text/javascript' src='js/lib/jquery-ui-1.8.9.custom.min.js'></script>
-  <script type='text/javascript' src='js/jquery.weekcalendar.js'></script>
-  <script type='text/javascript' src='js/planner.js'></script>
   <script type='text/javascript' src='js/jquery.validate.min.js'></script>
   <script type="text/javascript">
-  $().ready(function(){
-	 $(".yform").validate();
+  $(function(){
+	$(".yform").validate();
+  });
+  $(function() {
+  	$(".btn_submit").button();
   });
   </script>
+  
   <title>LOCANDA - Open Source Booking Tool</title><!-- (en) Add your meta data here -->
-  <!-- (de) Fuegen Sie hier ihre Meta-Daten ein -->
   <!--[if lte IE 7]>
 	<link href="css/patches/patch_sliding_door.css" rel="stylesheet" type="text/css" />
   <![endif]-->
@@ -57,14 +58,14 @@
               </div>
             </fieldset>
             <div class="type-button">
-          	  <button class="wc-today ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-primary" type="submit" role="button" aria-disabled="false">
-              <span class="ui-button-text">Log In</span></button>
+          	  <button class="btn_submit" type="submit" role="button" aria-disabled="false">Log In</button>
             </div>
           </form>
-      </div>
+      </div>!-- end: #home -->
           <div id="ie_clearing">
             &nbsp;
-          </div><!-- End: IE Column Clearing -->        
+          </div><!-- End: IE Column Clearing -->
+      <!-- begin: #footer -->          
       <div id="footer" role="contentinfo">
         <img src="images/labos-small.png" alt="Laboratorio Open Source" class="left" />
         <img src="images/sardegna_ricerche.png" alt="Sardegna Ricerche" class="left" />
@@ -73,10 +74,9 @@
         <img src="images/unione_europea.gif" alt="Unione Europea" class="right" />
         <span class="center">Locanda<br />
         Open Source Booking Software<br /><br /></span>
-        </div><!-- end: #col3 -->
-      </div><!-- end: #main -->
-      <!-- begin: #footer -->   
-    </div>
+        </div><!-- end: #footer -->
+      </div><!-- end: #main -->   
+    </div><!-- end: #page_margins -->
   </div><!-- full skiplink functionality in webkit browsers -->
   <script src="yaml/core/js/yaml-focusfix.js" type="text/javascript">
 </script>

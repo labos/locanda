@@ -322,3 +322,5 @@
   /* IE5.x & IE6 */
   * html .yform { padding-top:10px; }
 }
+
+#extrasForm { display: none; }
