@@ -61,12 +61,8 @@ $(function() {
 			source: function( request, response ) {
 				var term = request.term;
 				if ( term in cache ) {
-
-			        response($.map(cache[request.term].d, function(item) {
-			         return { value: item.value, id: item.id }
-			        }))
-			        return;
-
+					response( cache[ term ] );
+					return;
 				}
 
 				lastXhr = $.getJSON( "customer.json", request, function( data, status, xhr ) {
@@ -77,11 +73,36 @@ $(function() {
 				});
 			}
 		});
+	   
+	   
+	   /* extras and pay adjustment */
+	   
+	   $('input[name="extra_value_adjustment"], input[name="pay_value_adjustment"]').keyup(function() {
+		   var current_parent=$(this).parents(".type-text");
+		   var copy_parent = current_parent.clone(true);
+		   copy_parent.find(".green").remove();
+		   copy_parent.find("input").val("");
+		   //copy_parent.find($(this)).bind('keyup',cloneEvent);
+		   copy_parent.insertAfter(current_parent);
+		   $(this).unbind('keyup');
+		   
+		 });
+		$(".type_rooms").hide();
+		$("#change_rate").toggle(function(){
+		$(".type_rooms").show();	
+		},function(){
+		$(".type_rooms").hide();	
+		});
+		
+		  $(".btn_save").button({
+		      icons: {
+		          primary: "ui-icon-check"
+		      }});
+		
 	
 });
 </script>
 
-</script>
 </head>
 
 <body>
@@ -248,23 +269,27 @@ $(function() {
                     </option>
                   </select></div>
                   <div class="type_rooms">
-                      <input type="checkbox" name="per_room" value="1" /><label for=
+                      <input type="text" name="per_value" id="per_value" value="30" />
+                    </div>
+                  <div class="type_rooms">
+                      <input type="radio" name="per_room_person" id="per_room" value="1" /><label for=
                       "per_room">Per Room:</label>
                     </div>
                     <div class="type_rooms">
-                      <input type="checkbox" name="per_night" value="2" /><label for=
-                      "per_night">Per Night:</label>
-                    </div>
-                    <div class="type_rooms">
-                      <input type="checkbox" name="per_person" value="3" /><label for=
+                      <input type="radio" name="per_room_person" id="per_person" value="3" /><label for=
                       "per_person">Per Person:</label>
                     </div>
                     <div class="type_rooms">
-                      <input type="checkbox" name="per_week" value="4" /><label for=
-                      "per_person">Per Week:</label>
+                      <input type="radio" name="per_night_week" id="per_night" value="2" /><label for=
+                      "per_night">Per Night:</label>
+                    </div>
+                    <div class="type_rooms">
+                      <input type="radio" name="per_night_week" id="per_week" value="4" /><label for=
+                      "per_week">Per Week:</label>
                     </div>
                   <div class="type-text">
                       <span>30&euro;</span><span>/Room</span><span>/night</span>
+                    (<a id="change_rate" href="#">Change Rate for this booking</a>)
                     </div>
                  <div class="type-text"><label for="title">Title:</label> <input type="text" name=
                   "title" /></div>
@@ -280,14 +305,19 @@ $(function() {
                 </div>
                 <div class="c40l">
                 <fieldset><legend>Money</legend>
-                  <div class="type-text"><span>Room: </span><span id="price_room" ></span></div>
-                  <div class="type-text"><span>Extras: </span><span id="extras_room" ></span></div>
-                  <div class="type-text"><span class="green">&nbsp;Adjustment: </span><span id="adjust_room" ></span></div>
-                  <div class="type-text"><span>Subtotal: </span><span id="subtotal_room" ></span></div>
+                  <div class="type-text"><span>Room: </span><div class="c20r"><span id="price_room" >30 &euro;</span></div></div>
+                  <div class="type-text"><span>Extras: </span><span id="extras_room" >0 &euro;</span></div>
+                  <div class="type-text"><span class="green">&nbsp;Adjustment: </span><div class="c50r"><div class="c10r">&euro;</div><div class="c40r"><input type="text" name=
+                  "extra_adjustment" id="extra_adjustment" /></div><div class="c40r"><input type="text" name="extra_value_adjustment"  id="value_adjustment"/></div></div></div>
+                  <div class="type-text"><span>Subtotal: </span><div class="c20r"><span id="subtotal_room" >30 &euro;</span></div></div>
                   <div class="type-text"><hr/></div>
-                  <div class="type-text"><span class="green">&nbsp;Payment Received: </span><span id="payment_room" ></span></div>
-                  <div class="type-text"><span>Balance Due: </span><span id="balance_room" ></span></div>
+                  <div class="type-text"><span class="green">&nbsp;Payment Received: </span><div class="c50r"><div class="c10r">&euro;</div><div class="c40r"><input type="text" name=
+                  "pay_adjustment" id="pay_adjustment" /></div><div class="c40r"><input type="text" name="pay_value_adjustment"  id="pay_value_adjustment"/></div></div></div>
+                  <div class="type-text"><span>Balance Due: </span><div class="c20r"><span id="balance_room" >30 &euro;</span></div></div>
                 </fieldset>
+               <div class="type-button">
+              <button class="btn_save">SAVE</button>
+            </div>
                 </div>
               </div>
               </form>

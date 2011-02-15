@@ -1,5 +1,10 @@
 $(document).ready(function() {
 
+  	$(".btn_check_in").button({
+  		icons: {
+            primary: "ui-icon-check"
+        }
+  	});
    var $calendar = $('#calendar');
    var id = 10;
    /* setting rooms_list array */
@@ -44,6 +49,12 @@ $(document).ready(function() {
          resetForm($dialogContent);
          $dialogContent.find("#date_booking").html(calEvent.start + ' - ' + calEvent.end);
          var duration = days_between(new Date(calEvent.end), new Date(calEvent.start)) + 1;
+         var remainings = days_between_signed(new Date(calEvent.start), new Date());
+         
+         if (remainings < -1)
+        	 {
+        	 $(".btn_check_in").button("disable");
+        	 }
          $dialogContent.find("#duration").html(' ( ' + duration + ' days )');
          var startField = calEvent.start;
          var endField = calEvent.end;
@@ -181,6 +192,23 @@ $(document).ready(function() {
 
 	    // Calculate the difference in milliseconds
 	    var difference_ms = Math.abs(date1_ms - date2_ms);
+	    
+	    // Convert back to days and return
+	    return Math.round(difference_ms/ONE_DAY);
+
+	}
+   
+   function days_between_signed(date1, date2) {
+
+	    // The number of milliseconds in one day
+	    var ONE_DAY = 1000 * 60 * 60 * 24;
+
+	    // Convert both dates to milliseconds
+	    var date1_ms = date1.getTime();
+	    var date2_ms = date2.getTime();
+
+	    // Calculate the difference in milliseconds
+	    var difference_ms = date1_ms - date2_ms;
 	    
 	    // Convert back to days and return
 	    return Math.round(difference_ms/ONE_DAY);

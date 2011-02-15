@@ -66,7 +66,7 @@
   			</ul>
             </li>
 
-            <li><a href="#">Guests</a></li>
+            <li><a href="guests.html">Guests</a></li>
 
             <li><a href="#">Reports</a></li>
 
@@ -104,9 +104,11 @@
             <div id='calendar'></div>
 
             <div id="event_edit_container">
-              <form>
-                             <div class="header_booking"><span>Camera Singola - &nbsp;</span><span>Date: </span><span id="date_booking" ></span><span id="duration"></span><span>&nbsp;<select name="confirm"><option value="1">Confirmed</option><option value="0">Provisional</option></select></span></li>
+              <form class="yform">
+                             <div class="header_booking"><span>Camera Singola - &nbsp;</span><span>Date: </span><span id="date_booking" ></span><span id="duration"></span><span>&nbsp;<select name="confirm"><option value="1">Confirmed</option><option value="0">Provisional</option></select></span>
+             				<button class="btn_check_in">CHECK IN</button>
               </div>
+              <div class="c50l">
               <fieldset>
     <legend>Booking Details:</legend>
                 <input type="hidden" />
@@ -143,19 +145,19 @@
                   </select></li>
                   <li>
                     <div class="type_rooms">
-                      <input type="checkbox" name="per_room" value="1" /><label for=
+                      <input type="radio" name="per_room" value="1" /><label for=
                       "per_room">Per Room:</label>
                     </div>
                     <div class="type_rooms">
-                      <input type="checkbox" name="per_night" value="2" /><label for=
+                      <input type="radio" name="per_night" value="2" /><label for=
                       "per_night">Per Night:</label>
                     </div>
                     <div class="type_rooms">
-                      <input type="checkbox" name="per_person" value="3" /><label for=
+                      <input type="radio" name="per_person" value="3" /><label for=
                       "per_person">Per Person:</label>
                     </div>
                     <div class="type_rooms">
-                      <input type="checkbox" name="per_week" value="4" /><label for=
+                      <input type="radio" name="per_week" value="4" /><label for=
                       "per_person">Per Week:</label>
                     </div>
                   </li>
@@ -172,6 +174,11 @@
 </textarea></li>
                 </ul>
                 </fieldset>
+                </div>
+                <div class="c10l">
+                &nbsp;
+                </div>
+                <div class="c40l">
                 <fieldset><legend>Money</legend>
                    <ul class="money">
                   <li><span>Room: </span><span id="price_room" ></span></li>
@@ -183,6 +190,7 @@
                   <li><span>Balance Due: </span><span id="balance_room" ></span></li>
                 </ul>
                 </fieldset>
+                </div>
               </form>
             </div>
           </div>

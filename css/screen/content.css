@@ -335,9 +335,13 @@ color: #880000;
 font-weight: 600;
 }
 
-.c10l, .c10r {
+.c10l {
 width:10%;
 float:left;
+}
+.c10r {
+width:10%;
+float:right;
 }
 
 span.title_season{
@@ -399,3 +403,56 @@ display: inline;
   	display: none;
   }
  
+  #price_room, #extra_room, #subtotal_room, #balance_room{
+	font-size: 20px;
+  }
+#extra_value_adjustment, #extra_adjustment, #pay_adjustment, #pay_value_adjustment, #per_value, #all_year {
+width: 40px;
+display: inline;
+}
+
+  .clickable {
+  	cursor: pointer;
+	font-weight: 600;
+	color: blue;
+  }
+.yform div.type-text input.describe {
+border: none;
+font-weight: 600;
+}
+
+a.describe_edit:focus
+{
+text-decoration: none;
+outline: none;
+}
+input[name="room_name"]{
+border: none;
+font-size: 17px;
+font-weight: 600;
+}
+input[name="room_name"]:focus{
+border: 1px solid #000;
+
+}
+
+input[name="description"]:hover{
+border: none;
+}
+
+.edited_room_name {
+color: red;
+}
+
+select[name="confirm"]{
+width: 120px;
+}
+.yform .type-text input.txt_guest_search{
+width: 320px;
+float:left;
+height: 25px;
+}
+
+.btn_g_search{
+margin-left: 8px;
+}
