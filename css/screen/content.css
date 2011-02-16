@@ -322,7 +322,13 @@ background-color: #AFD775;
 
 
 }
+#header {
+background: none;
+}
 
+.hlist{
+background-color: #fff;
+}
 .yform {
 background: none;
 border: none;
@@ -456,3 +462,23 @@ height: 25px;
 .btn_g_search{
 margin-left: 8px;
 }
+div.search_links {
+clear: left;
+height: 30px;
+	
+}
+div.search_links a, div.search_links span {
+	
+}
+
+.book_guest span {
+color: #333333;
+font-size: 14px;
+}
+
+.book_guest span.link {
+color: blue;
+font-weight: 600;
+}
+
+

@@ -20,18 +20,13 @@
 </script>
 <script type="text/javascript">
 $(document).ready(function(){
-	  $(".btn_g_search").button({
-	      icons: {
-	          secondary: "ui-icon-arrowreturnthick-1-e"
-	      }});
-	
-  $(".btn_add_guest").button({
+
+  $(".btn_edit_guest").button({
       icons: {
-          primary: "ui-icon-circle-plus"
-      }}).click(function(){
-    	window.location.href="guest_new.html"; 
-    	return false;
-      });
+          primary: "ui-icon-check"
+      }});
+  
+  $(".yform").validate();
  
 });
 
@@ -95,55 +90,61 @@ $(document).ready(function(){
         <div id="col3" role="main">
           <div id="col3_content" class="clearfix">
           <div class="header_section yform">
-          <span class="name_section">Manage Guests</span>
+          <span class="name_section">Settings</span>
           <div class="right type-text">
           <input type="text" name="guest_search" class="txt_guest_search" /><button class="btn_g_search">SEARCH</button>
             <div class="search_links"><span>Or browse:&nbsp;</span><a href="#">staying this week</a><span>,&nbsp;</span><a href="#">staying next week</a>,&nbsp;<a href="#">staying this month</a>,&nbsp;<a href="#">staying last month</a>,&nbsp;<a href="#">all</a></div>
             </div>
           </div>
           <div>
-		 <form method="post" action="" class="yform full" role="application">
-            <fieldset>
-              <legend>Latest Guests</legend>
-             <div class="subcolumns">
-             <span>
-</span>       </div>
-			 <div class="subcolumns">
-      		<div class="c25l">
-                    <div class="type_rooms">
-					<a href="guest_edit.html"><span class="title_season">Giovanni Rossi</span></a>
-					<p></p>
-					<ul>
-					<li>34057546746</li>
-					<li>rossi@tiscali.it</li>
-					<li>Arriving: *****</li></ul>
-                    </div>                  
-                    </div>
-                    </div>
-               <div class="subcolumns">
-              &nbsp;
+ <form method="post" action="" class="yform" role="application">           
+  <fieldset>
+              <legend>Automated Emails</legend>
+              <div class="c50l">
+           <div class="type-text">
+                <label for="firstname">From Address: <sup title="This field is mandatory.">*</sup></label>
+                <input class="required" type="text" name="firstname" id="firstname" size="20" value="giovanni"/>
               </div>
-             <div class="subcolumns">
-                   <div class="type_rooms">
-                    </div> 
-                    <div class="type-select num_of_rooms">
-                    </div> 
+              <div class="type-text" role="alert" aria-live="assertive">
+                <label for="lastname">Send copies of emails to: <sup title="This field is mandatory.">*</sup></label>
+                <input class="required" type="text" name="lastname" id="lastname" size="20"  aria-required="true" value="rossi"/>
+              <span>separate multiple emails with commas</span></div>
+
+                  <div class="type-text"><label for="phone">Phone:<sup title="This field is mandatory.">*</sup></label> <input type="text" name=
+                  "phone" id="phone" class="required" value="34057546746"/></div>
+                  <div class="type-text"><span class="title_season">Show Usable Variables</span></div> 
+                  <div class="type-text"><label for="address">Address:<sup title="This field is mandatory.">*</sup></label> <input type="text" name=
+                  "address" id="address" class="required" value="via poerio, 3" /></div>
+                  <div class="type-text"><label for="country">Country:<sup title="This field is mandatory.">*</sup></label> <input type="text" name=
+                  "country" id="country" class="required" value="italy"/></div>
+                  <div class="type-text"><label for="postcode">PostCode:<sup title="This field is mandatory.">*</sup></label> <input type="text" name=
+                  "postcode" id="postcode" class="required" value="07020"/></div>
+                   <div class="type-text"><label for="body">Note:</label> 
+                  <textarea name="body" id="body">
+</textarea></div>
+            </div>
+              </fieldset>
+                <fieldset>
+              <legend>Bookings</legend>
+              <div class="subcolumns">
+              <div class="c50l book_guest">
+              <div class="c20l"><span>28 Feb 2011</span></div><div class="c20l"><span>5 nights</span></div><div class="c20l"><span>&euro; 150</span></div>
+              <div class="c20l"><a href="book.html"><span class="link">Details</span></a></div>
+              </div>
               </div>
               <div class="subcolumns">
               &nbsp;
               </div>
-            <div class="subcolumns type-text">
-            <div class="c50l">
-      		</div>
-      		</div>
-      		<div class="subcolumns">
-              &nbsp;
+              <div class="subcolumns book_guest">
+              <div class="c20l"><a href="book.html"><span class="link">New Booking</span></a></div><div class="c20l"><span></span></div><div class="c20l"><span></span></div>
+              <div class="c20l"></div>
               </div>
-            <div class="type-button">
-            <input type="text" name="new_name_season" id="chng_season_name" value=""/>
-            <button class="btn_add_guest">Add New Guest</button>
-            </div>
               </fieldset>
+             <div class="type-button">
+            <input type="text" name="new_name_season" id="chng_season_name" value=""/>
+            <button class="btn_edit_guest">SAVE</button>
+            <a href="#" title="delete guest">Delete Guest</a>
+            </div>
            </form>        
 		</div>        
           </div>
