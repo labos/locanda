@@ -109,36 +109,14 @@ $(document).ready(function(){
                 <label for="lastname">Send copies of emails to: <sup title="This field is mandatory.">*</sup></label>
                 <input class="required" type="text" name="lastname" id="lastname" size="20"  aria-required="true" value="rossi"/>
               <span>separate multiple emails with commas</span></div>
-
-                  <div class="type-text"><label for="phone">Phone:<sup title="This field is mandatory.">*</sup></label> <input type="text" name=
-                  "phone" id="phone" class="required" value="34057546746"/></div>
-                  <div class="type-text"><span class="title_season">Show Usable Variables</span></div> 
-                  <div class="type-text"><label for="address">Address:<sup title="This field is mandatory.">*</sup></label> <input type="text" name=
-                  "address" id="address" class="required" value="via poerio, 3" /></div>
-                  <div class="type-text"><label for="country">Country:<sup title="This field is mandatory.">*</sup></label> <input type="text" name=
-                  "country" id="country" class="required" value="italy"/></div>
-                  <div class="type-text"><label for="postcode">PostCode:<sup title="This field is mandatory.">*</sup></label> <input type="text" name=
-                  "postcode" id="postcode" class="required" value="07020"/></div>
-                   <div class="type-text"><label for="body">Note:</label> 
-                  <textarea name="body" id="body">
+              <div class="type-text">
+              <input type="checkbox" id="email_guest_check" name="email_guest_check" />
+              <label for="email_guest_check">Email guest to acknowledge an online booking enquiry (no online payment)</label>
+              </div>
+               <div class="type-text"><label for="template">Template:</label> 
+                  <textarea name="template" id="template" cols="40">
 </textarea></div>
             </div>
-              </fieldset>
-                <fieldset>
-              <legend>Bookings</legend>
-              <div class="subcolumns">
-              <div class="c50l book_guest">
-              <div class="c20l"><span>28 Feb 2011</span></div><div class="c20l"><span>5 nights</span></div><div class="c20l"><span>&euro; 150</span></div>
-              <div class="c20l"><a href="book.html"><span class="link">Details</span></a></div>
-              </div>
-              </div>
-              <div class="subcolumns">
-              &nbsp;
-              </div>
-              <div class="subcolumns book_guest">
-              <div class="c20l"><a href="book.html"><span class="link">New Booking</span></a></div><div class="c20l"><span></span></div><div class="c20l"><span></span></div>
-              <div class="c20l"></div>
-              </div>
               </fieldset>
              <div class="type-button">
             <input type="text" name="new_name_season" id="chng_season_name" value=""/>
