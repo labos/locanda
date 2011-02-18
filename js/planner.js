@@ -59,6 +59,8 @@ $(document).ready(function() {
          var startField = calEvent.start;
          var endField = calEvent.end;
          var id_booked = calEvent.id_booked;
+         var room_name =  getRoomNameById(id_booked);
+         $dialogContent.find('#room_name_dialog').text(room_name);
          var titleField = $dialogContent.find("input[name='fullname']");
          var bodyField = $dialogContent.find("textarea[name='body']");
          var confirmField = $dialogContent.find("select[name='confirm']");
@@ -71,6 +73,8 @@ $(document).ready(function() {
          $dialogContent.dialog({
             modal: true,
             width:650,
+            hide: "explode",
+            show:"blind",
             title: "New Booking Event",
             close: function() {
                $dialogContent.dialog("destroy");
@@ -123,6 +127,8 @@ $(document).ready(function() {
          var startField = calEvent.start;
          var endField = calEvent.end;
          var id_booked = calEvent.id_booked;
+         var room_name =  getRoomNameById(id_booked);
+         $dialogContent.find('#room_name_dialog').text(room_name);
          var titleField = $dialogContent.find("input[name='fullname']");
          var bodyField = $dialogContent.find("textarea[name='body']");
          bodyField.val(calEvent.body);
@@ -221,7 +227,7 @@ $(document).ready(function() {
 		var cache = {},
 		lastXhr;
 
-	   $(selector ).autocomplete({
+	   $(selector).autocomplete({
 			minLength: 2,
 			source: function( request, response ) {
 				var term = request.term;
@@ -243,7 +249,18 @@ $(document).ready(function() {
 	   
    }
 
-
+   function getRoomNameById(id)
+   {
+	    var input_room_id = $('input[name="id_room"]').filter(function(){
+		 return ($(this).val() == id);
+	    	});
+	   var name  = $(input_room_id).siblings();
+	   if(name.text() != undefined)
+		   return name.text();
+	   else
+		   return '******';
+	
+   }
    function getEventData() {
       var year = new Date().getFullYear();
       var month = new Date().getMonth();

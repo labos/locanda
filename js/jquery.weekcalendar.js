@@ -469,9 +469,9 @@
             calendarBodyHtml += "<div class=\"wc-hour-header " + bhClass + "\">"
             //adesso creiamo le righe (ovvero iniziando dalla prima colonna che contiene il nome della camera.
             if (options.use24Hour) {
-               calendarBodyHtml += "<div class=\"wc-time-header-cell\" id=\"" + i + "\">" + self._24HourForIndex(i) + "<input type=\"hidden\" name=\"id_room\" value=\""+ options.listRooms[i] + "\" /></div>";
+               calendarBodyHtml += "<div class=\"wc-time-header-cell\" id=\"" + i + "\"><span>" + self._24HourForIndex(i) + "</span><input type=\"hidden\" name=\"id_room\" value=\""+ options.listRooms[i] + "\" /></div>";
             } else {
-               calendarBodyHtml += "<div class=\"wc-time-header-cell\" id=\"" + i + "\">" + self._hourForIndex(i) + "<span class=\"wc-am-pm\">" + self._amOrPm(i) + "</span></div>";
+               calendarBodyHtml += "<div class=\"wc-time-header-cell\" id=\"" + i + "\"><span>" + self._hourForIndex(i) + "</span><span class=\"wc-am-pm\">" + self._amOrPm(i) + "</span></div>";
             }
             calendarBodyHtml += "</div>";
          }
