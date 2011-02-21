@@ -416,7 +416,7 @@ display: inline;
   #price_room, #extra_room, #subtotal_room, #balance_room{
 	font-size: 20px;
   }
-#extra_value_adjustment, #extra_adjustment, #pay_adjustment, #pay_value_adjustment, #per_value, #all_year, #next_thanks {
+#extra_value_adjustment, #extra_adjustment, #per_value, #all_year, #next_thanks {
 width: 40px;
 display: inline;
 }
@@ -495,4 +495,15 @@ width:100%;
 height: 180px;
 }
 
+.type_rooms {
+text-align: left;	
+}
+div.book_details{
+text-align: left;
+}
 
+#change_rate {
+color:#4D87C7;
+ background:transparent;
+ text-decoration:none; 
+}

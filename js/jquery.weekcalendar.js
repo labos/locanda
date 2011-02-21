@@ -729,18 +729,33 @@ $.each(self.day_booked, function(key,value){
 //1)LA DATA DI INIZIO DEL BOOKING, 2)LA DATA DI FINE DEL BOOKING, 3)L'ID DELLA CAMERA SULLA QUALE FACCIO IL BOOKING.
 var start_booking=new Date();
 var end_booking=new Date();
-var id_booked_room=0;
-if($.isArray(self.day_booked))
+var id_book_room=0;
+var day_booked_lenght = self.day_booked.length;
+if($.isArray(self.day_booked) && day_booked_lenght>0)
 {
 try{
 	start_booking= self.day_booked[0].children().data("startDate");
 	end_booking = self.day_booked[self.day_booked.length-1].children().data("startDate");
-	id_booked_room= $renderedCalEvent.find('input[name="id_booked_room"]').val();
+	id_book_room= $renderedCalEvent.find('input[name="id_booked_room"]').val();
 }
 catch(e){
 //gestisci eccezzioni
 	
 }
+}
+
+else {
+	try{
+	//siamo nel caso in cui non abbiamo fatto un mousemove perchè abbiamo cliccato su un solo div
+		start_booking= $weekDay.data("startDate");
+		end_booking = $weekDay.data("startDate");
+	id_book_room= $renderedCalEvent.find('input[name="id_booked_room"]').val();
+	}
+	catch(e){
+		//gestisci eccezzioni
+			
+		}
+	
 }
 
 /**********************************************
@@ -751,7 +766,7 @@ catch(e){
  */
 
 
-options.eventNew({start: self.formatDate(new Date(start_booking),"M/d/Y"), end:self.formatDate(new Date(end_booking),"M/d/Y"), id_booked:id_booked_room}, $renderedCalEvent);        
+options.eventNew({start: self.formatDate(new Date(start_booking),"M/d/Y"), end:self.formatDate(new Date(end_booking),"M/d/Y"), id_booked:id_book_room}, $renderedCalEvent);        
             
             
             
@@ -1541,7 +1556,7 @@ var pxTop = calEvent.top;
        * Clear all cal events from the calendar
        */
       _clearCalendar : function() {
-         this.element.find(".wc-day-column-inner div").remove();
+        this.element.find(".wc-day-column-inner div").remove();
       },
 
       /*

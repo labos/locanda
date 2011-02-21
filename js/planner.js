@@ -21,11 +21,13 @@ $(document).ready(function() {
 	   
 		$(".type_rooms").hide();
 		$("#change_rate").toggle(function(){
-		$(".type_rooms").show();	
+		$(".type_rooms").show();
 		},function(){
 		$(".type_rooms").hide();	
 		});
 	   
+		  $(".yform").validate();
+		
    var $calendar = $('#calendar');
    var id = 10;
    /* setting rooms_list array */
@@ -117,7 +119,9 @@ $(document).ready(function() {
                   $dialogContent.dialog("close");
                },
                cancel : function() {
+            	   $calendar.weekCalendar("removeUnsavedEvents");
                   $dialogContent.dialog("close");
+                  
                }
             }
          }).show();

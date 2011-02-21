@@ -24,6 +24,8 @@
 </script>
   <script type='text/javascript' src='js/ftod.js'>
 </script>
+  <script type='text/javascript' src='js/jquery.validate.min.js'>
+</script>
   <title>LOCANDA - Open Source Booking Tool</title><!-- (en) Add your meta data here -->
   <!-- (de) Fuegen Sie hier ihre Meta-Daten ein -->
   <link href="css/layout_sliding_door.css" rel="stylesheet" type="text/css" />
@@ -47,7 +49,7 @@
     <div class="page">
       <div id="header" role="banner">
         <div id="topnav" role="contentinfo">
-          <span><a href="#">Not Logged In</a> | <a href="#">Login/Signup</a></span>
+          <span><a href="#">Not Logged In</a> | <a href="login.html">Login/Signup</a></span>
         </div>
 
         <h1>
@@ -104,30 +106,30 @@
             <div id='calendar'></div>
 
             <div id="event_edit_container">
-              <form class="yform">
+              <form method="post" action="" class="yform" role="application" >
                              <div class="header_booking type-select"><span id="room_name_dialog">Camera Singola - &nbsp;</span><span> - Date: </span><span id="date_booking" ></span><span id="duration"></span><span>&nbsp;<select name="confirm" style="width:90px; display:inline;"><option value="1">Confirmed</option><option value="0">Provisional</option></select></span>
              				<button class="btn_check_in">CHECK IN</button>
               </div>
-              <div class="book_details c50l">
+              <div class="book_details c40l">
               <fieldset>
     <legend>Booking Details:</legend>
                 <input type="hidden" />
 
                 
-                  <div class="type-text"><label for="fullname">Full Name:</label> <input type="text" name=
-                  "fullname"  id="fullname"/></div>
+                  <div class="type-text"><label for="fullname">Full Name:<sup title="This field is mandatory.">*</sup></label> <input type="text" name=
+                  "fullname"  id="fullname" class="required"/></div>
                   
-					<div class="type-text"><label for="phone">Phone:</label> <input type="text" name=
-                  "phone" id="phone"/></div>
+					<div class="type-text"><label for="phone">Phone:<sup title="This field is mandatory.">*</sup></label> <input type="text" name=
+                  "phone" id="phone" class="required"/></div>
 
-                  <div class="type-text"><label for="address">Address:</label> <input type="text" name=
-                  "address" id="address"/></div>
+                  <div class="type-text"><label for="address">Address:<sup title="This field is mandatory.">*</sup></label> <input type="text" name=
+                  "address" id="address" class="required"/></div>
 
-                  <div class="type-text"><label for="country">Country:</label> <input type="text" name=
-                  "country" id="country"/></div>
+                  <div class="type-text"><label for="country">Country:<sup title="This field is mandatory.">*</sup></label> <input type="text" name=
+                  "country" id="country" class="required"/></div>
 
-                  <div class="type-text"><label for="postcode">PostCode:</label> <input type="text" name=
-                  "postcode" id="postcode"/></div>
+                  <div class="type-text"><label for="postcode">PostCode:<sup title="This field is mandatory.">*</sup></label> <input type="text" name=
+                  "postcode" id="postcode" class="required"/></div>
                   
                    <div class="type-select"><label for="guests">Guests:</label> <select name="guests">
                     <option value="1" id="guest">
@@ -143,7 +145,10 @@
                       4 Guests
                     </option>
                   </select></div>
-                  <div class="type-check">
+                  <div class="type-select">
+                   	<div class="type_rooms">
+                      <input type="text" name="per_value" id="per_value" value="30" />
+                    </div>
                     <div class="type_rooms">
                       <input type="radio" name="per_room_person" value="1" /><label for=
                       "per_room">Per Room</label>
@@ -178,7 +183,7 @@
                 <div class="c10l">
                 &nbsp;
                 </div>
-                <div class="book_details c40l">
+                <div class="book_details c50l">
 <fieldset><legend>Money</legend>
                   <div class="type-text"><span>Room: </span><div class="c20r"><span id="price_room" >30 &euro;</span></div></div>
                   <div class="type-text"><span>Extras: </span><span id="extras_room" >0 &euro;</span></div>
