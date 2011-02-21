@@ -105,32 +105,32 @@
 
             <div id="event_edit_container">
               <form class="yform">
-                             <div class="header_booking"><span id="room_name_dialog">Camera Singola - &nbsp;</span><span> - Date: </span><span id="date_booking" ></span><span id="duration"></span><span>&nbsp;<select name="confirm"><option value="1">Confirmed</option><option value="0">Provisional</option></select></span>
+                             <div class="header_booking type-select"><span id="room_name_dialog">Camera Singola - &nbsp;</span><span> - Date: </span><span id="date_booking" ></span><span id="duration"></span><span>&nbsp;<select name="confirm" style="width:90px; display:inline;"><option value="1">Confirmed</option><option value="0">Provisional</option></select></span>
              				<button class="btn_check_in">CHECK IN</button>
               </div>
-              <div class="c50l">
+              <div class="book_details c50l">
               <fieldset>
     <legend>Booking Details:</legend>
                 <input type="hidden" />
 
-                <ul>
-                  <li><label for="fullname">Full Name:</label> <input type="text" name=
-                  "fullname" /></li>
-
-                  <li><label for="phone">Phone:</label> <input type="text" name=
-                  "phone" /></li>
-
-                  <li><label for="address">Address:</label> <input type="text" name=
-                  "address" /></li>
-
-                  <li><label for="country">Country:</label> <input type="text" name=
-                  "country" /></li>
-
-                  <li><label for="postcode">PostCode:</label> <input type="text" name=
-                  "postcode" /></li>
+                
+                  <div class="type-text"><label for="fullname">Full Name:</label> <input type="text" name=
+                  "fullname"  id="fullname"/></div>
                   
-                   <li><label for="end">Guests:</label> <select name="end">
-                    <option value="1">
+					<div class="type-text"><label for="phone">Phone:</label> <input type="text" name=
+                  "phone" id="phone"/></div>
+
+                  <div class="type-text"><label for="address">Address:</label> <input type="text" name=
+                  "address" id="address"/></div>
+
+                  <div class="type-text"><label for="country">Country:</label> <input type="text" name=
+                  "country" id="country"/></div>
+
+                  <div class="type-text"><label for="postcode">PostCode:</label> <input type="text" name=
+                  "postcode" id="postcode"/></div>
+                  
+                   <div class="type-select"><label for="guests">Guests:</label> <select name="guests">
+                    <option value="1" id="guest">
                       1 Guests
                     </option>
                     <option value="2">
@@ -142,53 +142,53 @@
                     <option value="4">
                       4 Guests
                     </option>
-                  </select></li>
-                  <li>
+                  </select></div>
+                  <div class="type-check">
                     <div class="type_rooms">
-                      <input type="radio" name="per_room" value="1" /><label for=
-                      "per_room">Per Room:</label>
+                      <input type="radio" name="per_room_person" value="1" /><label for=
+                      "per_room">Per Room</label>
+                    </div>
+                   <div class="type_rooms">
+                      <input type="radio" name="per_room_person" value="3" /><label for=
+                      "per_person">Per Person</label>
                     </div>
                     <div class="type_rooms">
-                      <input type="radio" name="per_night" value="2" /><label for=
-                      "per_night">Per Night:</label>
+                      <input type="radio" name="per_night_week" value="2" /><label for=
+                      "per_night">Per Night</label>
                     </div>
                     <div class="type_rooms">
-                      <input type="radio" name="per_person" value="3" /><label for=
-                      "per_person">Per Person:</label>
+                      <input type="radio" name="per_night_week" value="4" /><label for=
+                      "per_person">Per Week</label>
                     </div>
-                    <div class="type_rooms">
-                      <input type="radio" name="per_week" value="4" /><label for=
-                      "per_person">Per Week:</label>
-                    </div>
-                  </li>
-                  <li>
-                  <div class="type_rooms">
+                  </div>
+                  <div class="type-text">
+                  <div>
                       <span>30&euro;</span><span>/Room</span><span>/night</span>
+                      (<a id="change_rate" href="#">Change Rate for this booking</a>)
                     </div>
-                  </li>
-                 <li><label for="title">Title:</label> <input type="text" name=
-                  "title" /></li>
+                  </div>
+                 <div class="type-text" style="display: none;"><label for="title">Title:</label> <input type="text" name=
+                  "title" /></div>
 
-                  <li><label for="body">Note:</label> 
+                  <div class="type-text" style="display: none;"><label for="body">Note:</label> 
                   <textarea name="body">
-</textarea></li>
-                </ul>
+</textarea></div>
                 </fieldset>
                 </div>
                 <div class="c10l">
                 &nbsp;
                 </div>
-                <div class="c40l">
-                <fieldset><legend>Money</legend>
-                   <ul class="money">
-                  <li><span>Room: </span><span id="price_room" ></span></li>
-                  <li><span>Extras: </span><span id="extras_room" ></span></li>
-                  <li><span class="green">&nbsp;Adjustment: </span><span id="adjust_room" ></span></li>
-                  <li><span>Subtotal: </span><span id="subtotal_room" ></span></li>
-                  <li><hr/></li>
-                  <li><span class="green">&nbsp;Payment Received: </span><span id="payment_room" ></span></li>
-                  <li><span>Balance Due: </span><span id="balance_room" ></span></li>
-                </ul>
+                <div class="book_details c40l">
+<fieldset><legend>Money</legend>
+                  <div class="type-text"><span>Room: </span><div class="c20r"><span id="price_room" >30 &euro;</span></div></div>
+                  <div class="type-text"><span>Extras: </span><span id="extras_room" >0 &euro;</span></div>
+                  <div class="type-text"><span class="green">&nbsp;Adjustment: </span><div class="c50r"><div class="c10r">&euro;</div><div class="c40r"><input type="text" name=
+                  "extra_adjustment" id="extra_adjustment" /></div><div class="c40r"><input type="text" name="extra_value_adjustment"  id="value_adjustment"/></div></div></div>
+                  <div class="type-text"><span>Subtotal: </span><div class="c20r"><span id="subtotal_room" >30 &euro;</span></div></div>
+                  <div class="type-text"><hr/></div>
+                  <div class="type-text"><span class="green">&nbsp;Payment Received: </span><div class="c50r"><div class="c10r">&euro;</div><div class="c40r"><input type="text" name=
+                  "pay_adjustment" id="pay_adjustment" /></div><div class="c40r"><input type="text" name="pay_value_adjustment"  id="pay_value_adjustment"/></div></div></div>
+                  <div class="type-text"><span>Balance Due: </span><div class="c20r"><span id="balance_room" >30 &euro;</span></div></div>
                 </fieldset>
                 </div>
               </form>

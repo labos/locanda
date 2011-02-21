@@ -5,6 +5,27 @@ $(document).ready(function() {
             primary: "ui-icon-check"
         }
   	});
+  	
+	   /* extras and pay adjustment */
+	   
+	   $('input[name="extra_value_adjustment"], input[name="pay_value_adjustment"]').keyup(function() {
+		   var current_parent=$(this).parents(".type-text");
+		   var copy_parent = current_parent.clone(true);
+		   copy_parent.find(".green").remove();
+		   copy_parent.find("input").val("");
+		   //copy_parent.find($(this)).bind('keyup',cloneEvent);
+		   copy_parent.insertAfter(current_parent);
+		   $(this).unbind('keyup');
+		   
+		 });
+	   
+		$(".type_rooms").hide();
+		$("#change_rate").toggle(function(){
+		$(".type_rooms").show();	
+		},function(){
+		$(".type_rooms").hide();	
+		});
+	   
    var $calendar = $('#calendar');
    var id = 10;
    /* setting rooms_list array */
@@ -75,7 +96,7 @@ $(document).ready(function() {
             width:650,
             hide: "explode",
             show:"blind",
-            title: "New Booking Event",
+            title: "New Booking for room: " + room_name,
             close: function() {
                $dialogContent.dialog("destroy");
                $dialogContent.hide();
@@ -136,7 +157,7 @@ $(document).ready(function() {
          $dialogContent.dialog({
             modal: true,
             width: 650,
-            title: "Modify Booking - " + calEvent.title,
+            title: "Modify Booking - " + room_name,
             close: function() {
                $dialogContent.dialog("destroy");
                $dialogContent.hide();
@@ -272,37 +293,37 @@ $(document).ready(function() {
                "id":1,
                "start": new Date(year, month, day, 12),
                "end": new Date(year, month, day, 13, 30),
-               "title":"Lunch with Mike"
+               "title":"Giovanni Stara"
             },
             {
                "id":2,
                "start": new Date(year, month, day, 14),
                "end": new Date(year, month, day, 14, 45),
-               "title":"Dev Meeting"
+               "title":"Marc Devois"
             },
             {
                "id":3,
                "start": new Date(year, month, day + 1, 17),
                "end": new Date(year, month, day + 1, 17, 45),
-               "title":"Hair cut"
+               "title":"Laura Saint"
             },
             {
                "id":4,
                "start": new Date(year, month, day - 1, 8),
                "end": new Date(year, month, day - 1, 9, 30),
-               "title":"Team breakfast"
+               "title":"George Mason"
             },
             {
                "id":5,
                "start": new Date(year, month, day + 1, 14),
                "end": new Date(year, month, day + 1, 15),
-               "title":"Product showcase"
+               "title":"Michele Gors"
             },
             {
                "id":6,
                "start": new Date(year, month, day, 10),
                "end": new Date(year, month, day, 11),
-               "title":"I'm read-only",
+               "title":"Katia Solari",
                readOnly : true
             }
 

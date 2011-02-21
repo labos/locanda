@@ -80,6 +80,7 @@ ol.formatted li {
 
 /* Alberto Editing */
 
-.type_rooms{
-	text-align: left;	
-	}
+#room_name_dialog{
+font-size:15px;
+color: #336600;
+}
