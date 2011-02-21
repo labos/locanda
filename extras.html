@@ -16,7 +16,8 @@
   <script type='text/javascript' src='js/jquery.validate.min.js'></script>
   <script type="text/javascript">
   $(function(){
-	  
+	
+	var values = []; 
 	$(".yform").validate();
 	$(".btn_addExtra").show();
   	$(".btn_addExtra").button({
@@ -37,15 +38,19 @@
     $(".btn_addExtra").click(function() {
       $(this).hide();	
 	  $(".yform").show();
+	  $("#extraName, .btn_cancel").show();
   	});
-	$(".btn_saveExtra").click(function() {	
+	$("#extraForm").submit(function() {	
   	  $(".btn_addExtra").show();
-	  var value = $("#extraName").val();
-	  $("#extraList").html(value);
+	  values.push($("#extraName").val());
+	  $("#extraList").html("<hr>" +
+	  	values.join('<hr>'));
 	  $("#extraList").show();
+	  $(".btn_cancel, #extraName").hide();
+	  return false;
     });
     $(".btn_cancel").click(function() {	
-  	  $(".yform").hide();
+  	  $("#extraForm").hide();
   	  $(".btn_addExtra").show();
     })
   });
@@ -120,15 +125,17 @@
         	<form method="post" action="" id="extraForm" class="yform" role="application">
               <div class="type-text">
                 <label for="extraName">Extra name</label>
-                <input type="text" class="required" name="extra_name" id="extraName" aria-required="true"/>
+                <input type="text" class="required" name="extraName" id="extraName" aria-required="true"/>
               </div>
               <div class="type-button">
         		<button class="btn_saveExtra" role="button" aria-disabled="false">Save</button>
-        		<button class="btn_cancel" role="button" aria-disabled="false">Cancel</button>
+        		<button class="btn_cancel" role="button" type="button" aria-disabled="false">Cancel</button>
         	  </div> 
          	</form>
 			<div id="extraList">
-				<hr />
+				<form id="newExtra">
+					</hr>
+				</form>
 			</div>
 				
 			

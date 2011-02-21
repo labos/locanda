@@ -408,6 +408,10 @@ display: inline;
   #extraList {
   	display: none;
   }
+  
+  #newExtra {
+  	display: none;
+  }
  
   #price_room, #extra_room, #subtotal_room, #balance_room{
 	font-size: 20px;
