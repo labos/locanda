@@ -106,7 +106,9 @@ $(document).ready(function() {
             },
             buttons: {
                save : function() {
-                  calEvent.id = id_booked;
+                if ($(".yform").valid())
+              	 {
+            	   calEvent.id = id_booked;
                   id++;
                   calEvent.start = new Date(startField);
                   calEvent.end = new Date(endField);
@@ -116,7 +118,9 @@ $(document).ready(function() {
 
                   //--$calendar.weekCalendar("removeUnsavedEvents");
                  $calendar.weekCalendar("updateBookEvent", calEvent);
-                  $dialogContent.dialog("close");
+                	 $dialogContent.dialog("close");
+                	 }
+                  
                },
                cancel : function() {
             	   $calendar.weekCalendar("removeUnsavedEvents");
