@@ -1008,7 +1008,7 @@ calEvent.top= self._getRoomTopById(calEvent.id);
            $calEvent.find(".wc-time").html("booked");
            //ora calcolo l'id della camera da bookare considerando l'altezza della casella in cui ho bookato
            //e facendo riferimento alla prima colonna del planner, dove è contenuto l'id di ogni camera.
-           var position= (calEvent.top/options.timeslotHeight)+1;
+           var position= (calEvent.top/options.timeslotHeight);
           var id_room= $('div.wc-time-header-cell#' + position + '  > input[name="id_room"]').val();
            $calEvent.find(".wc-time").append('<input type="hidden" name="id_booked_room"  value="' +  id_room  + '" />');
 
@@ -1602,15 +1602,9 @@ var pxTop = calEvent.top;
       },
 
       _24HourForIndex : function(index) {
-         if (index === 0) { //midnight
-            return "0";
-         } else if (index < 10) {
-           // return "0" + index + ":00";
-				return  'camera' + index ;
-         } else {
-          //  return index + ":00";
+
           return  'camera' + index ;
-         }
+
       },
 
       _amOrPm : function (hourOfDay) {

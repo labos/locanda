@@ -1,5 +1,38 @@
 $(document).ready(function() {
+		
+		/*change rate for room*/
+	 $.fn.changeRate = function (amount, first, second) {
+		 var currency = "&euro";
+		 var result = false;
+		 if( typeof(amount) !== "undefined" && typeof(first) !== "undefined" && typeof(second) !== "undefined")
+			 {
+			 
+			 var infos = $(this).children("span");
+		 if(infos  && typeof (infos) == "object"  && infos.length)
+			 {
+			 
+			 try {
+				infos.eq(0).html(amount + ' ' + currency);
+				 infos.eq(1).html(' / ' + first);
+				 infos.eq(2).html(' / ' + second); 
+				 result = true;
+			 }
+			 
+			 catch(e)
+			 {
+				result = false; 
+				 
+			 }		 		
 
+			 }	
+		 
+			 }
+		 
+		 return result;
+		 
+	 }
+	 
+	
   	$(".btn_check_in").button({
   		icons: {
             primary: "ui-icon-check"
@@ -23,7 +56,17 @@ $(document).ready(function() {
 		$("#change_rate").toggle(function(){
 		$(".type_rooms").show();
 		},function(){
-		$(".type_rooms").hide();	
+		$(".type_rooms").hide();
+		
+		_first = $('input:radio[name="per_room_person"]:checked');
+		 _first = (_first.val() !== "")? _first.siblings("label").html() : "error";
+		_second = $('input:radio[name="per_night_week"]:checked');
+		_second = (_second.val() !== "")? _second.siblings("label").html() : "error";
+		_amount = $('input[name="per_value"]');
+		_amount = (_amount.val() !== "")? _amount.val() : "error";
+		
+		if($("#rate").changeRate(_amount, _first, _second) !== false);
+		
 		});
 	   
 		  $(".yform").validate();
@@ -43,7 +86,7 @@ $(document).ready(function() {
       allowCalEventOverlap : false,
       overlapEventsSeparate: false,
       firstDayOfWeek : 1,
-       businessHours :{start: 1, end: num_rooms, limitDisplay: true },
+       businessHours :{start: 0, end: num_rooms, limitDisplay: true },
       daysToShow :10,
       //added by Alberto
       listRooms: list_rooms,
@@ -212,7 +255,7 @@ $(document).ready(function() {
    });
 
    function resetForm($dialogContent) {
-      $dialogContent.find("input").val("");
+      $dialogContent.find("input:text").val("");
       $dialogContent.find("textarea").val("");
    }
    
