@@ -397,23 +397,11 @@ display: inline;
     padding: 3%;
   }
   
-  .btn_addExtra {
-  	display: none;
-  }
-  
-  #extraForm {
-  	display: none;
-  }
-  
-  #extraList {
-  	display: none;
-  }
-  
-  #newExtra {
+  #extraForm, #extraList, #newExtra {
   	display: none;
   }
  
-  #price_room, #extra_room, #subtotal_room, #balance_room{
+  #price_room, #extra_room, #subtotal_room, #balance_room {
 	font-size: 20px;
   }
 #extra_value_adjustment, #extra_adjustment, #per_value, #all_year, #next_thanks {

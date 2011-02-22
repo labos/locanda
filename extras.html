@@ -25,30 +25,37 @@
             primary: "ui-icon-circle-plus"
         }
   	});
+	
   	$(".btn_saveExtra").button({
   		icons: {
             primary: "ui-icon-check"
         }
   	});
+	
   	$(".btn_cancel").button({
   		icons: {
             primary: "ui-icon-cancel"
         }
   	});
+	
     $(".btn_addExtra").click(function() {
       $(this).hide();	
-	  $(".yform").show();
-	  $("#extraName, .btn_cancel").show();
+	  $("#extraForm").show();
   	});
-	$("#extraForm").submit(function() {	
-  	  $(".btn_addExtra").show();
+	
+	$(".btn_saveExtra").click(function() {
+	  $("#extraForm").hide();
 	  values.push($("#extraName").val());
-	  $("#extraList").html("<hr>" +
-	  	values.join('<hr>'));
+	  var added = $("#newExtra").clone().insertAfter(this).attr("id", function(){
+	  	return this.id + "_" + values.length;
+	  	}).show();
+	  added.find("input").attr("name", function(){
+	  	return this.name + "_" + values.length;
+	  	});
+	  $(".btn_addExtra").show();
 	  $("#extraList").show();
-	  $(".btn_cancel, #extraName").hide();
-	  return false;
     });
+	
     $(".btn_cancel").click(function() {	
   	  $("#extraForm").hide();
   	  $(".btn_addExtra").show();
@@ -116,37 +123,56 @@
           	  <span class="name_section">Manage Extras</span>
       	 	</div>
       	
-		  <span class="yform">
-        	<fieldset>
-              <legend>Insert and configure extras here</legend>
-            <div class="type-button">
-        	  <button class="btn_addExtra" role="button" aria-disabled="false">Add Extra</button>
-        	</div>
-        	<form method="post" action="" id="extraForm" class="yform" role="application">
-              <div class="type-text">
-                <label for="extraName">Extra name</label>
-                <input type="text" class="required" name="extraName" id="extraName" aria-required="true"/>
-              </div>
-              <div class="type-button">
-        		<button class="btn_saveExtra" role="button" aria-disabled="false">Save</button>
-        		<button class="btn_cancel" role="button" type="button" aria-disabled="false">Cancel</button>
-        	  </div> 
-         	</form>
-			<div id="extraList">
-				<form id="newExtra">
-					</hr>
-				</form>
-			</div>
-				
-			
-			</fieldset>
-		  </span>
-		  </div>
+               <span class="yform">
+                   <fieldset>
+                       <legend>
+                           Insert and configure extras here
+                       </legend>
+                       <div>
+                           <button class="btn_addExtra" role="button" aria-disabled="false">
+                               Add Extra
+                           </button>
+                       </div>
+					   
+                       <form method="post" action="" id="extraForm" class="yform" role="application">
+                           <div class="type-text">
+                               <label for="extraName">
+                                   Extra name
+                               </label>
+                               <input type="text" class="required" name="extraName" id="extraName" aria-required="true"/>
+                           </div>
+                           <div class="type-button">
+                               <button class="btn_saveExtra" role="button" type="button" aria-disabled="false">
+                                   Save
+                               </button>
+                               <button class="btn_cancel" role="button" type="button" aria-disabled="false">
+                                   Cancel
+                               </button>
+                           </div>	   
+                       </form>
+					   
+                       <div id="extraList">
+                           <div id="newExtra">
+                             </hr>
+                           	 <input type="radio" name="rate1" value="room" />per Room
+                             <br/>
+                             <input type="radio" name="rate1" value="person" />per Person
+                             <br/>
+                             <input type="radio" name="rate1" value="item" />per Item <hr/>
+                       	   </div>
+                       </div>
+                   </fieldset>
+               </span>
+		  
+		  </div><!-- end: #col3_content-->
+		  
           <div id="ie_clearing">
             &nbsp;
-          </div><!-- End: IE Column Clearing -->        
-      </div><!-- end: #col3 -->
+          </div><!-- End: IE Column Clearing -->
+		     
+        </div><!-- end: #col3 -->
       </div><!-- end: #main -->
+	  
       <!-- begin: #footer -->   
       <div id="footer" role="contentinfo">
         <img src="images/labos-small.png" alt="Laboratorio Open Source" class="left" />
