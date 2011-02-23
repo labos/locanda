@@ -32,10 +32,11 @@ $(document).ready(function(){
 	     }});
 	 
   $("#rename_season").toggle(function(){
-	  $('input[name="season_name"]').focus().css("border","1px solid");
+	  $('input[name="season_name"]').focus().css("border","1px solid").removeAttr("readonly");
   }, 
   function(){
-	  $('input[name="season_name"]').css("border","none");
+	  $('input[name="season_name"]').css("border","none").attr("readonly","true");
+
   });
   
   
@@ -137,7 +138,7 @@ $(document).ready(function(){
             <fieldset>
               <legend>Seasons</legend>
               <div class="subcolumns">
-              <span class="title_season"><input type="text"name="season_name" value="Your first season"/></span>&nbsp; (<a href="#" id="rename_season" title="rename" >Rename</a>)&nbsp;(<a href="#" title="delete" >delete season</a>)
+              <span class="title_season"><input type="text"name="season_name" value="Your first season" readonly="readonly"/></span>&nbsp; (<a href="#" id="rename_season" title="rename" >Rename</a>)&nbsp;(<a href="#" title="delete" >delete season</a>)
               </div>
               <div class="subcolumns">
               <a href="#" id="add_period" title="add period">Add New Period</a></div>
