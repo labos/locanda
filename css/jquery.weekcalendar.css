@@ -153,7 +153,7 @@ table.wc-time-slots {
 
 
 .wc-cal-event {
-	background-color: #68a1e5;	
+	background-color: #BFE843;	
 	filter:alpha(opacity=80);
 	-moz-opacity:0.8;
 	-khtml-opacity: 0.8;
@@ -162,7 +162,7 @@ table.wc-time-slots {
 	text-align: center;
 	overflow: hidden;
 	cursor: pointer;
-	color: #fff;
+	color: #000000;
 	width: 100%;
 	display: none;
 }

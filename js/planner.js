@@ -3,18 +3,19 @@ $(document).ready(function() {
 		/*change rate for room*/
 	 $.fn.changeRate = function (amount, first, second) {
 		 var currency = "&euro";
+		 var to_replace ="Per ";
 		 var result = false;
-		 if( typeof(amount) !== "undefined" && typeof(first) !== "undefined" && typeof(second) !== "undefined")
+		 if( typeof amount !== "undefined" && typeof first !== "undefined" && typeof second !== "undefined")
 			 {
 			 
 			 var infos = $(this).children("span");
-		 if(infos  && typeof (infos) == "object"  && infos.length)
+		 if(infos  && typeof infos === "object"  && infos.length)
 			 {
 			 
 			 try {
 				infos.eq(0).html(amount + ' ' + currency);
-				 infos.eq(1).html(' / ' + first);
-				 infos.eq(2).html(' / ' + second); 
+				 infos.eq(1).html(' / ' + first.replace(to_replace, ""));
+				 infos.eq(2).html(' / ' + second.replace(to_replace, "")); 
 				 result = true;
 			 }
 			 
@@ -55,6 +56,7 @@ $(document).ready(function() {
 		$(".type_rooms").hide();
 		$("#change_rate").toggle(function(){
 		$(".type_rooms").show();
+		$(this).html("done");
 		},function(){
 		$(".type_rooms").hide();
 		
@@ -66,7 +68,7 @@ $(document).ready(function() {
 		_amount = (_amount.val() !== "")? _amount.val() : "error";
 		
 		if($("#rate").changeRate(_amount, _first, _second) !== false);
-		
+		$(this).html("change rate for this booking");
 		});
 	   
 		  $(".yform").validate();
@@ -145,7 +147,7 @@ $(document).ready(function() {
             close: function() {
                $dialogContent.dialog("destroy");
                $dialogContent.hide();
-               //--$('#calendar').weekCalendar("removeUnsavedEvents");
+              $('#calendar').weekCalendar("removeUnsavedEvents");
             },
             buttons: {
                save : function() {
@@ -166,7 +168,7 @@ $(document).ready(function() {
                   
                },
                cancel : function() {
-            	   $calendar.weekCalendar("removeUnsavedEvents");
+            	 
                   $dialogContent.dialog("close");
                   
                }

@@ -532,12 +532,25 @@ _setupEventCreationForRoom : function($weekDay) {
          //IL SEGUENTE ARRAY CONTIENE LA LISTA DEI TD DELLA TABELLA INTERESSATI CORRENTEMENTE AD UN
          //NUOVO BOOKING
          self.day_booked = new Array();  
+         
+         
          /* ADD MOUSEDOWN EVENT LISTENER */
          $weekDay.mousedown(function(event) {
             var $target = $(event.target);
             var number_slots=0;
-				self.day_booked = new Array();  
+				self.day_booked = new Array();
+		
+                //se il target del click  ha la classe wc-cal-event, allora 
+                if ($target.hasClass("wc-time")) {
+                	
+                	var id_book_room= $target.find('input[name="id_booked_room"]').val();	
+                options.eventClick({start: self.formatDate(new Date($target.parent().parent().data("startDate")), "M/d/Y"  ), end: self.formatDate(new Date($target.parent().parent().data("startDate")),"M/d/Y" ), id_booked:id_book_room}, $target, event);
+                return;
+                									   }
+				
             if ($target.hasClass("wc-day-column-inner")) {
+            	
+            	
 					// iniziamo a costruire i div che contengono la casella con il nuovo appuntamento.
                var $newEvent = $("<div class=\"wc-cal-event wc-new-cal-event wc-new-cal-event-creating\"></div>");
 					//adesso regoliamo il css
@@ -553,7 +566,7 @@ _setupEventCreationForRoom : function($weekDay) {
                //numero intero di timeslots.
                var topPosition = clickYRounded * options.timeslotHeight;
                $newEvent.css({top: topPosition});
-               
+               number_slots=1;
                       
                 /****************************************************************/  
 					/* ADESSO SETTIAMO PER LE SELEZIONI ORIZZONTALI MULTIPLE */
@@ -591,14 +604,16 @@ _setupEventCreationForRoom : function($weekDay) {
 				var clickX = event.pageX - rowOffset; 
 				//ora calcoliamo una lunghezza. Quante volte questa lunghezza è contenuta nella distanza 
 				//dal lato sinistro alla posizione del mouse, mi dà il numero di caselle che aggiungo.
-				var halfWidthEvent = Math.round(options.defaultEventWidth/2)
+				var halfWidthEvent = Math.round(options.defaultEventWidth/2);
 				//se lo spostamento con il mouse è almeno la metà della lunghezza di default di una casella, allora....
+				
 				     if (clickX > halfWidthEvent) {
 					//trovo sempre il parent della casella cliccata.
+				    	
 					self.day_booked[0]=$target.parent();
 				if( Math.floor(clickX/halfWidthEvent)>number_slots )
 				{
-					number_slots= Math.floor(clickX/halfWidthEvent);	
+					
 
 var $newEventHor2 = $("<div class=\"wc-cal-event wc-new-cal-event wc-new-cal-event-creating\"></div>");
 					//adesso regoliamo il css
@@ -608,7 +623,8 @@ var $newEventHor2 = $("<div class=\"wc-cal-event wc-new-cal-event wc-new-cal-eve
                //adesso appendo il div creato dell'appuntamento.
               //-- var next= $target.siblings();
               //-- next= next.prevObject;
-   				
+   				//--console.log (self.day_booked);
+   				// -- console.log ("number_slots " + number_slots);
    				//ora assegno come elemento dell'array il td successivo a quello corrente.
             self.day_booked[number_slots]= self.day_booked[number_slots-1].next();
               //ora aggiungo il div evento al td che ho appena aggiunto.
@@ -618,26 +634,46 @@ var $newEventHor2 = $("<div class=\"wc-cal-event wc-new-cal-event wc-new-cal-eve
                  //-- $newEventHor2.addClass("ui-corner-all");
                      $newEventHor2.show();								        					
 
+                     
+                     number_slots= Math.floor(clickX/halfWidthEvent);	
+                     
+                     
+                     
 					}// se invece il mouse lo stò spostando in una posizione all'indietro...
 				else if (number_slots > 0 && Math.floor(clickX/halfWidthEvent)<number_slots)
 					{
 					//ora ciclo a partire dall'ultimo giorno selezionato sino al punto mouse in cui mi sono fermato
 					var i;
-					for(i=number_slots; i>=Math.floor(clickX/halfWidthEvent); i--){
+					for(i=self.day_booked.length; i>Math.floor(clickX/halfWidthEvent); i--){
 						/*var prova = self.day_booked[i].children().children(".wc-cal-event").find(".wc-time");*/
+						try{
+							self.day_booked[i - 1].children().children(".wc-cal-event:empty").remove();
+						}
+						catch(e)
+						{
+							var lunghezza = number_slots;
+							var array = self.day_booked;
+							var clicco = clickX;
+							console.log("Problem at remove event moving the mouse back " + self.day_booked);
+						}
 						
-						self.day_booked[i].children().children(".wc-cal-event:empty").remove();
 
 						
 					
 					}
-					self.day_booked.slice(0, Math.floor(clickX/halfWidthEvent));
-					number_slots= Math.floor(clickX/halfWidthEvent);
+					self.day_booked = self.day_booked.slice(0, Math.floor(clickX/halfWidthEvent));
+					//---number_slots= Math.floor(clickX/halfWidthEvent);
+					number_slots= self.day_booked.length;
 					//una volta che ho cancellato gli eventi tra l'ultimo giorno selezionato e quello in cui mi sono
 					//fermato tornando indietro, allora ridimensiono l'array dei giorni bookati.
 
 					}
 					}
+				     else {
+				    	 //sono andato con il mouse prima del target sul quale ho cliccato e mi sono mosso, ovvero sono andato a sinistra tutto
+				    	 
+				    	 return;
+				     }
 				
 				
                }).mouseup(function() {
@@ -656,10 +692,16 @@ var $newEventHor2 = $("<div class=\"wc-cal-event wc-new-cal-event wc-new-cal-eve
             }
 
          }).mouseup(function(event) {
+        	 
+        	 var $weekDay;
+        	 var $renderCalEvent;
          //ora controllo il rilascio del pulsante del mouse nel caso in cui io ho cliccato ma non mosso il mouse.
-            var $target = $(event.target);
+        	 if($.isArray(self.day_booked)  && self.day_booked.length === 0)
+        		 {
+        		 
+        		           var $target = $(event.target);
 				//ora vado al parent dell'elemento cliccato
-            var $weekDay = $target.closest(".wc-day-column-inner");
+            $weekDay = $target.closest(".wc-day-column-inner");
             //ora che sono arrivato al parent, cerco il div dell'evento in via di creazione
             var $newEvent = $weekDay.find(".wc-new-cal-event-creating");
 			
@@ -674,7 +716,7 @@ var $newEventHor2 = $("<div class=\"wc-cal-event wc-new-cal-event wc-new-cal-eve
 
                $newEvent.remove();
                var newCalEvent = {start: eventDuration.start, end: eventDuration.end, title: options.newEventText, top:eventDuration.topY};
-               var $renderedCalEvent = self._renderEvent(newCalEvent, $weekDay);
+              $renderedCalEvent = self._renderEvent(newCalEvent, $weekDay);
 
                if (!options.allowCalEventOverlap) {
                   self._adjustForEventCollisions($weekDay, $renderedCalEvent, newCalEvent, newCalEvent);
@@ -684,7 +726,10 @@ var $newEventHor2 = $("<div class=\"wc-cal-event wc-new-cal-event wc-new-cal-eve
                }
 
               //-- options.eventNew(eventDuration, $renderedCalEvent);
-            }
+            } 
+        		 
+        		 }
+ 
             
 /******************************************************************/
 //ora scorriamo i vari div di day_booked e settiamo definitivamente
@@ -692,7 +737,7 @@ var $newEventHor2 = $("<div class=\"wc-cal-event wc-new-cal-event wc-new-cal-eve
 $.each(self.day_booked, function(key,value){
 
 				//ora vado al parent dell'elemento cliccato
-            var $weekDay = value.children();
+            $weekDay = value.children();
 
             //ora che sono arrivato al parent, cerco il div dell'evento in via di creazione
             var $newEvent = $weekDay.find(".wc-new-cal-event-creating");
@@ -708,7 +753,7 @@ $.each(self.day_booked, function(key,value){
 
                $newEvent.remove();
                var newCalEvent = {start: eventDuration.start, end: eventDuration.end, title: options.newEventText, top:eventDuration.topY};
-               var $renderedCalEvent = self._renderEvent(newCalEvent, $weekDay);
+               $renderedCalEvent = self._renderEvent(newCalEvent, $weekDay);
 
                if (!options.allowCalEventOverlap) {
                   self._adjustForEventCollisions($weekDay, $renderedCalEvent, newCalEvent, newCalEvent);
@@ -753,7 +798,7 @@ else {
 	}
 	catch(e){
 		//gestisci eccezzioni
-			
+			console.log ("problem at startDate settings...");
 		}
 	
 }
