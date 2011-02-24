@@ -381,15 +381,15 @@ display: inline;
 }
 
  .right {
-  	float:right;
+  	float: right;
   }
   
   .left {
-  	float:left;
+  	float: left;
   }
   
   .center {
-    text-align:center;
+    text-align: center;
   }
   
   #home {
@@ -397,8 +397,17 @@ display: inline;
     padding: 3%;
   }
   
-  #extraForm, #extraList, #newExtra {
+  #extraForm, #extraList, #newExtra, .renameExtraForm {
   	display: none;
+  }
+  
+  .newExtra {
+  	height: 8em;
+  }
+  
+  .radiogroup {
+  	float: right;
+	margin: 1.1em;
   }
  
   #price_room, #extra_room, #subtotal_room, #balance_room {
