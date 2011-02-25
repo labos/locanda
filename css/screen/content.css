@@ -406,8 +406,19 @@ display: inline;
   }
   
   .radiogroup {
-  	float: right;
-	margin: 1.1em;
+	margin-left: 1.2em;
+	margin-right: 1.2em;
+  }
+  
+  .renameExtra, .deleteExtra {
+  	
+  	margin-left: 1.2em;
+	margin-right: 1.2em;
+  }
+  
+  .priceExtraForm {
+  	margin-right: 10em;
+  	
   }
  
   #price_room, #extra_room, #subtotal_room, #balance_room {
