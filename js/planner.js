@@ -42,14 +42,57 @@ $(document).ready(function() {
   	
 	   /* extras and pay adjustment */
 	   
-	   $('input[name="extra_value_adjustment"], input[name="pay_value_adjustment"]').keyup(function() {
+	   $('input[name="extra_value_adjustment[]"], input[name="pay_value_adjustment[]"]').keyup(function() {
 		   var current_parent=$(this).parents(".type-text");
-		   var copy_parent = current_parent.clone(true);
+		   /* prepare selector string for class whit whitespaces */
+		   var current_class_selector = $(this).attr("class").replace( new RegExp(" ","g"), ".");
+		   /* check if current was cloned */
+		   var next_sibling = current_parent.next().find("." + current_class_selector);
+		   if( next_sibling  && ! next_sibling.size() > 0 )
+			   {
+				   var copy_parent = current_parent.clone(true);
 		   copy_parent.find(".green").remove();
 		   copy_parent.find("input").val("");
 		   //copy_parent.find($(this)).bind('keyup',cloneEvent);
-		   copy_parent.insertAfter(current_parent);
-		   $(this).unbind('keyup');
+		   copy_parent.insertAfter(current_parent);	   
+			   
+			   }
+
+		   /* adjust subtotal ... */
+		   var new_subtotal = null;
+		   if(current_class_selector.indexOf("extra_value_adjustment") >= 0)
+		   { new_subtotal = parseInt($("#subtotal_room").val()); 
+		   
+		      /* code for calcute new subtotal */
+			  $("." + current_class_selector).each( function(key, value) {
+				   
+				  if( $(value).valid() )
+				   {
+			   new_subtotal = new_subtotal + parseInt ( $(value).val() );
+				   }
+		  		   });   
+		     $(".subtotal_room").html(new_subtotal);
+		   /* end code for subtotal calculation */
+		   }
+		   else
+		   { new_subtotal = parseInt($("#balance_room").val()); 
+		      /* code for calcute new subtotal */
+			  $("." + current_class_selector).each( function(key, value) {
+				   
+				  if( $(value).valid() )
+				   {
+			   new_subtotal = new_subtotal - parseInt ( $(value).val() );
+				   }
+		  		   });   
+		     $(".balance_room").html(new_subtotal);
+		   /* end code for subtotal calculation */
+		   
+		   
+		   }
+		  
+		   
+		   
+		  //--- $(this).unbind('keyup');
 		   
 		 });
 	   
