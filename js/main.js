@@ -1,6 +1,8 @@
 $(document).ready(function() {
-		
-		/*change rate for room*/
+
+	
+		//---  PLANNER SECTION CODE   
+		// change rate for room
 	 $.fn.changeRate = function (amount, first, second) {
 		 var currency = "&euro";
 		 var to_replace ="Per ";
@@ -486,6 +488,51 @@ $(document).ready(function() {
    var $about = $("#about");
 
  
-
-
+   	//---  END PLANNER SECTION CODE   
+   
+   
+   //---  LOGIN SECTION CODE   
+   		
+   		$(".yform").validate();
+   		$(".btn_submit").button();
+   		
+   //---  END LOGIN SECTION CODE   
+   
+   
+   //---  ROOMS SECTION CODE   
+   
+   //---  END ROOMS SECTION CODE  
+   
+   
+   //---  SEASONS SECTION CODE   
+   
+   //---  END SEASONS SECTION CODE  
+   
+   
+   //---  GUESTS SECTION CODE   
+   
+   //---  END GUESTS SECTION CODE  
+   
+   
+   //---  EXTRAS SECTION CODE   
+   
+   //---  END EXTRAS SECTION CODE  
+   
+   
+   //---  DETAILS SECTION CODE   
+   
+   //---  END DETAILS SECTION CODE  
+   
+   
+   //---  CUSTOMER SECTION CODE   
+   
+   //---  END CUSTOMER SECTION CODE  
+   
+   
+   //---  BOOK SECTION CODE   
+   
+   //---  END BOOK SECTION CODE  
+   
+   
+   
 });
