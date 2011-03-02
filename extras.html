@@ -18,7 +18,7 @@
   $(function(){
 	
 	var values = []; 
-	$(".yform").validate();
+	$("#extraForm").validate();
 	$(".btn_addExtra").show();
   	$(".btn_addExtra").button({
   		icons: {
@@ -78,6 +78,7 @@
 		  $(".renameExtra").show();
 		  $(this).siblings(".extraName").text(newName);
 		  $(".extraName").show();
+		  $("#extraForm").valid();
 		});
 	  
 	  
@@ -163,10 +164,10 @@
                            </button>
                        </div>
 					   
-                       <form method="post" action="" class="yform" id="extraForm" role="application">
+                       <form method="post" action="#"  id="extraForm" role="application">
                            <div class="type-text">
                                <label for="extraFormName">
-                                   Extra name
+                                   Extra name <sup title="This field is mandatory.">*</sup>
                                </label>
                                <input type="text" class="required" name="extraFormName" id="extraFormName" aria-required="true"/>
                            </div>
@@ -181,9 +182,9 @@
                        </form>
 					   
                        <div id="extraList">
-                           <div class="newExtra "id="newExtra">
+                           <div class="newExtra" id="newExtra">
                              <hr/>
-							 <input type="text" class="renameExtraForm" name="renameExtraForm" value=""/>
+							 <input type="text" class="renameExtraForm required" name="renameExtraForm" value=""/>
 							 <a href="#" class="renameExtra" title="rename">Rename</a>
 							 <a href="#" class="deleteExtra" title="delete">Delete</a>
 							 
@@ -202,9 +203,9 @@
                              <input type="radio" name="rate1" value="item" />per Item
 							 </div>
 							 <div class="priceExtraForm right">
-							 	Price
-							   <input type="text" name="priceExtraForm" value=""/>
-							 <div>
+							 	Price - &euro;
+							   <input type="text" name="priceExtraForm" class="required number" value=""/>
+							 </div> 
                        	   </div>
                        </div>
                    </fieldset>

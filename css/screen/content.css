@@ -418,7 +418,10 @@ display: inline;
   
   .priceExtraForm {
   	margin-right: 10em;
-  	
+  }
+  
+  .extraName {
+  	font-weight: bold;
   }
  
   #price_room, #extra_room, #subtotal_room, #balance_room {
