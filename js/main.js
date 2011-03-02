@@ -1,5 +1,6 @@
 $(document).ready(function() {
 
+	$(".yform").validate();  
 	
 		//---  PLANNER SECTION CODE   
 		// change rate for room
@@ -129,7 +130,7 @@ $(document).ready(function() {
 		$(this).html("change rate for this booking");
 		});
 	   
-		  $(".yform").validate();  
+		  
 	   
 	   
 	   
@@ -515,7 +516,6 @@ $(document).ready(function() {
    
    //---  LOGIN SECTION CODE   
    		
-   		$(".yform").validate();
    		$(".btn_submit").button();
    		
    //---  END LOGIN SECTION CODE   
