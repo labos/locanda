@@ -76,10 +76,7 @@
       <!-- end: #col3 -->
     </div>
     <!-- end: #main -->
-    <!-- begin: #footer -->
-    <div id="footer" role="contentinfo">Locanda<br />
-        Open Source Booking Software</div>
-    <!-- end: #footer -->
+    <%@ include file="footer.jsp" %>
   </div>
 </div>
 <!-- full skiplink functionality in webkit browsers -->

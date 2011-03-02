@@ -67,7 +67,7 @@
             <li><a href="#">Help</a></li>
           </ul>
         </div>
-      </div><!-- end: main navigation -->="online.html">ONLINE BOOKINGS</a></li>
+      </div><!-- end: main navigation -->="online.jsp">ONLINE BOOKINGS</a></li>
     			<li class="ui-menu-item"><a href="seasons.html">SEASONS</a></li>
     			<li class="ui-menu-item"><a href="emails.html">EMAILS</a></li>
     			<li class="ui-menu-item"><a href="details.html">YOUR DETAILS</a></li>
@@ -153,16 +153,7 @@
           </div><!-- End: IE Column Clearing -->
         </div><!-- end: #col3 -->
       </div><!-- end: #main -->
-	<!-- begin: #footer -->
-   <div id="footer" role="contentinfo">
-        <img src="images/labos-small.png" alt="Laboratorio Open Source" class="left" />
-        <img src="images/sardegna_ricerche.png" alt="Sardegna Ricerche" class="left" />
-        <img src="images/regione.gif" alt="Regione Autonoma della Sardegna" class="right" />
-        <img src="images/governo.gif" alt="Repubblica Italiana" class="right" />
-        <img src="images/unione_europea.gif" alt="Unione Europea" class="right" />
-        <span class="center">Locanda<br />
-        Open Source Booking Software<br /><br /></span>
-      </div><!-- end: #footer -->
+	<%@ include file="footer.jsp" %>o
     </div>
   </div><!-- full skiplink functionality in webkit browsers -->
   <script src="yaml/core/js/yaml-focusfix.js" type="text/javascript">
