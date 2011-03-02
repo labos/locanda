@@ -595,6 +595,17 @@ $(document).ready(function() {
 	      });
 	  
 	  
+	  $(".btn_save_guest").button({
+	      icons: {
+	          primary: "ui-icon-circle-plus"
+	      }});
+	  
+	  $(".btn_edit_guest").button({
+	      icons: {
+	          primary: "ui-icon-check"
+	      }});
+	  
+	  
    //---  END GUESTS SECTION CODE  
    
    
