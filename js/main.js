@@ -98,6 +98,19 @@ $(document).ready(function() {
 		   
 		 });
 	   
+
+		
+   var $calendar = $('#calendar');
+   var id = 10;
+   /* setting rooms_list array */
+   var list_rooms=new Array(1, 4, 23, 35,36,37,38,39,40,41,42,43,44,45,49,52,53,54,55);
+   /* setting number of rooms */
+	var num_rooms=list_rooms.length;
+	
+   if($calendar.length > 0)
+	   	   {
+	   
+	   
 		$(".type_rooms").hide();
 		$("#change_rate").toggle(function(){
 		$(".type_rooms").show();
@@ -116,14 +129,10 @@ $(document).ready(function() {
 		$(this).html("change rate for this booking");
 		});
 	   
-		  $(".yform").validate();
-		
-   var $calendar = $('#calendar');
-   var id = 10;
-   /* setting rooms_list array */
-   var list_rooms=new Array(1, 4, 23, 35,36,37,38,39,40,41,42,43,44,45,49,52,53,54,55);
-   /* setting number of rooms */
-	var num_rooms=list_rooms.length;
+		  $(".yform").validate();  
+	   
+	   
+	   
    $calendar.weekCalendar({
       timeslotsPerHour : 1,
       use24Hour: true,
@@ -301,10 +310,18 @@ $(document).ready(function() {
       }
    });
 
+   
+	 }
+   
+   // END WEEKCALENDAR FUNCTION
+   
+   
+   
    function resetForm($dialogContent) {
       $dialogContent.find("input:text").val("");
       $dialogContent.find("textarea").val("");
    }
+   
    
    function days_between(date1, date2) {
 
@@ -322,6 +339,7 @@ $(document).ready(function() {
 	    return Math.round(difference_ms/ONE_DAY);
 
 	}
+   
    
    function days_between_signed(date1, date2) {
 
@@ -367,6 +385,7 @@ $(document).ready(function() {
 
 	   
    }
+   
 
    function getRoomNameById(id)
    {
@@ -380,6 +399,8 @@ $(document).ready(function() {
 		   return '******';
 	
    }
+   
+   
    function getEventData() {
       var year = new Date().getFullYear();
       var month = new Date().getMonth();
@@ -458,6 +479,7 @@ $(document).ready(function() {
    var $endTimeField = $("select[name='end']");
    var $endTimeOptions = $endTimeField.find("option");
 
+   
    //reduces the end time options to be only after the start time options.
    $("select[name='start']").change(function() {
       var startTime = $(this).find(":selected").val();
@@ -506,16 +528,79 @@ $(document).ready(function() {
    
    //---  SEASONS SECTION CODE   
    
+   		
+		   	 $(".btn_season").button({
+			     icons: {
+			         primary: "ui-icon-circle-plus"
+			     }});
+			 $(".btn_save_all").button({
+			     icons: {
+			         primary: "ui-icon-check"
+			     }});
+			 
+		  $("#rename_season").toggle(function(){
+			  $('input[name="season_name"]').focus().css("border","1px solid").removeAttr("readonly");
+		  }, 
+		  function(){
+			  $('input[name="season_name"]').css("border","none").attr("readonly","true");
+		
+		  });
+		  
+		  
+		 /* Hide/Show season name change */
+		 
+		 $(".btn_season").toggle( function(){
+			 
+			 $("#chng_season_name").show();
+		 }, function(){
+			 
+			 $("#chng_season_name").hide();
+			 
+		 });
+		 
+		
+		 $("#add_period").click( function(){
+			 var dd=  $(".subcolumns").eq(0);
+		
+			 var added= $("#to_add_period").clone().insertAfter(dd).removeAttr("id").show();
+				added.find(".erase_period").click( function(){
+					 
+					$(this).closest(".subcolumns").remove();
+		
+				 });
+		 });
+		 
+		 $(".erase_period").click( function(){
+			 
+			$(this).closest(".subcolumns").remove();
+		
+		 });
    //---  END SEASONS SECTION CODE  
    
    
    //---  GUESTS SECTION CODE   
    
+		 
+		  $(".btn_g_search").button({
+		      icons: {
+		          secondary: "ui-icon-arrowreturnthick-1-e"
+		      }});
+		
+	  $(".btn_add_guest").button({
+	      icons: {
+	          primary: "ui-icon-circle-plus"
+	      }}).click(function(){
+	    	window.location.href="guest_new.html"; 
+	    	return false;
+	      });
+	  
+	  
    //---  END GUESTS SECTION CODE  
    
    
    //---  EXTRAS SECTION CODE   
    
+   		
    //---  END EXTRAS SECTION CODE  
    
    

@@ -14,65 +14,11 @@
     -->
   <script type='text/javascript' src='js/lib/jquery-ui-1.8.9.custom.min.js'>
 </script>
-</script>
   <script type='text/javascript' src='js/ftod.js'>
 </script>
   <script type='text/javascript' src='js/jquery.validate.min.js'>
 </script>
-<script type="text/javascript">
-$(document).ready(function(){
-
-	 $(".btn_season").button({
-	     icons: {
-	         primary: "ui-icon-circle-plus"
-	     }});
-	 $(".btn_save_all").button({
-	     icons: {
-	         primary: "ui-icon-check"
-	     }});
-	 
-  $("#rename_season").toggle(function(){
-	  $('input[name="season_name"]').focus().css("border","1px solid").removeAttr("readonly");
-  }, 
-  function(){
-	  $('input[name="season_name"]').css("border","none").attr("readonly","true");
-
-  });
-  
-  
- /* Hide/Show password change */
- 
- $(".btn_season").toggle( function(){
-	 
-	 $("#chng_season_name").show();
- }, function(){
-	 
-	 $("#chng_season_name").hide();
-	 
- });
- 
-
- $("#add_period").click( function(){
-	 var dd=  $(".subcolumns").eq(0);
-
-	 var added= $("#to_add_period").clone().insertAfter(dd).removeAttr("id").show();
-		added.find(".erase_period").click( function(){
-			 
-			$(this).closest(".subcolumns").remove();
-
-		 });
- });
- 
- $(".erase_period").click( function(){
-	 
-	$(this).closest(".subcolumns").remove();
-
- });
-  
-});
-
-
-</script>
+<script type='text/javascript' src='js/main.js'></script>
   <title>LOCANDA - Open Source Booking Tool</title><!-- (en) Add your meta data here -->
   <!-- (de) Fuegen Sie hier ihre Meta-Daten ein -->
   <link href="css/layout_sliding_door.css" rel="stylesheet" type="text/css" />
