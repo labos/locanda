@@ -381,15 +381,15 @@ display: inline;
 }
 
  .right {
-  	float: right;
+  	float:right;
   }
   
   .left {
-  	float: left;
+  	float:left;
   }
   
   .center {
-    text-align: center;
+    text-align:center;
   }
   
   #home {
@@ -397,6 +397,7 @@ display: inline;
     padding: 3%;
   }
   
+
   #extraForm, #extraList, #newExtra, .renameExtraForm {
   	display: none;
   }
@@ -415,19 +416,17 @@ display: inline;
   	margin-left: 1.2em;
 	margin-right: 1.2em;
   }
+
   
   .priceExtraForm {
   	margin-right: 10em;
-  }
-  
-  .extraName {
-  	font-weight: bold;
+  	
   }
  
-  #price_room, #extra_room, #subtotal_room, #balance_room {
+  #price_room, #extra_room, #extras_room, .subtotal_room, .balance_room {
 	font-size: 20px;
   }
-#extra_value_adjustment, #extra_adjustment, #per_value, #all_year, #next_thanks {
+.extra_value_adjustment, #extra_adjustment, #per_value, #all_year, #next_thanks, #per_breakfast, #per_parking {
 width: 40px;
 display: inline;
 }
@@ -478,6 +477,7 @@ font-weight: 600;
 
 .btn_g_search{
 margin-left: 8px;
+margin-top: 0px;
 }
 div.search_links {
 clear: left;
@@ -518,3 +518,9 @@ color:#4D87C7;
  background:transparent;
  text-decoration:none; 
 }
+
+#change_rate:hover, #change_rate:focus{
+outline: none;
+
+}
+
