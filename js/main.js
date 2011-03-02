@@ -521,9 +521,66 @@ $(document).ready(function() {
    //---  END LOGIN SECTION CODE   
    
    
-   //---  ROOMS SECTION CODE   
+   //---  ADD ROOMS SECTION CODE   
    
-   //---  END ROOMS SECTION CODE  
+   	  $(".btn_save").button({
+   	      icons: {
+   	          primary: "ui-icon-check"
+   	      }});
+ 
+   	 
+   	 $(".btn_delete").button({
+   	     icons: {
+   	         primary: "ui-icon-trash"
+   	     }});
+   	 
+   	 /* describe editing handler */
+   	 $(".describe_edit").toggle(function(){
+   		
+   		 $(this).siblings(":input").removeClass("describe").attr('readonly', false) ;
+   		 
+   	 }, function(){
+
+   		 $(this).siblings(":input").addClass("describe").attr('readonly', true) ; 
+   		 
+   	 });
+   	 /* hide number of rooms  for default... */
+   	 $(".num_of_rooms").hide();
+   	 
+   	 $('input[name="several_rooms"]').click(function(){
+   	   if($(this).is(":checked") ) {
+   	  $(".num_of_rooms").show();
+   	 $(this).attr("checked", "checked");
+   	 }
+   	 else
+   	 {
+   	  $(".num_of_rooms").hide();
+   	 $(this).removeAttr('checked');
+
+   	 }
+   	 });
+   	 
+
+   	 
+
+   	 
+   	 $('input[name="room_name"]').focus(function(){
+   		 var edited_class="edited_room_name";
+   		  
+   		if(!$(this).hasClass(edited_class))
+   			{
+   			 $(this).val("");
+   			 $(this).addClass(edited_class);
+   			 $(this).effect("highlight", {}, 3000);
+
+   			}
+   		 $(this).effect("pulsate", { times:3 },1000);
+
+   		 });
+   		
+   		
+   		
+   //---  END ADD ROOMS SECTION CODE  
    
    
    //---  SEASONS SECTION CODE   
@@ -617,6 +674,40 @@ $(document).ready(function() {
    
    //---  DETAILS SECTION CODE   
    
+	  
+	  $('a[id*=toggle]').click(function(){
+		    if ($(this).hasClass('active') === true) {
+		      $('a').removeClass('active');
+		      $('body').removeAttr('class');
+		    } else {
+		      $('a').removeClass('active');
+		      $('body').removeAttr('class').addClass($(this).text());
+		      $(this).addClass('active');
+		    }     
+		  });
+		  $('a#formReset').click(function(){
+		      $('a').removeClass('active');
+		      $('body').removeAttr('class');
+		      $(this).addClass('active');
+		  });
+
+		  $(".btn_reset").button({
+		      icons: {
+		          primary: "ui-icon-cancel"
+		      }});
+		  
+		  
+		 /* Hide/Show password change */
+		 
+		 $("#change_pwd").toggle( function(){
+			 
+			 $(".chng_pwd").show();
+		 }, function(){
+			 
+			 $(".chng_pwd").hide();
+			 
+		 });
+		 
    //---  END DETAILS SECTION CODE  
    
    
@@ -627,8 +718,106 @@ $(document).ready(function() {
    
    //---  BOOK SECTION CODE   
    
+			$.ajaxSetup({beforeSend: function(xhr){
+				  if (xhr.overrideMimeType)
+				  {
+				    xhr.overrideMimeType("application/json");
+				  }
+				}
+				});
+
+			$( "#datepicker" ).datepicker({
+				showOn: "button",
+				buttonImage: "images/calendar.gif",
+				buttonImageOnly: true
+			});
+			
+			var cache = {},lastXhr;
+			   $('input[name="fullname"]').autocomplete({
+					minLength: 2,
+					source: function( request, response ) {
+						var term = request.term;
+						if ( term in cache ) {
+							response( cache[ term ] );
+							return;
+						}
+
+						lastXhr = $.getJSON( "customer.json", request, function( data, status, xhr ) {
+							cache[ term ] = data.customers;
+							if ( xhr === lastXhr ) {
+								response( data.customers );
+							}
+						});
+					}
+				});
+			   
+			   
+			   /* extras and pay adjustment */
+			   
+			   $('input[name="extra_value_adjustment"], input[name="pay_value_adjustment"]').keyup(function() {
+				   var current_parent=$(this).parents(".type-text");
+				   var copy_parent = current_parent.clone(true);
+				   copy_parent.find(".green").remove();
+				   copy_parent.find("input").val("");
+				   //copy_parent.find($(this)).bind('keyup',cloneEvent);
+				   copy_parent.insertAfter(current_parent);
+				   $(this).unbind('keyup');
+				   
+				 });
+				//--- $(".type_rooms").hide();
+				$("#change_rate").toggle(function(){
+				$(".type_rooms").show();	
+				},function(){
+				$(".type_rooms").hide();	
+				});
+				
+
+		 
    //---  END BOOK SECTION CODE  
    
-   
+	  
+	//---  EMAIL SECTION CODE   
+	  /* Hide/Show usable parameters */
+	  
+	  $("#show_usable").toggle( function(){
+	 	 
+	 	 $(".list_usable").show();
+	  }, function(){
+	 	 
+	 	 $(".list_usable").hide();
+	 	 
+	  });
+	  
+	  
+	//---  END EMAIL SECTION CODE  
+	  
+	  
+	//---  ACCOMODATION SECTION CODE     
+	  $(".min_stay").click(function(){
+			 if($(this).hasClass("clickable"))
+				 {
+				 $(".price_show").addClass("clickable");
+				 $(this).removeClass("clickable");
+				 $(".price_type").hide();
+				 }
+
+		 });
+		 
+		 $(".price_show").click(function(){
+		 if($(this).hasClass("clickable"))
+		 {
+		 $(".min_stay").addClass("clickable");
+		 $(this).removeClass("clickable");
+		 $(".price_type").show();
+		 }
+			 
+		 });
+		 
+		  $(".btn_add_new").button({
+		      icons: {
+		          primary: "ui-icon-circle-plus"
+		      }});
+		 
+		//---  END ACCOMODATION SECTION CODE   
    
 });

@@ -10,15 +10,6 @@
   <link rel='stylesheet' type='text/css' href=
   'css/south-street/jquery-ui-1.8.9.custom.css' />
   <!-- embedded styles for dynamic layout options -->
-<style type="text/css">
-  #js-info { display:block; padding: 10px 20px; background: #fee; color: #800; margin: 0 0 10px 0; }
-  .js #js-info { display:none; }
-
-  p.switch { display:none; }
-  .js p.switch { display:block; }
-  
-  .active { font-weight:bold; color: #800 !important; }
-</style>
   <script type='text/javascript' src='js/lib/jquery-1.4.4.min.js'>
 </script><!--
     <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js'></script>
@@ -30,6 +21,7 @@
 </script>
   <script type='text/javascript' src='js/jquery.validate.min.js'>
 </script>
+<script type='text/javascript' src='js/main.js'></script>
   <title>LOCANDA - Open Source Booking Tool</title><!-- (en) Add your meta data here -->
   <!-- (de) Fuegen Sie hier ihre Meta-Daten ein -->
   <link href="css/layout_sliding_door.css" rel="stylesheet" type="text/css" />
@@ -38,70 +30,6 @@
 <link href="css/patches/patch_sliding_door.css" rel="stylesheet" type="text/css" />
 
 <![endif]-->
-<script>
-$(function() {
-	
-	$.ajaxSetup({beforeSend: function(xhr){
-		  if (xhr.overrideMimeType)
-		  {
-		    xhr.overrideMimeType("application/json");
-		  }
-		}
-		});
-
-	$( "#datepicker" ).datepicker({
-		showOn: "button",
-		buttonImage: "images/calendar.gif",
-		buttonImageOnly: true
-	});
-	
-	var cache = {},lastXhr;
-	   $('input[name="fullname"]').autocomplete({
-			minLength: 2,
-			source: function( request, response ) {
-				var term = request.term;
-				if ( term in cache ) {
-					response( cache[ term ] );
-					return;
-				}
-
-				lastXhr = $.getJSON( "customer.json", request, function( data, status, xhr ) {
-					cache[ term ] = data.customers;
-					if ( xhr === lastXhr ) {
-						response( data.customers );
-					}
-				});
-			}
-		});
-	   
-	   
-	   /* extras and pay adjustment */
-	   
-	   $('input[name="extra_value_adjustment"], input[name="pay_value_adjustment"]').keyup(function() {
-		   var current_parent=$(this).parents(".type-text");
-		   var copy_parent = current_parent.clone(true);
-		   copy_parent.find(".green").remove();
-		   copy_parent.find("input").val("");
-		   //copy_parent.find($(this)).bind('keyup',cloneEvent);
-		   copy_parent.insertAfter(current_parent);
-		   $(this).unbind('keyup');
-		   
-		 });
-		$(".type_rooms").hide();
-		$("#change_rate").toggle(function(){
-		$(".type_rooms").show();	
-		},function(){
-		$(".type_rooms").hide();	
-		});
-		
-		  $(".btn_save").button({
-		      icons: {
-		          primary: "ui-icon-check"
-		      }});
-		
-	
-});
-</script>
 
 </head>
 
@@ -168,6 +96,11 @@ $(function() {
           <span class="name_section">Booking</span>
           </div>
 <div id="event_edit_container">
+<style>
+.type_rooms{
+display: none;
+}
+</style>
               <form class="yform">
                              <div class="subcolumns_oldgecko">
                              <fieldset>
