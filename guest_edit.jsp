@@ -153,7 +153,7 @@
           </div><!-- End: IE Column Clearing -->
         </div><!-- end: #col3 -->
       </div><!-- end: #main -->
-	<%@ include file="footer.jsp" %>o
+	<%@ include file="footer.jsp" %>
     </div>
   </div><!-- full skiplink functionality in webkit browsers -->
   <script src="yaml/core/js/yaml-focusfix.js" type="text/javascript">
