@@ -1,0 +1,21 @@
+<project>
+	<description>Properties file</description>
+	
+	<property name="webappname" value="locanda"/>
+	
+	<property name="tomcat.home.path" value="/opt/tomcat"/>
+	<property name="tomcat.deploy.path" value="${tomcat.home.path}/webapps"/>
+	<property name="tomcat.application.path" value="${tomcat.deploy.path}/${webappname}"/>
+	<property name="tomcat.username" value="tomcat"/>
+	<property name="tomcat.password" value="tomcat"/>
+	<property name="tomcat.manager.url" value="http://localhost:8080/manager"/>
+	
+	<property name="workdir.path" value="webroot"/>
+	<property name="webroot.path" value="${workdir.path}/WEB-INF"/>
+	<property name="build.path" value="${webroot.path}/classes"/>
+	<property name="src.path" value="src"/>
+	
+	<taskdef name="start" classname="org.apache.catalina.ant.StartTask"/>
+	<taskdef name="stop" classname="org.apache.catalina.ant.StopTask"/>
+	
+</project>

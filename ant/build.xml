@@ -1,0 +1,92 @@
+<project name="locanda" default="buildAll" basedir="..">
+	<description>GestionaleHotel2 build file</description>
+	
+	<import file="buildProperties.xml"/>
+	
+	<path id="class.path">
+		<fileset dir="${webroot.path}/lib" includes="*.jar"/>
+	</path> 
+	
+	<target name="propertySetter">
+		<available property="deployed" file="${tomcat.application.path}" type="dir"/>
+	</target>
+	
+	<target name="clean" description="clean up build directory">
+			<delete dir="${build.path}"/>
+	</target>
+	
+	<target name="init" depends="clean" description="initialization tasks">
+		<mkdir dir="${build.path}"/>
+	</target>
+	
+	<target name="compile" depends="init" description="compilation on bin folder">
+		<javac srcdir="${src.path}" destdir="${build.path}">
+			<classpath refid="class.path"/>
+		</javac>
+		<copy todir="${build.path}">
+			<fileset dir="${src.path}">
+				<include name="**/*.xml"/>
+			</fileset>
+		</copy>		
+	</target>
+	<!--
+	<target name="deploy" description="Deploy on tomcat folder">
+		<copy todir="${tomcat.deploy.path}/${webappname}">
+			<fileset dir="${workdir.path}">
+				<include name="WEB-INF/**"/>
+				<include name="resources/**"/>	
+			</fileset>
+				
+		</copy>
+	</target>
+	
+	<target name="undeploy" description="Undeploy from tomcat folder">
+		<delete dir="${tomcat.deploy.path}/${webappname}"/>
+	</target>
+	-->
+	<target name="stop" depends="propertySetter" description="Stop Tomcat application" if="deployed">
+		<stop url="${tomcat.manager.url}"
+		      username="${tomcat.username}"
+		      password="${tomcat.password}"
+              path="/${webappname}"/>
+	</target>
+	
+	<target name="start" description="Start Tomcat application">
+		<start url="${tomcat.manager.url}"
+ 		       username="${tomcat.username}"
+               password="${tomcat.password}"
+               path="/${webappname}"/>
+	</target>
+	
+	<target name="WAR build" depends="" description="WAR build on dist folder">
+		<echo message="Packaging the WAR...."/>
+		<war destfile="${tomcat.home.path}/${webappname}.war" webxml="${webroot.path}/web.xml">
+			<webinf dir="${webroot.path}"/>
+			<lib dir="${webroot.path}/lib"/>
+			<fileset dir="${workdir.path}">
+				<include name="css/**"/>
+				<include name="images/**"/>
+				<include name="js/**"/>
+				<include name="jsp/**"/>
+				<include name="yaml/**"/>
+				<include name="**/*.jsp"/>
+			</fileset>
+		</war>
+	</target>
+			
+	<taskdef name="deploy" classname="org.apache.catalina.ant.DeployTask"/>
+	<target name="deploy" description="Install web application" depends="WAR build">
+		<deploy url="${tomcat.manager.url}" username="${tomcat.username}" password="${tomcat.password}"
+			path="/${webappname}" war="file:${tomcat.home.path}/${webappname}.war"/>
+	</target>
+	
+	<taskdef name="undeploy" classname="org.apache.catalina.ant.UndeployTask"/>
+	<target name="undeploy" depends="propertySetter" description="Remove web application" if="deployed">
+		<delete file="${tomcat.home.path}/${webappname}.war"></delete>
+		<undeploy url="${tomcat.manager.url}" username="${tomcat.username}" password="${tomcat.password}"
+            path="/${webappname}"/>
+	</target>
+	
+	<target name="buildAll" depends="stop, undeploy, compile, deploy, start"></target>
+	
+</project>
