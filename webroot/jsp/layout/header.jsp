@@ -15,6 +15,7 @@
   -->
   <script type='text/javascript' src='js/lib/jquery-ui-1.8.9.custom.min.js'></script>
   <script type='text/javascript' src='js/jquery.weekcalendar.js'></script>
+  <script type='text/javascript' src='js/jquery.validate.min.js'></script>
   <script type='text/javascript' src='js/main.js'></script>
 
   <title>LOCANDA - Open Source Booking Tool</title><!-- (en) Add your meta data here -->

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="/struts-tags" prefix="s" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <jsp:include page="jsp/layout/header.jsp" />
       <div id="home">
@@ -26,14 +27,4 @@
             </div>
           </form>
       </div><!-- end: #home -->
-          <div id="ie_clearing">
-            &nbsp;
-          </div><!-- End: IE Column Clearing -->
-      <%@ include file="footer.jsp" %>
-      </div><!-- end: #main -->   
-    </div><!-- end: #page_margins -->
-  </div><!-- full skiplink functionality in webkit browsers -->
-  <script src="yaml/core/js/yaml-focusfix.js" type="text/javascript">
-</script>
-</body>
-</html>
+<jsp:include page="jsp/layout/footer.jsp" />         
