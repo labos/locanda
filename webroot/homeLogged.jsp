@@ -97,7 +97,7 @@
           <div id="col3_content" class="clearfix">
           <div class="header_section">
           <span class="name_section">Planner</span>
-               <a class="btn_right" href="book.html" title="Add new booking" /></a>
+               <a class="btn_right" href="book.jsp" title="Add new booking" /></a>
                </div>
             <div id='calendar'></div>
 
