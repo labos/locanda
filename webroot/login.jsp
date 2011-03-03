@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="s" uri="/struts-tags" %>    
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -38,7 +39,10 @@
       <div id="home">
       	<h1>Log In</h1>
       	<p>Not yet registered? <a href="signup.jsp">Signup</a></span>.</p>
-      	<form method="post" action="index.jsp" class="yform" role="application">
+      	
+      	<s:url action="login" var="url"></s:url>
+      	
+      	<form method="post" action="<s:property value="url"/>" class="yform" role="application">
             <fieldset>
               <legend>Log In data</legend>
               <div class="type-text">
