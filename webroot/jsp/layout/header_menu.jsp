@@ -61,7 +61,7 @@
       <div id="nav" role="navigation">
         <div class="hlist">
           <ul>
-            <li><a href="index.jsp">Planner</a></li>
+            <li><a href="/home">Planner</a></li>
             <li><a href="rooms.jsp">Accomodation</a>
             <ul class="sub_menu ui-menu ui-widget ui-widget-content ui-corner-all">
     			<li class="ui-menu-item"><a href="accomodation.jsp">ACCOMODATION</a></li>
