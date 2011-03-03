@@ -57,11 +57,11 @@
         <h1>
         <span>&nbsp;</span><em>&nbsp;</em></h1><span>Polaris</span>
       </div><!-- begin: main navigation #nav -->
-
+<s:url action="home" var="url_home"></s:url>
       <div id="nav" role="navigation">
         <div class="hlist">
           <ul>
-            <li><a href="/home">Planner</a></li>
+            <li><a href="<s:property value="url_home"/>">Planner</a></li>
             <li><a href="rooms.jsp">Accomodation</a>
             <ul class="sub_menu ui-menu ui-widget ui-widget-content ui-corner-all">
     			<li class="ui-menu-item"><a href="accomodation.jsp">ACCOMODATION</a></li>
