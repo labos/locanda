@@ -1,5 +1,5 @@
 <project name="locanda" default="buildAll" basedir="..">
-	<description>GestionaleHotel2 build file</description>
+	<description>Locanda build file</description>
 	
 	<import file="buildProperties.xml"/>
 	
@@ -60,7 +60,7 @@
 	
 	<target name="WAR build" depends="" description="WAR build on dist folder">
 		<echo message="Packaging the WAR...."/>
-		<war destfile="${tomcat.home.path}/${webappname}.war" webxml="${webroot.path}/web.xml">
+		<war destfile="${tomcat.deploy.path}/${webappname}.war" webxml="${webroot.path}/web.xml">
 			<webinf dir="${webroot.path}"/>
 			<lib dir="${webroot.path}/lib"/>
 			<fileset dir="${workdir.path}">
@@ -77,12 +77,12 @@
 	<taskdef name="deploy" classname="org.apache.catalina.ant.DeployTask"/>
 	<target name="deploy" description="Install web application" depends="WAR build">
 		<deploy url="${tomcat.manager.url}" username="${tomcat.username}" password="${tomcat.password}"
-			path="/${webappname}" war="file:${tomcat.home.path}/${webappname}.war"/>
+			path="/${webappname}" war="file:${tomcat.deploy.path}/${webappname}.war"/>
 	</target>
 	
 	<taskdef name="undeploy" classname="org.apache.catalina.ant.UndeployTask"/>
 	<target name="undeploy" depends="propertySetter" description="Remove web application" if="deployed">
-		<delete file="${tomcat.home.path}/${webappname}.war"></delete>
+		<delete file="${tomcat.deploy.path}/${webappname}.war"></delete>
 		<undeploy url="${tomcat.manager.url}" username="${tomcat.username}" password="${tomcat.password}"
             path="/${webappname}"/>
 	</target>
