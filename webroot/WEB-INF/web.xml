@@ -13,9 +13,9 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 	
-	<!--
+	
     <welcome-file-list>
         <welcome-file>home.jsp</welcome-file>
     </welcome-file-list>
-	-->
+	
 </web-app>
