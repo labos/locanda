@@ -43,7 +43,78 @@ $(document).ready(function() {
         }
   	});
   	
-	   /* extras and pay adjustment */
+  		/* extras adding */
+  	   $('input[name="extras_array[]"]').click(function(){
+  		   var amount_target_dom = $("#extras_room");
+  		   var amount = 0;
+  		   $('input:checked[name="extras_array[]"]').each (function(key, value){
+  			   
+  			  amount += isNaN(parseInt($(value).val())) ? 0 : parseInt($(value).val());
+  			   
+  		   });
+  		   
+  		 amount_target_dom.text(amount);
+		   //update subtotal
+		   updateSubtotal();
+  		 
+  		   
+  		   
+  		   
+  	   });
+  	   
+  	   /* room price changing*/
+  	   $('input[name="per_value"]').keyup( function(){
+  		  
+  		  //typeof o === 'number' && isFinite(o); 
+  		   if($(this).valid()){
+  			   
+  			   $("#price_room").html( $(this).val());
+  			   //update subtotal
+  			   updateSubtotal();
+  		   }
+  		   
+  		   
+  	   });
+  	   
+  	  /* update subtotal */
+  	   var updateSubtotal = function(){
+  		   var subtotal = 0;
+  		   var payments = ["#price_room",  "#extras_room", "input[name=\"extra_value_adjustment[]\"]", ];
+  		   
+  		   try {
+  		   $.each(payments, function (key, value){
+  			 if(! $.isArray($(value)))
+  				 {
+  				 
+  				 var value_contained =$(value).is('input') ? $(value).val() : $(value).text();
+  				 subtotal += isNaN(parseInt (value_contained)) ? 0: parseInt (value_contained);
+  				 } //else if an array of doms was selected by selector
+  			 else
+  				 {
+  				 $(value).each(function(k , v){
+  					var value_contained =$(v).is('input') ? $(v).val() : $(v).text(); 
+  					subtotal += parseInt (value_contained); 
+  				 });
+  				 
+  				 }
+  			 
+
+  			 
+  		   });
+  		       		   // now update permanently subtotal
+    		   $(".subtotal_room").text(subtotal);
+  		   }
+  		   catch( e )
+  		   {
+  			   //nothing for now -- problema nei selettori
+  		   }
+  		   
+
+ 
+  	   };
+  	   
+  	   
+	   /* adjustment and payments*/
 	   
 	   $('input[name="extra_value_adjustment[]"], input[name="pay_value_adjustment[]"]').keyup(function() {
 		   var current_parent=$(this).parents(".type-text");
@@ -64,8 +135,9 @@ $(document).ready(function() {
 		   /* adjust subtotal ... */
 		   var new_subtotal = null;
 		   if(current_class_selector.indexOf("extra_value_adjustment") >= 0)
-		   { new_subtotal = parseInt($("#subtotal_room").val()); 
-		   
+		   { 
+			   new_subtotal = parseInt($("#subtotal_room").val()); 
+		   	 	new_balance = parseInt($("#balance_room").val()); 	
 		      /* code for calcute new subtotal */
 			  $("." + current_class_selector).each( function(key, value) {
 				   
@@ -73,8 +145,12 @@ $(document).ready(function() {
 				   {
 			   new_subtotal = new_subtotal + parseInt ( $(value).val() );
 				   }
-		  		   });   
-		     $(".subtotal_room").html(new_subtotal);
+		  		   });
+
+			  // show new subtotal value
+		      //-- $(".subtotal_room").html(new_subtotal);
+			  updateSubtotal();
+		     
 		   /* end code for subtotal calculation */
 		   }
 		   else

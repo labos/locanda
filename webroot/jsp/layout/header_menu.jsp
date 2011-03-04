@@ -53,7 +53,7 @@
     <div class="page">
       <div id="header" role="banner">
         <div id="topnav" role="contentinfo">
-          <span><a href="#">Not Logged In</a> | <a href="<s:property value="url_logout"/>">Logout</a></span>
+          <span><a href="<s:property value="url_logout"/>">Logout</a></span>
         </div>
 
         <h1>

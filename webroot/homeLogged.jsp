@@ -295,7 +295,7 @@
                   </select></div>
                   <div class="type-select">
                    	<div class="type_rooms">
-                      <input type="text" name="per_value" id="per_value" value="30" />
+                      <input type="text" name="per_value" id="per_value" value="" class="number" />
                     </div>
                     <div class="type_rooms">
                       <input type="radio" name="per_room_person" id="per_room" value="1" /><label for=
@@ -328,11 +328,11 @@
 </textarea></div>
  <div class="type-select"><label for="per_parking">Extras:</label>
                    <div class="type-check">
-                      <input type="checkbox" name="extra_parking" id="per_parking" value="1" /><label for=
+                      <input type="checkbox" name="extras_array[]" id="per_parking" value="10" /><label for=
                       "per_parking">Parking</label>
                     </div>
                      <div class="type-check">
-                      <input type="checkbox" name="extra_breakfast" id="per_breakfast" value="1" /><label for=
+                      <input type="checkbox" name="extras_array[]" id="per_breakfast" value="8" /><label for=
                       "per_breakfast">Breakfast</label>
                     </div>
  </div>
@@ -344,8 +344,8 @@
                 </div>
                 <div class="book_details c50l">
 <fieldset><legend>Money</legend>
-                  <div class="type-text"><span>Room: </span><div class="c20r"><span id="price_room" >30 &euro;</span></div></div>
-                  <div class="type-text"><span>Extras: </span><div class="c20r"><span id="extras_room" >0 &euro;</span></div></div>
+                  <div class="type-text"><span>Room: </span><div class="c20r"><span id="price_room" >30</span>&nbsp;&euro;</div></div>
+                  <div class="type-text"><span>Extras: </span><div class="c20r"><span id="extras_room" >0</span>&nbsp;&euro;</div></div>
                   <div class="type-text"><span class="green">&nbsp;Adjustment: </span><div class="c50r"><div class="c10r">&euro;</div><div class="c40l"><input type="text" name=
                   "extra_adjustment[]" id="extra_adjustment" /></div><div class="c40r"><input type="text" name="extra_value_adjustment[]"  class="extra_value_adjustment digits"/></div></div></div>
                   <div class="type-text"><span>Subtotal: </span><div class="c20r"><span class="subtotal_room" >30</span> &euro;<input type="hidden" id="subtotal_room" value="30" /></div></div>
