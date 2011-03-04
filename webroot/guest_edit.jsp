@@ -55,14 +55,14 @@
               <div class="subcolumns">
               <div class="c50l book_guest">                    
               <div class="c20l"><span>28 Feb 2011</span></div><div class="c20l"><span>5 nights</span></div><div class="c20l"><span>&euro; 150</span></div>
-              <div class="c20l"><a href="book.html"><span class="link">Details</span></a></div>
+              <div class="c20l"><a href="book.jsp"><span class="link">Details</span></a></div>
               </div>
               </div>
               <div class="subcolumns">
               &nbsp;
               </div>
               <div class="subcolumns book_guest">
-              <div class="c20l"><a href="book.html"><span class="link">New Booking</span></a></div><div class="c20l"><span></span></div><div class="c20l"><span></span></div>
+              <div class="c20l"><a href="book.jsp"><span class="link">New Booking</span></a></div><div class="c20l"><span></span></div><div class="c20l"><span></span></div>
               <div class="c20l"></div>
               </div>
               </fieldset>

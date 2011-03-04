@@ -17,7 +17,7 @@
           <div class="header_section">
           <span class="name_section">Booking</span>
           </div>
-<div id="event_edit_container">
+<div>
 <style>
 .type_rooms{
 display: none;

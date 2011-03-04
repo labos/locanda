@@ -46,18 +46,19 @@
 
     <li><a class="skip" href="#col3">Skip to main content (Press Enter).</a></li>
   </ul>
+<s:url action="logout" var="url_logout"></s:url>
+<s:url action="home" var="url_home"></s:url>
 
   <div class="page_margins">
     <div class="page">
       <div id="header" role="banner">
         <div id="topnav" role="contentinfo">
-          <span><a href="#">Not Logged In</a> | <a href="login.jsp">Login/Signup</a></span>
+          <span><a href="#">Not Logged In</a> | <a href="<s:property value="url_logout"/>">Logout</a></span>
         </div>
 
         <h1>
         <span>&nbsp;</span><em>&nbsp;</em></h1><span>Polaris</span>
       </div><!-- begin: main navigation #nav -->
-<s:url action="home" var="url_home"></s:url>
       <div id="nav" role="navigation">
         <div class="hlist">
           <ul>
