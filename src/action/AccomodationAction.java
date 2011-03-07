@@ -16,7 +16,7 @@ import org.apache.struts2.interceptor.SessionAware;
 import com.opensymphony.xwork2.ActionSupport;
 
 @ParentPackage(value="default")
-public class StructureAction extends ActionSupport implements SessionAware{
+public class AccomodationAction extends ActionSupport implements SessionAware{
 	private Map<String, Object> session = null;
 	private List<Room> rooms = null;
 	
@@ -54,6 +54,8 @@ public class StructureAction extends ActionSupport implements SessionAware{
 		this.session = session;
 		
 	}
+
+	
 	
 	
 	
