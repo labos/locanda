@@ -52,8 +52,7 @@ public class LoginAction extends ActionSupport implements SessionAware{
 	
 	private Structure buildStructure(){
 		Structure ret = null;
-		Room aRoom = null;
-		
+		Room aRoom = null;		
 		
 		ret = new Structure();
 		ret.setName("polaris");
