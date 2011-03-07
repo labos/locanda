@@ -20,6 +20,7 @@ public class AccomodationAction extends ActionSupport implements SessionAware{
 	private Map<String, Object> session = null;
 	private List<Room> rooms = null;
 	
+	
 	@Actions({
 		@Action(value="/findAllRooms",results = {
 				@Result(type ="json",name="success", params={

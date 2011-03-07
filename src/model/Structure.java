@@ -12,6 +12,21 @@ public class Structure {
 		this.rooms = new ArrayList<Room>();
 	}
 	
+	public Boolean hasRoomNamed(String name){
+		Boolean ret = false;
+		
+		for(Room each: this.getRooms()){
+			if(each.getName().equals(name)){
+				return true;
+			}
+		}
+		return ret;
+	}
+	
+	public void addRoom(Room aRoom){
+		this.getRooms().add(aRoom);
+	}
+	
 	public String getName() {
 		return name;
 	}
@@ -30,7 +45,5 @@ public class Structure {
 	public void setRooms(List<Room> rooms) {
 		this.rooms = rooms;
 	}
-	
-	
 
 }
