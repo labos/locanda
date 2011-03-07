@@ -64,12 +64,7 @@
 			<webinf dir="${webroot.path}"/>
 			<lib dir="${webroot.path}/lib"/>
 			<fileset dir="${workdir.path}">
-				<include name="css/**"/>
-				<include name="images/**"/>
-				<include name="js/**"/>
-				<include name="jsp/**"/>
-				<include name="yaml/**"/>
-				<include name="**/*.jsp"/>
+				<include name="**"/>
 			</fileset>
 		</war>
 	</target>
