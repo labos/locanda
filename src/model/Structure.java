@@ -27,6 +27,10 @@ public class Structure {
 		this.getRooms().add(aRoom);
 	}
 	
+	public void addAllRooms(List<Room> rooms){
+		this.getRooms().addAll(rooms);
+	}
+	
 	public String getName() {
 		return name;
 	}

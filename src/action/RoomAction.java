@@ -58,7 +58,7 @@ public class RoomAction extends ActionSupport implements SessionAware{
 			return "error";			
 		}	
 		else{
-			structure.getRooms().addAll(rooms);
+			structure.addAllRooms(rooms);
 			this.getMessage().setResult(Message.SUCCESS);
 			String text = "Le stanze sono state inserite con successo";
 			this.getMessage().setDescription(text);
@@ -79,11 +79,9 @@ public class RoomAction extends ActionSupport implements SessionAware{
 				aRoom.setNotes(this.getRoom().getNotes());
 				aRoom.setMaxGuests(this.getRoom().getMaxGuests());				
 				aRoom.setRoomType(this.getRoom().getRoomType());
-				rooms.add(aRoom);
-				
+				rooms.add(aRoom);				
 			}
-		}
-		
+		}		
 		return rooms;
 	}
 
