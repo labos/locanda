@@ -27,17 +27,17 @@
               <legend>Informations</legend>
               <div class="c50l">
            <div class="type-text">
-                <label for="firstname">First name <sup title="This field is mandatory.">*</sup></label>
-                <input class="required" type="text" name="firstname" id="firstname" size="20" />
+                <label for="firstName">First name <sup title="This field is mandatory.">*</sup></label>
+                <input class="required" type="text" name="firstName" id="firstName" size="20" />
               </div>
               <div class="type-text" role="alert" aria-live="assertive">
-                <label for="lastname">Last name <sup title="This field is mandatory.">*</sup></label>
-                <input class="required" type="text" name="lastname" id="lastname" size="20"  aria-required="true"/>
+                <label for="lastName">Last name <sup title="This field is mandatory.">*</sup></label>
+                <input class="required" type="text" name="lastName" id="lastName" size="20"  aria-required="true"/>
               </div>
 
                   <div class="type-text"><label for="phone">Phone:<sup title="This field is mandatory.">*</sup></label> <input type="text" name=
                   "phone" id="phone" class="required" /></div>
-                  <div class="type-text"><label for="phone">Email:<sup title="This field is mandatory.">*</sup></label> <input type="text" name=
+                  <div class="type-text"><label for="email">Email:<sup title="This field is mandatory.">*</sup></label> <input type="text" name=
                   "email" id="email" class="required" value="rossi@tiscali.it"/></div> 
                   <div class="type-text"><label for="address">Address:<sup title="This field is mandatory.">*</sup></label> <input type="text" name=
                   "address" id="address" class="required" /></div>
@@ -45,11 +45,10 @@
                   <div class="type-text"><label for="country">Country:<sup title="This field is mandatory.">*</sup></label> <input type="text" name=
                   "country" id="country" class="required"/></div>
 
-                  <div class="type-text"><label for="postcode">PostCode:<sup title="This field is mandatory.">*</sup></label> <input type="text" name=
-                  "postcode" id="postcode" class="required"/></div>
-                   <div class="type-text"><label for="body">Note:</label> 
-                  <textarea name="body" id="body">
-</textarea></div>
+                  <div class="type-text"><label for="zipCode">ZipCode:<sup title="This field is mandatory.">*</sup></label> <input type="text" name=
+                  "zipCode" id="zipCode" class="required"/></div>
+                   <div class="type-text"><label for="notes">Notes:</label> 
+                  <textarea name="notes" id="notes"></textarea></div>
             <div class="type-button">
             <input type="text" name="new_name_season" id="chng_season_name" value=""/>
             <button class="btn_save_guest">Add New Guest</button>
