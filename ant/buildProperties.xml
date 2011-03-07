@@ -8,7 +8,7 @@
 	<property name="tomcat.application.path" value="${tomcat.deploy.path}/${webappname}"/>
 	<property name="tomcat.username" value="tomcat"/>
 	<property name="tomcat.password" value="tomcat"/>
-	<property name="tomcat.manager.url" value="http://localhost:8080/manager"/>
+	<property name="tomcat.manager.url" value="http://localhost:8080/manager/text"/>
 	
 	<property name="workdir.path" value="webroot"/>
 	<property name="webroot.path" value="${workdir.path}/WEB-INF"/>
