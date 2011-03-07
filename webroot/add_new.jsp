@@ -23,18 +23,19 @@
 		 <form method="post" action="" class="yform" role="application">
             <fieldset>
               <legend>
-              <label for="room_name_id">Name Room:</label>
-              <input id="room_name_id" name="name" type="text" value="Enter Room Name" /></legend>
+              <label for="room_name_id">Name Room: <sup title="This field is mandatory.">*</sup></label>
+              <input id="room_name_id" class="required" name="room.name" type="text" value="Enter Room Name" /></legend>
              <div class="c50l">
              <div class="subcolumns">
              <span>Save room to define prices or minimum stay
 </span>       </div>
                     <div class="type-select">
       		<label for="category_id">Category:</label>
-    				<select id="category_id" name="roomType" size="1" aria-required="true">
-					<option selected="selected" value="1">Singola</option>
-					<option value="2">Doppia</option>
-					<option value="3">Tripla</option>
+    				<select id="category_id" name="room.roomType" size="1" aria-required="true">
+					<option selected="selected" value="">Select One</option>
+					<option value="singola">Singola</option>
+					<option value="doppia">Doppia</option>
+					<option value="tripla">Tripla</option>
                 </select>
                 </div>
                 <div class="type-text" >
@@ -42,15 +43,15 @@
                 </div>
                 <div class="type-text" >
                <label for="category_new_id">New Category:</label> 
-               <input  type="text"  id="category_new_id"  name="roomType" />
+               <input  type="text"  id="category_new_id"  name="room.roomType" />
                     </div> 
               <div class="subcolumns type-text">
-      <label for="price_room_id">Price</label><input type="text" class="small_input" id="price_room_id" name="price" value="30" />
+      <label for="price_room_id">Price <sup title="This field is mandatory.">*</sup></label><input type="text" class="required small_input" id="price_room_id" name="room.price" value="30" />
              <span>&nbsp;&euro;</span>
               </div>
               <div class="subcolumns type-text">
-      		<label for="max_guests_id">Max Guests:</label>
-				 <input id="max_guests_id" type="text" class="small_input" name="maxGuests" value="1" />
+      		<label for="max_guests_id">Max Guests: <sup title="This field is mandatory.">*</sup></label>
+				 <input id="max_guests_id" type="text" class="required small_input" name="room.maxGuests" value="1" />
 		     </div>
 			 <div class="subcolumns">
               &nbsp;
@@ -58,14 +59,13 @@
 
             <div class="subcolumns type-text">
       		<label for="notes_id">Note:</label>&nbsp;
-      		<textarea id="notes_id" name="notes" rows="5" cols="60"></textarea>
+      		<textarea id="notes_id" name="room.notes" rows="5" cols="60"></textarea>
       		</div>
       		<div class="subcolumns">
               &nbsp;
               </div>
             <div class="type-button">
-            <input type="text" name="new_name_season" id="chng_season_name" value=""/>
-            <button class="btn_save">SAVE</button>
+            <button class="btn_save btn_add_room">SAVE</button>
             <button class="btn_delete">CANCEL</button>
             </div>
             

@@ -603,6 +603,43 @@ $(document).ready(function() {
    	      icons: {
    	          primary: "ui-icon-check"
    	      }});
+   	  
+   	$("category_new_id").autocomplete({
+		source: "customer.json",
+		minLength: 2,
+		select: function( event, ui ) {
+			log( ui.item ?
+				"Selected: " + ui.item.value + " aka " + ui.item.id :
+				"Nothing selected, input was " + this.value );
+		}
+	});
+
+   	  
+   	  //submit management for add room form
+   	  $(".btn_add_room").parents(".yform").submit(function(){
+  		
+ 		//setting for input form fields
+   		var formInput=$(this).serialize();
+   		//if form is valid
+   		if ($(this).valid())
+   			{
+   			
+   		$.ajax({
+   		   type: "POST",
+   		   url: "findAllRooms.action",
+   		   data: formInput,
+   		   success: function(msg){
+   		     alert( "Data Saved: " + msg );
+   		   }
+   		 });
+   		
+   	  }
+   		
+   		return false;
+   	  
+   	  });
+   	  
+   	
  
    	 
    	 $(".btn_delete").button({
