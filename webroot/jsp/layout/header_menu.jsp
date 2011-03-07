@@ -63,7 +63,7 @@
         <div class="hlist">
           <ul>
             <li><a href="<s:property value="url_home"/>">Planner</a></li>
-            <li><a href="rooms.jsp">Accomodation</a>
+            <li><a href="#">Accomodation</a>
             <ul class="sub_menu ui-menu ui-widget ui-widget-content ui-corner-all">
     			<li class="ui-menu-item"><a href="accomodation.jsp">ACCOMODATION</a></li>
     			<li class="ui-menu-item"><a href="extras.jsp">EXTRAS</a></li>

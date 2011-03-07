@@ -25,12 +25,7 @@
 		 <form method="post" action="" class="yform full" role="application">
             <fieldset>
               <legend>Camera Singola</legend>
-             <div class="subcolumns">
-             <span>Show: </span><span class="price_show">Price</span>|<span class="min_stay clickable">Min Stay</span>
-             <br />
-             <span>Any night of the week </span>
-             </div>
-              <div class="subcolumns type-text">
+				<div class="subcolumns type-text">
               <div class="c33r">
               <span>Describe As:&nbsp;</span>
               <input class="describe" style="width:60px; display: inline;" readonly="true" type="text" name="description" value="room"  />
@@ -45,47 +40,9 @@
                <div class="subcolumns">
               &nbsp;
               </div>
-              <div class="subcolumns">
-              <span class="title_season"><a href="seasons.html" title="edit">Edit Seasons</a></span>&nbsp;
-              <span>&nbsp;&nbsp;&nbsp;&nbsp;Switch to:</span>
-            <span class="save_every_day" >Same every day</span>,
-            <span class="mideweek clickable" >Midweek/weekend</span>,
-            <span class="day_by_day clickable" >Day-by-Day</span>         
-              </div>
-            <div class="subcolumns">
-              &nbsp;
-              </div>
-            <div class="subcolumns price_type">
-            <div class="c10l">
-      		<span class="title_season">Price Type:</span>&nbsp;
-      		</div>
-      		<div class="c10l">
-      		       <div class="type_rooms">
-                      <input type="radio" name="per_room_person" value="1" /><label for=
-                      "per_room">Per Room:</label>
-                    </div>
-                    <div class="type_rooms">
-                      <input type="radio" name="per_room_person" value="3" /><label for=
-                      "per_person">Per Person:</label>
-                    </div>
-                    </div>
-                    <div class="c10l">
-                    <div class="type_rooms">
-                      <input type="radio" name="per_night_week" value="2" /><label for=
-                      "per_night">Per Night:</label>
-                    </div>
-                    <div class="type_rooms">
-                      <input type="radio" name="per_night_week" value="4" /><label for=
-                      "per_person">Per Week:</label>
-                    </div>
-                    </div>
-              </div>
-               <div class="subcolumns">
-              &nbsp;
-              </div>
               <div class="subcolumns type-text">
             <div class="c10l">
-      		<span class="title_season">Sleeps:</span>&nbsp;
+      		<span class="title_season">Max Guests:</span>&nbsp;
       		</div>
       		<div class="c10l">
       		        <div class="type_rooms">
@@ -94,43 +51,6 @@
                     </div>
               </div>
 			 <div class="subcolumns">
-              &nbsp;
-              </div>
-             <div class="subcolumns">
-            <div class="c10l">
-      		<span class="title_season"></span>&nbsp;
-      		</div>
-      		<div class="c25l">
-                    <div class="type_rooms">
-                      <input type="checkbox" name="single_occ" value="12" /><label for=
-                      "per_person">Discount for single occupancy</label>
-                    </div>   
-                   <div class="type_rooms">
-                      <input type="checkbox" name="twin_double" value="13" /><label for=
-                      "per_person">Can be twin or double</label>
-                    </div>               
-                    </div>
-              </div>
-               <div class="subcolumns">
-              &nbsp;
-              </div>
-             <div class="subcolumns">
-                   <div class="type_rooms">
-                      <input type="checkbox" name="several_rooms" value="13" /><label for=
-                      "per_person">I have several rooms like this:</label>
-                    </div> 
-                    <div class="type-select num_of_rooms">
-                    <span>Number of Rooms</span>
-    				<select name="num_rooms" size="1" aria-required="true" style="width:40px;">
-					<option selected="selected" value="1">1</option>
-					<option value="2">2</option>
-					<option value="3">3</option>
-					<option value="4">4</option>
-					<option value="5">5</option>
-                </select>
-                    </div> 
-              </div>
-              <div class="subcolumns">
               &nbsp;
               </div>
             <div class="subcolumns type-text">

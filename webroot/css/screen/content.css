@@ -524,3 +524,8 @@ outline: none;
 
 }
 
+.yform .type-text .small_input {
+width: 15%;
+display: inline;
+}
+

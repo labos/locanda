@@ -723,7 +723,7 @@ $(document).ready(function() {
 	      icons: {
 	          primary: "ui-icon-circle-plus"
 	      }}).click(function(){
-	    	window.location.href="guest_new.html"; 
+	    	window.location.href="guest_new.jsp"; 
 	    	return false;
 	      });
 	  
@@ -966,7 +966,10 @@ $(document).ready(function() {
 		  $(".btn_add_new").button({
 		      icons: {
 		          primary: "ui-icon-circle-plus"
-		      }});
+		      }}).click(function(){
+			    	window.location.href="add_new.jsp"; 
+			    	return false;
+			      });;
 		 
 		//---  END ACCOMODATION SECTION CODE   
    

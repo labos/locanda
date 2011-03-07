@@ -20,75 +20,45 @@
             </div>
           </div>
           <div>
-		 <form method="post" action="" class="yform full" role="application">
+		 <form method="post" action="" class="yform" role="application">
             <fieldset>
-              <legend><input name="room_name" type="text" value="Enter Room Name" /></legend>
+              <legend>
+              <label for="room_name_id">Name Room:</label>
+              <input id="room_name_id" name="name" type="text" value="Enter Room Name" /></legend>
+             <div class="c50l">
              <div class="subcolumns">
              <span>Save room to define prices or minimum stay
 </span>       </div>
+                    <div class="type-select">
+      		<label for="category_id">Category:</label>
+    				<select id="category_id" name="roomType" size="1" aria-required="true">
+					<option selected="selected" value="1">Singola</option>
+					<option value="2">Doppia</option>
+					<option value="3">Tripla</option>
+                </select>
+                </div>
+                <div class="type-text" >
+                <strong>&nbsp;&nbsp;OR</strong>
+                </div>
+                <div class="type-text" >
+               <label for="category_new_id">New Category:</label> 
+               <input  type="text"  id="category_new_id"  name="roomType" />
+                    </div> 
               <div class="subcolumns type-text">
-              <div class="c33r">
-              <span>Describe As:&nbsp;</span>
-              <input class="describe" style="width:60px; display: inline;" readonly="true" type="text" name="description" value="room"  />
-            	<a class="describe_edit" href="#" title="describe"><img src="images/sign-up-icon.png" alt="edit" /></a>
-              <p>(e.g. room or villa)</p>
-              </div>
+      <label for="price_room_id">Price</label><input type="text" class="small_input" id="price_room_id" name="price" value="30" />
+             <span>&nbsp;&euro;</span>
               </div>
               <div class="subcolumns type-text">
-            <div class="c10l">
-      		<span class="title_season">Sleeps:</span>&nbsp;
-      		</div>
-      		<div class="c10l">
-      		        <div class="type_rooms">
-                      <input type="input" class="small_input" name="sleeps" value="1" />
-                    </div>                
-                    </div>
-              </div>
+      		<label for="max_guests_id">Max Guests:</label>
+				 <input id="max_guests_id" type="text" class="small_input" name="maxGuests" value="1" />
+		     </div>
 			 <div class="subcolumns">
               &nbsp;
               </div>
-             <div class="subcolumns">
-            <div class="c10l">
-      		<span class="title_season"></span>&nbsp;
-      		</div>
-      		<div class="c25l">
-                    <div class="type_rooms">
-                      <input type="checkbox" name="single_occ" value="12" /><label for=
-                      "per_person">Discount for single occupancy</label>
-                    </div>   
-                   <div class="type_rooms">
-                      <input type="checkbox" name="twin_double" value="13" /><label for=
-                      "per_person">Can be twin or double</label>
-                    </div>               
-                    </div>
-              </div>
-               <div class="subcolumns">
-              &nbsp;
-              </div>
-             <div class="subcolumns">
-                   <div class="type_rooms">
-                      <input type="checkbox" name="several_rooms" value="13" /><label for=
-                      "per_person">I have several rooms like this:</label>
-                    </div> 
-                    <div class="type-select num_of_rooms">
-                    <span>Number of Rooms</span>
-    				<select name="num_rooms" size="1" aria-required="true" style="width:40px;">
-					<option selected="selected" value="1">1</option>
-					<option value="2">2</option>
-					<option value="3">3</option>
-					<option value="4">4</option>
-					<option value="5">5</option>
-                </select>
-                    </div> 
-              </div>
-              <div class="subcolumns">
-              &nbsp;
-              </div>
+
             <div class="subcolumns type-text">
-            <div class="c50l">
-      		<span class="title_season">Note:</span>&nbsp;
-      		<textarea name="note" rows="5" cols="60"></textarea>
-      		</div>
+      		<label for="notes_id">Note:</label>&nbsp;
+      		<textarea id="notes_id" name="notes" rows="5" cols="60"></textarea>
       		</div>
       		<div class="subcolumns">
               &nbsp;
@@ -97,6 +67,8 @@
             <input type="text" name="new_name_season" id="chng_season_name" value=""/>
             <button class="btn_save">SAVE</button>
             <button class="btn_delete">CANCEL</button>
+            </div>
+            
             </div>
               </fieldset>
            </form>        
