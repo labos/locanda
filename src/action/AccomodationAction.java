@@ -2,6 +2,7 @@ package action;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import model.Room;
 import model.Structure;
@@ -19,7 +20,24 @@ import com.opensymphony.xwork2.ActionSupport;
 public class AccomodationAction extends ActionSupport implements SessionAware{
 	private Map<String, Object> session = null;
 	private List<Room> rooms = null;
+	private Set<String> roomTypes = null;
 	
+	
+	@Actions({
+		@Action(value="/findAllRoomTypes",results = {
+				@Result(type ="json",name="success", params={
+						"root","roomTypes"
+				} )
+		})
+		
+	})
+	public String findAllRoomTypes() {
+		User user = (User)this.getSession().get("user");
+		//Controllare che sia diverso da null in un interceptor
+		Structure structure = user.getStructure();
+		this.setRoomTypes(structure.findAllRoomTypes());
+		return SUCCESS;
+	}
 	
 	@Actions({
 		@Action(value="/findAllRooms",results = {
@@ -56,10 +74,14 @@ public class AccomodationAction extends ActionSupport implements SessionAware{
 		
 	}
 
-	
-	
-	
-	
-	
+	public Set<String> getRoomTypes() {
+		return roomTypes;
+	}
+
+	public void setRoomTypes(Set<String> roomTypes) {
+		this.roomTypes = roomTypes;
+	}
+
+		
 
 }

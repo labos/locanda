@@ -1,7 +1,9 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.TreeSet;
 
 public class Structure {
@@ -24,6 +26,15 @@ public class Structure {
 			if(each.getName().equals(name)){
 				return true;
 			}
+		}
+		return ret;
+	}
+	
+	public Set<String> findAllRoomTypes(){
+		Set<String> ret = new TreeSet<String>();
+		
+		for(Room each: this.getRooms()){
+			ret.add(each.getRoomType());
 		}
 		return ret;
 	}
