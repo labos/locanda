@@ -111,10 +111,37 @@ public class RoomAction extends ActionSupport implements SessionAware{
 		}
 		
 	
-	}
+	}	
 	
+	@Actions({
+		@Action(value="/updateRoom",results = {
+				@Result(type ="json",name="success", params={
+						"root","message"
+				} ),
+				@Result(type ="json",name="error", params={
+						"root","message"
+				} )
+		})
+		
+	})
 	
+	public String updateRoom() {
+		User user = (User)this.getSession().get("user");
+		//Controllare che sia diverso da null in un interceptor
+		Structure structure = user.getStructure();
+		
+		if(structure.deleteRoom(this.getRoom())){
+			this.getMessage().setResult(Message.SUCCESS);
+			this.getMessage().setDescription("La stanza e' stata cancellata con successo");
+			return "success";
+		}else{
+			this.getMessage().setResult(Message.ERROR);
+			this.getMessage().setDescription("Non e' stato possiible cancellare la stanza");
+			return "error";
+		}
+		
 	
+	}	
 
 	public Map<String, Object> getSession() {
 		return session;

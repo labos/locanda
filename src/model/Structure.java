@@ -30,6 +30,8 @@ public class Structure {
 		return ret;
 	}
 	
+	
+	
 	public Set<String> findAllRoomTypes(){
 		Set<String> ret = new TreeSet<String>();
 		
@@ -55,12 +57,20 @@ public class Structure {
 		
 		ret = this.getKeys().last();
 		ret = ret + 1;
+		this.getKeys().add(ret);
 		return ret;
 	}
 	
 		
 	public boolean deleteRoom(Room aRoom){
 		return this.getRooms().remove(aRoom);
+	}
+	
+	public boolean updateRoom(Room aRoom){
+		Boolean ret = false;
+		String newName = aRoom.getName();
+		
+		return ret;
 	}
 	
 	public String getName() {

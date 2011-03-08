@@ -41,7 +41,7 @@ public class AccomodationAction extends ActionSupport implements SessionAware{
 	
 	@Actions({
 		@Action(value="/findAllRooms",results = {
-				@Result(name="success",location="/WEB-INF/jsp/accomodation.jsp")
+				@Result(name="success",location="/accomodation.jsp")
 		})
 		
 	})

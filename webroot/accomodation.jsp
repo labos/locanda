@@ -21,22 +21,29 @@
             <button class="btn_save_all">SAVE ALL</button>
             </div>
           </div>
+        
+         <s:iterator value="rooms" var="each">
           <div>
+         
+          
+         
+          
 		 <form method="post" action="" class="yform full" role="application">
             <fieldset>
               <legend>
-                <input class="describe" style="width:60px; display: inline;" readonly="true" type="text" name="name" value="room"  />
+                <input class="describe" style="width:60px; display: inline;" readonly="true" type="text" name="room.name" value="<s:property value="name"/>"  />
             	<a class="describe_edit" href="#" title="describe"><img src="images/sign-up-icon.png" alt="edit" /></a>
             	</legend>
 				<div class="subcolumns type-text">
+				<input type="text" name="room.id" value="<s:property value="id"/>"/>
               <div class="">
               <span>Room type:&nbsp;</span>
-              <input class="describe" style="width:60px; display: inline;" readonly="true" type="text" name="description" value="room"  />
+              <input class="describe" style="width:60px; display: inline;" readonly="true" type="text" name="room.description" value="<s:property value="roomType"/>"  />
             	<a class="describe_edit" href="#" title="describe"><img src="images/sign-up-icon.png" alt="edit" /></a>
               </div>
               </div>
              <div class="subcolumns type-text">
-      <span class="title_season">Price</span>&nbsp; <input type="text" class="small_input" id="price" name="price" value="30" />
+      <span class="title_season">Price</span>&nbsp; <input type="text" class="small_input" id="price" name="room.price" value="<s:property value="price"/>" />
              <span>&nbsp;&euro;</span>
               </div>
                <div class="subcolumns">
@@ -48,7 +55,7 @@
       		</div>
       		<div class="c10l">
       		        <div class="type_rooms">
-                      <input type="input" class="small_input" name="sleeps" value="1" />
+                      <input type="input" class="small_input" name="room.maxGuests" value="<s:property value="maxGuests"/>" />
                     </div>                
                     </div>
               </div>
@@ -58,7 +65,7 @@
             <div class="subcolumns type-text">
             <div class="c50l">
       		<span class="title_season">Notes:</span>&nbsp;
-      		<textarea name="note" rows="5" cols="60"></textarea>
+      		<textarea name="room.notes" rows="5" cols="60"><s:property value="notes"/></textarea>
       		</div>
       		</div>
       		<div class="subcolumns">
@@ -71,6 +78,8 @@
             </div>
               </fieldset>
            </form>        
-		</div>        
+		</div>  
+		
+		 </s:iterator>      
           </div>
 <jsp:include page="jsp/layout/footer.jsp" />     
