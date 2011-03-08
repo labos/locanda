@@ -34,6 +34,27 @@ $(document).ready(function() {
 		 
 		 return result;
 		 
+	 };
+	 
+	 //notifier for all jsp
+	 $.fn.notify = function(title, description, redirect){
+		 
+		 $.jGrowl(description, {
+			    beforeClose: function(e,m) {
+			        if(redirect)
+			        	{
+			        		window.location.href = redirect;
+			        	}
+			        	
+			    },
+			    animateOpen: {
+			        height: 'show'
+			    },
+			    position: "center",
+			    header: title
+
+			});
+
 	 }
 	 
 	
@@ -603,14 +624,17 @@ $(document).ready(function() {
    	      icons: {
    	          primary: "ui-icon-check"
    	      }});
-   	  
-   	$("category_new_id").autocomplete({
-		source: "customer.json",
+   	 
+   	  //select room types
+   	$("#roomtype_id").autocomplete({
 		minLength: 2,
-		select: function( event, ui ) {
-			log( ui.item ?
-				"Selected: " + ui.item.value + " aka " + ui.item.id :
-				"Nothing selected, input was " + this.value );
+		source: function( request, response ) {
+			var term = request.term;
+
+			lastXhr = $.getJSON( "findAllRoomTypes.action", request, function( data, status, xhr ) {
+					response( data);
+
+			});
 		}
 	});
 
@@ -629,11 +653,21 @@ $(document).ready(function() {
    		   url: "addNewRoom.action",
    		   data: formInput,
    		   success: function(data_action){
+   			   
+   			var title_notification = null;
+   			
    			   if (data_action.result == "success")
-   		     alert( "Complimenti: " + data_action.description )
+   				   {
+   			
+   				$().notify("Congratulazioni", data_action.description, "accomodation.jsp");
+   				    				    
+   				   }
+   		    
    		     else
-   		    	alert( "Attenzione: " + data_action.description )
+   		    	$().notify("Attenzione", data_action.description);
    		   }
+
+   		
    		 });
    		
    	  }

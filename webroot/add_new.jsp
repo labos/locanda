@@ -29,21 +29,10 @@
              <div class="subcolumns">
              <span>Save room to define prices or minimum stay
 </span>       </div>
-                    <div class="type-select">
-      		<label for="category_id">Category:</label>
-    				<select id="category_id" name="room.roomType" size="1" aria-required="true">
-					<option selected="selected" value="">Select One</option>
-					<option value="singola">Singola</option>
-					<option value="doppia">Doppia</option>
-					<option value="tripla">Tripla</option>
-                </select>
-                </div>
+
                 <div class="type-text" >
-                <strong>&nbsp;&nbsp;OR</strong>
-                </div>
-                <div class="type-text" >
-               <label for="category_new_id">New Category:</label> 
-               <input  type="text"  id="category_new_id"  name="room.roomType" />
+               <label for="roomtype_id">Room Type:</label> 
+               <input  type="text"  id="roomtype_id"  name="room.roomType" />
                     </div> 
               <div class="subcolumns type-text">
       <label for="price_room_id">Price <sup title="This field is mandatory.">*</sup></label><input type="text" class="required small_input" id="price_room_id" name="room.price" value="30" />

@@ -13,6 +13,7 @@
   'css/south-street/jquery-ui-1.8.9.custom.css' />
   <link rel='stylesheet' type='text/css' href='css/jquery.weekcalendar.css' />
   <link rel='stylesheet' type='text/css' href='css/calendar.css' />
+    <link rel='stylesheet' type='text/css' href='css/jquery.jgrowl.css' />
   <script type='text/javascript' src='js/lib/jquery-1.4.4.min.js'>
 </script><!--
     <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js'></script>
@@ -27,6 +28,8 @@
   <script type='text/javascript' src='js/jquery.validate.min.js'>
 </script>
   <script type='text/javascript' src='js/main.js'>
+</script>
+  <script type='text/javascript' src='js/jquery.jgrowl_minimized.js'>
 </script>
   <title>LOCANDA - Open Source Booking Tool</title><!-- (en) Add your meta data here -->
   <!-- (de) Fuegen Sie hier ihre Meta-Daten ein -->
@@ -48,7 +51,7 @@
   </ul>
 <s:url action="logout" var="url_logout"></s:url>
 <s:url action="home" var="url_home"></s:url>
-
+<div id="freeow" class="freeow freeow-top-right"></div>
   <div class="page_margins">
     <div class="page">
       <div id="header" role="banner">

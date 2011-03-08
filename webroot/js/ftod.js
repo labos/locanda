@@ -51,6 +51,8 @@ return(Math.floor(Math.random()*(n2-n1))+n1);
 
 $().ready(function() {
 	$(".hlist ul li").bind({"mouseover click":function(){
+		$(this).siblings().removeClass("active");
+		//$(this).children("a").hide().addClass("active");
 		$(this).children(".sub_menu").find("a").hover(function(){
 			$(this).addClass("ui-corner-all ui-state-hover");
 		},  function () {   $(this).removeClass("ui-corner-all ui-state-hover");  }
