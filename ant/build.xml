@@ -29,21 +29,23 @@
 			</fileset>
 		</copy>		
 	</target>
-	<!--
-	<target name="deploy" description="Deploy on tomcat folder">
+	
+	<target name="fast_deploy" description="Deploy on tomcat folder">
 		<copy todir="${tomcat.deploy.path}/${webappname}">
 			<fileset dir="${workdir.path}">
-				<include name="WEB-INF/**"/>
-				<include name="resources/**"/>	
+				<include name="**"/>
 			</fileset>
 				
 		</copy>
 	</target>
 	
-	<target name="undeploy" description="Undeploy from tomcat folder">
+	<target name="fast_undeploy" description="Undeploy from tomcat folder">
 		<delete dir="${tomcat.deploy.path}/${webappname}"/>
+		<delete file="${tomcat.deploy.path}/${webappname}.war"></delete>
 	</target>
-	-->
+	
+	<target name="fast_Build" depends="stop, undeploy, deploy, start"></target>
+	
 	<target name="stop" depends="propertySetter" description="Stop Tomcat application" if="deployed">
 		<stop url="${tomcat.manager.url}"
 		      username="${tomcat.username}"
@@ -60,7 +62,7 @@
 	
 	<target name="WAR build" depends="" description="WAR build on dist folder">
 		<echo message="Packaging the WAR...."/>
-		<war destfile="${tomcat.home.path}/${webappname}.war" webxml="${webroot.path}/web.xml">
+		<war destfile="${tomcat.deploy.path}/${webappname}.war" webxml="${webroot.path}/web.xml">
 			<webinf dir="${webroot.path}"/>
 			<lib dir="${webroot.path}/lib"/>
 			<fileset dir="${workdir.path}">
@@ -72,7 +74,7 @@
 	<taskdef name="deploy" classname="org.apache.catalina.ant.DeployTask"/>
 	<target name="deploy" description="Install web application" depends="WAR build">
 		<deploy url="${tomcat.manager.url}" username="${tomcat.username}" password="${tomcat.password}"
-			path="/${webappname}" war="file:${tomcat.home.path}/${webappname}.war"/>
+			path="/${webappname}" war="file:${tomcat.deploy.path}/${webappname}.war"/>
 	</target>
 	
 	<taskdef name="undeploy" classname="org.apache.catalina.ant.UndeployTask"/>

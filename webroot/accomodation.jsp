@@ -24,17 +24,19 @@
           <div>
 		 <form method="post" action="" class="yform full" role="application">
             <fieldset>
-              <legend>Camera Singola</legend>
+              <legend>
+                <input class="describe" style="width:60px; display: inline;" readonly="true" type="text" name="name" value="room"  />
+            	<a class="describe_edit" href="#" title="describe"><img src="images/sign-up-icon.png" alt="edit" /></a>
+            	</legend>
 				<div class="subcolumns type-text">
-              <div class="c33r">
-              <span>Describe As:&nbsp;</span>
+              <div class="">
+              <span>Room type:&nbsp;</span>
               <input class="describe" style="width:60px; display: inline;" readonly="true" type="text" name="description" value="room"  />
             	<a class="describe_edit" href="#" title="describe"><img src="images/sign-up-icon.png" alt="edit" /></a>
-              <p>(e.g. room or villa)</p>
               </div>
               </div>
              <div class="subcolumns type-text">
-      <span class="title_season">All Year round</span>&nbsp; <input type="text" class="small_input" id="all_year" name="room_price" value="30" />
+      <span class="title_season">Price</span>&nbsp; <input type="text" class="small_input" id="price" name="price" value="30" />
              <span>&nbsp;&euro;</span>
               </div>
                <div class="subcolumns">
@@ -55,7 +57,7 @@
               </div>
             <div class="subcolumns type-text">
             <div class="c50l">
-      		<span class="title_season">Note:</span>&nbsp;
+      		<span class="title_season">Notes:</span>&nbsp;
       		<textarea name="note" rows="5" cols="60"></textarea>
       		</div>
       		</div>
