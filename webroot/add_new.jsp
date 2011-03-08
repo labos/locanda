@@ -35,12 +35,12 @@
                <input  type="text"  id="roomtype_id"  name="room.roomType" />
                     </div> 
               <div class="subcolumns type-text">
-      <label for="price_room_id">Price <sup title="This field is mandatory.">*</sup></label><input type="text" class="required small_input" id="price_room_id" name="room.price" value="30" />
+      <label for="price_room_id">Price <sup title="This field is mandatory.">*</sup></label><input type="text" class="required number small_input" id="price_room_id" name="room.price" value="30" />
              <span>&nbsp;&euro;</span>
               </div>
               <div class="subcolumns type-text">
       		<label for="max_guests_id">Max Guests: <sup title="This field is mandatory.">*</sup></label>
-				 <input id="max_guests_id" type="text" class="required small_input" name="room.maxGuests" value="1" />
+				 <input id="max_guests_id" type="text" class="required number small_input" name="room.maxGuests" value="1" />
 		     </div>
 			 <div class="subcolumns">
               &nbsp;
