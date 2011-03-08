@@ -21,9 +21,7 @@ import com.opensymphony.xwork2.ActionSupport;
 public class RoomAction extends ActionSupport implements SessionAware{
 	private Map<String, Object> session = null;
 	private Room room = null;
-	private Message message = new Message();
-	
-	
+	private Message message = new Message();	
 	
 	
 	@Actions({

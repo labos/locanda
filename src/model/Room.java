@@ -1,12 +1,22 @@
 package model;
 
 public class Room {
+	private int id;
 	private String name;
 	private Double price;
 	private String notes;
 	private Integer maxGuests;
 	private String roomType;
 	
+	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -46,6 +56,8 @@ public class Room {
 	public void setMaxGuests(Integer maxGuests) {
 		this.maxGuests = maxGuests;
 	}
+	
+	
 	
 	
 	
