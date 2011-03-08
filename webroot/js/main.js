@@ -626,10 +626,13 @@ $(document).ready(function() {
    			
    		$.ajax({
    		   type: "POST",
-   		   url: "findAllRooms.action",
+   		   url: "addNewRoom.action",
    		   data: formInput,
-   		   success: function(msg){
-   		     alert( "Data Saved: " + msg );
+   		   success: function(data_action){
+   			   if (data_action.result == "success")
+   		     alert( "Complimenti: " + data_action.description )
+   		     else
+   		    	alert( "Attenzione: " + data_action.description )
    		   }
    		 });
    		
