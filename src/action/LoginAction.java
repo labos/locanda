@@ -63,14 +63,14 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		aRoom.setRoomType("singola");
 		aRoom.setPrice(80.0);
 		aRoom.setMaxGuests(1);
-		ret.getRooms().add(aRoom);
+		ret.addRoom(aRoom);
 		
 		aRoom = new Room();
 		aRoom.setName("201");
 		aRoom.setRoomType("doppia");
 		aRoom.setPrice(120.0);
 		aRoom.setMaxGuests(2);
-		ret.getRooms().add(aRoom);
+		ret.addRoom(aRoom);
 		
 		
 		return ret;		

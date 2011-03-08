@@ -10,6 +10,7 @@ public class Structure {
 	private List<Room> rooms;
 	private TreeSet<Integer> keys;
 	
+	
 	public Structure(){
 		this.rooms = new ArrayList<Room>();
 		this.keys = new TreeSet<Integer>();
