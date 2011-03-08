@@ -644,6 +644,7 @@ $(document).ready(function() {
   		
  		//setting for input form fields
    		var formInput=$(this).serialize();
+   		var hrefAction = $(this).attr("action");
    		//if form is valid
    		if ($(this).valid())
    			{
@@ -659,7 +660,7 @@ $(document).ready(function() {
    			   if (data_action.result == "success")
    				   {
    			
-   				$().notify("Congratulazioni", data_action.description, "accomodation.jsp");
+   				$().notify("Congratulazioni", data_action.description, hrefAction);
    				    				    
    				   }
    		    

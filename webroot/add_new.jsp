@@ -20,7 +20,7 @@
             </div>
           </div>
           <div>
-		 <form method="post" action="" class="yform" role="application">
+		 <form method="post" action="findAllRooms.action" class="yform" role="application">
             <fieldset>
               <legend>
               <label for="room_name_id">Name Room: <sup title="This field is mandatory.">*</sup></label>
