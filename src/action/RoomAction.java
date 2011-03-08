@@ -110,7 +110,6 @@ public class RoomAction extends ActionSupport implements SessionAware{
 			return "error";
 		}
 		
-	
 	}	
 	
 	@Actions({
@@ -125,21 +124,40 @@ public class RoomAction extends ActionSupport implements SessionAware{
 		
 	})
 	
-	public String updateRoom() {
+	public String updateRoom() {		
 		User user = (User)this.getSession().get("user");
 		//Controllare che sia diverso da null in un interceptor
-		Structure structure = user.getStructure();
+		Structure structure = user.getStructure();		
+		String newName = this.getRoom().getName();
 		
-		if(structure.deleteRoom(this.getRoom())){
-			this.getMessage().setResult(Message.SUCCESS);
-			this.getMessage().setDescription("La stanza e' stata cancellata con successo");
-			return "success";
-		}else{
+		if(newName.contains(",")){
 			this.getMessage().setResult(Message.ERROR);
-			this.getMessage().setDescription("Non e' stato possiible cancellare la stanza");
+			this.getMessage().setDescription("Il nuovo nome non puo' contenere virgole");
 			return "error";
 		}
 		
+		Room originalRoom = structure.findRoomById(this.getRoom().getId());
+		if(originalRoom == null){
+			this.getMessage().setResult(Message.ERROR);
+			this.getMessage().setDescription("Stai imbrogliando e lo stai facendo molto male");
+			return "error";
+		}
+				
+		if(!newName.equals(originalRoom.getName())){
+			if(structure.findRoomByName(newName) != null){
+				this.getMessage().setResult(Message.ERROR);
+				this.getMessage().setDescription("Stai usando un nome gia' esistente");
+				return "error";
+			}
+		}
+		originalRoom.setName(this.getRoom().getName());
+		originalRoom.setMaxGuests(this.getRoom().getMaxGuests());
+		originalRoom.setNotes(this.getRoom().getNotes());
+		originalRoom.setPrice(this.getRoom().getPrice());
+		originalRoom.setRoomType(this.getRoom().getRoomType());
+		this.getMessage().setResult(Message.SUCCESS);
+		this.getMessage().setDescription("La stanza e' stata modificata con successo");
+		return "success";		
 	
 	}	
 

@@ -1,5 +1,6 @@
 package model;
 
+import java.awt.PageAttributes.OriginType;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -30,7 +31,27 @@ public class Structure {
 		return ret;
 	}
 	
+	public Room findRoomByName(String name){
+		Room ret = null;
+		
+		for(Room each: this.getRooms()){
+			if(each.getName().equals(name)){
+				return each;
+			}
+		}
+		return ret;
+	}
 	
+	public Room findRoomById(Integer id){
+		Room ret = null;
+		
+		for(Room each: this.getRooms()){
+			if(each.getId().equals(id)){
+				return each;
+			}
+		}
+		return ret;
+	}
 	
 	public Set<String> findAllRoomTypes(){
 		Set<String> ret = new TreeSet<String>();
@@ -66,12 +87,7 @@ public class Structure {
 		return this.getRooms().remove(aRoom);
 	}
 	
-	public boolean updateRoom(Room aRoom){
-		Boolean ret = false;
-		String newName = aRoom.getName();
-		
-		return ret;
-	}
+	
 	
 	public String getName() {
 		return name;
