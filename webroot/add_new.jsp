@@ -27,11 +27,11 @@
               <input id="room_name_id" class="required" name="room.name" type="text" value="Enter Room Name" /></legend>
              <div class="c50l">
              <div class="subcolumns">
-             <span>Save room to define prices or minimum stay
-</span>       </div>
+             <span>Save room to define prices or minimum stay</span>
+             </div>
 
                 <div class="type-text" >
-               <label for="roomtype_id">Room Type:</label> 
+               <label for="roomtype_id">Room Type:&nbsp;&nbsp;&nbsp;&nbsp;(Start typing the name of the room)</label> 
                <input  type="text"  id="roomtype_id"  name="room.roomType" />
                     </div> 
               <div class="subcolumns type-text">
