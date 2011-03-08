@@ -58,6 +58,11 @@ public class Structure {
 		return ret;
 	}
 	
+		
+	public boolean deleteRoom(Room aRoom){
+		return this.getRooms().remove(aRoom);
+	}
+	
 	public String getName() {
 		return name;
 	}
