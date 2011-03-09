@@ -23,6 +23,19 @@
 </script>
   <script type='text/javascript' src='js/jquery.weekcalendar.js'>
 </script>
+      <script>
+      $().ready(function() {
+      <%
+      	//code for menu tabs activation
+      	String dPageDefault = "planner";
+ 		String dPage = request.getParameter("sect");
+ 		dPage = (dPage == null)? dPageDefault  : dPage ;
+		out.println("\n var section= \'" + dPage + "\';") ;
+      %>
+      var text_tab = $("#"+section).children("a").hide().text();
+      $("#"+section).addClass("active").prepend("<strong>" + text_tab + "</strong>");
+      });
+      </script>
   <script type='text/javascript' src='js/ftod.js'>
 </script>
   <script type='text/javascript' src='js/jquery.validate.min.js'>
@@ -49,9 +62,11 @@
 
     <li><a class="skip" href="#col3">Skip to main content (Press Enter).</a></li>
   </ul>
+  
 <s:url action="logout" var="url_logout"></s:url>
 <s:url action="home" var="url_home"></s:url>
-<div id="freeow" class="freeow freeow-top-right"></div>
+<s:url action="findAllRooms" var="url_findallroom"></s:url>
+
   <div class="page_margins">
     <div class="page">
       <div id="header" role="banner">
@@ -65,22 +80,22 @@
       <div id="nav" role="navigation">
         <div class="hlist">
           <ul>
-            <li><a href="<s:property value="url_home"/>">Planner</a></li>
-            <li><a href="#">Accomodation</a>
+            <li id="planner"><a href="<s:property value="url_home"/>?sect=planner">Planner</a></li>
+            <li id="accomodation"><a href="#">Accomodation</a>
             <ul class="sub_menu ui-menu ui-widget ui-widget-content ui-corner-all">
-    			<li class="ui-menu-item"><a href="findAllRooms.action">ACCOMODATION</a></li>
-    			<li class="ui-menu-item"><a href="extras.jsp">EXTRAS</a></li>
+    			<li class="ui-menu-item"><a href="<s:property value="url_findallroom"/>?sect=accomodation">ACCOMODATION</a></li>
+    			<li class="ui-menu-item"><a href="extras.jsp?sect=accomodation">EXTRAS</a></li>
   			</ul>
             </li>
-            <li><a href="guests.jsp">Guests</a></li>
-            <li><a href="#">Reports</a></li>
-            <li class="active"><strong>Settings</strong>
+            <li id="guests"><a href="guests.jsp?sect=guests">Guests</a></li>
+            <li id=reports><a href="#">Reports</a></li>
+            <li id="settings" class="active"><a href="#">Settings</a>
                 <ul class="sub_menu ui-menu ui-widget ui-widget-content ui-corner-all">
-    			<li class="ui-menu-item"><a href="online.jsp">ONLINE BOOKINGS</a></li>
-    			<li class="ui-menu-item"><a href="seasons.jsp">SEASONS</a></li>
-    			<li class="ui-menu-item"><a href="emails.jsp">EMAILS</a></li>
-    			<li class="ui-menu-item"><a href="details.jsp">YOUR DETAILS</a></li>
-    			<li class="ui-menu-item"><a href="discount.jsp">DISCOUNT</a></li>
+    			<li class="ui-menu-item"><a href="online.jsp?sect=settings">ONLINE BOOKINGS</a></li>
+    			<li class="ui-menu-item"><a href="seasons.jsp?sect=settings">SEASONS</a></li>
+    			<li class="ui-menu-item"><a href="emails.jsp?sect=settings">EMAILS</a></li>
+    			<li class="ui-menu-item"><a href="details.jsp?sect=settings">YOUR DETAILS</a></li>
+    			<li class="ui-menu-item"><a href="discount.jsp?sect=settings">DISCOUNT</a></li>
   			</ul>
             </li>         
             <li><a href="#">Help</a></li>

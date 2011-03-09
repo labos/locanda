@@ -51,23 +51,6 @@ return(Math.floor(Math.random()*(n2-n1))+n1);
 
 $().ready(function() {
 	$(".hlist ul li").bind({"mouseover click":function(){
-		$(this).siblings().removeClass("active")
-
-		
-/*		$(this).siblings().removeClass("active").children("a").show();
-		$(this).siblings().children("strong").hide();
-		//$(this).children("a").hide().addClass("active");
-		var prova = $( this ).children("a").hide().text();
-		
-		if( $( this ).children("strong").length  > 0 )
-			$( this ).children("strong").show();	
-		else
-			$( this ).append("<strong>" + prova + "</strong>");
-		
-		$( this ).addClass("active");*/
-		
-		
-		
 		$(this).children(".sub_menu").find("a").hover(function(){
 			$(this).addClass("ui-corner-all ui-state-hover");
 		},  function () {   $(this).removeClass("ui-corner-all ui-state-hover");  }
