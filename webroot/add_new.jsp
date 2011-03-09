@@ -20,27 +20,33 @@
             </div>
           </div>
           <div>
-		 <form method="post" action="findAllRooms.action" class="yform" role="application">
+		 <form method="post" action="addNewRoom.action" class="yform json" role="application">
             <fieldset>
               <legend>
+              <input type="hidden" name="redirect_form" value="findAllRooms.action" />
               <label for="room_name_id">Name Room: <sup title="This field is mandatory.">*</sup></label>
-              <input id="room_name_id" class="required" name="room.name" type="text" value="Enter Room Name" /></legend>
-             <div class="c50l">
+              <input id="room_name_id" class="required" name="room.name" type="text" value="Enter Room Name" />
+              <span style="display:none;">Enter words separated by commas to add more rooms</span>
+              </legend>
+              <div class="c50l">
              <div class="subcolumns">
-             <span>Save room to define prices or minimum stay</span>
+             <span>Enter words separated by commas to add more rooms</span>
              </div>
 
                 <div class="type-text" >
-               <label for="roomtype_id">Room Type:&nbsp;&nbsp;&nbsp;&nbsp;(Start typing the name of the room)</label> 
+               <label for="roomtype_id">Room Type:</label> 
                <input  type="text"  id="roomtype_id"  name="room.roomType" />
+               <span style="display:none;">Start typing the name of the room</span>
                     </div> 
               <div class="subcolumns type-text">
       <label for="price_room_id">Price <sup title="This field is mandatory.">*</sup></label><input type="text" class="required number small_input" id="price_room_id" name="room.price" value="30" />
+             <span style="display:none;">Enter the price of the room</span>
              <span>&nbsp;&euro;</span>
               </div>
               <div class="subcolumns type-text">
       		<label for="max_guests_id">Max Guests: <sup title="This field is mandatory.">*</sup></label>
 				 <input id="max_guests_id" type="text" class="required number small_input" name="room.maxGuests" value="1" />
+		     	<span style="display:none;">Enter the maximum number of guests</span>
 		     </div>
 			 <div class="subcolumns">
               &nbsp;

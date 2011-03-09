@@ -55,7 +55,49 @@ $(document).ready(function() {
 
 			});
 
-	 }
+	 };
+	 
+
+		 $(".yform.json").submit(function(event){
+		  		
+			 var eventsss = event;
+		 		//setting for input form fields
+		   		var formInput=$(this).serialize();
+		   		var hrefAction = $(this).attr("action");
+		   		var _redirectAction = $(this).find('input:hidden[name="redirect_form"]').val()
+		   		 _redirectAction =(_redirectAction == null) ? "home.action" : _redirectAction;
+		   		//if form is valid
+		   		if ($(this).valid())
+		   			{
+		   			
+		   		$.ajax({
+		   		   type: "POST",
+		   		   url: hrefAction,
+		   		   data: formInput,
+		   		   success: function(data_action){
+		   			   
+		   			var title_notification = null;
+		   			
+		   			   if (data_action.result == "success")
+		   				   {
+		   			
+		   				$().notify("Congratulazioni", data_action.description, _redirectAction);
+		   				    				    
+		   				   }
+		   		    
+		   		     else
+		   		    	$().notify("Attenzione", data_action.description);
+		   		   }
+
+		   		
+		   		 });
+		   		
+		   	  }
+		   		
+		   		return false;
+		   	  
+		   	  });
+
 	 
 	
   	$(".btn_check_in").button({
@@ -640,44 +682,17 @@ $(document).ready(function() {
 
    	  
    	  //submit management for add room form
-   	  $(".btn_add_room").parents(".yform").submit(function(){
-  		
- 		//setting for input form fields
-   		var formInput=$(this).serialize();
-   		var hrefAction = $(this).attr("action");
-   		//if form is valid
-   		if ($(this).valid())
-   			{
-   			
-   		$.ajax({
-   		   type: "POST",
-   		   url: "addNewRoom.action",
-   		   data: formInput,
-   		   success: function(data_action){
-   			   
-   			var title_notification = null;
-   			
-   			   if (data_action.result == "success")
-   				   {
-   			
-   				$().notify("Congratulazioni", data_action.description, hrefAction);
-   				    				    
-   				   }
-   		    
-   		     else
-   		    	$().notify("Attenzione", data_action.description);
-   		   }
-
-   		
-   		 });
-   		
-   	  }
-   		
-   		return false;
+   	//--  $(".btn_add_room").submitForm("findAllRooms.action?section=accomodation", null);
    	  
-   	  });
-   	  
-   	
+   	  //add notify functionality as tooltip for input text
+	  $("#room_name_id, #roomtype_id, #max_guests_id, #price_room_id").focus(function(){
+		  $.jGrowl($(this).next("span").text(), { position: "top-left" });
+ 
+	  }).focusout(function(){
+		  
+		  $.jGrowl("close");
+	  });
+	  
  
    	 
    	 $(".btn_delete").button({
@@ -798,7 +813,7 @@ $(document).ready(function() {
 	      icons: {
 	          primary: "ui-icon-circle-plus"
 	      }}).click(function(){
-	    	window.location.href="guest_new.jsp"; 
+	    	window.location.href="guest_new.jsp?sect=guests"; 
 	    	return false;
 	      });
 	  
@@ -1017,7 +1032,18 @@ $(document).ready(function() {
 	//---  END EMAIL SECTION CODE  
 	  
 	  
-	//---  ACCOMODATION SECTION CODE     
+	//---  ACCOMODATION SECTION CODE    
+	  
+ 	  //submit management for add room form
+   //--	  $(".btn_update_room").click(function(){submitForm("findAllRooms.action?section=accomodation", null);});
+   //--	  $(".btn_delete_room").click(function(){submitForm("findAllRooms.action?section=accomodation", "deleteRoom.action");});
+
+	  $(".btn_delete_room").click(function(event){
+		  //-- event.preventDefault();
+		  $(this).parents(".yform").attr("action", "deleteRoom.action");
+	  });
+	  
+	  
 	  $(".min_stay").click(function(){
 			 if($(this).hasClass("clickable"))
 				 {
@@ -1042,9 +1068,9 @@ $(document).ready(function() {
 		      icons: {
 		          primary: "ui-icon-circle-plus"
 		      }}).click(function(){
-			    	window.location.href="add_new.jsp"; 
+			    	window.location.href="add_new.jsp?sect=accomodation"; 
 			    	return false;
-			      });;
+			      });
 		 
 		//---  END ACCOMODATION SECTION CODE   
    

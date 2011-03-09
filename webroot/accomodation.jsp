@@ -28,14 +28,15 @@
           
          
           
-		 <form method="post" action="" class="yform full" role="application">
+		 <form method="post" action="updateRoom.action" class="yform json full" role="application">
             <fieldset>
               <legend>
+              <input type="hidden" name="redirect_form" value="findAllRooms.action" />
                 <input class="describe" style="width:60px; display: inline;" readonly="true" type="text" name="room.name" value="<s:property value="name"/>"  />
             	<a class="describe_edit" href="#" title="describe"><img src="images/sign-up-icon.png" alt="edit" /></a>
             	</legend>
 				<div class="subcolumns type-text">
-				<input type="text" name="room.id" value="<s:property value="id"/>"/>
+				<input type="hidden" name="room.id" value="<s:property value="id"/>"/>
               <div class="">
               <span>Room type:&nbsp;</span>
               <input class="describe" style="width:60px; display: inline;" readonly="true" type="text" name="room.description" value="<s:property value="roomType"/>"  />
@@ -73,8 +74,8 @@
               </div>
             <div class="type-button">
             <input type="text" name="new_name_season" id="chng_season_name" value=""/>
-            <button class="btn_save">SAVE</button>
-            <button class="btn_delete">DELETE</button>
+            <button class="btn_save btn_update_room">SAVE</button>
+            <button class="btn_delete btn_delete_room">DELETE</button>
             </div>
               </fieldset>
            </form>        
