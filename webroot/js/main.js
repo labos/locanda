@@ -60,11 +60,10 @@ $(document).ready(function() {
 
 		 $(".yform.json").submit(function(event){
 		  		
-			 var eventsss = event;
 		 		//setting for input form fields
 		   		var formInput=$(this).serialize();
 		   		var hrefAction = $(this).attr("action");
-		   		var _redirectAction = $(this).find('input:hidden[name="redirect_form"]').val()
+		   		var _redirectAction = $(this).find('input:hidden[name="redirect_form"]').val();
 		   		 _redirectAction =(_redirectAction == null) ? "home.action" : _redirectAction;
 		   		//if form is valid
 		   		if ($(this).valid())
@@ -86,7 +85,10 @@ $(document).ready(function() {
 		   				   }
 		   		    
 		   		     else
-		   		    	$().notify("Attenzione", data_action.description);
+		   		    	 {
+		   		    	 	$().notify("Attenzione", data_action.description);
+		   		    	 }
+		   		    	
 		   		   }
 
 		   		
@@ -685,15 +687,25 @@ $(document).ready(function() {
    	//--  $(".btn_add_room").submitForm("findAllRooms.action?section=accomodation", null);
    	  
    	  //add notify functionality as tooltip for input text
-	  $("#room_name_id, #roomtype_id, #max_guests_id, #price_room_id").focus(function(){
-		  $.jGrowl($(this).next("span").text(), { position: "top-left" });
+	  $("#room_name_id, #roomtype_id, #max_guests_id, #price_room_id").mousedown(function(){
+		  $.jGrowl($(this).nextAll("span:hidden").text(), { position: "top-left" });
  
-	  }).focusout(function(){
+	  }).mouseout(function(){
 		  
 		  $.jGrowl("close");
 	  });
 	  
  
+	  
+	  $(".btn_cancel_room").click(function(event){
+		  event.preventDefault();
+		  var validator = $(this).parents(".yform.json").validate();
+		  validator.resetForm();
+
+	  });
+	  
+	  
+	  
    	 
    	 $(".btn_delete").button({
    	     icons: {
@@ -1041,6 +1053,17 @@ $(document).ready(function() {
 	  $(".btn_delete_room").click(function(event){
 		  //-- event.preventDefault();
 		  $(this).parents(".yform").attr("action", "deleteRoom.action");
+	  });
+	  
+	  //button click handler for delete all rooms
+	  $(".btn_save_all_rooms").click(function(event){
+		  var allRedirectInputs = $(".yform.json").find('input:hidden[name="redirect_form"]');
+		  var redirectOld =  allRedirectInputs.last().val();
+		  allRedirectInputs.val("");
+	   	  $(".yform.json").submit();
+	   	allRedirectInputs.val(redirectOld);
+	   	  
+		    
 	  });
 	  
 	  

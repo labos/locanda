@@ -35,7 +35,7 @@
 
                 <div class="type-text" >
                <label for="roomtype_id">Room Type:</label> 
-               <input  type="text"  id="roomtype_id"  name="room.roomType" />
+               <input  type="text"  class="required" id="roomtype_id"  name="room.roomType" />
                <span style="display:none;">Start typing the name of the room</span>
                     </div> 
               <div class="subcolumns type-text">
@@ -61,7 +61,7 @@
               </div>
             <div class="type-button">
             <button class="btn_save btn_add_room">SAVE</button>
-            <button class="btn_delete">CANCEL</button>
+            <button class="btn_delete btn_cancel_room">CANCEL</button>
             </div>
             
             </div>
