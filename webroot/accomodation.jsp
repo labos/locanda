@@ -39,7 +39,7 @@
 				<input type="hidden" name="room.id" value="<s:property value="id"/>"/>
               <div class="">
               <span>Room type:&nbsp;</span>
-              <input class="describe" style="width:60px; display: inline;" readonly="true" type="text" name="room.description" value="<s:property value="roomType"/>"  />
+              <input class="describe" style="width:60px; display: inline;" readonly="true" type="text" name="room.roomType" value="<s:property value="roomType"/>"  />
             	<a class="describe_edit" href="#" title="describe"><img src="images/sign-up-icon.png" alt="edit" /></a>
               </div>
               </div>
