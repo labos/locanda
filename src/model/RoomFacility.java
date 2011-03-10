@@ -2,7 +2,7 @@ package model;
 
 public class RoomFacility {
 	private Integer id;
-	private String description;
+	private String name;
 	private String fileName;
 	
 	public Integer getId() {
@@ -11,11 +11,12 @@ public class RoomFacility {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public String getDescription() {
-		return description;
+	
+	public String getName() {
+		return name;
 	}
-	public void setDescription(String description) {
-		this.description = description;
+	public void setName(String name) {
+		this.name = name;
 	}
 	public String getFileName() {
 		return fileName;
