@@ -63,10 +63,14 @@
             <button class="btn_save btn_add_room">SAVE</button>
             <button class="btn_delete btn_cancel_room">CANCEL</button>
             </div>
-            
             </div>
               </fieldset>
-           </form>        
+           </form>
+           <s:form action="uploadFacility" method="post" enctype="multipart/form-data">
+    		 <s:file name="upload" label="File"/>
+    		 <s:textfield name="name" label="Facility Name"></s:textfield>
+    		 <s:submit/>
+		   </s:form>       
 		</div>        
           </div>
 <jsp:include page="jsp/layout/footer.jsp" />     
