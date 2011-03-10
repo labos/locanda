@@ -38,7 +38,7 @@ $(document).ready(function() {
 	 };
 	 //make a new div overlay element
 	 $('body').append($('<div class="ui-widget-overlay"></div>'));
-	  
+	 $.jGrowl.defaults.position = 'center'; 
 	 //notifier for all jsp
 	 $.fn.notify = function(title, description, redirect){
 		 //get height of the body to cover all html page
@@ -48,11 +48,11 @@ $(document).ready(function() {
 				$(".ui-widget-overlay").css("height", heightbody).show();
 				
 			}
-		 
+			
 
 		 $.jGrowl(description, {
 			    beforeClose: function(e,m) {
-			    	$(".ui-widget-overlay").hide();
+			    	
 			        if(redirect)
 			        	{
 			        		window.location.href = redirect;
@@ -63,7 +63,11 @@ $(document).ready(function() {
 			        height: 'show'
 			    },
 			    position: "center",
-			    header: title
+			    header: title,
+			    close : function (){
+			    	
+			    	$(".ui-widget-overlay").hide();
+			    }
 
 			});
 
@@ -703,7 +707,7 @@ $(document).ready(function() {
 		  $.jGrowl($(this).nextAll("span:hidden").text(), { position: "top-left" });
  
 	  }).mouseout(function(){
-		  
+		 
 		  $.jGrowl("close");
 	  });
 	  
