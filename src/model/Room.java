@@ -1,5 +1,8 @@
 package model;
 
+import java.util.List;
+import java.util.Set;
+
 public class Room {
 	private Integer id;
 	private String name;
@@ -7,6 +10,7 @@ public class Room {
 	private String notes;
 	private Integer maxGuests;
 	private String roomType;
+	private List<RoomFacility> facilities;
 	
 	
 	
@@ -82,11 +86,13 @@ public class Room {
 	public void setMaxGuests(Integer maxGuests) {
 		this.maxGuests = maxGuests;
 	}
-	
-	
-	
-	
-	
-	
+
+	public List<RoomFacility> getFacilities() {
+		return facilities;
+	}
+
+	public void setFacilities(List<RoomFacility> facilities) {
+		this.facilities = facilities;
+	}	
 
 }
