@@ -1,6 +1,7 @@
 $(document).ready(function() {
 
 	$(".yform").validate();  
+	overlay	= $('<div id="fancybox-overlay"></div>'),
 	
 		//---  PLANNER SECTION CODE   
 		// change rate for room
@@ -35,12 +36,23 @@ $(document).ready(function() {
 		 return result;
 		 
 	 };
-	 
+	 //make a new div overlay element
+	 $('body').append($('<div class="ui-widget-overlay"></div>'));
+	  
 	 //notifier for all jsp
 	 $.fn.notify = function(title, description, redirect){
+		 //get height of the body to cover all html page
+		 var heightbody = $('body').height();
+			if (!$(".ui-widget-overlay").is(':visible')) {
+				
+				$(".ui-widget-overlay").css("height", heightbody).show();
+				
+			}
 		 
+
 		 $.jGrowl(description, {
 			    beforeClose: function(e,m) {
+			    	$(".ui-widget-overlay").hide();
 			        if(redirect)
 			        	{
 			        		window.location.href = redirect;
