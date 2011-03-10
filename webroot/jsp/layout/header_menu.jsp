@@ -44,6 +44,8 @@
 </script>
   <script type='text/javascript' src='js/jquery.jgrowl_minimized.js'>
 </script>
+  <script type='text/javascript' src='js/jquery.form.js'>
+</script>
   <title>LOCANDA - Open Source Booking Tool</title><!-- (en) Add your meta data here -->
   <!-- (de) Fuegen Sie hier ihre Meta-Daten ein -->
   <link href="css/layout_sliding_door.css" rel="stylesheet" type="text/css" />

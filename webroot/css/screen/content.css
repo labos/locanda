@@ -544,3 +544,11 @@ font-weight: 600;
      opacity: 0.7;
 	 display: none;
      }
+
+.upload_loader {
+display:none;
+ background: url("../../images/loading.gif"); 
+width:15px;
+ height:15px;
+ vertical-align:text-bottom;
+}

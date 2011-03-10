@@ -36,9 +36,11 @@ $(document).ready(function() {
 		 return result;
 		 
 	 };
+	 
 	 //make a new div overlay element
 	 $('body').append($('<div class="ui-widget-overlay"></div>'));
 	 $.jGrowl.defaults.position = 'center'; 
+	 
 	 //notifier for all jsp
 	 $.fn.notify = function(title, description, redirect){
 		 //get height of the body to cover all html page
@@ -49,7 +51,7 @@ $(document).ready(function() {
 				
 			}
 			
-
+		
 		 $.jGrowl(description, {
 			    beforeClose: function(e,m) {
 			    	
@@ -105,6 +107,11 @@ $(document).ready(function() {
 		   		    	 	$().notify("Attenzione", data_action.description);
 		   		    	 }
 		   		    	
+		   		   },
+		   		   
+		   		   error: function (){
+		   			   
+		   			$().notify("Errore Grave", "Problema nella risorsa interrogata nel server");
 		   		   }
 
 		   		
@@ -704,6 +711,7 @@ $(document).ready(function() {
    	  
    	  //add notify functionality as tooltip for input text
 	  $("#room_name_id, #roomtype_id, #max_guests_id, #price_room_id").mousedown(function(){
+		  $.jGrowl("close");
 		  $.jGrowl($(this).nextAll("span:hidden").text(), { position: "top-left" });
  
 	  }).mouseout(function(){
@@ -712,7 +720,7 @@ $(document).ready(function() {
 	  });
 	  
  
-	  
+	//button for add room cancel  
 	  $(".btn_cancel_room").click(function(event){
 		  event.preventDefault();
 		  var validator = $(this).parents(".yform.json").validate();
@@ -720,7 +728,24 @@ $(document).ready(function() {
 
 	  });
 	  
-	  
+	  //facility form upload
+	  $('#uploadFacility').ajaxForm({ 
+          beforeSubmit: function(formData, jqForm, options){
+        	  $(".upload_loader").show();
+          },
+          success: function(responseText, statusText){
+        	  
+        	  $("#result_facility_upload").text(responseText);
+        	  $(".upload_loader").hide();
+        	  
+          },
+          error: function(){
+          $(".upload_loader").hide();
+          $.jGrowl("Errore");
+          
+          } ,
+          dataType: "json"
+      }); 
 	  
    	 
    	 $(".btn_delete").button({

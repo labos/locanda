@@ -66,11 +66,16 @@
             </div>
               </fieldset>
            </form>
-           <s:form action="uploadFacility" method="post" enctype="multipart/form-data">
+           <div class="subcolumns">
+           <s:form id="uploadFacility" action="addNewRoom.action" method="post" enctype="multipart/form-data">
     		 <s:file name="upload" label="File"/>
     		 <s:textfield name="name" label="Facility Name"></s:textfield>
     		 <s:submit/>
-		   </s:form>       
+		   </s:form>
+		   <span id="result_facility_upload"></span>
+		   <div class="upload_loader">&nbsp;</div>
+		   </div>
+		          
 		</div>        
           </div>
 <jsp:include page="jsp/layout/footer.jsp" />     
