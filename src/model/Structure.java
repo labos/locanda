@@ -12,11 +12,13 @@ public class Structure {
 	private String email;
 	private List<Room> rooms;
 	private TreeSet<Integer> keys;
+	private List<RoomFacility> roomFacilities;
 	
 	
 	public Structure(){
 		this.rooms = new ArrayList<Room>();
 		this.keys = new TreeSet<Integer>();
+		this.roomFacilities = new ArrayList<RoomFacility>();
 		this.keys.add(1);
 	}
 	
@@ -73,6 +75,20 @@ public class Structure {
 		}
 	}
 	
+	public Boolean addRoomFacility(RoomFacility roomFacility){
+		roomFacility.setId(this.nextKey());
+		return this.getRoomFacilities().add(roomFacility);
+	}	
+	
+	public boolean hasRoomFacilityNamed(String roomFacilityName){
+		for(RoomFacility each: this.getRoomFacilities()){
+			if(each.getName().equals(roomFacilityName)){
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	public Integer nextKey(){
 		Integer ret = 0;
 		
@@ -83,6 +99,14 @@ public class Structure {
 	}
 	
 		
+	public List<RoomFacility> getRoomFacilities() {
+		return roomFacilities;
+	}
+
+	public void setRoomFacilities(List<RoomFacility> roomFacilities) {
+		this.roomFacilities = roomFacilities;
+	}
+
 	public boolean deleteRoom(Room aRoom){
 		return this.getRooms().remove(aRoom);
 	}

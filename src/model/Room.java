@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -12,8 +13,15 @@ public class Room {
 	private String roomType;
 	private List<RoomFacility> facilities;
 	
+	public Room(){
+		this.facilities = new ArrayList<RoomFacility>();
+	}
 	
-	
+	public Boolean addRoomFacility(RoomFacility roomFacility){
+		
+		return this.getFacilities().add(roomFacility);
+		
+	}
 	
 	@Override
 	public int hashCode() {
