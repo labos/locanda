@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Set;
 
 import model.Room;
+import model.RoomFacility;
 import model.Structure;
 import model.User;
 
@@ -21,6 +22,7 @@ public class AccomodationAction extends ActionSupport implements SessionAware{
 	private Map<String, Object> session = null;
 	private List<Room> rooms = null;
 	private Set<String> roomTypes = null;
+	private List<RoomFacility> roomFacilities = null;
 	
 	
 	@Actions({
@@ -51,6 +53,31 @@ public class AccomodationAction extends ActionSupport implements SessionAware{
 		Structure structure = user.getStructure();
 		this.setRooms(structure.getRooms());
 		return SUCCESS;
+	}
+	
+	@Actions({
+		@Action(value="/goAddNewRoom",results = {
+				@Result(name="success",location="/add_new.jsp")
+		})
+		
+	})
+	public String goAddNewRoom() {
+		User user = (User)this.getSession().get("user");
+		//Controllare che sia diverso da null in un interceptor
+		Structure structure = user.getStructure();
+		this.setRoomFacilities(structure.getRoomFacilities());
+		return SUCCESS;
+	}
+	
+	
+	
+
+	public List<RoomFacility> getRoomFacilities() {
+		return roomFacilities;
+	}
+
+	public void setRoomFacilities(List<RoomFacility> roomFacilities) {
+		this.roomFacilities = roomFacilities;
 	}
 
 	public List<Room> getRooms() {

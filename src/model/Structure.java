@@ -66,9 +66,7 @@ public class Structure {
 	
 	public void addRoom(Room aRoom){
 		this.getRooms().add(aRoom);
-	}
-	
-	
+	}	
 	
 	public Boolean addRoomFacility(RoomFacility roomFacility){
 		roomFacility.setId(this.nextKey());
