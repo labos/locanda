@@ -728,9 +728,11 @@ $(document).ready(function() {
 
 	  });
 	  
+	  $("#uploadFacility").validate();
 	  //facility form upload
 	  $('#uploadFacility').ajaxForm({ 
           beforeSubmit: function(formData, jqForm, options){
+        	  
         	  $(".upload_loader").show();
           },
           success: function(responseText, statusText){
@@ -748,6 +750,10 @@ $(document).ready(function() {
       }); 
 	  
    	 
+	  
+	  
+	  
+	  
    	 $(".btn_delete").button({
    	     icons: {
    	         primary: "ui-icon-trash"

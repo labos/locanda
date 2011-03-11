@@ -67,9 +67,9 @@
               </fieldset>
            </form>
            <div class="subcolumns">
-           <s:form id="uploadFacility" action="addNewRoom.action" method="post" enctype="multipart/form-data">
-    		 <s:file name="upload" label="File"/>
-    		 <s:textfield name="name" label="Facility Name"></s:textfield>
+           <s:form id="uploadFacility" action="addNewRoom.action" method="post" enctype="multipart/form-data" cssClass="yform">
+    		 <s:file name="upload" label="File" cssClass="required"/>
+    		 <s:textfield name="name" label="Facility Name" cssClass="required"></s:textfield>
     		 <s:submit/>
 		   </s:form>
 		   <span id="result_facility_upload"></span>
