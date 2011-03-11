@@ -552,3 +552,13 @@ width:15px;
  height:15px;
  vertical-align:text-bottom;
 }
+
+div.facility {
+border: 1px dotted grey;
+padding:2px;
+margin-bottom:2px;
+
+}
+.facility label{
+display: inline;
+}

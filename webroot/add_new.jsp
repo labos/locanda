@@ -51,10 +51,12 @@
 			 <div class="subcolumns">
               &nbsp;
               </div>
-               <div class="type-select"><label for="per_parking">Facilities:</label>
-			<div class="type-check">
-			                <input type="checkbox" id="parking_fac" name="newsletter">
-			                <label for="parking_fac">Parking</label>
+               <div class="subcolumns type-select">
+               <label for="per_parking">Facilities:</label>
+			<div class="facility">
+			<img src="images/room_facilities/PHO.gif" alt="facility"/>
+			<input type="checkbox" id="parking_fac" name="newsletter"/>
+			<label for="parking_fac">Parking</label>
 			</div>
 			</div>
             <div class="subcolumns type-text">

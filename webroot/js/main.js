@@ -1138,7 +1138,7 @@ $(document).ready(function() {
 		      icons: {
 		          primary: "ui-icon-circle-plus"
 		      }}).click(function(){
-			    	window.location.href="add_new.jsp?sect=accomodation"; 
+			    	window.location.href="goAddNewRoom.action?sect=accomodation"; 
 			    	return false;
 			      });
 		 
