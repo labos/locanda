@@ -51,7 +51,12 @@
 			 <div class="subcolumns">
               &nbsp;
               </div>
-
+               <div class="type-select"><label for="per_parking">Facilities:</label>
+			<div class="type-check">
+			                <input type="checkbox" id="parking_fac" name="newsletter">
+			                <label for="parking_fac">Parking</label>
+			</div>
+			</div>
             <div class="subcolumns type-text">
       		<label for="notes_id">Note:</label>&nbsp;
       		<textarea id="notes_id" name="room.notes" rows="5" cols="60"></textarea>
