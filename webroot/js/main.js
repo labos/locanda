@@ -744,7 +744,14 @@ $(document).ready(function() {
   				   var name_facility = responseAction.roomFacility.name;
   				   var id_facility = responseAction.roomFacility.id;
   				   var facility_row_checked_cloned = $(".facility:hidden").clone();
-  				 facility_row_checked_cloned.find('img').attr("src");
+  				   //add src file
+  				   var src = facility_row_checked_cloned.find('img').attr("src") + name_facility + ".gif";
+  				   facility_row_checked_cloned.find('img').attr("src", src);
+  				   //add checkbox value
+  				   
+  				   //add label text
+  				   
+  				   
   				$(".facility:hidden").clone().appendTo(".facility").show();
 				$().notify("Congratulazioni", responseAction.description);
 				    				    
