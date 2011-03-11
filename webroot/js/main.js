@@ -735,15 +735,31 @@ $(document).ready(function() {
         	  
         	  $(".upload_loader").show();
           },
-          success: function(responseText, statusText){
+          success: function(responseAction, statusText){
         	  
         	  $("#result_facility_upload").text(responseText);
         	  $(".upload_loader").hide();
-        	  $(".facility:hidden").clone().appendTo(".facility").show();
+  			   if (responseAction.result == "success")
+				   {
+  				   var name_facility = responseAction.roomFacility.name;
+  				   var id_facility = responseAction.roomFacility.id;
+  				   var facility_row_checked_cloned = $(".facility:hidden").clone();
+  				 facility_row_checked_cloned.find('img').attr("src");
+  				$(".facility:hidden").clone().appendTo(".facility").show();
+				$().notify("Congratulazioni", responseAction.description);
+				    				    
+				   }
+		    
+		     else
+		    	 {
+		    	 	$().notify("Attenzione", responseAction.description);
+		    	 }
+        	
         	  
           },
           error: function(){
           $(".upload_loader").hide();
+    	  //--$(".facility:hidden").clone().appendTo(".facility").show();
           $.jGrowl("Errore");
           
           } ,
