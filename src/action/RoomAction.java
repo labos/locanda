@@ -56,7 +56,10 @@ public class RoomAction extends ActionSupport implements SessionAware{
 			return "error";			
 		}	
 		else{
-			structure.addAllRooms(rooms);
+			for(Room each: rooms){
+				each.setId(structure.nextKey());
+				structure.addRoom(each);
+			}
 			this.getMessage().setResult(Message.SUCCESS);
 			String text = "Le stanze sono state inserite con successo";
 			this.getMessage().setDescription(text);

@@ -3,6 +3,7 @@ package action;
 import java.util.Map;
 
 import model.Room;
+import model.RoomFacility;
 import model.Structure;
 import model.User;
 
@@ -52,28 +53,72 @@ public class LoginAction extends ActionSupport implements SessionAware{
 	
 	private Structure buildStructure(){
 		Structure ret = null;
-		Room aRoom = null;		
+			
 		
 		ret = new Structure();
 		ret.setName("polaris");
 		ret.setEmail("polaris@locanda.it");
 		
+		this.buildRooms(ret);
+		this.buildRoomFacilities(ret);
+		
+		
+		return ret;		
+	}
+	
+	private void buildRooms(Structure structure){
+		Room aRoom = null;		
+			
 		aRoom = new Room();
+		aRoom.setId(structure.nextKey());
 		aRoom.setName("101");
 		aRoom.setRoomType("singola");
 		aRoom.setPrice(80.0);
 		aRoom.setMaxGuests(1);
-		ret.addRoom(aRoom);
+		structure.addRoom(aRoom);
 		
 		aRoom = new Room();
+		aRoom.setId(structure.nextKey());
 		aRoom.setName("201");
 		aRoom.setRoomType("doppia");
 		aRoom.setPrice(120.0);
 		aRoom.setMaxGuests(2);
-		ret.addRoom(aRoom);
+		structure.addRoom(aRoom);
+	}
+	
+	private void buildRoomFacilities(Structure structure){
+		RoomFacility aRoomFacility = null;
 		
+		aRoomFacility = new RoomFacility();
+		aRoomFacility.setId(structure.nextKey());
+		aRoomFacility.setName("AAD");
+		aRoomFacility.setFileName("AAD.gif");
+		structure.addRoomFacility(aRoomFacility);
 		
-		return ret;		
+		aRoomFacility = new RoomFacility();
+		aRoomFacility.setId(structure.nextKey());
+		aRoomFacility.setName("BAR");
+		aRoomFacility.setFileName("BAR.gif");
+		structure.addRoomFacility(aRoomFacility);
+		
+		aRoomFacility = new RoomFacility();
+		aRoomFacility.setId(structure.nextKey());
+		aRoomFacility.setName("PHO");
+		aRoomFacility.setFileName("PHO.gif");
+		structure.addRoomFacility(aRoomFacility);
+		
+		aRoomFacility = new RoomFacility();
+		aRoomFacility.setId(structure.nextKey());
+		aRoomFacility.setName("RAD");
+		aRoomFacility.setFileName("RAD.gif");
+		structure.addRoomFacility(aRoomFacility);
+		
+		aRoomFacility = new RoomFacility();
+		aRoomFacility.setId(structure.nextKey());
+		aRoomFacility.setName("TEL");
+		aRoomFacility.setFileName("TEL.gif");
+		structure.addRoomFacility(aRoomFacility);
+		
 	}
 	
 		

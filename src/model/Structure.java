@@ -65,15 +65,10 @@ public class Structure {
 	}
 	
 	public void addRoom(Room aRoom){
-		aRoom.setId(this.nextKey());
 		this.getRooms().add(aRoom);
 	}
 	
-	public void addAllRooms(List<Room> rooms){
-		for(Room each: rooms){
-			this.addRoom(each);
-		}
-	}
+	
 	
 	public Boolean addRoomFacility(RoomFacility roomFacility){
 		roomFacility.setId(this.nextKey());
