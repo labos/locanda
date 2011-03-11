@@ -54,12 +54,19 @@
                <div class="subcolumns type-select">
                <label for="per_parking">Facilities:</label>
                 <s:iterator value="roomFacilities" var="each">
-               		 <div class="facility">
+               		<div class="facility">
 					<img src="images/room_facilities/<s:property value="fileName"/>" alt="facility"/>
-					<input type="checkbox" id="parking_fac" name="newsletter"/>
-					<label for="parking_fac"><s:property value="name"/></label>
+					<input type="checkbox" id="<s:property value="name"/>_fac" name="facilities" value="<s:property value="id"/>"/>
+					<label for="<s:property value="name"/>_fac"><s:property value="name"/></label>
 					</div>
 				</s:iterator>
+				<!-- div facility for javascript purpose-->
+				<div class="facility" style="display: none;">
+					<img src="images/room_facilities/" alt="facility"/>
+					<input type="checkbox" id="_fac" name=""/>
+					<label for="parking_fac"></label>
+				</div>
+				<!-- end div facility for javascript purpose-->
 			</div>
             <div class="subcolumns type-text">
       		<label for="notes_id">Note:</label>&nbsp;

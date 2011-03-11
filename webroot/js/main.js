@@ -739,6 +739,7 @@ $(document).ready(function() {
         	  
         	  $("#result_facility_upload").text(responseText);
         	  $(".upload_loader").hide();
+        	  $(".facility:hidden").clone().appendTo(".facility").show();
         	  
           },
           error: function(){
