@@ -4,8 +4,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.io.File;
+import java.io.IOException;
+import org.apache.commons.io.*;
 
-import model.Room;
 import model.RoomFacility;
 import model.Structure;
 import model.User;
@@ -24,7 +25,9 @@ import com.opensymphony.xwork2.ActionSupport;
 public class StructureAction extends ActionSupport implements SessionAware {
 	
 	private Map<String, Object> session = null;
-	private File file;
+	private File upload;
+	private String uploadFileName;
+	private String uploadContentType;
 	private String name;
 	private Message message = new Message();
 	private RoomFacility roomFacility = null;
@@ -40,7 +43,7 @@ public class StructureAction extends ActionSupport implements SessionAware {
 		})
 	})
 
-	public String uploadFacility() {
+	public String uploadFacility() throws IOException {
 		User user = (User)this.getSession().get("user");
 		//Controllare che sia diverso da null in un interceptor
 		Structure structure = user.getStructure();
@@ -49,11 +52,15 @@ public class StructureAction extends ActionSupport implements SessionAware {
 			message.setDescription("Esiste già una facility con lo stesso nome");
 			return "error";
 		};
-		//salvo il file nella directory
+		
+		File target = new File("images/room_facilities/");
+		FileUtils.copyFile(this.upload, target);
+		
+		
 		
 		this.roomFacility = new RoomFacility();
 		this.roomFacility.setName(this.name);
-		this.roomFacility.setFileName(this.file.getName());
+		this.roomFacility.setFileName(this.upload.getName());
 		this.roomFacility.setId(structure.nextKey());
 		structure.addRoomFacility(roomFacility);
 		message.setResult(Message.SUCCESS);
@@ -63,19 +70,33 @@ public class StructureAction extends ActionSupport implements SessionAware {
 	
 	}
 
-	public void setUpload(File file) {
-        this.file = file;
-     }
-
-
-
-	public File getFile() {
-		return file;
+	
+	public File getUpload() {
+		return upload;
 	}
 
-	public void setFile(File file) {
-		this.file = file;
+	public void setUpload(File upload) {
+		this.upload = upload;
 	}
+
+	public String getUploadFileName() {
+		return uploadFileName;
+	}
+
+	public void setUploadFileName(String uploadFileName) {
+		this.uploadFileName = uploadFileName;
+	}
+
+
+	public String getUploadContentType() {
+		return uploadContentType;
+	}
+
+
+	public void setUploadContentType(String uploadContentType) {
+		this.uploadContentType = uploadContentType;
+	}
+
 
 	public String getName() {
 		return name;
