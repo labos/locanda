@@ -53,11 +53,13 @@
               </div>
                <div class="subcolumns type-select">
                <label for="per_parking">Facilities:</label>
-			<div class="facility">
-			<img src="images/room_facilities/PHO.gif" alt="facility"/>
-			<input type="checkbox" id="parking_fac" name="newsletter"/>
-			<label for="parking_fac">Parking</label>
-			</div>
+                <s:iterator value="roomFacilities" var="each">
+               		 <div class="facility">
+					<img src="images/room_facilities/<s:property value="fileName"/>" alt="facility"/>
+					<input type="checkbox" id="parking_fac" name="newsletter"/>
+					<label for="parking_fac"><s:property value="name"/></label>
+					</div>
+				</s:iterator>
 			</div>
             <div class="subcolumns type-text">
       		<label for="notes_id">Note:</label>&nbsp;
@@ -74,8 +76,8 @@
               </fieldset>
            </form>
            <div class="subcolumns">
-           <s:form id="uploadFacility" action="addNewRoom.action" method="post" enctype="multipart/form-data" cssClass="yform">
-    		 <s:file name="upload" label="File" cssClass="required"/>
+           <s:form id="uploadFacility" action="uploadFacility.action" method="post" enctype="multipart/form-data">
+    		 <s:file name="upload" label="File icon(max 24px X 24px image size)" cssClass="required"/>
     		 <s:textfield name="name" label="Facility Name" cssClass="required"></s:textfield>
     		 <s:submit/>
 		   </s:form>
