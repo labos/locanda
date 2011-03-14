@@ -1,8 +1,6 @@
 package action;
 
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.io.File;
 import java.io.IOException;
 import org.apache.commons.io.*;
@@ -26,7 +24,7 @@ public class StructureAction extends ActionSupport implements SessionAware {
 	
 	private Map<String, Object> session = null;
 	private File upload;
-	private String fileName;
+	private String uploadFileName;
 	private String uploadContentType;
 	private String name;
 	private Message message = new Message();
@@ -53,14 +51,14 @@ public class StructureAction extends ActionSupport implements SessionAware {
 			return ERROR;
 		};
 		
-		File target = new File("/images/room_facilities");
-		FileUtils.copyFileToDirectory(this.upload, target);
+		File target = new File("/opt/tomcat/webapps/locanda/images/room_facilities/" + this.getUploadFileName());
+		FileUtils.copyFile(this.upload, target);
 		
 		
 		
 		this.roomFacility = new RoomFacility();
 		this.roomFacility.setName(this.name);
-		this.roomFacility.setFileName(this.fileName);
+		this.roomFacility.setFileName(this.uploadFileName);
 		this.roomFacility.setId(structure.nextKey());
 		structure.addRoomFacility(roomFacility);
 		message.setResult(Message.SUCCESS);
@@ -82,13 +80,13 @@ public class StructureAction extends ActionSupport implements SessionAware {
 	
 
 
-	public String getFileName() {
-		return fileName;
+	public String getUploadFileName() {
+		return uploadFileName;
 	}
 
 
-	public void setFileName(String fileName) {
-		this.fileName = fileName;
+	public void setUploadFileName(String fileName) {
+		this.uploadFileName = fileName;
 	}
 
 
