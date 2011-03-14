@@ -39,8 +39,8 @@ public class StructureAction extends ActionSupport implements SessionAware {
 	@Actions({
 		@Action(value="/uploadFacility",results = {
 				@Result(type ="json",name="success", params={
-						"root","message","root","roomFacility"
-				} ),
+						"excludeProperties", "session,upload,uploadFileName,uploadContentType,name"
+						} ),
 				@Result(type ="json",name="error", params={
 						"root","message"
 				} )
