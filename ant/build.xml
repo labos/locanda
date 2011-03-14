@@ -5,6 +5,7 @@
 	
 	<path id="class.path">
 		<fileset dir="${webroot.path}/lib" includes="*.jar"/>
+		<fileset dir="${tomcat.home.path}/lib" includes="*.jar"/>
 	</path> 
 	
 	<target name="propertySetter">
