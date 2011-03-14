@@ -1,7 +1,17 @@
 $(document).ready(function() {
-
+	
 	$(".yform").validate();  
-	overlay	= $('<div id="fancybox-overlay"></div>'),
+	overlay	= $('<div id="fancybox-overlay"></div>');
+	var Option = function(lang) {
+		
+		this.alertOK = "Congratulazioni";
+		this.alertKO = "Attenzione!";
+		
+		};
+		
+		var optionsLoc = new Option("ita");
+
+
 	
 		//---  PLANNER SECTION CODE   
 		// change rate for room
@@ -734,6 +744,7 @@ $(document).ready(function() {
           beforeSubmit: function(formData, jqForm, options){
         	  
         	  $(".upload_loader").show();
+        	  $(".result_facility_upload").text("In progress...");
           },
           success: function(responseAction, statusText){
         	  
@@ -741,25 +752,34 @@ $(document).ready(function() {
         	  $(".upload_loader").hide();
   			   if (responseAction.result == "success")
 				   {
+  				   //get the name of facility
   				   var name_facility = responseAction.roomFacility.name;
+  				   //get the id of facility
   				   var id_facility = responseAction.roomFacility.id;
+  				   //clone the html portion to replicate
   				   var facility_row_checked_cloned = $(".facility:hidden").clone();
-  				   //add src file
+  				   //set src file name
   				   var src = facility_row_checked_cloned.find('img').attr("src") + name_facility + ".gif";
+  				   //add src file name
   				   facility_row_checked_cloned.find('img').attr("src", src);
+  				   //add checkbox id
+  				   facility_row_checked_cloned.find('input:checkbox').attr("id", id_facility + "_fac");
   				   //add checkbox value
-  				   
+  				   facility_row_checked_cloned.find('input:checkbox').attr("name", name_facility);
+
   				   //add label text
+  				   facility_row_checked_cloned.find('label').attr("for", id_facility + "_fac").text(name_facility);
+
   				   
   				   
   				$(".facility:hidden").clone().appendTo(".facility").show();
-				$().notify("Congratulazioni", responseAction.description);
+				$().notify(optionsLoc.alertOK, responseAction.description);
 				    				    
 				   }
 		    
 		     else
 		    	 {
-		    	 	$().notify("Attenzione", responseAction.description);
+		    	 	$().notify(optionsLoc.alertKO, responseAction.description);
 		    	 }
         	
         	  

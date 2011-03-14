@@ -63,8 +63,8 @@
 				<!-- div facility for javascript purpose-->
 				<div class="facility" style="display: none;">
 					<img src="images/room_facilities/" alt="facility"/>
-					<input type="checkbox" id="_fac" name=""/>
-					<label for="parking_fac"></label>
+					<input type="checkbox" id="" name=""/>
+					<label for=""></label>
 				</div>
 				<!-- end div facility for javascript purpose-->
 			</div>
