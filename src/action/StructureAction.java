@@ -26,7 +26,7 @@ public class StructureAction extends ActionSupport implements SessionAware {
 	
 	private Map<String, Object> session = null;
 	private File upload;
-	private String uploadFileName;
+	private String fileName;
 	private String uploadContentType;
 	private String name;
 	private Message message = new Message();
@@ -50,17 +50,17 @@ public class StructureAction extends ActionSupport implements SessionAware {
 		if (structure.hasRoomFacilityNamed(this.getName())) {
 			message.setResult(Message.ERROR);
 			message.setDescription("Esiste già una facility con lo stesso nome");
-			return "error";
+			return ERROR;
 		};
 		
-		File target = new File("images/room_facilities/");
-		FileUtils.copyFile(this.upload, target);
+		File target = new File("/images/room_facilities");
+		FileUtils.copyFileToDirectory(this.upload, target);
 		
 		
 		
 		this.roomFacility = new RoomFacility();
 		this.roomFacility.setName(this.name);
-		this.roomFacility.setFileName(this.upload.getName());
+		this.roomFacility.setFileName(this.fileName);
 		this.roomFacility.setId(structure.nextKey());
 		structure.addRoomFacility(roomFacility);
 		message.setResult(Message.SUCCESS);
@@ -79,12 +79,16 @@ public class StructureAction extends ActionSupport implements SessionAware {
 		this.upload = upload;
 	}
 
-	public String getUploadFileName() {
-		return uploadFileName;
+	
+
+
+	public String getFileName() {
+		return fileName;
 	}
 
-	public void setUploadFileName(String uploadFileName) {
-		this.uploadFileName = uploadFileName;
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
 	}
 
 
@@ -127,8 +131,8 @@ public class StructureAction extends ActionSupport implements SessionAware {
 	}
 	
 	@Override
-	public void setSession(Map<String, Object> arg0) {
-		// TODO Auto-generated method stub
+	public void setSession(Map<String, Object> session) {
+		this.session = session;
 	}
 
 }
