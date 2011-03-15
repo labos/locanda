@@ -47,6 +47,36 @@ $(document).ready(function() {
 		 
 	 };
 	 
+	 
+	 $.fn.addFacility = function (responseAction)
+	 {
+		 
+		   //get the name of the facility
+		   var name_facility = responseAction.name;
+		 //get the file name of the facility
+		   var file_facility = responseAction.fileName;
+		   //get the id of the facility
+		   var id_facility = responseAction.id;
+		   //clone the html portion to replicate
+		   var facility_row_checked_cloned = $(".facility:hidden").clone();
+		   //set src file name
+		   var src = facility_row_checked_cloned.find('img').attr("src") + file_facility;
+		   //add src file name
+		   facility_row_checked_cloned.find('img').attr("src", src);
+		   //add checkbox id
+		   facility_row_checked_cloned.find('input:checkbox').attr("id", id_facility + "_fac");
+		   //add checkbox value
+		   facility_row_checked_cloned.find('input:checkbox').attr("name", name_facility);
+		   
+
+		   //add label text
+		   facility_row_checked_cloned.find('label').attr("for", id_facility + "_fac").text(name_facility);
+
+		   
+		   
+		   facility_row_checked_cloned.appendTo(".facility:last").show();
+	 }
+	 
 	 //make a new div overlay element
 	 $('body').append($('<div class="ui-widget-overlay"></div>'));
 	 $.jGrowl.defaults.position = 'center'; 
@@ -738,65 +768,89 @@ $(document).ready(function() {
 
 	  });
 	  
-	  $("#uploadFacility").validate();
-	  //facility form upload
-	  $('#uploadFacility').ajaxForm({ 
-          beforeSubmit: function(formData, jqForm, options){
-        	  
-        	  $(".upload_loader").show();
-        	  $(".result_facility_upload").text("In progress...");
-          },
-          success: function(responseAction, statusText){
-        	  
-        	  $("#result_facility_upload").text(responseText);
-        	  $(".upload_loader").hide();
-  			   if (responseAction.result == "success")
-				   {
-  				   //get the name of facility
-  				   var name_facility = responseAction.roomFacility.name;
-  				   //get the id of facility
-  				   var id_facility = responseAction.roomFacility.id;
-  				   //clone the html portion to replicate
-  				   var facility_row_checked_cloned = $(".facility:hidden").clone();
-  				   //set src file name
-  				   var src = facility_row_checked_cloned.find('img').attr("src") + name_facility + ".gif";
-  				   //add src file name
-  				   facility_row_checked_cloned.find('img').attr("src", src);
-  				   //add checkbox id
-  				   facility_row_checked_cloned.find('input:checkbox').attr("id", id_facility + "_fac");
-  				   //add checkbox value
-  				   facility_row_checked_cloned.find('input:checkbox').attr("name", name_facility);
 
-  				   //add label text
-  				   facility_row_checked_cloned.find('label').attr("for", id_facility + "_fac").text(name_facility);
+	    $('#uploadFacility').fileUploadUI({
+	        uploadTable: $('#result_facility_upload'),
+	        downloadTable: $('#result_facility_upload'),
+	     
+	        onProgress: function (event, files, index, xhr, handler) {
+	            if (handler.progressbar) {
+	                handler.progressbar.progressbar(
+	                    'value',
+	                    parseInt(event.loaded / event.total * 100, 10)
+	                );
+	            }
+	        },
 
-  				   
-  				   
-  				$(".facility:hidden").clone().appendTo(".facility").show();
-				$().notify(optionsLoc.alertOK, responseAction.description);
-				    				    
-				   }
-		    
-		     else
-		    	 {
-		    	 	$().notify(optionsLoc.alertKO, responseAction.description);
-		    	 }
-        	
-        	  
-          },
-          error: function(){
-          $(".upload_loader").hide();
-    	  //--$(".facility:hidden").clone().appendTo(".facility").show();
-          $.jGrowl("Errore");
-          
-          } ,
-          dataType: "json"
-      }); 
-	  
-   	 
-	  
-	  
-	  
+	        buildUploadRow: function (files, index) {
+	            return $('<tr><td>' + files[index].name + '<\/td>' +
+	                    '<td class="file_upload_progress"><div><\/div><\/td>' +
+	                    '<td class="file_upload_cancel">' +
+	                    '<button class="ui-state-default ui-corner-all" title="Cancel">' +
+	                    '<span class="ui-icon ui-icon-cancel">Cancel<\/span>' +
+	                    '<\/button><\/td><\/tr>');
+	        },
+	        buildDownloadRow: function (file) {
+	        		var resultRow = "";
+	        	if(typeof file.message !== "undefined")
+	        		{
+	        			resultRow = file.message.result;
+	        		}
+	        	else
+	        		{
+	        		resultRow = file.result;
+	        		}
+	        	
+	            return $('<tr><td>' + resultRow + '<\/td><\/tr>');
+	        },
+	        onComplete: function (event, files, index, xhr, handler) {
+	        	var json = handler.response;
+	        	if(typeof json.message !== "undefined" &&  json.message.result=="success")
+	        		{
+	        		$().addFacility(json.roomFacility);
+	        		$().notify(optionsLoc.alertOK, json.message.description);
+	        		}
+	        	
+	        	else
+	        		$().notify(optionsLoc.alertKO, json.description);
+	        },
+	        onAbort: function (event, files, index, xhr, handler) {
+	        	
+	        	$().notify(optionsLoc.alertKO, "E'stato interrotto l'upload");
+                handler.removeNode(handler.uploadRow);
+	        },
+	        beforeSend: function (event, files, index, xhr, handler, callBack) {
+	            var facility_name = $("#name_facility").val();
+	            if (facility_name.length > 2)
+	            	{
+	           	        	$("#uploadFacility").find('input:hidden[name="name"]').val($("#name_facility").val());
+	           	        	callBack();
+	            	}
+	            else
+	            	{
+	                var readyState = xhr.readyState;
+	                xhr.abort();
+
+
+	                // If readyState is below 2, abort() has no effect:
+	                if (isNaN(readyState) || readyState < 2) {
+	                    handler.onAbort(event, files, index, xhr, handler);
+	                }
+
+
+	            	$().notify(optionsLoc.alertKO, "Devi inserire il nome della facility");
+	            	}
+	            
+
+	        	
+	            
+	        }
+
+
+
+	    });
+
+
 	  
    	 $(".btn_delete").button({
    	     icons: {
