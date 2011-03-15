@@ -24,9 +24,6 @@
         
          <s:iterator value="rooms" var="each">
           <div>
-         
-          
-         
           
 		 <form method="post" action="updateRoom.action" class="yform json full" role="application">
             <fieldset>
@@ -66,6 +63,9 @@
             <div class="subcolumns type-text">
             <div class="c50l">
       		<span class="title_season">Notes:</span>&nbsp;
+      		
+      		<s:property value="facilities.size"/>
+      		
       		<textarea name="room.notes" rows="5" cols="60"><s:property value="notes"/></textarea>
       		</div>
       		</div>

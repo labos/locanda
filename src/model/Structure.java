@@ -91,7 +91,25 @@ public class Structure {
 		return ret;
 	}
 	
+	public List<RoomFacility> findFacilitiesByIds(List<Integer> ids){
+		List<RoomFacility> ret = new ArrayList<RoomFacility>();
+		for(Integer each:ids){
+			RoomFacility aRoomFacility = this.findFacilityById(each);
+			ret.add(aRoomFacility);
+		}
+		return ret;
+	}
 		
+	public RoomFacility findFacilityById(Integer id){
+		RoomFacility ret = null;
+		for (RoomFacility each:this.getRoomFacilities()){
+			if (each.getId().equals(id)) {
+				return each;
+			}
+		}
+		return ret;
+	}
+	
 	public List<RoomFacility> getRoomFacilities() {
 		return roomFacilities;
 	}

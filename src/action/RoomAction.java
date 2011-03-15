@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import model.Room;
+import model.RoomFacility;
 import model.Structure;
 import model.User;
 import model.internal.Message;
@@ -21,7 +22,8 @@ import com.opensymphony.xwork2.ActionSupport;
 public class RoomAction extends ActionSupport implements SessionAware{
 	private Map<String, Object> session = null;
 	private Room room = null;
-	private Message message = new Message();	
+	private Message message = new Message();
+	private List<Integer> facilities = null;
 	
 	
 	@Actions({
@@ -56,8 +58,10 @@ public class RoomAction extends ActionSupport implements SessionAware{
 			return "error";			
 		}	
 		else{
+			List<RoomFacility> checkedFacilities = structure.findFacilitiesByIds(facilities);
 			for(Room each: rooms){
 				each.setId(structure.nextKey());
+				each.setFacilities(checkedFacilities);
 				structure.addRoom(each);
 			}
 			this.getMessage().setResult(Message.SUCCESS);
@@ -189,8 +193,15 @@ public class RoomAction extends ActionSupport implements SessionAware{
 	public void setMessage(Message message) {
 		this.message = message;
 	}
-	
-	
 
+	public List<Integer> getFacilities() {
+		return facilities;
+	}
+
+	public void setFacilities(List<Integer> facilities) {
+		this.facilities = facilities;
+	}
+
+	
 	
 }

@@ -23,6 +23,11 @@ public class Room {
 		
 	}
 	
+	public Boolean addRoomFacilities (List<RoomFacility> facilities){
+		
+		return this.getFacilities().addAll(facilities);
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
