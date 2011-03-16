@@ -61,10 +61,12 @@
               &nbsp;
               </div>
             <div class="subcolumns">
+            <fieldset> <legend>Facilities</legend>
             <s:iterator value="#eachRoom.facilities" var="eachFacility">
 					<img  width="24" height="24"  src="images/room_facilities/<s:property value="fileName"/>" alt="<s:property value="#eachFacility.name"/>"/>
       		</s:iterator>
       		<button class="btn_add_facility_room">ADD FACILITY</button>
+      		</fieldset>
               </div>
             <div class="subcolumns type-text">
             <div class="c50l">
@@ -84,6 +86,7 @@
            </form>        
 		</div>  
 		
-		 </s:iterator>      
+		 </s:iterator>
+		 <div id="facility_edit_dialog"></div>    
           </div>
 <jsp:include page="jsp/layout/footer.jsp" />     

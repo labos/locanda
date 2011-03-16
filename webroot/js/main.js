@@ -1214,6 +1214,7 @@ $(document).ready(function() {
 			  data: {idRoom:  id_room},
 			  success: function(data){
 				  //apri finestra di dialogo
+				  $("#facility_edit_dialog").dialog();
 				  
 			  },
 			  error: function(){
