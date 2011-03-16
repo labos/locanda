@@ -7,7 +7,7 @@
                 <s:iterator value="roomFacilities" var="each">
                		<div class="facility">
 					<img width="24" height="24" src="images/room_facilities/<s:property value="#each.fileName"/>" alt="facility"/>
-					<s:checkbox  name="%{#each.name}"  value="bool" fieldValue="%{#each.id}" />
+					<s:checkbox id="%{#each.name}" name="facilities"  value="bool" fieldValue="%{#each.id}" />
 					<label for="<s:property value="#each.name"/>_fac"><s:property value="#each.name"/></label>
 					</div>
 				</s:iterator>
