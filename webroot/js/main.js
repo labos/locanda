@@ -823,13 +823,16 @@ $(document).ready(function() {
 	        },
 	        beforeSend: function (event, files, index, xhr, handler, callBack) {
 	            var facility_name = $("#name_facility").val();
+	            var type_img = files.type;
 	            if (facility_name.length > 2)
 	            	{
+	            	
 	           	        	$("#uploadFacility").find('input:hidden[name="name"]').val($("#name_facility").val());
 	           	        	callBack();
 	            	}
 	            else
 	            	{
+	            	$("#name_facility").addClass("error").after('<label for="name_facility"  class="error">This field is required.</label>');
 	                var readyState = xhr.readyState;
 	                xhr.abort();
 
@@ -847,7 +850,8 @@ $(document).ready(function() {
 	        	
 	            
 	        },
-	        previewSelector:  ".image_preview"
+	        previewSelector:  ".image_preview",
+	        imageTypes: '/^image\/(gif|jpeg|png)$/'
 
 
 

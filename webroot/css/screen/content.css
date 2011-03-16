@@ -573,3 +573,8 @@ margin:0 0 1em;
 padding:0.5em;
 
 }
+
+.beautify .error {
+color:#880000;
+font-weight:600;
+}
