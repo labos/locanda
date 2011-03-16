@@ -82,6 +82,7 @@
             </div>
               </fieldset>
            </form>
+           <div class="beautify">
            <fieldset>
            <legend>Facilities</legend>
      		           <div class="subcolumns">
@@ -99,9 +100,12 @@
 		   
 		   <div class="result_facility_upload" id="result_facility_upload" ></div>
 		   <div class="upload_loader">&nbsp;</div>
+		   <div class="image_preview"></div>
 		   </div>
 		   </div>      
            </fieldset>
+           </div>
+           
 
 		          
 		</div>        

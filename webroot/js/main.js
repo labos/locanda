@@ -74,8 +74,10 @@ $(document).ready(function() {
 
 		   
 		   
-		   facility_row_checked_cloned.appendTo(".facility:last").show();
-	 }
+		   facility_row_checked_cloned.insertAfter($(".facility:last")).show();
+		   facility_row_checked_cloned.animate({ backgroundColor: "#A2D959", color: "#000", border: "1px solid #fff"}, 500).effect("pulsate", { times:10 }, 1000);
+
+	 };
 	 
 	 //make a new div overlay element
 	 $('body').append($('<div class="ui-widget-overlay"></div>'));
@@ -844,7 +846,8 @@ $(document).ready(function() {
 
 	        	
 	            
-	        }
+	        },
+	        previewSelector:  ".image_preview"
 
 
 
@@ -1195,6 +1198,37 @@ $(document).ready(function() {
    //--	  $(".btn_update_room").click(function(){submitForm("findAllRooms.action?section=accomodation", null);});
    //--	  $(".btn_delete_room").click(function(){submitForm("findAllRooms.action?section=accomodation", "deleteRoom.action");});
 
+	  
+	
+	  $(".btn_add_facility_room").button({
+	      icons: {
+	          primary: "ui-icon-circle-plus"
+	      }}).click(function(event){
+		  //-- event.preventDefault();
+	      var url_action_facility = "roomFacilities_edit"; 
+		  var id_room = $(this).parents(".yform").find('input:hidden[name="room.id"]').val();
+		  
+		  $.ajax({
+			  type: 'POST',
+			  url: url_action_facility,
+			  data: {idRoom:  id_room},
+			  success: function(data){
+				  //apri finestra di dialogo
+				  
+			  },
+			  error: function(){
+				  
+					$().notify("Errore Grave", "Problema nella risorsa interrogata nel server");
+			   		   
+				  
+			  }
+			  
+			});
+
+		  
+		  return false;
+	  });
+	  
 	  $(".btn_delete_room").click(function(event){
 		  //-- event.preventDefault();
 		  $(this).parents(".yform").attr("action", "deleteRoom.action");

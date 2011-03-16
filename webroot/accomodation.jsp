@@ -28,10 +28,10 @@
 		 <form method="post" action="updateRoom.action" class="yform json full" role="application">
             <fieldset>
               <legend>
-              <input type="hidden" name="redirect_form" value="findAllRooms.action" />
-                <input class="describe required" style="width:60px; display: inline;" readonly="true" type="text" name="room.name" value="<s:property value="#eachRoom.name"/>"  />
-            	<a class="describe_edit" href="#" title="describe"><img src="images/sign-up-icon.png" alt="edit" /></a>
+              <a class="describe_edit" href="#" title="describe"><img src="images/sign-up-icon.png" alt="edit" /></a>
             	</legend>
+            	<input type="hidden" name="redirect_form" value="findAllRooms.action" />
+	              <input class="describe required" style="width:60px; display: inline;" readonly="true" type="text" name="room.name" value="<s:property value="#eachRoom.name"/>"  />
 				<div class="subcolumns type-text">
 				<input type="hidden" name="room.id" value="<s:property value="id"/>"/>
               <div class="">
@@ -60,11 +60,12 @@
 			 <div class="subcolumns">
               &nbsp;
               </div>
-            
+            <div class="subcolumns">
             <s:iterator value="#eachRoom.facilities" var="eachFacility">
-					<img src="images/room_facilities/<s:property value="fileName"/>" alt="<s:property value="#eachFacility.name"/>"/>
-      		</s:iterator> 
-              
+					<img  width="24" height="24"  src="images/room_facilities/<s:property value="fileName"/>" alt="<s:property value="#eachFacility.name"/>"/>
+      		</s:iterator>
+      		<button class="btn_add_facility_room">ADD FACILITY</button>
+              </div>
             <div class="subcolumns type-text">
             <div class="c50l">
       		<span class="title_season">Notes:</span>&nbsp;
