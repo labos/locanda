@@ -1205,7 +1205,7 @@ $(document).ready(function() {
 	          primary: "ui-icon-circle-plus"
 	      }}).click(function(event){
 		  //-- event.preventDefault();
-	      var url_action_facility = "roomFacilities_edit"; 
+	      var url_action_facility = "goRoomFacilities_edit"; 
 		  var id_room = $(this).parents(".yform").find('input:hidden[name="room.id"]').val();
 		  
 		  $.ajax({
@@ -1213,7 +1213,7 @@ $(document).ready(function() {
 			  url: url_action_facility,
 			  data: {idRoom:  id_room},
 			  success: function(data){
-				  //apri finestra di dialogo
+			  	  $("#facility_edit_dialog").html(data);
 				  $("#facility_edit_dialog").dialog();
 				  
 			  },

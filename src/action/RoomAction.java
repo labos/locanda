@@ -23,7 +23,9 @@ public class RoomAction extends ActionSupport implements SessionAware{
 	private Map<String, Object> session = null;
 	private Room room = null;
 	private Message message = new Message();
+	private List<RoomFacility> roomFacilities = null;
 	private List<Integer> facilities = null;
+	private Integer idRoom;
 	
 	
 	@Actions({
@@ -35,7 +37,6 @@ public class RoomAction extends ActionSupport implements SessionAware{
 						"root","message"
 				} )
 		})
-		
 	})
 	
 	public String addNewRoom() {
@@ -166,7 +167,39 @@ public class RoomAction extends ActionSupport implements SessionAware{
 		this.getMessage().setDescription("La stanza e' stata modificata con successo");
 		return "success";		
 	
-	}	
+	}
+	
+	@Actions({
+		@Action(value="/goRoomFacilities_edit",results = {
+				@Result(name="success",location="/roomFacilities_edit.jsp")
+		})
+	})
+	
+	public String goRoomFacilities_edit() {
+		User user = (User)this.getSession().get("user");
+		//Controllare che sia diverso da null in un interceptor
+		Structure structure = user.getStructure();
+		this.setRoomFacilities(structure.getRoomFacilities());
+		room = structure.findRoomById(idRoom);
+		return SUCCESS;
+	}
+	
+	@Actions({
+		@Action(value="/roomFacilities_edit", results={
+				@Result(type ="json",name="success", params={
+						"root","message"
+				})					
+			})
+	})
+	
+	
+	public String roomFacilities_edit() {
+		User user = (User)this.getSession().get("user");
+		//Controllare che sia diverso da null in un interceptor
+		Structure structure = user.getStructure();
+		
+		return SUCCESS;
+	}
 
 	public Map<String, Object> getSession() {
 		return session;
@@ -202,6 +235,21 @@ public class RoomAction extends ActionSupport implements SessionAware{
 		this.facilities = facilities;
 	}
 
+	public Integer getIdRoom() {
+		return idRoom;
+	}
+
+	public void setIdRoom(Integer idRoom) {
+		this.idRoom = idRoom;
+	}
+
+	public List<RoomFacility> getRoomFacilities() {
+		return roomFacilities;
+	}
+
+	public void setRoomFacilities(List<RoomFacility> roomFacilities) {
+		this.roomFacilities = roomFacilities;
+	}
 	
 	
 }

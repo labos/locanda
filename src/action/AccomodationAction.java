@@ -70,7 +70,6 @@ public class AccomodationAction extends ActionSupport implements SessionAware{
 	}
 	
 	
-	
 
 	public List<RoomFacility> getRoomFacilities() {
 		return roomFacilities;
@@ -106,7 +105,5 @@ public class AccomodationAction extends ActionSupport implements SessionAware{
 	public void setRoomTypes(Set<String> roomTypes) {
 		this.roomTypes = roomTypes;
 	}
-
-		
 
 }
