@@ -1,6 +1,7 @@
 package action;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -26,8 +27,19 @@ public class RoomAction extends ActionSupport implements SessionAware{
 	private List<RoomFacility> roomFacilities = null;
 	private List<Integer> facilities = null;
 	private Integer idRoom;
+	Boolean bool;
 	
 	
+	
+	
+	public Boolean getBool() {
+		return bool;
+	}
+
+	public void setBool(Boolean bool) {
+		this.bool = bool;
+	}
+
 	@Actions({
 		@Action(value="/addNewRoom",results = {
 				@Result(type ="json",name="success", params={
@@ -180,7 +192,7 @@ public class RoomAction extends ActionSupport implements SessionAware{
 		//Controllare che sia diverso da null in un interceptor
 		Structure structure = user.getStructure();
 		this.setRoomFacilities(structure.getRoomFacilities());
-		room = structure.findRoomById(idRoom);
+		this.setBool(true);
 		return SUCCESS;
 	}
 	
@@ -197,6 +209,7 @@ public class RoomAction extends ActionSupport implements SessionAware{
 		User user = (User)this.getSession().get("user");
 		//Controllare che sia diverso da null in un interceptor
 		Structure structure = user.getStructure();
+		room = structure.findRoomById(idRoom);
 		
 		return SUCCESS;
 	}

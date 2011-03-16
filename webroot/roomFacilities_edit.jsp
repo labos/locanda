@@ -6,9 +6,9 @@
 <div class="book_details">
                 <s:iterator value="roomFacilities" var="each">
                		<div class="facility">
-					<img width="24" height="24" src="images/room_facilities/<s:property value="fileName"/>" alt="facility"/>
-					<input type="checkbox" id="<s:property value="name"/>_fac" name="facilities" value="<s:property value="id"/>"/>
-					<label for="<s:property value="name"/>_fac"><s:property value="name"/></label>
+					<img width="24" height="24" src="images/room_facilities/<s:property value="#each.fileName"/>" alt="facility"/>
+					<s:checkbox id="<s:property value='name'/>_fac" name="facilities"  key="bool" fieldValue="<s:property value='id'/>"/>
+					<label for='<s:property value="name"/>_fac'><s:property value="name"/></label>
 					</div>
 				</s:iterator>
 </div>
