@@ -1207,14 +1207,19 @@ $(document).ready(function() {
 		  //-- event.preventDefault();
 	      var url_action_facility = "goRoomFacilities_edit"; 
 		  var id_room = $(this).parents(".yform").find('input:hidden[name="room.id"]').val();
-		  
+		  var name_room =  $(this).parents(".yform").find('input:text[name="room.name"]').val();
 		  $.ajax({
 			  type: 'POST',
 			  url: url_action_facility,
 			  data: {idRoom:  id_room},
 			  success: function(data){
 			  	  $("#facility_edit_dialog").html(data);
-				  $("#facility_edit_dialog").dialog();
+				  $("#facility_edit_dialog").dialog({title: "Add Facility for room: "+name_room , modal: true, buttons: { "Save": function() { $(this).dialog("close"); },
+			            cancel : function() {
+			            	 
+			            	$(this).dialog("close");
+			                  
+			               }} });
 				  
 			  },
 			  error: function(){

@@ -87,6 +87,6 @@
 		</div>  
 		
 		 </s:iterator>
-		 <div id="facility_edit_dialog"></div>    
+		 <div id="facility_edit_dialog" style="display: none;"></div>    
           </div>
 <jsp:include page="jsp/layout/footer.jsp" />     
