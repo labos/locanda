@@ -192,7 +192,7 @@ public class RoomAction extends ActionSupport implements SessionAware{
 		//Controllare che sia diverso da null in un interceptor
 		Structure structure = user.getStructure();
 		this.setRoomFacilities(structure.getRoomFacilities());
-		this.setBool(true);
+		this.setBool(false);
 		return SUCCESS;
 	}
 	
