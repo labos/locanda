@@ -191,8 +191,19 @@ public class RoomAction extends ActionSupport implements SessionAware{
 		User user = (User)this.getSession().get("user");
 		//Controllare che sia diverso da null in un interceptor
 		Structure structure = user.getStructure();
+		//setto la room corrente con l'idForm settato 
+		room = structure.findRoomById(idRoom);
+		//creo un oggetto vuoto di id di facilities
+		this.facilities = new ArrayList<Integer>();
 		this.setRoomFacilities(structure.getRoomFacilities());
 		this.setBool(false);
+		List <RoomFacility> currentRoom = structure.findRoomById(idRoom).getFacilities();
+		
+		for(RoomFacility each: currentRoom){
+			
+			facilities.add(each.getId());
+			
+		}
 		return SUCCESS;
 	}
 	
@@ -210,7 +221,24 @@ public class RoomAction extends ActionSupport implements SessionAware{
 		//Controllare che sia diverso da null in un interceptor
 		Structure structure = user.getStructure();
 		room = structure.findRoomById(idRoom);
+		List<RoomFacility>  checkedFacilities = new ArrayList<RoomFacility>();
+		if(facilities != null)
+		{
+			checkedFacilities = structure.findFacilitiesByIds(facilities);	
+		}
 		
+		room.setFacilities(new ArrayList<RoomFacility>());
+		try{
+			room.addRoomFacilities(checkedFacilities);
+		}
+		catch(Exception e)
+			{
+			return ERROR;
+			}
+		
+		this.getMessage().setResult(Message.SUCCESS);
+		String text = "Le facilities sono state inserite/aggiornate con successo";
+		this.getMessage().setDescription(text);
 		return SUCCESS;
 	}
 

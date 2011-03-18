@@ -117,51 +117,59 @@ $(document).ready(function() {
 
 	 };
 	 
+	 $.fn.submitForm = function(){
+		
+	 		//setting for input form fields
+	   		var formInput=$(this).serialize();
+	   		var hrefAction = $(this).attr("action");
+	   		var _redirectAction = $(this).find('input:hidden[name="redirect_form"]').val();
+	   		 _redirectAction =(_redirectAction == null) ? "home.action" : _redirectAction;
+	   		//if form is valid
+	   		if ($(this).valid())
+	   			{
+	   			
+	   		$.ajax({
+	   		   type: "POST",
+	   		   url: hrefAction,
+	   		   data: formInput,
+	   		   success: function(data_action){
+	   			   
+	   			var title_notification = null;
+	   			
+	   			   if (data_action.result == "success")
+	   				   {
+	   			
+	   				$().notify("Congratulazioni", data_action.description, _redirectAction);
+	   				    				    
+	   				   }
+	   		    
+	   		     else
+	   		    	 {
+	   		    	 	$().notify("Attenzione", data_action.description);
+	   		    	 }
+	   		    	
+	   		   },
+	   		   
+	   		   error: function (){
+	   			   
+	   			$().notify("Errore Grave", "Problema nella risorsa interrogata nel server");
+	   		   }
+
+	   		
+	   		 });
+	   		
+	   	  }
+	   		
+	   		return false;
+		 
+		 
+	 };
 
 		 $(".yform.json").submit(function(event){
+			 
+			 $(this).submitForm();
 		  		
-		 		//setting for input form fields
-		   		var formInput=$(this).serialize();
-		   		var hrefAction = $(this).attr("action");
-		   		var _redirectAction = $(this).find('input:hidden[name="redirect_form"]').val();
-		   		 _redirectAction =(_redirectAction == null) ? "home.action" : _redirectAction;
-		   		//if form is valid
-		   		if ($(this).valid())
-		   			{
-		   			
-		   		$.ajax({
-		   		   type: "POST",
-		   		   url: hrefAction,
-		   		   data: formInput,
-		   		   success: function(data_action){
-		   			   
-		   			var title_notification = null;
-		   			
-		   			   if (data_action.result == "success")
-		   				   {
-		   			
-		   				$().notify("Congratulazioni", data_action.description, _redirectAction);
-		   				    				    
-		   				   }
-		   		    
-		   		     else
-		   		    	 {
-		   		    	 	$().notify("Attenzione", data_action.description);
-		   		    	 }
-		   		    	
-		   		   },
-		   		   
-		   		   error: function (){
-		   			   
-		   			$().notify("Errore Grave", "Problema nella risorsa interrogata nel server");
-		   		   }
-
-		   		
-		   		 });
-		   		
-		   	  }
-		   		
-		   		return false;
+			 return false;
 		   	  
 		   	  });
 
@@ -309,15 +317,46 @@ $(document).ready(function() {
 		
    var $calendar = $('#calendar');
    var id = 10;
+   function Room(room_id, room_name){
+	   
+	   this.id = room_id;
+	   this.name = room_name;
+	   
+	   
+   }
    /* setting rooms_list array */
-   var list_rooms=new Array(1, 4, 23, 35,36,37,38,39,40,41,42,43,44,45,49,52,53,54,55);
+   
+  // var list_rooms=new Array(1, 4, 23, 35,36,37,38,39,40,41,42,43,44,45,49,52,53,54,55);
+  //listing sample rooms to display in the planner
+   var list_rooms=new Array(new Room(100,"bella vista"), new Room(104,"lato piazza"),new Room(123,"suite"),new Room(135,"al terrazzo"),new Room(136,"vista mare"));
+   
    /* setting number of rooms */
 	var num_rooms=list_rooms.length;
 	
    if($calendar.length > 0)
 	   	   {
 	   
-	   
+	   //setting real rooms list
+	   $.ajax({
+		   url: "findAllRoomsJson.action",
+		   context: document.body,
+		   success: function(data){
+		     
+		     list_rooms.push(new Room(37,"la bella"));
+		     $(data).each(function(i, val)
+		    		 {
+		    	 list_rooms.push(new Room(val.id,val.name));
+		    	 		
+		    		 });
+		     num_rooms=list_rooms.length;
+		     $calendar.LoadCalendar();
+		   },
+	   	  error: function(){
+	   		  
+	   		$().notify("Attenzione", "Problema restituzione lista camere...");
+	   		  
+	   	  }
+		 });
 		$(".type_rooms").hide();
 		$("#change_rate").toggle(function(){
 		$(".type_rooms").show();
@@ -340,7 +379,8 @@ $(document).ready(function() {
 	   
 	   
 	   
-   $calendar.weekCalendar({
+ $.fn.LoadCalendar = function() { 
+	 $(this).weekCalendar({
       timeslotsPerHour : 1,
       use24Hour: true,
        newEventText : "Room",
@@ -382,7 +422,7 @@ $(document).ready(function() {
          
          if (remainings < -1)
         	 {
-        	 $(".btn_check_in").button("disable");
+        	 	$(".btn_check_in").button("disable");
         	 }
          $dialogContent.find("#duration").html(' ( ' + duration + ' days )');
          var startField = calEvent.start;
@@ -516,6 +556,8 @@ $(document).ready(function() {
          callback(getEventData());
       }
    });
+ 
+ };
 
    
 	 }
@@ -616,41 +658,29 @@ $(document).ready(function() {
       return {
          events : [
             {
-               "id":1,
+               "id":0,
                "start": new Date(year, month, day, 12),
                "end": new Date(year, month, day, 13, 30),
                "title":"Giovanni Stara"
             },
             {
-               "id":2,
+               "id":1,
                "start": new Date(year, month, day, 14),
                "end": new Date(year, month, day, 14, 45),
                "title":"Marc Devois"
             },
             {
-               "id":3,
+               "id":2,
                "start": new Date(year, month, day + 1, 17),
                "end": new Date(year, month, day + 1, 17, 45),
                "title":"Laura Saint"
             },
+            
             {
-               "id":4,
-               "start": new Date(year, month, day - 1, 8),
-               "end": new Date(year, month, day - 1, 9, 30),
-               "title":"George Mason"
-            },
-            {
-               "id":5,
+               "id":3,
                "start": new Date(year, month, day + 1, 14),
                "end": new Date(year, month, day + 1, 15),
                "title":"Michele Gors"
-            },
-            {
-               "id":6,
-               "start": new Date(year, month, day, 10),
-               "end": new Date(year, month, day, 11),
-               "title":"Katia Solari",
-               readOnly : true
             }
 
          ]
@@ -866,8 +896,8 @@ $(document).ready(function() {
    	 
    	 /* describe editing handler */
    	 $(".describe_edit").toggle(function(){
-   		
-   		 $(this).siblings(":input").removeClass("describe").attr('readonly', false) ;
+   		var prova = $(this).siblings(":input");
+   		 $(this).siblings("input:text").removeClass("describe").attr('readonly', false) ;
    		 
    	 }, function(){
 
@@ -1218,7 +1248,16 @@ $(document).ready(function() {
 			  data: {idRoom:  id_room},
 			  success: function(data){
 			  	  $("#facility_edit_dialog").html(data);
-				  $("#facility_edit_dialog").dialog({title: "Add Facility for room: "+name_room , modal: true, buttons: { "Save": function() { $(this).dialog("close"); },
+				  $("#facility_edit_dialog").dialog({title: "Add Facility for room: "+name_room , modal: true, buttons: { "Save": function() {
+					  //var event = new $.Event('click');
+					 // event.preventDefault();
+					 //$(this).find(".yform.json").find("input:submit").trigger(event);
+					   // $(this).find(".yform.json").trigger(event);
+					  
+					  $(this).find(".yform.json").submitForm();
+					    $(this).dialog("close");
+					  
+				  },
 			            cancel : function() {
 			            	 
 			            	$(this).dialog("close");
