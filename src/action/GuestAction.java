@@ -71,6 +71,23 @@ public class GuestAction extends ActionSupport implements SessionAware{
 	}
 	
 	
+	@Actions({
+		@Action(value="/addNewGuest",results = {
+				@Result(type ="json",name="success", params={
+						"root","message"
+				} )
+		})
+		
+	})
+	public String addNewGuest(){
+		User user = (User)session.get("user");
+		Structure structure = user.getStructure();
+		structure.addGuest(this.getGuest());
+		this.getMessage().setResult(Message.SUCCESS);
+		this.getMessage().setDescription("Guest Added successfully");
+		return "SUCCESS";
+	}
+	
 
 	public Message getMessage() {
 		return message;
