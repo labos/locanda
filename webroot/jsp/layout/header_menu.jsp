@@ -74,6 +74,7 @@
 <s:url action="logout" var="url_logout"></s:url>
 <s:url action="home" var="url_home"></s:url>
 <s:url action="findAllRooms" var="url_findallroom"></s:url>
+<s:url action="findAllGuests" var="url_findallguest"></s:url>
 
   <div class="page_margins">
     <div class="page">
@@ -95,7 +96,7 @@
     			<li class="ui-menu-item"><a href="extras.jsp?sect=accomodation">EXTRAS</a></li>
   			</ul>
             </li>
-            <li id="guests"><a href="guests.jsp?sect=guests">Guests</a></li>
+            <li id="guests"><a href="<s:property value="url_findallguest"/>?sect=guests">Guests</a></li>
             <li id=reports><a href="#">Reports</a></li>
             <li id="settings"><a href="#">Settings</a>
                 <ul class="sub_menu ui-menu ui-widget ui-widget-content ui-corner-all">

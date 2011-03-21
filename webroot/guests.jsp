@@ -15,31 +15,36 @@
         <div id="col3" role="main">
           <div id="col3_content" class="clearfix">
           <div class="header_section yform">
-          <span class="name_section">Manage Guests</span>
+          <span class="name_section">Manage Guests</span>   
           <div class="right type-text">
-          <input type="text" name="guest_search" class="txt_guest_search" /><button class="btn_g_search">SEARCH</button>
+          <input type="text" name="guest_search" class="txt_guest_search" /><button class="btn_g_search">SEARCH</button>      
             <div class="search_links"><span>Or browse:&nbsp;</span><a href="#">staying this week</a><span>,&nbsp;</span><a href="#">staying next week</a>,&nbsp;<a href="#">staying this month</a>,&nbsp;<a href="#">staying last month</a>,&nbsp;<a href="#">all</a></div>
             </div>
+            
           </div>
+          <div><button class="btn_add_guest">ADD NEW</button></div>
+          
+          <s:iterator value="guests" var="eachGuest" >
           <div>
-		 <form method="post" action="" class="yform full" role="application">
+          
+		 <form method="post" action="addNewGuest.action" class="yform full" role="application">
             <fieldset>
-              <legend>Latest Guests</legend>
+              <legend class="title_season">
+              	<s:property value="#eachGuest.firstName"/> <a href="guest_edit.jsp"><s:property value="#eachGuest.lastName"/></a>
+              </legend>
              <div class="subcolumns">
-             <span>
-</span>       </div>
+             </div>
 			 <div class="subcolumns">
-      		<div class="c25l">
+      		 	<div class="c40l">
                     <div class="type_rooms">
-					<a href="guest_edit.jsp"><span class="title_season">Giovanni Rossi</span></a>
-					<p></p>
-					<ul>
-					<li>34057546746</li>
-					<li>rossi@tiscali.it</li>
-					<li>Arriving: *****</li></ul>
+					  <ul>
+					    <li><b>Address:</b> <s:property value="#eachGuest.address"/> - <s:property value="#eachGuest.zipCode"/> <s:property value="#eachGuest.country"/></li>
+					    <li><b>Phone:</b> <s:property value="#eachGuest.phone"/></li>
+					    <li><b>Notes:</b> <s:property value="#eachGuest.notes"/></li>
+					  </ul>
                     </div>                  
-                    </div>
-                    </div>
+                </div>
+             </div>
                <div class="subcolumns">
               &nbsp;
               </div>
@@ -59,12 +64,15 @@
       		<div class="subcolumns">
               &nbsp;
               </div>
+              
             <div class="type-button">
             <input type="text" name="new_name_season" id="chng_season_name" value=""/>
-            <button class="btn_add_guest">Add New Guest</button>
             </div>
+            
               </fieldset>
            </form>        
-		</div>        
+		</div>
+		</s:iterator>
+		       
           </div>
           <jsp:include page="jsp/layout/footer.jsp" />   
