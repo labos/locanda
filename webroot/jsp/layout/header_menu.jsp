@@ -14,6 +14,8 @@
   <link rel='stylesheet' type='text/css' href='css/jquery.weekcalendar.css' />
   <link rel='stylesheet' type='text/css' href='css/calendar.css' />
     <link rel='stylesheet' type='text/css' href='css/jquery.jgrowl.css' />
+    <link rel="stylesheet" type='text/css' href="css/jquery.fileupload-ui.css" />
+    
   <script type='text/javascript' src='js/lib/jquery-1.4.4.min.js'>
 </script><!--
     <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js'></script>
@@ -22,6 +24,10 @@
   <script type='text/javascript' src='js/lib/jquery-ui-1.8.9.custom.min.js'>
 </script>
   <script type='text/javascript' src='js/jquery.weekcalendar.js'>
+</script>
+  <script type='text/javascript' src='js/jquery.fileupload.js'>
+</script>
+  <script type='text/javascript' src='js/jquery.fileupload-ui.js'>
 </script>
       <script>
       $().ready(function() {
@@ -91,7 +97,7 @@
             </li>
             <li id="guests"><a href="guests.jsp?sect=guests">Guests</a></li>
             <li id=reports><a href="#">Reports</a></li>
-            <li id="settings" class="active"><a href="#">Settings</a>
+            <li id="settings"><a href="#">Settings</a>
                 <ul class="sub_menu ui-menu ui-widget ui-widget-content ui-corner-all">
     			<li class="ui-menu-item"><a href="online.jsp?sect=settings">ONLINE BOOKINGS</a></li>
     			<li class="ui-menu-item"><a href="seasons.jsp?sect=settings">SEASONS</a></li>
