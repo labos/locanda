@@ -11,7 +11,7 @@ public class Booking {
 	private Room room;
 	private Date dateIn;
 	private Date dateOut;
-	private Float subtotal;
+	private Double subtotal;
 	
 	
 	public Integer getId() {
@@ -50,10 +50,10 @@ public class Booking {
 	public void setDateOut(Date dateOut) {
 		this.dateOut = dateOut;
 	}
-	public Float getSubtotal() {
+	public Double getSubtotal() {
 		return subtotal;
 	}
-	public void setSubtotal(Float subtotal) {
+	public void setSubtotal(Double subtotal) {
 		this.subtotal = subtotal;
 	}
 	

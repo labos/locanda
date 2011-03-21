@@ -13,12 +13,16 @@ public class Structure {
 	private List<Room> rooms;
 	private TreeSet<Integer> keys;
 	private List<RoomFacility> roomFacilities;
+	private List<Guest> guests;
+	private List<Booking> bookings;
 	
 	
 	public Structure(){
 		this.rooms = new ArrayList<Room>();
 		this.keys = new TreeSet<Integer>();
 		this.roomFacilities = new ArrayList<RoomFacility>();
+		this.guests = new ArrayList<Guest>();
+		this.bookings = new ArrayList<Booking>();
 		this.keys.add(1);
 	}
 	
@@ -122,7 +126,21 @@ public class Structure {
 		return this.getRooms().remove(aRoom);
 	}
 	
+	public boolean addGuest(Guest aGuest) {
+		return this.guests.add(aGuest);
+	}
 	
+	public boolean deleteGuest(Guest aGuest) {
+		return this.guests.remove(aGuest);
+	}
+	
+	public boolean addBooking(Booking aBooking) {
+		return this.bookings.add(aBooking);
+	}
+	
+	public boolean deleteBooking(Booking aBooking) {
+		return this.bookings.remove(aBooking);
+	}
 	
 	public String getName() {
 		return name;
@@ -149,6 +167,22 @@ public class Structure {
 
 	public void setKeys(TreeSet<Integer> keys) {
 		this.keys = keys;
+	}
+
+	public List<Guest> getGuests() {
+		return guests;
+	}
+
+	public void setGuests(List<Guest> guests) {
+		this.guests = guests;
+	}
+
+	public List<Booking> getBookings() {
+		return bookings;
+	}
+
+	public void setBookings(List<Booking> bookings) {
+		this.bookings = bookings;
 	}
 	
 	
