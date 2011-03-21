@@ -1086,7 +1086,9 @@ options.eventNew({start: self.formatDate(new Date(start_booking),"M/d/Y"), end:s
            var position= (calEvent.top/options.timeslotHeight);
           var id_room= $('div.wc-time-header-cell#' + position + '  > input[name="id_room"]').val();
            $calEvent.find(".wc-time").append('<input type="hidden" name="id_booked_room"  value="' +  id_room  + '" />');
-
+          
+           //possiamo aggiungere altre informazioni, quali ad esempio l'id del booking
+           
          $calEvent.find(".wc-title").html(calEvent.title);
          //con la seguente istruzione inseriamo in data l'evento del calendario.
          $calEvent.data("calEvent", calEvent);

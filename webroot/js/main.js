@@ -630,13 +630,72 @@ $(document).ready(function() {
 					return;
 				}
 
-				lastXhr = $.getJSON( "customer.json", request, function( data, status, xhr ) {
-					cache[ term ] = data.customers;
+				lastXhr = $.getJSON( "findAllGuestsJson.action", request, function( data, status, xhr ) {
+					//--cache[ term ] = data;
+					var result = new Array();
+					try {
+						$.each(data, function(key, value){
+						
+						result.push({"id": value.id, "label":value.lastName, "value":value.lastName} );
+					});
+					}
+					catch(e)
+					{
+						//nothing. result is empty
+					}
+					
+					cache[ term ] = result;
 					if ( xhr === lastXhr ) {
-						response( data.customers );
+						response( result );
 					}
 				});
+			},
+			
+			select: function( event, ui ) {
+				if( ui.item ){
+					$('input[name="id_guest"]').val(ui.item.id);
+				}
+				
+				//send an ajax call to guest details retrieving
+				$.ajax({
+					  url: "findGuestById.action",
+					  dataType: 'json',
+					  data: {id: $('input[name="id_guest"]').val()},
+					  success: function(response){
+						  if(response.message.result == "success")
+							  {
+							  
+							  $("#phone").val(response.guest.phone);
+						  $("#address").val(response.guest.address);
+						  $("#country").val(response.guest.country);
+						  $("#zipCode").val(response.guest.zipCode);
+						  /*$.each( { name: "John", lang: "JS" }, function(i, n){
+							    alert( "Name: " + i + ", Value: " + n );
+							});
+							*/ 
+							  }
+						  else
+							  {
+								$().notify("Attenzione", "Problema restituzione dettagli guest...");
+						   		 
+							  
+							  }
+						  
+						 
+
+					  },
+					  
+				   	  error: function(){
+				   		  //if you cannot retrieve the list of rooms then...
+				   		$().notify("Attenzione", "Problema  nel contattare il server per dettagli guest...");
+				   		  
+				   	  }
+					});
+
+				
+				
 			}
+
 		});
 
 

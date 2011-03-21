@@ -30,7 +30,7 @@
               <div class="book_details c40l">
               <fieldset>
     <legend>Booking Details:</legend>
-                <input type="hidden" />
+                <input type="hidden" name="id_guest" value="-1"/>
 
                 
                   <div class="type-text"><label for="fullname">Full Name:<sup title="This field is mandatory.">*</sup></label> <input type="text" name=
@@ -276,8 +276,8 @@
 				</select>
               </div>
 
-                  <div class="type-text"><label for="postcode">PostCode:<sup title="This field is mandatory.">*</sup></label> <input type="text" name=
-                  "postcode" id="postcode" class="required"/></div>
+                  <div class="type-text"><label for="zipCode">ZipCode:<sup title="This field is mandatory.">*</sup></label> <input type="text" name=
+                  "zipCode" id="zipCode" class="required"/></div>
                   
                    <div class="type-select"><label for="guests">Guests:</label> <select name="guests">
                     <option value="1" id="guest">
