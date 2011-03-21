@@ -321,6 +321,8 @@ $(document).ready(function() {
 		
    var $calendar = $('#calendar');
    var id = 10;
+   
+   //create a Room javascript object
    function Room(room_id, room_name){
 	   
 	   this.id = room_id;
@@ -340,23 +342,25 @@ $(document).ready(function() {
    if($calendar.length > 0)
 	   	   {
 	   
-	   //setting real rooms list
+	   //get real rooms list
 	   $.ajax({
 		   url: "findAllRoomsJson.action",
 		   context: document.body,
 		   success: function(data){
-		     
-		     list_rooms.push(new Room(37,"la bella"));
+		     //iterate over the list
 		     $(data).each(function(i, val)
 		    		 {
+		    	 //add current room to room list 
 		    	 list_rooms.push(new Room(val.id,val.name));
 		    	 		
 		    		 });
+		     //calculates the new lenght of the list
 		     num_rooms=list_rooms.length;
+		     //now load calendar 
 		     $calendar.LoadCalendar();
 		   },
 	   	  error: function(){
-	   		  
+	   		  //if you cannot retrieve the list of rooms then...
 	   		$().notify("Attenzione", "Problema restituzione lista camere...");
 	   		  
 	   	  }
