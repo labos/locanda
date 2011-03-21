@@ -1,7 +1,9 @@
 package action;
 
+import java.util.Date;
 import java.util.Map;
 
+import model.Booking;
 import model.Guest;
 import model.Room;
 import model.RoomFacility;
@@ -63,6 +65,7 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		this.buildRooms(ret);
 		this.buildRoomFacilities(ret);
 		this.buildGuests(ret);
+		this.buildBookings(ret);
 		
 		return ret;		
 	}
@@ -138,7 +141,28 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		structure.addGuest(aGuest);
 	}
 	
+	private void buildBookings(Structure structure){
+		Booking aBooking = null;
+		Room aRoom = null;
+		Guest aGuest = null;
+		Date dateIn = null;
+		Date dateOut = null;
 		
+		aBooking = new Booking();
+		aRoom = structure.findRoomByName("101");
+		aGuest = structure.getGuests().get(0);
+		aBooking.setGuest(aGuest);
+		aBooking.setRoom(aRoom);
+		dateIn = new Date(System.currentTimeMillis());
+		dateOut = new Date(System.currentTimeMillis() + 3*24*3600*1000);
+		aBooking.setDateIn(dateIn);
+		aBooking.setDateOut(dateOut);
+		aBooking.setId(structure.nextKey());
+		aBooking.setNrGuests(1);
+		aBooking.setSubtotal(50.0);
+		
+	}
+	
 	public Map<String, Object> getSession() {
 		return session;
 	}
