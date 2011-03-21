@@ -981,13 +981,26 @@ options.eventNew({start: self.formatDate(new Date(start_booking),"M/d/Y"), end:s
 
 
          $.each(eventsToRender, function(i, calEvent) {
+        	//se data end è maggiore di data start, allora il booking coinvolge più
+        	 //giorni, per cui bisogna iterare.
+     	    // The number of milliseconds in one day
+     	     var ONE_DAY = 1000 * 60 * 60 * 24;
+        	 var number_of_days = self._days_between(calEvent.end,  calEvent.start) + 1;
+        	 begin_day = calEvent.start;
+        	 for (i = 0 ;  i < number_of_days; i++)
+        		 {
+        		 	
+        		 calEvent.start = new Date(begin_day.getTime() + i* ONE_DAY );
+        		 calEvent.end = new Date(calEvent.start.getTime() +1);
+        		 	
+            	 var $weekDay = self._findWeekDayForEvent(calEvent, $weekDayColumns);
 
-            var $weekDay = self._findWeekDayForEvent(calEvent, $weekDayColumns);
+                 if ($weekDay) {
+                    calEvent.top= self._getRoomTopById(calEvent.id);
+                    self._renderEvent(calEvent, $weekDay);
+                 }
+        		 }
 
-            if ($weekDay) {
-calEvent.top= self._getRoomTopById(calEvent.id);
-               self._renderEvent(calEvent, $weekDay);
-            }
          });
 
          $weekDayColumns.each(function(){
@@ -1001,6 +1014,23 @@ calEvent.top= self._getRoomTopById(calEvent.id);
          }
 
       },
+      
+      _days_between: function(date1, date2) {
+
+  	    // The number of milliseconds in one day
+  	    var ONE_DAY = 1000 * 60 * 60 * 24;
+
+  	    // Convert both dates to milliseconds
+  	    var date1_ms = date1.getTime();
+  	    var date2_ms = date2.getTime();
+
+  	    // Calculate the difference in milliseconds
+  	    var difference_ms = Math.abs(date1_ms - date2_ms);
+  	    
+  	    // Convert back to days and return
+  	    return Math.round(difference_ms/ONE_DAY);
+
+  	},
 
       /*
        * Render a specific event into the day provided. Assumes correct
@@ -1094,13 +1124,16 @@ calEvent.top= self._getRoomTopById(calEvent.id);
            var position=0;
       $.each(room_divs, function(i, val){
    //--current_top= val.position().top;
-   	position++;
-          var value= $(val).children(".wc-time-header-cell").attr("id");
+   
+    var value= $(val).children('div.wc-time-header-cell').children('input[name="id_room"]').val();
+
+    //var value= $(val).children(".wc-time-header-cell").attr("id");
       if (value == id)
       {
       return_value=position*options.timeslotHeight;
       return return_value;
       }
+  	position++;
       });      
       
       
@@ -1212,7 +1245,7 @@ calEvent.top= self._getRoomTopById(calEvent.id);
              var ff= $(this).data("startDate").getTime();
              var ii=$(this).data("endDate").getTime() ;
              var gg=calEvent.end.getTime();
-             
+            //se mi trovo all'interno del range della data corrente del weekday corrente, allora restituisci il dom della colonna della data dell'iterazione corrente... 
             if ($(this).data("startDate").getTime() <= calEvent.start.getTime() && $(this).data("endDate").getTime() >= calEvent.end.getTime()) {
                $weekDay = $(this);
                return false;

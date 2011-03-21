@@ -666,28 +666,28 @@ $(document).ready(function() {
       return {
          events : [
             {
-               "id":0,
+               "id":100,
                "start": new Date(year, month, day, 12),
-               "end": new Date(year, month, day, 13, 30),
+               "end": new Date(year, month, day+1, 13, 30),
                "title":"Giovanni Stara"
             },
             {
-               "id":1,
+               "id":104,
                "start": new Date(year, month, day, 14),
                "end": new Date(year, month, day, 14, 45),
                "title":"Marc Devois"
             },
             {
-               "id":2,
+               "id":123,
                "start": new Date(year, month, day + 1, 17),
-               "end": new Date(year, month, day + 1, 17, 45),
-               "title":"Laura Saint"
+               "end": new Date(year, month, day + 5, 17, 45),
+               "title":"Laura Molinari"
             },
             
             {
-               "id":3,
-               "start": new Date(year, month, day + 1, 14),
-               "end": new Date(year, month, day + 1, 15),
+               "id":100,
+               "start": new Date(year, month, day + 2, 14),
+               "end": new Date(year, month, day + 2, 15),
                "title":"Michele Gors"
             }
 
