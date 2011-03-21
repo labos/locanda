@@ -143,10 +143,13 @@ $(document).ready(function() {
 	   				    				    
 	   				   }
 	   		    
-	   		     else
+	   		     else if (data_action.result == "error")
 	   		    	 {
 	   		    	 	$().notify("Attenzione", data_action.description);
 	   		    	 }
+	   		   	else{
+	   		   		$(".validationError").html(data_action);
+	   		   		}
 	   		    	
 	   		   },
 	   		   
@@ -169,7 +172,8 @@ $(document).ready(function() {
 			 
 			 $(this).submitForm();
 		  		
-			 return false;
+		 		return false;
+			 
 		   	  
 		   	  });
 

@@ -22,26 +22,26 @@
             </div>
           </div>
         
-         <s:iterator value="rooms" var="eachRoom" >
+         <s:iterator value="rooms" var="each">
           <div>
           
 		 <form method="post" action="updateRoom.action" class="yform json full" role="application">
             <fieldset>
               <legend>
-              	<input class="describe required" style="width:60px; display: inline;" readonly="true" type="text" name="room.name" value="<s:property value="#eachRoom.name"/>"  />
-				<a class="describe_edit" href="#" title="describe"><img src="images/sign-up-icon.png" alt="edit" /></a>
+              <input type="hidden" name="redirect_form" value="findAllRooms.action" />
+                <input class="describe required" style="width:60px; display: inline;" readonly="true" type="text" name="room.name" value="<s:property value="name"/>"  />
+            	<a class="describe_edit" href="#" title="describe"><img src="images/sign-up-icon.png" alt="edit" /></a>
             	</legend>
-            	<input type="hidden" name="redirect_form" value="findAllRooms.action?sect=accomodation" />
-		<div class="subcolumns type-text">
+				<div class="subcolumns type-text">
 				<input type="hidden" name="room.id" value="<s:property value="id"/>"/>
               <div class="">
               <span>Room type:&nbsp;</span>
-              <input class="describe  required" style="width:60px; display: inline;" readonly="true" type="text" name="room.roomType" value="<s:property value="#eachRoom.roomType"/>"  />
+              <input class="describe  required" style="width:60px; display: inline;" readonly="true" type="text" name="room.roomType" value="<s:property value="roomType"/>"  />
             	<a class="describe_edit" href="#" title="describe"><img src="images/sign-up-icon.png" alt="edit" /></a>
               </div>
               </div>
              <div class="subcolumns type-text">
-      <span class="title_season">Price</span>&nbsp; <input type="text" class="small_input  required number" id="price" name="room.price" value="<s:property value="#eachRoom.price"/>" />
+      <span class="title_season">Price</span>&nbsp; <input type="text" class="small_input  required number" id="price" name="room.price" value="<s:property value="price"/>" />
              <span>&nbsp;&euro;</span>
               </div>
                <div class="subcolumns">
@@ -53,24 +53,19 @@
       		</div>
       		<div class="c10l">
       		        <div class="type_rooms">
-                      <input type="input" class="small_input  required number" name="room.maxGuests" value="<s:property value="#eachRoom.maxGuests"/>" />
+                      <input type="input" class="small_input  required number" name="room.maxGuests" value="<s:property value="maxGuests"/>" />
                     </div>                
-            </div>
-            </div>
+                    </div>
+              </div>
 			 <div class="subcolumns">
               &nbsp;
-              </div>
-            <div class="subcolumns">
-            <fieldset> <legend>Facilities</legend>
-            <s:iterator value="#eachRoom.facilities" var="eachFacility">
-					<img  width="24" height="24"  src="images/room_facilities/<s:property value="fileName"/>" alt="<s:property value="#eachFacility.name"/>"/>
-      		</s:iterator>
-      		<button class="btn_add_facility_room">ADD FACILITY</button>
-      		</fieldset>
               </div>
             <div class="subcolumns type-text">
             <div class="c50l">
       		<span class="title_season">Notes:</span>&nbsp;
+      		
+      		<s:property value="facilities.size"/>
+      		
       		<textarea name="room.notes" rows="5" cols="60"><s:property value="notes"/></textarea>
       		</div>
       		</div>
@@ -86,7 +81,6 @@
            </form>        
 		</div>  
 		
-		 </s:iterator>
-		 <div id="facility_edit_dialog" style="display: none;"></div>    
+		 </s:iterator>      
           </div>
 <jsp:include page="jsp/layout/footer.jsp" />     

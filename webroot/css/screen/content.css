@@ -562,19 +562,3 @@ margin-bottom:2px;
 .facility label{
 display: inline;
 }
-
-
-
-div.beautify fieldset {
-display: block;
-background:none repeat scroll 0 0 #FAFAFA;
-border:1px solid #DDDDDD;
-margin:0 0 1em;
-padding:0.5em;
-
-}
-
-.beautify .error {
-color:#880000;
-font-weight:600;
-}

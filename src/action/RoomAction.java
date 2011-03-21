@@ -25,23 +25,14 @@ public class RoomAction extends ActionSupport implements SessionAware{
 	private Room room = null;
 	private Message message = new Message();
 	private List<RoomFacility> roomFacilities = null;
-	private List<Integer> facilities = null;
+	private List<Integer> facilities = new ArrayList<Integer>();
 	private Integer idRoom;
-	Boolean bool;
 	
 	
-	
-	
-	public Boolean getBool() {
-		return bool;
-	}
-
-	public void setBool(Boolean bool) {
-		this.bool = bool;
-	}
 
 	@Actions({
 		@Action(value="/addNewRoom",results = {
+				@Result(name="input", location="/validationError.jsp"),
 				@Result(type ="json",name="success", params={
 						"root","message"
 				} ),
@@ -196,7 +187,7 @@ public class RoomAction extends ActionSupport implements SessionAware{
 		//creo un oggetto vuoto di id di facilities
 		this.facilities = new ArrayList<Integer>();
 		this.setRoomFacilities(structure.getRoomFacilities());
-		this.setBool(false);
+		
 		List <RoomFacility> currentRoom = structure.findRoomById(idRoom).getFacilities();
 		
 		for(RoomFacility each: currentRoom){

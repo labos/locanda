@@ -14,8 +14,6 @@
   <link rel='stylesheet' type='text/css' href='css/jquery.weekcalendar.css' />
   <link rel='stylesheet' type='text/css' href='css/calendar.css' />
     <link rel='stylesheet' type='text/css' href='css/jquery.jgrowl.css' />
-    <link rel="stylesheet" type='text/css' href="css/jquery.fileupload-ui.css" />
-    
   <script type='text/javascript' src='js/lib/jquery-1.4.4.min.js'>
 </script><!--
     <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js'></script>
@@ -24,10 +22,6 @@
   <script type='text/javascript' src='js/lib/jquery-ui-1.8.9.custom.min.js'>
 </script>
   <script type='text/javascript' src='js/jquery.weekcalendar.js'>
-</script>
-  <script type='text/javascript' src='js/jquery.fileupload.js'>
-</script>
-  <script type='text/javascript' src='js/jquery.fileupload-ui.js'>
 </script>
       <script>
       $().ready(function() {

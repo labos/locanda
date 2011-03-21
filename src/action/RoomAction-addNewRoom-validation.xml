@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE validators PUBLIC
+  		"-//OpenSymphony Group//XWork Validator 1.0//EN" 
+  		"http://www.opensymphony.com/xwork/xwork-validator-1.0.2.dtd">
+  		
+<!-- START SNIPPET: fieldValidatorsExample -->  		
+  		
+<validators>
+	<field name="room.name">
+		<field-validator type="requiredstring">
+			<param name="trim">true</param>
+            <message><![CDATA[room name required  ]]></message>
+		</field-validator>
+	</field>
+	<field name="room.roomType">
+		<field-validator type="requiredstring">
+			<param name="trim">true</param>
+            <message><![CDATA[room type required ]]></message>
+		</field-validator>
+	</field>
+	<field name="room.maxGuests">
+		<field-validator type="int">
+			<param name="min">1</param>
+			<param name="max">10</param>
+			<message><![CDATA[room.maxGuests must be integer min 1  ]]></message>
+		</field-validator>
+	</field>
+</validators>
+
+<!-- END SNIPPET: fieldValidatorsExample -->
+

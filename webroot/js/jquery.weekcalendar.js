@@ -469,7 +469,7 @@
             calendarBodyHtml += "<div class=\"wc-hour-header " + bhClass + "\">"
             //adesso creiamo le righe (ovvero iniziando dalla prima colonna che contiene il nome della camera.
             if (options.use24Hour) {
-               calendarBodyHtml += "<div class=\"wc-time-header-cell\" id=\"" + i + "\"><span>" + self._24HourForIndex(i) + "</span><input type=\"hidden\" name=\"id_room\" value=\""+ options.listRooms[i].id + "\" /></div>";
+               calendarBodyHtml += "<div class=\"wc-time-header-cell\" id=\"" + i + "\"><span>" + self._24HourForIndex(i) + "</span><input type=\"hidden\" name=\"id_room\" value=\""+ options.listRooms[i] + "\" /></div>";
             } else {
                calendarBodyHtml += "<div class=\"wc-time-header-cell\" id=\"" + i + "\"><span>" + self._hourForIndex(i) + "</span><span class=\"wc-am-pm\">" + self._amOrPm(i) + "</span></div>";
             }
@@ -1647,14 +1647,8 @@ var pxTop = calEvent.top;
       },
 
       _24HourForIndex : function(index) {
-    	  
-    	  var options = this.options;
-    	  //check if is set the name of room
-    	  if(typeof  options.listRooms !=='undefined' && options.listRooms[index].name !=='')
-          {
-    		  return options.listRooms[index].name;
-          }
-    		  return  'camera' + index ;
+
+          return  'camera' + index ;
 
       },
 

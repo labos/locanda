@@ -19,7 +19,10 @@
           <div class="right">
             </div>
           </div>
-          <div>
+          
+           <div class="validationErrors">
+            </div>
+          <div>          
 		 <form method="post" action="addNewRoom.action" class="yform json" role="application">
             <fieldset>
               <legend>
@@ -55,15 +58,15 @@
                <label for="per_parking">Facilities:</label>
                 <s:iterator value="roomFacilities" var="each">
                		<div class="facility">
-					<img width="24" height="24" src="images/room_facilities/<s:property value="fileName"/>" alt="facility"/>
+					<img src="images/room_facilities/<s:property value="fileName"/>" alt="facility"/>
 					<input type="checkbox" id="<s:property value="name"/>_fac" name="facilities" value="<s:property value="id"/>"/>
 					<label for="<s:property value="name"/>_fac"><s:property value="name"/></label>
 					</div>
 				</s:iterator>
 				<!-- div facility for javascript purpose-->
-				<div class="facility" style="display: none; border-color: red;">
-					<img  width="24" height="24" src="images/room_facilities/" alt="facility"/>
-					<input type="checkbox" id="" name="" checked="checked"/>
+				<div class="facility" style="display: none;">
+					<img src="images/room_facilities/" alt="facility"/>
+					<input type="checkbox" id="" name=""/>
 					<label for=""></label>
 				</div>
 				<!-- end div facility for javascript purpose-->
@@ -82,31 +85,15 @@
             </div>
               </fieldset>
            </form>
-           <div class="beautify">
-           <fieldset>
-           <legend>Facilities</legend>
-     		           <div class="subcolumns">
-           <div class="c33l">
-    <label for="name_facility">Facility Name:</label>&nbsp;<input type="text" name="facility_name" value="" id="name_facility" class="require"/>
- </div>
- <div class="c20l">
- <br/>
- <form id="uploadFacility" action="uploadFacility.action" method="post" enctype="multipart/form-data">
-   <input type="hidden" name="name" value=""/>
-     <input type="file" name="upload" multiple/>
-    <button>Upload</button>
-    <div>Upload files</div>  
-</form>
-		   
-		   <div class="result_facility_upload" id="result_facility_upload" ></div>
+           <div class="subcolumns">
+           <s:form id="uploadFacility" action="uploadFacility.action" method="post" enctype="multipart/form-data">
+    		 <s:file name="upload" label="File icon(max 24px X 24px image size)" cssClass="required"/>
+    		 <s:textfield name="name" label="Facility Name" cssClass="required"></s:textfield>
+    		 <s:submit/>
+		   </s:form>
+		   <span id="result_facility_upload"></span>
 		   <div class="upload_loader">&nbsp;</div>
-		   <div class="image_preview"></div>
 		   </div>
-		   </div>      
-           </fieldset>
-           </div>
-           
-
 		          
 		</div>        
           </div>
