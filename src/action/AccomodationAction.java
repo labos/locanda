@@ -44,7 +44,11 @@ public class AccomodationAction extends ActionSupport implements SessionAware{
 	@Actions({
 		@Action(value="/findAllRooms",results = {
 				@Result(name="success",location="/accomodation.jsp")
-		})
+		}),
+		@Action(value="/findAllRoomsJson",results = {
+				@Result(type ="json",name="success", params={
+						"root","rooms"
+				})}) 
 		
 	})
 	public String findAllRooms() {
@@ -68,7 +72,6 @@ public class AccomodationAction extends ActionSupport implements SessionAware{
 		this.setRoomFacilities(structure.getRoomFacilities());
 		return SUCCESS;
 	}
-	
 	
 	
 
@@ -106,7 +109,5 @@ public class AccomodationAction extends ActionSupport implements SessionAware{
 	public void setRoomTypes(Set<String> roomTypes) {
 		this.roomTypes = roomTypes;
 	}
-
-		
 
 }
