@@ -1,9 +1,11 @@
 package model;
 
 public class Guest {
+	
+	private Integer id;
+	
 	private String firstName;
 	private String lastName;
-	
 	private String email;
 	private String phone;
 	private String address;
@@ -11,6 +13,13 @@ public class Guest {
 	private String zipCode;
 	private String notes;
 	
+	
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
 	public String getFirstName() {
 		return firstName;
 	}
