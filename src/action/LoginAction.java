@@ -2,6 +2,7 @@ package action;
 
 import java.util.Map;
 
+import model.Guest;
 import model.Room;
 import model.RoomFacility;
 import model.Structure;
@@ -61,7 +62,7 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		
 		this.buildRooms(ret);
 		this.buildRoomFacilities(ret);
-		
+		this.buildGuests(ret);
 		
 		return ret;		
 	}
@@ -119,6 +120,22 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		aRoomFacility.setFileName("TEL.gif");
 		structure.addRoomFacility(aRoomFacility);
 		
+	}
+	
+	private void buildGuests(Structure structure){
+		Guest aGuest = null;
+		
+		aGuest = new Guest();
+		aGuest.setId(structure.nextKey());
+		aGuest.setFirstName("Paolo");
+		aGuest.setLastName("Rossi");
+		aGuest.setCountry("Italy");
+		aGuest.setAddress("Roma, Via Rossini 82");
+		aGuest.setEmail("paolo@rossi.it");
+		aGuest.setPhone("06-6789458");
+		aGuest.setZipCode("09123");
+		aGuest.setNotes("Note su Paolo Rossi");
+		structure.addGuest(aGuest);
 	}
 	
 		
