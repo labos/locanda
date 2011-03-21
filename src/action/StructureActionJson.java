@@ -75,8 +75,6 @@ public class StructureActionJson extends ActionSupport implements SessionAware {
 		message.setResult(Message.SUCCESS);
 		message.setDescription("Facility inserita correttamente!");
 		return SUCCESS;
-		
-	
 	}
 
 	

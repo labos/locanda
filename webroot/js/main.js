@@ -148,7 +148,7 @@ $(document).ready(function() {
 	   		    	 	$().notify("Attenzione", data_action.description);
 	   		    	 }
 	   		   	else{
-	   		   		$(".validationError").html(data_action);
+	   		   		$(".validationErrors").html(data_action);
 	   		   		}
 	   		    	
 	   		   },
