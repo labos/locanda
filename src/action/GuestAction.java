@@ -94,10 +94,11 @@ public class GuestAction extends ActionSupport implements SessionAware{
 	public String addNewGuest(){
 		User user = (User)session.get("user");
 		Structure structure = user.getStructure();
+		this.getGuest().setId(structure.nextKey());
 		structure.addGuest(this.getGuest());
 		this.getMessage().setResult(Message.SUCCESS);
-		this.getMessage().setDescription("Guest Added successfully");
-		return "SUCCESS";
+		this.getMessage().setDescription("Guest added successfully");
+		return SUCCESS;
 	}
 	
 

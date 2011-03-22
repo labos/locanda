@@ -25,9 +25,9 @@
           <div><button class="btn_add_guest">ADD NEW</button></div>
           
           <s:iterator value="guests" var="eachGuest" >
-          <div>
           
-		 <form method="post" action="addNewGuest.action" class="yform full" role="application">
+         <div>
+		 <form method="post" action="" class="yform full" role="application">
             <fieldset>
               <legend class="title_season">
               	<s:property value="#eachGuest.firstName"/> <a href="guest_edit.jsp"><s:property value="#eachGuest.lastName"/></a>
@@ -45,32 +45,14 @@
                     </div>                  
                 </div>
              </div>
-               <div class="subcolumns">
-              &nbsp;
-              </div>
-             <div class="subcolumns">
-                   <div class="type_rooms">
-                    </div> 
-                    <div class="type-select num_of_rooms">
-                    </div> 
-              </div>
-              <div class="subcolumns">
-              &nbsp;
-              </div>
-            <div class="subcolumns type-text">
-            <div class="c50l">
-      		</div>
-      		</div>
-      		<div class="subcolumns">
-              &nbsp;
-              </div>
+             <div class="subcolumns type-text">
+               <div class="c50l">
+      		   </div>
+      		 </div>
+      		 
               
-            <div class="type-button">
-            <input type="text" name="new_name_season" id="chng_season_name" value=""/>
-            </div>
-            
-              </fieldset>
-           </form>        
+           </fieldset>
+         </form>        
 		</div>
 		</s:iterator>
 		       
