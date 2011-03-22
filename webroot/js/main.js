@@ -425,6 +425,8 @@ $(document).ready(function() {
          var $dialogContent = $("#event_edit_container");
          resetForm($dialogContent);
          $dialogContent.find("#date_booking").html(calEvent.start + ' - ' + calEvent.end);
+         //set hidden input for date start and date end
+         
          var duration = days_between(new Date(calEvent.end), new Date(calEvent.start)) + 1;
          var remainings = days_between_signed(new Date(calEvent.start), new Date());
          
@@ -654,43 +656,43 @@ $(document).ready(function() {
 			select: function( event, ui ) {
 				if( ui.item ){
 					$('input[name="id_guest"]').val(ui.item.id);
+					//send an ajax call to guest details retrieving
+					$.ajax({
+						  url: "findGuestById.action",
+						  dataType: 'json',
+						  data: {id: $('input[name="id_guest"]').val()},
+						  success: function(response){
+							  if(response.message.result == "success")
+								  {
+								  
+							  $("#phone").val(response.guest.phone);
+							  $("#address").val(response.guest.address);
+							  $("#country").val(response.guest.country);
+							  $("#zipCode").val(response.guest.zipCode);
+							  /*$.each( { name: "John", lang: "JS" }, function(i, n){
+								    alert( "Name: " + i + ", Value: " + n );
+								});
+								*/ 
+								  }
+							  else
+								  {
+									$().notify("Attenzione", "Problema restituzione dettagli guest...");
+							   		 
+								  
+								  }
+
+
+						  },
+						  
+					   	  error: function(){
+					   		  //if you cannot retrieve the list of rooms then...
+					   		$().notify("Attenzione", "Problema  nel contattare il server per dettagli guest...");
+					   		  
+					   	  }
+						});
+					
 				}
 				
-				//send an ajax call to guest details retrieving
-				$.ajax({
-					  url: "findGuestById.action",
-					  dataType: 'json',
-					  data: {id: $('input[name="id_guest"]').val()},
-					  success: function(response){
-						  if(response.message.result == "success")
-							  {
-							  
-							  $("#phone").val(response.guest.phone);
-						  $("#address").val(response.guest.address);
-						  $("#country").val(response.guest.country);
-						  $("#zipCode").val(response.guest.zipCode);
-						  /*$.each( { name: "John", lang: "JS" }, function(i, n){
-							    alert( "Name: " + i + ", Value: " + n );
-							});
-							*/ 
-							  }
-						  else
-							  {
-								$().notify("Attenzione", "Problema restituzione dettagli guest...");
-						   		 
-							  
-							  }
-						  
-						 
-
-					  },
-					  
-				   	  error: function(){
-				   		  //if you cannot retrieve the list of rooms then...
-				   		$().notify("Attenzione", "Problema  nel contattare il server per dettagli guest...");
-				   		  
-				   	  }
-					});
 
 				
 				
@@ -1074,7 +1076,7 @@ $(document).ready(function() {
 	      icons: {
 	          primary: "ui-icon-circle-plus"
 	      }}).click(function(){
-	    	window.location.href="goAddNewGuest.action?sect=guests"; 
+	    	window.location.href="guest_new.jsp?sect=guests"; 
 	    	return false;
 	      });
 	  
