@@ -30,21 +30,23 @@
               <div class="book_details c40l">
               <fieldset>
     <legend>Booking Details:</legend>
-                <input type="hidden" name="id_guest" value="-1"/>
-
+    			<input type="hidden" name="id_guest" value="-1"/>
+    			<input type="hidden" id="date_start_booking" name="booking.dateIn" value=""/>
+                <input type="hidden" id="date_end_booking" name="booking.dateOut" value=""/>
+				<input type="hidden" id="room_id_booking" name="booking.room.id" value=""/>
                 
                   <div class="type-text"><label for="fullname">Full Name:<sup title="This field is mandatory.">*</sup></label> <input type="text" name=
                   "fullname"  id="fullname" class="required"/></div>
                   
 					<div class="type-text"><label for="phone">Phone:<sup title="This field is mandatory.">*</sup></label> <input type="text" name=
-                  "phone" id="phone" class="required"/></div>
+                  "booking.guest.phone" id="phone" class="required"/></div>
 
                   <div class="type-text"><label for="address">Address:<sup title="This field is mandatory.">*</sup></label> <input type="text" name=
-                  "address" id="address" class="required"/></div>
+                  "booking.guest.address" id="address" class="required"/></div>
 
 				<div class="type-select">
                 <label for="country">Country <sup title="This field is mandatory.">*</sup> </label>
-                <select class="required" name="country" id="country" size="1" aria-required="true">
+                <select class="required" name="booking.guest.country" id="country" size="1" aria-required="true">
 				<option selected="selected" value="">Select One</option>
 				<option value="Afghanistan">Afghanistan</option>
 				<option value="Albania">Albania</option>
@@ -277,9 +279,9 @@
               </div>
 
                   <div class="type-text"><label for="zipCode">ZipCode:<sup title="This field is mandatory.">*</sup></label> <input type="text" name=
-                  "zipCode" id="zipCode" class="required"/></div>
+                  "booking.guest.zipCode" id="zipCode" class="required"/></div>
                   
-                   <div class="type-select"><label for="guests">Guests:</label> <select name="guests">
+                   <div class="type-select"><label for="guests">Guests:</label> <select name="booking.nrGuests" >
                     <option value="1" id="guest">
                       1 Guests
                     </option>
@@ -348,7 +350,7 @@
                   <div class="type-text"><span>Extras: </span><div class="c20r"><span id="extras_room" >0</span>&nbsp;&euro;</div></div>
                   <div class="type-text"><span class="green">&nbsp;Adjustment: </span><div class="c50r"><div class="c10r">&euro;</div><div class="c40l"><input type="text" name=
                   "extra_adjustment[]" id="extra_adjustment" /></div><div class="c40r"><input type="text" name="extra_value_adjustment[]"  class="extra_value_adjustment digits"/></div></div></div>
-                  <div class="type-text"><span>Subtotal: </span><div class="c20r"><span class="subtotal_room" >30</span> &euro;<input type="hidden" id="subtotal_room" value="30" /></div></div>
+                  <div class="type-text"><span>Subtotal: </span><div class="c20r"><span class="subtotal_room" >30</span> &euro;<input type="hidden" id="subtotal_room" name="booking.subtotal" value="30" /></div></div>
                   <div class="type-text"><hr/></div>
                   <div class="type-text"><span class="green">&nbsp;Payment Received: </span><div class="c50r"><div class="c10r">&euro;</div><div class="c40l"><input type="text" name=
                   "pay_adjustment[]" id="pay_adjustment" /></div><div class="c40r"><input type="text" name="pay_value_adjustment[]"  id="pay_value_adjustment" class="pay_value_adjustment digits"/></div></div></div>
