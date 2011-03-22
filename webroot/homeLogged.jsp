@@ -17,8 +17,10 @@
         <div id="col3" role="main">
           <div id="col3_content" class="clearfix">
           <div class="header_section">
+          <s:url action="goAddNewBoooking" var="urlGoAddNewBooking"></s:url>
+          
           <span class="name_section">Planner</span>
-               <a class="btn_right" href="book.jsp" title="Add new booking" /></a>
+               <a class="btn_right" href="<s:property value="urlGoAddNewBooking"/>" title="Add new booking" /></a>
                </div>
             <div id='calendar'></div>
 

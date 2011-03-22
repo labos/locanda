@@ -1,11 +1,16 @@
 package action;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 import model.Booking;
 import model.Guest;
+import model.Room;
+import model.RoomFacility;
 import model.Structure;
 import model.User;
 import model.internal.Message;
@@ -24,8 +29,31 @@ public class BookingAction extends ActionSupport implements SessionAware{
 	private Map<String, Object> session = null;
 	private List<Booking> bookings = null;
 	private Booking booking = null;
+	private String dateIn = null;
 	private Integer id;
+	private Integer numNights;
+	private List<Room> rooms = null;
 	private Message message = new Message();
+	
+	
+	
+	
+	@Actions({
+		@Action(value="/goAddNewBoooking",results = {
+				@Result(name="success",location="/book.jsp")
+		})
+	})
+	
+	public String goAddNewBooking() {
+		User user = (User)this.getSession().get("user");
+		//Controllare che sia diverso da null in un interceptor
+		Structure structure = user.getStructure();
+		this.setRooms(structure.getRooms());
+		return SUCCESS;
+	}
+	
+	
+	
 	
 	@Actions({
 		@Action(value="/findAllBookings",results = {
@@ -76,17 +104,40 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		@Action(value="/addNewBooking",results = {
 				@Result(type ="json",name="success", params={
 						"root","message"
-				} )
+				} ),@Result(name="input", location="/validationError.jsp")
 		})
 		
 	})
 	public String addNewBooking(){
 		User user = (User)session.get("user");
 		Structure structure = user.getStructure();
+		SimpleDateFormat sdf = new SimpleDateFormat("mm/dd/yyyy");
+		Date dateOut = null;
+		Long millis = null;
+		
+		try {
+			
+			this.getBooking().setDateIn(sdf.parse(this.getDateIn()));
+			millis = this.getBooking().getDateIn().getTime() + 
+					this.getNumNights() * 24 * 3600 * 1000;
+			dateOut = new Date(millis);
+			this.getBooking().setDateOut(dateOut);
+			
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		this.getBooking().setId(structure.nextKey());
+		
+		
+		
+		
+		Room aRoom = structure.findRoomById(this.getBooking().getRoom().getId());
+		this.getBooking().setRoom(aRoom);
 		structure.addBooking(this.getBooking());
 		this.getMessage().setResult(Message.SUCCESS);
 		this.getMessage().setDescription("Booking Added successfully");
-		return "SUCCESS";
+		return SUCCESS;
 	}
 	
 
@@ -134,6 +185,38 @@ public class BookingAction extends ActionSupport implements SessionAware{
 	public void setBookings(List<Booking> bookings) {
 		this.bookings = bookings;
 	}
+
+	public String getDateIn() {
+		return dateIn;
+	}
+
+	public void setDateIn(String dateIn) {
+		this.dateIn = dateIn;
+	}
+
+
+	public Integer getNumNights() {
+		return numNights;
+	}
+
+	public void setNumNights(Integer numNights) {
+		this.numNights = numNights;
+	}
+
+
+
+
+	public List<Room> getRooms() {
+		return rooms;
+	}
+
+
+
+
+	public void setRooms(List<Room> rooms) {
+		this.rooms = rooms;
+	}
+	
 	
 	
 

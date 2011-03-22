@@ -107,6 +107,7 @@ $(document).ready(function() {
 			        height: 'show'
 			    },
 			    position: "center",
+			    speed: 1000,
 			    header: title,
 			    close : function (){
 			    	
@@ -562,9 +563,12 @@ $(document).ready(function() {
       noEvents : function() {
 
       },
+      
       data : function(start, end, callback) {
          callback(getEventData());
       }
+      /*
+      data: "findAllBookingsJson.action" */
    });
  
  };
@@ -656,6 +660,7 @@ $(document).ready(function() {
 			select: function( event, ui ) {
 				if( ui.item ){
 					$('input[name="id_guest"]').val(ui.item.id);
+					$('input[name="booking.guest.id"]').val(ui.item.id);
 					//send an ajax call to guest details retrieving
 					$.ajax({
 						  url: "findGuestById.action",
@@ -669,6 +674,9 @@ $(document).ready(function() {
 							  $("#address").val(response.guest.address);
 							  $("#country").val(response.guest.country);
 							  $("#zipCode").val(response.guest.zipCode);
+							  $("#email").val(response.guest.email);
+							  $("#fname").val(response.guest.firstName);
+							  $("#notes").val(response.guest.notes);
 							  /*$.each( { name: "John", lang: "JS" }, function(i, n){
 								    alert( "Name: " + i + ", Value: " + n );
 								});
@@ -1228,7 +1236,18 @@ $(document).ready(function() {
 				  }
 				}
 				});
+		/*	
+			$("#booking_duration").change(function(){
+				
+				var duration = $(this).children(':selected').val();
+				
+				$('input[name="dateIn"]').val()
+				
 
+				
+				
+			});
+				*/
 			$( "#datepicker" ).datepicker({
 				showOn: "button",
 				buttonImage: "images/calendar.gif",
@@ -1274,7 +1293,7 @@ $(document).ready(function() {
 				$(".type_rooms").hide();	
 				});
 				
-
+				getCustomers("input[name='booking.guest.lastName']");
 		 
    //---  END BOOK SECTION CODE  
    
