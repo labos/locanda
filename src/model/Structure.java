@@ -142,6 +142,17 @@ public class Structure {
 		return this.bookings.remove(aBooking);
 	}
 	
+	public Guest findGuestById(Integer id){
+		Guest ret = null;
+		for (Guest each : this.getGuests()) {
+			if (each.getId().equals(id)) {
+				return each;
+			}
+		}
+		
+		return ret;
+	}
+	
 	public String getName() {
 		return name;
 	}

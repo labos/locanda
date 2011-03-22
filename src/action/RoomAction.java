@@ -117,7 +117,7 @@ public class RoomAction extends ActionSupport implements SessionAware{
 			return "success";
 		}else{
 			this.getMessage().setResult(Message.ERROR);
-			this.getMessage().setDescription("Non e' stato possiible cancellare la stanza");
+			this.getMessage().setDescription("Non e' stato possibile cancellare la stanza");
 			return "error";
 		}
 		

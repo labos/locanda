@@ -101,6 +101,44 @@ public class GuestAction extends ActionSupport implements SessionAware{
 		return SUCCESS;
 	}
 	
+	@Actions({
+		@Action(value="/goUpdateGuest",results = {
+				@Result(name="success",location="/guest_edit.jsp")
+		})
+		
+	})
+	public String goUpdateGuest() {
+		User user = (User)session.get("user");
+		Structure structure = user.getStructure();
+		this.setGuest(structure.findGuestById(this.getId())); //id della Action che setto con il parametro della request (nel link: ?id=...). con quello setto guest.
+		return SUCCESS;
+	}
+	
+	@Actions({
+		@Action(value="/updateGuest",results = {
+				@Result(type ="json",name="success", params={
+						"root","message"
+				} )
+		})
+		
+	})
+	public String updateGuest(){
+		User user = (User)session.get("user");
+		Structure structure = user.getStructure();
+		Guest oldGuest = structure.findGuestById(this.getGuest().getId());
+		oldGuest.setFirstName(this.getGuest().getFirstName());
+		oldGuest.setLastName(this.getGuest().getLastName());
+		oldGuest.setAddress(this.getGuest().getAddress());
+		oldGuest.setCountry(this.getGuest().getCountry());
+		oldGuest.setEmail(this.getGuest().getEmail());
+		oldGuest.setNotes(this.getGuest().getNotes());
+		oldGuest.setPhone(this.getGuest().getPhone());
+		oldGuest.setZipCode(this.getGuest().getZipCode());
+		
+		this.getMessage().setResult(Message.SUCCESS);
+		this.getMessage().setDescription("Guest modified successfully");
+		return SUCCESS;
+	}
 
 	public Message getMessage() {
 		return message;

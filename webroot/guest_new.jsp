@@ -25,6 +25,7 @@
  <form method="post" action="addNewGuest.action" class="yform json" role="application">           
   			<fieldset>
               <legend>Guest data</legend>
+              <input type="hidden" name="redirect_form" value="findAllGuests.action" />
               <div class="c50l">
            	 	  <div class="type-text">
                   	<label for="firstName">First name <sup title="This field is mandatory.">*</sup></label>
@@ -288,8 +289,8 @@
                   	<textarea name="guest.notes" id="notes"></textarea>
                   </div>
                   <div class="type-button">
-            		<button class="btn_save btn_add_room">SAVE</button>
-           		 	<button class="btn_delete btn_cancel_room">CANCEL</button>
+            		<button class="btn_save">SAVE</button>
+           		 	<button class="btn_delete">CANCEL</button>
            		  </div>
               </div>
             </fieldset>

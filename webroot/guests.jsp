@@ -17,12 +17,13 @@
           <div class="header_section yform">
           <span class="name_section">Manage Guests</span>   
           <div class="right type-text">
-          <input type="text" name="guest_search" class="txt_guest_search" /><button class="btn_g_search">SEARCH</button>      
+          <input type="text" name="guest_search" class="txt_guest_search" /><button class="btn_g_search">SEARCH</button><button class="btn_add_guest">ADD NEW</button>      
             <div class="search_links"><span>Or browse:&nbsp;</span><a href="#">staying this week</a><span>,&nbsp;</span><a href="#">staying next week</a>,&nbsp;<a href="#">staying this month</a>,&nbsp;<a href="#">staying last month</a>,&nbsp;<a href="#">all</a></div>
+            
             </div>
             
           </div>
-          <div><button class="btn_add_guest">ADD NEW</button></div>
+          
           
           <s:iterator value="guests" var="eachGuest" >
           
@@ -30,7 +31,7 @@
 		 <form method="post" action="" class="yform full" role="application">
             <fieldset>
               <legend class="title_season">
-              	<s:property value="#eachGuest.firstName"/> <a href="guest_edit.jsp"><s:property value="#eachGuest.lastName"/></a>
+              	<s:property value="#eachGuest.firstName"/> <a href="goUpdateGuest.action?id=<s:property value="#eachGuest.id"/>"><s:property value="#eachGuest.lastName"/></a>
               </legend>
              <div class="subcolumns">
              </div>
