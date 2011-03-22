@@ -22,39 +22,44 @@
             </div>
           </div>
           <div>
- <form method="post" action="" class="yform" role="application">           
-  <fieldset>
-              <legend>Informations</legend>
+ <form method="post" action="addNewGuest.action" class="yform" role="application">           
+  			<fieldset>
+              <legend>Guest data</legend>
               <div class="c50l">
-           <div class="type-text">
-                <label for="firstName">First name <sup title="This field is mandatory.">*</sup></label>
-                <input class="required" type="text" name="firstName" id="firstName" size="20" />
+           	 	  <div class="type-text">
+                  	<label for="firstName">First name <sup title="This field is mandatory.">*</sup></label>
+                  	<input class="required" type="text" name="guest.firstName" id="firstName" size="20" />
+             	  </div>
+              	  <div class="type-text" role="alert" aria-live="assertive">
+               	    <label for="lastName">Last name <sup title="This field is mandatory.">*</sup></label>
+                    <input class="required" type="text" name="guest.lastName" id="lastName" size="20"  aria-required="true"/>
+             	  </div>
+                  <div class="type-text">
+                    <label for="phone">Phone:<sup title="This field is mandatory.">*</sup></label>
+                    <input type="text" name="guest.phone" id="phone" class="required" />
+                  </div>
+                  <div class="type-text">
+                  	<label for="email">Email:<sup title="This field is mandatory.">*</sup></label>
+                  	<input type="text" name="guest.email" id="email" class="required" />
+                  </div> 
+                  <div class="type-text">
+                  	<label for="address">Address:<sup title="This field is mandatory.">*</sup></label>
+                  	<input type="text" name="guest.address" id="address" class="required" />
+                  </div>
+                  <div class="type-text">
+                  	<label for="country">Country:<sup title="This field is mandatory.">*</sup></label>
+                  	<input type="text" name="guest.country" id="country" class="required"/>
+                  </div>
+                  <div class="type-text">
+                  	<label for="zipCode">ZipCode:<sup title="This field is mandatory.">*</sup></label>
+                  	<input type="text" name="guest.zipCode" id="zipCode" class="required"/>
+                  </div>
+                  <div class="type-text">
+                  	<label for="notes">Notes:</label> 
+                  	<textarea name="guest.notes" id="notes"></textarea>
+                  </div>
               </div>
-              <div class="type-text" role="alert" aria-live="assertive">
-                <label for="lastName">Last name <sup title="This field is mandatory.">*</sup></label>
-                <input class="required" type="text" name="lastName" id="lastName" size="20"  aria-required="true"/>
-              </div>
-
-                  <div class="type-text"><label for="phone">Phone:<sup title="This field is mandatory.">*</sup></label> <input type="text" name=
-                  "phone" id="phone" class="required" /></div>
-                  <div class="type-text"><label for="email">Email:<sup title="This field is mandatory.">*</sup></label> <input type="text" name=
-                  "email" id="email" class="required" value="rossi@tiscali.it"/></div> 
-                  <div class="type-text"><label for="address">Address:<sup title="This field is mandatory.">*</sup></label> <input type="text" name=
-                  "address" id="address" class="required" /></div>
-
-                  <div class="type-text"><label for="country">Country:<sup title="This field is mandatory.">*</sup></label> <input type="text" name=
-                  "country" id="country" class="required"/></div>
-
-                  <div class="type-text"><label for="zipCode">ZipCode:<sup title="This field is mandatory.">*</sup></label> <input type="text" name=
-                  "zipCode" id="zipCode" class="required"/></div>
-                   <div class="type-text"><label for="notes">Notes:</label> 
-                  <textarea name="notes" id="notes"></textarea></div>
-            <div class="type-button">
-            <input type="text" name="new_name_season" id="chng_season_name" value=""/>
-            <button class="btn_save_guest">Add New Guest</button>
-            </div>
-            </div>
-              </fieldset>
+            </fieldset>
            </form>        
 		</div>        
           </div>

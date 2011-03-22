@@ -1074,7 +1074,7 @@ $(document).ready(function() {
 	      icons: {
 	          primary: "ui-icon-circle-plus"
 	      }}).click(function(){
-	    	window.location.href="guest_new.jsp?sect=guests"; 
+	    	window.location.href="goAddNewGuest.action?sect=guests"; 
 	    	return false;
 	      });
 	  

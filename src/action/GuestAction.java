@@ -72,6 +72,18 @@ public class GuestAction extends ActionSupport implements SessionAware{
 	
 	
 	@Actions({
+		@Action(value="/goAddNewGuest",results = {
+				@Result(name="success",location="/guest_new.jsp")
+		})
+		
+	})
+	public String goAddNewGuest() {
+		
+		return SUCCESS;
+	}
+	
+	
+	@Actions({
 		@Action(value="/addNewGuest",results = {
 				@Result(type ="json",name="success", params={
 						"root","message"
