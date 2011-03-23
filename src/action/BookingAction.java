@@ -56,6 +56,9 @@ public class BookingAction extends ActionSupport implements SessionAware{
 	@Actions({
 		@Action(value="/goUpdateBooking",results = {
 				@Result(name="success",location="/book.jsp")
+		}),
+		@Action(value="/goUpdateBookingFromPlanner",results = {
+				@Result(name="success",location="jsp/contents/booking_form.jsp")
 		})
 	})
 	

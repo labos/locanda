@@ -119,7 +119,7 @@ public class Structure {
 		
 		for(Booking each: this.getBookings()){
 			if(each.getId().equals(id)){
-				return ret;
+				return each;
 			}
 		}
 		return ret;
