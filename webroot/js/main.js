@@ -118,11 +118,11 @@ $(document).ready(function() {
 
 	 };
 	 
-	 $.fn.submitForm = function(){
+	 $.fn.submitForm = function(action){
 		
 	 		//setting for input form fields
 	   		var formInput=$(this).serialize();
-	   		var hrefAction = $(this).attr("action");
+	   		var hrefAction = (action == null)? $(this).attr("action") : action;
 	   		var _redirectAction = $(this).find('input:hidden[name="redirect_form"]').val();
 	   		 _redirectAction =(_redirectAction == null) ? "home.action" : _redirectAction;
 	   		//if form is valid
@@ -659,13 +659,13 @@ $(document).ready(function() {
 			
 			select: function( event, ui ) {
 				if( ui.item ){
-					$('input[name="id_guest"]').val(ui.item.id);
+					
 					$('input[name="booking.guest.id"]').val(ui.item.id);
 					//send an ajax call to guest details retrieving
 					$.ajax({
 						  url: "findGuestById.action",
 						  dataType: 'json',
-						  data: {id: $('input[name="id_guest"]').val()},
+						  data: {id: $('input[name="booking.guest.id"]').val()},
 						  success: function(response){
 							  if(response.message.result == "success")
 								  {

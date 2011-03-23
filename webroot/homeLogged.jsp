@@ -32,7 +32,7 @@
               <div class="book_details c40l">
               <fieldset>
     <legend>Booking Details:</legend>
-    			<input type="hidden" name="id_guest" value="-1"/>
+    			<input type="hidden" name="booking.guest.id" value="-1"/>
     			<input type="hidden" id="date_start_booking" name="booking.dateIn" value=""/>
                 <input type="hidden" id="date_end_booking" name="booking.dateOut" value=""/>
 				<input type="hidden" id="room_id_booking" name="booking.room.id" value=""/>
