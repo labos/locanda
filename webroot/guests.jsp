@@ -28,13 +28,13 @@
           <s:iterator value="guests" var="eachGuest" >
           
          <div>
-		 <form method="post" action="" class="yform full" role="application">
+		 <form method="post" action="deleteGuest.action" class="yform json full" role="application">
             <fieldset>
+              <input type="hidden" name="redirect_form" value="findAllGuests.action?sect=guests" />
+              <input type="hidden" name="id" value="<s:property value="id"/>"/>
               <legend class="title_season">
-              	<s:property value="#eachGuest.firstName"/> <a href="goUpdateGuest.action?id=<s:property value="#eachGuest.id"/>"><s:property value="#eachGuest.lastName"/></a>
+              	<s:property value="#eachGuest.firstName"/> <a href="goUpdateGuest.action?sect=guests&id=<s:property value="#eachGuest.id"/>"><s:property value="#eachGuest.lastName"/></a>
               </legend>
-             <div class="subcolumns">
-             </div>
 			 <div class="subcolumns">
       		 	<div class="c40l">
                     <div class="type_rooms">
@@ -46,12 +46,9 @@
                     </div>                  
                 </div>
              </div>
-             <div class="subcolumns type-text">
-               <div class="c50l">
-      		   </div>
-      		 </div>
-      		 
-              
+             <div class="type-button">
+             	<button class="btn_delete">DELETE</button>
+             </div>
            </fieldset>
          </form>        
 		</div>

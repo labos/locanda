@@ -26,9 +26,10 @@
   		  <fieldset>
           	<legend>Edit guest details</legend>
               <div class="c50l">
-              	<input type="hidden" name="redirect_form" value="findAllGuests.action" />
+              	<input type="hidden" name="redirect_form" value="findAllGuests.action?sect=guests" />
               <div class="c50l">
            	 	  <div class="type-text">
+           	 	  <input type="hidden" name="id" value="<s:property value="id"/>"/>
            	 	  <input type="hidden" name="guest.id" value="<s:property value="guest.id"/>"/>
                   	<label for="firstName">First name <sup title="This field is mandatory.">*</sup></label>
                   	<input class="required" type="text" name="guest.firstName" id="firstName" value="<s:property value="guest.firstName"/>" size="20" />
@@ -288,11 +289,12 @@
                   </div>
                   <div class="type-text">
                   	<label for="notes">Notes:</label> 
-                  	<textarea name="guest.notes" id="notes" value="<s:property value="guest.notes"/>" ></textarea>
+                  	<textarea name="guest.notes" id="notes"><s:property value="guest.notes"/></textarea>
                   </div>
                   <div class="type-button">
             		<button class="btn_save">SAVE</button>
-           		 	<button class="btn_delete">CANCEL</button>
+           		 	<button class="btn_delete btn_delete_guest">DELETE</button>
+           		 	<button class="btn_delete btn_reset">CANCEL</button>
            		  </div>
               </div>
               </div>
@@ -313,11 +315,6 @@
               <div class="c20l"></div>
               </div>
               </fieldset>
-             <div class="type-button">
-            <input type="text" name="new_name_season" id="chng_season_name" value=""/>
-            <button class="btn_edit_guest">SAVE</button>
-            <a href="#" title="delete guest">Delete Guest</a>
-            </div>
            </form>        
 		</div>        
           </div>

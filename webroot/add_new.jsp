@@ -80,7 +80,7 @@
               </div>
             <div class="type-button">
             <button class="btn_save btn_add_room">SAVE</button>
-            <button class="btn_delete btn_cancel_room">CANCEL</button>
+            <button class="btn_delete btn_reset">CANCEL</button>
             </div>
             </div>
               </fieldset>

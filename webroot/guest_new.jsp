@@ -290,7 +290,7 @@
                   </div>
                   <div class="type-button">
             		<button class="btn_save">SAVE</button>
-           		 	<button class="btn_delete">CANCEL</button>
+           		 	<button class="btn_delete btn_reset">CANCEL</button>
            		  </div>
               </div>
             </fieldset>

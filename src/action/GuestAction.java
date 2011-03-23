@@ -139,6 +139,29 @@ public class GuestAction extends ActionSupport implements SessionAware{
 		this.getMessage().setDescription("Guest modified successfully");
 		return SUCCESS;
 	}
+	
+	@Actions({
+		@Action(value="/deleteGuest",results = {
+				@Result(type ="json",name="success", params={
+						"root","message"
+				} )
+		})
+		
+	})
+	public String deleteGuest(){
+		User user = (User)session.get("user");
+		Structure structure = user.getStructure();
+		Guest currentGuest = structure.findGuestById(this.getId());
+		if(structure.deleteGuest(currentGuest)){
+			this.getMessage().setResult(Message.SUCCESS);
+			this.getMessage().setDescription("Guest removed successfully");
+			return SUCCESS;
+		}else{
+			this.getMessage().setResult(Message.ERROR);
+			this.getMessage().setDescription("Error in removing the selected guest");
+			return ERROR;
+		}
+	}
 
 	public Message getMessage() {
 		return message;

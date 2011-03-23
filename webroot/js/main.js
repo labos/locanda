@@ -869,8 +869,8 @@ $(document).ready(function() {
 	  });
 	  
  
-	//button for add room cancel  
-	  $(".btn_cancel_room").click(function(event){
+	//button for form reset  
+	  $(".btn_reset").click(function(event){
 		  event.preventDefault();
 		  var validator = $(this).parents(".yform.json").validate();
 		  validator.resetForm();
@@ -1098,6 +1098,11 @@ $(document).ready(function() {
 	      icons: {
 	          primary: "ui-icon-check"
 	      }});
+		  
+	  $(".btn_delete_guest").click(function(event){
+		  event.preventDefault();
+		  $(this).parents(".yform").submitForm("deleteGuest.action");
+	  });
 	  
 	  
    //---  END GUESTS SECTION CODE  
