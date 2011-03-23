@@ -156,6 +156,8 @@ public class GuestAction extends ActionSupport implements SessionAware{
 			return ERROR;
 		}
 	}
+	
+	
 
 	public Message getMessage() {
 		return message;

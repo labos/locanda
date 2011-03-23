@@ -53,7 +53,20 @@ public class BookingAction extends ActionSupport implements SessionAware{
 	}
 	
 	
+	@Actions({
+		@Action(value="/goUpdateBoooking",results = {
+				@Result(name="success",location="/book.jsp")
+		})
+	})
 	
+	public String goUpdateBooking() {
+		User user = (User)this.getSession().get("user");
+		//Controllare che sia diverso da null in un interceptor
+		Structure structure = user.getStructure();
+		Booking aBooking = structure.findBookingById(this.getId());
+		this.setBooking(aBooking);
+		return SUCCESS;
+	}
 	
 	@Actions({
 		@Action(value="/findAllBookings",results = {
@@ -89,12 +102,11 @@ public class BookingAction extends ActionSupport implements SessionAware{
 	public String findBookingById(){
 		User user = (User)session.get("user");
 		Structure structure = user.getStructure();
-		for(Booking each: structure.getBookings()){
-			if(each.getId().equals(this.getId())){
-				this.setBooking(each);
-				this.getMessage().setResult(Message.SUCCESS);
-				return SUCCESS;
-			}
+		Booking aBooking = structure.findBookingById(this.getId());
+		if(aBooking!=null){
+			this.setBooking(aBooking);
+			this.getMessage().setResult(Message.SUCCESS);
+			return SUCCESS;
 		}
 		this.getMessage().setResult(Message.ERROR);
 		this.getMessage().setDescription("Booking not found!");

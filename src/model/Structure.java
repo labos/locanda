@@ -114,6 +114,17 @@ public class Structure {
 		return ret;
 	}
 	
+	public Booking findBookingById(Integer id){
+		Booking ret = null;
+		
+		for(Booking each: this.getBookings()){
+			if(each.getId().equals(id)){
+				return ret;
+			}
+		}
+		return ret;
+	}
+	
 	public List<Booking> findBookingsByGuestId(Integer guestId){
 		List<Booking> ret = new ArrayList<Booking>();
 		
