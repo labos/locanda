@@ -72,6 +72,8 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		return SUCCESS;		
 	}
 	
+	
+	
 	@Actions({
 		@Action(value="/findBookingById",results = {
 				@Result(type ="json",name="success", params={
@@ -104,7 +106,8 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		@Action(value="/addNewBooking",results = {
 				@Result(type ="json",name="success", params={
 						"root","message"
-				} ),@Result(name="input", location="/validationError.jsp")
+				} ),
+				@Result(name="input", location="/validationError.jsp")
 		})
 		
 	})
@@ -128,17 +131,29 @@ public class BookingAction extends ActionSupport implements SessionAware{
 			e.printStackTrace();
 		}
 		this.getBooking().setId(structure.nextKey());
-		
-		
-		
-		
+				
 		Room aRoom = structure.findRoomById(this.getBooking().getRoom().getId());
 		this.getBooking().setRoom(aRoom);
+		
+		Integer idGuest = this.getBooking().getGuest().getId();
+		Guest guest = structure.findGuestById(idGuest);
+		
+		if(guest == null){
+			//si tratta di un nuovo guest e devo aggiungerlo
+			this.getBooking().getGuest().setId(structure.nextKey());
+			structure.addGuest(this.getBooking().getGuest());
+			
+		}else{
+			//si tratta di un guest esistente e devo fare l'update
+			structure.updateGuest(this.getBooking().getGuest());
+			
+		}
 		structure.addBooking(this.getBooking());
 		this.getMessage().setResult(Message.SUCCESS);
 		this.getMessage().setDescription("Booking Added successfully");
 		return SUCCESS;
 	}
+	
 	
 
 	public Message getMessage() {

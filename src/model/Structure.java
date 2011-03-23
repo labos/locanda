@@ -114,6 +114,17 @@ public class Structure {
 		return ret;
 	}
 	
+	public List<Booking> findBookingsByGuestId(Integer guestId){
+		List<Booking> ret = new ArrayList<Booking>();
+		
+		for(Booking each: this.getBookings()){
+			if(each.getGuest()!=null && each.getGuest().getId().equals(guestId)){
+				ret.add(each);
+			}
+		}
+		return ret;
+	}
+	
 	public List<RoomFacility> getRoomFacilities() {
 		return roomFacilities;
 	}
@@ -151,6 +162,23 @@ public class Structure {
 		}
 		
 		return ret;
+	}
+	
+	public Boolean updateGuest(Guest guest){
+				
+		Guest oldGuest = this.findGuestById(guest.getId());
+		if(oldGuest==null){
+			return false;
+		}
+		oldGuest.setFirstName(guest.getFirstName());
+		oldGuest.setLastName(guest.getLastName());
+		oldGuest.setAddress(guest.getAddress());
+		oldGuest.setCountry(guest.getCountry());
+		oldGuest.setEmail(guest.getEmail());
+		oldGuest.setNotes(guest.getNotes());
+		oldGuest.setPhone(guest.getPhone());
+		oldGuest.setZipCode(guest.getZipCode());
+		return true;
 	}
 	
 	public String getName() {

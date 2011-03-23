@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import model.Booking;
 import model.Guest;
 import model.Structure;
 import model.User;
@@ -25,6 +26,7 @@ public class GuestAction extends ActionSupport implements SessionAware{
 	private Guest guest = null;
 	private Integer id;
 	private Message message = new Message();
+	private List<Booking> bookings = null;
 	
 	@Actions({
 		@Action(value="/findAllGuests",results = {
@@ -58,12 +60,11 @@ public class GuestAction extends ActionSupport implements SessionAware{
 	public String findGuestById(){
 		User user = (User)session.get("user");
 		Structure structure = user.getStructure();
-		for(Guest each: structure.getGuests()){
-			if(each.getId().equals(this.getId())){
-				this.setGuest(each);
-				this.getMessage().setResult(Message.SUCCESS);
-				return SUCCESS;
-			}
+		Guest aGuest = structure.findGuestById(this.getId());
+		if(aGuest != null){
+			this.setGuest(aGuest);
+			this.getMessage().setResult(Message.SUCCESS);
+			return SUCCESS;
 		}
 		this.getMessage().setResult(Message.ERROR);
 		this.getMessage().setDescription("Guest not found!");
@@ -111,6 +112,7 @@ public class GuestAction extends ActionSupport implements SessionAware{
 		User user = (User)session.get("user");
 		Structure structure = user.getStructure();
 		this.setGuest(structure.findGuestById(this.getId())); //id della Action che setto con il parametro della request (nel link: ?id=...). con quello setto guest.
+		this.setBookings(structure.findBookingsByGuestId(this.getId()));
 		return SUCCESS;
 	}
 	
@@ -125,16 +127,8 @@ public class GuestAction extends ActionSupport implements SessionAware{
 	public String updateGuest(){
 		User user = (User)session.get("user");
 		Structure structure = user.getStructure();
-		Guest oldGuest = structure.findGuestById(this.getGuest().getId());
-		oldGuest.setFirstName(this.getGuest().getFirstName());
-		oldGuest.setLastName(this.getGuest().getLastName());
-		oldGuest.setAddress(this.getGuest().getAddress());
-		oldGuest.setCountry(this.getGuest().getCountry());
-		oldGuest.setEmail(this.getGuest().getEmail());
-		oldGuest.setNotes(this.getGuest().getNotes());
-		oldGuest.setPhone(this.getGuest().getPhone());
-		oldGuest.setZipCode(this.getGuest().getZipCode());
-		
+		structure.updateGuest(this.getGuest());
+		//Aggiungere update error
 		this.getMessage().setResult(Message.SUCCESS);
 		this.getMessage().setDescription("Guest modified successfully");
 		return SUCCESS;
@@ -203,6 +197,14 @@ public class GuestAction extends ActionSupport implements SessionAware{
 
 	public void setGuest(Guest guest) {
 		this.guest = guest;
+	}
+
+	public List<Booking> getBookings() {
+		return bookings;
+	}
+
+	public void setBookings(List<Booking> bookings) {
+		this.bookings = bookings;
 	}
 	
 	
