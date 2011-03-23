@@ -11,6 +11,7 @@ display: none;
 </style>
               <form class="yform json" action="addNewBooking.action">
                              <input type="hidden" name="redirect_form" value="home.action?sect=planner" />
+                             <input type="hidden" name="id" value="<s:property value="id"/>"/>
                              <div class="subcolumns_oldgecko">
                              <fieldset>
     <legend>Resume Booking:</legend>
@@ -28,37 +29,38 @@ display: none;
             				<div class="c20l">
             				<div class="subcl type-text">
             				<label for="datepicker">Date In: <sup title="This field is mandatory.">*</sup> </label>
-							<input type="text" name="dateIn" id="datepicker" style="display: inline;"/>
+							<input type="text" name="dateIn" id="datepicker"  value="<s:property value="dateIn"/>" style="display: inline;"/>
 							</div>
 							</div>
 							<div class="c20l">
                              <span id="date_booking" ></span><span id="duration"></span>
                              <div class="subcl type-select">
-                             <label for="duration">Duration <sup title="This field is mandatory.">*</sup> </label>
-                             <select name="numNights" class="confirm" id="booking_duration">
-                             <option value="0">1 Night</option>
-                             <option value="1">2 Nights</option>
-                             <option value="2">3 Nights</option>
-                             <option value="3">4 Nights</option>
-                             <option value="4">5 Nights</option>
-                             <option value="5">6 Nights</option>
-                             <option value="6">7 Nights</option>
-                             <option value="7">8 Nights</option>
-                             <option value="8">9 Nights</option>
-                       		 <option value="9">10 Nights</option>
-                       		 <option value="10">11 Nights</option>
-                       		 <option value="11">12 Nights</option>
-                       		 <option value="12">13 Nights</option>
-                       		 <option value="13">14 Nights</option>
-                       		 <option value="14">15 Nights</option>
-                       		 <option value="15">16 Nights</option>
-                       		 <option value="16">17 Nights</option>
-                       		 <option value="17">18 Nights</option>
-                       		 <option value="18">19 Nights</option>
-                       		 <option value="19">20 Nights</option>
-                       		 <option value="20">21 Nights</option>
-                       		 <option value="21">22 Nights</option>
-                       		 <option value="22">23 Nights</option>
+                             <label for="duration">N° nights <sup title="This field is mandatory.">*</sup> </label>
+                             <select name="numNights" class="confirm" id="booking_duration" >
+                             <option selected="selected" value="<s:property value="numNights"/>"><s:property value="numNights"/></option>
+                             <option value="0">1 </option>
+                             <option value="1">2 </option>
+                             <option value="2">3 </option>
+                             <option value="3">4 </option>
+                             <option value="4">5 </option>
+                             <option value="5">6 </option>
+                             <option value="6">7 </option>
+                             <option value="7">8 </option>
+                             <option value="8">9 </option>
+                       		 <option value="9">10 </option>
+                       		 <option value="10">11 </option>
+                       		 <option value="11">12 </option>
+                       		 <option value="12">13 </option>
+                       		 <option value="13">14 </option>
+                       		 <option value="14">15 </option>
+                       		 <option value="15">16 </option>
+                       		 <option value="16">17 </option>
+                       		 <option value="17">18 </option>
+                       		 <option value="18">19 </option>
+                       		 <option value="19">20 </option>
+                       		 <option value="20">21 </option>
+                       		 <option value="21">22 </option>
+                       		 <option value="22">23 </option>
                              </select>
                              </div>
                              </div>
