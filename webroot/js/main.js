@@ -19,6 +19,140 @@ $(document).ready(function() {
 			
 			getCustomers("input[name='booking.guest.lastName']");
 			/* end booking section initialization */
+			
+			
+			 $(".yform.json").submit(function(event){
+				 
+				 $(this).submitForm();
+			  		
+			 		return false;
+				 
+			   	  
+			   	  });
+
+		 
+		
+	  	$(".btn_check_in").button({
+	  		icons: {
+	            primary: "ui-icon-check"
+	        }
+	  	});
+	  	
+	  		/* extras adding */
+	  	   $('input[name="extras_array[]"]').click(function(){
+	  		   var amount_target_dom = $("#extras_room");
+	  		   var amount = 0;
+	  		   $('input:checked[name="extras_array[]"]').each (function(key, value){
+	  			   
+	  			  amount += isNaN(parseInt($(value).val())) ? 0 : parseInt($(value).val());
+	  			   
+	  		   });
+	  		   
+	  		 amount_target_dom.text(amount);
+			   //update subtotal
+			   updateSubtotal();
+	  		 
+	  		   
+	  		   
+	  		   
+	  	   });
+	  	   
+	  	   /* room price changing*/
+	  	   $('input[name="per_value"]').keyup( function(){
+	  		  
+	  		  //typeof o === 'number' && isFinite(o); 
+	  		   if($(this).valid()){
+	  			   
+	  			   $("#price_room").html( $(this).val());
+	  			   //update subtotal
+	  			   updateSubtotal();
+	  		   }
+	  		   
+	  		   
+	  	   });
+	  	   
+			
+		   /* adjustment and payments*/
+		   
+		   $('input[name="extra_value_adjustment[]"], input[name="pay_value_adjustment[]"]').keyup(function() {
+			   var current_parent=$(this).parents(".type-text");
+			   /* prepare selector string for class whit whitespaces */
+			   var current_class_selector = $(this).attr("class").replace( new RegExp(" ","g"), ".");
+			   /* check if current was cloned */
+			   var next_sibling = current_parent.next().find("." + current_class_selector);
+			   if( next_sibling  && ! next_sibling.size() > 0 )
+				   {
+					   var copy_parent = current_parent.clone(true);
+			   copy_parent.find(".green").remove();
+			   copy_parent.find("input").val("");
+			   //copy_parent.find($(this)).bind('keyup',cloneEvent);
+			   copy_parent.insertAfter(current_parent);	   
+				   
+				   }
+
+			   /* adjust subtotal ... */
+			   var new_subtotal = null;
+			   if(current_class_selector.indexOf("extra_value_adjustment") >= 0)
+			   { 
+				   new_subtotal = parseInt($("#subtotal_room").val()); 
+			   	 	new_balance = parseInt($("#balance_room").val()); 	
+			      /* code for calcute new subtotal */
+				  $("." + current_class_selector).each( function(key, value) {
+					   
+					  if( $(value).valid() )
+					   {
+				   new_subtotal = new_subtotal + parseInt ( $(value).val() );
+					   }
+			  		   });
+
+				  // show new subtotal value
+			      //-- $(".subtotal_room").html(new_subtotal);
+				  updateSubtotal();
+			     
+			   /* end code for subtotal calculation */
+			   }
+			   else
+			   { new_subtotal = parseInt($("#balance_room").val()); 
+			      /* code for calcute new subtotal */
+				  $("." + current_class_selector).each( function(key, value) {
+					   
+					  if( $(value).valid() )
+					   {
+				   new_subtotal = new_subtotal - parseInt ( $(value).val() );
+					   }
+			  		   });   
+			     $(".balance_room").html(new_subtotal);
+			   /* end code for subtotal calculation */
+			   
+			   
+			   }
+			  
+			   
+			   
+			  //--- $(this).unbind('keyup');
+			   
+			 });
+			
+			
+		   
+			$("#change_rate").toggle(function(){
+				$(".type_rooms").show();
+				$(this).html("done");
+				},function(){
+				$(".type_rooms").hide();
+				
+				_first = $('input:radio[name="per_room_person"]:checked');
+				 _first = (_first.val() !== "")? _first.siblings("label").html() : "error";
+				_second = $('input:radio[name="per_night_week"]:checked');
+				_second = (_second.val() !== "")? _second.siblings("label").html() : "error";
+				_amount = $('input[name="per_value"]');
+				_amount = (_amount.val() !== "")? _amount.val() : "error";
+				
+				if($("#rate").changeRate(_amount, _first, _second) !== false);
+				$(this).html("change rate for this booking");
+				});
+			
+			
 		};
 		
 
@@ -184,56 +318,7 @@ $(document).ready(function() {
 		 
 	 };
 
-		 $(".yform.json").submit(function(event){
-			 
-			 $(this).submitForm();
-		  		
-		 		return false;
-			 
-		   	  
-		   	  });
-
-	 
-	
-  	$(".btn_check_in").button({
-  		icons: {
-            primary: "ui-icon-check"
-        }
-  	});
-  	
-  		/* extras adding */
-  	   $('input[name="extras_array[]"]').click(function(){
-  		   var amount_target_dom = $("#extras_room");
-  		   var amount = 0;
-  		   $('input:checked[name="extras_array[]"]').each (function(key, value){
-  			   
-  			  amount += isNaN(parseInt($(value).val())) ? 0 : parseInt($(value).val());
-  			   
-  		   });
-  		   
-  		 amount_target_dom.text(amount);
-		   //update subtotal
-		   updateSubtotal();
-  		 
-  		   
-  		   
-  		   
-  	   });
-  	   
-  	   /* room price changing*/
-  	   $('input[name="per_value"]').keyup( function(){
-  		  
-  		  //typeof o === 'number' && isFinite(o); 
-  		   if($(this).valid()){
-  			   
-  			   $("#price_room").html( $(this).val());
-  			   //update subtotal
-  			   updateSubtotal();
-  		   }
-  		   
-  		   
-  	   });
-  	   
+		
   	  /* update subtotal */
   	   var updateSubtotal = function(){
   		   var subtotal = 0;
@@ -272,66 +357,7 @@ $(document).ready(function() {
   	   };
   	   
   	   
-	   /* adjustment and payments*/
-	   
-	   $('input[name="extra_value_adjustment[]"], input[name="pay_value_adjustment[]"]').keyup(function() {
-		   var current_parent=$(this).parents(".type-text");
-		   /* prepare selector string for class whit whitespaces */
-		   var current_class_selector = $(this).attr("class").replace( new RegExp(" ","g"), ".");
-		   /* check if current was cloned */
-		   var next_sibling = current_parent.next().find("." + current_class_selector);
-		   if( next_sibling  && ! next_sibling.size() > 0 )
-			   {
-				   var copy_parent = current_parent.clone(true);
-		   copy_parent.find(".green").remove();
-		   copy_parent.find("input").val("");
-		   //copy_parent.find($(this)).bind('keyup',cloneEvent);
-		   copy_parent.insertAfter(current_parent);	   
-			   
-			   }
 
-		   /* adjust subtotal ... */
-		   var new_subtotal = null;
-		   if(current_class_selector.indexOf("extra_value_adjustment") >= 0)
-		   { 
-			   new_subtotal = parseInt($("#subtotal_room").val()); 
-		   	 	new_balance = parseInt($("#balance_room").val()); 	
-		      /* code for calcute new subtotal */
-			  $("." + current_class_selector).each( function(key, value) {
-				   
-				  if( $(value).valid() )
-				   {
-			   new_subtotal = new_subtotal + parseInt ( $(value).val() );
-				   }
-		  		   });
-
-			  // show new subtotal value
-		      //-- $(".subtotal_room").html(new_subtotal);
-			  updateSubtotal();
-		     
-		   /* end code for subtotal calculation */
-		   }
-		   else
-		   { new_subtotal = parseInt($("#balance_room").val()); 
-		      /* code for calcute new subtotal */
-			  $("." + current_class_selector).each( function(key, value) {
-				   
-				  if( $(value).valid() )
-				   {
-			   new_subtotal = new_subtotal - parseInt ( $(value).val() );
-				   }
-		  		   });   
-		     $(".balance_room").html(new_subtotal);
-		   /* end code for subtotal calculation */
-		   
-		   
-		   }
-		  
-		   
-		   
-		  //--- $(this).unbind('keyup');
-		   
-		 });
 	   
 
 		
@@ -382,22 +408,7 @@ $(document).ready(function() {
 	   	  }
 		 });
 		$(".type_rooms").hide();
-		$("#change_rate").toggle(function(){
-		$(".type_rooms").show();
-		$(this).html("done");
-		},function(){
-		$(".type_rooms").hide();
-		
-		_first = $('input:radio[name="per_room_person"]:checked');
-		 _first = (_first.val() !== "")? _first.siblings("label").html() : "error";
-		_second = $('input:radio[name="per_night_week"]:checked');
-		_second = (_second.val() !== "")? _second.siblings("label").html() : "error";
-		_amount = $('input[name="per_value"]');
-		_amount = (_amount.val() !== "")? _amount.val() : "error";
-		
-		if($("#rate").changeRate(_amount, _first, _second) !== false);
-		$(this).html("change rate for this booking");
-		});
+
 	   
 		  
 	   

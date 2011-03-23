@@ -343,49 +343,66 @@ display: none;
                       4 Guests
                     </option>
                   </select></div>
-                  <div class="type_rooms">
-                      <input type="text" name="per_value" id="per_value" value="30" />
+                                    <div class="type-select">
+                   	<div class="type_rooms">
+                      <input type="text" name="per_value" id="per_value" value="" class="number" />
                     </div>
-                  <div class="type_rooms">
+                    <div class="type_rooms">
                       <input type="radio" name="per_room_person" id="per_room" value="1" /><label for=
-                      "per_room">Per Room:</label>
+                      "per_room">Per Room</label>
+                    </div>
+                   <div class="type_rooms">
+                      <input type="radio" name="per_room_person" id="per_person" value="2" /><label for=
+                      "per_person">Per Person</label>
                     </div>
                     <div class="type_rooms">
-                      <input type="radio" name="per_room_person" id="per_person" value="3" /><label for=
-                      "per_person">Per Person:</label>
-                    </div>
-                    <div class="type_rooms">
-                      <input type="radio" name="per_night_week" id="per_night" value="2" /><label for=
-                      "per_night">Per Night:</label>
+                      <input type="radio" name="per_night_week" id="per_night" value="3" /><label for=
+                      "per_night">Per Night</label>
                     </div>
                     <div class="type_rooms">
                       <input type="radio" name="per_night_week" id="per_week" value="4" /><label for=
-                      "per_week">Per Week:</label>
+                      "per_week">Per Week</label>
                     </div>
+                  </div>
                   <div class="type-text">
-                      <span>30&euro;</span><span>/Room</span><span>/night</span>
-                    (<a id="change_rate" href="#">Change Rate for this booking</a>)
+                  <div id="rate">
+                      <span>30 &euro;</span><span> / Room</span><span> / Night</span>
+                      (<a id="change_rate" href="#">Change Rate for this booking</a>)
                     </div>
-                  <div class="type-text"><label for="notes">Note:</label> 
-                  <textarea name="booking.guest.notes" id="notes">
+                  </div>
+                 <div class="type-text" style="display: none;"><label for="title">Title:</label> <input type="text" name=
+                  "title" /></div>
+
+                  <div class="type-text" style="display: none;"><label for="body">Note:</label> 
+                  <textarea name="body">
 </textarea></div>
-               
+ <div class="type-select"><label for="per_parking">Extras:</label>
+                   <div class="type-check">
+                      <input type="checkbox" name="extras_array[]" id="per_parking" value="10" /><label for=
+                      "per_parking">Parking</label>
+                    </div>
+                     <div class="type-check">
+                      <input type="checkbox" name="extras_array[]" id="per_breakfast" value="8" /><label for=
+                      "per_breakfast">Breakfast</label>
+                    </div>
+ </div>
+
                 </fieldset>
                 </div>
                 <div class="c10l">
                 &nbsp;
                 </div>
-                <div class="c40l">
-                <fieldset><legend>Money</legend>
-                  <div class="type-text"><span>Room: </span><div class="c20r"><span id="price_room" >30 &euro;</span></div></div>
-                  <div class="type-text"><span>Extras: </span><span id="extras_room" >0 &euro;</span></div>
+                <div class="book_details c40l">
+<fieldset><legend>Money</legend>
+                  <div class="type-text"><span>Room: </span><div class="c20r"><span id="price_room" >30</span>&nbsp;&euro;</div></div>
+                  <div class="type-text"><span>Extras: </span><div class="c20r"><span id="extras_room" >0</span>&nbsp;&euro;</div></div>
                   <div class="type-text"><span class="green">&nbsp;Adjustment: </span><div class="c50r"><div class="c10r">&euro;</div><div class="c40l"><input type="text" name=
-                  "extra_adjustment" id="extra_adjustment" /></div><div class="c40r"><input type="text" name="extra_value_adjustment"  id="extra_value_adjustment"/></div></div></div>
-                  <div class="type-text"><span>Subtotal: </span><div class="c20r"><span class="subtotal_room" >30 &euro;<input type="hidden" id="subtotal_room" name="booking.subtotal" value="30" /></span></div></div>
+                  "extra_adjustment[]" id="extra_adjustment" /></div><div class="c40r"><input type="text" name="extra_value_adjustment[]"  class="extra_value_adjustment digits"/></div></div></div>
+                  <div class="type-text"><span>Subtotal: </span><div class="c20r"><span class="subtotal_room" >30</span> &euro;<input type="hidden" id="subtotal_room" name="booking.subtotal" value="30" /></div></div>
                   <div class="type-text"><hr/></div>
                   <div class="type-text"><span class="green">&nbsp;Payment Received: </span><div class="c50r"><div class="c10r">&euro;</div><div class="c40l"><input type="text" name=
-                  "pay_adjustment" id="pay_adjustment" /></div><div class="c40r"><input type="text" name="pay_value_adjustment"  id="pay_value_adjustment"/></div></div></div>
-                  <div class="type-text"><span>Balance Due: </span><div class="c20r"><span class="balance_room" >30 &euro;</span></div></div>
+                  "pay_adjustment[]" id="pay_adjustment" /></div><div class="c40r"><input type="text" name="pay_value_adjustment[]"  id="pay_value_adjustment" class="pay_value_adjustment digits"/></div></div></div>
+                  <div class="type-text"><span>Balance Due: </span><div class="c20r"><span class="balance_room" >30</span> &euro;<input type="hidden" id="balance_room" value="30" /></div></div>
                 </fieldset>
                <div class="type-button">
               <button class="btn_save">SAVE</button>
