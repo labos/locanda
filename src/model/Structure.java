@@ -192,6 +192,8 @@ public class Structure {
 		return true;
 	}
 	
+	
+	
 	public String getName() {
 		return name;
 	}

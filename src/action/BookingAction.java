@@ -65,6 +65,11 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		Structure structure = user.getStructure();
 		Booking aBooking = structure.findBookingById(this.getId());
 		this.setBooking(aBooking);
+		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+		this.setDateIn(sdf.format(aBooking.getDateIn()));
+		Long millis = aBooking.getDateOut().getTime() - aBooking.getDateIn().getTime();
+		Integer days = (int) (millis/(1000*3600*24));
+		this.setNumNights(days);
 		return SUCCESS;
 	}
 	
@@ -124,6 +129,58 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		
 	})
 	public String addNewBooking(){
+		User user = (User)session.get("user");
+		Structure structure = user.getStructure();
+		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+		Date dateOut = null;
+		Long millis = null;
+		
+		try {
+			
+			this.getBooking().setDateIn(sdf.parse(this.getDateIn()));
+			millis = this.getBooking().getDateIn().getTime() + 
+					this.getNumNights() * 24 * 3600 * 1000;
+			dateOut = new Date(millis);
+			this.getBooking().setDateOut(dateOut);
+			
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		this.getBooking().setId(structure.nextKey());
+				
+		Room aRoom = structure.findRoomById(this.getBooking().getRoom().getId());
+		this.getBooking().setRoom(aRoom);
+		
+		Integer idGuest = this.getBooking().getGuest().getId();
+		Guest guest = structure.findGuestById(idGuest);
+		
+		if(guest == null){
+			//si tratta di un nuovo guest e devo aggiungerlo
+			this.getBooking().getGuest().setId(structure.nextKey());
+			structure.addGuest(this.getBooking().getGuest());
+			
+		}else{
+			//si tratta di un guest esistente e devo fare l'update
+			structure.updateGuest(this.getBooking().getGuest());
+			
+		}
+		structure.addBooking(this.getBooking());
+		this.getMessage().setResult(Message.SUCCESS);
+		this.getMessage().setDescription("Booking Added successfully");
+		return SUCCESS;
+	}
+	
+	@Actions({
+		@Action(value="/addOrUpdateBooking",results = {
+				@Result(type ="json",name="success", params={
+						"root","message"
+				} ),
+				@Result(name="input", location="/validationError.jsp")
+		})
+		
+	})
+	public String addOrUpdateBooking(){
 		User user = (User)session.get("user");
 		Structure structure = user.getStructure();
 		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
