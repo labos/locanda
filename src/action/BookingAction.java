@@ -39,7 +39,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 	
 	
 	@Actions({
-		@Action(value="/goAddNewBoooking",results = {
+		@Action(value="/goAddNewBooking",results = {
 				@Result(name="success",location="/book.jsp")
 		})
 	})
@@ -54,7 +54,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 	
 	
 	@Actions({
-		@Action(value="/goUpdateBoooking",results = {
+		@Action(value="/goUpdateBooking",results = {
 				@Result(name="success",location="/book.jsp")
 		})
 	})

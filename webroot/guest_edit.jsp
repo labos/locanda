@@ -301,19 +301,23 @@
               </fieldset>
               <fieldset>
               <legend>Bookings</legend>
+              
+              <s:iterator value="bookings" var="eachBooking" >
+              
               <div class="subcolumns">
-              <div class="c50l book_guest">                    
-              <div class="c20l"><span>28 Feb 2011</span></div><div class="c20l"><span>5 nights</span></div><div class="c20l"><span>&euro; 150</span></div>
-              <div class="c20l"><a href="book.jsp"><span class="link">Details</span></a></div>
+              	<div class="c50l book_guest">                    
+              	  <div class="c20l"><b>CheckIn:</b> <p><s:property value="#eachBooking.dateIn"/></p></div>
+              	  <div class="c20l"><b>CheckOut:</b> <p><s:property value="#eachBooking.dateOut"/></p></div>
+              	  <div class="c20l"><b>Subtotal:</b> <p>&euro; <s:property value="#eachBooking.subtotal"/></p></div>
+              	</div>
+              	<div class="book_guest">                    
+              	  <div class="c20l"><a href="goUpdateBooking.action?sect=planner&id=<s:property value="#eachBooking.id"/>"><span class="link">Details</span></a></div>
+              	  <div class="c20l"><a href="goAddNewBooking.action?sect=planner"><span class="link">New Booking</span></a></div><div class="c20l"><span></span></div><div class="c20l"><span></span></div>
+              	</div>
               </div>
-              </div>
-              <div class="subcolumns">
-              &nbsp;
-              </div>
-              <div class="subcolumns book_guest">
-              <div class="c20l"><a href="book.jsp"><span class="link">New Booking</span></a></div><div class="c20l"><span></span></div><div class="c20l"><span></span></div>
-              <div class="c20l"></div>
-              </div>
+              
+              </s:iterator>
+              
               </fieldset>
            </form>        
 		</div>        
