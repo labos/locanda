@@ -544,8 +544,11 @@ _setupEventCreationForRoom : function($weekDay) {
                 if ($target.hasClass("wc-time")) {
                 	
                 	var id_book_room= $target.find('input[name="id_booked_room"]').val();	
-                options.eventClick({start: self.formatDate(new Date($target.parent().parent().data("startDate")), "M/d/Y"  ), end: self.formatDate(new Date($target.parent().parent().data("startDate")),"M/d/Y" ), id_booked:id_book_room}, $target, event);
-                return;
+                //options.eventClick({start: self.formatDate(new Date($target.parent().parent().data("startDate")), "M/d/Y"  ), end: self.formatDate(new Date($target.parent().parent().data("startDate")),"M/d/Y" ), id_booked:id_book_room}, $target, event);
+              
+                options.eventClick($target.parent().data("calEvent"), $target.parent(), event);
+
+                	return;
                 									   }
 				
             if ($target.hasClass("wc-day-column-inner")) {
@@ -887,7 +890,8 @@ options.eventNew({start: self.formatDate(new Date(start_booking),"M/d/Y"), end:s
    	               "id":val.room.id,
    	               "start": new Date(val.dateIn),
    	               "end": new Date(val.dateOut),
-   	               "title":val.guest.lastName  + ' ' + val.guest.firstName 
+   	               "title":val.guest.lastName  + ' ' + val.guest.firstName,
+   	               "bookId": val.id
    	            });
    		    	 		
    		    		 });
@@ -1101,13 +1105,16 @@ options.eventNew({start: self.formatDate(new Date(start_booking),"M/d/Y"), end:s
            //ora calcolo l'id della camera da bookare considerando l'altezza della casella in cui ho bookato
            //e facendo riferimento alla prima colonna del planner, dove è contenuto l'id di ogni camera.
            var position= (calEvent.top/options.timeslotHeight);
+           //add room id and booking id into DOM
           var id_room= $('div.wc-time-header-cell#' + position + '  > input[name="id_room"]').val();
-           $calEvent.find(".wc-time").append('<input type="hidden" name="id_booked_room"  value="' +  id_room  + '" />');
+          var id_booking = (typeof calEvent.bookId === 'undefined' ) ? -1 : calEvent.bookId;
+           $calEvent.find(".wc-time").append('<input type="hidden" name="id_booked_room"  value="' +  id_room  + '" />'+
+        		   '<input type="hidden" name="id_booking"  value="' +  id_booking  + '" />');
           
            //possiamo aggiungere altre informazioni, quali ad esempio l'id del booking
            
          $calEvent.find(".wc-title").html(calEvent.title);
-         //con la seguente istruzione inseriamo in data l'evento del calendario.
+         //con la seguente istruzione inseriamo in data l'evento del calendario. (potrebbe essere ridondante visto che stiamo aggiungendo input hidden)
          $calEvent.data("calEvent", calEvent);
          if(!self._checkRoomByTop(calEvent.top))
          alert('problem div top value');

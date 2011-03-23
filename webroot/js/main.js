@@ -519,24 +519,18 @@ $(document).ready(function() {
          var bodyField = $dialogContent.find("textarea[name='body']");
          bodyField.val(calEvent.body);
 
-         $dialogContent.dialog({
+         $dialogContent.load("goEditBooking.action").dialog({
             modal: true,
             width: 650,
             title: "Modify Booking - " + room_name,
             close: function() {
                $dialogContent.dialog("destroy");
                $dialogContent.hide();
-               $('#calendar').weekCalendar("removeUnsavedEvents");
+              // $('#calendar').weekCalendar("removeUnsavedEvents");
             },
             buttons: {
                save : function() {
-            	  calEvent.id =id_booked;
-                  calEvent.start = new Date(startField.val());
-                  calEvent.end = new Date(endField.val());
-                  calEvent.title = titleField.val();
-                  calEvent.body = bodyField.val();
 
-                  $calendar.weekCalendar("updateBookEvent", calEvent);
                   $dialogContent.dialog("close");
                },
                "delete" : function() {
@@ -549,13 +543,18 @@ $(document).ready(function() {
             }
          }).show();
 
-         var startField = $dialogContent.find("select[name='start']").val(calEvent.start);
+         /*var startField = $dialogContent.find("select[name='start']").val(calEvent.start);
          var endField = $dialogContent.find("select[name='end']").val(calEvent.end);
          $dialogContent.find(".date_holder").text($calendar.weekCalendar("formatDate", calEvent.start));
          setupStartAndEndTimeFields(startField, endField, calEvent, $calendar.weekCalendar("getTimeslotTimes", calEvent.start));
+         */
          $(window).resize().resize(); //fixes a bug in modal overlay size ??
 
       },
+      
+      
+      
+      
       eventMouseover : function(calEvent, $event) {
       },
       eventMouseout : function(calEvent, $event) {
