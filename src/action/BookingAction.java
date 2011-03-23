@@ -111,7 +111,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 	public String addNewBooking(){
 		User user = (User)session.get("user");
 		Structure structure = user.getStructure();
-		SimpleDateFormat sdf = new SimpleDateFormat("mm/dd/yyyy");
+		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 		Date dateOut = null;
 		Long millis = null;
 		

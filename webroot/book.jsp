@@ -50,29 +50,29 @@ display: none;
                              <div class="subcl type-select">
                              <label for="duration">Duration <sup title="This field is mandatory.">*</sup> </label>
                              <select name="numNights" class="confirm" id="booking_duration">
-                             <option value="1">1 Night</option>
-                             <option value="2">2 Nights</option>
-                             <option value="3">3 Nights</option>
-                             <option value="4">4 Nights</option>
-                             <option value="5">5 Nights</option>
-                             <option value="6">6 Nights</option>
-                             <option value="7">7 Nights</option>
-                             <option value="8">8 Nights</option>
-                             <option value="9">9 Nights</option>
-                       		 <option value="10">10 Nights</option>
-                       		 <option value="11">11 Nights</option>
-                       		 <option value="12">12 Nights</option>
-                       		 <option value="13">13 Nights</option>
-                       		 <option value="14">14 Nights</option>
-                       		 <option value="15">15 Nights</option>
-                       		 <option value="16">16 Nights</option>
-                       		 <option value="17">17 Nights</option>
-                       		 <option value="18">18 Nights</option>
-                       		 <option value="19">19 Nights</option>
-                       		 <option value="20">20 Nights</option>
-                       		 <option value="21">21 Nights</option>
-                       		 <option value="22">22 Nights</option>
-                       		 <option value="23">23 Nights</option>
+                             <option value="0">1 Night</option>
+                             <option value="1">2 Nights</option>
+                             <option value="2">3 Nights</option>
+                             <option value="3">4 Nights</option>
+                             <option value="4">5 Nights</option>
+                             <option value="5">6 Nights</option>
+                             <option value="6">7 Nights</option>
+                             <option value="7">8 Nights</option>
+                             <option value="8">9 Nights</option>
+                       		 <option value="9">10 Nights</option>
+                       		 <option value="10">11 Nights</option>
+                       		 <option value="11">12 Nights</option>
+                       		 <option value="12">13 Nights</option>
+                       		 <option value="13">14 Nights</option>
+                       		 <option value="14">15 Nights</option>
+                       		 <option value="15">16 Nights</option>
+                       		 <option value="16">17 Nights</option>
+                       		 <option value="17">18 Nights</option>
+                       		 <option value="18">19 Nights</option>
+                       		 <option value="19">20 Nights</option>
+                       		 <option value="20">21 Nights</option>
+                       		 <option value="21">22 Nights</option>
+                       		 <option value="22">23 Nights</option>
                              </select>
                              </div>
                              </div>

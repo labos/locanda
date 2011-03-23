@@ -887,7 +887,7 @@ options.eventNew({start: self.formatDate(new Date(start_booking),"M/d/Y"), end:s
    	               "id":val.room.id,
    	               "start": new Date(val.dateIn),
    	               "end": new Date(val.dateOut),
-   	               "title":"Marc Devois"
+   	               "title":val.guest.lastName  + ' ' + val.guest.firstName 
    	            });
    		    	 		
    		    		 });

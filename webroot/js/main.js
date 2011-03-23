@@ -1251,7 +1251,8 @@ $(document).ready(function() {
 			$( "#datepicker" ).datepicker({
 				showOn: "button",
 				buttonImage: "images/calendar.gif",
-				buttonImageOnly: true
+				buttonImageOnly: true,
+				dateFormat: "mm/dd/yy"
 			});
 			
 			var cache = {},lastXhr;

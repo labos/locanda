@@ -160,6 +160,7 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		aBooking.setId(structure.nextKey());
 		aBooking.setNrGuests(1);
 		aBooking.setSubtotal(50.0);
+		structure.addBooking(aBooking);
 		
 	}
 	
