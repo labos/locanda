@@ -29,7 +29,7 @@ display: none;
             				<div class="c20l">
             				<div class="subcl type-text">
             				<label for="datepicker">Date In: <sup title="This field is mandatory.">*</sup> </label>
-							<input type="text" name="dateIn" id="datepicker"  value="<s:property value="dateIn"/>" style="display: inline;"/>
+							<input type="text" name="dateIn" class="datepicker"  value="<s:property value="dateIn"/>" style="display: inline;"/>
 							</div>
 							</div>
 							<div class="c20l">

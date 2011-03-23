@@ -6,11 +6,26 @@ $(document).ready(function() {
 		
 		this.alertOK = "Congratulazioni";
 		this.alertKO = "Attenzione!";
+		this.init  =  function()
+		{
+			
+			/* booking section initialization */
+			$( ".datepicker" ).datepicker({
+				showOn: "button",
+				buttonImage: "images/calendar.gif",
+				buttonImageOnly: true,
+				dateFormat: "mm/dd/yy"
+			});
+			
+			getCustomers("input[name='booking.guest.lastName']");
+			/* end booking section initialization */
+		};
 		
+
 		};
 		
 		var optionsLoc = new Option("ita");
-
+			optionsLoc.init();
 
 	
 		//---  PLANNER SECTION CODE   
@@ -512,14 +527,19 @@ $(document).ready(function() {
          $dialogContent.find("#date_booking").html(calEvent.start + ' - ' + calEvent.end);
          var startField = calEvent.start;
          var endField = calEvent.end;
-         var id_booked = calEvent.id_booked;
+         var id_booked = calEvent.bookId;
          var room_name =  getRoomNameById(id_booked);
          $dialogContent.find('#room_name_dialog').text(room_name);
          var titleField = $dialogContent.find("input[name='fullname']");
          var bodyField = $dialogContent.find("textarea[name='body']");
          bodyField.val(calEvent.body);
 
-         $dialogContent.load("goEditBooking.action").dialog({
+         $dialogContent.load("goUpdateBookingFromPlanner.action", {id: id_booked}, function(){optionsLoc.init();
+         
+         }).dialog({
+        	create: function(event, ui){
+        		//optionsLoc.init();
+        	},
             modal: true,
             width: 650,
             title: "Modify Booking - " + room_name,
@@ -1252,12 +1272,7 @@ $(document).ready(function() {
 				
 			});
 				*/
-			$( "#datepicker" ).datepicker({
-				showOn: "button",
-				buttonImage: "images/calendar.gif",
-				buttonImageOnly: true,
-				dateFormat: "mm/dd/yy"
-			});
+
 			
 			var cache = {},lastXhr;
 			   $('input[name="fullname"]').autocomplete({
@@ -1298,7 +1313,7 @@ $(document).ready(function() {
 				$(".type_rooms").hide();	
 				});
 				
-				getCustomers("input[name='booking.guest.lastName']");
+				
 		 
    //---  END BOOK SECTION CODE  
    

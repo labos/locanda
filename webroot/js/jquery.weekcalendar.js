@@ -541,7 +541,7 @@ _setupEventCreationForRoom : function($weekDay) {
 				self.day_booked = new Array();
 		
                 //se il target del click  ha la classe wc-cal-event, allora 
-                if ($target.hasClass("wc-time")) {
+                if ($target.hasClass("wc-time") || $target.hasClass("wc-title")) {
                 	
                 	var id_book_room= $target.find('input[name="id_booked_room"]').val();	
                 //options.eventClick({start: self.formatDate(new Date($target.parent().parent().data("startDate")), "M/d/Y"  ), end: self.formatDate(new Date($target.parent().parent().data("startDate")),"M/d/Y" ), id_booked:id_book_room}, $target, event);
