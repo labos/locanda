@@ -19,7 +19,7 @@ display: none;
                              <div class="subcl type-select">
                				 <label for="sel_rooms_list">Room <sup title="This field is mandatory.">*</sup> </label>
                 			 <select size="1" id="sel_rooms_list" name="booking.room.id">
-                  			 <option disabled="disabled" selected="selected" value="0">Please choose</option>
+                  			 <option disabled="disabled" selected="selected" value="<s:property value="booking.room.id"/>"><s:property value="booking.room.name"/></option>
                   			 <s:iterator value="rooms" var="eachRoom" >
                    			 <option value="<s:property value="#eachRoom.id"/>"><s:property value="#eachRoom.name"/></option>
                     		</s:iterator>

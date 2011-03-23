@@ -66,6 +66,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		User user = (User)this.getSession().get("user");
 		//Controllare che sia diverso da null in un interceptor
 		Structure structure = user.getStructure();
+		this.setRooms(structure.getRooms());
 		Booking aBooking = structure.findBookingById(this.getId());
 		this.setBooking(aBooking);
 		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
