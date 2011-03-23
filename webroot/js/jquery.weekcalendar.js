@@ -876,20 +876,23 @@ options.eventNew({start: self.formatDate(new Date(start_booking),"M/d/Y"), end:s
             jsonOptions[options.endParam || 'end'] = Math.round(weekEndDate.getTime() / 1000);
             $.getJSON(options.data, jsonOptions, function(data) {
             	var list_bookings = new Array();
+                var year = new Date().getFullYear();
+                var month = new Date().getMonth();
+                var day = new Date().getDate();
    		     //iterate over the list
-   		    /* $(data).each(function(i, val)
+   		     $(data).each(function(i, val)
    		    		 {
    		    	 //add current room to room list 
    		    	 list_bookings.push( {
    	               "id":val.room.id,
-   	               "start": new Date(year, month, day, 14),
-   	               "end": new Date(year, month, day, 14, 45),
+   	               "start": new Date(val.dateIn),
+   	               "end": new Date(val.dateOut),
    	               "title":"Marc Devois"
    	            });
    		    	 		
    		    		 });
-   		     */
-               self._renderEvents(data, $weekDayColumns);
+   		     
+               self._renderEvents(list_bookings, $weekDayColumns);
                if (options.loading) options.loading(false);
             });
          }

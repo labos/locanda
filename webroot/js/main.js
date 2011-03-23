@@ -122,7 +122,7 @@ $(document).ready(function() {
 		
 	 		//setting for input form fields
 	   		var formInput=$(this).serialize();
-	   		var hrefAction = (action == null)? $(this).attr("action") : action;
+	   		var hrefAction = action || $(this).attr("action");
 	   		var _redirectAction = $(this).find('input:hidden[name="redirect_form"]').val();
 	   		 _redirectAction =(_redirectAction == null) ? "home.action" : _redirectAction;
 	   		//if form is valid
@@ -563,12 +563,12 @@ $(document).ready(function() {
       noEvents : function() {
 
       },
-      
+      /*
       data : function(start, end, callback) {
          callback(getEventData());
       }
-      /*
-      data: "findAllBookingsJson.action" */
+      */
+      data: "findAllBookingsJson.action" 
    });
  
  };
