@@ -335,7 +335,7 @@ $(document).ready(function() {
   		   
   		   try {
   		   $.each(payments, function (key, value){
-  			 if(! $.isArray($(value)))
+  			 if($(value).size() == 1)
   				 {
   				 
   				 var value_contained =$(value).is('input') ? $(value).val() : $(value).text();
@@ -345,7 +345,7 @@ $(document).ready(function() {
   				 {
   				 $(value).each(function(k , v){
   					var value_contained =$(v).is('input') ? $(v).val() : $(v).text(); 
-  					subtotal += parseInt (value_contained); 
+  					subtotal += isNaN(parseInt (value_contained))? 0 : parseInt (value_contained) ; 
   				 });
   				 
   				 }
@@ -355,6 +355,8 @@ $(document).ready(function() {
   		   });
   		       		   // now update permanently subtotal
     		   $(".subtotal_room").text(subtotal);
+    		   $("#subtotal_room").val(subtotal);
+    		   
   		   }
   		   catch( e )
   		   {
