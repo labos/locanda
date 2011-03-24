@@ -820,7 +820,7 @@ else {
  */
 
 
-options.eventNew({start: self.formatDate(new Date(start_booking),"M/d/Y"), end:self.formatDate(new Date(end_booking),"M/d/Y"), id_booked:id_book_room}, $renderedCalEvent);        
+options.eventNew({start: self.formatDate(new Date(start_booking),"m/d/Y"), end:self.formatDate(new Date(end_booking),"m/d/Y"), id_booked:id_book_room}, $renderedCalEvent);        
             
             
             

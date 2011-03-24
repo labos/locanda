@@ -519,18 +519,23 @@ $(document).ready(function() {
          var startField = calEvent.start;
          var endField = calEvent.end;
          var id_booked = calEvent.id_booked;
+         var id_room = calEvent.id;
          var room_name =  getRoomNameById(id_booked);
-         $dialogContent.find('#room_name_dialog').text(room_name);
-         var titleField = $dialogContent.find("input[name='fullname']");
+         $dialogContent.find('#sel_rooms_list').val(id_booked);
+         
+/*         var titleField = $dialogContent.find("input[name='fullname']");
          var bodyField = $dialogContent.find("textarea[name='body']");
          var confirmField = $dialogContent.find("select[name='confirm']");
+         */
          getCustomers("input[name='fullname']");
          
          
          
          
          
-         $dialogContent.dialog({
+         $dialogContent.load("goAddBookingFromPlanner.action", {'booking.room.id': id_booked, 'dateIn':startField, 'numNights':duration}, function(){optionsLoc.init();
+         
+         }).dialog({
             modal: true,
             width:650,
             hide: "explode",
