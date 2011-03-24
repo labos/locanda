@@ -187,23 +187,8 @@ public class BookingAction extends ActionSupport implements SessionAware{
 	public String saveUpdateBooking(){
 		User user = (User)session.get("user");
 		Structure structure = user.getStructure();
-		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
-		Date dateOut = null;
-		Long millis = null;
 		
-		try {
-			
-			this.getBooking().setDateIn(sdf.parse(this.getDateIn()));
-			millis = this.getBooking().getDateIn().getTime() + 
-					this.getNumNights() * 24 * 3600 * 1000;
-			dateOut = new Date(millis);
-			this.getBooking().setDateOut(dateOut);
-			
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+		this.saveUpdateBookingDates();
 				
 		Room theBookedRoom = structure.findRoomById(this.getBooking().getRoom().getId());
 		this.getBooking().setRoom(theBookedRoom);
@@ -227,6 +212,27 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		return SUCCESS;
 	}
 	
+	private Boolean saveUpdateBookingDates(){
+		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+		Date dateOut = null;
+		Long millis = null;
+		
+		try {
+			
+			this.getBooking().setDateIn(sdf.parse(this.getDateIn()));
+			millis = this.getBooking().getDateIn().getTime() + 
+					this.getNumNights() * 24 * 3600 * 1000;
+			dateOut = new Date(millis);
+			this.getBooking().setDateOut(dateOut);
+			
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return false;
+		}
+		
+		return true;
+		
+	}
 	private Boolean saveUpdateGuest(Guest guest, Structure structure){
 		Guest oldGuest = structure.findGuestById(guest.getId());
 		
