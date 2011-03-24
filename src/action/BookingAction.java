@@ -188,12 +188,9 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		User user = (User)session.get("user");
 		Structure structure = user.getStructure();
 		
-		this.saveUpdateBookingDates();
-				
-		Room theBookedRoom = structure.findRoomById(this.getBooking().getRoom().getId());
-		this.getBooking().setRoom(theBookedRoom);
-		
-		this.saveUpdateGuest(this.getBooking().getGuest(), structure);
+		this.saveUpdateBookingDates();				
+		this.saveUpdateBookingRoom(structure);		
+		this.saveUpdateBookingGuest(this.getBooking().getGuest(), structure);
 		
 		Booking oldBooking = 
 			structure.findBookingById(this.getBooking().getId());
@@ -233,7 +230,15 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		return true;
 		
 	}
-	private Boolean saveUpdateGuest(Guest guest, Structure structure){
+	
+	private Boolean saveUpdateBookingRoom(Structure structure){
+		Room theBookedRoom = structure.findRoomById(this.getBooking().getRoom().getId());
+		this.getBooking().setRoom(theBookedRoom);
+		return true;
+	}
+	
+	
+	private Boolean saveUpdateBookingGuest(Guest guest, Structure structure){
 		Guest oldGuest = structure.findGuestById(guest.getId());
 		
 		if(oldGuest == null){
