@@ -1,7 +1,9 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.TreeSet;
 
 public class Booking {
 	
@@ -15,6 +17,10 @@ public class Booking {
 	private Double subtotal;
 	private String notes;
 	private List<Extra> extras;
+	
+	public Booking(){
+		this.extras = new ArrayList<Extra>();
+	}
 	
 	public Boolean addExtra(Extra anExtra){
 		return this.getExtras().add(anExtra);
