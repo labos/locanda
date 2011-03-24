@@ -20,6 +20,7 @@ p {
 
 #event_edit_container, #about {
 	display: none;
+	text-align:left;
 }
 #event_edit_container form ul li div label {
 	display: inline;
