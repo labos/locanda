@@ -363,7 +363,7 @@ display: none;
                     </div>
                   <div class="type-text">
                       <div id="rate">
-                      <span>30 &euro;</span><span> / Room</span><span> / Night</span>
+                      <span><s:property value="booking.room.price"/> &euro;</span><span> / Room</span><span> / Night</span>
                       (<a id="change_rate" href="#">Change Rate for this booking</a>)
                     </div>
                   </div>
@@ -387,8 +387,8 @@ display: none;
                 </div>
                 <div class="book_details c40l">
                   <fieldset><legend>Price</legend>
-                  	<div class="type-text"><span>Room: </span><div class="c20r"><span id="price_room" >&euro; <s:property value="booking.room.price"/></span></div></div>
-                  	<div class="type-text"><span>Extras: </span><div class="c20r"><span id="extras_room" >&euro; 0</span></div></div>
+                  	<div class="type-text"><span>Room: </span><div class="c33r"><span id="price_room" ><s:property value="booking.room.price"/></span> &euro; </div></div>
+                  	<div class="type-text"><span>Extras: </span><div class="c33r"><span id="extras_room" >0</span> &euro; </div></div>
                   	<div class="type-text"><span class="green">&nbsp;Adjustment: </span>
                   	  <div class="c50r"><div class="c10r">&euro;</div>
                   	  	<div class="c40l"><input type="text" name="extra_adjustment[]" id="extra_adjustment" /></div>
@@ -396,8 +396,8 @@ display: none;
                   	  </div>
                   	</div>
                  	<div class="type-text">
-                 	  <span>Subtotal: </span><div class="c20r"><span class="subtotal_room" >&euro; <s:property value="booking.subtotal"/>
-                 	  <input type="hidden" id="subtotal_room" name="booking.subtotal" value="30" /></span></div>
+                 	  <span>Subtotal: </span><div class="c33r"><span class="subtotal_room" ><s:property value="booking.room.price"/>
+                 	  </span> &euro;<input type="hidden" id="subtotal_room" name="booking.subtotal" value="<s:property value="booking.room.price"/>" /></div>
                  	</div>
                   	<div class="type-text"><hr/></div>
                     <div class="type-text"><span class="green">&nbsp;Payment Received: </span>
@@ -407,7 +407,7 @@ display: none;
                       	<div class="c40r"><input type="text" name="pay_value_adjustment[]"  id="pay_value_adjustment" class="pay_value_adjustment digits"/></div>
                       </div>
                     </div>
-                    <div class="type-text"><span>Balance Due: </span><div class="c20r"><span class="balance_room" >30 &euro;<input type="hidden" id="balance_room" value="30" /></span></div></div>
+                    <div class="type-text"><span>Balance Due: </span><div class="c33r"><span class="balance_room" ><s:property value="booking.room.price"/></span> &euro;<input type="hidden" id="balance_room" value="30" /></div></div>
                   </fieldset>
               	  <div class="type-button">
                		<button class="btn_save">SAVE</button>
