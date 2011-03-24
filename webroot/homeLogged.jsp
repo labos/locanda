@@ -17,7 +17,7 @@
         <div id="col3" role="main">
           <div id="col3_content" class="clearfix">
           <div class="header_section">
-          <s:url action="goAddNewBoooking" var="urlGoAddNewBooking"></s:url>
+          <s:url action="goAddNewBooking.action?sect=planner" var="urlGoAddNewBooking"></s:url>
           
           <span class="name_section">Planner</span>
                <a class="btn_right" href="<s:property value="urlGoAddNewBooking"/>" title="Add new booking" /></a>

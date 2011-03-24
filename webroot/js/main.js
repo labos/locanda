@@ -153,6 +153,14 @@ $(document).ready(function() {
 				});
 			
 			
+		   	   //---  ADD ROOMS SECTION CODE   
+		   	   
+	     	  $(".btn_save").button({
+	     	      icons: {
+	     	          primary: "ui-icon-check"
+	     	      }});
+			
+			
 		};
 		
 
@@ -214,9 +222,10 @@ $(document).ready(function() {
 		   facility_row_checked_cloned.find('img').attr("src", src);
 		   //add checkbox id
 		   facility_row_checked_cloned.find('input:checkbox').attr("id", id_facility + "_fac");
-		   //add checkbox value
-		   facility_row_checked_cloned.find('input:checkbox').attr("name", name_facility);
-		   
+		   //add checkbox name
+		   facility_row_checked_cloned.find('input:checkbox').attr("name", "facilities");
+		 //add checkbox value
+		   facility_row_checked_cloned.find('input:checkbox').attr("value", id_facility);
 
 		   //add label text
 		   facility_row_checked_cloned.find('label').attr("for", id_facility + "_fac").text(name_facility);
@@ -539,7 +548,8 @@ $(document).ready(function() {
          var startField = calEvent.start;
          var endField = calEvent.end;
          var id_booked = calEvent.bookId;
-         var room_name =  getRoomNameById(id_booked);
+         var id_room = calEvent.id;
+         var room_name =  getRoomNameById(id_room);
          $dialogContent.find('#room_name_dialog').text(room_name);
          var titleField = $dialogContent.find("input[name='fullname']");
          var bodyField = $dialogContent.find("textarea[name='body']");
@@ -561,7 +571,7 @@ $(document).ready(function() {
             },
             buttons: {
                save : function() {
-
+            	  $dialogContent.find(".yform.json").submit();
                   $dialogContent.dialog("close");
                },
                "delete" : function() {
@@ -864,12 +874,8 @@ $(document).ready(function() {
    //---  END LOGIN SECTION CODE   
    
    
-   //---  ADD ROOMS SECTION CODE   
-   
-   	  $(".btn_save").button({
-   	      icons: {
-   	          primary: "ui-icon-check"
-   	      }});
+   	   //---  ADD ROOMS SECTION CODE   
+   	  
    	 
    	  //select room types
    	$("#roomtype_id").autocomplete({

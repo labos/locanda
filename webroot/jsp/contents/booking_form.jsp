@@ -370,12 +370,6 @@ display: none;
                       (<a id="change_rate" href="#">Change Rate for this booking</a>)
                     </div>
                   </div>
-                 <div class="type-text" style="display: none;"><label for="title">Title:</label> <input type="text" name=
-                  "title" /></div>
-
-                  <div class="type-text" style="display: none;"><label for="body">Note:</label> 
-                  <textarea name="body">
-</textarea></div>
  <div class="type-select"><label for="per_parking">Extras:</label>
                    <div class="type-check">
                       <input type="checkbox" name="extras_array[]" id="per_parking" value="10" /><label for=
