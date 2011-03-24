@@ -112,8 +112,10 @@ $(document).ready(function() {
 			   /* end code for subtotal calculation */
 			   }
 			   else
-			   { new_subtotal = parseInt($("#balance_room").val()); 
-			      /* code for calcute new subtotal */
+			   {
+				   
+/*				   new_subtotal = parseInt($("#balance_room").val()); 
+			       code for calcute new subtotal 
 				  $("." + current_class_selector).each( function(key, value) {
 					   
 					  if( $(value).valid() )
@@ -121,8 +123,10 @@ $(document).ready(function() {
 				   new_subtotal = new_subtotal - parseInt ( $(value).val() );
 					   }
 			  		   });   
-			     $(".balance_room").html(new_subtotal);
+			     $(".balance_room").html(new_subtotal);*/
 			   /* end code for subtotal calculation */
+				   
+				   updateBalance();
 			   
 			   
 			   }
@@ -356,6 +360,7 @@ $(document).ready(function() {
   		       		   // now update permanently subtotal
     		   $(".subtotal_room").text(subtotal);
     		   $("#subtotal_room").val(subtotal);
+    		   updateBalance();
     		   
   		   }
   		   catch( e )
@@ -368,7 +373,45 @@ $(document).ready(function() {
   	   };
   	   
   	   
+   	  /* update balance due */
+  	   var updateBalance = function(){
+  		   var subDue = 0;
+  		   var due = "input[name=\"pay_value_adjustment[]\"]";
+  		   
+  		   try {
+  			   
 
+  			 if($(due).size() == 1)
+  				 {
+  				 
+  				 var value_contained =$(due).is('input') ? $(due).val() : $(due).text();
+  				 subDue += isNaN(parseInt (value_contained)) ? 0: parseInt (value_contained);
+  				 } //else if an array of doms was selected by selector
+  			 else
+  				 {
+  				 $(due).each(function(k , v){
+  					var value_contained =$(v).is('input') ? $(v).val() : $(v).text(); 
+  					subDue += isNaN(parseInt (value_contained))? 0 : parseInt (value_contained) ; 
+  				 });
+  				 
+  				 }
+  			 
+
+  		       		   // now update permanently balance
+			 var subtotal = $("#subtotal_room").val();
+			 var balanceDue = subtotal -subDue;
+	  			$("#balance_room").val(balanceDue);
+	  			$(".balance_room").html(balanceDue);
+    		   
+  		   }
+  		   catch( e )
+  		   {
+  			   //nothing for now -- problema nei selettori
+  		   }
+  		   
+
+ 
+  	   };
 	   
 
 		
