@@ -81,20 +81,21 @@ display: none;
               <fieldset>
     <legend>Booking Details:</legend>
                 <input type="hidden" name="booking.guest.id" value="-1"/>
-	               <div class="type-text"><label for="lname">Last Name: <sup title="This field is mandatory.">*</sup> </label> <input type="text" name=
-                  "booking.guest.lastName" id="lname"  class="required"/></div>
+	               <div class="type-text"><label for="lname">Last Name: <sup title="This field is mandatory.">*</sup> </label> 
+	               <input type="text" name="booking.guest.lastName" id="lname" value="<s:property value="booking.guest.lastName"/>" class="required"/></div>
 
-                  <div class="type-text"><label for="fname">First Name: <sup title="This field is mandatory.">*</sup> </label> <input type="text" name=
-                  "booking.guest.firstName" id="fname"  class="required"/></div>
+                  <div class="type-text"><label for="fname">First Name: <sup title="This field is mandatory.">*</sup> </label> 
+                  <input type="text" name="booking.guest.firstName" id="fname" value="<s:property value="booking.guest.firstName"/>" class="required"/></div>
                   
-                  <div class="type-text"><label for="phone">Phone: <sup title="This field is mandatory.">*</sup> </label> <input type="text" name=
-                  "booking.guest.phone" id="phone" class="required"/></div>
+                  <div class="type-text"><label for="phone">Phone: <sup title="This field is mandatory.">*</sup> </label> 
+                  <input type="text" name="booking.guest.phone" id="phone" value="<s:property value="booking.guest.phone"/>" class="required"/></div>
 
-                  <div class="type-text"><label for="address">Address: <sup title="This field is mandatory.">*</sup> </label> <input type="text" name=
-                  "booking.guest.address" id="address"  class="required" /></div>
+                  <div class="type-text"><label for="address">Address: <sup title="This field is mandatory.">*</sup> </label> 
+                  <input type="text" name="booking.guest.address" id="address" value="<s:property value="booking.guest.address"/>" class="required" /></div>
 
-                  <div class="type-select"><label for="country">Country: <sup title="This field is mandatory.">*</sup> </label> <select class="required" name="booking.guest.country" id="country" size="1" aria-required="true">
-				<option selected="selected" value="">Select One</option>
+                  <div class="type-select"><label for="country">Country: <sup title="This field is mandatory.">*</sup> </label> 
+                  <select class="required" name="booking.guest.country" id="country" size="1" aria-required="true">
+				<option selected="selected" value="<s:property value="booking.guest.country"/>"><s:property value="booking.guest.country"/></option>
 				<option value="Afghanistan">Afghanistan</option>
 				<option value="Albania">Albania</option>
 				<option value="Algeria">Algeria</option>
@@ -323,84 +324,94 @@ display: none;
 				<option value="Zambia Republic">Zambia Republic</option>
 				<option value="Zimbabwe Republic">Zimbabwe Republic</option>
 				</select></div>
-                  <div class="type-text"><label for="email">Email:</label> <input type="text" name=
-                  "booking.guest.email" id="email"/></div>
+                  <div class="type-text"><label for="email">Email:</label> 
+                  <input type="text" name="booking.guest.email" id="email" value="<s:property value="booking.guest.email"/>" /></div>
 
-                  <div class="type-text"><label for="zipCode">ZipCode: <sup title="This field is mandatory.">*</sup> </label> <input type="text" name=
-                  "booking.guest.zipCode" id="zipCode" /></div>
+                  <div class="type-text"><label for="zipCode">ZipCode: <sup title="This field is mandatory.">*</sup> </label> 
+                  <input type="text" name="booking.guest.zipCode" id="zipCode" value="<s:property value="booking.guest.zipCode"/>" /></div>
                   
-                      <div class="type-select"><label for="nr_guests">Guests:</label> <select name="booking.nrGuests" id="nr_guests">
-                    <option value="1">
-                      1 Guests
-                    </option>
-                    <option value="2">
-                      2 Guests
-                    </option>
-                     <option value="3">
-                      3 Guests
-                    </option>
-                    <option value="4">
-                      4 Guests
-                    </option>
-                  </select></div>
-                                    <div class="type-select">
-                   	<div class="type_rooms">
-                      <input type="text" name="per_value" id="per_value" value="" class="number" />
+                      <div class="type-select">
+                      	<label for="nr_guests">Guests:</label> 
+                      	<select name="booking.nrGuests" id="nr_guests">
+                      	  <option selected="selected" value="<s:property value="booking.nrGuests"/>"><s:property value="booking.nrGuests"/></option>
+                    	  <option value="1">1</option>
+                    	  <option value="1">2</option>
+                    	  <option value="1">3</option>
+                    	  <option value="1">4</option>
+                 		</select>
+                 	  </div>
+                 	  <div class="type-select">
+                  <div class="type_rooms">
+                      <input type="text" name="per_value" id="per_value" value="<s:property value="booking.room.price"/>" class="number"/>
                     </div>
-                    <div class="type_rooms">
+                  <div class="type_rooms">
                       <input type="radio" name="per_room_person" id="per_room" value="1" /><label for=
-                      "per_room">Per Room</label>
-                    </div>
-                   <div class="type_rooms">
-                      <input type="radio" name="per_room_person" id="per_person" value="2" /><label for=
-                      "per_person">Per Person</label>
+                      "per_room">Per Room:</label>
                     </div>
                     <div class="type_rooms">
-                      <input type="radio" name="per_night_week" id="per_night" value="3" /><label for=
-                      "per_night">Per Night</label>
+                      <input type="radio" name="per_room_person" id="per_person" value="3" /><label for=
+                      "per_person">Per Person:</label>
+                    </div>
+                    <div class="type_rooms">
+                      <input type="radio" name="per_night_week" id="per_night" value="2" /><label for=
+                      "per_night">Per Night:</label>
                     </div>
                     <div class="type_rooms">
                       <input type="radio" name="per_night_week" id="per_week" value="4" /><label for=
-                      "per_week">Per Week</label>
+                      "per_week">Per Week:</label>
                     </div>
-                  </div>
+                    </div>
                   <div class="type-text">
-                  <div id="rate">
+                      <div id="rate">
                       <span>30 &euro;</span><span> / Room</span><span> / Night</span>
                       (<a id="change_rate" href="#">Change Rate for this booking</a>)
                     </div>
                   </div>
- <div class="type-select"><label for="per_parking">Extras:</label>
-                   <div class="type-check">
+  			 	  <div class="type-select"><label for="per_parking">Extras:</label>
+                    <div class="type-check">
                       <input type="checkbox" name="extras_array[]" id="per_parking" value="10" /><label for=
                       "per_parking">Parking</label>
                     </div>
-                     <div class="type-check">
+                    <div class="type-check">
                       <input type="checkbox" name="extras_array[]" id="per_breakfast" value="8" /><label for=
                       "per_breakfast">Breakfast</label>
                     </div>
- </div>
-
+                    <div class="type-text"><label for="notes">Note:</label> 
+                  	  <textarea name="booking.notes" id="notes"><s:property value="booking.notes"/></textarea>
+                    </div>
+                  </div>
                 </fieldset>
                 </div>
                 <div class="c10l">
                 &nbsp;
                 </div>
                 <div class="book_details c40l">
-<fieldset><legend>Money</legend>
-                  <div class="type-text"><span>Room: </span><div class="c20r"><span id="price_room" >30</span>&nbsp;&euro;</div></div>
-                  <div class="type-text"><span>Extras: </span><div class="c20r"><span id="extras_room" >0</span>&nbsp;&euro;</div></div>
-                  <div class="type-text"><span class="green">&nbsp;Adjustment: </span><div class="c50r"><div class="c10r">&euro;</div><div class="c40l"><input type="text" name=
-                  "extra_adjustment[]" id="extra_adjustment" /></div><div class="c40r"><input type="text" name="extra_value_adjustment[]"  class="extra_value_adjustment digits"/></div></div></div>
-                  <div class="type-text"><span>Subtotal: </span><div class="c20r"><span class="subtotal_room" >30</span> &euro;<input type="hidden" id="subtotal_room" name="booking.subtotal" value="30" /></div></div>
-                  <div class="type-text"><hr/></div>
-                  <div class="type-text"><span class="green">&nbsp;Payment Received: </span><div class="c50r"><div class="c10r">&euro;</div><div class="c40l"><input type="text" name=
-                  "pay_adjustment[]" id="pay_adjustment" /></div><div class="c40r"><input type="text" name="pay_value_adjustment[]"  id="pay_value_adjustment" class="pay_value_adjustment digits"/></div></div></div>
-                  <div class="type-text"><span>Balance Due: </span><div class="c20r"><span class="balance_room" >30</span> &euro;<input type="hidden" id="balance_room" value="30" /></div></div>
-                </fieldset>
-               <div class="type-button">
-              <button class="btn_save">SAVE</button>
-            </div>
+                  <fieldset><legend>Price</legend>
+                  	<div class="type-text"><span>Room: </span><div class="c20r"><span id="price_room" >&euro; <s:property value="booking.room.price"/></span></div></div>
+                  	<div class="type-text"><span>Extras: </span><div class="c20r"><span id="extras_room" >&euro; 0</span></div></div>
+                  	<div class="type-text"><span class="green">&nbsp;Adjustment: </span>
+                  	  <div class="c50r"><div class="c10r">&euro;</div>
+                  	  	<div class="c40l"><input type="text" name="extra_adjustment[]" id="extra_adjustment" /></div>
+                  	  	<div class="c40r"><input type="text" name="extra_value_adjustment[]" id="extra_value_adjustment" class="extra_value_adjustment digits"/></div>
+                  	  </div>
+                  	</div>
+                 	<div class="type-text">
+                 	  <span>Subtotal: </span><div class="c20r"><span class="subtotal_room" >&euro; <s:property value="booking.subtotal"/>
+                 	  <input type="hidden" id="subtotal_room" name="booking.subtotal" value="30" /></span></div>
+                 	</div>
+                  	<div class="type-text"><hr/></div>
+                    <div class="type-text"><span class="green">&nbsp;Payment Received: </span>
+                      <div class="c50r">
+                      	<div class="c10r">&euro;</div>
+                      	<div class="c40l"><input type="text" name="pay_adjustment[]" id="pay_adjustment" /></div>
+                      	<div class="c40r"><input type="text" name="pay_value_adjustment[]"  id="pay_value_adjustment" class="pay_value_adjustment digits"/></div>
+                      </div>
+                    </div>
+                    <div class="type-text"><span>Balance Due: </span><div class="c20r"><span class="balance_room" >30 &euro;<input type="hidden" id="balance_room" value="30" /></span></div></div>
+                  </fieldset>
+              	  <div class="type-button">
+               		<button class="btn_save">SAVE</button>
+            	  </div>
                 </div>
               </div>
-              </form>
+            </form>
