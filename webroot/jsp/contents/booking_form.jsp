@@ -80,7 +80,7 @@ display: none;
                <div class="c50l">
               <fieldset>
     <legend>Booking Details:</legend>
-                <input type="hidden" name="booking.guest.id" value="-1"/>
+                <input type="hidden" name="booking.guest.id" value="<s:property value="booking.guest.id"/>"/>
 	               <div class="type-text"><label for="lname">Last Name: <sup title="This field is mandatory.">*</sup> </label> 
 	               <input type="text" name="booking.guest.lastName" id="lname" value="<s:property value="booking.guest.lastName"/>" class="required"/></div>
 

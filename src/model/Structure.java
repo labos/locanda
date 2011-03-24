@@ -204,6 +204,7 @@ public class Structure {
 		oldBooking.setNrGuests(booking.getNrGuests());
 		oldBooking.setSubtotal(booking.getSubtotal());
 		oldBooking.setNotes(booking.getNotes());
+		oldBooking.setRoom(booking.getRoom());
 		
 		return true;
 	}
