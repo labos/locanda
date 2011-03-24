@@ -15,6 +15,7 @@
         <div id="col3" role="main">
           <div id="col3_content" class="clearfix">
           <div class="header_section">
+          <a class="navigation-tab" title="Go Back" href="<s:property value="url_home"/>?sect=planner">&nbsp;</a>
           <span class="name_section">Booking</span>
           </div>
 <div>

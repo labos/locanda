@@ -549,7 +549,13 @@ _setupEventCreationForRoom : function($weekDay) {
                 options.eventClick($target.parent().data("calEvent"), $target.parent(), event);
 
                 	return;
-                									   }
+                 }
+                
+                if ($target.hasClass("wc-cal-event")) {
+                	return;
+                	
+                }
+               
 				
             if ($target.hasClass("wc-day-column-inner")) {
             	

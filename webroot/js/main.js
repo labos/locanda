@@ -1449,5 +1449,9 @@ $(document).ready(function() {
 			      });
 		 
 		//---  END ACCOMODATION SECTION CODE   
+		  
+
+		  
+		  
    
 });

@@ -578,3 +578,10 @@ padding:0.5em;
 color:#880000;
 font-weight:600;
 }
+
+a.navigation-tab {
+float:left;
+width: 32px;
+height: 32px;
+background:url('../../images/go-back-icon.png') no-repeat scroll 0 0 transparent;
+		  }
