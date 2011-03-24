@@ -1,6 +1,7 @@
 package model;
 
 import java.util.Date;
+import java.util.List;
 
 public class Booking {
 	
@@ -13,7 +14,15 @@ public class Booking {
 	private Date dateOut;
 	private Double subtotal;
 	private String notes;
+	private List<Extra> extras;
 	
+	public Boolean addExtra(Extra anExtra){
+		return this.getExtras().add(anExtra);
+	}
+	
+	public Boolean addExtras(List<Extra> extras){
+		return this.getExtras().addAll(extras);
+	}
 	
 	public Integer getId() {
 		return id;
@@ -62,6 +71,12 @@ public class Booking {
 	}
 	public void setNotes(String notes) {
 		this.notes = notes;
+	}
+	public List<Extra> getExtras() {
+		return extras;
+	}
+	public void setExtras(List<Extra> extras) {
+		this.extras = extras;
 	}
 	
 	

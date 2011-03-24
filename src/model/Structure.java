@@ -15,6 +15,7 @@ public class Structure {
 	private List<RoomFacility> roomFacilities;
 	private List<Guest> guests;
 	private List<Booking> bookings;
+	private List<Extra> extras;
 	
 	
 	public Structure(){
@@ -23,6 +24,7 @@ public class Structure {
 		this.roomFacilities = new ArrayList<RoomFacility>();
 		this.guests = new ArrayList<Guest>();
 		this.bookings = new ArrayList<Booking>();
+		this.extras = new ArrayList<Extra>();
 		this.keys.add(1);
 	}
 	
@@ -164,6 +166,14 @@ public class Structure {
 		return this.bookings.remove(aBooking);
 	}
 	
+	public boolean addExtra(Extra anExtra) {
+		return this.extras.add(anExtra);
+	}
+	
+	public boolean deleteExtra(Extra anExtra) {
+		return this.extras.remove(anExtra);
+	}
+	
 	public Guest findGuestById(Integer id){
 		Guest ret = null;
 		for (Guest each : this.getGuests()) {
@@ -266,6 +276,14 @@ public class Structure {
 
 	public void setBookings(List<Booking> bookings) {
 		this.bookings = bookings;
+	}
+
+	public List<Extra> getExtras() {
+		return extras;
+	}
+
+	public void setExtras(List<Extra> extras) {
+		this.extras = extras;
 	}
 	
 	
