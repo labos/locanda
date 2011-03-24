@@ -859,7 +859,8 @@ options.eventNew({start: self.formatDate(new Date(start_booking),"m/d/Y"), end:s
 
          var date, weekStartDate, endDate, $weekDayColumns;
          var self = this;
-
+ 	    // The number of milliseconds in one day
+ 	    var ONE_DAY = 1000 * 60 * 60 * 24;
 
 
          var options = this.options;
@@ -892,10 +893,12 @@ options.eventNew({start: self.formatDate(new Date(start_booking),"m/d/Y"), end:s
    		     $(data).each(function(i, val)
    		    		 {
    		    	 //add current room to room list 
+   			    var date_end_ms = new Date(val.dateOut).getTime();
+   			    var date_end_rendered_ms = date_end_ms - ONE_DAY;
    		    	 list_bookings.push( {
    	               "id":val.room.id,
    	               "start": new Date(val.dateIn),
-   	               "end": new Date(val.dateOut),
+   	               "end": new Date(date_end_rendered_ms) ,
    	               "title":val.guest.lastName  + ' ' + val.guest.firstName,
    	               "bookId": val.id
    	            });
