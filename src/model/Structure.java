@@ -192,7 +192,20 @@ public class Structure {
 		return true;
 	}
 	
-
+	public Boolean updateRoom(Room room){
+		
+		Room originalRoom = this.findRoomById(room.getId());
+		if(originalRoom==null){
+			return false;
+		}
+		originalRoom.setName(room.getName());
+		originalRoom.setMaxGuests(room.getMaxGuests());
+		originalRoom.setNotes(room.getNotes());
+		originalRoom.setPrice(room.getPrice());
+		originalRoom.setRoomType(room.getRoomType());
+		return true;
+	}
+	
 	public Boolean updateBooking(Booking booking){
 		
 		Booking oldBooking = this.findBookingById(booking.getId());

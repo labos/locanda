@@ -28,7 +28,6 @@ public class RoomAction extends ActionSupport implements SessionAware{
 	private List<Integer> facilities = new ArrayList<Integer>();
 	private Integer idRoom;
 	
-	
 
 	@Actions({
 		@Action(value="/addNewRoom",results = {
@@ -119,8 +118,7 @@ public class RoomAction extends ActionSupport implements SessionAware{
 			this.getMessage().setResult(Message.ERROR);
 			this.getMessage().setDescription("Non e' stato possibile cancellare la stanza");
 			return "error";
-		}
-		
+		}		
 	}	
 	
 	@Actions({
@@ -161,16 +159,12 @@ public class RoomAction extends ActionSupport implements SessionAware{
 				return "error";
 			}
 		}
-		originalRoom.setName(this.getRoom().getName());
-		originalRoom.setMaxGuests(this.getRoom().getMaxGuests());
-		originalRoom.setNotes(this.getRoom().getNotes());
-		originalRoom.setPrice(this.getRoom().getPrice());
-		originalRoom.setRoomType(this.getRoom().getRoomType());
+		structure.updateRoom(this.getRoom());
 		this.getMessage().setResult(Message.SUCCESS);
 		this.getMessage().setDescription("La stanza e' stata modificata con successo");
 		return "success";		
 	
-	}
+	}	
 	
 	@Actions({
 		@Action(value="/goRoomFacilities_edit",results = {
