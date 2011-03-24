@@ -19,7 +19,7 @@ display: none;
                              <div class="subcl type-select">
                				 <label for="sel_rooms_list">Room <sup title="This field is mandatory.">*</sup> </label>
                 			 <select size="1" id="sel_rooms_list" name="booking.room.id">
-                  			 <option  selected="selected" value="<s:property value="booking.room.id"/>"><s:property value="booking.room.name"/></option>
+                  			 <option selected="selected" value="<s:property value="booking.room.id"/>"><s:property value="booking.room.name"/></option>
                   			 <s:iterator value="rooms" var="eachRoom" >
                    			 <option value="<s:property value="#eachRoom.id"/>"><s:property value="#eachRoom.name"/></option>
                     		</s:iterator>
@@ -231,7 +231,7 @@ display: none;
 				<option value="Monaco Principaute">Monaco Principaute</option>
 				<option value="Mongolia">Mongolia</option>
 				<option value="Montenegro">Montenegro</option>
-				<option value="Morocco">Morocco</opt20ion>
+				<option value="Morocco">Morocco</option>
 				<option value="Mozambique">Mozambique</option>
 				<option value="Myanmar">Myanmar</option>
 				<option value="Namibia Republic">Namibia Republic</option>
@@ -258,7 +258,7 @@ display: none;
 				<option value="Poland">Poland</option>
 				<option value="Portugal">Portugal</option>
 				<option value="Puerto Rico">Puerto Rico</option>
-				<option value="Qatar">Qat20ar</option>
+				<option value="Qatar">Qatar</option>
 				<option value="Republic of Maldives">Republic of Maldives</option>
 				<option value="Romania">Romania</option>
 				<option value="Russia">Russia</option>
@@ -387,8 +387,8 @@ display: none;
                 </div>
                 <div class="book_details c40l">
                   <fieldset><legend>Price</legend>
-                  	<div class="type-text"><span>Room: </span><div class="c33r"><span id="price_room" >&euro; <s:property value="booking.room.price"/></span></div></div>
-                  	<div class="type-text"><span>Extras: </span><div class="c33r"><span id="extras_room" >&euro; 0</span></div></div>
+                  	<div class="type-text"><span>Room: </span><div class="c20r"><span id="price_room" >&euro; <s:property value="booking.room.price"/></span></div></div>
+                  	<div class="type-text"><span>Extras: </span><div class="c20r"><span id="extras_room" >&euro; 0</span></div></div>
                   	<div class="type-text"><span class="green">&nbsp;Adjustment: </span>
                   	  <div class="c50r"><div class="c10r">&euro;</div>
                   	  	<div class="c40l"><input type="text" name="extra_adjustment[]" id="extra_adjustment" /></div>
@@ -396,8 +396,8 @@ display: none;
                   	  </div>
                   	</div>
                  	<div class="type-text">
-                 	  <span>Subtotal: </span><div class="c33r"><span class="subtotal_room" >&euro; <s:property value="booking.subtotal"/>
-                 	  </span><input type="hidden" id="subtotal_room" name="booking.subtotal" value="30" /></div>
+                 	  <span>Subtotal: </span><div class="c20r"><span class="subtotal_room" >&euro; <s:property value="booking.subtotal"/>
+                 	  <input type="hidden" id="subtotal_room" name="booking.subtotal" value="30" /></span></div>
                  	</div>
                   	<div class="type-text"><hr/></div>
                     <div class="type-text"><span class="green">&nbsp;Payment Received: </span>
@@ -407,7 +407,7 @@ display: none;
                       	<div class="c40r"><input type="text" name="pay_value_adjustment[]"  id="pay_value_adjustment" class="pay_value_adjustment digits"/></div>
                       </div>
                     </div>
-                    <div class="type-text"><span>Balance Due: </span><div class="c20r"><span class="balance_room" >30 &euro;</span><input type="hidden" id="balance_room" value="30" /></div></div>
+                    <div class="type-text"><span>Balance Due: </span><div class="c20r"><span class="balance_room" >30 &euro;<input type="hidden" id="balance_room" value="30" /></span></div></div>
                   </fieldset>
               	  <div class="type-button">
                		<button class="btn_save">SAVE</button>
