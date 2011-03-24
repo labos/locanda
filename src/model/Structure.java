@@ -192,6 +192,22 @@ public class Structure {
 		return true;
 	}
 	
+
+	public Boolean updateBooking(Booking booking){
+		
+		Booking oldBooking = this.findBookingById(booking.getId());
+		if(oldBooking==null){
+			return false;
+		}
+		oldBooking.setDateIn(booking.getDateIn());
+		oldBooking.setDateOut(booking.getDateOut());
+		oldBooking.setNrGuests(booking.getNrGuests());
+		oldBooking.setSubtotal(booking.getSubtotal());
+		
+		return true;
+	}
+	
+	
 	
 	
 	public String getName() {

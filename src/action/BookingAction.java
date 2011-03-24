@@ -176,7 +176,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 	}
 	
 	@Actions({
-		@Action(value="/addOrUpdateBooking",results = {
+		@Action(value="/saveUpdateBooking",results = {
 				@Result(type ="json",name="success", params={
 						"root","message"
 				} ),
@@ -184,7 +184,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		})
 		
 	})
-	public String addOrUpdateBooking(){
+	public String saveUpdateBooking(){
 		User user = (User)session.get("user");
 		Structure structure = user.getStructure();
 		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
@@ -203,31 +203,46 @@ public class BookingAction extends ActionSupport implements SessionAware{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		this.getBooking().setId(structure.nextKey());
+		
 				
-		Room aRoom = structure.findRoomById(this.getBooking().getRoom().getId());
-		this.getBooking().setRoom(aRoom);
+		Room theBookedRoom = structure.findRoomById(this.getBooking().getRoom().getId());
+		this.getBooking().setRoom(theBookedRoom);
 		
-		Integer idGuest = this.getBooking().getGuest().getId();
-		Guest guest = structure.findGuestById(idGuest);
+		this.saveUpdateGuest(this.getBooking().getGuest(), structure);
 		
-		if(guest == null){
-			//si tratta di un nuovo guest e devo aggiungerlo
-			this.getBooking().getGuest().setId(structure.nextKey());
-			structure.addGuest(this.getBooking().getGuest());
-			
+		Booking oldBooking = 
+			structure.findBookingById(this.getBooking().getId());
+		if(oldBooking==null){
+			//Si tratta di un nuovo booking
+			this.getBooking().setId(structure.nextKey());
+			structure.addBooking(this.getBooking());
 		}else{
-			//si tratta di un guest esistente e devo fare l'update
-			structure.updateGuest(this.getBooking().getGuest());
+			//Si tratta di un update di un booking esistente
+			structure.updateBooking(this.getBooking());
 			
 		}
-		structure.addBooking(this.getBooking());
+		
 		this.getMessage().setResult(Message.SUCCESS);
 		this.getMessage().setDescription("Booking Added successfully");
 		return SUCCESS;
 	}
 	
-	
+	private Boolean saveUpdateGuest(Guest guest, Structure structure){
+		Guest oldGuest = structure.findGuestById(guest.getId());
+		
+		if(oldGuest == null){
+			//Si tratta di un nuovo guest e devo aggiungerlo
+			guest.setId(structure.nextKey());
+			structure.addGuest(guest);
+			
+		}else{
+			//Si tratta di un guest esistente e devo fare l'update
+			structure.updateGuest(guest);
+			
+		}		
+		
+		return true;
+	}
 
 	public Message getMessage() {
 		return message;
