@@ -12,6 +12,7 @@ public class Booking {
 	private Date dateIn;
 	private Date dateOut;
 	private Double subtotal;
+	private String notes;
 	
 	
 	public Integer getId() {
@@ -55,6 +56,12 @@ public class Booking {
 	}
 	public void setSubtotal(Double subtotal) {
 		this.subtotal = subtotal;
+	}
+	public String getNotes() {
+		return notes;
+	}
+	public void setNotes(String notes) {
+		this.notes = notes;
 	}
 	
 	

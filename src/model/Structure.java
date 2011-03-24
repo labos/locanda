@@ -203,6 +203,7 @@ public class Structure {
 		oldBooking.setDateOut(booking.getDateOut());
 		oldBooking.setNrGuests(booking.getNrGuests());
 		oldBooking.setSubtotal(booking.getSubtotal());
+		oldBooking.setNotes(booking.getNotes());
 		
 		return true;
 	}
