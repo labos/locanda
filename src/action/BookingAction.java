@@ -33,7 +33,8 @@ public class BookingAction extends ActionSupport implements SessionAware{
 	private Integer id;
 	private Integer numNights;
 	private List<Room> rooms = null;
-	private Message message = new Message();	
+	private Message message = new Message();
+	private String dateOut = null;
 	
 	@Actions({
 		@Action(value="/goAddNewBooking",results = {
@@ -227,16 +228,26 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		
 		try {
 			
-			this.getBooking().setDateIn(sdf.parse(this.getDateIn()));
-			millis = this.getBooking().getDateIn().getTime() + 
-					this.getNumNights() * 24 * 3600 * 1000;
-			dateOut = new Date(millis);
-			this.getBooking().setDateOut(dateOut);
-			
+			this.getBooking().setDateIn(sdf.parse(this.getDateIn()));			
 		} catch (ParseException e) {
 			e.printStackTrace();
 			return false;
 		}
+		
+		if(this.getDateOut()!=null){
+			try {
+				this.getBooking().setDateOut(sdf.parse(this.getDateOut()));
+			} catch (ParseException e) {
+				e.printStackTrace();
+				return false;
+			}
+		}else{
+			millis = this.getBooking().getDateIn().getTime() + 
+			this.getNumNights() * 24 * 3600 * 1000;
+			dateOut = new Date(millis);
+			this.getBooking().setDateOut(dateOut);
+		}
+		
 		
 		return true;
 		
@@ -341,6 +352,18 @@ public class BookingAction extends ActionSupport implements SessionAware{
 	public void setRooms(List<Room> rooms) {
 		this.rooms = rooms;
 	}
+
+
+	public String getDateOut() {
+		return dateOut;
+	}
+
+
+	public void setDateOut(String dateOut) {
+		this.dateOut = dateOut;
+	}
+	
+	
 	
 	
 	
