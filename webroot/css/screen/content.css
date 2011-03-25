@@ -585,3 +585,26 @@ width: 32px;
 height: 32px;
 background:url('../../images/go-back-icon.png') no-repeat scroll 0 0 transparent;
 		  }
+
+a.home {
+display:inline;
+height:13px;
+line-height:50px;
+margin:5px 5px 0 0;
+overflow:hidden;
+width:15px;
+background:url('../../images/home_small.png') no-repeat scroll 0 0 transparent;
+}
+
+
+p.navigation
+{
+	line-height:2;
+	 display:inline;
+	font-weight: bold;
+}
+p.navigation a, p.navigation b, p.navigation span
+{
+	float: left;
+	font-size: 120%;
+}

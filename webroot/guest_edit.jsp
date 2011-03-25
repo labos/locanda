@@ -15,6 +15,8 @@
         <div id="col3" role="main">
           <div id="col3_content" class="clearfix">
           <div class="header_section yform">
+                     <p class="navigation"> <a class="home" href="<s:property value="url_findallguest"/>?sect=planner">Manage Guests</a><b>»</b> 
+			<span>&nbsp;</span></p>
           <span class="name_section">Guest Details</span>
           <div class="right type-text">
           <input type="text" name="guest_search" class="txt_guest_search" /><button class="btn_g_search">SEARCH</button>

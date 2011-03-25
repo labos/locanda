@@ -819,8 +819,38 @@ else {
  * id: ---> l'id della camera da bookare
  */
 
+//prima controlliamo che non ci siano overlapping di bookings
+var dateInNewBook = self.formatDate(new Date(start_booking) ,"m/d/Y" );
+var dateOutNewBook = self.formatDate(new Date(end_booking) ,"m/d/Y" );
+$.ajax({
+	  type: 'POST',
+	  url: "saveUpdateBooking.action",
+	  data: {'booking.room.id':id_book_room,  dateIn: dateInNewBook , dateOut: dateOutNewBook},
+	  success: function(data_action){
+		   if (data_action.result == "success")
+			   {
+		
+		
+			options.eventNew({start: dateInNewBook , end: dateOutNewBook, id_booked:id_book_room}, $renderedCalEvent); 
+			    				    
+			   }
+	    
+	     else if (data_action.result == "error")
+	    	 {
+	    	 	alert("Attenzione: " + data_action.description);
+	    	 }
+	   	else{
+	   		$(".validationErrors").html(data_action);
+	   		}  
+	  },
+	  error: function() {
+		  alert ("Error checking booking overlappings in server");
+		  self.refresh();
+	  },
+	  dataType: 'json'
+	});
 
-options.eventNew({start: self.formatDate(new Date(start_booking),"m/d/Y"), end:self.formatDate(new Date(end_booking),"m/d/Y"), id_booked:id_book_room}, $renderedCalEvent);        
+       
             
             
             

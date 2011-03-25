@@ -15,8 +15,9 @@
         <div id="col3" role="main">
           <div id="col3_content" class="clearfix">
           <div class="header_section">
-          <a class="navigation-tab" title="Go Back" href="<s:property value="url_home"/>?sect=planner">&nbsp;</a>
-          <span class="name_section">Booking</span>
+         	<p class="navigation"> <a class="home" href="<s:property value="url_home"/>?sect=planner">Home</a><b>»</b> 
+			<span>&nbsp;</span></p>
+    		<span class="name_section">Booking</span>
           </div>
 <div>
 <jsp:include page="jsp/contents/booking_form.jsp" />
