@@ -70,6 +70,12 @@ display: none;
                              </select>
                              </div>
                              </div>
+                            <div class="c20l">
+            				<div class="subcl type-text">
+            				<label for="datepicker">Date Out: <sup title="This field is mandatory.">*</sup> </label>
+							<input type="text" name="dateOutNotSended" class="date datepicker"  value="" style="display: inline;"/>
+							</div>
+							</div>
 							<div class="c20l">
                              <span id="date_booking" ></span><span id="duration"></span>
                              <div class="subcl type-select">

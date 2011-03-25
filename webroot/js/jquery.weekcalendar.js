@@ -551,10 +551,7 @@ _setupEventCreationForRoom : function($weekDay) {
                 	return;
                  }
                 
-                if ($target.hasClass("wc-cal-event")) {
-                	return;
-                	
-                }
+ 
                
 				
             if ($target.hasClass("wc-day-column-inner")) {
@@ -822,10 +819,10 @@ else {
 //prima controlliamo che non ci siano overlapping di bookings
 var dateInNewBook = self.formatDate(new Date(start_booking) ,"m/d/Y" );
 var dateOutNewBook = self.formatDate(new Date(end_booking) ,"m/d/Y" );
-$.ajax({
+/*$.ajax({
 	  type: 'POST',
-	  url: "saveUpdateBooking.action",
-	  data: {'booking.room.id':id_book_room,  dateIn: dateInNewBook , dateOut: dateOutNewBook},
+	  url: "goAddBookingFromPlanner.action",
+	  data: {'booking.room.id':id_book_room,  dateIn: dateInNewBook , dateOut: dateOutNewBook, 'booking.guest.id': "-1"},
 	  success: function(data_action){
 		   if (data_action.result == "success")
 			   {
@@ -848,10 +845,11 @@ $.ajax({
 		  self.refresh();
 	  },
 	  dataType: 'json'
-	});
+	});*/
 
        
-            
+options.eventNew({start: dateInNewBook , end: dateOutNewBook, id_booked:id_book_room}, $renderedCalEvent); 
+         
             
             
             
@@ -1047,6 +1045,11 @@ $.ajax({
      	     var ONE_DAY = 1000 * 60 * 60 * 24;
         	 var number_of_days = self._days_between(calEvent.end,  calEvent.start) + 1;
         	 begin_day = calEvent.start;
+        	 if(number_of_days > 200)
+        		 {
+        		 	alert ("Warning!! Number of booking days too high for booking " + calEvent.bookId);
+        		 	return;
+        		 }
         	 for (i = 0 ;  i < number_of_days; i++)
         		 {
         		 	

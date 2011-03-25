@@ -6,6 +6,7 @@ $(document).ready(function() {
 		
 		this.alertOK = "Congratulazioni";
 		this.alertKO = "Attenzione!";
+		var ONE_DAY = 1000 * 60 * 60 * 24
 		this.init  =  function()
 		{
 			
@@ -101,7 +102,7 @@ $(document).ready(function() {
 					   
 					  if( $(value).valid() )
 					   {
-				   new_subtotal = new_subtotal + parseInt ( $(value).val() );
+						  	new_subtotal = new_subtotal + parseInt ( $(value).val() );
 					   }
 			  		   });
 
@@ -163,6 +164,26 @@ $(document).ready(function() {
 	     	      icons: {
 	     	          primary: "ui-icon-check"
 	     	      }});
+	     	  
+	     	  
+	     	  
+	     	   //update of dateOut changing num of nights.
+	     	   $("select[name='numNights']").change(function() {
+	     		  var dateOut = '';
+	     	      var numNights = $(this).find(":selected").val();
+	     	      var dateInVal = $('input[name="dateIn"]').val();
+	     	      var $dateInDom = $('input[name="dateIn"]');
+	     	      if (dateInVal !=='' && $dateInDom.valid() )
+	     	    	  {
+	     	    	  var dateInDate = new Date ( dateInVal );
+	     	    	  var dateOutDate = dateInDate.getDate() + ( ONE_DAY * numNights );
+	     	    	  dateOut = new dateOutDate.toString();
+	     	    	  }
+	     	      
+	     	     $('input[name="dateIn"]').val(dateOut);
+
+	     	   });
+	     	  
 			
 			
 		};
@@ -548,20 +569,8 @@ $(document).ready(function() {
             },
             buttons: {
                save : function() {
-                if ($(".yform").valid())
-              	 {
-            	   calEvent.id = id_booked;
-                  id++;
-                  calEvent.start = new Date(startField);
-                  calEvent.end = new Date(endField);
-                  calEvent.title = titleField.val();
-                  calEvent.body = bodyField.val();
-                  calEvent.confirm = confirmField.val();
-
-                  //--$calendar.weekCalendar("removeUnsavedEvents");
-                 $calendar.weekCalendar("updateBookEvent", calEvent);
-                	 $dialogContent.dialog("close");
-                	 }
+             	  $dialogContent.find(".yform.json").submit();
+                  $dialogContent.dialog("close");
                   
                },
                cancel : function() {
