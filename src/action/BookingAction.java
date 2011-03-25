@@ -33,10 +33,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 	private Integer id;
 	private Integer numNights;
 	private List<Room> rooms = null;
-	private Message message = new Message();
-	
-	
-	
+	private Message message = new Message();	
 	
 	@Actions({
 		@Action(value="/goAddNewBooking",results = {
@@ -127,7 +124,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		return ERROR;
 	}
 	
-	
+	/*
 	@Actions({
 		@Action(value="/addNewBooking",results = {
 				@Result(type ="json",name="success", params={
@@ -178,14 +175,17 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		this.getMessage().setResult(Message.SUCCESS);
 		this.getMessage().setDescription("Booking Added successfully");
 		return SUCCESS;
-	}
+	}*/
 	
 	@Actions({
 		@Action(value="/saveUpdateBooking",results = {
 				@Result(type ="json",name="success", params={
 						"root","message"
 				} ),
-				@Result(name="input", location="/validationError.jsp")
+				@Result(name="input", location="/validationError.jsp"),
+				@Result(type ="json",name="error", params={
+						"root","message"
+				} )
 		})
 		
 	})
@@ -193,7 +193,13 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		User user = (User)session.get("user");
 		Structure structure = user.getStructure();
 		
-		this.saveUpdateBookingDates();				
+		this.saveUpdateBookingDates();	
+		if(!structure.hasRoomFreeInDate(
+				this.getBooking().getRoom().getId(), this.getBooking().getDateOut())){
+			this.getMessage().setResult(Message.ERROR);
+			this.getMessage().setDescription("Booking sovrapposti!");
+			return ERROR;
+		}
 		this.saveUpdateBookingRoom(structure);		
 		this.saveUpdateBookingGuest(this.getBooking().getGuest(), structure);
 		

@@ -2,6 +2,7 @@ package model;
 
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -232,7 +233,15 @@ public class Structure {
 		return true;
 	}
 	
-	
+	public Boolean hasRoomFreeInDate(Integer roomId, Date date){
+		for(Booking each: this.getBookings()){
+			if(each.getRoom().getId().equals(roomId) && 
+					each.getDateIn().before(date)){
+				return false;
+			}
+		}
+		return true;
+	}
 	
 	
 	public String getName() {
