@@ -258,6 +258,7 @@ public class Structure {
 		
 	}
 	
+	
 	public Season findSeasonById(Integer id){
 		for(Season each: this.getSeasons()){
 			if(each.getId().equals(id)){
@@ -265,6 +266,17 @@ public class Structure {
 			}
 		}
 		return null;
+	}
+	
+	public List<Season> findSeasonsByYear(Integer year){
+		List<Season> ret = new ArrayList<Season>();
+		
+		for(Season each: this.getSeasons()){
+			if(each.getYear().equals(year)){
+				ret.add(each);
+			}
+		}
+		return ret;
 	}
 	
 	
