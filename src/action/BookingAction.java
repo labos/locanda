@@ -221,6 +221,34 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		return SUCCESS;
 	}
 	
+	@Actions({
+		@Action(value="/checkBookingDates",results = {
+				@Result(type ="json",name="success", params={
+						"root","message"
+				} ),
+				@Result(name="input", location="/validationError.jsp"),
+				@Result(type ="json",name="error", params={
+						"root","message"
+				} )
+		})
+		
+	})
+	public String checkBookingDates(){
+		User user = (User)session.get("user");
+		Structure structure = user.getStructure();
+		
+		this.saveUpdateBookingDates();	
+		if(!structure.hasRoomFreeInDate(
+				this.getBooking().getRoom().getId(), this.getBooking().getDateOut())){
+			this.getMessage().setResult(Message.ERROR);
+			this.getMessage().setDescription("Booking sovrapposti!");
+			return ERROR;
+		}
+		this.getMessage().setResult(Message.SUCCESS);
+		this.getMessage().setDescription("Booking Dates OK!");
+		return SUCCESS;
+	}
+	
 	private Boolean saveUpdateBookingDates(){
 		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 		Date dateOut = null;

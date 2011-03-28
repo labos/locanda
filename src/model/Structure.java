@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
+import model.listini.Season;
+
 public class Structure {
 	private String name;
 	private String email;
@@ -17,6 +19,7 @@ public class Structure {
 	private List<Guest> guests;
 	private List<Booking> bookings;
 	private List<Extra> extras;
+	private List<Season> seasons;
 	
 	
 	public Structure(){
@@ -26,6 +29,7 @@ public class Structure {
 		this.guests = new ArrayList<Guest>();
 		this.bookings = new ArrayList<Booking>();
 		this.extras = new ArrayList<Extra>();
+		this.setSeasons(new ArrayList<Season>());
 		this.keys.add(1);
 	}
 	
@@ -243,6 +247,38 @@ public class Structure {
 		return true;
 	}
 	
+	public Boolean addSeason(Season aSeason){
+		this.getSeasons().add(aSeason);
+		return true;
+	}
+	
+	public Boolean removeSeason(Season aSeason){
+		
+		return this.getSeasons().remove(aSeason);		
+		
+	}
+	
+	public Season findSeasonById(Integer id){
+		for(Season each: this.getSeasons()){
+			if(each.getId().equals(id)){
+				return each;
+			}
+		}
+		return null;
+	}
+	
+	
+	public Boolean updateSeason(Season aSeason){
+		Season oldSeason = this.findSeasonById(aSeason.getId());
+		
+		if(oldSeason == null){
+			return false;
+		}
+		oldSeason.setName(aSeason.getName());
+		oldSeason.setYear(aSeason.getYear());
+		oldSeason.setPeriods(aSeason.getPeriods());
+		return true;
+	}
 	
 	public String getName() {
 		return name;
@@ -293,6 +329,14 @@ public class Structure {
 
 	public void setExtras(List<Extra> extras) {
 		this.extras = extras;
+	}
+
+	public List<Season> getSeasons() {
+		return seasons;
+	}
+
+	public void setSeasons(List<Season> seasons) {
+		this.seasons = seasons;
 	}
 	
 	
