@@ -819,9 +819,9 @@ else {
 //prima controlliamo che non ci siano overlapping di bookings
 var dateInNewBook = self.formatDate(new Date(start_booking) ,"m/d/Y" );
 var dateOutNewBook = self.formatDate(new Date(end_booking) ,"m/d/Y" );
-/*$.ajax({
+$.ajax({
 	  type: 'POST',
-	  url: "goAddBookingFromPlanner.action",
+	  url: "checkBookingDates.action",
 	  data: {'booking.room.id':id_book_room,  dateIn: dateInNewBook , dateOut: dateOutNewBook, 'booking.guest.id': "-1"},
 	  success: function(data_action){
 		   if (data_action.result == "success")
@@ -835,6 +835,7 @@ var dateOutNewBook = self.formatDate(new Date(end_booking) ,"m/d/Y" );
 	     else if (data_action.result == "error")
 	    	 {
 	    	 	alert("Attenzione: " + data_action.description);
+	    	 	self.element.weekCalendar("removeUnsavedEvents");
 	    	 }
 	   	else{
 	   		$(".validationErrors").html(data_action);
@@ -845,10 +846,10 @@ var dateOutNewBook = self.formatDate(new Date(end_booking) ,"m/d/Y" );
 		  self.refresh();
 	  },
 	  dataType: 'json'
-	});*/
+	});
 
        
-options.eventNew({start: dateInNewBook , end: dateOutNewBook, id_booked:id_book_room}, $renderedCalEvent); 
+//---options.eventNew({start: dateInNewBook , end: dateOutNewBook, id_booked:id_book_room}, $renderedCalEvent); 
          
             
             

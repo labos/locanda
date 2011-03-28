@@ -1,6 +1,6 @@
 $(document).ready(function() {
 	
-	$(".yform").validate();  
+	 
 	overlay	= $('<div id="fancybox-overlay"></div>');
 	var Option = function(lang) {
 		
@@ -10,12 +10,28 @@ $(document).ready(function() {
 		this.init  =  function()
 		{
 			
+			$(".yform").validate(); 
+			
 			/* booking section initialization */
 			$( ".datepicker" ).datepicker({
 				showOn: "button",
 				buttonImage: "images/calendar.gif",
 				buttonImageOnly: true,
-				dateFormat: "mm/dd/yy"
+				dateFormat: "mm/dd/yy",
+				 onSelect: function(dateText, inst) {
+					 var numNights = 0;
+					 var closerDateInput =$( ".datepicker" ).not($(this));
+					 var otherData = closerDateInput.datepicker("getDate");
+					 var selectedData = new Date(dateText);
+					
+					 if ( selectedData  && otherData != null)
+						 {
+						 	numNights = days_between(selectedData , otherData);	
+						 }
+					  
+					 $("#booking_duration").val(numNights);
+					 
+				 }
 			});
 			
 			getCustomers("input[name='booking.guest.lastName']");
@@ -169,6 +185,7 @@ $(document).ready(function() {
 	     	  
 	     	   //update of dateOut changing num of nights.
 	     	   $("select[name='numNights']").change(function() {
+	     		  $('input[name="dateIn"]').rules("add",  "date");
 	     		  var dateOut = '';
 	     	      var numNights = $(this).find(":selected").val();
 	     	      var dateInVal = $('input[name="dateIn"]').val();
@@ -176,11 +193,15 @@ $(document).ready(function() {
 	     	      if (dateInVal !=='' && $dateInDom.valid() )
 	     	    	  {
 	     	    	  var dateInDate = new Date ( dateInVal );
-	     	    	  var dateOutDate = dateInDate.getDate() + ( ONE_DAY * numNights );
-	     	    	  dateOut = new dateOutDate.toString();
+	     	    	  var millisO = dateInDate.getTime()
+	     	    	  var dateOutDateMill = dateInDate.getTime() + ( ONE_DAY * numNights );
+	     	    	 // dateOut = new dateOutDate.toString('dd/mm/yyyy');
+	     	    	 var dateOutDate = new Date(dateOutDateMill);
+	     	    	
+	     	    	 dateOut =  $.datepicker.formatDate('mm/dd/yy',dateOutDate);
 	     	    	  }
 	     	      
-	     	     $('input[name="dateIn"]').val(dateOut);
+	     	     $('input[name="dateOutNotSended"]').datepicker("setDate", dateOut);
 
 	     	   });
 	     	  

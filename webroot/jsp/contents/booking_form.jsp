@@ -73,7 +73,7 @@ display: none;
                             <div class="c20l">
             				<div class="subcl type-text">
             				<label for="datepicker">Date Out: <sup title="This field is mandatory.">*</sup> </label>
-							<input type="text" name="dateOutNotSended" class="date datepicker"  value="" style="display: inline;"/>
+							<input type="text" name="dateOutNotSended" class="date datepicker"  value="<s:property value="booking.dateOut"/>" style="display: inline;"/>
 							</div>
 							</div>
 							<div class="c20l">
