@@ -30,10 +30,10 @@
                        <form method="post" action="addNewExtra.action" class="yform json" id="newExtraForm" role="application">
                            <div class="type-text">
                                <label for="extraFormName">Extra name <sup title="This field is mandatory.">*</sup></label>
-                               <input type="text" class="required" name="extra.name" id="extraFormName" aria-required="true"/>
+                               <input type="text" class="required small_input" name="extra.name" id="extraFormName" aria-required="true"/>
                                
                                <label for="extraFormPrice">Extra price <sup title="This field is mandatory.">*</sup></label>
-                               <input type="text" class="required" name="extra.price" id="extraFormPrice" aria-required="true"/>
+                               <input type="text" class="required number small_input" name="extra.price" id="extraFormPrice" aria-required="true"/>
                                
                                <input type="hidden" name="redirect_form" value="findAllExtras.action?sect=accomodation" />
                                <input type="hidden" name="extra.id" value="<s:property value="extra.id"/>"/>
@@ -49,40 +49,62 @@
 					   
 					   <form method="post" action="updateExtra.action" class="yform json full" id="extraForm" role="application">
                          <div id="extraList">
-                           <div class="newExtra" id="newExtra">
                              <hr/>
-                             <span class="extraName"><s:property value="#eachExtra.name"/></span>
+                             <span class="extraName"><b><s:property value="#eachExtra.name"/></b></span>
 							 <input type="text" class="renameExtraForm required" name="extra.name" value="<s:property value="#eachExtra.name"/>"/>
 							 <a href="#" class="renameExtra" title="rename">Rename</a>
 							 <input type="hidden" name="redirect_form" value="findAllExtras.action?sect=accomodation" />
-                             <input type="hidden" name="extra.id" value="<s:property value="#eachExtra.id"/>"/>
-                               
-							 <div class="type-button">
-							   <button class="btn_saveExtra" aria-disabled="false">SAVE</button>
-                               <button class="btn_delete btn_delete_extra">DELETE</button>
-                             </div>	 
+                             <input type="hidden" name="extra.id" value="<s:property value="#eachExtra.id"/>"/> 
 							 
                            	 <div class="radiogroup right">
-                           	 
-							 <input type="radio" name="extra.timePriceType" value="<s:property value="#eachExtra.timePriceType"/>" />per Night
+							 <input 
+							 <s:if test="#eachExtra.timePriceType == 'per Night'">
+								   checked="checked"
+								</s:if>
+								type="radio" name="extra.timePriceType" value="per Night"/>per Night
                              <br/>
-                             <input type="radio" name="extra.timePriceType" value="<s:property value="#eachExtra.timePriceType"/>" />per Week
+                             <input 
+                             <s:if test="#eachExtra.timePriceType == 'per Week'">
+								   checked="checked"
+								</s:if>
+								type="radio" name="extra.timePriceType" value="per Week"/>per Week
                              <br/>
-                             <input type="radio" name="extra.timePriceType" value="<s:property value="#eachExtra.timePriceType"/>" />per Booking
+                             <input 
+                             <s:if test="#eachExtra.timePriceType == 'per Booking'">
+								   checked="checked"
+								</s:if>
+								type="radio" name="extra.timePriceType" value="per Booking"/>per Booking
 							 </div>
+							 
 							 <div class="radiogroup right">
-							 <input type="radio" name="extra.resourcePriceType" value="per Room" />per Room
+							 <input 
+							 	<s:if test="#eachExtra.resourcePriceType == 'per Room'">
+								   checked="checked"
+								</s:if>
+								type="radio" name="extra.resourcePriceType" value="per Room" />per Room
                              <br/>
-                             <input type="radio" name="extra.resourcePriceType" value="per Person" />per Person
+                             <input 
+                             	<s:if test="#eachExtra.resourcePriceType == 'per Person'">
+								   checked="checked"
+								</s:if>
+								type="radio" name="extra.resourcePriceType" value="per Person" />per Person
                              <br/>
-                             <input type="radio" name="extra.resourcePriceType" value="per Item" />per Item
+                             <input 
+                             	<s:if test="#eachExtra.resourcePriceType == 'per Item'">
+								   checked="checked"
+								</s:if>
+								type="radio" name="extra.resourcePriceType" value="per Item" />per Item
 							 </div>
+							 
 							 <div class="priceExtraForm right">
 							 	Price - &euro;
-							   <input type="text" name="extra.price" class="required number" value="<s:property value="#eachExtra.price"/>"/>
-							 </div> 
-                       	   </div>
+							   <input type="text" name="extra.price" class="required number small_input" value="<s:property value="#eachExtra.price"/>"/>
+							 </div>  
                          </div>
+                         <div class="type-button left">
+							   <button class="btn_saveExtra" aria-disabled="false">SAVE</button>
+                               <button class="btn_delete btn_delete_extra">DELETE</button>
+                         </div>	
                        </form>
                          
                        </s:iterator>
