@@ -26,7 +26,7 @@ public class SeasonAction extends ActionSupport implements SessionAware{
 	@Actions({
 		@Action(value="/goAddNewSeason",results = {
 				@Result(name="success",location="/seasons.jsp")
-				}), 			
+				})			
 				})
 				
 	public String goAddNewSeason(){

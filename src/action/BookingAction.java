@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import model.Booking;
+import model.Extra;
 import model.Guest;
 import model.Room;
 import model.RoomFacility;
@@ -304,6 +305,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		
 		return true;
 	}
+	
 
 	public Message getMessage() {
 		return message;
@@ -366,17 +368,10 @@ public class BookingAction extends ActionSupport implements SessionAware{
 	public void setNumNights(Integer numNights) {
 		this.numNights = numNights;
 	}
-
-
-
-
 	public List<Room> getRooms() {
 		return rooms;
 	}
-
-
-
-
+	
 	public void setRooms(List<Room> rooms) {
 		this.rooms = rooms;
 	}
@@ -390,8 +385,6 @@ public class BookingAction extends ActionSupport implements SessionAware{
 	public void setDateOut(String dateOut) {
 		this.dateOut = dateOut;
 	}
-	
-	
 	
 	
 	

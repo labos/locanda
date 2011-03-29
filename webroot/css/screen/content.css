@@ -398,7 +398,7 @@ display: inline;
   }
   
 
-  #extraForm, #extraList, #newExtra, .renameExtraForm {
+  #newExtraForm, .renameExtraForm {
   	display: none;
   }
   
@@ -411,7 +411,7 @@ display: inline;
 	margin-right: 1.2em;
   }
   
-  .renameExtra, .deleteExtra {
+  .renameExtra, .delete_extra {
   	
   	margin-left: 1.2em;
 	margin-right: 1.2em;

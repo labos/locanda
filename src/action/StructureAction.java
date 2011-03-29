@@ -10,6 +10,7 @@ import javax.servlet.ServletContext;
 
 import org.apache.commons.io.*;
 
+import model.Extra;
 import model.RoomFacility;
 import model.Structure;
 import model.User;
@@ -35,6 +36,8 @@ public class StructureAction extends ActionSupport implements SessionAware {
 	private String name;
 	private Message message = new Message();
 	private RoomFacility roomFacility = null;
+	private List<Extra> extras = null;
+	private Extra extra = null;
 
 	@Actions({
 		@Action(value="/uploadFacility",results = {
@@ -76,6 +79,94 @@ public class StructureAction extends ActionSupport implements SessionAware {
 	
 	}
 
+	@Actions({
+		@Action(value="/findAllExtras",results = {
+				@Result(name="success",location="/extras.jsp")
+		}) 
+		
+	})
+	public String findAllExtras() {
+		User user = (User)this.getSession().get("user");
+		//Controllare che sia diverso da null in un interceptor
+		Structure structure = user.getStructure();
+		this.setExtras(structure.getExtras());
+		return SUCCESS;
+	}
+	
+	@Actions({
+		@Action(value="/addNewExtra",results = {
+				@Result(type ="json",name="success", params={
+						"root","message"
+				} ),
+				@Result(type ="json",name="error", params={
+						"root","message"
+				} )
+		})
+		
+	})
+	
+	public String addNewExtra() {
+		User user = (User)this.getSession().get("user");
+		//Controllare che sia diverso da null in un interceptor
+		Structure structure = user.getStructure();
+		this.getExtra().setId(structure.nextKey());
+		this.getExtra().setName(this.getExtra().getName());
+		this.getExtra().setPrice(this.getExtra().getPrice());
+		structure.addExtra(this.getExtra());
+		this.getExtra().setResourcePriceType("per Room");
+		this.getExtra().setTimePriceType("per Night");
+		this.getMessage().setResult(Message.SUCCESS);
+		this.getMessage().setDescription("Extra Added successfully");
+		return SUCCESS;
+	}
+	
+	@Actions({
+		@Action(value="/updateExtra",results = {
+				@Result(type ="json",name="success", params={
+						"root","message"
+				} )
+		})
+		
+	})
+	public String updateExtra(){
+		User user = (User)session.get("user");
+		Structure structure = user.getStructure();
+		structure.updateExtra(this.getExtra());
+		//Aggiungere update error
+		this.getMessage().setResult(Message.SUCCESS);
+		this.getMessage().setDescription("Extra modified successfully");
+		return SUCCESS;
+	}
+	
+	
+	@Actions({
+		@Action(value="/deleteExtra",results = {
+				@Result(type ="json",name="success", params={
+						"root","message"
+				} ),
+				@Result(type ="json",name="error", params={
+						"root","message"
+				} )
+		})
+		
+	})
+	
+	public String deleteExtra() {
+		User user = (User)this.getSession().get("user");
+		//Controllare che sia diverso da null in un interceptor
+		Structure structure = user.getStructure();
+		Extra currentExtra = structure.findExtraById(this.getExtra().getId());
+		if(structure.deleteExtra(currentExtra)){
+			this.getMessage().setResult(Message.SUCCESS);
+			this.getMessage().setDescription("L'extra e' stato cancellato con successo");
+			return "success";
+		}else{
+			this.getMessage().setResult(Message.ERROR);
+			this.getMessage().setDescription("Non e' stato possibile cancellare l'extra");
+			return "error";
+		}		
+	}	
+	
 	
 	public File getUpload() {
 		return upload;
@@ -140,5 +231,23 @@ public class StructureAction extends ActionSupport implements SessionAware {
 	public void setSession(Map<String, Object> session) {
 		this.session = session;
 	}
+
+	public List<Extra> getExtras() {
+		return extras;
+	}
+
+	public void setExtras(List<Extra> extras) {
+		this.extras = extras;
+	}
+
+	public Extra getExtra() {
+		return extra;
+	}
+
+	public void setExtra(Extra extra) {
+		this.extra = extra;
+	}
+	
+	
 
 }

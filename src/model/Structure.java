@@ -190,6 +190,18 @@ public class Structure {
 		return ret;
 	}
 	
+	public Extra findExtraById(Integer id){
+		Extra ret = null;
+		for (Extra each : this.getExtras()) {
+			if (each.getId().equals(id)) {
+				return each;
+			}
+		}
+		
+		return ret;
+	}
+	
+	
 	public Boolean updateGuest(Guest guest){
 				
 		Guest oldGuest = this.findGuestById(guest.getId());
@@ -233,6 +245,20 @@ public class Structure {
 		oldBooking.setSubtotal(booking.getSubtotal());
 		oldBooking.setNotes(booking.getNotes());
 		oldBooking.setRoom(booking.getRoom());
+		
+		return true;
+	}
+	
+	public Boolean updateExtra(Extra extra){
+		
+		Extra oldExtra = this.findExtraById(extra.getId());
+		if(oldExtra==null){
+			return false;
+		}
+		oldExtra.setName(extra.getName());
+		oldExtra.setPrice(extra.getPrice());
+		oldExtra.setTimePriceType(extra.getTimePriceType());
+		oldExtra.setResourcePriceType(extra.getResourcePriceType());
 		
 		return true;
 	}

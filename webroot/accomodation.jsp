@@ -32,7 +32,7 @@
 				<a class="describe_edit" href="#" title="describe"><img src="images/sign-up-icon.png" alt="edit" /></a>
             	</legend>
             	<input type="hidden" name="redirect_form" value="findAllRooms.action?sect=accomodation" />
-		<div class="subcolumns type-text">
+		      <div class="subcolumns type-text">
 				<input type="hidden" name="room.id" value="<s:property value="id"/>"/>
               <div class="">
               <span>Room type:&nbsp;</span>

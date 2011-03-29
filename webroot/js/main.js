@@ -1227,7 +1227,7 @@ $(document).ready(function() {
    //---  EXTRAS SECTION CODE   
    
 		var values = []; 
-		$("#extraForm").validate();
+		$("#newExtraForm").validate();
 		$(".btn_addExtra").show();
 	  	$(".btn_addExtra").button({
 	  		icons: {
@@ -1249,56 +1249,73 @@ $(document).ready(function() {
 		
 	    $(".btn_addExtra").click(function() {
 	      $(this).hide();	
-		  $("#extraForm").show();
+		  $("#newExtraForm").show();
 	  	});
 		
-		$(".btn_saveExtra").click(function() {
-		  $("#extraForm").hide();
-		  values.push($("#extraFormName").val());
-		  var added = $("#newExtra").clone().insertAfter("#newExtra").attr("id", function(){ //clono il div e appendo all'id un progressivo
-		  	return this.id + "_" + values.length;
-		  	});
-		  added.find("input").attr("name", function(){ //appendo al name dei radio button un progressivo
-		  	return this.name + "_" + values.length;
-		  	});
-		  added.find(".renameExtra").before('<span class="extraName">' + values[values.length-1] + '</span>'); //inserisco prima del link il nome dell'extra
-		  added.find(".renameExtraForm").val(function(){ //assegno al value dell'input text il nome dell'extra
-		  	return values[values.length-1];
-		  	});
-		  added.find(".deleteExtra").click(function(){
-		    var extraName = added.find(".extraName").text();
-		  /*var index = added.attr("id").substr((added.attr("id").lastIndexOf("_")+1)); memorizzo l'indice del div corrente - errato perch�� gli indici non si aggiornano man mano che elimino elementi */
-			var index = values.indexOf(extraName); //memorizzo l'indice del div corrente usando il nome dell'extra
-			values.splice(index,1); //elimino l'elemento corrispondente dall'array
-			$(this).closest(".newExtra").remove(); //elimino il div al click del link "delete"
-			});	
-		  added.find(".renameExtra").click(function(){ //gestisco il rename facendo comparire il form relativo
+		$(".btn_delete_extra").click(function(event){
+		      event.preventDefault();
+		  	  $(this).parents("#extraForm").submitForm("deleteExtra.action");
+			});
+			
+		$(".renameExtra").click(function(){ //gestisco il rename facendo comparire il form relativo
 		  	$(this).hide();
 		    $(this).siblings(".extraName").hide();
 			$(this).siblings(".renameExtraForm").show();
 			$(this).siblings(".renameExtraForm").select();
 		  });
-		  added.find(".renameExtraForm").blur(function(){ //gestisco il blur per salvare la rinomina dell'extra
-			  var extraName = added.find(".extraName").text();
-			  var index = values.indexOf(extraName); //memorizzo l'indice del div corrente usando il nome dell'extra
-			  var newName = added.find(".renameExtraForm").val(); //memorizzo il nome dell'extra modificato
-			  values.splice(index,1, newName);
+		  
+		$(".renameExtraForm").blur(function(){ 						//gestisco il blur per salvare la rinomina dell'extra
+			  //var extraName = added.find(".extraName").text();
+			  //var index = values.indexOf(extraName); 					//memorizzo l'indice del div corrente usando il nome dell'extra
+			  var newName = $(this).val(); //memorizzo il nome dell'extra modificato
+			  //values.splice(index,1, newName);
 			  $(this).hide();
-			  $(".renameExtra").show();
-			  $(this).siblings(".extraName").text(newName);
-			  $(".extraName").show();
+			  $(".renameExtra").show(); 					//mostro il link di rinomina
+			  $(this).siblings(".extraName").text(newName); //setto il nome dell'extra modificato
+			  $(".extraName").show();						//mostro il nome dell'extra modificato
 			  $("#extraForm").valid();
 			});
-		  
-		  
-		  $(".btn_addExtra").show();
-		  $("#extraList").show();
-	    });
-		
-	    $(".btn_cancel").click(function() {	
-	  	  $("#extraForm").hide();
+			
+		$(".btn_cancel").click(function() {	
+	  	  $("#newExtraForm").hide();
 	  	  $(".btn_addExtra").show();
 	    })
+		
+		$(".btn_saveExtra").click(function() {
+		  $("#extraForm").hide();
+		  $(".btn_addExtra").show();
+	    });
+		 
+		
+		  /*values.push($("#extraFormName").val());
+		  /var added = $("#newExtra").clone().insertAfter("#newExtra").attr("id", function(){ //clono il div e appendo all'id un progressivo
+		  	return this.id + "_" + values.length;
+		  	}); 
+		  added.find("input").attr("name", function(){ //appendo al name dei radio button un progressivo
+		  	return this.name + "_" + values.length;
+		  	});
+		  //added.find(".renameExtra").before('<span class="extraName">' + values[values.length-1] + '</span>'); //inserisco prima del link il nome dell'extra
+		  added.find(".renameExtraForm").val(function(){ //assegno al value dell'input text il nome dell'extra
+		  	//return values[values.length-1];
+			return $(".extraList").find(".extraName");
+		  	});*/
+			
+			
+			
+		  /*added.find(".deleteExtra").click(function(){
+		    var extraName = added.find(".extraName").text();
+		  //var index = added.attr("id").substr((added.attr("id").lastIndexOf("_")+1)); memorizzo l'indice del div corrente - errato perche gli indici non si aggiornano man mano che elimino elementi 
+			var index = values.indexOf(extraName); //memorizzo l'indice del div corrente usando il nome dell'extra
+			values.splice(index,1); //elimino l'elemento corrispondente dall'array
+			$(this).closest(".newExtra").remove(); //elimino il div al click del link "delete" 
+			});	*/
+		  
+		  
+		  
+		  
+		  
+		
+	    
 	  
    		
    //---  END EXTRAS SECTION CODE  
