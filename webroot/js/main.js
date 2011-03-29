@@ -575,7 +575,7 @@ $(document).ready(function() {
          
          
          
-         $dialogContent.load("goAddBookingFromPlanner.action", {'booking.room.id': id_booked, 'dateIn':startField, 'numNights':duration}, function(){optionsLoc.init();
+         $dialogContent.load("goAddBookingFromPlanner.action", {'booking.room.id': id_booked, 'dateIn':startField, 'numNights':duration, 'booking.dateOut': endField}, function(){optionsLoc.init();
          
          }).dialog({
             modal: true,

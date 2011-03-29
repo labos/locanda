@@ -1,5 +1,7 @@
 package action;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
 
@@ -10,6 +12,8 @@ import model.Room;
 import model.RoomFacility;
 import model.Structure;
 import model.User;
+import model.listini.Period;
+import model.listini.Season;
 
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Actions;
@@ -189,6 +193,30 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		anExtra.setTimePriceType("per Night");
 		aBooking.addExtra(anExtra);
 		structure.addExtra(anExtra);
+	}
+	
+	private void buildSeasons(Structure structure){
+		Season aSeason = null;
+		Period aPeriod = null;
+		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+		aSeason = new Season();
+		aPeriod = new Period();
+		
+		aSeason.setId(structure.nextKey());
+		aSeason.setName("Invernale");
+		aSeason.setYear(2011);
+		aPeriod.setId(structure.nextKey());
+		
+		try {
+			aPeriod.setStartDate(sdf.parse("2011/01/01"));
+			aPeriod.setEndDate(sdf.parse("2011/15/04"));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+
+		structure.addSeason(aSeason);
 	}
 	
 	public Map<String, Object> getSession() {
