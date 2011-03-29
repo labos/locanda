@@ -1148,29 +1148,27 @@ $(document).ready(function() {
 			         primary: "ui-icon-check"
 			     }});
 			 
-		  $("#rename_season").toggle(function(){
-			  $('input[name="season_name"]').focus().css("border","1px solid").removeAttr("readonly");
-		  }, 
-		  function(){
-			  $('input[name="season_name"]').css("border","none").attr("readonly","true");
-		
-		  });
+
 		  
 		  
 		 /* Hide/Show season name change */
 		 
-		 $(".btn_season").toggle( function(){
-			 
-			 $("#chng_season_name").show();
-		 }, function(){
-			 
-			 $("#chng_season_name").hide();
+		 $(".btn_season").click( function(event){
+			 event.preventDefault();
+			 $(this).parents(".yform").submitForm();
 			 
 		 });
 		 
+		  $(".rename_season").toggle(function(){
+			  $(this).siblings('input[name="season.name"]').focus().css("border","1px solid").removeAttr("readonly");
+		  }, 
+		  function(){
+			  $('input[name="season.name"]').css("border","none").attr("readonly","true");
 		
+		  });
+		 
 		 $("#add_period").click( function(){
-			 var dd=  $(".subcolumns").eq(0);
+			 var dd=  $(".subcolumns").eq(1);
 		
 			 var added= $("#to_add_period").clone().insertAfter(dd).removeAttr("id").show();
 				added.find(".erase_period").click( function(){
@@ -1178,6 +1176,21 @@ $(document).ready(function() {
 					$(this).closest(".subcolumns").remove();
 		
 				 });
+				  $(".rename_season").toggle(function(){
+					  $(this).siblings('input[name="season_name"]').focus().css("border","1px solid").removeAttr("readonly");
+				  }, 
+				  function(){
+					  $('input[name="season.name"]').css("border","none").attr("readonly","true");
+				
+				  });
+				
+					$( ".datepicker" ).datepicker({
+						showOn: "button",
+						buttonImage: "images/calendar.gif",
+						buttonImageOnly: true,
+						dateFormat: "mm/dd/yy"
+					});
+				
 		 });
 		 
 		 $(".erase_period").click( function(){

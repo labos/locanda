@@ -2,7 +2,9 @@ package action;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import model.Booking;
@@ -72,7 +74,7 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		this.buildGuests(ret);
 		this.buildBookings(ret);
 		this.buildExtras(ret);
-		
+		this.buildSeasons(ret);
 		return ret;		
 	}
 	
@@ -198,9 +200,11 @@ public class LoginAction extends ActionSupport implements SessionAware{
 	private void buildSeasons(Structure structure){
 		Season aSeason = null;
 		Period aPeriod = null;
+		List<Period> aPeriods = new ArrayList<Period>();
 		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 		aSeason = new Season();
 		aPeriod = new Period();
+		
 		
 		aSeason.setId(structure.nextKey());
 		aSeason.setName("Invernale");
@@ -208,14 +212,16 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		aPeriod.setId(structure.nextKey());
 		
 		try {
-			aPeriod.setStartDate(sdf.parse("2011/01/01"));
-			aPeriod.setEndDate(sdf.parse("2011/15/04"));
+			aPeriod.setStartDate(sdf.parse("01/01/2011"));
+			aPeriod.setEndDate(sdf.parse("04/15/2011"));
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-
+		aPeriods.add(aPeriod);
+		
+		aSeason.setPeriods(aPeriods);
 		structure.addSeason(aSeason);
 	}
 	
