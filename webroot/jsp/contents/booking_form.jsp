@@ -353,45 +353,49 @@ display: none;
                  		</select>
                  	  </div>
                  	  <div class="type-select">
-                  <div class="type_rooms">
-                      <input type="text" name="per_value" id="per_value" value="<s:property value="booking.room.price"/>" class="number"/>
-                    </div>
-                  <div class="type_rooms">
-                      <input type="radio" name="per_room_person" id="per_room" value="1" /><label for=
-                      "per_room">Per Room:</label>
-                    </div>
-                    <div class="type_rooms">
-                      <input type="radio" name="per_room_person" id="per_person" value="3" /><label for=
-                      "per_person">Per Person:</label>
-                    </div>
-                    <div class="type_rooms">
-                      <input type="radio" name="per_night_week" id="per_night" value="2" /><label for=
-                      "per_night">Per Night:</label>
-                    </div>
-                    <div class="type_rooms">
-                      <input type="radio" name="per_night_week" id="per_week" value="4" /><label for=
-                      "per_week">Per Week:</label>
-                    </div>
-                    </div>
+                 	  	<div class="type_rooms">
+                      	  <input type="text" name="per_value" id="per_value" value="<s:property value="booking.room.price"/>" class="number"/>
+                    	</div>
+                  	    <div class="type_rooms">
+                      	  <input type="radio" name="per_room_person" id="per_room" value="1" />
+                      	  <label for="per_room">Per Room:</label>
+                        </div>
+                      	<div class="type_rooms">
+                          <input type="radio" name="per_room_person" id="per_person" value="3" />
+                          <label for="per_person">Per Person:</label>
+                      	</div>
+                      	<div class="type_rooms">
+                          <input type="radio" name="per_night_week" id="per_night" value="2" />
+                          <label for="per_night">Per Night:</label>
+                      	</div>
+                      	<div class="type_rooms">
+                          <input type="radio" name="per_night_week" id="per_week" value="4" />
+                          <label for="per_week">Per Week:</label>
+                      	</div>
+                      </div>
                   <div class="type-text">
                       <div id="rate">
                       <span><s:property value="booking.room.price"/> &euro;</span><span> / Room</span><span> / Night</span>
                       (<a id="change_rate" href="#">Change Rate for this booking</a>)
                     </div>
                   </div>
-  			 	  <div class="type-select"><label for="per_parking">Extras:</label>
+                  
+                  <div class="type-select"><label for="per_parking">Extras:</label>
+                  
+                    <s:iterator value="extras" var="eachExtra" >
+                  
                     <div class="type-check">
-                      <input type="checkbox" name="extras_array[]" id="per_parking" value="10" /><label for=
-                      "per_parking">Parking</label>
+                      <input type="checkbox" name="extras_array[]" id="<s:property value="#eachExtra.id"/>" value="<s:property value="#eachExtra.price"/>" />
+                      <label for="<s:property value="#eachExtra.id"/>"><s:property value="#eachExtra.name"/></label>
                     </div>
-                    <div class="type-check">
-                      <input type="checkbox" name="extras_array[]" id="per_breakfast" value="8" /><label for=
-                      "per_breakfast">Breakfast</label>
-                    </div>
-                    <div class="type-text"><label for="notes">Note:</label> 
+                    
+                    </s:iterator>
+                  
+                 	<div class="type-text"><label for="notes">Note:</label> 
                   	  <textarea name="booking.notes" id="notes"><s:property value="booking.notes"/></textarea>
                     </div>
                   </div>
+                  
                 </fieldset>
                 </div>
                 <div class="c10l">

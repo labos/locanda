@@ -36,6 +36,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 	private List<Room> rooms = null;
 	private Message message = new Message();
 	private String dateOut = null;
+	private List<Extra> extras = null;
 	
 	@Actions({
 		@Action(value="/goAddNewBooking",results = {
@@ -53,6 +54,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		//Controllare che sia diverso da null in un interceptor
 		Structure structure = user.getStructure();
 		this.setRooms(structure.getRooms());
+		this.setExtras(structure.getExtras());
 		return SUCCESS;
 	}
 	
@@ -384,6 +386,16 @@ public class BookingAction extends ActionSupport implements SessionAware{
 
 	public void setDateOut(String dateOut) {
 		this.dateOut = dateOut;
+	}
+
+
+	public List<Extra> getExtras() {
+		return extras;
+	}
+
+
+	public void setExtras(List<Extra> extras) {
+		this.extras = extras;
 	}
 	
 	
