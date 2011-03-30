@@ -28,11 +28,14 @@ public class SeasonAction extends ActionSupport implements SessionAware{
 	private Season season = null;
 	private String startDate = null;
 	private String endDate = null;
+
+
+	private List <Period> periods = new ArrayList<Period>();
 	private Message message = new Message();
 
 
 	@Actions({
-		@Action(value="/goAddNewSeason",results = {
+		@Action(value="/saveUpdateSeason",results = {
 				@Result(type ="json",name="success", params={
 						"root","message"
 				} ),
@@ -43,7 +46,7 @@ public class SeasonAction extends ActionSupport implements SessionAware{
 		}	)		
 				})
 				
-	public String goAddNewSeason(){
+	public String saveUpdateSeason(){
 		User user = (User)session.get("user");
 		Structure structure = user.getStructure();
 		this.setSeasons(structure.getSeasons());
@@ -56,8 +59,7 @@ public class SeasonAction extends ActionSupport implements SessionAware{
 			
 		}
 		
-		Season oldSeason = 
-			structure.findSeasonById(this.getSeason().getId());
+		Season oldSeason = 	structure.findSeasonById(this.getSeason().getId());
 		if(oldSeason==null){
 			//Si tratta di una nuova season
 			this.getSeason().setId(structure.nextKey());
@@ -130,22 +132,20 @@ public class SeasonAction extends ActionSupport implements SessionAware{
 
 	
 	private Boolean saveUpdatePeriodDates(){
-		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
-		Date dateOut = null;
-		Long millis = null;
+		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");;
 		Period aPeriod = new Period();
-		List <Period> aPeriods = new ArrayList<Period>();
+/*		List <Period> aPeriods = this.periods;
 		
 		try {
 			aPeriod.setStartDate(sdf.parse(this.getStartDate()));
 			aPeriod.setEndDate(sdf.parse(this.getEndDate()));
 			aPeriods.add(aPeriod);
-			this.getSeason().setPeriods(aPeriods);			
+		this.getSeason().setPeriods(aPeriods);			
 		} catch (ParseException e) {
 			e.printStackTrace();
 			return false;
 		}
-			
+			*/
 		
 		return true;
 		
@@ -187,6 +187,13 @@ public class SeasonAction extends ActionSupport implements SessionAware{
 		this.endDate = endDate;
 	}
 	
+	public List<Period> getPeriods() {
+		return periods;
+	}
+
+	public void setPeriods(List<Period> periods) {
+		this.periods = periods;
+	}
 	
 	
 

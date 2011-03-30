@@ -1167,8 +1167,8 @@ $(document).ready(function() {
 		
 		  });
 		 
-		 $("#add_period").click( function(){
-			 var dd=  $(".subcolumns").eq(1);
+		 $(".add_period").click( function(){
+			 var dd=  $(this).parents(".subcolumns").siblings(".subcolumns:last");
 		
 			 var added= $("#to_add_period").clone().insertAfter(dd).removeAttr("id").show();
 				added.find(".erase_period").click( function(){
@@ -1190,6 +1190,8 @@ $(document).ready(function() {
 						buttonImageOnly: true,
 						dateFormat: "mm/dd/yy"
 					});
+					
+					return false;
 				
 		 });
 		 
