@@ -1166,25 +1166,37 @@ $(document).ready(function() {
 			  $('input[name="season.name"]').css("border","none").attr("readonly","true");
 		
 		  });
-		 
+		  
+		  
+		 /* Add period management */
+		  
 		 $(".add_period").click( function(){
-			 var dd=  $(this).parents(".subcolumns").siblings(".subcolumns:last");
-		
+			
+			 //count the number of periods already added
+			 var formParent =	$(this).parents(".subcolumns");
+			 var num_of_periods =  formParent.siblings(".subcolumns.period").size();
+			 // get last subcolumns
+			 var dd=  formParent.siblings(".subcolumns:last");
+			 // setup of cloned row to add
 			 var added= $("#to_add_period").clone().insertAfter(dd).removeAttr("id").show();
-				added.find(".erase_period").click( function(){
-					 
-					$(this).closest(".subcolumns").remove();
-		
-				 });
+			 added.html ( added.html().replace(/__PVALUE__/ig, num_of_periods) );
+			 // attach listener to cloned row
+			 	// attach erase click
+			 added.find(".erase_period").click( function(){
+				$(this).closest(".subcolumns").remove();
+				
+			 });
 				  $(".rename_season").toggle(function(){
-					  $(this).siblings('input[name="season_name"]').focus().css("border","1px solid").removeAttr("readonly");
+					  $(this).siblings('input[name="season.name"]').focus().css("border","1px solid").removeAttr("readonly");
 				  }, 
 				  function(){
 					  $('input[name="season.name"]').css("border","none").attr("readonly","true");
 				
 				  });
-				
-					$( ".datepicker" ).datepicker({
+				  
+				  // attack datepickers
+
+				  added.find( ".datepicker" ).datepicker({
 						showOn: "button",
 						buttonImage: "images/calendar.gif",
 						buttonImageOnly: true,
@@ -1197,7 +1209,44 @@ $(document).ready(function() {
 		 
 		 $(".erase_period").click( function(){
 			 
-			$(this).closest(".subcolumns").remove();
+			 var formParent =	$(this).parents(".yform");
+					var season_id = formParent.find('input:hidden[name="season.id"]').val();
+					var period_id_delete = $(this).prev('input[name="idPeriod"]').val();
+					var _redirectAction	= "findAllSeasons.action?sect=settings";
+						$.ajax({
+							  url: "deletePeriodFromSeason.action",
+							  data: { 'season.id': season_id, idPeriod: period_id_delete },
+							  type: "POST",
+							  dataType: 'json',
+							  success: function(data_action){
+						        	if(typeof data_action.message !== "undefined" &&  data_action.message.result=="success")
+					        		{
+						        	$(this).closest(".subcolumns").remove();
+					        		$().notify(optionsLoc.alertOK, data_action.message.description, _redirectAction);
+					        		}
+					        	
+					        	else if(typeof data_action.message !== "undefined" && data_action.message.result=="error")
+					        		{
+					        			$().notify(optionsLoc.alertKO, data_action.description);
+					        		}
+					        		
+						        	else{
+						   		   		$(".validationErrors").html(data_action);
+						   		   		}
+						   		    	
+						   		   },
+						   		   
+						   		   error: function (){
+						   			   
+						   			$().notify("Errore Grave", "Problema nella risorsa interrogata nel server");
+						   		   }
+								  
+							  
+							});
+			
+					
+			 
+			
 		
 		 });
    //---  END SEASONS SECTION CODE  

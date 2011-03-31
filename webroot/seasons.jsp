@@ -31,7 +31,8 @@
                 <span>Name:</span>
 <input type="text"name="season.name" value="Your first season" style="display: inline;" readonly="readonly"/>&nbsp; (<a href="#" class="rename_season" title="rename" >Rename</a>)              </div>
               </div>
-              <div class="subcolumns">
+              </div>
+              <div class="subcolumns period">
              <div class="c20l">
                <div class="subcl type-text">
                 <span>From:</span>
@@ -49,8 +50,8 @@
               
               </div>
               </div>
-              </div>
-              <a NAME="top_anchor"></a> 
+
+              <a name="top_anchor"></a> 
               </fieldset>
             <div class="type-button">
             <button class="btn_season">ADD NEW SEASON</button>
@@ -75,15 +76,18 @@
                <div class="subcl type-text">
                 <span>Name:</span>
                 <a name="<s:property value="#eachSeason.name"/>"></a>
-<input type="text"name="season.name" value="<s:property value="#eachSeason.name"/>" style="display: inline;" readonly="readonly"/></span>&nbsp; (<a href="#<s:property value="#eachSeason.name"/>" class="rename_season" title="rename" >Rename</a>)              </div>
+<input type="text"name="season.name" value="<s:property value="#eachSeason.name"/>" style="display: inline;" readonly="readonly"/>&nbsp; (<a href="#<s:property value="#eachSeason.name"/>" class="rename_season" title="rename" >Rename</a>)    
+          </div>
+              </div>
               </div>
 <s:iterator value="#eachSeason.periods" var="eachPeriod" status="periodStatus">
 
-<div class="subcolumns">
+<div class="subcolumns period">
              <div class="c20l">
                <div class="subcl type-text">
                 <span>From:</span>
-                <input type="text" class="datepicker" name="periods[<s:property value="#periodStatus.index"/>].startDate" value="<s:date name="#eachPeriod.startDate" format="MM/dd/yyyy" />" style="display: inline;"/>
+               <input type="hidden" name="periods[<s:property value="#periodStatus.index"/>].id" value="<s:property value="#eachPeriod.id"/>"/>
+               <input type="text" class="datepicker" name="periods[<s:property value="#periodStatus.index"/>].startDate" value="<s:date name="#eachPeriod.startDate" format="MM/dd/yyyy" />" style="display: inline;"/>
               </div>
               </div>
               <div class="c20l">
@@ -94,12 +98,16 @@
               </div>
               <div class="c10l">
               <label>&nbsp;</label>
-              <a href="#" class="erase_period" title="erase">Delete Period</a>
+              <s:if test="#periodStatus.index > 0">
+			 <input type="hidden" name="idPeriod" value="<s:property value="#eachPeriod.id"/>"/>
+              <a href="#" class="erase_period" title="erase">Delete Period</a>				  
+								</s:if>
+
               </div>
               </div>
 
 </s:iterator>
-              </div>
+             
             <div class="type-button">
             <input type="text" name="new_name_season" id="chng_season_name" value=""/>
             <button class="btn_season">UPDATE SEASON</button>
@@ -111,17 +119,17 @@
  
           
 <!--  Hidden new season  -->
-             <div class="subcolumns" id="to_add_period" style="display: none;">
+             <div class="subcolumns period" id="to_add_period" style="display: none;">
              <div class="c20l">
                <div class="subcl type-text">
                 <span>From:</span>
-                <input type="text" class="datepicker" name="periods[1].startDate" value="" style="display: inline;"/>
+                <input type="text" class="datepicker" name="periods[__PVALUE__].startDate" value="" style="display: inline;"/>
               </div>
               </div>
               <div class="c20l">
               <div class="subcl type-text">
               <span>To:</span>
-              <input type="text" class="datepicker" name="periods[1].endDate" value="" style="display: inline;"/>
+              <input type="text" class="datepicker" name="periods[__PVALUE__].endDate" value="" style="display: inline;"/>
               </div>
               </div>
               <div class="c10l">
