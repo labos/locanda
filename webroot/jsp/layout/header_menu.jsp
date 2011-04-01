@@ -39,7 +39,7 @@
       var text_tab = $("#"+section).children("a").hide().text();
       $("#"+section).addClass("active").prepend("<strong>" + text_tab + "</strong>");
       I18NSettings = {};
-      I18NSettings.datePattern = "dd/mm/yy";
+      I18NSettings.datePattern = '<s:property value="#session.datePattern"/>';
       I18NSettings.ita = "ita";
 
       });
