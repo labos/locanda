@@ -35,7 +35,7 @@ display: none;
             				<div class="c20l">
             				<div class="subcl type-text">
             				<label for="datepicker">Date In: <sup title="This field is mandatory.">*</sup> </label>
-							<input type="text" name="dateIn" class="datepicker"  value="<s:property value="dateIn"/>" style="display: inline;"/>
+							<input type="text" name="booking.dateIn" class="datepicker"  value="<s:date name="booking.dateIn" format="dd/MM/yyyy" />" style="display: inline;"/>
 							</div>
 							</div>
 							<div class="c20l">
@@ -73,7 +73,7 @@ display: none;
                             <div class="c20l">
             				<div class="subcl type-text">
             				<label for="datepicker">Date Out: <sup title="This field is mandatory.">*</sup> </label>
-							<input type="text" name="dateOutNotSended" class="date datepicker"  value="<s:property value="booking.dateOut"/>" style="display: inline;"/>
+							<input type="text" name="booking.dateOut" class="date datepicker"  value="<s:date name="booking.dateOut" format="dd/MM/yyyy" />" style="display: inline;"/>
 							</div>
 							</div>
 							<div class="c20l">
@@ -344,7 +344,7 @@ display: none;
                   
                       <div class="type-select">
                       	<label for="nr_guests">Guests:</label> 
-                      	<select name="booking.nrGuests" id="nr_guests">
+                      	<select name="booking.nrGuests" id="nr_guests" class="require">
                       	  <option selected="selected" value="<s:property value="booking.nrGuests"/>"><s:property value="booking.nrGuests"/></option>
                     	  <option value="1">1</option>
                     	  <option value="1">2</option>

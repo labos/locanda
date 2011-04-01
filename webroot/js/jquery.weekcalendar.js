@@ -15,7 +15,9 @@
  *   If you're after a monthly calendar plugin, check out http://arshaw.com/fullcalendar/
  */
 
-(function($) {
+
+$(function() {
+
 
    $.widget("ui.weekCalendar", {
 
@@ -340,8 +342,10 @@
             }
             //dovrei ora settare la data di start e di end nel caso in cui clicchi su un booking (ovvero caselle adiacenti bookate).
             
-           start_date_click= self.formatDate(new Date($target.data("calEvent").start),"d/M/Y");
-           end_date_click= self.formatDate(new Date($target.data("calEvent").end),"d/M/Y");
+            start_date_click = $.datepicker.formatDate(I18NSettings.datePattern,new Date($target.data("calEvent").start));
+            end_date_click = $.datepicker.formatDate(I18NSettings.datePattern,new Date($target.data("calEvent").end));
+/*           start_date_click= self.formatDate(new Date($target.data("calEvent").start),"dd/mm/yy");
+           end_date_click= self.formatDate(new Date($target.data("calEvent").end),"dd/mm/yy");*/
             //se il target del click  ha la classe wc-cal-event, allora 
                if ($target.hasClass("wc-cal-event")) {
                options.eventClick({start: start_date_click, end: end_date_click}, $target, event);
@@ -817,8 +821,10 @@ else {
  */
 
 //prima controlliamo che non ci siano overlapping di bookings
-var dateInNewBook = self.formatDate(new Date(start_booking) ,"m/d/Y" );
-var dateOutNewBook = self.formatDate(new Date(end_booking) ,"m/d/Y" );
+var dateInNewBook = $.datepicker.formatDate(I18NSettings.datePattern,new Date(start_booking));
+var dateOutNewBook = $.datepicker.formatDate(I18NSettings.datePattern,new Date(end_booking));
+/*var dateInNewBook = self.formatDate(new Date(start_booking) ,"dd/mm/yy" );
+var dateOutNewBook = self.formatDate(new Date(end_booking) ,"dd/mm/yy" );*/
 $.ajax({
 	  type: 'POST',
 	  url: "checkBookingDates.action",
@@ -1949,6 +1955,9 @@ var pxTop = calEvent.top;
          d: function(date) {
             return (date.getDate() < 10 ? '0' : '') + date.getDate();
          },
+         dd: function(date) {
+             return (date.getDate() < 10 ? '0' : '') + date.getDate();
+          },
          D: function(date, options) {
             return options.shortDays[date.getDay()];
          },
@@ -1981,6 +1990,9 @@ var pxTop = calEvent.top;
          m: function(date) {
             return (date.getMonth() < 9 ? '0' : '') + (date.getMonth() + 1);
          },
+         mm: function(date) {
+             return (date.getMonth() < 9 ? '0' : '') + (date.getMonth() + 1);
+          },
          M: function(date, options) {
             return options.shortMonths[date.getMonth()];
          },
@@ -2000,6 +2012,9 @@ var pxTop = calEvent.top;
          Y: function(date) {
             return date.getFullYear();
          },
+         yy: function(date) {
+             return date.getFullYear();
+          },
          y: function(date) {
             return ('' + date.getFullYear()).substr(2);
          },
@@ -2112,4 +2127,4 @@ var pxTop = calEvent.top;
    }();
 
 
-})(jQuery);
+});

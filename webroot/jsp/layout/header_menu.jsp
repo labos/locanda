@@ -23,8 +23,6 @@
 
   <script type='text/javascript' src='js/lib/jquery-ui-1.8.9.custom.min.js'>
 </script>
-  <script type='text/javascript' src='js/jquery.weekcalendar.js'>
-</script>
   <script type='text/javascript' src='js/jquery.fileupload.js'>
 </script>
   <script type='text/javascript' src='js/jquery.fileupload-ui.js'>
@@ -40,11 +38,17 @@
       %>
       var text_tab = $("#"+section).children("a").hide().text();
       $("#"+section).addClass("active").prepend("<strong>" + text_tab + "</strong>");
+      I18NSettings = {};
+      I18NSettings.datePattern = "dd/mm/yy";
+      I18NSettings.ita = "ita";
+
       });
       </script>
   <script type='text/javascript' src='js/ftod.js'>
 </script>
   <script type='text/javascript' src='js/jquery.validate.min.js'>
+</script>
+  <script type='text/javascript' src='js/jquery.weekcalendar.js'>
 </script>
   <script type='text/javascript' src='js/main.js'>
 </script>

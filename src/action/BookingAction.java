@@ -1,10 +1,12 @@
 package action;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import model.Booking;
@@ -197,7 +199,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		User user = (User)session.get("user");
 		Structure structure = user.getStructure();
 		
-		this.saveUpdateBookingDates();	
+		//this.saveUpdateBookingDates();	
 		if(!structure.hasRoomFreeInDate(
 				this.getBooking().getRoom().getId(), this.getBooking().getDateOut())){
 			this.getMessage().setResult(Message.ERROR);
@@ -240,20 +242,24 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		User user = (User)session.get("user");
 		Structure structure = user.getStructure();
 		
-		this.saveUpdateBookingDates();	
-		if(!structure.hasRoomFreeInDate(
+		//this.saveUpdateBookingDates();	
+/*		if(!structure.hasRoomFreeInDate(
 				this.getBooking().getRoom().getId(), this.getBooking().getDateOut())){
 			this.getMessage().setResult(Message.ERROR);
 			this.getMessage().setDescription("Booking sovrapposti!");
 			return ERROR;
-		}
+		}*/
 		this.getMessage().setResult(Message.SUCCESS);
 		this.getMessage().setDescription("Booking Dates OK!");
 		return SUCCESS;
 	}
 	
 	private Boolean saveUpdateBookingDates(){
-		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+		
+		Locale locale = this.getLocale();
+		SimpleDateFormat sdf1 = (SimpleDateFormat) DateFormat.getDateInstance(DateFormat.SHORT, locale);
+		System.out.println(sdf1.toPattern());
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");
 		Date dateOut = null;
 		Long millis = null;
 		

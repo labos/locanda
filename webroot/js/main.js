@@ -1,9 +1,10 @@
 $(document).ready(function() {
 	
-	 
+
+
 	overlay	= $('<div id="fancybox-overlay"></div>');
-	var Option = function(lang) {
-		
+	var Option = function(lang, patternDate) {
+		this.datePattern = patternDate;
 		this.alertOK = "Congratulazioni";
 		this.alertKO = "Attenzione!";
 		var ONE_DAY = 1000 * 60 * 60 * 24
@@ -17,7 +18,7 @@ $(document).ready(function() {
 				showOn: "button",
 				buttonImage: "images/calendar.gif",
 				buttonImageOnly: true,
-				dateFormat: "mm/dd/yy",
+				dateFormat: patternDate,
 				 onSelect: function(dateText, inst) {
 					 var numNights = 0;
 					 var closerDateInput =$( ".datepicker" ).not($(this));
@@ -185,23 +186,23 @@ $(document).ready(function() {
 	     	  
 	     	   //update of dateOut changing num of nights.
 	     	   $("select[name='numNights']").change(function() {
-	     		  $('input[name="dateIn"]').rules("add",  "date");
+	     		  $('input[name="booking.dateIn"]').rules("add",  "date");
 	     		  var dateOut = '';
 	     	      var numNights = $(this).find(":selected").val();
-	     	      var dateInVal = $('input[name="dateIn"]').val();
-	     	      var $dateInDom = $('input[name="dateIn"]');
+	     	      var dateInVal = $('input[name="booking.dateIn"]').val();
+	     	      var $dateInDom = $('input[name="booking.dateIn"]');
 	     	      if (dateInVal !=='' && $dateInDom.valid() )
 	     	    	  {
 	     	    	  var dateInDate = new Date ( dateInVal );
-	     	    	  var millisO = dateInDate.getTime()
+	     	    	  var millisO = dateInDate.getTime();
 	     	    	  var dateOutDateMill = dateInDate.getTime() + ( ONE_DAY * numNights );
 	     	    	 // dateOut = new dateOutDate.toString('dd/mm/yyyy');
 	     	    	 var dateOutDate = new Date(dateOutDateMill);
 	     	    	
-	     	    	 dateOut =  $.datepicker.formatDate('mm/dd/yy',dateOutDate);
+	     	    	 dateOut =  $.datepicker.formatDate('dd/mm/yy',dateOutDate);
 	     	    	  }
 	     	      
-	     	     $('input[name="dateOutNotSended"]').datepicker("setDate", dateOut);
+	     	     $('input[name="booking.dateOut"]').datepicker("setDate", dateOut);
 
 	     	   });
 	     	  
@@ -212,7 +213,7 @@ $(document).ready(function() {
 
 		};
 		
-		var optionsLoc = new Option("ita");
+		var optionsLoc = new Option(I18NSettings.lang,I18NSettings.datePattern);
 			optionsLoc.init();
 
 	
@@ -575,7 +576,7 @@ $(document).ready(function() {
          
          
          
-         $dialogContent.load("goAddBookingFromPlanner.action", {'booking.room.id': id_booked, 'dateIn':startField, 'numNights':duration, 'booking.dateOut': endField}, function(){optionsLoc.init();
+         $dialogContent.load("goAddBookingFromPlanner.action", {'booking.room.id': id_booked, 'booking.dateIn':startField, 'numNights':duration, 'booking.dateOut': endField}, function(){optionsLoc.init();
          
          }).dialog({
             modal: true,
@@ -1195,12 +1196,12 @@ $(document).ready(function() {
 				  });
 				  
 				  // attack datepickers
-
+				  added.find( ".datepicker" ).removeClass('hasDatepicker').datepicker("destroy");
 				  added.find( ".datepicker" ).datepicker({
 						showOn: "button",
 						buttonImage: "images/calendar.gif",
 						buttonImageOnly: true,
-						dateFormat: "mm/dd/yy"
+						dateFormat: "dd/mm/yy"
 					});
 					
 					return false;
