@@ -263,6 +263,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		Date dateOut = null;
 		Long millis = null;
 		
+		/*
 		try {
 			
 			this.getBooking().setDateIn(sdf.parse(this.getDateIn()));			
@@ -270,7 +271,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 			e.printStackTrace();
 			return false;
 		}
-		
+		*/
 		if(this.getDateOut()!=null){
 			try {
 				this.getBooking().setDateOut(sdf.parse(this.getDateOut()));

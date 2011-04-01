@@ -30,6 +30,7 @@ public class ListinoCamera {
 		}
 		return null;
 	}
+	
 	public Boolean updateItem(ItemListinoCamera anItem){
 		ItemListinoCamera oldItem = null;
 		

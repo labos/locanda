@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
+import model.listini.ListinoCamera;
 import model.listini.Season;
 
 public class Structure {
@@ -20,17 +21,19 @@ public class Structure {
 	private List<Booking> bookings;
 	private List<Extra> extras;
 	private List<Season> seasons;
+	private List<ListinoCamera> listiniCamere;
 	
 	
 	public Structure(){
 		this.rooms = new ArrayList<Room>();
 		this.keys = new TreeSet<Integer>();
+		this.keys.add(1);
 		this.roomFacilities = new ArrayList<RoomFacility>();
 		this.guests = new ArrayList<Guest>();
 		this.bookings = new ArrayList<Booking>();
 		this.extras = new ArrayList<Extra>();
 		this.setSeasons(new ArrayList<Season>());
-		this.keys.add(1);
+		this.setListiniCamere(new ArrayList<ListinoCamera>());
 	}
 	
 	public Boolean hasRoomNamed(String name){
@@ -274,8 +277,8 @@ public class Structure {
 	}
 	
 	public Boolean addSeason(Season aSeason){
-		this.getSeasons().add(aSeason);
-		return true;
+		return this.getSeasons().add(aSeason);
+		
 	}
 	
 	public Boolean removeSeason(Season aSeason){
@@ -315,6 +318,39 @@ public class Structure {
 		oldSeason.setName(aSeason.getName());
 		oldSeason.setYear(aSeason.getYear());
 		oldSeason.setPeriods(aSeason.getPeriods());
+		return true;
+	}
+	
+	public Boolean addListinoCamera(ListinoCamera listino){
+		return this.getListiniCamere().add(listino);
+		
+	}
+	
+	public Boolean removeListinoCamera(ListinoCamera listino){
+		return this.getListiniCamere().remove(listino);
+	}
+	
+	public ListinoCamera findListinoCameraById(Integer id){
+		ListinoCamera ret = null;
+		
+		for(ListinoCamera each: this.getListiniCamere()){
+			if(each.getId().equals(id)){
+				return each;
+			}
+		}
+		return ret;
+	}
+	
+	public List<ListinoCamera> findListiniCamereByYear(Integer year){
+		List<ListinoCamera> ret = new ArrayList<ListinoCamera>();
+		
+		
+		return ret;
+	}
+	
+	public Boolean updateListinoCamera(ListinoCamera listino){
+		
+		
 		return true;
 	}
 	
@@ -375,6 +411,14 @@ public class Structure {
 
 	public void setSeasons(List<Season> seasons) {
 		this.seasons = seasons;
+	}
+
+	public List<ListinoCamera> getListiniCamere() {
+		return listiniCamere;
+	}
+
+	public void setListiniCamere(List<ListinoCamera> listiniCamere) {
+		this.listiniCamere = listiniCamere;
 	}
 	
 	

@@ -1,10 +1,12 @@
 package action;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import model.Booking;
@@ -44,6 +46,9 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		String ret = null;	
 		User user = null;
 		Structure structure = null;
+		Locale locale = null;
+		SimpleDateFormat sdf = null;
+		String datePattern = null;
 		
 		if(this.getEmail().trim().equals("locanda@locanda.it") &&
 				this.getPassword().trim().equals("locanda")){
@@ -52,7 +57,11 @@ public class LoginAction extends ActionSupport implements SessionAware{
 			user.setEmail(this.getEmail());
 			structure = this.buildStructure();
 			user.setStructure(structure);
-			this.getSession().put("user", user);	
+			this.getSession().put("user", user);
+			locale = this.getLocale();
+			sdf = (SimpleDateFormat) DateFormat.getDateInstance(DateFormat.SHORT,locale);
+			datePattern = sdf.toPattern();
+			this.getSession().put("datePattern", datePattern);
 			ret = "loginSuccess";
 		}else{
 			this.getSession().put("user", null);
@@ -60,6 +69,8 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		}		
 		return ret;
 	}
+	
+
 	
 	private Structure buildStructure(){
 		Structure ret = null;
@@ -200,7 +211,7 @@ public class LoginAction extends ActionSupport implements SessionAware{
 	private void buildSeasons(Structure structure){
 		Season aSeason = null;
 		Period aPeriod = null;
-		List<Period> aPeriods = new ArrayList<Period>();
+		List<Period> periods = new ArrayList<Period>();
 		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 		aSeason = new Season();
 		aPeriod = new Period();
@@ -219,9 +230,9 @@ public class LoginAction extends ActionSupport implements SessionAware{
 			e.printStackTrace();
 		}
 		
-		aPeriods.add(aPeriod);
+		periods.add(aPeriod);
 		
-		aSeason.setPeriods(aPeriods);
+		aSeason.setPeriods(periods);
 		structure.addSeason(aSeason);
 	}
 	

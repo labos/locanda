@@ -13,6 +13,8 @@ public class Season {
 		this.setPeriods(new ArrayList<Period>());
 	}
 	
+	
+	
 	public Integer getId() {
 		return id;
 	}
