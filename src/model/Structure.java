@@ -286,6 +286,30 @@ public class Structure {
 		return true;
 	}
 	
+	public Boolean hasRoomFreeInPeriod(Integer roomId, Date dateIn, Date dateOut){
+		//Estraggo i Booking della camera con roomId dato
+		List<Booking> roomBookings = new ArrayList<Booking>();
+		
+		for(Booking each: this.getBookings()){
+			if(each.getRoom().getId().equals(roomId)){
+				roomBookings.add(each);
+			}
+		}
+		// |-------|      |---------------|     |----------------|   roomBookings
+		//                  |
+		
+		for(Booking aBooking: roomBookings){
+			if(aBooking.getDateOut().after(dateIn) && aBooking.getDateOut().before(dateOut)){
+				return false;
+			}
+			if(aBooking.getDateIn().after(dateIn) && aBooking.getDateIn().before(dateOut)){
+				return false;
+			}
+		}
+		
+		return true;
+	}
+	
 	
 	
 	public Boolean addSeason(Season aSeason){

@@ -59,6 +59,9 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		Structure structure = user.getStructure();
 		this.setRooms(structure.getRooms());
 		this.setExtras(structure.getExtras());
+		Long millis = this.getBooking().getDateOut().getTime() - this.getBooking().getDateIn().getTime();
+		Integer days = (int) (millis/(1000*3600*24));
+		this.setNumNights(days);
 		return SUCCESS;
 	}
 	
