@@ -385,7 +385,7 @@ display: none;
                     <s:iterator value="extras" var="eachExtra" >
                   
                     <div class="type-check">
-                    <s:checkbox id="extras_array[]" name="bookingExtras"  value="bookingExtras.contains(#eachExtra.id)" fieldValue="%{#eachExtra.id}" />
+                    <s:checkbox id="extras_array[]" name="bookingExtraIds"  value="bookingExtraIds.contains(#eachExtra.id)" fieldValue="%{#eachExtra.id}" />
 					<label for="<s:property value="extras_array[]"/>"><s:property value="#eachExtra.name"/></label>
                     </div>                  
                     
