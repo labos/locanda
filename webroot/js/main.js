@@ -61,8 +61,8 @@ $(document).ready(function() {
 	  		   var amount_target_dom = $("#extras_room");
 	  		   var amount = 0;
 	  		   $('input:checked[name="bookingExtraIds"]').each (function(key, value){
-	  			   
-	  			  amount += isNaN(parseInt($(value).val())) ? 0 : parseInt($(value).val());
+	  			   extra_price = $(value).siblings('input:hidden[name="extra_price"]').val();
+	  			  amount += isNaN(parseInt(extra_price)) ? 0 : parseInt(extra_price);
 	  			   
 	  		   });
 	  		   
@@ -547,6 +547,8 @@ $(document).ready(function() {
       //metodo per la creazione di una nuova casella
       eventNew : function(calEvent, $event) {
          var $dialogContent = $("#event_edit_container");
+         
+         /*
          resetForm($dialogContent);
          $dialogContent.find("#date_booking").html(calEvent.start + ' - ' + calEvent.end);
          //set hidden input for date start and date end
@@ -559,14 +561,17 @@ $(document).ready(function() {
         	 	$(".btn_check_in").button("disable");
         	 }
          $dialogContent.find("#duration").html(' ( ' + duration + ' days )');
+         
+         */
          var startField = calEvent.start;
          var endField = calEvent.end;
          var id_booked = calEvent.id_booked;
          var id_room = calEvent.id;
          var room_name =  getRoomNameById(id_booked);
-         $dialogContent.find('#sel_rooms_list').val(id_booked);
+        
          
-/*         var titleField = $dialogContent.find("input[name='fullname']");
+/*        $dialogContent.find('#sel_rooms_list').val(id_booked);  
+ * var titleField = $dialogContent.find("input[name='fullname']");
          var bodyField = $dialogContent.find("textarea[name='body']");
          var confirmField = $dialogContent.find("select[name='confirm']");
          */
@@ -576,7 +581,7 @@ $(document).ready(function() {
          
          
          
-         $dialogContent.load("goAddBookingFromPlanner.action", {'booking.room.id': id_booked, 'booking.dateIn':startField, 'numNights':duration, 'booking.dateOut': endField}, function(){optionsLoc.init();
+         $dialogContent.load("goAddBookingFromPlanner.action", {'booking.room.id': id_booked, 'booking.dateIn':startField, 'booking.dateOut': endField}, function(){optionsLoc.init();
          
          }).dialog({
             modal: true,
@@ -603,7 +608,8 @@ $(document).ready(function() {
             }
          }).show();
 
-         $dialogContent.find(".date_holder").text($calendar.weekCalendar("formatDate", calEvent.start));
+        /* $dialogContent.find(".date_holder").text($calendar.weekCalendar("formatDate", calEvent.start));
+         */
          setupStartAndEndTimeFields(startField, endField, calEvent, $calendar.weekCalendar("getTimeslotTimes", calEvent.start));
 
       },
@@ -620,22 +626,26 @@ $(document).ready(function() {
          }
 
          var $dialogContent = $("#event_edit_container");
+         /*
          resetForm($dialogContent);
+         $dialogContent.find("#date_booking").html(calEvent.start + ' - ' + calEvent.end);
+         */
          //calEvent è un tipo di dato data, che è un oggetto con degli attributi start end e title
          //per cui, se clicco in una casella che ha già un data calEvent, allora setterò con 
          //questi valori i campi di testo nella finestra di dialogo.
          
-         $dialogContent.find("#date_booking").html(calEvent.start + ' - ' + calEvent.end);
+         
          var startField = calEvent.start;
          var endField = calEvent.end;
          var id_booked = calEvent.bookId;
          var id_room = calEvent.id;
          var room_name =  getRoomNameById(id_room);
+         /*
          $dialogContent.find('#room_name_dialog').text(room_name);
          var titleField = $dialogContent.find("input[name='fullname']");
          var bodyField = $dialogContent.find("textarea[name='body']");
          bodyField.val(calEvent.body);
-
+          	*/
          $dialogContent.load("goUpdateBookingFromPlanner.action", {id: id_booked}, function(){optionsLoc.init();
          
          }).dialog({

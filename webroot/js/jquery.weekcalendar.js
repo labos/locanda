@@ -821,6 +821,10 @@ else {
  */
 
 //prima controlliamo che non ci siano overlapping di bookings
+ // The number of milliseconds in one day
+ var ONE_DAY = 1000 * 60 * 60 * 24;
+ //add a day for graphical purpose
+ end_booking = end_booking.getTime() + ONE_DAY;
 var dateInNewBook = $.datepicker.formatDate(I18NSettings.datePattern,new Date(start_booking));
 var dateOutNewBook = $.datepicker.formatDate(I18NSettings.datePattern,new Date(end_booking));
 /*var dateInNewBook = self.formatDate(new Date(start_booking) ,"dd/mm/yy" );
@@ -828,7 +832,7 @@ var dateOutNewBook = self.formatDate(new Date(end_booking) ,"dd/mm/yy" );*/
 $.ajax({
 	  type: 'POST',
 	  url: "checkBookingDates.action",
-	  data: {'booking.room.id':id_book_room,  dateIn: dateInNewBook , dateOut: dateOutNewBook, 'booking.guest.id': "-1"},
+	  data: {'booking.room.id':id_book_room,  'booking.dateIn': dateInNewBook , 'booking.dateOut': dateOutNewBook, 'booking.guest.id': "-1"},
 	  success: function(data_action){
 		   if (data_action.result == "success")
 			   {
