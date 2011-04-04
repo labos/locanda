@@ -15,6 +15,24 @@
     <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js'></script>
   -->
   <script type='text/javascript' src='js/lib/jquery-ui-1.8.9.custom.min.js'></script>
+    <script type='text/javascript' src='js/jquery.fileupload.js'>
+</script>
+  <script type='text/javascript' src='js/jquery.fileupload-ui.js'>
+</script>
+      <script>
+      $(document).ready(function() {
+      
+      I18NSettings = {};
+      I18NSettings.datePattern = '<s:property value="#session.datePattern"/>'.toLowerCase();
+      I18NSettings.ita = "ita";
+      //to avoid undefined on pre-login phase..
+      if (typeof I18NSettings.datePattern === 'undefined')
+    	  {
+    	  I18NSettings.datePattern ="dd/mm/yy";
+    	  }
+
+      });
+      </script>
   <script type='text/javascript' src='js/jquery.weekcalendar.js'></script>
   <script type='text/javascript' src='js/jquery.validate.min.js'></script>
   <script type='text/javascript' src='js/main.js'></script>
