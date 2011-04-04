@@ -295,8 +295,9 @@ public class Structure {
 				roomBookings.add(each);
 			}
 		}
-		// |-------|      |---------------|     |----------------|   roomBookings
-		//                  |
+		//               dateIn |-------------------------| dateOut    
+		//       |------------------|    |---|     |---------------------------|
+		//             aBooking         aBooking         aBooking
 		
 		for(Booking aBooking: roomBookings){
 			if(aBooking.getDateOut().after(dateIn) && aBooking.getDateOut().before(dateOut)){

@@ -57,6 +57,8 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		User user = (User)this.getSession().get("user");
 		//Controllare che sia diverso da null in un interceptor
 		Structure structure = user.getStructure();
+		Room theBookedRoom = structure.findRoomById(this.getBooking().getId());
+		this.getBooking().setRoom(theBookedRoom);
 		this.setRooms(structure.getRooms());
 		this.setExtras(structure.getExtras());
 		Long millis = this.getBooking().getDateOut().getTime() - this.getBooking().getDateIn().getTime();
