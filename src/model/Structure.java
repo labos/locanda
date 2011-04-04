@@ -296,7 +296,7 @@ public class Structure {
 			}
 		}
 		//               dateIn |-------------------------| dateOut    
-		//       |------------------|    |---|     |---------------------------|
+		//       |------------------|    |---|     |---------------------------|    roomBookings
 		//             aBooking         aBooking         aBooking
 		
 		for(Booking aBooking: roomBookings){

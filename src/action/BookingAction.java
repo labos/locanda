@@ -161,14 +161,11 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		User user = (User)session.get("user");
 		Structure structure = user.getStructure();
 		
-		//this.saveUpdateBookingDates();	
-		/*
-		if(!structure.hasRoomFreeInDate(
-				this.getBooking().getRoom().getId(), this.getBooking().getDateOut())){
+		if(!structure.hasRoomFreeInPeriod(this.getBooking().getRoom().getId(),this.getBooking().getDateIn(), this.getBooking().getDateOut())){
 			this.getMessage().setResult(Message.ERROR);
-			this.getMessage().setDescription("Overlapped Bookings!");
+			this.getMessage().setDescription("Booking sovrapposti!");
 			return ERROR;
-		}*/
+		}
 		this.saveUpdateBookingRoom(structure);		
 		this.saveUpdateBookingGuest(this.getBooking().getGuest(), structure);
 		
@@ -205,56 +202,17 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		User user = (User)session.get("user");
 		Structure structure = user.getStructure();
 		
-		//this.saveUpdateBookingDates();	
-/*		if(!structure.hasRoomFreeInDate(
-				this.getBooking().getRoom().getId(), this.getBooking().getDateOut())){
-			this.getMessage().setResult(Message.ERROR);
-			this.getMessage().setDescription("Booking sovrapposti!");
-			return ERROR;
-		}*/
+		if(!structure.hasRoomFreeInPeriod(this.getBooking().getRoom().getId(),this.getBooking().getDateIn(), this.getBooking().getDateOut())){
+				this.getMessage().setResult(Message.ERROR);
+				this.getMessage().setDescription("Booking sovrapposti!");
+				return ERROR;
+		}
 		this.getMessage().setResult(Message.SUCCESS);
 		this.getMessage().setDescription("Booking Dates OK!");
 		return SUCCESS;
 	}
 	
-	/*
-	private Boolean saveUpdateBookingDates(){
-		
-		Locale locale = this.getLocale();
-		SimpleDateFormat sdf1 = (SimpleDateFormat) DateFormat.getDateInstance(DateFormat.SHORT, locale);
-		System.out.println(sdf1.toPattern());
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");
-		Date dateOut = null;
-		Long millis = null;
-		
-		
-		try {
-			
-			this.getBooking().setDateIn(sdf.parse(this.getDateIn()));			
-		} catch (ParseException e) {
-			e.printStackTrace();
-			return false;
-		}
-		
-		if(this.getDateOut()!=null){
-			try {
-				this.getBooking().setDateOut(sdf.parse(this.getDateOut()));
-			} catch (ParseException e) {
-				e.printStackTrace();
-				return false;
-			}
-		}else{
-			millis = this.getBooking().getDateIn().getTime() + 
-			this.getNumNights() * 24 * 3600 * 1000;
-			dateOut = new Date(millis);
-			this.getBooking().setDateOut(dateOut);
-		}
-		
-		
-		return true;
-		
-	}
-	*/
+	
 	private Boolean saveUpdateBookingRoom(Structure structure){
 		Room theBookedRoom = structure.findRoomById(this.getBooking().getRoom().getId());
 		this.getBooking().setRoom(theBookedRoom);
