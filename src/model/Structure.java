@@ -286,6 +286,8 @@ public class Structure {
 		return true;
 	}
 	
+	
+	
 	public Boolean addSeason(Season aSeason){
 		return this.getSeasons().add(aSeason);
 		
