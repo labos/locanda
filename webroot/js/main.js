@@ -199,7 +199,7 @@ $(document).ready(function() {
 	     	    	 // dateOut = new dateOutDate.toString('dd/mm/yyyy');
 	     	    	 var dateOutDate = new Date(dateOutDateMill);
 	     	    	
-	     	    	 dateOut =  $.datepicker.formatDate('dd/mm/yy',dateOutDate);
+	     	    	 dateOut =  $.datepicker.formatDate(I18NSettings.datePattern,dateOutDate);
 	     	    	  }
 	     	      
 	     	     $('input[name="booking.dateOut"]').datepicker("setDate", dateOut);
@@ -1196,12 +1196,12 @@ $(document).ready(function() {
 				  });
 				  
 				  // attack datepickers
-				  added.find( ".datepicker" ).removeClass('hasDatepicker').datepicker("destroy");
-				  added.find( ".datepicker" ).datepicker({
+				  added.find( ".adddatepicker" ).removeClass('hasDatepicker').datepicker("destroy");
+				  added.find( ".adddatepicker" ).datepicker({
 						showOn: "button",
 						buttonImage: "images/calendar.gif",
 						buttonImageOnly: true,
-						dateFormat: "dd/mm/yy"
+						dateFormat: I18NSettings.datePattern
 					});
 					
 					return false;

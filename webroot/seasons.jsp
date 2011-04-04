@@ -87,13 +87,13 @@
                <div class="subcl type-text">
                 <span>From:</span>
                <input type="hidden" name="periods[<s:property value="#periodStatus.index"/>].id" value="<s:property value="#eachPeriod.id"/>"/>
-               <input type="text" class="datepicker required date" name="periods[<s:property value="#periodStatus.index"/>].startDate" value="<s:date name="#eachPeriod.startDate" format="MM/dd/yyyy" />" style="display: inline;"/>
+               <input type="text" class="datepicker required date" name="periods[<s:property value="#periodStatus.index"/>].startDate" value="<s:date name="#eachPeriod.startDate" format="%{#session.datePattern}" />" style="display: inline;"/>
               </div>
               </div>
               <div class="c20l">
               <div class="subcl type-text">
               <span>To:</span>
-              <input type="text" class="datepicker required date" name="periods[<s:property value="#periodStatus.index"/>].endDate" value="<s:date name="#eachPeriod.endDate" format="MM/dd/yyyy" />" style="display: inline;"/>
+              <input type="text" class="datepicker required date" name="periods[<s:property value="#periodStatus.index"/>].endDate" value="<s:date name="#eachPeriod.endDate" format="%{#session.datePattern}" />" style="display: inline;"/>
               </div>
               </div>
               <div class="c10l">
@@ -124,13 +124,13 @@
              <div class="c20l">
                <div class="subcl type-text">
                 <span>From:</span>
-                <input type="text" class="datepicker required date" name="periods[__PVALUE__].startDate" value="" style="display: inline;"/>
+                <input type="text" class="adddatepicker required date" name="periods[__PVALUE__].startDate" value="" style="display: inline;"/>
               </div>
               </div>
               <div class="c20l">
               <div class="subcl type-text">
               <span>To:</span>
-              <input type="text" class="datepicker required date" name="periods[__PVALUE__].endDate" value="" style="display: inline;"/>
+              <input type="text" class="adddatepicker required date" name="periods[__PVALUE__].endDate" value="" style="display: inline;"/>
               </div>
               </div>
               <div class="c10l">

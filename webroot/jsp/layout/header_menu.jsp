@@ -28,7 +28,7 @@
   <script type='text/javascript' src='js/jquery.fileupload-ui.js'>
 </script>
       <script>
-      $().ready(function() {
+      $(document).ready(function() {
       <%
       	//code for menu tabs activation
       	String dPageDefault = "planner";
@@ -39,8 +39,13 @@
       var text_tab = $("#"+section).children("a").hide().text();
       $("#"+section).addClass("active").prepend("<strong>" + text_tab + "</strong>");
       I18NSettings = {};
-      I18NSettings.datePattern = '<s:property value="#session.datePattern"/>';
+      I18NSettings.datePattern = '<s:property value="#session.datePattern"/>'.toLowerCase();
       I18NSettings.ita = "ita";
+      //to avoid undefined on pre-login phase..
+      if (typeof I18NSettings.datePattern === 'undefined')
+    	  {
+    	  I18NSettings.datePattern ="dd/mm/yy";
+    	  }
 
       });
       </script>

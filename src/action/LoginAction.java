@@ -60,7 +60,7 @@ public class LoginAction extends ActionSupport implements SessionAware{
 			this.getSession().put("user", user);
 			locale = this.getLocale();
 			sdf = (SimpleDateFormat) DateFormat.getDateInstance(DateFormat.SHORT,locale);
-			datePattern = sdf.toPattern().toLowerCase();
+			datePattern = sdf.toPattern();
 			this.getSession().put("datePattern", datePattern);
 			ret = "loginSuccess";
 		}else{
