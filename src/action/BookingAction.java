@@ -39,7 +39,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 	private Message message = new Message();
 	private String dateOut = null;
 	private List<Extra> extras = null;
-	private List<Integer> bookingExtras = new ArrayList<Integer>();
+	private List<Integer> bookingExtraIds = new ArrayList<Integer>();
 	
 	
 	@Actions({
@@ -80,16 +80,14 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		Booking aBooking = structure.findBookingById(this.getId());
 		this.setBooking(aBooking);
 		this.setExtras(structure.getExtras());
-		this.bookingExtras = new ArrayList<Integer>();
-		
+				
 		// popolo bookingExtras con gli id degli extra già presenti nel booking
-		List <Extra> currentBookingExtras = structure.findBookingById(id).getExtras();
-		for(Extra each: currentBookingExtras){
-			bookingExtras.add(each.getId());
+		for(Extra each: aBooking.getExtras()){
+			bookingExtraIds.add(each.getId());
 		}
 		
-		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
-		this.setDateIn(sdf.format(aBooking.getDateIn()));
+		//SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+		//this.setDateIn(sdf.format(aBooking.getDateIn()));
 		Long millis = aBooking.getDateOut().getTime() - aBooking.getDateIn().getTime();
 		Integer days = (int) (millis/(1000*3600*24));
 		this.setNumNights(days);
@@ -141,59 +139,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		return ERROR;
 	}
 	
-	/*
-	@Actions({
-		@Action(value="/addNewBooking",results = {
-				@Result(type ="json",name="success", params={
-						"root","message"
-				} ),
-				@Result(name="input", location="/validationError.jsp")
-		})
 		
-	})
-	public String addNewBooking(){
-		User user = (User)session.get("user");
-		Structure structure = user.getStructure();
-		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
-		Date dateOut = null;
-		Long millis = null;
-		
-		try {
-			
-			this.getBooking().setDateIn(sdf.parse(this.getDateIn()));
-			millis = this.getBooking().getDateIn().getTime() + 
-					this.getNumNights() * 24 * 3600 * 1000;
-			dateOut = new Date(millis);
-			this.getBooking().setDateOut(dateOut);
-			
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		this.getBooking().setId(structure.nextKey());
-				
-		Room aRoom = structure.findRoomById(this.getBooking().getRoom().getId());
-		this.getBooking().setRoom(aRoom);
-		
-		Integer idGuest = this.getBooking().getGuest().getId();
-		Guest guest = structure.findGuestById(idGuest);
-		
-		if(guest == null){
-			//si tratta di un nuovo guest e devo aggiungerlo
-			this.getBooking().getGuest().setId(structure.nextKey());
-			structure.addGuest(this.getBooking().getGuest());
-			
-		}else{
-			//si tratta di un guest esistente e devo fare l'update
-			structure.updateGuest(this.getBooking().getGuest());
-			
-		}
-		structure.addBooking(this.getBooking());
-		this.getMessage().setResult(Message.SUCCESS);
-		this.getMessage().setDescription("Booking Added successfully");
-		return SUCCESS;
-	}*/
-	
 	@Actions({
 		@Action(value="/saveUpdateBooking",results = {
 				@Result(type ="json",name="success", params={
@@ -211,12 +157,13 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		Structure structure = user.getStructure();
 		
 		//this.saveUpdateBookingDates();	
+		/*
 		if(!structure.hasRoomFreeInDate(
 				this.getBooking().getRoom().getId(), this.getBooking().getDateOut())){
 			this.getMessage().setResult(Message.ERROR);
 			this.getMessage().setDescription("Overlapped Bookings!");
 			return ERROR;
-		}
+		}*/
 		this.saveUpdateBookingRoom(structure);		
 		this.saveUpdateBookingGuest(this.getBooking().getGuest(), structure);
 		
@@ -225,15 +172,13 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		if(oldBooking==null){
 			//Si tratta di un nuovo booking
 			this.getBooking().setId(structure.nextKey());
-			this.saveUpdateBookingExtras(bookingExtras, structure);
+			this.saveUpdateBookingExtras(bookingExtraIds, structure);
 			structure.addBooking(this.getBooking());
 		}else{
 			//Si tratta di un update di un booking esistente
-			this.saveUpdateBookingExtras(bookingExtras, structure);
-			structure.updateBooking(this.getBooking());
-			
-		}
-		
+			this.saveUpdateBookingExtras(bookingExtraIds, structure);
+			structure.updateBooking(this.getBooking());			
+		}		
 		this.getMessage().setResult(Message.SUCCESS);
 		this.getMessage().setDescription("Booking added/modified successfully");
 		return SUCCESS;
@@ -267,6 +212,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		return SUCCESS;
 	}
 	
+	/*
 	private Boolean saveUpdateBookingDates(){
 		
 		Locale locale = this.getLocale();
@@ -276,7 +222,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		Date dateOut = null;
 		Long millis = null;
 		
-		/*
+		
 		try {
 			
 			this.getBooking().setDateIn(sdf.parse(this.getDateIn()));			
@@ -284,7 +230,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 			e.printStackTrace();
 			return false;
 		}
-		*/
+		
 		if(this.getDateOut()!=null){
 			try {
 				this.getBooking().setDateOut(sdf.parse(this.getDateOut()));
@@ -303,7 +249,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		return true;
 		
 	}
-	
+	*/
 	private Boolean saveUpdateBookingRoom(Structure structure){
 		Room theBookedRoom = structure.findRoomById(this.getBooking().getRoom().getId());
 		this.getBooking().setRoom(theBookedRoom);
@@ -420,14 +366,17 @@ public class BookingAction extends ActionSupport implements SessionAware{
 	}
 
 
-	public List<Integer> getBookingExtras() {
-		return bookingExtras;
+	public List<Integer> getBookingExtraIds() {
+		return bookingExtraIds;
 	}
 
 
-	public void setBookingExtras(List<Integer> bookingExtras) {
-		this.bookingExtras = bookingExtras;
+	public void setBookingExtraIds(List<Integer> bookingExtraIds) {
+		this.bookingExtraIds = bookingExtraIds;
 	}
+
+
+	
 
 	
 
