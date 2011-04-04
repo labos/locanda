@@ -57,10 +57,10 @@ $(document).ready(function() {
 	  	});
 	  	
 	  		/* extras adding */
-	  	   $('input[name="extras_array[]"]').click(function(){
+	  	   $('input[name="bookingExtraIds"]').click(function(){
 	  		   var amount_target_dom = $("#extras_room");
 	  		   var amount = 0;
-	  		   $('input:checked[name="extras_array[]"]').each (function(key, value){
+	  		   $('input:checked[name="bookingExtraIds"]').each (function(key, value){
 	  			   
 	  			  amount += isNaN(parseInt($(value).val())) ? 0 : parseInt($(value).val());
 	  			   
