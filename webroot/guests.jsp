@@ -17,13 +17,19 @@
           <div class="header_section yform">
           <span class="name_section">Manage Guests</span>   
           <div class="right type-text">
-          <input type="text" name="guest_search" class="txt_guest_search" /><button class="btn_g_search">SEARCH</button><button class="btn_add_guest">ADD NEW</button>      
+          <input type="text" name="guest_search" class="txt_guest_search" /><button class="btn_g_search">SEARCH</button>      
             <div class="search_links"><span>Or browse:&nbsp;</span><a href="#">staying this week</a><span>,&nbsp;</span><a href="#">staying next week</a>,&nbsp;<a href="#">staying this month</a>,&nbsp;<a href="#">staying last month</a>,&nbsp;<a href="#">all</a></div>
             
             </div>
             
           </div>
           
+          <div>
+            <button class="btn_add_guest">ADD NEW</button>
+          </div>
+          <div class="yform hideform">
+          	<jsp:include page="jsp/contents/guest_form.jsp" />
+          </div>
           
           <s:iterator value="guests" var="eachGuest" >
           
@@ -33,7 +39,8 @@
               <input type="hidden" name="redirect_form" value="findAllGuests.action?sect=guests" />
               <input type="hidden" name="id" value="<s:property value="id"/>"/>
               <legend class="title_season">
-              	<s:property value="#eachGuest.firstName"/> <a href="goUpdateGuest.action?sect=guests&id=<s:property value="#eachGuest.id"/>"><s:property value="#eachGuest.lastName"/></a>
+              	<a href="goUpdateGuest.action?sect=guests&id=<s:property value="#eachGuest.id"/>"><s:property value="#eachGuest.firstName"/> <s:property value="#eachGuest.lastName"/></a>
+              	<a href="goUpdateGuest.action?sect=guests&id=<s:property value="#eachGuest.id"/>"><img src="images/sign-up-icon.png" alt="edit" /></a>
               </legend>
 			 <div class="subcolumns">
       		 	<div class="c40l">

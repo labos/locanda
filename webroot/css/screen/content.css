@@ -226,6 +226,11 @@
   * Locanda customization
   *
   */
+ 
+div.hideform {
+	display: none;
+} 
+ 
 div.header_section {
 position: relative;
 height:	60px;

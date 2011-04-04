@@ -1196,12 +1196,12 @@ $(document).ready(function() {
 				  });
 				  
 				  // attack datepickers
-				  added.find( ".adddatepicker" ).removeClass('hasDatepicker').datepicker("destroy");
-				  added.find( ".adddatepicker" ).datepicker({
+				  added.find( ".datepicker" ).removeClass('hasDatepicker').datepicker("destroy");
+				  added.find( ".datepicker" ).datepicker({
 						showOn: "button",
 						buttonImage: "images/calendar.gif",
 						buttonImageOnly: true,
-						dateFormat: I18NSettings.datePattern
+						dateFormat: "dd/mm/yy"
 					});
 					
 					return false;
@@ -1265,7 +1265,8 @@ $(document).ready(function() {
 	      icons: {
 	          primary: "ui-icon-circle-plus"
 	      }}).click(function(){
-	    	window.location.href="guest_new.jsp?sect=guests"; 
+			$("div.hideform").show();
+			$(this).hide(); 
 	    	return false;
 	      });
 	  

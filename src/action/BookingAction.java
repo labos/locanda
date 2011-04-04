@@ -83,8 +83,8 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		this.bookingExtras = new ArrayList<Integer>();
 		
 		// popolo bookingExtras con gli id degli extra già presenti nel booking
-		List <Extra> currentBooking = structure.findBookingById(id).getExtras();
-		for(Extra each: currentBooking){
+		List <Extra> currentBookingExtras = structure.findBookingById(id).getExtras();
+		for(Extra each: currentBookingExtras){
 			bookingExtras.add(each.getId());
 		}
 		
