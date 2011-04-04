@@ -84,23 +84,7 @@ public class GuestAction extends ActionSupport implements SessionAware{
 	}
 	
 	
-	@Actions({
-		@Action(value="/addNewGuest",results = {
-				@Result(type ="json",name="success", params={
-						"root","message"
-				} )
-		})
-		
-	})
-	public String addNewGuest(){
-		User user = (User)session.get("user");
-		Structure structure = user.getStructure();
-		this.getGuest().setId(structure.nextKey());
-		structure.addGuest(this.getGuest());
-		this.getMessage().setResult(Message.SUCCESS);
-		this.getMessage().setDescription("Guest added successfully");
-		return SUCCESS;
-	}
+	
 	
 	@Actions({
 		@Action(value="/goUpdateGuest",results = {
@@ -133,6 +117,59 @@ public class GuestAction extends ActionSupport implements SessionAware{
 		this.getMessage().setDescription("Guest modified successfully");
 		return SUCCESS;
 	}
+	
+	
+	
+	
+	@Actions({
+		@Action(value="/addNewGuest",results = {
+				@Result(type ="json",name="success", params={
+						"root","message"
+				} )
+		})
+		
+	})
+	public String addNewGuest(){
+		User user = (User)session.get("user");
+		Structure structure = user.getStructure();
+		this.getGuest().setId(structure.nextKey());
+		structure.addGuest(this.getGuest());
+		this.getMessage().setResult(Message.SUCCESS);
+		this.getMessage().setDescription("Guest added successfully");
+		return SUCCESS;
+	}
+	
+	@Actions({
+		@Action(value="/saveUpdateGuest",results = {
+				@Result(type ="json",name="success", params={
+						"root","message"
+				} )
+		})
+		
+	})
+	public String saveUpdateGuest(){
+		User user = (User)session.get("user");
+		Structure structure = user.getStructure();
+		
+		Guest oldGuest = structure.findGuestById(this.getGuest().getId());
+		if(oldGuest == null){
+			//Si tratta di una aggiunta
+			this.getGuest().setId(structure.nextKey());
+			structure.addGuest(this.getGuest());
+			this.getMessage().setResult(Message.SUCCESS);
+			this.getMessage().setDescription("Guest added successfully");
+			
+		}else{
+			//Si tratta di un update
+			structure.updateGuest(this.getGuest());
+			this.getMessage().setResult(Message.SUCCESS);
+			this.getMessage().setDescription("Guest updated successfully");
+		}
+		return SUCCESS;		
+	}
+	
+	
+	
 	
 	@Actions({
 		@Action(value="/deleteGuest",results = {
