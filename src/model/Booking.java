@@ -15,6 +15,7 @@ public class Booking {
 	private Date dateIn;
 	private Date dateOut;
 	private Double subtotal;
+	private Double extraSubtotal;
 	private String notes;
 	private List<Extra> extras;
 	
@@ -83,6 +84,14 @@ public class Booking {
 	}
 	public void setExtras(List<Extra> extras) {
 		this.extras = extras;
+	}
+
+	public Double getExtraSubtotal() {
+		return extraSubtotal;
+	}
+
+	public void setExtraSubtotal(Double extraSubtotal) {
+		this.extraSubtotal = extraSubtotal;
 	}
 	
 	

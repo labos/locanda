@@ -42,6 +42,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 	private List<Integer> bookingExtraIds = new ArrayList<Integer>();
 	
 	
+	
 	@Actions({
 		@Action(value="/goAddNewBooking",results = {
 				@Result(name="success",location="/book.jsp")
@@ -85,12 +86,16 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		Booking aBooking = structure.findBookingById(this.getId());
 		this.setBooking(aBooking);
 		this.setExtras(structure.getExtras());
-				
+		
+		Double subtotal = 0.0;
 		// popolo bookingExtrasIds con gli id degli extra già presenti nel booking
 		for(Extra each: aBooking.getExtras()){
+			subtotal = subtotal + each.getPrice();
 			bookingExtraIds.add(each.getId());
-		}
-		
+		}		
+		aBooking.setExtraSubtotal(subtotal);
+		subtotal = subtotal + aBooking.getRoom().getPrice();
+		aBooking.setSubtotal(subtotal);
 		//SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 		//this.setDateIn(sdf.format(aBooking.getDateIn()));
 		Long millis = aBooking.getDateOut().getTime() - aBooking.getDateIn().getTime();
@@ -98,6 +103,8 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		this.setNumNights(days);
 		return SUCCESS;
 	}
+	
+	
 	
 	@Actions({
 		@Action(value="/findAllBookings",results = {
