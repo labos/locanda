@@ -380,22 +380,22 @@ display: none;
                     </div>
                   </div>
                   
-                  <div class="type-select"><label for="per_parking">Extras:</label>
+                  <div class="type-select"><label for="">Extras:</label>
                   
                     <s:iterator value="extras" var="eachExtra" >
                   
                     <div class="type-check">
-                      <input type="checkbox" name="extras_array[]" id="<s:property value="#eachExtra.id"/>" value="<s:property value="#eachExtra.price"/>" />
-                      <label for="<s:property value="#eachExtra.id"/>"><s:property value="#eachExtra.name"/></label>
-                    </div>
+                    <s:checkbox id="extras_array[]" name="bookingExtras"  value="bookingExtras.contains(#eachExtra.id)" fieldValue="%{#eachExtra.id}" />
+					<label for="<s:property value="extras_array[]"/>"><s:property value="#eachExtra.name"/></label>
+                    </div>                  
                     
                     </s:iterator>
                   
-                 	<div class="type-text"><label for="notes">Note:</label> 
-                  	  <textarea name="booking.notes" id="notes"><s:property value="booking.notes"/></textarea>
-                    </div>
                   </div>
                   
+                  <div class="type-text"><label for="notes">Note:</label> 
+                  	  <textarea name="booking.notes" id="notes"><s:property value="booking.notes"/></textarea>
+                    </div>
                 </fieldset>
                 </div>
                 <div class="c10l">

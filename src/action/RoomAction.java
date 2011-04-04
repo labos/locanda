@@ -222,7 +222,7 @@ public class RoomAction extends ActionSupport implements SessionAware{
 			}
 		
 		this.getMessage().setResult(Message.SUCCESS);
-		String text = "Le facilities sono state inserite/aggiornate con successo";
+		String text = "Facilities added/modified successfully";
 		this.getMessage().setDescription(text);
 		return SUCCESS;
 	}

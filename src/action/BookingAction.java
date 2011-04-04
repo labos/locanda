@@ -39,6 +39,8 @@ public class BookingAction extends ActionSupport implements SessionAware{
 	private Message message = new Message();
 	private String dateOut = null;
 	private List<Extra> extras = null;
+	private List<Integer> bookingExtras = new ArrayList<Integer>();
+	
 	
 	@Actions({
 		@Action(value="/goAddNewBooking",results = {
@@ -77,6 +79,15 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		this.setRooms(structure.getRooms());
 		Booking aBooking = structure.findBookingById(this.getId());
 		this.setBooking(aBooking);
+		this.setExtras(structure.getExtras());
+		this.bookingExtras = new ArrayList<Integer>();
+		
+		// popolo bookingExtras con gli id degli extra già presenti nel booking
+		List <Extra> currentBooking = structure.findBookingById(id).getExtras();
+		for(Extra each: currentBooking){
+			bookingExtras.add(each.getId());
+		}
+		
 		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 		this.setDateIn(sdf.format(aBooking.getDateIn()));
 		Long millis = aBooking.getDateOut().getTime() - aBooking.getDateIn().getTime();
@@ -203,7 +214,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		if(!structure.hasRoomFreeInDate(
 				this.getBooking().getRoom().getId(), this.getBooking().getDateOut())){
 			this.getMessage().setResult(Message.ERROR);
-			this.getMessage().setDescription("Booking sovrapposti!");
+			this.getMessage().setDescription("Overlapped Bookings!");
 			return ERROR;
 		}
 		this.saveUpdateBookingRoom(structure);		
@@ -214,15 +225,17 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		if(oldBooking==null){
 			//Si tratta di un nuovo booking
 			this.getBooking().setId(structure.nextKey());
+			this.saveUpdateBookingExtras(bookingExtras, structure);
 			structure.addBooking(this.getBooking());
 		}else{
 			//Si tratta di un update di un booking esistente
+			this.saveUpdateBookingExtras(bookingExtras, structure);
 			structure.updateBooking(this.getBooking());
 			
 		}
 		
 		this.getMessage().setResult(Message.SUCCESS);
-		this.getMessage().setDescription("Booking Added successfully");
+		this.getMessage().setDescription("Booking added/modified successfully");
 		return SUCCESS;
 	}
 	
@@ -298,7 +311,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 	}
 	
 	
-	private Boolean saveUpdateBookingGuest(Guest guest, Structure structure){
+	private Boolean saveUpdateBookingGuest(Guest guest, Structure structure){ 
 		Guest oldGuest = structure.findGuestById(guest.getId());
 		
 		if(oldGuest == null){
@@ -312,6 +325,15 @@ public class BookingAction extends ActionSupport implements SessionAware{
 			
 		}		
 		
+		return true;
+	}
+	
+	private Boolean saveUpdateBookingExtras(List<Integer> extras, Structure structure){ 
+		List<Extra>  checkedExtras = new ArrayList<Extra>();
+		checkedExtras = structure.findExtrasByIds(extras);		// popolo checkedExtras con gli extra checkati
+		
+		this.getBooking().setExtras(new ArrayList<Extra>());	// azzero l'array di extra del booking
+		this.getBooking().addExtras(checkedExtras);				// popolo l'array di extra del booking con gli extra checkati
 		return true;
 	}
 	
@@ -339,11 +361,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 	@Override
 	public void setSession(Map<String, Object> session) {
 		this.session = session;
-		
 	}
-
-	
-
 
 	public Booking getBooking() {
 		return booking;
@@ -369,7 +387,6 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		this.dateIn = dateIn;
 	}
 
-
 	public Integer getNumNights() {
 		return numNights;
 	}
@@ -377,6 +394,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 	public void setNumNights(Integer numNights) {
 		this.numNights = numNights;
 	}
+	
 	public List<Room> getRooms() {
 		return rooms;
 	}
@@ -385,27 +403,32 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		this.rooms = rooms;
 	}
 
-
 	public String getDateOut() {
 		return dateOut;
 	}
-
 
 	public void setDateOut(String dateOut) {
 		this.dateOut = dateOut;
 	}
 
-
 	public List<Extra> getExtras() {
 		return extras;
 	}
 
-
 	public void setExtras(List<Extra> extras) {
 		this.extras = extras;
 	}
-	
-	
+
+
+	public List<Integer> getBookingExtras() {
+		return bookingExtras;
+	}
+
+
+	public void setBookingExtras(List<Integer> bookingExtras) {
+		this.bookingExtras = bookingExtras;
+	}
+
 	
 
 }

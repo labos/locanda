@@ -204,6 +204,15 @@ public class Structure {
 		return ret;
 	}
 	
+	public List<Extra> findExtrasByIds(List<Integer> ids){
+		List<Extra> ret = new ArrayList<Extra>();
+		for(Integer each:ids){
+			Extra anExtra = this.findExtraById(each);
+			ret.add(anExtra);
+		}
+		return ret;
+	}
+	
 	
 	public Boolean updateGuest(Guest guest){
 				
@@ -248,6 +257,7 @@ public class Structure {
 		oldBooking.setSubtotal(booking.getSubtotal());
 		oldBooking.setNotes(booking.getNotes());
 		oldBooking.setRoom(booking.getRoom());
+		oldBooking.addExtras(booking.getExtras());
 		
 		return true;
 	}
