@@ -29,6 +29,21 @@ public class RoomAction extends ActionSupport implements SessionAware{
 	private Integer idRoom;
 	
 
+	
+	@Actions({
+		@Action(value="/goAddNewRoom",results = {
+				@Result(name="success",location="/add_new.jsp")
+		})
+		
+	})
+	public String goAddNewRoom() {
+		User user = (User)this.getSession().get("user");
+		//Controllare che sia diverso da null in un interceptor
+		Structure structure = user.getStructure();
+		this.setRoomFacilities(structure.getRoomFacilities());
+		return SUCCESS;
+	}
+	
 	@Actions({
 		@Action(value="/addNewRoom",results = {
 				@Result(name="input", location="/validationError.jsp"),

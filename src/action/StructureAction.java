@@ -11,6 +11,7 @@ import javax.servlet.ServletContext;
 import org.apache.commons.io.*;
 
 import model.Extra;
+import model.Room;
 import model.RoomFacility;
 import model.Structure;
 import model.User;
@@ -38,7 +39,44 @@ public class StructureAction extends ActionSupport implements SessionAware {
 	private RoomFacility roomFacility = null;
 	private List<Extra> extras = null;
 	private Extra extra = null;
+	private Set<String> roomTypes = null;
+	private List<Room> rooms = null;
+	
 
+	@Actions({
+		@Action(value="/findAllRooms",results = {
+				@Result(name="success",location="/accomodation.jsp")
+		}),
+		@Action(value="/findAllRoomsJson",results = {
+				@Result(type ="json",name="success", params={
+						"root","rooms"
+				})}) 
+		
+	})
+	public String findAllRooms() {
+		User user = (User)this.getSession().get("user");
+		//Controllare che sia diverso da null in un interceptor
+		Structure structure = user.getStructure();
+		this.setRooms(structure.getRooms());
+		return SUCCESS;
+	}
+	
+	@Actions({
+		@Action(value="/findAllRoomTypes",results = {
+				@Result(type ="json",name="success", params={
+						"root","roomTypes"
+				} )
+		})
+		
+	})
+	public String findAllRoomTypes() {
+		User user = (User)this.getSession().get("user");
+		//Controllare che sia diverso da null in un interceptor
+		Structure structure = user.getStructure();
+		this.setRoomTypes(structure.findAllRoomTypes());
+		return SUCCESS;
+	}
+	
 	@Actions({
 		@Action(value="/uploadFacility",results = {
 				@Result(type ="json",name="success", params={
@@ -247,6 +285,25 @@ public class StructureAction extends ActionSupport implements SessionAware {
 	public void setExtra(Extra extra) {
 		this.extra = extra;
 	}
+
+	public Set<String> getRoomTypes() {
+		return roomTypes;
+	}
+
+	public void setRoomTypes(Set<String> roomTypes) {
+		this.roomTypes = roomTypes;
+	}
+
+	public List<Room> getRooms() {
+		return rooms;
+	}
+
+	public void setRooms(List<Room> rooms) {
+		this.rooms = rooms;
+	}
+	
+	
+	
 	
 	
 
