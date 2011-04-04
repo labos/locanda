@@ -25,13 +25,13 @@ public class Structure {
 	
 	
 	public Structure(){
-		this.rooms = new ArrayList<Room>();
-		this.keys = new TreeSet<Integer>();
-		this.keys.add(1);
-		this.roomFacilities = new ArrayList<RoomFacility>();
-		this.guests = new ArrayList<Guest>();
-		this.bookings = new ArrayList<Booking>();
-		this.extras = new ArrayList<Extra>();
+		this.setRooms(new ArrayList<Room>());
+		this.setKeys(new TreeSet<Integer>());
+		this.getKeys().add(1);
+		this.setRoomFacilities(new ArrayList<RoomFacility>());
+		this.setGuests(new ArrayList<Guest>());
+		this.setBookings(new ArrayList<Booking>());
+		this.setExtras(new ArrayList<Extra>());
 		this.setSeasons(new ArrayList<Season>());
 		this.setListiniCamere(new ArrayList<ListinoCamera>());
 	}
@@ -69,18 +69,28 @@ public class Structure {
 		return ret;
 	}
 	
-	public Set<String> findAllRoomTypes(){
-		Set<String> ret = new TreeSet<String>();
-		
-		for(Room each: this.getRooms()){
-			ret.add(each.getRoomType());
-		}
-		return ret;
-	}
-	
 	public void addRoom(Room aRoom){
 		this.getRooms().add(aRoom);
 	}	
+	
+	public Boolean updateRoom(Room room){
+		
+		Room originalRoom = this.findRoomById(room.getId());
+		if(originalRoom==null){
+			return false;
+		}
+		originalRoom.setName(room.getName());
+		originalRoom.setMaxGuests(room.getMaxGuests());
+		originalRoom.setNotes(room.getNotes());
+		originalRoom.setPrice(room.getPrice());
+		originalRoom.setRoomType(room.getRoomType());
+		return true;
+	}
+	
+	
+	
+	
+	
 	
 	public Boolean addRoomFacility(RoomFacility roomFacility){
 		roomFacility.setId(this.nextKey());
@@ -96,6 +106,25 @@ public class Structure {
 		return false;
 	}
 	
+	public List<RoomFacility> findFacilitiesByIds(List<Integer> ids){
+		List<RoomFacility> ret = new ArrayList<RoomFacility>();
+		for(Integer each:ids){
+			RoomFacility aRoomFacility = this.findFacilityById(each);
+			ret.add(aRoomFacility);
+		}
+		return ret;
+	}
+	
+	public RoomFacility findFacilityById(Integer id){
+		RoomFacility ret = null;
+		for (RoomFacility each:this.getRoomFacilities()){
+			if (each.getId().equals(id)) {
+				return each;
+			}
+		}
+		return ret;
+	}
+	
 	public Integer nextKey(){
 		Integer ret = 0;
 		
@@ -105,23 +134,31 @@ public class Structure {
 		return ret;
 	}
 	
-	public List<RoomFacility> findFacilitiesByIds(List<Integer> ids){
-		List<RoomFacility> ret = new ArrayList<RoomFacility>();
-		for(Integer each:ids){
-			RoomFacility aRoomFacility = this.findFacilityById(each);
-			ret.add(aRoomFacility);
-		}
-		return ret;
-	}
+	
 		
-	public RoomFacility findFacilityById(Integer id){
-		RoomFacility ret = null;
-		for (RoomFacility each:this.getRoomFacilities()){
-			if (each.getId().equals(id)) {
-				return each;
-			}
+	public boolean addBooking(Booking aBooking) {
+		return this.bookings.add(aBooking);
+	}
+	
+	public Boolean updateBooking(Booking booking){
+		
+		Booking oldBooking = this.findBookingById(booking.getId());
+		if(oldBooking==null){
+			return false;
 		}
-		return ret;
+		oldBooking.setDateIn(booking.getDateIn());
+		oldBooking.setDateOut(booking.getDateOut());
+		oldBooking.setNrGuests(booking.getNrGuests());
+		oldBooking.setSubtotal(booking.getSubtotal());
+		oldBooking.setNotes(booking.getNotes());
+		oldBooking.setRoom(booking.getRoom());
+		oldBooking.setExtras(booking.getExtras());
+		
+		return true;
+	}
+	
+	public boolean deleteBooking(Booking aBooking) {
+		return this.bookings.remove(aBooking);
 	}
 	
 	public Booking findBookingById(Integer id){
@@ -146,17 +183,12 @@ public class Structure {
 		return ret;
 	}
 	
-	public List<RoomFacility> getRoomFacilities() {
-		return roomFacilities;
-	}
-
-	public void setRoomFacilities(List<RoomFacility> roomFacilities) {
-		this.roomFacilities = roomFacilities;
-	}
+	
 
 	public boolean deleteRoom(Room aRoom){
 		return this.getRooms().remove(aRoom);
 	}
+		
 	
 	public boolean addGuest(Guest aGuest) {
 		return this.guests.add(aGuest);
@@ -164,22 +196,6 @@ public class Structure {
 	
 	public boolean deleteGuest(Guest aGuest) {
 		return this.guests.remove(aGuest);
-	}
-	
-	public boolean addBooking(Booking aBooking) {
-		return this.bookings.add(aBooking);
-	}
-	
-	public boolean deleteBooking(Booking aBooking) {
-		return this.bookings.remove(aBooking);
-	}
-	
-	public boolean addExtra(Extra anExtra) {
-		return this.extras.add(anExtra);
-	}
-	
-	public boolean deleteExtra(Extra anExtra) {
-		return this.extras.remove(anExtra);
 	}
 	
 	public Guest findGuestById(Integer id){
@@ -191,6 +207,29 @@ public class Structure {
 		}
 		
 		return ret;
+	}
+	
+	public boolean addExtra(Extra anExtra) {
+		return this.extras.add(anExtra);
+	}
+	
+	public Boolean updateExtra(Extra extra){
+		
+		Extra oldExtra = this.findExtraById(extra.getId());
+		if(oldExtra==null){
+			return false;
+		}
+		oldExtra.setName(extra.getName());
+		oldExtra.setPrice(extra.getPrice());
+		oldExtra.setTimePriceType(extra.getTimePriceType());
+		oldExtra.setResourcePriceType(extra.getResourcePriceType());
+		
+		return true;
+	}
+	
+	
+	public boolean deleteExtra(Extra anExtra) {
+		return this.extras.remove(anExtra);
 	}
 	
 	public Extra findExtraById(Integer id){
@@ -231,60 +270,12 @@ public class Structure {
 		return true;
 	}
 	
-	public Boolean updateRoom(Room room){
-		
-		Room originalRoom = this.findRoomById(room.getId());
-		if(originalRoom==null){
-			return false;
-		}
-		originalRoom.setName(room.getName());
-		originalRoom.setMaxGuests(room.getMaxGuests());
-		originalRoom.setNotes(room.getNotes());
-		originalRoom.setPrice(room.getPrice());
-		originalRoom.setRoomType(room.getRoomType());
-		return true;
-	}
 	
-	public Boolean updateBooking(Booking booking){
-		
-		Booking oldBooking = this.findBookingById(booking.getId());
-		if(oldBooking==null){
-			return false;
-		}
-		oldBooking.setDateIn(booking.getDateIn());
-		oldBooking.setDateOut(booking.getDateOut());
-		oldBooking.setNrGuests(booking.getNrGuests());
-		oldBooking.setSubtotal(booking.getSubtotal());
-		oldBooking.setNotes(booking.getNotes());
-		oldBooking.setRoom(booking.getRoom());
-		oldBooking.setExtras(booking.getExtras());
-		
-		return true;
-	}
 	
-	public Boolean updateExtra(Extra extra){
-		
-		Extra oldExtra = this.findExtraById(extra.getId());
-		if(oldExtra==null){
-			return false;
-		}
-		oldExtra.setName(extra.getName());
-		oldExtra.setPrice(extra.getPrice());
-		oldExtra.setTimePriceType(extra.getTimePriceType());
-		oldExtra.setResourcePriceType(extra.getResourcePriceType());
-		
-		return true;
-	}
 	
-	public Boolean hasRoomFreeInDate(Integer roomId, Date date){
-		for(Booking each: this.getBookings()){
-			if(each.getRoom().getId().equals(roomId) && 
-					each.getDateIn().before(date)){
-				return false;
-			}
-		}
-		return true;
-	}
+	
+	
+	
 	
 	public Boolean hasRoomFreeInPeriod(Integer roomId, Date dateIn, Date dateOut){
 		//Estraggo i Booking della camera con roomId dato
@@ -311,7 +302,14 @@ public class Structure {
 		return true;
 	}
 	
-	
+	public Set<String> findAllRoomTypes(){
+		Set<String> ret = new TreeSet<String>();
+		
+		for(Room each: this.getRooms()){
+			ret.add(each.getRoomType());
+		}
+		return ret;
+	}
 	
 	public Boolean addSeason(Season aSeason){
 		return this.getSeasons().add(aSeason);
@@ -357,6 +355,7 @@ public class Structure {
 		oldSeason.setPeriods(aSeason.getPeriods());
 		return true;
 	}
+	
 	
 	public Boolean addListinoCamera(ListinoCamera listino){
 		return this.getListiniCamere().add(listino);
@@ -457,7 +456,13 @@ public class Structure {
 	public void setListiniCamere(List<ListinoCamera> listiniCamere) {
 		this.listiniCamere = listiniCamere;
 	}
-	
+	public List<RoomFacility> getRoomFacilities() {
+		return roomFacilities;
+	}
+
+	public void setRoomFacilities(List<RoomFacility> roomFacilities) {
+		this.roomFacilities = roomFacilities;
+	}
 	
 
 }
