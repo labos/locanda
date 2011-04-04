@@ -25,7 +25,7 @@
           </div>
           
           <div>
-            <button class="btn_add_guest">ADD NEW</button>
+            <button class="btn_add_form">ADD NEW</button>
           </div>
           <div class="yform hideform">
           	<jsp:include page="jsp/contents/guest_form.jsp" />

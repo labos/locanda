@@ -994,6 +994,14 @@ $(document).ready(function() {
 
 	  });
 	  
+	  //button for form hiding
+	  $(".btn_cancel_form").click(function(event){
+		  $(this).parents(".hideform").hide();
+		  $(".btn_add_form").show();
+		  return false;
+
+	  });
+	  
 
 	    $('#uploadFacility').fileUploadUI({
 	        uploadTable: $('#result_facility_upload'),
@@ -1261,7 +1269,7 @@ $(document).ready(function() {
 		          secondary: "ui-icon-arrowreturnthick-1-e"
 		      }});
 		
-	  $(".btn_add_guest").button({
+	  $(".btn_add_form").button({
 	      icons: {
 	          primary: "ui-icon-circle-plus"
 	      }}).click(function(){
@@ -1405,13 +1413,7 @@ $(document).ready(function() {
 		      $('body').removeAttr('class');
 		      $(this).addClass('active');
 		  });
-
-		  $(".btn_reset").button({
-		      icons: {
-		          primary: "ui-icon-cancel"
-		      }});
-		  
-		  
+  
 		 /* Hide/Show password change */
 		 
 		 $("#change_pwd").toggle( function(){
