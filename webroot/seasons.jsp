@@ -15,127 +15,53 @@
         <div id="col3" role="main">
           <div id="col3_content" class="clearfix">
           <div class="header_section">
-          <span class="name_section">Settings</span>
+          <span class="name_section">Seasons</span>
           </div>
-          <div>
-		 <form method="post" action="saveUpdateSeason.action" class="yform" role="application">
-		 <input type="hidden" name="redirect_form" value="findAllSeasons.action?sect=settings" />
-            <fieldset>
-              <legend>Seasons</legend>
-              <div class="subcolumns">
-              <a href="#top_anchor" class="add_period" title="add period">Add New Period</a>
-              </div>
-              <div class="subcolumns">
-               <div class="c33l">
-               <div class="subcl type-text">
-                <span>Name:</span>
-<input type="text"name="season.name" class="required" value="Your first season" style="display: inline;" readonly="readonly"/>&nbsp; (<a href="#" class="rename_season" title="rename" >Rename</a>)              </div>
-              </div>
-              </div>
-              <div class="subcolumns period">
-             <div class="c20l">
-               <div class="subcl type-text">
-                <span>From:</span>
-                <input type="text" class="datepicker required date" name="periods[0].startDate" value="" style="display: inline;"/>
-              </div>
-              </div>
-              <div class="c20l">
-              <div class="subcl type-text">
-              <span>To:</span>
-              <input type="text" class="datepicker required date" name="periods[0].endDate" value="" style="display: inline;"/>
-              </div>
-              </div>
-              <div class="c10l">
-              <label>&nbsp;</label>
-              
-              </div>
-              </div>
-
-              <a name="top_anchor"></a> 
-              </fieldset>
-            <div class="type-button">
-            <button class="btn_season">ADD NEW SEASON</button>
-            <!--  <button class="btn_save_all">SAVE ALL</button> -->
+           <div>
+              <button class="btn_add_form">ADD NEW SEASON</button>
             </div>
-          </form>        
-		</div>        
-          </div>
+             <div class="yform hideform">
+          	  <jsp:include page="jsp/contents/season_form.jsp" />
+            </div>
+            
  <!-- Seasons iteration -->
  
  <s:iterator value="seasons" var="eachSeason" >
- <form method="post" action="saveUpdateSeason.action" class="yform" role="application">
- 		 <input type="hidden" name="redirect_form" value="findAllSeasons.action?sect=settings" />
-  		 <input type="hidden" name="season.id" value="<s:property value="#eachSeason.id"/>" />
- 
-  	<fieldset>	
-  	          <div class="subcolumns">
-              <a href="#top_anchor" class="add_period" title="add period">Add New Period</a>
-              </div>
+ <div>
+ <form method="post" action="deleteSeason.action" class="yform json" role="application"> 
+  	<fieldset>
+  		<legend>
+  				<a href="saveUpdateSeason.action?sect=guests&id=<s:property value="#eachSeason.id"/>"><s:property value="#eachSeason.name"/></a>
+    			<a href="saveUpdateSeason.action?sect=guests&id=<s:property value="#eachSeason.id"/>"><img src="images/sign-up-icon.png" alt="edit" /></a>
+    	</legend>
+  	 	 <input type="hidden" name="redirect_form" value="findAllSeasons.action?sect=settings" />
+  		 <input type="hidden" name="season.id" value="<s:property value="#eachSeason.id"/>" />	
                <div class="subcolumns">
-               <div class="c33l">
-               <div class="subcl type-text">
-                <span>Name:</span>
-                <a name="<s:property value="#eachSeason.name"/>"></a>
-<input type="text"name="season.name"  class="required"  value="<s:property value="#eachSeason.name"/>" style="display: inline;" readonly="readonly"/>&nbsp; (<a href="#<s:property value="#eachSeason.name"/>" class="rename_season" title="rename" >Rename</a>)    
-          </div>
-              </div>
-              </div>
-<s:iterator value="#eachSeason.periods" var="eachPeriod" status="periodStatus">
+      		 	<div class="c40l">
+                    <div class="type_rooms">
+					  <ul>
+					  <li>
+					  <ul>
+			<s:iterator value="#eachSeason.periods" var="eachPeriod" status="periodStatus">
+			<li>
+						<b>From:</b> <s:date name="#eachPeriod.startDate" format="%{#session.datePattern}" />
+					    <b>To:</b><s:date name="#eachPeriod.endDate" format="%{#session.datePattern}" />
+			</li>
 
-<div class="subcolumns period">
-             <div class="c20l">
-               <div class="subcl type-text">
-                <span>From:</span>
-               <input type="hidden" name="periods[<s:property value="#periodStatus.index"/>].id" value="<s:property value="#eachPeriod.id"/>"/>
-               <input type="text" class="datepicker required date" name="periods[<s:property value="#periodStatus.index"/>].startDate" value="<s:date name="#eachPeriod.startDate" format="%{#session.datePattern}" />" style="display: inline;"/>
-              </div>
-              </div>
-              <div class="c20l">
-              <div class="subcl type-text">
-              <span>To:</span>
-              <input type="text" class="datepicker required date" name="periods[<s:property value="#periodStatus.index"/>].endDate" value="<s:date name="#eachPeriod.endDate" format="%{#session.datePattern}" />" style="display: inline;"/>
-              </div>
-              </div>
-              <div class="c10l">
-              <label>&nbsp;</label>
-              <s:if test="#periodStatus.index > 0">
-			 <input type="hidden" name="idPeriod" value="<s:property value="#eachPeriod.id"/>"/>
-              <a href="#seas_anchor_<s:property value="#eachSeason.id"/>" class="erase_period" title="erase">Delete Period</a>				  
-								</s:if>
-
-              </div>
-              </div>
-
-</s:iterator>
-             
-            <div class="type-button">
-            <a name="seas_anchor_<s:property value="#eachSeason.id"/>"></a> 
-            <input type="text" name="new_name_season" id="chng_season_name" value=""/>
-            <button class="btn_season">UPDATE SEASON</button>
-            </div>
+</s:iterator>		  
+					</ul> 
+					</li> 
+					  </ul>
+                    </div>                  
+                </div>
+             </div>           
+             <div class="type-button">
+             	<button class="btn_delete">DELETE</button>
+             </div>
                </fieldset>
  </form>
+ </div>
  </s:iterator>
+ </div>
 
- 
-          
-<!--  Hidden new season  -->
-             <div class="subcolumns period" id="to_add_period" style="display: none;">
-             <div class="c20l">
-               <div class="subcl type-text">
-                <span>From:</span>
-                <input type="text" class="adddatepicker required date" name="periods[__PVALUE__].startDate" value="" style="display: inline;"/>
-              </div>
-              </div>
-              <div class="c20l">
-              <div class="subcl type-text">
-              <span>To:</span>
-              <input type="text" class="adddatepicker required date" name="periods[__PVALUE__].endDate" value="" style="display: inline;"/>
-              </div>
-              </div>
-              <div class="c10l">
-              <label>&nbsp;</label>
-              <a href="#" class="erase_period" title="erase">Delete Period</a>
-              </div>
-              </div>
 <jsp:include page="jsp/layout/footer.jsp" />   

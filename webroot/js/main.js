@@ -28,8 +28,8 @@ $(document).ready(function() {
 					 if ( selectedData  && otherData)
 						 {
 						 	numNights = days_between_signed( otherData, selectedData);	
-						 	if(numNights <= 0 )
-						 	$().notify(optionsLoc.alertKO, "Attenzione, la data di inizio non può essere minore o uguale a quella di fine");
+						 	if(numNights == 0 )
+						 	$().notify(optionsLoc.alertKO, "Attenzione, la data di inizio non può essere uguale a quella di fine");
 						 }
 					  
 					 $("#booking_duration").val(numNights);
@@ -315,6 +315,7 @@ $(document).ready(function() {
 			    },
 			    position: "center",
 			    speed: 1000,
+			    life: 1000,
 			    header: title,
 			    close : function (){
 			    	
@@ -1225,12 +1226,12 @@ $(document).ready(function() {
 				  });
 				  
 				  // attack datepickers
-				  added.find( ".datepicker" ).removeClass('hasDatepicker').datepicker("destroy");
-				  added.find( ".datepicker" ).datepicker({
+				  added.find( ".adddatepicker" ).removeClass('hasDatepicker').datepicker("destroy");
+				  added.find( ".adddatepicker" ).datepicker({
 						showOn: "button",
 						buttonImage: "images/calendar.gif",
 						buttonImageOnly: true,
-						dateFormat: "dd/mm/yy"
+						dateFormat: I18NSettings.datePattern
 					});
 					
 					return false;
