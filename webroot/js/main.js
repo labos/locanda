@@ -1243,7 +1243,7 @@ $(document).ready(function() {
 			 var formParent =	$(this).parents(".yform");
 					var season_id = formParent.find('input:hidden[name="season.id"]').val();
 					var period_id_delete = $(this).prev('input[name="idPeriod"]').val();
-					var _redirectAction	= "findAllSeasons.action?sect=settings";
+					var _redirectAction	= "goUpdateSeason.action?sect=settings&id=" + season_id;
 						$.ajax({
 							  url: "deletePeriodFromSeason.action",
 							  data: { 'season.id': season_id, idPeriod: period_id_delete },

@@ -31,8 +31,8 @@
  <form method="post" action="deleteSeason.action" class="yform json" role="application"> 
   	<fieldset>
   		<legend>
-  				<a href="saveUpdateSeason.action?sect=guests&id=<s:property value="#eachSeason.id"/>"><s:property value="#eachSeason.name"/></a>
-    			<a href="saveUpdateSeason.action?sect=guests&id=<s:property value="#eachSeason.id"/>"><img src="images/sign-up-icon.png" alt="edit" /></a>
+  				<a href="goUpdateSeason.action?sect=settings&id=<s:property value="#eachSeason.id"/>"><s:property value="#eachSeason.name"/></a>
+    			<a href="goUpdateSeason.action?sect=settings&id=<s:property value="#eachSeason.id"/>"><img src="images/sign-up-icon.png" alt="edit" /></a>
     	</legend>
   	 	 <input type="hidden" name="redirect_form" value="findAllSeasons.action?sect=settings" />
   		 <input type="hidden" name="season.id" value="<s:property value="#eachSeason.id"/>" />	
