@@ -1362,10 +1362,11 @@ $(document).ready(function() {
 			  $("#extraForm").valid();
 			});
 			
-		$(".btn_cancel").click(function() {	
+		/*$(".btn_cancel").click(function() {	
 	  	  $("#newExtraForm").hide();
 	  	  $(".btn_addExtra").show();
 	    })
+	    */
 		
 		$(".btn_saveExtra").click(function() {
 		  $("#extraForm").hide();
@@ -1387,7 +1388,6 @@ $(document).ready(function() {
 		  	});*/
 			
 			
-			
 		  /*added.find(".deleteExtra").click(function(){
 		    var extraName = added.find(".extraName").text();
 		  //var index = added.attr("id").substr((added.attr("id").lastIndexOf("_")+1)); memorizzo l'indice del div corrente - errato perche gli indici non si aggiornano man mano che elimino elementi 
@@ -1396,13 +1396,6 @@ $(document).ready(function() {
 			$(this).closest(".newExtra").remove(); //elimino il div al click del link "delete" 
 			});	*/
 		  
-		  
-		  
-		  
-		  
-		
-	    
-	  
    		
    //---  END EXTRAS SECTION CODE  
    

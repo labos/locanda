@@ -15,13 +15,11 @@
         <div id="col3" role="main">
           <div id="col3_content" class="clearfix">
           <div class="header_section yform">
-          <span class="name_section">Manage Guests</span>   
-          <div class="right type-text">
-          <input type="text" name="guest_search" class="txt_guest_search" /><button class="btn_g_search">SEARCH</button>      
-            <div class="search_links"><span>Or browse:&nbsp;</span><a href="#">staying this week</a><span>,&nbsp;</span><a href="#">staying next week</a>,&nbsp;<a href="#">staying this month</a>,&nbsp;<a href="#">staying last month</a>,&nbsp;<a href="#">all</a></div>
-            
-            </div>
-            
+          	<span class="name_section">Manage Guests</span>   
+          	<div class="right type-text">
+          	  <input type="text" name="guest_search" class="txt_guest_search" /><button class="btn_g_search">SEARCH</button>      
+              <div class="search_links"><span>Or browse:&nbsp;</span><a href="#">staying this week</a><span>,&nbsp;</span><a href="#">staying next week</a>,&nbsp;<a href="#">staying this month</a>,&nbsp;<a href="#">staying last month</a>,&nbsp;<a href="#">all</a></div>
+            </div>  
           </div>
           
           <div>
@@ -59,6 +57,7 @@
            </fieldset>
          </form>        
 		</div>
+		
 		</s:iterator>
 		       
           </div>

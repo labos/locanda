@@ -9,10 +9,10 @@
           	<legend>Guest details</legend>
               <div class="c50l">
               	<input type="hidden" name="redirect_form" value="findAllGuests.action?sect=guests" />
+              	<input type="hidden" name="id" value="<s:property value="id"/>"/>
+           	 	<input type="hidden" name="guest.id" value="<s:property value="guest.id"/>"/>
               <div class="c50l">
            	 	  <div class="type-text">
-           	 	  <input type="hidden" name="id" value="<s:property value="id"/>"/>
-           	 	  <input type="hidden" name="guest.id" value="<s:property value="guest.id"/>"/>
                   	<label for="firstName">First name <sup title="This field is mandatory.">*</sup></label>
                   	<input class="required" type="text" name="guest.firstName" id="firstName" value="<s:property value="guest.firstName"/>" size="20" />
              	  </div>
