@@ -23,9 +23,10 @@ public class Room {
 		
 	}
 	
-	public Boolean addRoomFacilities (List<RoomFacility> facilities){
+	public Boolean updateRoomFacilities (List<RoomFacility> facilities){
 		
-		return this.getFacilities().addAll(facilities);
+		this.setFacilities(facilities);
+		return true;
 	}
 	
 	@Override

@@ -22,34 +22,60 @@ import com.opensymphony.xwork2.ActionSupport;
 public class RoomFacilityAction extends ActionSupport implements SessionAware{
 	private Map<String, Object> session = null;
 	private List<RoomFacility> roomFacilities = null;
-	private List<Integer> facilities = new ArrayList<Integer>();
+	private List<Integer> roomFacilitiesIds = new ArrayList<Integer>();
 	private Integer idRoom;
 	private Room room = null;
 	private Message message = new Message();
 	
+	
+	
 	@Actions({
-		@Action(value="/goRoomFacilities_edit",results = {
+		@Action(value="/goUpdateRoomFacilities",results = {
 				@Result(name="success",location="/roomFacilities_edit.jsp")
 		})
 	})
 	
-	public String goRoomFacilities_edit() {
+	public String goUpdateRoomFacilities() {
 		User user = (User)this.getSession().get("user");
 		//Controllare che sia diverso da null in un interceptor
 		Structure structure = user.getStructure();
-		this.facilities = new ArrayList<Integer>();
-		this.setRoomFacilities(structure.getRoomFacilities());
 		
-		List <RoomFacility> currentRoom = structure.findRoomById(idRoom).getFacilities();
+		this.setRoomFacilities(structure.getRoomFacilities());		
+		List <RoomFacility> currentRoomFacilities = structure.findRoomById(idRoom).getFacilities();
 		
-		for(RoomFacility each: currentRoom){
-			
-			facilities.add(each.getId());
-			
+		for(RoomFacility each: currentRoomFacilities){			
+			this.roomFacilitiesIds.add(each.getId());			
 		}
 		return SUCCESS;
 	}
 	
+	@Actions({
+		@Action(value="/updateRoomFacilities", results={
+				@Result(type ="json",name="success", params={
+						"root","message"
+				})					
+			})
+	})
+	
+	
+	public String updateRoomFacilities() {
+		User user = (User)this.getSession().get("user");
+		//Controllare che sia diverso da null in un interceptor
+		Structure structure = user.getStructure();
+		this.room = structure.findRoomById(this.idRoom);
+		List<RoomFacility>  checkedFacilities = new ArrayList<RoomFacility>();
+		if(this.roomFacilitiesIds != null){
+			checkedFacilities = structure.findFacilitiesByIds(this.roomFacilitiesIds);	
+		}		
+		
+		this.room.updateRoomFacilities(checkedFacilities);
+		this.getMessage().setResult(Message.SUCCESS);
+		String text = "Facilities updated successfully";
+		this.getMessage().setDescription(text);
+		return SUCCESS;
+	}
+	
+	/*
 	@Actions({
 		@Action(value="/roomFacilities_edit", results={
 				@Result(type ="json",name="success", params={
@@ -84,6 +110,32 @@ public class RoomFacilityAction extends ActionSupport implements SessionAware{
 		this.getMessage().setDescription(text);
 		return SUCCESS;
 	}
+	*/
+	
+	/*
+	@Actions({
+		@Action(value="/goRoomFacilities_edit",results = {
+				@Result(name="success",location="/roomFacilities_edit.jsp")
+		})
+	})
+	
+	public String goRoomFacilities_edit() {
+		User user = (User)this.getSession().get("user");
+		//Controllare che sia diverso da null in un interceptor
+		Structure structure = user.getStructure();
+		this.facilities = new ArrayList<Integer>();
+		this.setRoomFacilities(structure.getRoomFacilities());
+		
+		List <RoomFacility> currentRoom = structure.findRoomById(idRoom).getFacilities();
+		
+		for(RoomFacility each: currentRoom){
+			
+			facilities.add(each.getId());
+			
+		}
+		return SUCCESS;
+	}
+	*/	
 	
 	public Map<String, Object> getSession() {
 		return session;
@@ -101,14 +153,6 @@ public class RoomFacilityAction extends ActionSupport implements SessionAware{
 
 	public void setRoomFacilities(List<RoomFacility> roomFacilities) {
 		this.roomFacilities = roomFacilities;
-	}
-
-	public List<Integer> getFacilities() {
-		return facilities;
-	}
-
-	public void setFacilities(List<Integer> facilities) {
-		this.facilities = facilities;
 	}
 
 	public Integer getIdRoom() {
@@ -133,6 +177,16 @@ public class RoomFacilityAction extends ActionSupport implements SessionAware{
 
 	public void setMessage(Message message) {
 		this.message = message;
+	}
+
+	public List<Integer> getRoomFacilitiesIds() {
+		return roomFacilitiesIds;
+	}
+
+	public void setRoomFacilitiesIds(List<Integer> roomFacilitiesIds) {
+		this.roomFacilitiesIds = roomFacilitiesIds;
 	}	
+	
+	
 
 }
