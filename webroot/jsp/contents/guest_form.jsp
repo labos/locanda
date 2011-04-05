@@ -275,7 +275,7 @@
                   </div>
                   <div class="type-button">
             		<button class="btn_save">SAVE</button>
-           		 	<button class="btn_delete btn_reset btn_cancel_form">CANCEL</button>
+           		 	<button class="btn_reset btn_cancel_form">CANCEL</button>
            		  </div>
               </div>
               </div>

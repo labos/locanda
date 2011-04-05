@@ -999,7 +999,10 @@ $(document).ready(function() {
 	  
  
 	//button for form reset  
-	  $(".btn_reset").click(function(event){
+	  	 $(".btn_reset").button({
+	   	     icons: {
+	   	         primary: "ui-icon-trash"
+	   	     }}).click(function(event){
 		  event.preventDefault();
 		  var validator = $(this).parents(".yform.json").validate();
 		  validator.resetForm();
@@ -1106,7 +1109,13 @@ $(document).ready(function() {
    	 $(".btn_delete").button({
    	     icons: {
    	         primary: "ui-icon-trash"
-   	     }});
+   	     }}).click(function(event){
+		  event.preventDefault();
+		  if(confirm("Do you REALLY want to delete it?")){
+			 $(this).parents(".yform").submitForm(); 
+		  }
+		  
+	  });;
    	 
    	 /* describe editing handler */
    	 $(".describe_edit").toggle(function(){
