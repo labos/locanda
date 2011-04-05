@@ -2,10 +2,12 @@ package action;
 
 import java.util.Map;
 
+import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.interceptor.SessionAware;
 
 import com.opensymphony.xwork2.ActionSupport;
-//Da usare come template per tutte le action
+
+@ParentPackage(value="default")
 public class TemplateAction extends ActionSupport implements SessionAware{
 	private Map<String, Object> session = null;
 	

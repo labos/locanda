@@ -54,28 +54,14 @@ public class ExtraAction extends ActionSupport implements SessionAware{
 		//Controllare che sia diverso da null in un interceptor
 		Structure structure = user.getStructure();
 		this.getExtra().setId(structure.nextKey());
-		this.getExtra().setName(this.getExtra().getName());
-		this.getExtra().setPrice(this.getExtra().getPrice());
-		structure.addExtra(this.getExtra());
+		//this.getExtra().setName(this.getExtra().getName());
+		//this.getExtra().setPrice(this.getExtra().getPrice());
 		this.getExtra().setResourcePriceType("per Room");
 		this.getExtra().setTimePriceType("per Night");
+		structure.addExtra(this.getExtra());
+		
 		this.getMessage().setResult(Message.SUCCESS);
 		this.getMessage().setDescription("Extra Added successfully");
-		return SUCCESS;
-	}
-	
-	@Actions({
-		@Action(value="/goUpdateExtra",results = {
-				@Result(name="success",location="/extra_edit.jsp")
-		})
-		
-	})
-	public String goUpdateExtra() {
-		User user = (User)this.getSession().get("user");
-		//Controllare che sia diverso da null in un interceptor
-		Structure structure = user.getStructure();
-		Extra extra = structure.findExtraById(this.getExtra().getId());
-		this.setExtra(extra);
 		return SUCCESS;
 	}
 	
@@ -97,7 +83,63 @@ public class ExtraAction extends ActionSupport implements SessionAware{
 		return SUCCESS;
 	}
 	
+	@Actions({
+		@Action(value="/saveUpdateExtra",results = {
+				@Result(type ="json",name="success", params={
+						"root","message"
+				} ),
+				@Result(type ="json",name="error", params={
+						"root","message"
+				} )
+		})
+		
+	})
 	
+	public String saveUpdateExtra() {
+		User user = (User)this.getSession().get("user");
+		//Controllare che sia diverso da null in un interceptor
+		Structure structure = user.getStructure();
+		Extra oldExtra = structure.findExtraById(this.getExtra().getId());
+		if(oldExtra == null){
+			//Si tratta di un add
+			this.getExtra().setId(structure.nextKey());
+			this.getExtra().setResourcePriceType("per Room");
+			this.getExtra().setTimePriceType("per Night");
+			structure.addExtra(this.getExtra());
+			
+			this.getMessage().setResult(Message.SUCCESS);
+			this.getMessage().setDescription("Extra Added successfully");
+			return SUCCESS;
+		}else{
+			//Si tratta di un update
+			structure.updateExtra(this.getExtra());
+			//Aggiungere update error
+			this.getMessage().setResult(Message.SUCCESS);
+			this.getMessage().setDescription("Extra updated successfully");
+			return SUCCESS;
+			
+		}
+		
+		
+	}
+	
+	
+	@Actions({
+		@Action(value="/goUpdateExtra",results = {
+				@Result(name="success",location="/extra_edit.jsp")
+		})
+		
+	})
+	public String goUpdateExtra() {
+		User user = (User)this.getSession().get("user");
+		//Controllare che sia diverso da null in un interceptor
+		Structure structure = user.getStructure();
+		Extra extra = structure.findExtraById(this.getExtra().getId());
+		this.setExtra(extra);
+		return SUCCESS;
+	}
+	
+		
 	@Actions({
 		@Action(value="/deleteExtra",results = {
 				@Result(type ="json",name="success", params={
