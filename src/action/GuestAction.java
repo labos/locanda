@@ -100,47 +100,7 @@ public class GuestAction extends ActionSupport implements SessionAware{
 		return SUCCESS;
 	}
 	
-	/*
 	
-	@Actions({
-		@Action(value="/updateGuest",results = {
-				@Result(type ="json",name="success", params={
-						"root","message"
-				} )
-		})
-		
-	})
-	public String updateGuest(){
-		User user = (User)session.get("user");
-		Structure structure = user.getStructure();
-		structure.updateGuest(this.getGuest());
-		//Aggiungere update error
-		this.getMessage().setResult(Message.SUCCESS);
-		this.getMessage().setDescription("Guest modified successfully");
-		return SUCCESS;
-	}
-	
-	
-	
-	
-	@Actions({
-		@Action(value="/addNewGuest",results = {
-				@Result(type ="json",name="success", params={
-						"root","message"
-				} )
-		})
-		
-	})
-	public String addNewGuest(){
-		User user = (User)session.get("user");
-		Structure structure = user.getStructure();
-		this.getGuest().setId(structure.nextKey());
-		structure.addGuest(this.getGuest());
-		this.getMessage().setResult(Message.SUCCESS);
-		this.getMessage().setDescription("Guest added successfully");
-		return SUCCESS;
-	}
-	*/
 	@Actions({
 		@Action(value="/saveUpdateGuest",results = {
 				@Result(type ="json",name="success", params={
