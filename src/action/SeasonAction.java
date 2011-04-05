@@ -58,7 +58,7 @@ public class SeasonAction extends ActionSupport implements SessionAware {
 	}
 
 	@Actions({ @Action(value = "/findSeasonByPeriod", results = {
-			@Result(type = "json", name = "success"),
+			@Result(type = "json", name = "success", params = { "root", "message" }),
 			@Result(type = "json", name = "error", params = { "root", "message" }) })
 
 	})
@@ -133,8 +133,29 @@ public class SeasonAction extends ActionSupport implements SessionAware {
 
 	}
 
+	@Actions({ @Action(value = "/deleteSeason", results = {
+			@Result(type = "json", name = "success", params = { "root", "message" }),
+			@Result(type = "json", name = "error", params = { "root", "message" }) })
+
+	})
+	public String deleteSeason() {
+
+		User user = (User) session.get("user");
+		Structure structure = user.getStructure();
+		Season currentSeason = structure.findSeasonById(this.season.getId());
+		if(structure.removeSeason(currentSeason)){
+			this.getMessage().setResult(Message.SUCCESS);
+			this.getMessage().setDescription("Season removed successfully");
+			return SUCCESS;
+		}else{
+			this.getMessage().setResult(Message.ERROR);
+			this.getMessage().setDescription("Error removing Season");
+			return ERROR;
+		}
+	}
+	
 	@Actions({ @Action(value = "/deletePeriodFromSeason", results = {
-			@Result(type = "json", name = "success"),
+			@Result(type = "json", name = "success", params = { "root", "message" }),
 			@Result(type = "json", name = "error", params = { "root", "message" }) })
 
 	})

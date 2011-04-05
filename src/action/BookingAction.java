@@ -39,7 +39,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 	private Message message = new Message();
 	private String dateOut = null;
 	private List<Extra> extras = null;
-	private List<Integer> bookingExtraIds = new ArrayList<Integer>();
+	private List<Integer> extrasIds = new ArrayList<Integer>();
 	
 	
 	
@@ -103,7 +103,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		// popolo bookingExtrasIds con gli id degli extra già presenti nel booking
 		for(Extra each: aBooking.getExtras()){
 			subtotal = subtotal + each.getPrice();
-			bookingExtraIds.add(each.getId());
+			extrasIds.add(each.getId());
 		}		
 		aBooking.setExtraSubtotal(subtotal);
 		subtotal = subtotal + aBooking.getRoom().getPrice();
@@ -193,11 +193,11 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		if(oldBooking==null){
 			//Si tratta di un nuovo booking
 			this.getBooking().setId(structure.nextKey());
-			this.saveUpdateBookingExtras(bookingExtraIds, structure);
+			this.saveUpdateBookingExtras(extrasIds, structure);
 			structure.addBooking(this.getBooking());
 		}else{
 			//Si tratta di un update di un booking esistente
-			this.saveUpdateBookingExtras(bookingExtraIds, structure);
+			this.saveUpdateBookingExtras(extrasIds, structure);
 			structure.updateBooking(this.getBooking());			
 		}		
 		this.getMessage().setResult(Message.SUCCESS);
@@ -348,18 +348,13 @@ public class BookingAction extends ActionSupport implements SessionAware{
 	}
 
 
-	public List<Integer> getBookingExtraIds() {
-		return bookingExtraIds;
+	public List<Integer> getExtrasIds() {
+		return extrasIds;
 	}
 
 
-	public void setBookingExtraIds(List<Integer> bookingExtraIds) {
-		this.bookingExtraIds = bookingExtraIds;
-	}
-
-
-	
-
-	
+	public void setExtrasIds(List<Integer> extrasIds) {
+		this.extrasIds = extrasIds;
+	}	
 
 }
