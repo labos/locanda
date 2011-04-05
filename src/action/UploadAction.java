@@ -15,11 +15,12 @@ import org.apache.commons.io.FileUtils;
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Actions;
+import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.interceptor.SessionAware;
 
 import com.opensymphony.xwork2.ActionSupport;
-//Da usare come template per tutte le action
+@ParentPackage(value="default")
 public class UploadAction extends ActionSupport implements SessionAware{
 	private Map<String, Object> session = null;
 	private File upload;

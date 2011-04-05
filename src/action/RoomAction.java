@@ -199,66 +199,7 @@ public class RoomAction extends ActionSupport implements SessionAware{
 	
 	}	
 	
-	@Actions({
-		@Action(value="/goRoomFacilities_edit",results = {
-				@Result(name="success",location="/roomFacilities_edit.jsp")
-		})
-	})
 	
-	public String goRoomFacilities_edit() {
-		User user = (User)this.getSession().get("user");
-		//Controllare che sia diverso da null in un interceptor
-		Structure structure = user.getStructure();
-		//setto la room corrente con l'idForm settato 
-		room = structure.findRoomById(idRoom);
-		//creo un oggetto vuoto di id di facilities
-		this.facilities = new ArrayList<Integer>();
-		this.setRoomFacilities(structure.getRoomFacilities());
-		
-		List <RoomFacility> currentRoom = structure.findRoomById(idRoom).getFacilities();
-		
-		for(RoomFacility each: currentRoom){
-			
-			facilities.add(each.getId());
-			
-		}
-		return SUCCESS;
-	}
-	
-	@Actions({
-		@Action(value="/roomFacilities_edit", results={
-				@Result(type ="json",name="success", params={
-						"root","message"
-				})					
-			})
-	})
-	
-	
-	public String roomFacilities_edit() {
-		User user = (User)this.getSession().get("user");
-		//Controllare che sia diverso da null in un interceptor
-		Structure structure = user.getStructure();
-		room = structure.findRoomById(idRoom);
-		List<RoomFacility>  checkedFacilities = new ArrayList<RoomFacility>();
-		if(facilities != null)
-		{
-			checkedFacilities = structure.findFacilitiesByIds(facilities);	
-		}
-		
-		room.setFacilities(new ArrayList<RoomFacility>());
-		try{
-			room.addRoomFacilities(checkedFacilities);
-		}
-		catch(Exception e)
-			{
-			return ERROR;
-			}
-		
-		this.getMessage().setResult(Message.SUCCESS);
-		String text = "Facilities added/modified successfully";
-		this.getMessage().setDescription(text);
-		return SUCCESS;
-	}
 
 	public Map<String, Object> getSession() {
 		return session;
@@ -316,8 +257,6 @@ public class RoomAction extends ActionSupport implements SessionAware{
 
 	public void setRooms(List<Room> rooms) {
 		this.rooms = rooms;
-	}
-	
-	
+	}	
 	
 }
