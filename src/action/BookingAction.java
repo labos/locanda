@@ -44,9 +44,6 @@ public class BookingAction extends ActionSupport implements SessionAware{
 	
 	
 	@Actions({
-		@Action(value="/goAddNewBooking",results = {
-				@Result(name="success",location="/book.jsp")
-		}),
 		@Action(value="/goAddBookingFromPlanner",results = {
 				@Result(name="success",location="/jsp/contents/booking_form.jsp"),
 				
@@ -54,7 +51,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		})
 	})
 	
-	public String goAddNewBooking() {
+	public String goAddNewBookingFromPlanner() {
 		User user = (User)this.getSession().get("user");
 		//Controllare che sia diverso da null in un interceptor
 		Structure structure = user.getStructure();
@@ -68,6 +65,21 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		return SUCCESS;
 	}
 	
+	
+	@Actions({
+		@Action(value="/goAddNewBooking",results = {
+				@Result(name="success",location="/book.jsp")
+		})
+	})
+	
+	public String goAddNewBooking() {
+		User user = (User)this.getSession().get("user");
+		//Controllare che sia diverso da null in un interceptor
+		Structure structure = user.getStructure();
+		this.setRooms(structure.getRooms());
+		this.setExtras(structure.getExtras());
+		return SUCCESS;
+	}
 	
 	@Actions({
 		@Action(value="/goUpdateBooking",results = {

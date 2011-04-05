@@ -100,6 +100,8 @@ public class GuestAction extends ActionSupport implements SessionAware{
 		return SUCCESS;
 	}
 	
+	/*
+	
 	@Actions({
 		@Action(value="/updateGuest",results = {
 				@Result(type ="json",name="success", params={
@@ -138,7 +140,7 @@ public class GuestAction extends ActionSupport implements SessionAware{
 		this.getMessage().setDescription("Guest added successfully");
 		return SUCCESS;
 	}
-	
+	*/
 	@Actions({
 		@Action(value="/saveUpdateGuest",results = {
 				@Result(type ="json",name="success", params={
