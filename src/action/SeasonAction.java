@@ -25,6 +25,7 @@ import model.listini.Season;
 
 @ParentPackage(value = "default")
 public class SeasonAction extends ActionSupport implements SessionAware {
+	private Integer id;
 	private Map<String, Object> session = null;
 	private List<Season> seasons = null;
 	private Season season = null;
@@ -67,6 +68,21 @@ public class SeasonAction extends ActionSupport implements SessionAware {
 		//in working....
 		return SUCCESS;
 	}
+	
+	@Actions({ 
+		@Action(value = "/goUpdateSeason", 
+				results = { @Result(name = "success", location = "/season_edit.jsp") })
+
+	})
+	public String goUpdateSeason() {
+		User user = (User) session.get("user");
+		Structure structure = user.getStructure();
+		
+		Season theSeason = structure.findSeasonById(this.getId());
+		this.setSeason(theSeason);
+		return SUCCESS;
+	}
+	
 
 	@Actions({ @Action(value = "/saveUpdateSeason", results = {
 			@Result(type = "json", name = "success", params = { "root",
@@ -231,5 +247,15 @@ public class SeasonAction extends ActionSupport implements SessionAware {
 	public void setPeriods(List<Period> periods) {
 		this.periods = periods;
 	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	
+	
 
 }
