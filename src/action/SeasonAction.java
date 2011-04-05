@@ -89,6 +89,7 @@ public class SeasonAction extends ActionSupport implements SessionAware {
 					"message" }),
 			@Result(name = "input", location = "/validationError.jsp"),
 			@Result(type = "json", name = "error", params = { "root", "message" }) }) })
+	
 	public String saveUpdateSeason() {
 		User user = (User) session.get("user");
 		Structure structure = user.getStructure();

@@ -41,9 +41,8 @@ public class RoomFacilityAction extends ActionSupport implements SessionAware{
 		Structure structure = user.getStructure();
 		
 		this.setRoomFacilities(structure.getRoomFacilities());		
-		List <RoomFacility> currentRoomFacilities = structure.findRoomById(idRoom).getFacilities();
-		
-		for(RoomFacility each: currentRoomFacilities){			
+				
+		for(RoomFacility each: structure.findRoomById(this.idRoom).getFacilities()){			
 			this.roomFacilitiesIds.add(each.getId());			
 		}
 		return SUCCESS;
@@ -63,10 +62,10 @@ public class RoomFacilityAction extends ActionSupport implements SessionAware{
 		//Controllare che sia diverso da null in un interceptor
 		Structure structure = user.getStructure();
 		this.room = structure.findRoomById(this.idRoom);
-		List<RoomFacility>  checkedFacilities = new ArrayList<RoomFacility>();
-		if(this.roomFacilitiesIds != null){
-			checkedFacilities = structure.findFacilitiesByIds(this.roomFacilitiesIds);	
-		}		
+		List<RoomFacility>  checkedFacilities = null;
+		//if(this.roomFacilitiesIds != null){
+		checkedFacilities = structure.findFacilitiesByIds(this.roomFacilitiesIds);	
+		//}		
 		
 		this.room.updateRoomFacilities(checkedFacilities);
 		this.getMessage().setResult(Message.SUCCESS);
@@ -75,68 +74,7 @@ public class RoomFacilityAction extends ActionSupport implements SessionAware{
 		return SUCCESS;
 	}
 	
-	/*
-	@Actions({
-		@Action(value="/roomFacilities_edit", results={
-				@Result(type ="json",name="success", params={
-						"root","message"
-				})					
-			})
-	})
-	
-	
-	public String roomFacilities_edit() {
-		User user = (User)this.getSession().get("user");
-		//Controllare che sia diverso da null in un interceptor
-		Structure structure = user.getStructure();
-		room = structure.findRoomById(idRoom);
-		List<RoomFacility>  checkedFacilities = new ArrayList<RoomFacility>();
-		if(facilities != null)
-		{
-			checkedFacilities = structure.findFacilitiesByIds(facilities);	
-		}
 		
-		room.setFacilities(new ArrayList<RoomFacility>());
-		try{
-			room.addRoomFacilities(checkedFacilities);
-		}
-		catch(Exception e)
-			{
-			return ERROR;
-			}
-		
-		this.getMessage().setResult(Message.SUCCESS);
-		String text = "Facilities added/modified successfully";
-		this.getMessage().setDescription(text);
-		return SUCCESS;
-	}
-	*/
-	
-	/*
-	@Actions({
-		@Action(value="/goRoomFacilities_edit",results = {
-				@Result(name="success",location="/roomFacilities_edit.jsp")
-		})
-	})
-	
-	public String goRoomFacilities_edit() {
-		User user = (User)this.getSession().get("user");
-		//Controllare che sia diverso da null in un interceptor
-		Structure structure = user.getStructure();
-		this.facilities = new ArrayList<Integer>();
-		this.setRoomFacilities(structure.getRoomFacilities());
-		
-		List <RoomFacility> currentRoom = structure.findRoomById(idRoom).getFacilities();
-		
-		for(RoomFacility each: currentRoom){
-			
-			facilities.add(each.getId());
-			
-		}
-		return SUCCESS;
-	}
-	*/	
-	
 	public Map<String, Object> getSession() {
 		return session;
 	}
