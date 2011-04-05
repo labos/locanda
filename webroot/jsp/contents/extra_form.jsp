@@ -4,11 +4,10 @@
 <%@ taglib uri="/struts-tags" prefix="s" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-		<form method="post" action="addNewExtra.action" class="yform json full" id="newExtraForm" role="application">
+		<form method="post" action="saveUpdateExtra.action" class="yform json full" role="application">
 		  <fieldset>
           	<legend>Extras details</legend>
           	  <div class="c50l">
-              	<input type="hidden" name="redirect_form" value="findAllExtras.action?sect=accomodation" />
               	<input type="hidden" name="redirect_form" value="findAllExtras.action?sect=accomodation" />
                 <input type="hidden" name="extra.id" value="<s:property value="extra.id"/>"/>
                 <div class="c50l">
@@ -49,7 +48,7 @@
 							 
                   <div class="type-button">
                   	<button class="btn_save">SAVE</button>
-                    <button class="btn_delete btn_reset btn_cancel_form">CANCEL</button>
+                    <button class="btn_reset btn_cancel_form">CANCEL</button>
                   </div>	
                 </div>
               </div>

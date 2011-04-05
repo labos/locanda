@@ -33,8 +33,8 @@
 				  <input type="hidden" name="redirect_form" value="findAllExtras.action?sect=accomodation" />
                   <input type="hidden" name="extra.id" value="<s:property value="#eachExtra.id"/>"/> 
                   <legend class="title_season">
-              		<a href="goUpdateExtra.action?sect=guests&id=<s:property value="#eachExtra.id"/>"><s:property value="#eachExtra.name"/></a>
-              		<a href="goUpdateExtra.action?sect=guests&id=<s:property value="#eachExtra.id"/>"><img src="images/sign-up-icon.png" alt="edit" /></a>
+              		<a href="goUpdateExtra.action?sect=accomodation&extra.id=<s:property value="#eachExtra.id"/>"><s:property value="#eachExtra.name"/></a>
+              		<a href="goUpdateExtra.action?sect=accomodation&extra.id=<s:property value="#eachExtra.id"/>"><img src="images/sign-up-icon.png" alt="edit" /></a>
               	  </legend>
                   <div class="subcolumns">
       		 		<div class="c40l">
