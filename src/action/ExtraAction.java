@@ -37,52 +37,7 @@ public class ExtraAction extends ActionSupport implements SessionAware{
 		return SUCCESS;
 	}
 	
-	@Actions({
-		@Action(value="/addNewExtra",results = {
-				@Result(type ="json",name="success", params={
-						"root","message"
-				} ),
-				@Result(type ="json",name="error", params={
-						"root","message"
-				} )
-		})
 		
-	})
-	
-	public String addNewExtra() {
-		User user = (User)this.getSession().get("user");
-		//Controllare che sia diverso da null in un interceptor
-		Structure structure = user.getStructure();
-		this.getExtra().setId(structure.nextKey());
-		//this.getExtra().setName(this.getExtra().getName());
-		//this.getExtra().setPrice(this.getExtra().getPrice());
-		this.getExtra().setResourcePriceType("per Room");
-		this.getExtra().setTimePriceType("per Night");
-		structure.addExtra(this.getExtra());
-		
-		this.getMessage().setResult(Message.SUCCESS);
-		this.getMessage().setDescription("Extra Added successfully");
-		return SUCCESS;
-	}
-	
-	@Actions({
-		@Action(value="/updateExtra",results = {
-				@Result(type ="json",name="success", params={
-						"root","message"
-				} )
-		})
-		
-	})
-	public String updateExtra(){
-		User user = (User)session.get("user");
-		Structure structure = user.getStructure();
-		structure.updateExtra(this.getExtra());
-		//Aggiungere update error
-		this.getMessage().setResult(Message.SUCCESS);
-		this.getMessage().setDescription("Extra modified successfully");
-		return SUCCESS;
-	}
-	
 	@Actions({
 		@Action(value="/saveUpdateExtra",results = {
 				@Result(type ="json",name="success", params={

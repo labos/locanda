@@ -6,7 +6,7 @@
 <div class="book_details">
 <form action="roomFacilities_edit.action" class="yform json" role="application">
 <input type="hidden" name="redirect_form" value="findAllRooms.action?sect=accomodation" />
-<s:hidden value="%{room.id}" name="idRoom"/>
+<s:hidden value="%{idRoom}" name="idRoom"/>
                 <s:iterator value="roomFacilities" var="each">
                		<div class="facility">
 					<img width="24" height="24" src="images/room_facilities/<s:property value="#each.fileName"/>" alt="facility"/>

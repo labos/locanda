@@ -37,9 +37,6 @@ public class RoomFacilityAction extends ActionSupport implements SessionAware{
 		User user = (User)this.getSession().get("user");
 		//Controllare che sia diverso da null in un interceptor
 		Structure structure = user.getStructure();
-		//setto la room corrente con l'idForm settato 
-		room = structure.findRoomById(idRoom);
-		//creo un oggetto vuoto di id di facilities
 		this.facilities = new ArrayList<Integer>();
 		this.setRoomFacilities(structure.getRoomFacilities());
 		
@@ -136,10 +133,6 @@ public class RoomFacilityAction extends ActionSupport implements SessionAware{
 
 	public void setMessage(Message message) {
 		this.message = message;
-	}
-	
-	
-	
-	
+	}	
 
 }
