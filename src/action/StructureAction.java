@@ -159,6 +159,21 @@ public class StructureAction extends ActionSupport implements SessionAware {
 	}
 	
 	@Actions({
+		@Action(value="/goUpdateExtra",results = {
+				@Result(name="success",location="/extra_edit.jsp")
+		})
+		
+	})
+	public String goUpdateExtra() {
+		User user = (User)this.getSession().get("user");
+		//Controllare che sia diverso da null in un interceptor
+		Structure structure = user.getStructure();
+		Extra extra = structure.findExtraById(this.getExtra().getId());
+		this.setExtra(extra);
+		return SUCCESS;
+	}
+	
+	@Actions({
 		@Action(value="/updateExtra",results = {
 				@Result(type ="json",name="success", params={
 						"root","message"
@@ -300,11 +315,6 @@ public class StructureAction extends ActionSupport implements SessionAware {
 
 	public void setRooms(List<Room> rooms) {
 		this.rooms = rooms;
-	}
-	
-	
-	
-	
-	
+	}	
 
 }

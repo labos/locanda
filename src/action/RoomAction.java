@@ -27,6 +27,7 @@ public class RoomAction extends ActionSupport implements SessionAware{
 	private List<RoomFacility> roomFacilities = null;
 	private List<Integer> facilities = new ArrayList<Integer>();
 	private Integer idRoom;
+	private List<Room> rooms = null;
 	
 
 	
@@ -291,6 +292,15 @@ public class RoomAction extends ActionSupport implements SessionAware{
 	public void setRoomFacilities(List<RoomFacility> roomFacilities) {
 		this.roomFacilities = roomFacilities;
 	}
+
+	public List<Room> getRooms() {
+		return rooms;
+	}
+
+	public void setRooms(List<Room> rooms) {
+		this.rooms = rooms;
+	}
+	
 	
 	
 }

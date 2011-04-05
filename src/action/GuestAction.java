@@ -54,8 +54,7 @@ public class GuestAction extends ActionSupport implements SessionAware{
 						"root","message"
 				})}) 
 		
-	})
-	
+	})	
 	
 	public String findGuestById(){
 		User user = (User)session.get("user");
@@ -82,9 +81,6 @@ public class GuestAction extends ActionSupport implements SessionAware{
 		
 		return SUCCESS;
 	}
-	
-	
-	
 	
 	@Actions({
 		@Action(value="/goUpdateGuest",results = {
