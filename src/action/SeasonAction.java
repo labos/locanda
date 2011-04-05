@@ -34,7 +34,9 @@ public class SeasonAction extends ActionSupport implements SessionAware {
 	private List<Period> periods = new ArrayList<Period>();
 	private Message message = new Message();
 
-	@Actions({ @Action(value = "/findAllSeasons", results = { @Result(name = "success", location = "/seasons.jsp") })
+	@Actions({ 
+		@Action(value = "/findAllSeasons", 
+				results = { @Result(name = "success", location = "/seasons.jsp") })
 
 	})
 	public String findAllSeasons() {
@@ -44,7 +46,9 @@ public class SeasonAction extends ActionSupport implements SessionAware {
 		return SUCCESS;
 	}
 
-	@Actions({ @Action(value = "/findSeasonById", results = { @Result(name = "success", location = "/seasons.jsp") })
+	@Actions({ 
+		@Action(value = "/findSeasonById", 
+				results = { @Result(name = "success", location = "/seasons.jsp") })
 
 	})
 	public String findSeasonById() {

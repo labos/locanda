@@ -29,7 +29,24 @@ public class RoomAction extends ActionSupport implements SessionAware{
 	private Integer idRoom;
 	private List<Room> rooms = null;
 	
-
+	
+	@Actions({
+		@Action(value="/findAllRooms",results = {
+				@Result(name="success",location="/accomodation.jsp")
+		}),
+		@Action(value="/findAllRoomsJson",results = {
+				@Result(type ="json",name="success", params={
+						"root","rooms"
+				})}) 
+		
+	})
+	public String findAllRooms() {
+		User user = (User)this.getSession().get("user");
+		//Controllare che sia diverso da null in un interceptor
+		Structure structure = user.getStructure();
+		this.setRooms(structure.getRooms());
+		return SUCCESS;
+	}
 	
 	@Actions({
 		@Action(value="/goAddNewRoom",results = {
