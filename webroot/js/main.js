@@ -19,15 +19,17 @@ $(document).ready(function() {
 				buttonImage: "images/calendar.gif",
 				buttonImageOnly: true,
 				dateFormat: patternDate,
-				 onSelect: function(dateText, inst) {
+				 onClose: function(dateText, inst) {
 					 var numNights = 0;
 					 var closerDateInput =$( ".datepicker" ).not($(this));
 					 var otherData = closerDateInput.datepicker("getDate");
-					 var selectedData = new Date(dateText);
-					
-					 if ( selectedData  && otherData != null)
+					// var selectedData = new Date(dateText);
+					 var selectedData = $(this).datepicker("getDate");
+					 if ( selectedData  && otherData)
 						 {
-						 	numNights = days_between(selectedData , otherData);	
+						 	numNights = days_between_signed( otherData, selectedData);	
+						 	if(numNights <= 0 )
+						 	$().notify(optionsLoc.alertKO, "Attenzione, la data di inizio non può essere minore o uguale a quella di fine");
 						 }
 					  
 					 $("#booking_duration").val(numNights);
@@ -189,7 +191,7 @@ $(document).ready(function() {
 	     		  $('input[name="booking.dateIn"]').rules("add",  "date");
 	     		  var dateOut = '';
 	     	      var numNights = $(this).find(":selected").val();
-	     	      var dateInVal = $('input[name="booking.dateIn"]').val();
+	     	     var dateInVal = $('input[name="booking.dateIn"]').datepicker('getDate');
 	     	      var $dateInDom = $('input[name="booking.dateIn"]');
 	     	      if (dateInVal !=='' && $dateInDom.valid() )
 	     	    	  {
