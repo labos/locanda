@@ -20,8 +20,8 @@
        				<label for="extraFormPrice">Extra price <sup title="This field is mandatory.">*</sup></label>
                     <input type="text" class="required number" name="extra.price" id="extraFormPrice" value="<s:property value="extra.price"/>" aria-required="true"/>
       		      </div> 
-                  
-                  <div class="radiogroup right">
+                  <div class="subcr type-check">
+                  <div class="c50l">
 					<input 
 					  <s:if test="extra.timePriceType == 'per Night'">checked="checked"</s:if>
 					  type="radio" name="extra.timePriceType" value="per Night"/>per Night<br/>
@@ -33,7 +33,7 @@
 				      type="radio" name="extra.timePriceType" value="per Booking"/>per Booking
 				    </div>
 							 
-				  <div class="radiogroup right">
+				  <div class="c50l">
 				  	<input 
 					  <s:if test="extra.resourcePriceType == 'per Room'">checked="checked"</s:if>
 					  type="radio" name="extra.resourcePriceType" value="per Room" />per Room<br/>
@@ -43,6 +43,8 @@
                     <input 
                       <s:if test="extra.resourcePriceType == 'per Item'">checked="checked"</s:if>
 					  type="radio" name="extra.resourcePriceType" value="per Item" />per Item
+				  </div>
+				  
 				  </div>
 							 
                   <div class="type-button">
