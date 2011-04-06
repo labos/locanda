@@ -44,8 +44,8 @@
 					  <ul>
 			<s:iterator value="#eachSeason.periods" var="eachPeriod" status="periodStatus">
 			<li>
-						<b>From:</b> <s:date name="#eachPeriod.startDate" format="%{#session.datePattern}" />
-					    <b>To:</b><s:date name="#eachPeriod.endDate" format="%{#session.datePattern}" />
+						<b>From:</b>&nbsp;<s:date name="#eachPeriod.startDate" format="%{#session.datePattern}" />
+					    <b>To:</b>&nbsp;<s:date name="#eachPeriod.endDate" format="%{#session.datePattern}" />
 			</li>
 
 </s:iterator>		  

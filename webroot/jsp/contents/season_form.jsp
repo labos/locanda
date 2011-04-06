@@ -16,7 +16,7 @@
                <div class="c33l">
                <div class="subcl type-text">
                 <span>Name:</span>
-<input type="text"name="season.name" class="required" value="<s:property value="season.name"/>" style="display: inline;" readonly="readonly"/>&nbsp; (<a href="#" class="rename_season" title="rename" >Rename</a>)              </div>
+<input type="text"name="season.name" class="required" value="<s:property value="season.name"/>" style="display: inline;" /></div>
               </div>
               </div>
               <div class="subcolumns period">
@@ -34,9 +34,11 @@
               </div>
               <div class="c10l">
               <label>&nbsp;</label>
-              
+			 <input type="hidden" class="idPeriod" name="season.periods[0].id" value="<s:property value="season.periods[0].id"/>"/>
+              <a href="#seas_anchor_<s:property value="season.periods[0].id"/>" class="erase_period" title="erase">Delete Period</a>				  
               </div>
               </div>
+              <!-- ITERATION OF PERIODS  -->
               <s:iterator value="season.periods" var="eachPeriod" status="periodStatus">
      <s:if test="#periodStatus.index > 0"> 
 <div class="subcolumns period">
@@ -56,7 +58,7 @@
               <div class="c10l">
               <label>&nbsp;</label>
               <s:if test="#periodStatus.index > 0">
-			 <input type="hidden" name="idPeriod" value="<s:property value="#eachPeriod.id"/>"/>
+			 <input type="hidden" class="idPeriod" name="periods[<s:property value="#periodStatus.index"/>].id" value="<s:property value="#eachPeriod.id"/>"/>
               <a href="#seas_anchor_<s:property value="#eachSeason.id"/>" class="erase_period" title="erase">Delete Period</a>				  
 								</s:if>
 
