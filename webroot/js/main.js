@@ -1544,7 +1544,7 @@ $(document).ready(function() {
 	          primary: "ui-icon-circle-plus"
 	      }}).click(function(event){
 		  //-- event.preventDefault();
-	      var url_action_facility = "goRoomFacilities_edit"; 
+	      var url_action_facility = "goUpdateRoomFacilities"; 
 		  var id_room = $(this).parents(".yform").find('input:hidden[name="room.id"]').val();
 		  var name_room =  $(this).parents(".yform").find('input:text[name="room.name"]').val();
 		  $.ajax({

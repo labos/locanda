@@ -11,13 +11,13 @@
               	<input type="hidden" name="redirect_form" value="findAllGuests.action?sect=guests" />
               	<input type="hidden" name="id" value="<s:property value="id"/>"/>
            	 	<input type="hidden" name="guest.id" value="<s:property value="guest.id"/>"/>
-              <div class="c50l">
+                <div class="c50l">
            	 	  <div class="type-text">
-                  	<label for="firstName">First name <sup title="This field is mandatory.">*</sup></label>
+                  	<label for="firstName">First name: <sup title="This field is mandatory.">*</sup></label>
                   	<input class="required" type="text" name="guest.firstName" id="firstName" value="<s:property value="guest.firstName"/>" size="20" />
              	  </div>
               	  <div class="type-text" role="alert" aria-live="assertive">
-               	    <label for="lastName">Last name <sup title="This field is mandatory.">*</sup></label>
+               	    <label for="lastName">Last name: <sup title="This field is mandatory.">*</sup></label>
                     <input class="required" type="text" name="guest.lastName" id="lastName" value="<s:property value="guest.lastName"/>" size="20"  aria-required="true"/>
              	  </div>
                   <div class="type-text">
@@ -273,12 +273,14 @@
                   	<label for="notes">Notes:</label> 
                   	<textarea name="guest.notes" id="notes"><s:property value="guest.notes"/></textarea>
                   </div>
+                  
                   <div class="type-button">
             		<button class="btn_save">SAVE</button>
            		 	<button class="btn_reset btn_cancel_form">CANCEL</button>
            		  </div>
+           		  
+                </div>
               </div>
-              </div>
-              </fieldset>
+            </fieldset>
               
            </form>

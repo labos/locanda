@@ -5,88 +5,66 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <jsp:include page="jsp/layout/header_menu.jsp" />
-      <div id="main">
-        <!-- begin: #col1 - first float column -->
-        <div id="col1" role="complementary">
-          <div id="col1_content" class="clearfix">
-          </div>
-        </div><!-- end: #col1 -->
-        <!-- begin: #col3 static column -->
-        <div id="col3" role="main">
-          <div id="col3_content" class="clearfix">
-          <div class="header_section">
+
+  <div id="main">
+    <!-- begin: #col1 - first float column -->
+    <div id="col1" role="complementary">
+      <div id="col1_content" class="clearfix"></div>
+    </div><!-- end: #col1 -->
+    <!-- begin: #col3 static column -->
+    <div id="col3" role="main">
+      <div id="col3_content" class="clearfix">
+        <div class="header_section yform">
           <span class="name_section">Manage Rooms</span>
-          <div class="right">
-		    <button class="btn_add_new">ADD NEW</button>
-            <button class="btn_save_all btn_save_all_rooms">SAVE ALL</button>
-            </div>
-          </div>
+        </div>
         
-         <s:iterator value="rooms" var="eachRoom" >
-          <div>
-          
-		 <form method="post" action="updateRoom.action" class="yform json full" role="application">
+        <div>
+          <button class="btn_add_form">ADD NEW</button>
+        </div>
+        <div class="yform hideform">
+          <jsp:include page="jsp/contents/room_form.jsp" />
+        </div>
+        
+        
+        <s:iterator value="rooms" var="eachRoom" >
+         
+        <div> 
+		  <form method="post" action="deleteRoom.action" class="yform json full" role="application">
             <fieldset>
-              <legend>
-              	<input class="describe required" style="width:60px; display: inline;" readonly="true" type="text" name="room.name" value="<s:property value="#eachRoom.name"/>"  />
-				<a class="describe_edit" href="#" title="describe"><img src="images/sign-up-icon.png" alt="edit" /></a>
-            	</legend>
-            	<input type="hidden" name="redirect_form" value="findAllRooms.action?sect=accomodation" />
-		      <div class="subcolumns type-text">
-				<input type="hidden" name="room.id" value="<s:property value="id"/>"/>
-              <div class="">
-              <span>Room type:&nbsp;</span>
-              <input class="describe  required" style="width:60px; display: inline;" readonly="true" type="text" name="room.roomType" value="<s:property value="#eachRoom.roomType"/>"  />
-            	<a class="describe_edit" href="#" title="describe"><img src="images/sign-up-icon.png" alt="edit" /></a>
+              <input type="hidden" name="redirect_form" value="findAllRooms.action?sect=accomodation" />
+              <input type="hidden" name="room.id" value="<s:property value="id"/>"/>
+              <legend class="title_season">
+				<a href="goUpdateRoom.action?sect=accomodation&id=<s:property value="#eachRoom.id"/>"><s:property value="#eachRoom.name"/></a>
+                <a href="goUpdateRoom.action?sect=accomodation&id=<s:property value="#eachRoom.id"/>"><img src="images/sign-up-icon.png" alt="edit" /></a>
+              </legend>
+            	
+		      <div class="subcolumns">
+      		 	<div class="c40l">
+                  <div class="type_rooms">
+                    <ul>
+		   	          <li><b>Room type:</b> <s:property value="#eachRoom.roomType"/></li>
+				      <li><b>Price:</b> &euro; <s:property value="#eachRoom.price"/></li>
+				      <li><b>Max Guests:</b> <s:property value="#eachRoom.maxGuests"/></li>
+				      <li><b>Notes:</b> <s:property value="#eachRoom.notes"/></li>
+				    </ul>
+           			<fieldset> 
+           		      <legend>Facilities</legend>
+           		  	  <s:iterator value="#eachRoom.facilities" var="eachFacility">
+					    <img width="24" height="24"  src="images/room_facilities/<s:property value="fileName"/>" alt="<s:property value="#eachFacility.name"/>"/>
+      				  </s:iterator>
+    				</fieldset>
+                  </div>                  
+                </div>
               </div>
+              <div class="type-button">
+             	<button class="btn_delete">DELETE</button>
               </div>
-             <div class="subcolumns type-text">
-      <span class="title_season">Price</span>&nbsp; <input type="text" class="small_input  required number" id="price" name="room.price" value="<s:property value="#eachRoom.price"/>" />
-             <span>&nbsp;&euro;</span>
-              </div>
-               <div class="subcolumns">
-              &nbsp;
-              </div>
-              <div class="subcolumns type-text">
-            <div class="c10l">
-      		<span class="title_season">Max Guests:</span>&nbsp;
-      		</div>
-      		<div class="c10l">
-      		        <div class="type_rooms">
-                      <input type="input" class="small_input  required number" name="room.maxGuests" value="<s:property value="#eachRoom.maxGuests"/>" />
-                    </div>                
-            </div>
-            </div>
-			 <div class="subcolumns">
-              &nbsp;
-              </div>
-            <div class="subcolumns">
-            <fieldset> <legend>Facilities</legend>
-            <s:iterator value="#eachRoom.facilities" var="eachFacility">
-					<img  width="24" height="24"  src="images/room_facilities/<s:property value="fileName"/>" alt="<s:property value="#eachFacility.name"/>"/>
-      		</s:iterator>
-      		<button class="btn_add_facility_room">ADD FACILITY</button>
-      		</fieldset>
-              </div>
-            <div class="subcolumns type-text">
-            <div class="c50l">
-      		<span class="title_season">Notes:</span>&nbsp;
-      		<textarea name="room.notes" rows="5" cols="60"><s:property value="notes"/></textarea>
-      		</div>
-      		</div>
-      		<div class="subcolumns">
-              &nbsp;
-              </div>
-            <div class="type-button">
-            <input type="text" name="new_name_season" id="chng_season_name" value=""/>
-            <button class="btn_save btn_update_room">SAVE</button>
-            <button class="btn_delete btn_delete_room">DELETE</button>
-            </div>
-              </fieldset>
-           </form>        
+            </fieldset>
+          </form>        
 		</div>  
 		
-		 </s:iterator>
-		 <div id="facility_edit_dialog" style="display: none;"></div>    
-          </div>
+		</s:iterator>
+		
+      </div>
+      
 <jsp:include page="jsp/layout/footer.jsp" />     

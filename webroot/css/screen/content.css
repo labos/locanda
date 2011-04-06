@@ -229,6 +229,7 @@
  
 div.hideform {
 	display: none;
+	height: 100%;
 } 
  
 div.header_section {
