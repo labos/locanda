@@ -95,22 +95,22 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		//Controllare che sia diverso da null in un interceptor
 		Structure structure = user.getStructure();
 		this.setRooms(structure.getRooms());
-		Booking aBooking = structure.findBookingById(this.getId());
-		this.setBooking(aBooking);
+		Booking oldBooking = structure.findBookingById(this.getId());
+		this.setBooking(oldBooking);
 		this.setExtras(structure.getExtras());
 		
 		Double subtotal = 0.0;
-		// popolo bookingExtrasIds con gli id degli extra già presenti nel booking
-		for(Extra each: aBooking.getExtras()){
+		// popolo extrasIds con gli id degli extra già presenti nel booking
+		for(Extra each: oldBooking.getExtras()){
 			subtotal = subtotal + each.getPrice();
 			extrasIds.add(each.getId());
 		}		
-		aBooking.setExtraSubtotal(subtotal);
-		subtotal = subtotal + aBooking.getRoom().getPrice();
-		aBooking.setSubtotal(subtotal);
+		oldBooking.setExtraSubtotal(subtotal);
+		subtotal = subtotal + oldBooking.getRoom().getPrice();
+		oldBooking.setSubtotal(subtotal);
 		//SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 		//this.setDateIn(sdf.format(aBooking.getDateIn()));
-		Long millis = aBooking.getDateOut().getTime() - aBooking.getDateIn().getTime();
+		Long millis = oldBooking.getDateOut().getTime() - oldBooking.getDateIn().getTime();
 		Integer days = (int) (millis/(1000*3600*24));
 		this.setNumNights(days);
 		return SUCCESS;

@@ -9,27 +9,27 @@
               <legend>Room details</legend>
               <div class="c50l">
               	<input type="hidden" name="redirect_form" value="findAllRooms.action?sect=accomodation" />
-              	<input type="hidden" name="room.id" value="<s:property value="id"/>"/>
+              	<input type="hidden" name="room.id" value="<s:property value="room.id"/>"/>
            	 	<div class="c50l">
            	 	  <div class="type-text">
                   	<label for="roomName">Room name: <sup title="This field is mandatory.">*</sup></label>
-                  	<input class="required" type="text" name="room.name" id="roomName" value="<s:property value="#eachRoom.name"/>" size="20" />
+                  	<input class="required" type="text" name="room.name" id="roomName" value="<s:property value="room.name"/>" size="20" />
              	  </div>
                   <div class="type-text">
                   	<label for="roomType">Room type: <sup title="This field is mandatory.">*</sup></label>
-                  	<input class="required" type="text" name="room.roomType" id="roomType" value="<s:property value="#eachRoom.roomType"/>" size="20" />
+                  	<input class="required" type="text" name="room.roomType" id="roomType" value="<s:property value="room.roomType"/>" size="20" />
              	  </div>
              	  <div class="type-text">
                   	<label for="roomPrice">Price: &euro; <sup title="This field is mandatory.">*</sup></label>
-                  	<input class="required number" type="text" name="room.price" id="roomPrice" value="<s:property value="#eachRoom.price"/>" size="20" />
+                  	<input class="required number" type="text" name="room.price" id="roomPrice" value="<s:property value="room.price"/>" size="20" />
              	  </div>
              	  <div class="type-text">
                   	<label for="roomMaxGuests">Max Guests: <sup title="This field is mandatory.">*</sup></label>
-                  	<input class="required number" type="text" name="room.maxGuests" id="roomMaxGuests" value="<s:property value="#eachRoom.maxGuests"/>" size="20" />
+                  	<input class="required number" type="text" name="room.maxGuests" id="roomMaxGuests" value="<s:property value="room.maxGuests"/>" size="20" />
              	  </div>
              	  <div class="type-text">
                   	<label for="roomNotes">Notes:</label> 
-                  	<textarea name="room.notes" id="notes"><s:property value="#eachRoom.notes"/></textarea>
+                  	<textarea name="room.notes" id="notes"><s:property value="room.notes"/></textarea>
                   </div>
          	 	
                   <div class="type-button">
@@ -42,12 +42,12 @@
               
               <div class="c50l">
                 <div class="subcr type-check">
-               		<label for="per_parking">Facilities:</label>
+               		<label for="">Facilities:</label>
                 	<s:iterator value="roomFacilities" var="each">
                		  <div class="facility">
-						<img width="24" height="24" src="images/room_facilities/<s:property value="fileName"/>" alt="facility"/>
-						<input type="checkbox" id="<s:property value="name"/>_fac" name="facilities" value="<s:property value="id"/>"/>
-						<label for="<s:property value="name"/>_fac"><s:property value="name"/></label>					
+						<img width="24" height="24" src="images/room_facilities/<s:property value="#each.fileName"/>" alt="facility"/>
+						<s:checkbox id="%{#each.name}" name="roomFacilitiesIds" value="roomFacilitiesIds.contains(#each.id)" fieldValue="%{#each.id}"/>
+						<label for="<s:property value="name"/>_fac"><s:property value="#each.name"/></label>
 					  </div>
 					</s:iterator>
 				    <!-- div facility for javascript purpose-->
@@ -64,26 +64,22 @@
           </form>
           
          
-           <div class="beautify">
-   
-     		           <div class="subcolumns">
-           <div class="c33l">
-    <label for="name_facility">Facility Name:</label>&nbsp;<input type="text" name="facility_name" value="" id="name_facility" class="require"/>
- </div>
- <div class="c20l">
- <br/>
- <form id="uploadFacility" action="uploadFacility.action" method="post" enctype="multipart/form-data">
-   <input type="hidden" name="name" value=""/>
-     <input type="file" name="upload" multiple/>
-    <button>Upload</button>
-    <div>Upload files</div>  
-</form>
-		   
-		   <div class="result_facility_upload" id="result_facility_upload" ></div>
-		   <div class="upload_loader">&nbsp;</div>
-		   <div class="image_preview"></div>
-		   </div>
-		   </div>      
-
-           </div>
-		 		  
+          <div class="beautify">
+     	  	<div class="subcolumns">
+           	  <div class="c33l">
+    			<label for="name_facility">Facility Name:</label>&nbsp;<input type="text" name="facility_name" value="" id="name_facility" class="require"/>
+ 			  </div>
+ 			  <div class="c20l">
+ 				<br/>
+ 				<form id="uploadFacility" action="uploadFacility.action" method="post" enctype="multipart/form-data">
+   				  <input type="hidden" name="name" value=""/>
+     			  <input type="file" name="upload" multiple/>
+    			  <button>Upload</button>
+    			  <div>Upload files</div>  
+				</form> 
+		  	 	<div class="result_facility_upload" id="result_facility_upload" ></div>
+		   		<div class="upload_loader">&nbsp;</div>
+		   		<div class="image_preview"></div>
+		   	  </div>
+		   	</div>      
+          </div>	 		  

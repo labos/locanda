@@ -95,6 +95,7 @@ public class Structure {
 		originalRoom.setNotes(room.getNotes());
 		originalRoom.setPrice(room.getPrice());
 		originalRoom.setRoomType(room.getRoomType());
+		originalRoom.setFacilities(room.getFacilities());
 		return true;
 	}
 	

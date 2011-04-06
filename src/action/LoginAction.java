@@ -82,8 +82,8 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		ret.setName("polaris");
 		ret.setEmail("polaris@locanda.it");
 		
-		this.buildRooms(ret);
 		this.buildRoomFacilities(ret);
+		this.buildRooms(ret);
 		this.buildGuests(ret);
 		this.buildBookings(ret);
 		this.buildExtras(ret);
@@ -101,6 +101,8 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		aRoom.setRoomType("singola");
 		aRoom.setPrice(80.0);
 		aRoom.setMaxGuests(1);
+		aRoom.addRoomFacility(structure.getRoomFacilities().get(0));
+		aRoom.addRoomFacility(structure.getRoomFacilities().get(2));
 		structure.addRoom(aRoom);
 		
 		aRoom = new Room();
@@ -109,6 +111,7 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		aRoom.setRoomType("doppia");
 		aRoom.setPrice(120.0);
 		aRoom.setMaxGuests(2);
+		aRoom.addRoomFacility(structure.getRoomFacilities().get(1));
 		structure.addRoom(aRoom);
 	}
 	
