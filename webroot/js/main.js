@@ -52,7 +52,8 @@ $(document).ready(function() {
 
 				$( "#accordion" ).accordion({
 					  collapsible: true,
-					     active: false, animated:  'bounceslide'
+					     active: false, animated:  'bounceslide',
+					     autoHeight: true
 				});
 
 		
@@ -651,7 +652,12 @@ $(document).ready(function() {
             },
             buttons: {
                save : function() {
-             	 ! $dialogContent.find(".yform.json").submitForm();
+            	   if ( ! $dialogContent.find(".yform.json").valid() )
+            		   {
+            		   $( "#accordion" ).accordion( "option", "active", 0 );
+            		   
+            		   }
+             	 $dialogContent.find(".yform.json").submitForm();
                  // $dialogContent.dialog("close");
                   
                },
@@ -701,7 +707,9 @@ $(document).ready(function() {
          var bodyField = $dialogContent.find("textarea[name='body']");
          bodyField.val(calEvent.body);
           	*/
-         $dialogContent.load("goUpdateBookingFromPlanner.action", {id: id_booked}, function(){optionsLoc.init();
+         $dialogContent.addClass("loaderback").load("goUpdateBookingFromPlanner.action", {id: id_booked}, function(){
+        	 $(this).removeClass("loaderback");
+        	 optionsLoc.init();
          $(".btn_save").hide();
          }).dialog({
         	open: function(event, ui){
@@ -718,14 +726,21 @@ $(document).ready(function() {
             },
             buttons: {
                save : function() {
+            	   if ( ! $dialogContent.find(".yform.json").valid() )
+        		   {
+        		   $( "#accordion" ).accordion( "option", "active", 0 );
+        		   
+        		   }
             	  $dialogContent.find(".yform.json").submitForm();
                   // $dialogContent.dialog("close");
                },
                "delete" : function() {
-                  $calendar.weekCalendar("removeEvent", calEvent.id);
-                  // $dialogContent.dialog("close");
+            	   $dialogContent.find(".yform.json").submitForm("deleteBooking.action");
+                  //$calendar.weekCalendar("removeEvent", calEvent.id);
+                   $dialogContent.dialog("close");
                },
                cancel : function() {
+            	   $calendar.weekCalendar("removeEvent", calEvent.id);
                   $dialogContent.dialog("close");
                }
             }

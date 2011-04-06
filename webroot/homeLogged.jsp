@@ -24,7 +24,7 @@
                </div>
             <div id='calendar'></div>
 
-            <div id="event_edit_container">
+            <div id="event_edit_container" >
             </div>
           </div>
 <jsp:include page="jsp/layout/footer.jsp" />     

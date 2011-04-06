@@ -603,3 +603,15 @@ border:1px solid #DDDDDD;
 margin:-20px 0 1em;
 padding:0.5em;
 }
+#topnav a.logout {
+display: block;
+background:url('../../images/logout.png') no-repeat scroll 0 0 transparent;
+height: 32px;
+width: 32px;
+}
+
+.loaderback {
+background:url('../../images/booking_loader.gif') no-repeat scroll 0 0 transparent;
+background-position: center;
+
+}
