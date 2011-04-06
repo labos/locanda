@@ -16,6 +16,8 @@ import model.Room;
 import model.RoomFacility;
 import model.Structure;
 import model.User;
+import model.listini.ItemListinoCamera;
+import model.listini.ListinoCamera;
 import model.listini.Period;
 import model.listini.Season;
 
@@ -86,6 +88,7 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		this.buildBookings(ret);
 		this.buildExtras(ret);
 		this.buildSeasons(ret);
+		this.buildListiniCamere(ret);
 		return ret;		
 	}
 	
@@ -211,29 +214,172 @@ public class LoginAction extends ActionSupport implements SessionAware{
 	private void buildSeasons(Structure structure){
 		Season aSeason = null;
 		Period aPeriod = null;
-		List<Period> periods = new ArrayList<Period>();
-		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");		
+		
+		//Bassa Stagione
 		aSeason = new Season();
-		aPeriod = new Period();
-		
-		
 		aSeason.setId(structure.nextKey());
-		aSeason.setName("Invernale");
+		aSeason.setName("Bassa Stagione");
 		aSeason.setYear(2011);
-		aPeriod.setId(structure.nextKey());
 		
+		aPeriod = new Period();
+		aPeriod.setId(structure.nextKey());		
 		try {
 			aPeriod.setStartDate(sdf.parse("01/01/2011"));
-			aPeriod.setEndDate(sdf.parse("04/15/2011"));
+			aPeriod.setEndDate(sdf.parse("30/04/2011"));
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}		
+		aSeason.addPeriod(aPeriod);
 		
-		periods.add(aPeriod);
-		
-		aSeason.setPeriods(periods);
+		aPeriod = new Period();
+		aPeriod.setId(structure.nextKey());		
+		try {
+			aPeriod.setStartDate(sdf.parse("01/09/2011"));
+			aPeriod.setEndDate(sdf.parse("31/12/2011"));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}		
+		aSeason.addPeriod(aPeriod);		
 		structure.addSeason(aSeason);
+		
+		//Alta Stagione
+		aSeason = new Season();
+		aSeason.setId(structure.nextKey());
+		aSeason.setName("Alta Stagione");
+		aSeason.setYear(2011);
+		
+		aPeriod = new Period();
+		aPeriod.setId(structure.nextKey());		
+		try {
+			aPeriod.setStartDate(sdf.parse("01/05/2011"));
+			aPeriod.setEndDate(sdf.parse("31/08/2011"));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}		
+		aSeason.addPeriod(aPeriod);		
+		structure.addSeason(aSeason);
+	}
+	
+	private void buildListiniCamere(Structure structure){
+		ListinoCamera listinoCamera = null;
+		ItemListinoCamera itemListinoCamera = null;
+		Double[] prices = null;
+		
+		//Listino Camera Singola Bassa Stagione
+		listinoCamera =	new ListinoCamera();
+		listinoCamera.setId(structure.nextKey());
+		listinoCamera.setRoomType("singola");
+		listinoCamera.setSeason(structure.findSeasonByName("Bassa Stagione"));
+		itemListinoCamera = new ItemListinoCamera();
+		itemListinoCamera.setId(structure.nextKey());
+		itemListinoCamera.setNumGuests(1);
+		prices = new Double[7];
+		prices[0] = 50.0;//lun
+		prices[1] = 50.0;//mar
+		prices[2] = 50.0;//mer
+		prices[3] = 50.0;//gio
+		prices[4] = 50.0;//ven
+		prices[5] = 50.0;//sab
+		prices[6] = 50.0;//dom
+		itemListinoCamera.setPrices(prices);
+		listinoCamera.addItem(itemListinoCamera);
+		
+		structure.addListinoCamera(listinoCamera);
+		
+		//Listino Camera Singola Alta Stagione
+		listinoCamera =	new ListinoCamera();
+		listinoCamera.setId(structure.nextKey());
+		listinoCamera.setRoomType("singola");
+		listinoCamera.setSeason(structure.findSeasonByName("Alta Stagione"));
+		itemListinoCamera = new ItemListinoCamera();
+		itemListinoCamera.setId(structure.nextKey());
+		itemListinoCamera.setNumGuests(1);
+		prices = new Double[7];
+		prices[0] = 80.0;//lun
+		prices[1] = 80.0;//mar
+		prices[2] = 80.0;//mer
+		prices[3] = 80.0;//gio
+		prices[4] = 80.0;//ven
+		prices[5] = 80.0;//sab
+		prices[6] = 80.0;//dom
+		itemListinoCamera.setPrices(prices);
+		listinoCamera.addItem(itemListinoCamera);
+		
+		structure.addListinoCamera(listinoCamera);
+		
+		//Listino Camera Doppia Bassa Stagione
+		listinoCamera =	new ListinoCamera();
+		listinoCamera.setId(structure.nextKey());
+		listinoCamera.setRoomType("doppia");
+		listinoCamera.setSeason(structure.findSeasonByName("Bassa Stagione"));
+		
+		itemListinoCamera = new ItemListinoCamera();
+		itemListinoCamera.setId(structure.nextKey());
+		itemListinoCamera.setNumGuests(1);
+		prices = new Double[7];
+		prices[0] = 80.0;//lun
+		prices[1] = 80.0;//mar
+		prices[2] = 80.0;//mer
+		prices[3] = 80.0;//gio
+		prices[4] = 80.0;//ven
+		prices[5] = 80.0;//sab
+		prices[6] = 80.0;//dom
+		itemListinoCamera.setPrices(prices);
+		listinoCamera.addItem(itemListinoCamera);
+		
+		itemListinoCamera = new ItemListinoCamera();
+		itemListinoCamera.setId(structure.nextKey());
+		itemListinoCamera.setNumGuests(2);
+		prices = new Double[7];
+		prices[0] = 100.0;//lun
+		prices[1] = 100.0;//mar
+		prices[2] = 100.0;//mer
+		prices[3] = 100.0;//gio
+		prices[4] = 100.0;//ven
+		prices[5] = 100.0;//sab
+		prices[6] = 100.0;//dom
+		itemListinoCamera.setPrices(prices);
+		listinoCamera.addItem(itemListinoCamera);
+		
+		structure.addListinoCamera(listinoCamera);
+		
+		//Listino Camera Doppia Alta Stagione
+		listinoCamera =	new ListinoCamera();
+		listinoCamera.setId(structure.nextKey());
+		listinoCamera.setRoomType("doppia");
+		listinoCamera.setSeason(structure.findSeasonByName("Alta Stagione"));
+		
+		itemListinoCamera = new ItemListinoCamera();
+		itemListinoCamera.setId(structure.nextKey());
+		itemListinoCamera.setNumGuests(1);
+		prices = new Double[7];
+		prices[0] = 90.0;//lun
+		prices[1] = 90.0;//mar
+		prices[2] = 90.0;//mer
+		prices[3] = 90.0;//gio
+		prices[4] = 90.0;//ven
+		prices[5] = 90.0;//sab
+		prices[6] = 90.0;//dom
+		itemListinoCamera.setPrices(prices);
+		listinoCamera.addItem(itemListinoCamera);
+		
+		itemListinoCamera = new ItemListinoCamera();
+		itemListinoCamera.setId(structure.nextKey());
+		itemListinoCamera.setNumGuests(2);
+		prices = new Double[7];
+		prices[0] = 130.0;//lun
+		prices[1] = 130.0;//mar
+		prices[2] = 130.0;//mer
+		prices[3] = 130.0;//gio
+		prices[4] = 130.0;//ven
+		prices[5] = 130.0;//sab
+		prices[6] = 130.0;//dom
+		itemListinoCamera.setPrices(prices);
+		listinoCamera.addItem(itemListinoCamera);	
+		
+		structure.addListinoCamera(listinoCamera);		
+			
 	}
 	
 	public Map<String, Object> getSession() {

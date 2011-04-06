@@ -3,7 +3,7 @@ package model.listini;
 public class ItemListinoCamera {
 	private Integer id;
 	private Integer numGuests;
-	private Integer[] prices = new Integer[7]; 
+	private Double[] prices = new Double[7]; 
 	//prezzo lun = prices[0]
 	//
 	//prezzo sabato = prices[5]
@@ -23,13 +23,12 @@ public class ItemListinoCamera {
 	public void setNumGuests(Integer numGuests) {
 		this.numGuests = numGuests;
 	}
-	public Integer[] getPrices() {
+	public Double[] getPrices() {
 		return prices;
 	}
-	public void setPrices(Integer[] prices) {
+	public void setPrices(Double[] prices) {
 		this.prices = prices;
 	}
-	
-	
+		
 
 }

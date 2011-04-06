@@ -3,6 +3,7 @@ package model.listini;
 public class Agevolazione {
 	private Integer id;
 	private String name;
+	private String description;
 	private String activationCode;
 	
 	public Integer getId() {
@@ -23,6 +24,13 @@ public class Agevolazione {
 	public void setActivationCode(String activationCode) {
 		this.activationCode = activationCode;
 	}
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	
 	
 	
 

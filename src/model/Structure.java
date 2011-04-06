@@ -354,6 +354,17 @@ public class Structure {
 		return true;
 	}
 	
+	public Season findSeasonByName(String name){
+		Season ret = null;
+		
+		for(Season each: this.getSeasons()){
+			if(each.getName().equalsIgnoreCase(name)){
+				return each;
+			}
+		}
+		return ret;
+	}
+	
 	
 	//Listino Camera
 	public Boolean addListinoCamera(ListinoCamera listino){

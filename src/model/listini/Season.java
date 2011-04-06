@@ -13,7 +13,9 @@ public class Season {
 		this.setPeriods(new ArrayList<Period>());
 	}
 	
-	
+	public Boolean addPeriod(Period aPeriod){
+		return this.getPeriods().add(aPeriod);
+	}
 	
 	public Integer getId() {
 		return id;
