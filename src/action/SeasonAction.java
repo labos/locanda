@@ -95,12 +95,12 @@ public class SeasonAction extends ActionSupport implements SessionAware {
 		Structure structure = user.getStructure();
 		this.setSeasons(structure.getSeasons());
 		saveUpdatePeriods(structure);
-		if (!this.saveUpdatePeriodDates()) {
+	/*	if (!this.saveUpdatePeriodDates()) {
 			this.getMessage().setResult(Message.ERROR);
 			this.getMessage().setDescription("Problema ai dati della season!");
 			return ERROR;
 
-		}
+		}*/
 
 		Season oldSeason = structure.findSeasonById(this.getSeason().getId());
 		if (oldSeason == null) {
@@ -120,15 +120,26 @@ public class SeasonAction extends ActionSupport implements SessionAware {
 	}
 
 	private Boolean saveUpdatePeriods(Structure structure) {
-		int index = 0;
+
+		List <Period> periodsWithoutNulls = new ArrayList<Period>();
+		
+		
 		for (Period currPeriod : this.periods) {
-			if (currPeriod.getId() == null) {
-
-				this.periods.get(index).setId(structure.nextKey());
+			if ((currPeriod != null )){
+				
+				periodsWithoutNulls.add(currPeriod);
+				
+				if  (currPeriod.getId() == null) {
+					currPeriod.setId(structure.nextKey());
+				
+				}
 			}
+			
 
-			index++;
 		}
+		
+		this.getSeason().setPeriods(periodsWithoutNulls);
+		
 		return true;
 
 	}

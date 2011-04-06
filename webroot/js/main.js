@@ -1239,13 +1239,14 @@ $(document).ready(function() {
 		 });
 		 
 		 $(".erase_period").click( function(){
+			 $(this).closest(".subcolumns").remove();
 			 
-			 var formParent =	$(this).parents(".yform");
+	/*		 var formParent =	$(this).parents(".yform");
 					var season_id = formParent.find('input:hidden[name="season.id"]').val();
 					var period_id_delete = $(this).prev('input.idPeriod') ? $(this).prev('input.idPeriod').val() : null;
 					if ( !period_id_delete ||  !parseInt (period_id_delete)  &&   parseInt (period_id_delete)!=0)
 						{
-							$(this).closest(".subcolumns").remove();
+							
 							return;
 						}
 						
@@ -1281,7 +1282,7 @@ $(document).ready(function() {
 							  
 							});
 			
-					
+					*/
 			 
 			
 		
