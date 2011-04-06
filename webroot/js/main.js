@@ -50,7 +50,11 @@ $(document).ready(function() {
 			   	  
 			   	  });
 
-		 
+				$( "#accordion" ).accordion({
+					  collapsible: true,
+					     active: false, animated:  'bounceslide'
+				});
+
 		
 	  	$(".btn_check_in").button({
 	  		icons: {
@@ -207,6 +211,49 @@ $(document).ready(function() {
 	     	     $('input[name="booking.dateOut"]').datepicker("setDate", dateOut);
 
 	     	   });
+	     	   
+	     	   /*ADD LISTENER FOR CHANGE ROOM OR DATEIN OR DATEOUT OR NUMNIGHTS FROM BOOKING*/
+	     	  $('#sel_rooms_list, #booking_duration, input:text[name="booking.dateIn"], input:text[name="booking.dateOut"]').change (function (){
+	     		  
+	     		 
+	     		 var formInput=$(this).parents().find(".yform.json").serialize();
+	  	   		$.ajax({
+	 	   		   type: "POST",
+	 	   		   url: "findRoomPrice.action",
+	 	   		   data: formInput,
+	 	   		   success: function(data_action){
+	 	   			   
+	 	   			var title_notification = null;
+	 	   			
+	 	   			   if (data_action.result == "success")
+	 	   				   {
+	 	   				   	//update dom values here
+	 	   				 $('input[name="per_value"]').trigger("keyup");
+	 	   				$().notify("Congratulazioni", data_action.description, _redirectAction);
+	 	   				    				    
+	 	   				   }
+	 	   		    
+	 	   		     else if (data_action.result == "error")
+	 	   		    	 {
+	 	   		    	 	$().notify("Attenzione", data_action.description);
+	 	   		    	 }
+	 	   		   	else{
+	 	   		   		$(".validationErrors").html(data_action);
+	 	   		   		}
+	 	   		    	
+	 	   		   },
+	 	   		   
+	 	   		   error: function (){
+	 	   			   
+	 	   			$().notify("Errore Grave", "Problema nella risorsa interrogata nel server");
+	 	   		   }
+
+	 	   		
+	 	   		 });
+	     		  
+	     		  
+	     	  })
+	     	  
 	     	  
 			
 			
@@ -585,8 +632,13 @@ $(document).ready(function() {
          
          
          $dialogContent.load("goAddBookingFromPlanner.action", {'booking.room.id': id_booked, 'booking.dateIn':startField, 'booking.dateOut': endField}, function(){optionsLoc.init();
+         $(".btn_save").hide();
          
          }).dialog({
+        	 open: function(event, ui){
+         		
+         		$(".btn_save").hide();
+         	},
             modal: true,
             width:650,
             hide: "explode",
@@ -599,8 +651,8 @@ $(document).ready(function() {
             },
             buttons: {
                save : function() {
-             	  $dialogContent.find(".yform.json").submit();
-                  $dialogContent.dialog("close");
+             	 ! $dialogContent.find(".yform.json").submitForm();
+                 // $dialogContent.dialog("close");
                   
                },
                cancel : function() {
@@ -650,10 +702,11 @@ $(document).ready(function() {
          bodyField.val(calEvent.body);
           	*/
          $dialogContent.load("goUpdateBookingFromPlanner.action", {id: id_booked}, function(){optionsLoc.init();
-         
+         $(".btn_save").hide();
          }).dialog({
-        	create: function(event, ui){
+        	open: function(event, ui){
         		//optionsLoc.init();
+        		
         	},
             modal: true,
             width: 650,
@@ -665,12 +718,12 @@ $(document).ready(function() {
             },
             buttons: {
                save : function() {
-            	  $dialogContent.find(".yform.json").submit();
-                  $dialogContent.dialog("close");
+            	  $dialogContent.find(".yform.json").submitForm();
+                  // $dialogContent.dialog("close");
                },
                "delete" : function() {
                   $calendar.weekCalendar("removeEvent", calEvent.id);
-                  $dialogContent.dialog("close");
+                  // $dialogContent.dialog("close");
                },
                cancel : function() {
                   $dialogContent.dialog("close");

@@ -14,7 +14,7 @@ display: none;
                              <input type="hidden" name="booking.id" value="<s:property value="booking.id"/>"/>
                              <div class="subcolumns_oldgecko">
                              <fieldset>
-    <legend>Resume Booking:</legend>
+    							<legend>Resume Booking:</legend>
                              <div class="c20l">
                              <div class="subcl type-select">
                				 <label for="sel_rooms_list">Room <sup title="This field is mandatory.">*</sup> </label>
@@ -99,6 +99,10 @@ display: none;
                   <div class="type-text"><label for="fname">First Name: <sup title="This field is mandatory.">*</sup> </label> 
                   <input type="text" name="booking.guest.firstName" id="fname" value="<s:property value="booking.guest.firstName"/>" class="required"/></div>
                   
+                  <a name="top_accordion"></a>
+               <div id="accordion">
+               <h2><a href="#top_accordion">GUEST DETAILS</a></h2>
+               <div>
                   <div class="type-text"><label for="phone">Phone: <sup title="This field is mandatory.">*</sup> </label> 
                   <input type="text" name="booking.guest.phone" id="phone" value="<s:property value="booking.guest.phone"/>" class="required"/></div>
 
@@ -342,6 +346,13 @@ display: none;
                   <div class="type-text"><label for="zipCode">ZipCode: <sup title="This field is mandatory.">*</sup> </label> 
                   <input type="text" name="booking.guest.zipCode" id="zipCode" value="<s:property value="booking.guest.zipCode"/>" /></div>
                   
+                   <div class="type-text"><label for="notes">Note:</label> 
+                  	  <textarea name="booking.notes" id="notes"><s:property value="booking.notes"/></textarea>
+                    </div>
+                  
+                    </div>
+                    </div>
+                  <!--  END ACCORDION  -->
                       <div class="type-select">
                       	<label for="nr_guests">Guests: <sup title="This field is mandatory.">*</sup></label> 
                       	<select name="booking.nrGuests" id="nr_guests" class="required">
@@ -393,10 +404,7 @@ display: none;
                     </s:iterator>
                   
                   </div>
-                  
-                  <div class="type-text"><label for="notes">Note:</label> 
-                  	  <textarea name="booking.notes" id="notes"><s:property value="booking.notes"/></textarea>
-                    </div>
+                           
                 </fieldset>
                 </div>
                 <div class="c10l">
