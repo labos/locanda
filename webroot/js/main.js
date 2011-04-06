@@ -1242,7 +1242,13 @@ $(document).ready(function() {
 			 
 			 var formParent =	$(this).parents(".yform");
 					var season_id = formParent.find('input:hidden[name="season.id"]').val();
-					var period_id_delete = $(this).prev('input[name="idPeriod"]').val();
+					var period_id_delete = $(this).prev('input.idPeriod') ? $(this).prev('input.idPeriod').val() : null;
+					if ( !period_id_delete ||  !parseInt (period_id_delete)  &&   parseInt (period_id_delete)!=0)
+						{
+							$(this).closest(".subcolumns").remove();
+							return;
+						}
+						
 					var _redirectAction	= "goUpdateSeason.action?sect=settings&id=" + season_id;
 						$.ajax({
 							  url: "deletePeriodFromSeason.action",
@@ -1250,13 +1256,13 @@ $(document).ready(function() {
 							  type: "POST",
 							  dataType: 'json',
 							  success: function(data_action){
-						        	if(typeof data_action.message !== "undefined" &&  data_action.message.result=="success")
+						        	if(typeof data_action !== "undefined" &&  data_action.result=="success")
 					        		{
 						        	$(this).closest(".subcolumns").remove();
-					        		$().notify(optionsLoc.alertOK, data_action.message.description, _redirectAction);
+					        		$().notify(optionsLoc.alertOK, data_action.description, _redirectAction);
 					        		}
 					        	
-					        	else if(typeof data_action.message !== "undefined" && data_action.message.result=="error")
+					        	else if(typeof data_action !== "undefined" && data_action.result=="error")
 					        		{
 					        			$().notify(optionsLoc.alertKO, data_action.description);
 					        		}
@@ -1544,7 +1550,7 @@ $(document).ready(function() {
 	          primary: "ui-icon-circle-plus"
 	      }}).click(function(event){
 		  //-- event.preventDefault();
-	      var url_action_facility = "goUpdateRoomFacilities"; 
+	      var url_action_facility = "goRoomFacilities_edit"; 
 		  var id_room = $(this).parents(".yform").find('input:hidden[name="room.id"]').val();
 		  var name_room =  $(this).parents(".yform").find('input:text[name="room.name"]').val();
 		  $.ajax({
