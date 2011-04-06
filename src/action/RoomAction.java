@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import model.Extra;
 import model.Room;
 import model.RoomFacility;
 import model.Structure;
@@ -155,6 +156,7 @@ public class RoomAction extends ActionSupport implements SessionAware{
 		}		
 	}	
 	
+	
 	@Actions({
 		@Action(value="/updateRoom",results = {
 				@Result(type ="json",name="success", params={
@@ -200,7 +202,102 @@ public class RoomAction extends ActionSupport implements SessionAware{
 	
 	}	
 	
+	@Actions({
+		@Action(value="/goUpdateRoom",results = {
+				@Result(name="success",location="/room_edit.jsp")
+		})
+		
+	})
+	public String goUpdateRoom() {
+		User user = (User)this.getSession().get("user");
+		//Controllare che sia diverso da null in un interceptor
+		Structure structure = user.getStructure();
+		Room room = structure.findRoomById(this.getRoom().getId());
+		this.setRoom(room);
+		this.setRoomFacilities(structure.getRoomFacilities());
+		return SUCCESS;
+	}
 	
+	@Actions({
+		@Action(value="/saveUpdateRoom",results = {
+				@Result(name="input", location="/validationError.jsp"),
+				@Result(type ="json",name="success", params={
+						"root","message"
+				} ),
+				@Result(type ="json",name="error", params={
+						"root","message"
+				} )
+		})
+		
+	})
+	
+	public String saveUpdateRoom() {
+		User user = (User)this.getSession().get("user");
+		//Controllare che sia diverso da null in un interceptor
+		Structure structure = user.getStructure();
+		Room oldRoom = structure.findRoomById(this.getRoom().getId());
+		if(oldRoom == null){
+			//Si tratta di un add
+			String names = "";
+			List<Room> rooms = this.splitRooms();
+					
+			for(Room each: rooms){
+				if(structure.hasRoomNamed(each.getName())){
+					names = names + "," + each.getName();
+				}
+			}
+			
+			if(names.length()>0){
+				this.getMessage().setResult(Message.ERROR);
+				String text = "Le stanze: " + names.substring(1) + " sono gia' presenti";
+				this.getMessage().setDescription(text);
+				return "error";			
+			}	
+			else{
+				List<RoomFacility> checkedFacilities = structure.findFacilitiesByIds(facilities);
+				for(Room each: rooms){
+					each.setId(structure.nextKey());
+					each.setFacilities(checkedFacilities);
+					structure.addRoom(each);
+				}
+				this.getMessage().setResult(Message.SUCCESS);
+				String text = "Le stanze sono state inserite con successo";
+				this.getMessage().setDescription(text);
+				return "success";	
+			}
+		}else{
+			//Si tratta di un update
+			String newName = this.getRoom().getName();
+			
+			if(newName.contains(",")){
+				this.getMessage().setResult(Message.ERROR);
+				this.getMessage().setDescription("Il nuovo nome non puo' contenere virgole");
+				return "error";
+			}
+			
+			Room originalRoom = structure.findRoomById(this.getRoom().getId());
+			if(originalRoom == null){
+				this.getMessage().setResult(Message.ERROR);
+				this.getMessage().setDescription("Stai imbrogliando e lo stai facendo molto male");
+				return "error";
+			}
+					
+			if(!newName.equals(originalRoom.getName())){
+				if(structure.findRoomByName(newName) != null){
+					this.getMessage().setResult(Message.ERROR);
+					this.getMessage().setDescription("Stai usando un nome gia' esistente");
+					return "error";
+				}
+			}
+			structure.updateRoom(this.getRoom());
+			this.getMessage().setResult(Message.SUCCESS);
+			this.getMessage().setDescription("La stanza e' stata modificata con successo");
+			return "success";
+			
+		}
+		
+		
+	}
 
 	public Map<String, Object> getSession() {
 		return session;

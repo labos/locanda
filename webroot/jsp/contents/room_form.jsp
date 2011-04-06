@@ -4,7 +4,7 @@
 <%@ taglib uri="/struts-tags" prefix="s" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-  		  <form method="post" action="addNewRoom.action" class="yform json full" role="application">
+  		  <form method="post" action="saveUpdateRoom.action" class="yform json full" role="application">
             <fieldset>
               <legend>Room details</legend>
               <div class="c50l">

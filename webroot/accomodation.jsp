@@ -34,8 +34,8 @@
               <input type="hidden" name="redirect_form" value="findAllRooms.action?sect=accomodation" />
               <input type="hidden" name="room.id" value="<s:property value="id"/>"/>
               <legend class="title_season">
-				<a href="goUpdateRoom.action?sect=accomodation&id=<s:property value="#eachRoom.id"/>"><s:property value="#eachRoom.name"/></a>
-                <a href="goUpdateRoom.action?sect=accomodation&id=<s:property value="#eachRoom.id"/>"><img src="images/sign-up-icon.png" alt="edit" /></a>
+				<a href="goUpdateRoom.action?sect=accomodation&room.id=<s:property value="#eachRoom.id"/>"><s:property value="#eachRoom.name"/></a>
+                <a href="goUpdateRoom.action?sect=accomodation&room.id=<s:property value="#eachRoom.id"/>"><img src="images/sign-up-icon.png" alt="edit" /></a>
               </legend>
             	
 		      <div class="subcolumns">
