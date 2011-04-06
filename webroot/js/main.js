@@ -320,7 +320,7 @@ $(document).ready(function() {
 		   //add checkbox id
 		   facility_row_checked_cloned.find('input:checkbox').attr("id", id_facility + "_fac");
 		   //add checkbox name
-		   facility_row_checked_cloned.find('input:checkbox').attr("name", "facilities");
+		   facility_row_checked_cloned.find('input:checkbox').attr("name", "roomFacilitiesIds");
 		 //add checkbox value
 		   facility_row_checked_cloned.find('input:checkbox').attr("value", id_facility);
 
@@ -1080,7 +1080,7 @@ $(document).ready(function() {
 	  
 	  //button for form hiding
 	  $(".btn_cancel_form").click(function(event){
-		  $(this).parents(".hideform").hide();
+		  $(this).parents(".hideform").fadeOut().hide("slide", {direction: "up"}, 1000);
 		  $(".btn_add_form").show();
 		  return false;
 
@@ -1370,7 +1370,7 @@ $(document).ready(function() {
 	      icons: {
 	          primary: "ui-icon-circle-plus"
 	      }}).click(function(){
-			$("div.hideform").show();
+			$("div.hideform").show("slide", {direction: "up"}, 1000);
 			$(this).hide(); 
 	    	return false;
 	      });

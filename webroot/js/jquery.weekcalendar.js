@@ -499,7 +499,7 @@ $(function() {
          $(calendarHeaderHtml + calendarBodyHtml).appendTo($calendarContainer);
          
          //ora aggiungiamo il pulsante per l'aggiunta delle rooms
-         $('<a class="wc-add" href="add_new.jsp">ADD ROOM</a>').appendTo($calendarContainer);
+         $('<a class="wc-add" href="findAllRooms.action?sect=accomodation">ADD ROOM</a>').appendTo($calendarContainer);
          $(".wc-add").button({
              icons: {
                  secondary: "ui-icon-circle-plus"
