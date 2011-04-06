@@ -378,8 +378,7 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		itemListinoCamera.setPrices(prices);
 		listinoCamera.addItem(itemListinoCamera);	
 		
-		structure.addListinoCamera(listinoCamera);		
-			
+		structure.addListinoCamera(listinoCamera);				
 	}
 	
 	public Map<String, Object> getSession() {

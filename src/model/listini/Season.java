@@ -1,6 +1,7 @@
 package model.listini;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Season {
@@ -15,6 +16,14 @@ public class Season {
 	
 	public Boolean addPeriod(Period aPeriod){
 		return this.getPeriods().add(aPeriod);
+	}
+	
+	public Boolean includesDate(Date date){
+		for(Period each: this.getPeriods()){
+			
+		}
+		
+		return false;
 	}
 	
 	public Integer getId() {

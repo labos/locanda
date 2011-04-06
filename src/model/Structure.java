@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
+import model.listini.Agevolazione;
 import model.listini.ListinoCamera;
 import model.listini.Season;
 
@@ -387,8 +388,19 @@ public class Structure {
 		return ret;
 	}
 	
-	public List<ListinoCamera> findListiniCamereByYear(Integer year){
-		List<ListinoCamera> ret = new ArrayList<ListinoCamera>();		
+	public ListinoCamera findListinoCamera(Room room, Date date,  Agevolazione agevolazione){
+		ListinoCamera ret = null;
+		
+		
+		return ret;
+	}
+	
+	public Season findSeasonByDate(Date date){
+		Season ret = null;
+		
+		for(Season each: this.getSeasons()){
+			
+		}
 		return ret;
 	}
 	

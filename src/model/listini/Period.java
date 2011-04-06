@@ -1,5 +1,6 @@
 package model.listini;
 
+import java.util.Calendar;
 import java.util.Date;
 
 public class Period {
@@ -7,6 +8,11 @@ public class Period {
 	private Date startDate;
 	private Date endDate;
 	
+	public Boolean includesDate(Date date){
+		
+		
+		return false;
+	}
 	public Integer getId() {
 		return id;
 	}
