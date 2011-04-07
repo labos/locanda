@@ -363,6 +363,7 @@ display: none;
                     	  <option value="1">4</option>
                  		</select>
                  	  </div>
+                 	  <!-- 
                  	  <div class="type-select">
                  	  	<div class="type_rooms">
                       	  <input type="text" name="per_value" id="per_value" value="<s:property value="booking.room.price"/>" class="number"/>
@@ -390,7 +391,7 @@ display: none;
                       (<a id="change_rate" href="#">Change Rate for this booking</a>)
                     </div>
                   </div>
-                  
+                    -->
                   <div class="type-select"><label for="">Extras:</label>
                   
                     <s:iterator value="extras" var="eachExtra" >

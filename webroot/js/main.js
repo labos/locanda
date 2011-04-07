@@ -7,7 +7,7 @@ $(document).ready(function() {
 		this.datePattern = patternDate;
 		this.alertOK = "Congratulazioni";
 		this.alertKO = "Attenzione!";
-		var ONE_DAY = 1000 * 60 * 60 * 24
+		var ONE_DAY = 1000 * 60 * 60 * 24;
 		this.init  =  function()
 		{
 			
@@ -64,6 +64,7 @@ $(document).ready(function() {
 	  	});
 	  	
 	  		/* extras adding */
+	  	/*
 	  	   $('input[name="bookingExtraIds"]').click(function(){
 	  		   var amount_target_dom = $("#extras_room");
 	  		   var amount = 0;
@@ -81,8 +82,10 @@ $(document).ready(function() {
 	  		   
 	  		   
 	  	   });
+	  	   */
 	  	   
 	  	   /* room price changing*/
+	  	   /*
 	  	   $('input[name="per_value"]').keyup( function(){
 	  		  
 	  		  //typeof o === 'number' && isFinite(o); 
@@ -95,7 +98,7 @@ $(document).ready(function() {
 	  		   
 	  		   
 	  	   });
-	  	   
+	  	   */
 			
 		   /* adjustment and payments*/
 		   
@@ -163,7 +166,7 @@ $(document).ready(function() {
 			 });
 			
 			
-		   
+		   /*
 			$("#change_rate").toggle(function(){
 				$(".type_rooms").show();
 				$(this).html("done");
@@ -180,6 +183,8 @@ $(document).ready(function() {
 				if($("#rate").changeRate(_amount, _first, _second) !== false);
 				$(this).html("change rate for this booking");
 				});
+			
+			*/
 			
 			
 		   	   //---  ADD ROOMS SECTION CODE   
@@ -214,7 +219,7 @@ $(document).ready(function() {
 	     	   });
 	     	   
 	     	   /*ADD LISTENER FOR CHANGE ROOM OR DATEIN OR DATEOUT OR NUMNIGHTS FROM BOOKING*/
-	     	  $('#sel_rooms_list, #booking_duration, input:text[name="booking.dateIn"], input:text[name="booking.dateOut"]').change (function (){
+	     	  $('#sel_rooms_list, #booking_duration, input:text[name="booking.dateIn"], input:text[name="booking.dateOut"], input:checkbox[name="bookingExtraIds"], #nr_guests').change (function (){
 	     		  
 	     		 
 	     		 var formInput=$(this).parents().find(".yform.json").serialize();
@@ -233,8 +238,7 @@ $(document).ready(function() {
 	 	   				   var extraSubTotal = data_action.booking.extraSubtotal; 
 	 	   				   var priceRoom = 0;
 	 	   				   var subTotal = roomSubTotal + extraSubTotal;
-	 	   				   $("#per_value").val(priceRoom); 
-	 		  			   $("#price_room").html(roomSubTotal);
+	 	   				   $("#price_room").html(roomSubTotal);
 	 		  			   $("#extras_room").html(extraSubTotal);
 	 		  			$('input:hidden[name="booking.subtotal"]').val(subTotal);
 	 		  			$("span.subtotal_room").text( subTotal );
@@ -243,7 +247,7 @@ $(document).ready(function() {
 	 		  			   //update subtotal
 	 		  			   updateSubtotal();
 	 	   				
-	 	   				$().notify("Congratulazioni", data_action.message.description, _redirectAction);
+	 	   				//$().notify("Congratulazioni", data_action.message.description, _redirectAction);
 	 	   				    				    
 	 	   				   }
 	 	   		    
@@ -1592,12 +1596,13 @@ $(document).ready(function() {
 				   
 				 });
 				//--- $(".type_rooms").hide();
+			   /*
 				$("#change_rate").toggle(function(){
 				$(".type_rooms").show();	
 				},function(){
 				$(".type_rooms").hide();	
 				});
-				
+				*/
 				
 		 
    //---  END BOOK SECTION CODE  
