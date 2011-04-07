@@ -4,6 +4,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -21,6 +22,7 @@ import model.listini.ListinoCamera;
 import model.listini.Period;
 import model.listini.Season;
 
+import org.apache.commons.lang.time.DateUtils;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Actions;
 import org.apache.struts2.convention.annotation.ParentPackage;
@@ -172,6 +174,7 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		Guest aGuest = null;
 		Date dateIn = null;
 		Date dateOut = null;
+		Double roomSubtotal = 0.0;
 		
 		aBooking = new Booking();
 		aRoom = structure.findRoomByName("101");
@@ -180,11 +183,14 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		aBooking.setRoom(aRoom);
 		dateIn = new Date(System.currentTimeMillis());
 		dateOut = new Date(System.currentTimeMillis() + 3*24*3600*1000);
+		dateIn = DateUtils.truncate(dateIn, Calendar.DAY_OF_MONTH);
+		dateIn = DateUtils.truncate(dateOut, Calendar.DAY_OF_MONTH);
 		aBooking.setDateIn(dateIn);
 		aBooking.setDateOut(dateOut);
 		aBooking.setId(structure.nextKey());
 		aBooking.setNrGuests(1);
-		aBooking.setSubtotal(50.0);
+		roomSubtotal = structure.calculateTotalRoomPrice(aRoom, dateIn, dateOut, null, 1);
+		aBooking.setRoomSubtotal(roomSubtotal);
 		structure.addBooking(aBooking);
 		
 	}

@@ -14,7 +14,7 @@ public class Booking {
 	private Room room;
 	private Date dateIn;
 	private Date dateOut;
-	private Double subtotal;
+	private Double roomSubtotal;
 	private Double extraSubtotal;
 	private String notes;
 	private List<Extra> extras;
@@ -67,12 +67,7 @@ public class Booking {
 	public void setDateOut(Date dateOut) {
 		this.dateOut = dateOut;
 	}
-	public Double getSubtotal() {
-		return subtotal;
-	}
-	public void setSubtotal(Double subtotal) {
-		this.subtotal = subtotal;
-	}
+	
 	public String getNotes() {
 		return notes;
 	}
@@ -92,6 +87,14 @@ public class Booking {
 
 	public void setExtraSubtotal(Double extraSubtotal) {
 		this.extraSubtotal = extraSubtotal;
+	}
+
+	public Double getRoomSubtotal() {
+		return roomSubtotal;
+	}
+
+	public void setRoomSubtotal(Double roomSubtotal) {
+		this.roomSubtotal = roomSubtotal;
 	}
 	
 	
