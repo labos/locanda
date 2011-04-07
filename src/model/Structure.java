@@ -419,13 +419,11 @@ public class Structure {
 		Date current = null;
 		
 		Integer i = 0;
-		current  = DateUtils.addDays(dateIn, i );
-		bookingDates.add(current);
+		current  = DateUtils.addDays(dateIn, i );		
 		while(DateUtils.truncatedCompareTo(current, dateOut,Calendar.DAY_OF_MONTH ) < 0){
-			
+			bookingDates.add(current);
 			i = i + 1;
 			current  = DateUtils.addDays(dateIn, i );
-			bookingDates.add(current);
 		}	
 		return bookingDates;
 	}

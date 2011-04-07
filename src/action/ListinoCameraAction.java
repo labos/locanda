@@ -28,7 +28,7 @@ public class ListinoCameraAction extends ActionSupport implements SessionAware{
 	
 	
 	@Actions({
-		@Action(value="/calculateRoomSubtotal",results = {
+		@Action(value="/calculatePrices",results = {
 				@Result(type ="json",name="success", params={
 						"excludeProperties","session"
 				} ),
@@ -41,7 +41,7 @@ public class ListinoCameraAction extends ActionSupport implements SessionAware{
 	
 	
 	
-	public String calculateRoomSubtotal() {
+	public String calculatePrices() {
 		User user = (User)this.getSession().get("user");
 		//Controllare che sia diverso da null in un interceptor
 		Structure structure = user.getStructure();
