@@ -27,9 +27,12 @@ display: none;
                    			 <s:if test="#eachRoom.id == booking.room.id">
 								   selected="selected"
 								</s:if>
-                   			 
+	                  			 
                    			 value="<s:property value="#eachRoom.id"/>"><s:property value="#eachRoom.name"/></option>
                     		</s:iterator>
+                    		<s:if test="booking.room == null">
+								   <option selected="selected" value="-1">Select One</option>
+								</s:if>	
                     		</select>
             				</div>
             				</div>
@@ -398,7 +401,7 @@ display: none;
                     <s:iterator value="extras" var="eachExtra" >
                   
                     <div class="type-check">
-                    <s:checkbox id="extras_array[]" name="bookingExtraIds"  value="extrasIds.contains(#eachExtra.id)" fieldValue="%{#eachExtra.id}" />
+                    <s:checkbox id="extras_array[]" name="bookingExtraIds"  value="bookingExtraIds.contains(#eachExtra.id)" fieldValue="%{#eachExtra.id}" />
                     <input type="hidden" value="<s:property value="#eachExtra.price"/>" name="extra_price" />
 					<label for="<s:property value="extras_array[]"/>"><s:property value="#eachExtra.name"/></label>
                     </div>                  
