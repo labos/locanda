@@ -688,6 +688,7 @@ $(document).ready(function() {
                cancel : function() {
             	 
                   $dialogContent.dialog("close");
+                  $calendar.weekCalendar("removeEvent", calEvent.id);
                   
                }
             }
