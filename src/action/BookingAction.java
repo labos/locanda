@@ -274,6 +274,35 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		return true;
 	}
 	
+	@Actions({
+		@Action(value="/deleteBooking",results = {
+				@Result(type ="json",name="success", params={
+						"root","message"
+				} ),
+				@Result(type ="json",name="error", params={
+						"root","message"
+				} )
+		})
+		
+	})
+	
+	public String deleteBooking() {
+		User user = (User)this.getSession().get("user");
+		//Controllare che sia diverso da null in un interceptor
+		Structure structure = user.getStructure();
+		
+		if(structure.deleteBooking(this.getBooking())){
+			this.getMessage().setResult(Message.SUCCESS);
+			this.getMessage().setDescription("Booking deleted successfully");
+			return "success";
+		}else{
+			this.getMessage().setResult(Message.ERROR);
+			this.getMessage().setDescription("Error: Booking not deleted");
+			return "error";
+		}		
+	}	
+	
+	
 
 	public Message getMessage() {
 		return message;
