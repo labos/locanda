@@ -10,12 +10,12 @@ public class Booking {
 	private Integer id;
 	
 	private Guest guest;
-	private Integer nrGuests;
+	private Integer nrGuests = 1;
 	private Room room;
 	private Date dateIn;
 	private Date dateOut;
-	private Double roomSubtotal;
-	private Double extraSubtotal;
+	private Double roomSubtotal = 0.0;
+	private Double extraSubtotal = 0.0;
 	private String notes;
 	private List<Extra> extras;
 	

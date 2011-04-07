@@ -225,7 +225,7 @@ $(document).ready(function() {
 	     		 var formInput=$(this).parents().find(".yform.json").serialize();
 	  	   		$.ajax({
 	 	   		   type: "POST",
-	 	   		   url: "calculateRoomSubtotal.action",
+	 	   		   url: "calculatePrices.action",
 	 	   		   data: formInput,
 	 	   		   success: function(data_action){
 	 	   			   
@@ -236,16 +236,23 @@ $(document).ready(function() {
 	 	   				   	//update dom values here
 	 	   				   var roomSubTotal = data_action.booking.roomSubtotal;
 	 	   				   var extraSubTotal = data_action.booking.extraSubtotal; 
+	 	   				   var numNights = data_action.numNights;
 	 	   				   var priceRoom = 0;
 	 	   				   var subTotal = roomSubTotal + extraSubTotal;
+	 	   				   
+	 	   				   
 	 	   				   $("#price_room").html(roomSubTotal);
 	 		  			   $("#extras_room").html(extraSubTotal);
-	 		  			$('input:hidden[name="booking.subtotal"]').val(subTotal);
-	 		  			$("span.subtotal_room").text( subTotal );
+	 		  			   $('input:hidden[name="booking.subtotal"]').val(subTotal);
+	 		  				$("span.subtotal_room").text( subTotal );
+	 		  				$("span.balance_room").text( subTotal );
+
+	 		  				$("#booking_duration").val(numNights);
+	 		  			
 	 		  			
 	 		  			
 	 		  			   //update subtotal
-	 		  			   updateSubtotal();
+	 		  			 //  updateSubtotal();
 	 	   				
 	 	   				//$().notify("Congratulazioni", data_action.message.description, _redirectAction);
 	 	   				    				    

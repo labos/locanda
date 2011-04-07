@@ -25,7 +25,7 @@ public class ListinoCameraAction extends ActionSupport implements SessionAware{
 	private Message message = new Message();
 	private Booking booking = null;
 	private List<Integer> bookingExtraIds = new ArrayList<Integer>();
-	
+	private Integer numNights;
 	
 	@Actions({
 		@Action(value="/calculatePrices",results = {
@@ -43,10 +43,27 @@ public class ListinoCameraAction extends ActionSupport implements SessionAware{
 	
 	public String calculatePrices() {
 		User user = (User)this.getSession().get("user");
+		Double roomSubtotal = 0.0;
+		Long millis;
+		Integer days;
 		//Controllare che sia diverso da null in un interceptor
 		Structure structure = user.getStructure();
 		Room theBookedRoom = structure.findRoomById(this.getBooking().getRoom().getId());
 		this.saveUpdateBookingExtras(this.getBookingExtraIds(), structure);
+		if (this.getBooking().getDateOut() != null && this.getBooking().getDateIn() != null ) {
+			
+			millis = this.getBooking().getDateOut().getTime() - this.getBooking().getDateIn().getTime();
+			days = (int) (millis/(1000*3600*24));
+			this.setNumNights(days);
+
+			roomSubtotal = structure.calculateRoomSubtotal(theBookedRoom,this.getBooking().getDateIn(), this.getBooking().getDateOut(), null, this.getBooking().getNrGuests());
+			
+		}
+		else {
+			
+			this.setNumNights(0);
+		}
+
 		
 		Double extraSubtotal = 0.0;
 		// popolo extrasIds con gli id degli extra già presenti nel booking
@@ -55,11 +72,9 @@ public class ListinoCameraAction extends ActionSupport implements SessionAware{
 			// extrasIds.add(each.getId());
 		}		
 		this.getBooking().setExtraSubtotal(extraSubtotal);
-		
-		Double roomSubtotal = 0.0;
-		
-		roomSubtotal = structure.calculateRoomSubtotal(theBookedRoom,this.getBooking().getDateIn(), this.getBooking().getDateOut(), null, this.getBooking().getNrGuests());
 		this.getBooking().setRoomSubtotal(roomSubtotal);
+	
+		
 		this.getMessage().setResult(Message.SUCCESS);
 		this.getMessage().setDescription("Prezzo Calcolato con Successo");
 		return "success";				
@@ -106,6 +121,14 @@ public class ListinoCameraAction extends ActionSupport implements SessionAware{
 
 	public void setBookingExtraIds(List<Integer> bookingExtraIds) {
 		this.bookingExtraIds = bookingExtraIds;
+	}
+
+	public Integer getNumNights() {
+		return numNights;
+	}
+
+	public void setNumNights(Integer numNights) {
+		this.numNights = numNights;
 	}
 	
 	

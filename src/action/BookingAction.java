@@ -59,6 +59,11 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		this.getBooking().setRoom(theBookedRoom);
 		this.setRooms(structure.getRooms());
 		this.setExtras(structure.getExtras());
+		
+		Double roomSubtotal = 0.0;
+		roomSubtotal = structure.calculateRoomSubtotal(theBookedRoom, this.getBooking().getDateIn(), this.getBooking().getDateOut(), null, this.getBooking().getNrGuests());
+		this.getBooking().setRoomSubtotal(roomSubtotal);
+		
 		Long millis = this.getBooking().getDateOut().getTime() - this.getBooking().getDateIn().getTime();
 		Integer days = (int) (millis/(1000*3600*24));
 		this.setNumNights(days);
@@ -78,6 +83,9 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		Structure structure = user.getStructure();
 		this.setRooms(structure.getRooms());
 		this.setExtras(structure.getExtras());
+		
+		this.setBooking(new Booking());
+		
 		return SUCCESS;
 	}
 	

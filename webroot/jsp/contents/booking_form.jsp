@@ -21,7 +21,8 @@ display: none;
                 			 <select size="1" id="sel_rooms_list" name="booking.room.id">
                 			 <!--
                   			 <option selected="selected" value="<s:property value="booking.room.id"/>"><s:property value="booking.room.name"/></option>
-                  			 --><s:iterator value="rooms" var="eachRoom" >
+                  			 -->
+                  			 <s:iterator value="rooms" var="eachRoom" >
                    			 <option 
                    			 <s:if test="#eachRoom.id == booking.room.id">
 								   selected="selected"
