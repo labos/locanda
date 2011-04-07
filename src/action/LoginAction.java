@@ -87,10 +87,11 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		this.buildRoomFacilities(ret);
 		this.buildRooms(ret);
 		this.buildGuests(ret);
-		this.buildBookings(ret);
-		this.buildExtras(ret);
+	
 		this.buildSeasons(ret);
 		this.buildListiniCamere(ret);
+		this.buildBookings(ret);
+		this.buildExtras(ret);
 		return ret;		
 	}
 	
@@ -184,7 +185,7 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		dateIn = new Date(System.currentTimeMillis());
 		dateOut = new Date(System.currentTimeMillis() + 3*24*3600*1000);
 		dateIn = DateUtils.truncate(dateIn, Calendar.DAY_OF_MONTH);
-		dateIn = DateUtils.truncate(dateOut, Calendar.DAY_OF_MONTH);
+		dateOut = DateUtils.truncate(dateOut, Calendar.DAY_OF_MONTH);
 		aBooking.setDateIn(dateIn);
 		aBooking.setDateOut(dateOut);
 		aBooking.setId(structure.nextKey());

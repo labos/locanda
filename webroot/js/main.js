@@ -220,23 +220,36 @@ $(document).ready(function() {
 	     		 var formInput=$(this).parents().find(".yform.json").serialize();
 	  	   		$.ajax({
 	 	   		   type: "POST",
-	 	   		   url: "findRoomPrice.action",
+	 	   		   url: "calculateRoomSubtotal.action",
 	 	   		   data: formInput,
 	 	   		   success: function(data_action){
 	 	   			   
 	 	   			var title_notification = null;
 	 	   			
-	 	   			   if (data_action.result == "success")
+	 	   			   if (data_action.message.result == "success")
 	 	   				   {
 	 	   				   	//update dom values here
-	 	   				 $('input[name="per_value"]').trigger("keyup");
-	 	   				$().notify("Congratulazioni", data_action.description, _redirectAction);
+	 	   				   var roomSubTotal = data_action.booking.roomSubtotal;
+	 	   				   var extraSubTotal = data_action.booking.extraSubtotal; 
+	 	   				   var priceRoom = 0;
+	 	   				   var subTotal = roomSubTotal + extraSubTotal;
+	 	   				   $("#per_value").val(priceRoom); 
+	 		  			   $("#price_room").html(roomSubTotal);
+	 		  			   $("#extras_room").html(extraSubTotal);
+	 		  			$('input:hidden[name="booking.subtotal"]').val(subTotal);
+	 		  			$("span.subtotal_room").text( subTotal );
+	 		  			
+	 		  			
+	 		  			   //update subtotal
+	 		  			   updateSubtotal();
+	 	   				
+	 	   				$().notify("Congratulazioni", data_action.message.description, _redirectAction);
 	 	   				    				    
 	 	   				   }
 	 	   		    
 	 	   		     else if (data_action.result == "error")
 	 	   		    	 {
-	 	   		    	 	$().notify("Attenzione", data_action.description);
+	 	   		    	 	$().notify("Attenzione", data_action.message.description);
 	 	   		    	 }
 	 	   		   	else{
 	 	   		   		$(".validationErrors").html(data_action);

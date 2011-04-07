@@ -1,8 +1,11 @@
 package action;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import model.Booking;
+import model.Extra;
 import model.Room;
 import model.Structure;
 import model.User;
@@ -19,8 +22,9 @@ import com.opensymphony.xwork2.ActionSupport;
 @ParentPackage(value="default")
 public class ListinoCameraAction extends ActionSupport implements SessionAware{
 	private Map<String, Object> session = null;
-	private Message message = null;
+	private Message message = new Message();
 	private Booking booking = null;
+	private List<Integer> bookingExtraIds = new ArrayList<Integer>();
 	
 	
 	@Actions({
@@ -42,6 +46,16 @@ public class ListinoCameraAction extends ActionSupport implements SessionAware{
 		//Controllare che sia diverso da null in un interceptor
 		Structure structure = user.getStructure();
 		Room theBookedRoom = structure.findRoomById(this.getBooking().getRoom().getId());
+		this.saveUpdateBookingExtras(this.getBookingExtraIds(), structure);
+		
+		Double extraSubtotal = 0.0;
+		// popolo extrasIds con gli id degli extra già presenti nel booking
+		for(Extra each: this.getBooking().getExtras()){
+			extraSubtotal = extraSubtotal + each.getPrice();
+			// extrasIds.add(each.getId());
+		}		
+		this.getBooking().setExtraSubtotal(extraSubtotal);
+		
 		Double roomSubtotal = 0.0;
 		
 		roomSubtotal = structure.calculateRoomSubtotal(theBookedRoom,this.getBooking().getDateIn(), this.getBooking().getDateOut(), null, this.getBooking().getNrGuests());
@@ -50,6 +64,15 @@ public class ListinoCameraAction extends ActionSupport implements SessionAware{
 		this.getMessage().setDescription("Prezzo Calcolato con Successo");
 		return "success";				
 	}	
+	
+	private Boolean saveUpdateBookingExtras(List<Integer> extras, Structure structure){ 
+		List<Extra>  checkedExtras = new ArrayList<Extra>();
+		checkedExtras = structure.findExtrasByIds(extras);		// popolo checkedExtras con gli extra checkati
+		
+		this.getBooking().setExtras(checkedExtras);	// popolo l'array di extra del booking con gli extra checkati
+		return true;
+	}
+	
 	
 	public Map<String, Object> getSession() {
 		return session;
@@ -73,6 +96,16 @@ public class ListinoCameraAction extends ActionSupport implements SessionAware{
 	}
 	public void setBooking(Booking booking) {
 		this.booking = booking;
+	}
+
+
+
+	public List<Integer> getBookingExtraIds() {
+		return bookingExtraIds;
+	}
+
+	public void setBookingExtraIds(List<Integer> bookingExtraIds) {
+		this.bookingExtraIds = bookingExtraIds;
 	}
 	
 	

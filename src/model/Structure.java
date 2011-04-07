@@ -420,10 +420,12 @@ public class Structure {
 		
 		Integer i = 0;
 		current  = DateUtils.addDays(dateIn, i );
-		while(DateUtils.truncatedCompareTo(current, dateOut,Calendar.DAY_OF_MONTH ) <= 0){
-			bookingDates.add(current);
+		bookingDates.add(current);
+		while(DateUtils.truncatedCompareTo(current, dateOut,Calendar.DAY_OF_MONTH ) < 0){
+			
 			i = i + 1;
 			current  = DateUtils.addDays(dateIn, i );
+			bookingDates.add(current);
 		}	
 		return bookingDates;
 	}
