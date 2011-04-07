@@ -44,7 +44,7 @@ public class ListinoCameraAction extends ActionSupport implements SessionAware{
 		Room theBookedRoom = structure.findRoomById(this.getBooking().getRoom().getId());
 		Double roomSubtotal = 0.0;
 		
-		roomSubtotal = structure.calculateTotalRoomPrice(theBookedRoom,this.getBooking().getDateIn(), this.getBooking().getDateOut(), null, this.getBooking().getNrGuests());
+		roomSubtotal = structure.calculateRoomSubtotal(theBookedRoom,this.getBooking().getDateIn(), this.getBooking().getDateOut(), null, this.getBooking().getNrGuests());
 		this.getBooking().setRoomSubtotal(roomSubtotal);
 		this.getMessage().setResult(Message.SUCCESS);
 		this.getMessage().setDescription("Prezzo Calcolato con Successo");

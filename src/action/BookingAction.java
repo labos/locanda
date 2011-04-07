@@ -108,7 +108,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		oldBooking.setExtraSubtotal(extraSubtotal);
 		
 		Double roomSubtotal = 0.0;
-		roomSubtotal = structure.calculateTotalRoomPrice(oldBooking.getRoom(), oldBooking.getDateIn(), oldBooking.getDateOut(), null, oldBooking.getNrGuests());
+		roomSubtotal = structure.calculateRoomSubtotal(oldBooking.getRoom(), oldBooking.getDateIn(), oldBooking.getDateOut(), null, oldBooking.getNrGuests());
 		oldBooking.setRoomSubtotal(roomSubtotal);
 		
 		Long millis = oldBooking.getDateOut().getTime() - oldBooking.getDateIn().getTime();

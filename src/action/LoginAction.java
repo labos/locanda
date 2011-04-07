@@ -189,7 +189,7 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		aBooking.setDateOut(dateOut);
 		aBooking.setId(structure.nextKey());
 		aBooking.setNrGuests(1);
-		roomSubtotal = structure.calculateTotalRoomPrice(aRoom, dateIn, dateOut, null, 1);
+		roomSubtotal = structure.calculateRoomSubtotal(aRoom, dateIn, dateOut, null, 1);
 		aBooking.setRoomSubtotal(roomSubtotal);
 		structure.addBooking(aBooking);
 		
