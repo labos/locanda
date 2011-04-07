@@ -1,6 +1,7 @@
 package model.listini;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class ListinoCamera {
@@ -41,6 +42,17 @@ public class ListinoCamera {
 		oldItem.setNumGuests(anItem.getNumGuests());
 		oldItem.setPrices(anItem.getPrices());
 		return true;
+	}
+	
+	public Double findRoomPrice(Integer numGuests, Integer dayOfWeek){
+		Double ret = 0.0;
+		
+		for(ItemListinoCamera each: this.getItems()){
+			if(each.getNumGuests().equals(numGuests)){
+				return each.getPrice(dayOfWeek);
+			}
+		}
+		return ret;
 	}
 	
 	public Integer getId() {

@@ -20,7 +20,9 @@ public class Season {
 	
 	public Boolean includesDate(Date date){
 		for(Period each: this.getPeriods()){
-			
+			if(each.includesDate(date)){
+				return true;
+			}
 		}
 		
 		return false;

@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
+import org.apache.commons.lang.time.DateUtils;
+
 import model.listini.Agevolazione;
 import model.listini.ListinoCamera;
 import model.listini.Season;
@@ -389,10 +391,34 @@ public class Structure {
 		return ret;
 	}
 	
+	public Double calculateRoomPrice(Room room, Date dateIn, Date dateOut,  Agevolazione agevolazione){
+		Double ret = 0.0;
+		//Prendere i giorni dell'intervallo dateIn dateOut
+		//Per ogni giorno dell'intervallo ricavare il listino
+		//Chiedere il prezzo del giorno al listino
+		List<Date> listaGiorni = new ArrayList<Date>();
+		Date current = null;
+		
+		Integer i = 0;
+		current  = DateUtils.addDays(dateIn, i );
+		
+			
+		
+		
+		return ret;
+	}
+	
 	public ListinoCamera findListinoCamera(Room room, Date date,  Agevolazione agevolazione){
 		ListinoCamera ret = null;
+		Season season = null;
 		
-		
+		season = this.findSeasonByDate(date);
+		for(ListinoCamera each: this.getListiniCamere()){
+			if(each.getSeason().getName().equalsIgnoreCase(season.getName()) &&
+					each.getRoomType().equalsIgnoreCase(room.getRoomType()) ){
+				return each;
+			}
+		}		
 		return ret;
 	}
 	
@@ -400,7 +426,9 @@ public class Structure {
 		Season ret = null;
 		
 		for(Season each: this.getSeasons()){
-			
+			if(each.includesDate(date)){
+				return each;
+			}
 		}
 		return ret;
 	}
