@@ -192,8 +192,7 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		aBooking.setNrGuests(1);
 		roomSubtotal = structure.calculateRoomSubtotal(aRoom, dateIn, dateOut, null, 1);
 		aBooking.setRoomSubtotal(roomSubtotal);
-		structure.addBooking(aBooking);
-		
+		structure.addBooking(aBooking);		
 	}
 	
 	private void buildExtras(Structure structure){
