@@ -53,21 +53,29 @@ public class BookingAction extends ActionSupport implements SessionAware{
 	
 	public String goAddNewBookingFromPlanner() {
 		User user = (User)this.getSession().get("user");
-		//Controllare che sia diverso da null in un interceptor
+		
 		Structure structure = user.getStructure();
 		Room theBookedRoom = structure.findRoomById(this.getBooking().getRoom().getId());
 		this.getBooking().setRoom(theBookedRoom);
 		this.setRooms(structure.getRooms());
 		this.setExtras(structure.getExtras());
 		
-		Double roomSubtotal = 0.0;
-		roomSubtotal = structure.calculateRoomSubtotal(theBookedRoom, this.getBooking().getDateIn(), this.getBooking().getDateOut(), null, this.getBooking().getNrGuests());
-		this.getBooking().setRoomSubtotal(roomSubtotal);
+		this.calculateRoomSubtotal(structure);
+		this.calculateNumNights();
 		
+		return SUCCESS;
+	}
+	
+	private void calculateRoomSubtotal(Structure structure){
+		Double roomSubtotal = 0.0;
+		roomSubtotal = structure.calculateRoomSubtotal(this.getBooking().getRoom(), this.getBooking().getDateIn(), this.getBooking().getDateOut(), null, this.getBooking().getNrGuests());
+		this.getBooking().setRoomSubtotal(roomSubtotal);
+	}
+	
+	private void calculateNumNights(){
 		Long millis = this.getBooking().getDateOut().getTime() - this.getBooking().getDateIn().getTime();
 		Integer days = (int) (millis/(1000*3600*24));
 		this.setNumNights(days);
-		return SUCCESS;
 	}
 	
 	
@@ -82,10 +90,8 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		//Controllare che sia diverso da null in un interceptor
 		Structure structure = user.getStructure();
 		this.setRooms(structure.getRooms());
-		this.setExtras(structure.getExtras());
-		
-		this.setBooking(new Booking());
-		
+		this.setExtras(structure.getExtras());		
+		this.setBooking(new Booking());		
 		return SUCCESS;
 	}
 	
@@ -99,33 +105,36 @@ public class BookingAction extends ActionSupport implements SessionAware{
 	})
 	
 	public String goUpdateBooking() {
-		User user = (User)this.getSession().get("user");
-		//Controllare che sia diverso da null in un interceptor
-		Structure structure = user.getStructure();
+		User user = null;
+		Structure structure = null;
+		
+		user = (User)this.getSession().get("user");
+		structure = user.getStructure();
 		this.setRooms(structure.getRooms());
 		Booking oldBooking = structure.findBookingById(this.getId());
 		this.setBooking(oldBooking);
 		this.setExtras(structure.getExtras());
 		
-		Double extraSubtotal = 0.0;
 		// popolo extrasIds con gli id degli extra già presenti nel booking
-		for(Extra each: oldBooking.getExtras()){
-			extraSubtotal = extraSubtotal + each.getPrice();
+		for(Extra each: this.getBooking().getExtras()){
 			this.getBookingExtraIds().add(each.getId());
-		}		
-		oldBooking.setExtraSubtotal(extraSubtotal);
+		}
 		
-		Double roomSubtotal = 0.0;
-		roomSubtotal = structure.calculateRoomSubtotal(oldBooking.getRoom(), oldBooking.getDateIn(), oldBooking.getDateOut(), null, oldBooking.getNrGuests());
-		oldBooking.setRoomSubtotal(roomSubtotal);
+		this.calculateRoomSubtotal(structure);
 		
-		Long millis = oldBooking.getDateOut().getTime() - oldBooking.getDateIn().getTime();
-		Integer days = (int) (millis/(1000*3600*24));
-		this.setNumNights(days);
+		this.calculateNumNights();
 		return SUCCESS;
 	}
 	
-	
+	private void calculateExtraSubtotal(){
+		Double extraSubtotal = 0.0;
+		// popolo extrasIds con gli id degli extra già presenti nel booking
+		for(Extra each: this.getBooking().getExtras()){
+			extraSubtotal = extraSubtotal + each.getPrice();
+		}		
+		//oldBooking.setExtraSubtotal(extraSubtotal);
+		this.getBooking().setExtraSubtotal(extraSubtotal);
+	}
 	
 	@Actions({
 		@Action(value="/findAllBookings",results = {

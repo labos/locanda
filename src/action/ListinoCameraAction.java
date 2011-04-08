@@ -49,6 +49,7 @@ public class ListinoCameraAction extends ActionSupport implements SessionAware{
 		//Controllare che sia diverso da null in un interceptor
 		Structure structure = user.getStructure();
 		Room theBookedRoom = structure.findRoomById(this.getBooking().getRoom().getId());
+		this.getBooking().setRoom(theBookedRoom);
 		this.saveUpdateBookingExtras(this.getBookingExtraIds(), structure);
 		if (this.getBooking().getDateOut() != null && this.getBooking().getDateIn() != null ) {
 			
@@ -73,7 +74,7 @@ public class ListinoCameraAction extends ActionSupport implements SessionAware{
 		}		
 		this.getBooking().setExtraSubtotal(extraSubtotal);
 		this.getBooking().setRoomSubtotal(roomSubtotal);
-	
+		
 		
 		this.getMessage().setResult(Message.SUCCESS);
 		this.getMessage().setDescription("Prezzo Calcolato con Successo");

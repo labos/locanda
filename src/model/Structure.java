@@ -50,6 +50,7 @@ public class Structure {
 	}
 	
 	//Room
+	/*
 	public Boolean hasRoomNamed(String name){
 		Boolean ret = false;
 		
@@ -59,7 +60,7 @@ public class Structure {
 			}
 		}
 		return ret;
-	}
+	}*/
 	
 	public Room findRoomByName(String name){
 		Room ret = null;
