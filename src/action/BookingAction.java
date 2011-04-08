@@ -121,16 +121,18 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		this.setExtras(structure.getExtras());
 		
 		// popolo extrasIds con gli id degli extra già presenti nel booking
-		for(Extra each: this.getBooking().getExtras()){
-			this.getBookingExtraIds().add(each.getId());
-		}
+		this.calculateBookingExtraIds();
 		this.calculateExtraSubtotal();
-		this.calculateRoomSubtotal(structure);
-		
+		this.calculateRoomSubtotal(structure);		
 		this.calculateNumNights();
 		return SUCCESS;
 	}
 	
+	private void calculateBookingExtraIds(){
+		for(Extra each: this.getBooking().getExtras()){
+			this.getBookingExtraIds().add(each.getId());
+		}
+	}
 	private void calculateExtraSubtotal(){
 		Double extraSubtotal = 0.0;
 		// popolo extrasIds con gli id degli extra già presenti nel booking
@@ -152,8 +154,11 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		
 	})
 	public String findAllBookings(){
-		User user = (User)session.get("user");
-		Structure structure = user.getStructure();
+		User user = null;
+		Structure structure = null;
+		
+		user = (User)session.get("user");
+		structure = user.getStructure();
 		this.setBookings(structure.getBookings());
 		return SUCCESS;		
 	}
@@ -173,9 +178,13 @@ public class BookingAction extends ActionSupport implements SessionAware{
 	
 	
 	public String findBookingById(){
-		User user = (User)session.get("user");
-		Structure structure = user.getStructure();
-		Booking aBooking = structure.findBookingById(this.getId());
+		User user = null;
+		Structure structure = null;
+		Booking aBooking = null;
+		
+		user = (User)session.get("user");
+		structure = user.getStructure();
+		aBooking = structure.findBookingById(this.getId());
 		if(aBooking!=null){
 			this.setBooking(aBooking);
 			this.getMessage().setResult(Message.SUCCESS);
@@ -200,8 +209,12 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		
 	})
 	public String saveUpdateBooking(){
-		User user = (User)session.get("user");
-		Structure structure = user.getStructure();
+		User user = null;
+		Structure structure = null;
+		Booking oldBooking = null;
+		
+		user = (User)session.get("user");
+		structure = user.getStructure();
 		
 		if(!structure.hasRoomFreeInPeriod(this.getBooking().getRoom().getId(),this.getBooking().getDateIn(), this.getBooking().getDateOut())){
 			this.getMessage().setResult(Message.ERROR);
@@ -211,7 +224,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		this.saveUpdateBookingRoom(structure);		
 		this.saveUpdateBookingGuest(this.getBooking().getGuest(), structure);
 		
-		Booking oldBooking = 
+		oldBooking = 
 			structure.findBookingById(this.getBooking().getId());
 		if(oldBooking==null){
 			//Si tratta di un nuovo booking
@@ -241,8 +254,11 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		
 	})
 	public String checkBookingDates(){
-		User user = (User)session.get("user");
-		Structure structure = user.getStructure();
+		User user = null;
+		Structure structure = null;
+		
+		user = (User)session.get("user");
+		structure = user.getStructure();
 		
 		if(!structure.hasRoomFreeInPeriod(this.getBooking().getRoom().getId(),this.getBooking().getDateIn(), this.getBooking().getDateOut())){
 				this.getMessage().setResult(Message.ERROR);
@@ -256,14 +272,18 @@ public class BookingAction extends ActionSupport implements SessionAware{
 	
 	
 	private Boolean saveUpdateBookingRoom(Structure structure){
-		Room theBookedRoom = structure.findRoomById(this.getBooking().getRoom().getId());
+		Room theBookedRoom = null;
+		
+		theBookedRoom = structure.findRoomById(this.getBooking().getRoom().getId());
 		this.getBooking().setRoom(theBookedRoom);
 		return true;
 	}
 	
 	
 	private Boolean saveUpdateBookingGuest(Guest guest, Structure structure){ 
-		Guest oldGuest = structure.findGuestById(guest.getId());
+		Guest oldGuest = null;
+		
+		oldGuest = structure.findGuestById(guest.getId());
 		
 		if(oldGuest == null){
 			//Si tratta di un nuovo guest e devo aggiungerlo
@@ -280,7 +300,9 @@ public class BookingAction extends ActionSupport implements SessionAware{
 	}
 	
 	private Boolean saveUpdateBookingExtras(List<Integer> extras, Structure structure){ 
-		List<Extra>  checkedExtras = new ArrayList<Extra>();
+		List<Extra>  checkedExtras = null;
+		
+		checkedExtras = new ArrayList<Extra>();
 		checkedExtras = structure.findExtrasByIds(extras);		// popolo checkedExtras con gli extra checkati
 		
 		this.getBooking().setExtras(new ArrayList<Extra>());	// azzero l'array di extra del booking
@@ -301,9 +323,12 @@ public class BookingAction extends ActionSupport implements SessionAware{
 	})
 	
 	public String deleteBooking() {
-		User user = (User)this.getSession().get("user");
+		User user = null;
+		Structure structure = null;
+		
+		user = (User)this.getSession().get("user");
 		//Controllare che sia diverso da null in un interceptor
-		Structure structure = user.getStructure();
+		structure = user.getStructure();
 		
 		if(structure.deleteBooking(this.getBooking())){
 			this.getMessage().setResult(Message.SUCCESS);

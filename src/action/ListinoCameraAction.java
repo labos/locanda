@@ -1,6 +1,7 @@
 package action;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
@@ -11,6 +12,7 @@ import model.Structure;
 import model.User;
 import model.internal.Message;
 
+import org.apache.commons.lang.time.DateUtils;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Actions;
 import org.apache.struts2.convention.annotation.ParentPackage;
@@ -52,7 +54,11 @@ public class ListinoCameraAction extends ActionSupport implements SessionAware{
 		this.getBooking().setRoom(theBookedRoom);
 		this.saveUpdateBookingExtras(this.getBookingExtraIds(), structure);
 		if (this.getBooking().getDateOut() != null && this.getBooking().getDateIn() != null ) {
-			
+			if(DateUtils.truncatedCompareTo(this.getBooking().getDateOut(), this.getBooking().getDateIn(), Calendar.DAY_OF_MONTH)<=0){
+				this.getMessage().setResult(Message.ERROR);
+				this.getMessage().setDescription("DateOut deve essere maggiore di DateIn!");
+				return "error";
+			}
 			millis = this.getBooking().getDateOut().getTime() - this.getBooking().getDateIn().getTime();
 			days = (int) (millis/(1000*3600*24));
 			this.setNumNights(days);
