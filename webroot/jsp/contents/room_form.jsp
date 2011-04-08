@@ -75,7 +75,7 @@
    				  <input type="hidden" name="name" value=""/>
      			  <input type="file" name="upload" multiple/>
     			  <button>Upload</button>
-    			  <div>Upload files</div>  
+    			  <div>Upload Facility Image</div>  
 				</form> 
 		  	 	<div class="result_facility_upload" id="result_facility_upload" ></div>
 		   		<div class="upload_loader">&nbsp;</div>

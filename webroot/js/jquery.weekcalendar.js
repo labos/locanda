@@ -560,6 +560,7 @@ _setupEventCreationForRoom : function($weekDay) {
 				
             if ($target.hasClass("wc-day-column-inner")) {
             	
+            	//$(".wc-day-column, .wc-cal-event").css('cursor','e-resize');
             	
 					// iniziamo a costruire i div che contengono la casella con il nuovo appuntamento.
                var $newEvent = $("<div class=\"wc-cal-event wc-new-cal-event wc-new-cal-event-creating\"></div>");

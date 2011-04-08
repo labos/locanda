@@ -111,11 +111,11 @@
             <li id="reports"><a href="#">Reports</a></li>
             <li id="settings"><a href="#">Settings</a>
               <ul class="sub_menu ui-menu ui-widget ui-widget-content ui-corner-all">
-    			<li class="ui-menu-item"><a href="online.jsp?sect=settings">ONLINE BOOKINGS</a></li>
+    			<li class="ui-menu-item"><a href="goOnlineBookings?sect=settings">ONLINE BOOKINGS</a></li>
     			<li class="ui-menu-item"><a href="<s:property value="url_findallseasons"/>?sect=settings">SEASONS</a></li>
+    			<li class="ui-menu-item"><a href="#">LISTINI CAMERE</a></li>
     			<li class="ui-menu-item"><a href="emails.jsp?sect=settings">EMAILS</a></li>
     			<li class="ui-menu-item"><a href="details.jsp?sect=settings">YOUR DETAILS</a></li>
-    			<li class="ui-menu-item"><a href="discount.jsp?sect=settings">DISCOUNT</a></li>
   			  </ul>
             </li>         
             <li><a href="#">Help</a></li>

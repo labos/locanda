@@ -360,12 +360,34 @@ display: none;
                       <div class="type-select">
                       	<label for="nr_guests">Guests: <sup title="This field is mandatory.">*</sup></label> 
                       	<select name="booking.nrGuests" id="nr_guests" class="required">
-                      	  <option selected="selected" value="<s:property value="booking.nrGuests"/>"><s:property value="booking.nrGuests"/></option>
+                    	 <% 
+                    	 if ( request.getAttribute("booking.room.maxGuests") != null)
+                    	 {
+                    		 
+                    	 
+ 						int max_guests= (Integer) request.getAttribute("booking.room.maxGuests");
+						int nr_guests = (Integer) request.getAttribute("booking.nrGuests");
+						   for(int i = 1; i <= max_guests; i++) {
+							   %>
+							    <option value="<% out.println(i) ; %>" <% if(nr_guests == i ) {out.println("selected=\"selected\"");}%>><% out.println(i) ; %></option>
+							   <% 
+						   }
+						   }
+						   else
+						   {
+						   %>
+                       	 
                     	  <option value="1">1</option>
                     	  <option value="2">2</option>
                     	  <option value="3">3</option>
                     	  <option value="4">4</option>
+   
+   							<% 
+	   
+						   }
+						   %>
                  		</select>
+                 		
                  	  </div>
                  	  <!-- 
                  	  <div class="type-select">

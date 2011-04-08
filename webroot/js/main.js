@@ -244,7 +244,18 @@ $(document).ready(function() {
 	 	   				   var numNights = data_action.numNights;
 	 	   				   var priceRoom = 0;
 	 	   				   var subTotal = roomSubTotal + extraSubTotal;
-	 	   				   
+	 	   				   var maxGuests = data_action.booking.room.maxGuests;
+	 	   				   if (maxGuests !== null && parseInt(maxGuests) > 0){
+	 	   					   var numbermaxGuests = parseInt(maxGuests);
+	 	   					 $("#nr_guests").empty();
+	 	   					 for(var i = 1; i <=  numbermaxGuests ;i++)
+	 	   				    {
+	 	   						$("#nr_guests").append('<option value="'+i+'">'+i+'</option');
+	 	   				        
+	 	   				    }
+	 	   					
+	 	   				   }
+	 	   					
 	 	   				   
 	 	   				   $("#price_room").html(roomSubTotal);
 	 		  			   $("#extras_room").html(extraSubTotal);
@@ -263,7 +274,7 @@ $(document).ready(function() {
 	 	   				    				    
 	 	   				   }
 	 	   		    
-	 	   		     else if (data_action.result == "error")
+	 	   		     else if (data_action.message.result == "error")
 	 	   		    	 {
 	 	   		    	 	$().notify("Attenzione", data_action.message.description);
 	 	   		    	 }
@@ -1740,8 +1751,16 @@ $(document).ready(function() {
 		 
 		//---  END ACCOMODATION SECTION CODE   
 		  
-
+			//---  ONLINE BOOKINGS SECTION CODE
+		  	
+		  	$("#customizewidget").click (function(){
+		  	
+		  		$("#text-widget-edit").dialog({
+		  		   close: function(event, ui) {},
+		  		 buttons: { "Ok": function() { $("#text-widget").text($(this).find("textarea").val()); $(this).dialog("close");}, "Cancel": function() {  $(this).dialog("close");  }}});
+		  	});
+		  	
 		  
-		  
+			//---  END ONLINE BOOKINGS SECTION CODE  
    
 });
