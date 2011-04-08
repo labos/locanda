@@ -536,7 +536,7 @@ _setupEventCreationForRoom : function($weekDay) {
          //IL SEGUENTE ARRAY CONTIENE LA LISTA DEI TD DELLA TABELLA INTERESSATI CORRENTEMENTE AD UN
          //NUOVO BOOKING
          self.day_booked = new Array();  
-         var ONE_DAY = 1000 * 60 * 60 * 24;
+         
          
          /* ADD MOUSEDOWN EVENT LISTENER */
          $weekDay.mousedown(function(event) {
@@ -785,18 +785,25 @@ $.each(self.day_booked, function(key,value){
 var start_booking=new Date();
 var end_booking=new Date();
 var id_book_room=0;
+var ONE_DAY = 1000 * 60 * 60 * 24;
 var day_booked_lenght = self.day_booked.length;
 if($.isArray(self.day_booked) && day_booked_lenght>0)
 {
 try{
 	start_booking= self.day_booked[0].children().data("startDate");
+	//erase empty element. Occurring only for dragging at the end of calendar..
+	self.day_booked = $.grep(self.day_booked,function(n,i){
+	    return(n.length > 0);
+	});
+
 	if ( self.day_booked[self.day_booked.length-1].length >0)
 		{
 			end_booking = self.day_booked[self.day_booked.length-1].children().data("startDate");
 		}
 	else
 		{
-			end_booking = new Date (start_booking.getTime() +  (self.day_booked.length -1) * ONE_DAY) ;
+		  self.element.weekCalendar("nextWeek");
+		//end_booking = new Date (start_booking.getTime() +  (self.day_booked.length -1) * ONE_DAY) ;
 		
 		}
 

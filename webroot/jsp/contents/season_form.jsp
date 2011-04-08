@@ -45,7 +45,6 @@
              <div class="c20l">
                <div class="subcl type-text">
                 <span>From:</span>
-               <input type="hidden" name="periods[<s:property value="#periodStatus.index"/>].id" value="<s:property value="#eachPeriod.id"/>"/>
                <input type="text" class="datepicker required date" name="periods[<s:property value="#periodStatus.index"/>].startDate" value="<s:date name="#eachPeriod.startDate" format="%{#session.datePattern}" />" style="display: inline;"/>
               </div>
               </div>
@@ -58,7 +57,7 @@
               <div class="c10l">
               <label>&nbsp;</label>
               <s:if test="#periodStatus.index > 0">
-			 <input type="hidden" class="idPeriod" name="periods[<s:property value="#periodStatus.index"/>].id" value="<s:property value="#eachPeriod.id"/>"/>
+			 <input type="hidden" class="idPeriod" name="season.periods[<s:property value="#periodStatus.index"/>].id" value="<s:property value="#eachPeriod.id"/>"/>
               <a href="#seas_anchor_<s:property value="#eachSeason.id"/>" class="erase_period" title="erase">Delete Period</a>				  
 								</s:if>
 

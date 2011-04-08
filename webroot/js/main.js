@@ -221,7 +221,12 @@ $(document).ready(function() {
 	     	   /*ADD LISTENER FOR CHANGE ROOM OR DATEIN OR DATEOUT OR NUMNIGHTS FROM BOOKING*/
 	     	  $('#sel_rooms_list, #booking_duration, input:text[name="booking.dateIn"], input:text[name="booking.dateOut"], input:checkbox[name="bookingExtraIds"], #nr_guests').change (function (){
 	     		  
-	     		 
+	     		 // check in room was selected
+	     		  if ( !  ( parseInt ( $('#sel_rooms_list').val() ) > 0  ) ) {
+	     			  
+	     			 $().notify("Attenzione", "Devi selezionare una room");
+	     			  return;
+	     			  }
 	     		 var formInput=$(this).parents().find(".yform.json").serialize();
 	  	   		$.ajax({
 	 	   		   type: "POST",
@@ -548,8 +553,8 @@ $(document).ready(function() {
    
   // var list_rooms=new Array(1, 4, 23, 35,36,37,38,39,40,41,42,43,44,45,49,52,53,54,55);
   //listing sample rooms to display in the planner
-   var list_rooms=new Array(new Room(100,"bella vista"), new Room(104,"lato piazza"),new Room(123,"suite"),new Room(135,"al terrazzo"),new Room(136,"vista mare"));
-   
+ //  var list_rooms=new Array(new Room(100,"bella vista"), new Room(104,"lato piazza"),new Room(123,"suite"),new Room(135,"al terrazzo"),new Room(136,"vista mare"));
+   var list_rooms = [];
    /* setting number of rooms */
 	var num_rooms=list_rooms.length;
 	
@@ -694,7 +699,8 @@ $(document).ready(function() {
             }
          }).show();
 
-        /* $dialogContent.find(".date_holder").text($calendar.weekCalendar("formatDate", calEvent.start));
+        /* $dialogContent.find(".date_holder").text($calendar.weekCalendar("formatDate", calEvent.start));               <input type="hidden" name="season.periods[<s:property value="#periodStatus.index"/>].id" value="<s:property value="#eachPeriod.id"/>"/>
+
          */
          setupStartAndEndTimeFields(startField, endField, calEvent, $calendar.weekCalendar("getTimeslotTimes", calEvent.start));
 
@@ -760,9 +766,12 @@ $(document).ready(function() {
                   // $dialogContent.dialog("close");
                },
                "delete" : function() {
-            	   $dialogContent.find(".yform.json").submitForm("deleteBooking.action");
-                  //$calendar.weekCalendar("removeEvent", calEvent.id);
-                   $dialogContent.dialog("close");
+         		  if(confirm("Do you REALLY want to delete it?")){
+         			   $dialogContent.find(".yform.json").submitForm("deleteBooking.action");
+                       //$calendar.weekCalendar("removeEvent", calEvent.id);
+                        $dialogContent.dialog("close");
+         		  }
+            	
                },
                cancel : function() {
             	   $calendar.weekCalendar("removeEvent", calEvent.id);
