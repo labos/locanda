@@ -289,8 +289,8 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		prices[2] = 50.0;//mer
 		prices[3] = 50.0;//gio
 		prices[4] = 50.0;//ven
-		prices[5] = 50.0;//sab
-		prices[6] = 50.0;//dom
+		prices[5] = 55.0;//sab
+		prices[6] = 57.0;//dom
 		itemListinoCamera.setPrices(prices);
 		listinoCamera.addItem(itemListinoCamera);
 		

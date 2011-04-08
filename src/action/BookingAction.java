@@ -302,7 +302,15 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		}		
 	}	
 	
-	
+	@Actions({
+		@Action(value="/goOnlineBookings",results = {
+				@Result(name="success",location="/onlineBookings.jsp")
+		}) 
+		
+	})
+	public String goOnlineBookings(){
+		return SUCCESS;		
+	}
 
 	public Message getMessage() {
 		return message;
