@@ -52,10 +52,13 @@ public class BookingAction extends ActionSupport implements SessionAware{
 	})
 	
 	public String goAddNewBookingFromPlanner() {
-		User user = (User)this.getSession().get("user");
+		User user = null;
+		Structure structure = null;
+		Room theBookedRoom = null;
 		
-		Structure structure = user.getStructure();
-		Room theBookedRoom = structure.findRoomById(this.getBooking().getRoom().getId());
+		user = (User)this.getSession().get("user");
+		structure = user.getStructure();
+		theBookedRoom = structure.findRoomById(this.getBooking().getRoom().getId());
 		this.getBooking().setRoom(theBookedRoom);
 		this.setRooms(structure.getRooms());
 		this.setExtras(structure.getExtras());
@@ -86,9 +89,11 @@ public class BookingAction extends ActionSupport implements SessionAware{
 	})
 	
 	public String goAddNewBooking() {
-		User user = (User)this.getSession().get("user");
-		//Controllare che sia diverso da null in un interceptor
-		Structure structure = user.getStructure();
+		User user = null;
+		Structure structure = null;
+		
+		user = (User)this.getSession().get("user");
+		structure = user.getStructure();
 		this.setRooms(structure.getRooms());
 		this.setExtras(structure.getExtras());		
 		this.setBooking(new Booking());		
@@ -119,7 +124,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		for(Extra each: this.getBooking().getExtras()){
 			this.getBookingExtraIds().add(each.getId());
 		}
-		
+		this.calculateExtraSubtotal();
 		this.calculateRoomSubtotal(structure);
 		
 		this.calculateNumNights();
