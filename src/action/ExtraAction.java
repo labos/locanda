@@ -58,8 +58,8 @@ public class ExtraAction extends ActionSupport implements SessionAware{
 		if(oldExtra == null){
 			//Si tratta di un add
 			this.getExtra().setId(structure.nextKey());
-			this.getExtra().setResourcePriceType("per Room");
-			this.getExtra().setTimePriceType("per Night");
+/*			this.getExtra().setResourcePriceType("per Room");
+			this.getExtra().setTimePriceType("per Night");*/
 			structure.addExtra(this.getExtra());
 			
 			this.getMessage().setResult(Message.SUCCESS);

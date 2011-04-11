@@ -107,14 +107,16 @@ $(document).ready(function() {
 			   /* prepare selector string for class whit whitespaces */
 			   var current_class_selector = $(this).attr("class").replace( new RegExp(" ","g"), ".");
 			   /* check if current was cloned */
-			   var next_sibling = current_parent.next().find("." + current_class_selector);
+			   var next_sibling = current_parent.next().find(".extra_value_adjustment");
+			   var prova = next_sibling.size();
 			   if( next_sibling  && ! next_sibling.size() > 0 )
 				   {
 					   var copy_parent = current_parent.clone(true);
 			   copy_parent.find(".green").remove();
 			   copy_parent.find("input").val("");
 			   //copy_parent.find($(this)).bind('keyup',cloneEvent);
-			   copy_parent.insertAfter(current_parent);	   
+			   copy_parent.insertAfter(current_parent);	 
+			  // $(this).unbind('keyup');
 				   
 				   }
 
@@ -1612,7 +1614,7 @@ $(document).ready(function() {
 			   
 			   
 			   /* extras and pay adjustment */
-			   
+			   /*
 			   $('input[name="extra_value_adjustment"], input[name="pay_value_adjustment"]').keyup(function() {
 				   var current_parent=$(this).parents(".type-text");
 				   var copy_parent = current_parent.clone(true);
@@ -1623,6 +1625,8 @@ $(document).ready(function() {
 				   $(this).unbind('keyup');
 				   
 				 });
+				 
+				 */
 				//--- $(".type_rooms").hide();
 			   /*
 				$("#change_rate").toggle(function(){
