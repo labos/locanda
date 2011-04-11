@@ -13,6 +13,7 @@ import model.Adjustment;
 import model.Booking;
 import model.Extra;
 import model.Guest;
+import model.Payment;
 import model.Room;
 import model.RoomFacility;
 import model.Structure;
@@ -226,6 +227,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		this.saveUpdateBookingGuest(this.getBooking().getGuest(), structure);
 		this.saveUpdateBookingExtras(this.getBookingExtraIds(), structure);
 		this.saveUpdateAdjustments(structure);
+		this.saveUpdatePayments(structure);
 		
 		oldBooking = 
 			structure.findBookingById(this.getBooking().getId());
@@ -327,6 +329,22 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		
 		return true;
 		
+	}
+	
+	private Boolean saveUpdatePayments(Structure structure){
+		List<Payment> paymentsWithoutNulls = null;
+		
+		paymentsWithoutNulls = new ArrayList<Payment>();
+		for(Payment each: this.getBooking().getPayments()){
+			if(each!=null){
+				if(each.getId() == null){
+					each.setId(structure.nextKey());
+				}
+				paymentsWithoutNulls.add(each);
+			}			
+		}
+		this.getBooking().setPayments(paymentsWithoutNulls);		
+		return true;		
 	}
 	
 	@Actions({

@@ -19,10 +19,12 @@ public class Booking {
 	private String notes;
 	private List<Extra> extras;
 	private List<Adjustment> adjustments;
+	private List<Payment> payments = null;
 	
 	public Booking(){
 		this.extras = new ArrayList<Extra>();
 		this.adjustments = new ArrayList<Adjustment>();
+		this.payments = new ArrayList<Payment>();
 	}
 	
 	
@@ -40,6 +42,14 @@ public class Booking {
 	
 	public Boolean removeAdjustment(Adjustment anAdjustment){
 		return this.getAdjustments().remove(anAdjustment);
+	}
+	
+	public Boolean addPayment(Payment aPayment){
+		return this.getPayments().add(aPayment);
+	}
+	
+	public Boolean removePayment(Payment aPayment){
+		return this.getPayments().remove(aPayment);
 	}
 		
 	@Override
@@ -143,6 +153,16 @@ public class Booking {
 
 	public void setAdjustments(List<Adjustment> adjustments) {
 		this.adjustments = adjustments;
+	}
+
+
+	public List<Payment> getPayments() {
+		return payments;
+	}
+
+
+	public void setPayments(List<Payment> payments) {
+		this.payments = payments;
 	}
 	
 	
