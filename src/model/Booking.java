@@ -18,9 +18,11 @@ public class Booking {
 	private Double extraSubtotal = 0.0;
 	private String notes;
 	private List<Extra> extras;
+	private List<Adjustment> adjustments;
 	
 	public Booking(){
 		this.extras = new ArrayList<Extra>();
+		this.adjustments = new ArrayList<Adjustment>();
 	}
 	
 	
@@ -32,8 +34,14 @@ public class Booking {
 		return this.getExtras().addAll(extras);
 	}
 	
+	public Boolean addAdjustment(Adjustment anAdjustment){
+		return this.getAdjustments().add(anAdjustment);
+	}
 	
-	
+	public Boolean removeAdjustment(Adjustment anAdjustment){
+		return this.getAdjustments().remove(anAdjustment);
+	}
+		
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -126,6 +134,18 @@ public class Booking {
 	public void setRoomSubtotal(Double roomSubtotal) {
 		this.roomSubtotal = roomSubtotal;
 	}
+
+
+	public List<Adjustment> getAdjustments() {
+		return adjustments;
+	}
+
+
+	public void setAdjustments(List<Adjustment> adjustments) {
+		this.adjustments = adjustments;
+	}
+	
+	
 	
 	
 }

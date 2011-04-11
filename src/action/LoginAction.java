@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import model.Adjustment;
 import model.Booking;
 import model.Extra;
 import model.Guest;
@@ -176,6 +177,7 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		Date dateIn = null;
 		Date dateOut = null;
 		Double roomSubtotal = 0.0;
+		Adjustment anAdjustment = null;
 		
 		aBooking = new Booking();
 		aRoom = structure.findRoomByName("101");
@@ -192,6 +194,14 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		aBooking.setNrGuests(1);
 		roomSubtotal = structure.calculateRoomSubtotal(aRoom, dateIn, dateOut, null, 1);
 		aBooking.setRoomSubtotal(roomSubtotal);
+		
+		anAdjustment = new Adjustment();
+		anAdjustment.setId(structure.nextKey());
+		anAdjustment.setDate(DateUtils.truncate(new Date(),Calendar.DAY_OF_MONTH));
+		anAdjustment.setDescription("Sconto per doccia malfunzionante");
+		anAdjustment.setAmount(-50.0);
+		aBooking.addAdjustment(anAdjustment);
+		
 		structure.addBooking(aBooking);		
 	}
 	
