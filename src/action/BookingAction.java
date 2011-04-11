@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import model.Adjustment;
 import model.Booking;
 import model.Extra;
 import model.Guest;
@@ -223,17 +224,18 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		}
 		this.saveUpdateBookingRoom(structure);		
 		this.saveUpdateBookingGuest(this.getBooking().getGuest(), structure);
+		this.saveUpdateBookingExtras(this.getBookingExtraIds(), structure);
+		this.saveUpdateAdjustments(structure);
 		
 		oldBooking = 
 			structure.findBookingById(this.getBooking().getId());
 		if(oldBooking==null){
 			//Si tratta di un nuovo booking
 			this.getBooking().setId(structure.nextKey());
-			this.saveUpdateBookingExtras(this.getBookingExtraIds(), structure);
 			structure.addBooking(this.getBooking());
 		}else{
 			//Si tratta di un update di un booking esistente
-			this.saveUpdateBookingExtras(this.getBookingExtraIds(), structure);
+			
 			structure.updateBooking(this.getBooking());			
 		}		
 		this.getMessage().setResult(Message.SUCCESS);
@@ -293,10 +295,8 @@ public class BookingAction extends ActionSupport implements SessionAware{
 			
 		}else{
 			//Si tratta di un guest esistente e devo fare l'update
-			structure.updateGuest(guest);
-			
-		}		
-		
+			structure.updateGuest(guest);			
+		}			
 		return true;
 	}
 	
@@ -309,6 +309,24 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		this.getBooking().setExtras(new ArrayList<Extra>());	// azzero l'array di extra del booking
 		this.getBooking().addExtras(checkedExtras);				// popolo l'array di extra del booking con gli extra checkati
 		return true;
+	}
+	
+	private Boolean saveUpdateAdjustments(Structure structure){
+		List<Adjustment> adjustmentsWithoutNulls = null;
+		
+		adjustmentsWithoutNulls = new ArrayList<Adjustment>();
+		for(Adjustment each: this.getBooking().getAdjustments()){
+			if(each!=null){
+				if(each.getId() == null){
+					each.setId(structure.nextKey());
+				}
+				adjustmentsWithoutNulls.add(each);
+			}			
+		}
+		this.getBooking().setAdjustments(adjustmentsWithoutNulls);
+		
+		return true;
+		
 	}
 	
 	@Actions({
