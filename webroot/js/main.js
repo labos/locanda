@@ -230,6 +230,7 @@ $(document).ready(function() {
 	     			  return;
 	     			  }
 	     		 var formInput=$(this).parents().find(".yform.json").serialize();
+	     		 var $clicked = $(this);
 	  	   		$.ajax({
 	 	   		   type: "POST",
 	 	   		   url: "calculatePrices.action",
@@ -247,7 +248,8 @@ $(document).ready(function() {
 	 	   				   var priceRoom = 0;
 	 	   				   var subTotal = roomSubTotal + extraSubTotal;
 	 	   				   var maxGuests = data_action.booking.room.maxGuests;
-	 	   				   if (maxGuests !== null && parseInt(maxGuests) > 0){
+	 	   				   
+	 	   				   if (maxGuests !== null && parseInt(maxGuests) > 0 && $clicked.is("select#sel_rooms_list")){
 	 	   					   var numbermaxGuests = parseInt(maxGuests);
 	 	   					 $("#nr_guests").empty();
 	 	   					 for(var i = 1; i <=  numbermaxGuests ;i++)
