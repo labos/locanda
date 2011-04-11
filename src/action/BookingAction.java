@@ -216,7 +216,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		user = (User)session.get("user");
 		structure = user.getStructure();
 		
-		if(!structure.hasRoomFreeInPeriod(this.getBooking().getRoom().getId(),this.getBooking().getDateIn(), this.getBooking().getDateOut())){
+		if(!structure.hasRoomFreeForBooking(this.getBooking())){
 			this.getMessage().setResult(Message.ERROR);
 			this.getMessage().setDescription("Booking sovrapposti!");
 			return ERROR;
@@ -260,7 +260,8 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		user = (User)session.get("user");
 		structure = user.getStructure();
 		
-		if(!structure.hasRoomFreeInPeriod(this.getBooking().getRoom().getId(),this.getBooking().getDateIn(), this.getBooking().getDateOut())){
+		
+		if(!structure.hasRoomFreeForBooking(this.getBooking())){
 				this.getMessage().setResult(Message.ERROR);
 				this.getMessage().setDescription("Booking sovrapposti!");
 				return ERROR;

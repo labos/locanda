@@ -133,6 +133,31 @@ public class Structure {
 		return true;
 	}
 	
+	public Boolean hasRoomFreeForBooking(Booking booking){
+		//Estraggo i Booking della camera con roomId dato
+		List<Booking> roomBookings = new ArrayList<Booking>();
+		
+		for(Booking each: this.getBookings()){
+			if( each.getRoom().getId().equals(booking.getRoom().getId()) && !each.equals(booking)    ){
+				roomBookings.add(each);
+			}
+		}
+		//               dateIn |-------------------------| dateOut    
+		//       |------------------|    |---|     |---------------------------|    roomBookings
+		//             aBooking         aBooking         aBooking
+		
+		for(Booking aBooking: roomBookings){
+			if(aBooking.getDateOut().after(booking.getDateIn()) && aBooking.getDateOut().before(booking.getDateOut())){
+				return false;
+			}
+			if(aBooking.getDateIn().after(booking.getDateIn()) && aBooking.getDateIn().before(booking.getDateOut())){
+				return false;
+			}
+		}
+		
+		return true;
+	}
+	
 	
 	//RoomFacility	
 	public Boolean addRoomFacility(RoomFacility roomFacility){

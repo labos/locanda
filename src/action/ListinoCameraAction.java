@@ -36,7 +36,8 @@ public class ListinoCameraAction extends ActionSupport implements SessionAware{
 				} ),
 				@Result(type ="json",name="error", params={
 						"excludeProperties","session"
-				} )
+				} ),
+				@Result(name="input", location = "/validationError.jsp" )
 		})
 		
 	})
