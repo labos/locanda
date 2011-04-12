@@ -419,6 +419,7 @@ public class Structure {
 		return ret;
 	}
 	
+	/*
 	public Double calculateRoomSubtotal(Room room, Date dateIn, Date dateOut,  Agevolazione agevolazione, Integer numGuests){
 		Double ret = 0.0;
 		//Prendere i giorni dell'intervallo dateIn dateOut
@@ -431,7 +432,7 @@ public class Structure {
 		
 		bookingDates = this.calculateBookingDates(dateIn, dateOut);
 		for(Date aBookingDate: bookingDates){
-			listinoCameraDelGiorno = this.findListinoCamera(room, aBookingDate, agevolazione);
+			listinoCameraDelGiorno = this.findListinoCamera(room, aBookingDate);
 			calendar = Calendar.getInstance();
 			calendar.setTime(aBookingDate);
 			dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
@@ -439,22 +440,54 @@ public class Structure {
 		}			
 		return ret;
 	}
+	*/
+	
+	public Double calculateRoomSubtotalForBooking(Booking booking){
+		Double ret = 0.0;
+		List<Date> bookingDates = null;
+		ListinoCamera listinoCameraDelGiorno;
+		Integer dayOfWeek = 0;
+		Calendar calendar;
+		
+		bookingDates = this.calculateBookingDates(booking.getDateIn(), booking.getDateOut());
+		for(Date aBookingDate: bookingDates){
+			listinoCameraDelGiorno = this.findListinoCamera(booking.getRoom(), aBookingDate);
+			calendar = Calendar.getInstance();
+			calendar.setTime(aBookingDate);
+			dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+			ret = ret + listinoCameraDelGiorno.findRoomPrice(booking.getNrGuests(), dayOfWeek);
+		}			
+		return ret;
+	}
+	
+	public Double calculateExtraSubtotalForBooking(Booking booking){
+		Double ret = 0.0;
+		
+		for(Extra each: booking.getExtras()){
+			ret = ret + each.getPrice();
+		}		
+		return ret;
+	}
 	
 	private List<Date> calculateBookingDates(Date dateIn, Date dateOut){
-		List<Date> bookingDates = new ArrayList<Date>();
+		List<Date> bookingDates = null; 
 		Date current = null;
-		
 		Integer i = 0;
-		current  = DateUtils.addDays(dateIn, i );		
-		while(DateUtils.truncatedCompareTo(current, dateOut,Calendar.DAY_OF_MONTH ) < 0){
-			bookingDates.add(current);
-			i = i + 1;
-			current  = DateUtils.addDays(dateIn, i );
-		}	
+		
+		bookingDates = new ArrayList<Date>();
+		if(dateIn!=null && dateOut!=null){
+			current  = DateUtils.addDays(dateIn, i );		
+			while(DateUtils.truncatedCompareTo(current, dateOut,Calendar.DAY_OF_MONTH ) < 0){
+				bookingDates.add(current);
+				i = i + 1;
+				current  = DateUtils.addDays(dateIn, i );
+			}	
+		}
+		
 		return bookingDates;
 	}
 	
-	public ListinoCamera findListinoCamera(Room room, Date date,  Agevolazione agevolazione){
+	public ListinoCamera findListinoCamera(Room room, Date date){
 		ListinoCamera ret = null;
 		Season season = null;
 		

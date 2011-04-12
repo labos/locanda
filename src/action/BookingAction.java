@@ -73,7 +73,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 	
 	private void calculateRoomSubtotal(Structure structure){
 		Double roomSubtotal = 0.0;
-		roomSubtotal = structure.calculateRoomSubtotal(this.getBooking().getRoom(), this.getBooking().getDateIn(), this.getBooking().getDateOut(), null, this.getBooking().getNrGuests());
+		roomSubtotal = structure.calculateRoomSubtotalForBooking(this.getBooking());
 		this.getBooking().setRoomSubtotal(roomSubtotal);
 	}
 	
@@ -224,8 +224,8 @@ public class BookingAction extends ActionSupport implements SessionAware{
 			return ERROR;
 		}
 		this.saveUpdateBookingRoom(structure);		
-		this.saveUpdateBookingGuest(this.getBooking().getGuest(), structure);
-		this.saveUpdateBookingExtras(this.getBookingExtraIds(), structure);
+		this.saveUpdateBookingGuest(structure);
+		this.saveUpdateBookingExtras(structure);
 		this.saveUpdateAdjustments(structure);
 		this.saveUpdatePayments(structure);
 		
@@ -282,9 +282,11 @@ public class BookingAction extends ActionSupport implements SessionAware{
 	}
 	
 	
-	private Boolean saveUpdateBookingGuest(Guest guest, Structure structure){ 
+	private Boolean saveUpdateBookingGuest(Structure structure){ 
+		Guest guest = null;
 		Guest oldGuest = null;
 		
+		guest = this.getBooking().getGuest();
 		oldGuest = structure.findGuestById(guest.getId());
 		
 		if(oldGuest == null){
@@ -298,10 +300,10 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		return true;
 	}
 	
-	private Boolean saveUpdateBookingExtras(List<Integer> extras, Structure structure){ 
+	private Boolean saveUpdateBookingExtras(Structure structure){ 
 		List<Extra>  checkedExtras = null;
 		
-		checkedExtras = structure.findExtrasByIds(extras);				
+		checkedExtras = structure.findExtrasByIds(this.getBookingExtraIds());				
 		this.getBooking().setExtras(checkedExtras);	
 		return true;
 	}

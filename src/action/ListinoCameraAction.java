@@ -45,54 +45,58 @@ public class ListinoCameraAction extends ActionSupport implements SessionAware{
 	
 	
 	public String calculatePrices() {
-		User user = (User)this.getSession().get("user");
+		User user = null; 
 		Double roomSubtotal = 0.0;
-		Long millis;
-		Integer days;
-		//Controllare che sia diverso da null in un interceptor
-		Structure structure = user.getStructure();
-		Room theBookedRoom = structure.findRoomById(this.getBooking().getRoom().getId());
-		this.getBooking().setRoom(theBookedRoom);
-		this.saveUpdateBookingExtras(this.getBookingExtraIds(), structure);
-		if (this.getBooking().getDateOut() != null && this.getBooking().getDateIn() != null ) {
+		Double extraSubtotal = 0.0;
+		Structure structure = null; 
+						
+		user = (User)this.getSession().get("user");
+		structure = user.getStructure();
+		
+		if ( (this.getBooking().getDateOut() != null) && (this.getBooking().getDateIn() != null) ) {
 			if(DateUtils.truncatedCompareTo(this.getBooking().getDateOut(), this.getBooking().getDateIn(), Calendar.DAY_OF_MONTH)<=0){
 				this.getMessage().setResult(Message.ERROR);
 				this.getMessage().setDescription("DateOut deve essere maggiore di DateIn!");
 				return "error";
-			}
-			millis = this.getBooking().getDateOut().getTime() - this.getBooking().getDateIn().getTime();
-			days = (int) (millis/(1000*3600*24));
-			this.setNumNights(days);
-
-			roomSubtotal = structure.calculateRoomSubtotal(theBookedRoom,this.getBooking().getDateIn(), this.getBooking().getDateOut(), null, this.getBooking().getNrGuests());
-			
+			}				
 		}
-		else {
-			
-			this.setNumNights(0);
-		}
-
-		
-		Double extraSubtotal = 0.0;
-		// popolo extrasIds con gli id degli extra già presenti nel booking
-		for(Extra each: this.getBooking().getExtras()){
-			extraSubtotal = extraSubtotal + each.getPrice();
-			// extrasIds.add(each.getId());
-		}		
-		this.getBooking().setExtraSubtotal(extraSubtotal);
-		this.getBooking().setRoomSubtotal(roomSubtotal);
-		
-		
+		this.saveUpdateBookingRoom(structure);		
+		this.saveUpdateBookingExtras(structure);		
+		this.calculateNumNights();
+		roomSubtotal = structure.calculateRoomSubtotalForBooking(this.getBooking());		
+		this.getBooking().setRoomSubtotal(roomSubtotal);		
+		extraSubtotal = structure.calculateExtraSubtotalForBooking(this.getBooking());
+		this.getBooking().setExtraSubtotal(extraSubtotal);		
 		this.getMessage().setResult(Message.SUCCESS);
 		this.getMessage().setDescription("Prezzo Calcolato con Successo");
 		return "success";				
 	}	
 	
-	private Boolean saveUpdateBookingExtras(List<Integer> extras, Structure structure){ 
-		List<Extra>  checkedExtras = new ArrayList<Extra>();
-		checkedExtras = structure.findExtrasByIds(extras);		// popolo checkedExtras con gli extra checkati
+	private void calculateNumNights(){
+		Long millis; 
+		Integer days = 0;
 		
-		this.getBooking().setExtras(checkedExtras);	// popolo l'array di extra del booking con gli extra checkati
+		if((this.getBooking().getDateOut()!=null) && (this.getBooking().getDateIn()!=null)){
+			millis = this.getBooking().getDateOut().getTime() - this.getBooking().getDateIn().getTime();
+			days = (int) (millis/(1000*3600*24));
+		}		
+		this.setNumNights(days);
+	}
+	
+	private Boolean saveUpdateBookingRoom(Structure structure){
+		Room theBookedRoom = null;
+		
+		theBookedRoom = structure.findRoomById(this.getBooking().getRoom().getId());
+		this.getBooking().setRoom(theBookedRoom);
+		return true;
+	}
+	
+	
+	private Boolean saveUpdateBookingExtras(Structure structure){ 
+		List<Extra>  checkedExtras = null;
+		
+		checkedExtras = structure.findExtrasByIds(this.getBookingExtraIds());
+		this.getBooking().setExtras(checkedExtras);	
 		return true;
 	}
 	
@@ -100,9 +104,7 @@ public class ListinoCameraAction extends ActionSupport implements SessionAware{
 	public Map<String, Object> getSession() {
 		return session;
 	}
-
-
-
+	
 	@Override
 	public void setSession(Map<String, Object> session) {
 		this.session = session;
@@ -138,12 +140,4 @@ public class ListinoCameraAction extends ActionSupport implements SessionAware{
 	public void setNumNights(Integer numNights) {
 		this.numNights = numNights;
 	}
-	
-	
-	
-	
-	
-	
-	
-
 }
