@@ -39,7 +39,10 @@
                   <div class="subcolumns">
       		 		<div class="c40l">
                       <div class="type_rooms">
-					  <b> Price:</b> &euro; <s:property value="#eachExtra.price"/>
+                      	<ul>
+					  	  <li><b> Price:</b> &euro; <s:property value="#eachExtra.price"/></li>
+					  	  <li><b> Price Type:</b> <s:property value="#eachExtra.timePriceType"/>/<s:property value="#eachExtra.resourcePriceType"/></li>
+                      	</ul>
                       </div>                  
                	    </div>
              	  </div>
