@@ -28,15 +28,12 @@ public class HomeAction extends ActionSupport implements SessionAware{
 			ret = "logged";
 		}
 		return ret;
-
 	}
 	
 		
 	public Map<String, Object> getSession() {
 		return session;
 	}
-
-
 
 	@Override
 	public void setSession(Map<String, Object> session) {

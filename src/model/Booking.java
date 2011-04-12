@@ -27,6 +27,16 @@ public class Booking {
 		this.payments = new ArrayList<Payment>();
 	}
 	
+	public Integer calculateNumNights(){
+		Long millis; 
+		Integer days = 0;
+		
+		if((this.getDateOut()!=null) && (this.getDateIn()!=null)){
+			millis = this.getDateOut().getTime() - this.getDateIn().getTime();
+			days = (int) (millis/(1000*3600*24));
+		}		
+		return days;
+	}
 	
 	public Boolean addExtra(Extra anExtra){
 		return this.getExtras().add(anExtra);

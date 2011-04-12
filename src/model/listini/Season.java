@@ -23,8 +23,7 @@ public class Season {
 			if(each.includesDate(date)){
 				return true;
 			}
-		}
-		
+		}		
 		return false;
 	}
 	

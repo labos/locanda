@@ -40,15 +40,16 @@ public class ListinoCameraAction extends ActionSupport implements SessionAware{
 				@Result(name="input", location = "/validationError.jsp" )
 		})
 		
-	})
-	
-	
+	})	
 	
 	public String calculatePrices() {
 		User user = null; 
 		Double roomSubtotal = 0.0;
 		Double extraSubtotal = 0.0;
 		Structure structure = null; 
+		Room theBookedRoom = null;
+		List<Extra>  checkedExtras = null;
+		Integer numNights;
 						
 		user = (User)this.getSession().get("user");
 		structure = user.getStructure();
@@ -60,45 +61,26 @@ public class ListinoCameraAction extends ActionSupport implements SessionAware{
 				return "error";
 			}				
 		}
-		this.saveUpdateBookingRoom(structure);		
-		this.saveUpdateBookingExtras(structure);		
-		this.calculateNumNights();
+		
+		theBookedRoom = structure.findRoomById(this.getBooking().getRoom().getId());
+		this.getBooking().setRoom(theBookedRoom);
+		
+		checkedExtras = structure.findExtrasByIds(this.getBookingExtraIds());
+		this.getBooking().setExtras(checkedExtras);	
+		
+		numNights = this.getBooking().calculateNumNights();
+		this.setNumNights(numNights);
+		
 		roomSubtotal = structure.calculateRoomSubtotalForBooking(this.getBooking());		
-		this.getBooking().setRoomSubtotal(roomSubtotal);		
+		this.getBooking().setRoomSubtotal(roomSubtotal);
+		
 		extraSubtotal = structure.calculateExtraSubtotalForBooking(this.getBooking());
-		this.getBooking().setExtraSubtotal(extraSubtotal);		
+		this.getBooking().setExtraSubtotal(extraSubtotal);	
+		
 		this.getMessage().setResult(Message.SUCCESS);
 		this.getMessage().setDescription("Prezzo Calcolato con Successo");
 		return "success";				
 	}	
-	
-	private void calculateNumNights(){
-		Long millis; 
-		Integer days = 0;
-		
-		if((this.getBooking().getDateOut()!=null) && (this.getBooking().getDateIn()!=null)){
-			millis = this.getBooking().getDateOut().getTime() - this.getBooking().getDateIn().getTime();
-			days = (int) (millis/(1000*3600*24));
-		}		
-		this.setNumNights(days);
-	}
-	
-	private Boolean saveUpdateBookingRoom(Structure structure){
-		Room theBookedRoom = null;
-		
-		theBookedRoom = structure.findRoomById(this.getBooking().getRoom().getId());
-		this.getBooking().setRoom(theBookedRoom);
-		return true;
-	}
-	
-	
-	private Boolean saveUpdateBookingExtras(Structure structure){ 
-		List<Extra>  checkedExtras = null;
-		
-		checkedExtras = structure.findExtrasByIds(this.getBookingExtraIds());
-		this.getBooking().setExtras(checkedExtras);	
-		return true;
-	}
 	
 	
 	public Map<String, Object> getSession() {
