@@ -34,7 +34,7 @@
                   </div>
                   <div class="type-select">
                 <label for="country">Country:<sup title="This field is mandatory.">*</sup></label>
-                <select class="required" name="guest.country" id="country" size="1"  value="<s:property value="guest.country"/>" aria-required="true">
+                <select class="required" name="guest.country" id="country" size="1" aria-required="true">
 				<option selected="selected" value="<s:property value="guest.country"/>"><s:property value="guest.country"/></option>
 				<option value="Afghanistan">Afghanistan</option>
 				<option value="Albania">Albania</option>

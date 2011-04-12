@@ -33,6 +33,8 @@ public class StructureAction extends ActionSupport implements SessionAware {
 	private Map<String, Object> session = null;
 	private Message message = new Message();
 	
+	private Structure structure = null;
+	
 
 	public Map<String, Object> getSession() {
 		return session;
@@ -50,9 +52,65 @@ public class StructureAction extends ActionSupport implements SessionAware {
 	public void setMessage(Message message) {
 		this.message = message;
 	}
-
 	
 
+	@Actions({
+		@Action(value="/goUpdateDetails",results = {
+				@Result(name="success",location="/details_edit.jsp")
+		})
+		
+	})
+	public String goUpdateDetails() {
+		User user = (User)this.getSession().get("user");
+		//Controllare che sia diverso da null in un interceptor
+		this.setStructure(user.getStructure());
+		return SUCCESS;
+	}
+
+	@Actions({
+		@Action(value="/updateDetails",results = {
+				@Result(type ="json",name="success", params={
+						"root","message"
+				} ),
+				@Result(type ="json",name="error", params={
+						"root","message"
+				} )
+		})
+		
+	})
+	
+	public String updateDetails() {
+		User user = (User)this.getSession().get("user");
+		//Controllare che sia diverso da null in un interceptor
+		this.updateStructure(user.getStructure());
+		
+		this.getMessage().setResult(Message.SUCCESS);
+		this.getMessage().setDescription("Structure details modified succesfully");
+		return SUCCESS;
+		
+	}
+	
+	private void updateStructure(Structure structure) {
+		structure.setName(this.structure.getName());
+		structure.setEmail(this.structure.getEmail());
+		structure.setPhone(this.structure.getPhone());
+		structure.setAddress(this.structure.getAddress());
+		structure.setCity(this.structure.getCity());
+		structure.setCountry(this.structure.getCountry());
+		structure.setZipCode(this.structure.getZipCode());
+		structure.setUrl(this.structure.getUrl());
+		structure.setFax(this.structure.getFax());
+		structure.setNotes(this.structure.getNotes());
+	}
+
+	public Structure getStructure() {
+		return structure;
+	}
+
+	public void setStructure(Structure structure) {
+		this.structure = structure;
+	}
+	
 	
 
 }

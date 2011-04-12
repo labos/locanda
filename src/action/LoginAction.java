@@ -85,6 +85,7 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		ret = new Structure();
 		ret.setName("polaris");
 		ret.setEmail("polaris@locanda.it");
+		ret.setPhone("+39070123456");
 		
 		this.buildRoomFacilities(ret);
 		this.buildRooms(ret);

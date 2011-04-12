@@ -82,6 +82,7 @@
   
 <s:url action="logout" var="url_logout"></s:url>
 <s:url action="home" var="url_home"></s:url>
+<s:url action="goUpdateDetails" var="url_details"></s:url>
 <s:url action="findAllRooms" var="url_findallroom"></s:url>
 <s:url action="findAllGuests" var="url_findallguest"></s:url>
 <s:url action="findAllExtras" var="url_findallextra"></s:url>
@@ -115,7 +116,7 @@
     			<li class="ui-menu-item"><a href="<s:property value="url_findallseasons"/>?sect=settings">SEASONS</a></li>
     			<li class="ui-menu-item"><a href="#">LISTINI CAMERE</a></li>
     			<li class="ui-menu-item"><a href="emails.jsp?sect=settings">EMAILS</a></li>
-    			<li class="ui-menu-item"><a href="details.jsp?sect=settings">YOUR DETAILS</a></li>
+    			<li class="ui-menu-item"><a href="goUpdateDetails?sect=settings">STRUCTURE DETAILS</a></li>
   			  </ul>
             </li>         
             <li><a href="#">Help</a></li>

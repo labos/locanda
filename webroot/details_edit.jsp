@@ -15,13 +15,13 @@
         <div id="col3" role="main">
           <div id="col3_content" class="clearfix">
           	<div class="header_section yform">
-              <p class="navigation"> <a class="home" href="<s:property value="url_findallextra"/>?sect=extras">Manage Extras</a><b>»</b> 
+              <p class="navigation"> <a class="home" href="<s:property value="url_findallextra"/>?sect=extras">Manage Structure Details</a><b>»</b> 
 			  <span>&nbsp;</span></p>
-              <span class="name_section">Extra Details</span>
+              <span class="name_section">Structure Details</span>
             </div>
           
             <div>
- 		  	  <jsp:include page="jsp/contents/extra_form.jsp" />    
+ 		  	  <jsp:include page="jsp/contents/details_form.jsp" />    
             </div>        
           </div>
-<jsp:include page="jsp/layout/footer.jsp" />     
+<jsp:include page="jsp/layout/footer.jsp" />         

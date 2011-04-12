@@ -18,6 +18,15 @@ import model.listini.Season;
 public class Structure {
 	private String name;
 	private String email;
+	private String url;
+	private String phone;
+	private String fax;
+	private String address;
+	private String city;
+	private String country;
+	private String zipCode;
+	private String notes;
+	
 	private List<Room> rooms;
 	private TreeSet<Integer> keys;
 	private List<RoomFacility> roomFacilities;
@@ -530,6 +539,71 @@ public class Structure {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public String getFax() {
+		return fax;
+	}
+
+	public void setFax(String fax) {
+		this.fax = fax;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+	public String getZipCode() {
+		return zipCode;
+	}
+
+	public void setZipCode(String zipCode) {
+		this.zipCode = zipCode;
+	}
+
+	public String getNotes() {
+		return notes;
+	}
+
+	public void setNotes(String notes) {
+		this.notes = notes;
+	}
+
 	public List<Room> getRooms() {
 		return rooms;
 	}
