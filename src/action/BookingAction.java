@@ -57,32 +57,26 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		User user = null;
 		Structure structure = null;
 		Room theBookedRoom = null;
+		Integer numNights = 0;
+		Double roomSubtotal = 0.0;
 		
 		user = (User)this.getSession().get("user");
 		structure = user.getStructure();
+		
 		theBookedRoom = structure.findRoomById(this.getBooking().getRoom().getId());
 		this.getBooking().setRoom(theBookedRoom);
+		
 		this.setRooms(structure.getRooms());
 		this.setExtras(structure.getExtras());
 		
-		this.calculateRoomSubtotal(structure);
-		this.calculateNumNights();
+		roomSubtotal = structure.calculateRoomSubtotalForBooking(this.getBooking());
+		this.getBooking().setRoomSubtotal(roomSubtotal);
+		
+		numNights = this.getBooking().calculateNumNights();
+		this.setNumNights(numNights);
 		
 		return SUCCESS;
 	}
-	
-	private void calculateRoomSubtotal(Structure structure){
-		Double roomSubtotal = 0.0;
-		roomSubtotal = structure.calculateRoomSubtotalForBooking(this.getBooking());
-		this.getBooking().setRoomSubtotal(roomSubtotal);
-	}
-	
-	private void calculateNumNights(){
-		Long millis = this.getBooking().getDateOut().getTime() - this.getBooking().getDateIn().getTime();
-		Integer days = (int) (millis/(1000*3600*24));
-		this.setNumNights(days);
-	}
-	
 	
 	@Actions({
 		@Action(value="/goAddNewBooking",results = {
@@ -96,6 +90,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		
 		user = (User)this.getSession().get("user");
 		structure = user.getStructure();
+		
 		this.setRooms(structure.getRooms());
 		this.setExtras(structure.getExtras());		
 		this.setBooking(new Booking());		
@@ -114,35 +109,41 @@ public class BookingAction extends ActionSupport implements SessionAware{
 	public String goUpdateBooking() {
 		User user = null;
 		Structure structure = null;
+		Booking oldBooking = null;
+		Integer numNights = 0;
+		Double extraSubtotal = 0.0;
+		Double roomSubtotal = 0.0;
 		
 		user = (User)this.getSession().get("user");
 		structure = user.getStructure();
-		this.setRooms(structure.getRooms());
-		Booking oldBooking = structure.findBookingById(this.getId());
-		this.setBooking(oldBooking);
-		this.setExtras(structure.getExtras());
 		
-		// popolo extrasIds con gli id degli extra già presenti nel booking
-		this.calculateBookingExtraIds();
-		this.calculateExtraSubtotal();
-		this.calculateRoomSubtotal(structure);		
-		this.calculateNumNights();
+		oldBooking = structure.findBookingById(this.getId());
+		this.setBooking(oldBooking);
+		
+		this.setRooms(structure.getRooms());
+		this.setExtras(structure.getExtras());		
+		this.setBookingExtraIds(this.calculateBookingExtraIds());
+		
+		extraSubtotal = structure.calculateExtraSubtotalForBooking(this.getBooking());
+		this.getBooking().setExtraSubtotal(extraSubtotal);
+		
+		roomSubtotal = structure.calculateRoomSubtotalForBooking(this.getBooking());
+		this.getBooking().setRoomSubtotal(roomSubtotal);
+		
+		numNights = this.getBooking().calculateNumNights();
+		this.setNumNights(numNights);
 		return SUCCESS;
 	}
 	
-	private void calculateBookingExtraIds(){
+	
+	private List<Integer> calculateBookingExtraIds(){
+		List<Integer> ret = null;
+		
+		ret = new ArrayList<Integer>();
 		for(Extra each: this.getBooking().getExtras()){
-			this.getBookingExtraIds().add(each.getId());
+			ret.add(each.getId());
 		}
-	}
-	private void calculateExtraSubtotal(){
-		Double extraSubtotal = 0.0;
-		// popolo extrasIds con gli id degli extra già presenti nel booking
-		for(Extra each: this.getBooking().getExtras()){
-			extraSubtotal = extraSubtotal + each.getPrice();
-		}		
-		//oldBooking.setExtraSubtotal(extraSubtotal);
-		this.getBooking().setExtraSubtotal(extraSubtotal);
+		return ret;
 	}
 	
 	@Actions({
@@ -214,6 +215,10 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		User user = null;
 		Structure structure = null;
 		Booking oldBooking = null;
+		Room theBookedRoom = null;
+		Guest guest = null;
+		Guest oldGuest = null;
+		List<Extra>  checkedExtras = null;
 		
 		user = (User)session.get("user");
 		structure = user.getStructure();
@@ -223,9 +228,24 @@ public class BookingAction extends ActionSupport implements SessionAware{
 			this.getMessage().setDescription("Booking sovrapposti!");
 			return ERROR;
 		}
-		this.saveUpdateBookingRoom(structure);		
-		this.saveUpdateBookingGuest(structure);
-		this.saveUpdateBookingExtras(structure);
+		
+		theBookedRoom = structure.findRoomById(this.getBooking().getRoom().getId());
+		this.getBooking().setRoom(theBookedRoom);		
+		
+		guest = this.getBooking().getGuest();
+		oldGuest = structure.findGuestById(this.getBooking().getGuest().getId());		
+		if(oldGuest == null){
+			//Si tratta di un nuovo guest e devo aggiungerlo
+			guest.setId(structure.nextKey());
+			structure.addGuest(guest);			
+		}else{
+			//Si tratta di un guest esistente e devo fare l'update
+			structure.updateGuest(guest);			
+		}		
+		
+		checkedExtras = structure.findExtrasByIds(this.getBookingExtraIds());				
+		this.getBooking().setExtras(checkedExtras);	
+		
 		this.saveUpdateAdjustments(structure);
 		this.saveUpdatePayments(structure);
 		
@@ -273,40 +293,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 	}
 	
 	
-	private Boolean saveUpdateBookingRoom(Structure structure){
-		Room theBookedRoom = null;
-		
-		theBookedRoom = structure.findRoomById(this.getBooking().getRoom().getId());
-		this.getBooking().setRoom(theBookedRoom);
-		return true;
-	}
 	
-	
-	private Boolean saveUpdateBookingGuest(Structure structure){ 
-		Guest guest = null;
-		Guest oldGuest = null;
-		
-		guest = this.getBooking().getGuest();
-		oldGuest = structure.findGuestById(guest.getId());
-		
-		if(oldGuest == null){
-			//Si tratta di un nuovo guest e devo aggiungerlo
-			guest.setId(structure.nextKey());
-			structure.addGuest(guest);			
-		}else{
-			//Si tratta di un guest esistente e devo fare l'update
-			structure.updateGuest(guest);			
-		}			
-		return true;
-	}
-	
-	private Boolean saveUpdateBookingExtras(Structure structure){ 
-		List<Extra>  checkedExtras = null;
-		
-		checkedExtras = structure.findExtrasByIds(this.getBookingExtraIds());				
-		this.getBooking().setExtras(checkedExtras);	
-		return true;
-	}
 	
 	private Boolean saveUpdateAdjustments(Structure structure){
 		List<Adjustment> adjustmentsWithoutNulls = null;
