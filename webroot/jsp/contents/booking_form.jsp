@@ -9,6 +9,7 @@
 display: none;
 }
 </style>
+<div class="validationErrors"></div>
               <form class="yform json" action="saveUpdateBooking.action">
                              <input type="hidden" name="redirect_form" value="home.action?sect=planner" />
                              <input type="hidden" name="booking.id" value="<s:property value="booking.id"/>"/>
@@ -93,7 +94,7 @@ display: none;
                  </fieldset>         
               </div>
               <div class="subcolumns_oldgecko">
-               <div class="c50l">
+               <div class="c40l">
               <fieldset>
     <legend>Booking Details:</legend>
                 <input type="hidden" name="booking.guest.id" value="<s:property value="booking.guest.id"/>"/>
@@ -437,29 +438,82 @@ display: none;
                 <div class="c10l">
                 &nbsp;
                 </div>
-                <div class="book_details c40l">
+                <div class="book_details c50l">
                   <fieldset><legend>Price</legend>
                   	<div class="type-text"><span>Room: </span><div class="c33r"><span id="price_room" ><s:property value="booking.roomSubtotal"/></span> &euro; </div></div>
                   	<div class="type-text"><span>Extras: </span><div class="c33r"><span id="extras_room" ><s:property value="booking.extraSubtotal"/></span> &euro; </div></div>
-                  	<div class="type-text"><span class="green">&nbsp;Adjustment: </span>
-                  	  <div class="c50r"><div class="c10r">&euro;</div>
-                  	  	<div class="c40l"><input type="text" name="extra_adjustment[]" id="extra_adjustment" /></div>
-                  	  	<div class="c40r"><input type="text" name="extra_value_adjustment[]" id="extra_value_adjustment" class="extra_value_adjustment digits"/></div>
+                  	<div class="type-text"><span class="green">&nbsp;Adjustments: </span>
+                  	 <div class="c50r">
+             			 <a href="#bottom_anchor" class="add_adjustment" title="add adjustment">Add New Adjustment</a>
+              		</div>
+              		</div>
+              		<s:iterator value="booking.adjustments" var="eachAdjust" status="adjustStatus">
+              		 <div  class="subcolumns adjustment_row">
+              		 <input type="hidden" class="idAdjustment" name="booking.adjustments[<s:property value="#adjustStatus.index"/>].id" value="<s:property value="#eachAdjust.id"/>"/>
+              		  <div class="c40l"><div class="subcl type-text"><span>Name:</span><input type="text" name="booking.adjustments[<s:property value="#adjustStatus.index"/>].description" value="<s:property value="#eachAdjust.description" />" class="require" style="width: 90%;" /></div></div>
+                  	  	<div class="c33l"><div class="subcl type-text"><span>Amount(&euro;):</span><input type="text" name="booking.adjustments[<s:property value="#adjustStatus.index"/>].amount"  value="<s:property value="#eachAdjust.amount" />" class="extra_value_adjustment required"/></div></div>
+                  	  	 <div class="c25r"><label>&nbsp;</label><a href="#" class="erase_adjustment" title="erase">Delete Adjustment</a>
+              			</div>
                   	  </div>
-                  	</div>
+              		</s:iterator>
+              		<s:if test="booking.adjustments.length() == 0"> 
+              	         <div  class="subcolumns adjustment_row">
+                  	     <div class="c40l"><div class="subcl type-text"><span>Name:</span><input type="text" name="booking.adjustments[0].description" class="require" style="width: 90%;" /></div></div>
+                  	  	<div class="c33l"><div class="subcl type-text"><span>Amount(&euro;):</span><input type="text" name="booking.adjustments[0].amount"  class="extra_value_adjustment required"/></div></div>
+                  	  	 <div class="c25r"><label>&nbsp;</label><a href="#bottom_anchor" class="erase_adjustment" title="erase">Delete Adjustment</a>
+              			</div>
+                  	  </div>	
+              		</s:if>
+
+                   <a name="bottom_anchor"></a> 
                  	<div class="type-text">
                  	  <span>Subtotal: </span><div class="c33r"><span class="subtotal_room" ><s:property value="%{ booking.roomSubtotal + booking.extraSubtotal}"/>
                  	  </span> &euro;<input type="hidden" id="subtotal_room" name="booking.subtotal" value="<s:property value="%{ booking.roomSubtotal + booking.extraSubtotal}"/>" /></div>
                  	</div>
                   	<div class="type-text"><hr/></div>
                     <div class="type-text"><span class="green">&nbsp;Payment Received: </span>
-                      <div class="c50r">
+                                      	 <div class="c50r">
+             			 <a href="#bottom_anchor" class="add_payment" title="add payment">Add New Payment</a>
+              		</div>
+              		</div>
+              		
+              		
+              		
+              		
+              		
+              		
+              		<s:iterator value="booking.payments" var="eachPayment" status="paymentStatus">
+              		     <div  class="subcolumns payment_row">
+              		     <input type="hidden" class="idPayment" name="booking.payments[<s:property value="#paymentStatus.index"/>].id" value="<s:property value="#eachPayment.id"/>"/>
+              		    <div class="c40l"><div class="subcl type-text"><span>Name:</span><input type="text" name="booking.payments[<s:property value="#paymentStatus.index"/>].description" value="<s:property value="#eachPayment.description" />" class="require" style="width: 90%;" /></div></div>
+                  	  	<div class="c33l"><div class="subcl type-text"><span>Amount(&euro;):</span><input type="text" name="booking.payments[<s:property value="#paymentStatus.index"/>].amount"  value="<s:property value="#eachPayment.amount" />" class="extra_value_payment required"/></div></div>
+                  	  	 <div class="c25r"><label>&nbsp;</label><a href="#bottom_anchor_payment" class="erase_payment" title="erase">Delete Payment</a>
+              			</div>
+                  	  </div>
+              		</s:iterator>
+              		<s:if test="booking.payments.length() == 0"> 
+              	         <div  class="subcolumns payment_row">
+                  	     <div class="c40l"><div class="subcl type-text"><span>Name:</span><input type="text" name="booking.payments[0].description" class="require" style="width: 90%;" /></div></div>
+                  	  	<div class="c33l"><div class="subcl type-text"><span>Amount(&euro;):</span><input type="text" name="booking.payments[0].amount"  class="extra_value_payment required"/></div></div>
+                  	  	 <div class="c25r"><label>&nbsp;</label><a href="#bottom_anchor_payment" class="erase_payment" title="erase">Delete Payment</a>
+              			</div>
+                  	  </div>	
+              		</s:if>
+              		<a name="bottom_anchor_payment"></a> 
+              		<div class="type-text">
+              			<span>Balance Due: </span>
+              			<div class="c33r"><span class="balance_room" ><s:property value="%{ booking.roomSubtotal + booking.extraSubtotal}"/></span> &euro;<input type="hidden" id="balance_room" value="<s:property value="%{ booking.roomSubtotal + booking.extraSubtotal}"/>" /></div></div>
+                  
+              		
+              		
+                      <!--<div class="c50r">
                       	<div class="c10r">&euro;</div>
                       	<div class="c40l"><input type="text" name="pay_adjustment[]" id="pay_adjustment" /></div>
                       	<div class="c40r"><input type="text" name="pay_value_adjustment[]"  id="pay_value_adjustment" class="pay_value_adjustment digits"/></div>
                       </div>
-                    </div>
                     <div class="type-text"><span>Balance Due: </span><div class="c33r"><span class="balance_room" ><s:property value="%{ booking.roomSubtotal + booking.extraSubtotal}"/></span> &euro;<input type="hidden" id="balance_room" value="<s:property value="%{ booking.roomSubtotal + booking.extraSubtotal}"/>" /></div></div>
+                  
+                  -->
                   </fieldset>
               	  <div class="type-button">
                		<button class="btn_save">SAVE</button>
@@ -467,3 +521,17 @@ display: none;
                 </div>
               </div>
             </form>
+           
+                    <div  class="subcolumns adjustment_row" id="to_add_adjustment" style="display: none;">
+                  	     <div class="c40l"><div class="subcl type-text"><span>Name:</span><input type="text" name="booking.adjustments[__PVALUE__].description" class="require" style="width: 90%;" /></div></div>
+                  	  	<div class="c33l"><div class="subcl type-text"><span>Amount(&euro;):</span><input type="text" name="booking.adjustments[__PVALUE__].amount"  class="extra_value_adjustment required"/></div></div>
+                  	  	 <div class="c25r"><label>&nbsp;</label><a href="#bottom_anchor" class="erase_adjustment" title="erase">Delete Adjustment</a>
+              			</div>
+                  	  </div>
+                  	  
+                  	  <div  class="subcolumns payment_row" id="to_add_payment" style="display: none;" >
+                  	     <div class="c40l"><div class="subcl type-text"><span>Name:</span><input type="text" name="booking.payments[__PVALUE__].description" class="require" style="width: 90%;" /></div></div>
+                  	  	<div class="c33l"><div class="subcl type-text"><span>Amount(&euro;):</span><input type="text" name="booking.payments[__PVALUE__].amount"  class="extra_value_payment required"/></div></div>
+                  	  	 <div class="c25r"><label>&nbsp;</label><a href="#bottom_anchor_payment" class="erase_payment" title="erase">Delete Payment</a>
+              			</div>
+                  	  </div>

@@ -101,8 +101,117 @@ $(document).ready(function() {
 	  	   */
 			
 		   /* adjustment and payments*/
+	  	
+	  	 $.fn.getSelector = function (){
+	  		 
+	  		 var selector = "";
+		  		if ($(this).attr("class").indexOf("adjustment") >= 0)
+		  			selector = "adjustment";
+		  		else
+		  			selector = "payment";
+		  		
+		  		return selector;
+	  		
+	  	}
+	  	
+	  	$(".extra_value_adjustment, .extra_value_payment").keyup(function() {
+			   /* prepare selector string for class whit whitespaces */
+			   //-- var current_class_selector = $(this).attr("class").replace( new RegExp(" ","g"), ".");
+			   /* adjust subtotal ... */
+			   var new_subtotal = null;
+			   if( $(this).valid() )
+			   {
+			   if($(this).getSelector() == "adjustment")
+			   { 
+
+				  updateSubtotal();
+			     
+			   /* end code for subtotal calculation */
+			   }
+			   else
+			   {
+				   updateBalance();
+			   			   
+			   }
+			   }
+			   else{
+				   
+				   $(this).val('');
+				   updateSubtotal();
+			   }
+			  //--- $(this).unbind('keyup');
+			   
+			 });
+	  	
+	  	$(".erase_adjustment, .erase_payment").click( function(){
+	  		var selector = $(this).getSelector();
+	  		$(this).parents("." + selector + "_row").find(".extra_value_" + selector + "").val(0);
+	  		updateSubtotal();
+			$(this).closest("." + selector + "_row").remove();
+			
+			
+		 });
+	  	
+	  	
+	  	
+	  	 $(".add_adjustment, .add_payment").click( function(){
+	  		 
+	  		 var selector = $(this).getSelector();
+	  		 
+	  	 //count the number of periods already added
+		 var formParent =	$(this).parents(".type-text");
+		 var num_of_items =  formParent.siblings(".adjustment_row").size();
+		 // get last subcolumns
+		 var dd=  formParent.siblings("." + selector + "_row:last").length ? formParent.siblings("." + selector + "_row:last"): formParent;
+		 // setup of cloned row to add
+		 var added= $("#to_add_" + selector + "").clone().insertAfter(dd).removeAttr("id").show();
+		 added.html ( added.html().replace(/__PVALUE__/ig, num_of_items) );
+		 // attach listener to cloned row
+		 	// attach erase click
+		 added.find(".erase_" + selector + "").click( function(){
+		  		$(this).parents("." + selector + "_row").find(".extra_value_" + selector + "").val(0);
+		  		updateSubtotal();
+				$(this).closest("." + selector + "_row").remove();
+			
+		 });
+		 
+		 added.find(".extra_value_" + selector + "").keyup(function() {
+			   /* prepare selector string for class whit whitespaces */
+			   var current_class_selector = $(this).attr("class").replace( new RegExp(" ","g"), ".");
+			   /* adjust subtotal ... */
+			   var new_subtotal = null;
+			   if( $(this).valid() )
+			   {
+				  
+				 
+			   if(current_class_selector.indexOf("extra_value_" + selector + "") >= 0)
+			   { 
+
+				  updateSubtotal();
+			     
+			   /* end code for subtotal calculation */
+			   }
+			   else
+			   {
+				   updateBalance();
+			   			   
+			   }
+			   
+			   }
+			   else{
+				   
+				   $(this).val('');
+				   updateSubtotal();
+			   }
+			 
+			  //--- $(this).unbind('keyup');
+			   
+			 });
+	  	});
+		 
+		 
 		   
-		   $('input[name="extra_value_adjustment[]"], input[name="pay_value_adjustment[]"]').keyup(function() {
+		   $('input[name="pay_value_adjustment[]"]').keyup(function() {
 			   var current_parent=$(this).parents(".type-text");
 			   /* prepare selector string for class whit whitespaces */
 			   var current_class_selector = $(this).attr("class").replace( new RegExp(" ","g"), ".");
@@ -112,7 +221,9 @@ $(document).ready(function() {
 			   if( next_sibling  && ! next_sibling.size() > 0 )
 				   {
 					   var copy_parent = current_parent.clone(true);
+					   var indexOfArray = $(this).attr("name");
 			   copy_parent.find(".green").remove();
+			   //copy_parent.find(this).val("0.0");
 			   copy_parent.find("input").val("");
 			   //copy_parent.find($(this)).bind('keyup',cloneEvent);
 			   copy_parent.insertAfter(current_parent);	 
@@ -238,7 +349,7 @@ $(document).ready(function() {
 	 	   		   success: function(data_action){
 	 	   			   
 	 	   			var title_notification = null;
-	 	   			
+	 	   			try {
 	 	   			   if (data_action.message.result == "success")
 	 	   				   {
 	 	   				   	//update dom values here
@@ -268,7 +379,7 @@ $(document).ready(function() {
 	 		  				$("span.balance_room").text( subTotal );
 
 	 		  				$("#booking_duration").val(numNights);
-	 		  			
+	 		  				updateSubtotal();
 	 		  			
 	 		  			
 	 		  			   //update subtotal
@@ -285,6 +396,15 @@ $(document).ready(function() {
 	 	   		   	else{
 	 	   		   		$(".validationErrors").html(data_action);
 	 	   		   		}
+	 	   			   
+	 	   			} 
+	 	   			catch(e){
+	 	   				
+	 	   				//an error in data returned...
+	 	   			$(".validationErrors").html(data_action);
+	 	   				
+	 	   			}
+	 	   			   
 	 	   		    	
 	 	   		   },
 	 	   		   
@@ -473,8 +593,9 @@ $(document).ready(function() {
   	  /* update subtotal */
   	   var updateSubtotal = function(){
   		   var subtotal = 0;
-  		   var payments = ["#price_room",  "#extras_room", "input[name=\"extra_value_adjustment[]\"]", ];
-  		   
+  		  //-- var payments = ["#price_room",  "#extras_room", "input.extra_value_adjustment" ];
+  		 var payments = ["#extras_room", "input.extra_value_adjustment",'#price_room' ];
+  		
   		   try {
   		   $.each(payments, function (key, value){
   			 if($(value).size() == 1)
@@ -497,7 +618,7 @@ $(document).ready(function() {
   		   });
   		       		   // now update permanently subtotal
     		   $(".subtotal_room").text(subtotal);
-    		   $("#subtotal_room").val(subtotal);
+    		 //---  $("#subtotal_room").val(subtotal);
     		   updateBalance();
     		   
   		   }
@@ -514,7 +635,7 @@ $(document).ready(function() {
    	  /* update balance due */
   	   var updateBalance = function(){
   		   var subDue = 0;
-  		   var due = "input[name=\"pay_value_adjustment[]\"]";
+  		   var due = ".extra_value_payment";
   		   
   		   try {
   			   
@@ -536,8 +657,8 @@ $(document).ready(function() {
   			 
 
   		       		   // now update permanently balance
-			 var subtotal = $("#subtotal_room").val();
-			 var balanceDue = subtotal -subDue;
+			 var subtotal = isNaN(parseInt($(".subtotal_room").text())) ? 0 : parseInt($(".subtotal_room").text());
+			 var balanceDue = subtotal - subDue;
 	  			$("#balance_room").val(balanceDue);
 	  			$(".balance_room").html(balanceDue);
     		   

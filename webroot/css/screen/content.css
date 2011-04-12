@@ -615,3 +615,7 @@ background:url('../../images/booking_loader.gif') no-repeat scroll 0 0 transpare
 background-position: center;
 
 }
+
+/*.validationErrors{
+	border: 1px dotted red;
+}*/
