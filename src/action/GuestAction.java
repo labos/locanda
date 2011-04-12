@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import model.Booking;
+import model.Extra;
 import model.Guest;
 import model.Structure;
 import model.User;
@@ -39,8 +40,11 @@ public class GuestAction extends ActionSupport implements SessionAware{
 		
 	})
 	public String findAllGuests(){
-		User user = (User)session.get("user");
-		Structure structure = user.getStructure();
+		User user = null;
+		Structure structure = null;
+		
+		user = (User)session.get("user");
+		structure = user.getStructure();
 		this.setGuests(structure.getGuests());
 		return SUCCESS;		
 	}
@@ -57,9 +61,13 @@ public class GuestAction extends ActionSupport implements SessionAware{
 	})	
 	
 	public String findGuestById(){
-		User user = (User)session.get("user");
-		Structure structure = user.getStructure();
-		Guest aGuest = structure.findGuestById(this.getId());
+		User user = null;
+		Structure structure = null;
+		Guest aGuest = null;
+		
+		user = (User)session.get("user");
+		structure = user.getStructure();
+		aGuest = structure.findGuestById(this.getId());
 		if(aGuest != null){
 			this.setGuest(aGuest);
 			this.getMessage().setResult(Message.SUCCESS);
@@ -77,8 +85,7 @@ public class GuestAction extends ActionSupport implements SessionAware{
 		})
 		
 	})
-	public String goAddNewGuest() {
-		
+	public String goAddNewGuest() {		
 		return SUCCESS;
 	}
 	
@@ -89,8 +96,11 @@ public class GuestAction extends ActionSupport implements SessionAware{
 		
 	})
 	public String goUpdateGuest() {
-		User user = (User)session.get("user");
-		Structure structure = user.getStructure();
+		User user = null;
+		Structure structure = null;
+		
+		user = (User)session.get("user");
+		structure = user.getStructure();
 		this.setGuest(structure.findGuestById(this.getId())); //id della Action che setto con il parametro della request (nel link: ?id=...). con quello setto guest.
 		this.setBookings(structure.findBookingsByGuestId(this.getId()));
 		return SUCCESS;
@@ -106,10 +116,14 @@ public class GuestAction extends ActionSupport implements SessionAware{
 		
 	})
 	public String saveUpdateGuest(){
-		User user = (User)session.get("user");
-		Structure structure = user.getStructure();
+		User user = null;
+		Structure structure = null;
+		Guest oldGuest = null;
 		
-		Guest oldGuest = structure.findGuestById(this.getGuest().getId());
+		user = (User)session.get("user");
+		structure = user.getStructure();
+		
+		oldGuest = structure.findGuestById(this.getGuest().getId());
 		if(oldGuest == null){
 			//Si tratta di una aggiunta
 			this.getGuest().setId(structure.nextKey());
@@ -138,16 +152,20 @@ public class GuestAction extends ActionSupport implements SessionAware{
 		
 	})
 	public String deleteGuest(){
-		User user = (User)session.get("user");
-		Structure structure = user.getStructure();
-		Guest currentGuest = structure.findGuestById(this.getId());
+		User user = null;
+		Structure structure = null;
+		Guest currentGuest = null;
+		
+		user = (User)session.get("user");
+		structure = user.getStructure();
+		currentGuest = structure.findGuestById(this.getId());
 		if(structure.deleteGuest(currentGuest)){
 			this.getMessage().setResult(Message.SUCCESS);
 			this.getMessage().setDescription("Guest removed successfully");
 			return SUCCESS;
 		}else{
 			this.getMessage().setResult(Message.ERROR);
-			this.getMessage().setDescription("Error in removing the selected guest");
+			this.getMessage().setDescription("Error deleting guest");
 			return ERROR;
 		}
 	}
