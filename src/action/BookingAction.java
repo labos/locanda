@@ -236,9 +236,8 @@ public class BookingAction extends ActionSupport implements SessionAware{
 			this.getBooking().setId(structure.nextKey());
 			structure.addBooking(this.getBooking());
 		}else{
-			//Si tratta di un update di un booking esistente
-			
-			structure.updateBooking(this.getBooking());			
+			//Si tratta di un update di un booking esistente			
+			structure.updateBooking(this.getBooking());		
 		}		
 		this.getMessage().setResult(Message.SUCCESS);
 		this.getMessage().setDescription("Booking added/modified successfully");
@@ -262,9 +261,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		Structure structure = null;
 		
 		user = (User)session.get("user");
-		structure = user.getStructure();
-		
-		
+		structure = user.getStructure();		
 		if(!structure.hasRoomFreeForBooking(this.getBooking())){
 				this.getMessage().setResult(Message.ERROR);
 				this.getMessage().setDescription("Booking sovrapposti!");
@@ -293,8 +290,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		if(oldGuest == null){
 			//Si tratta di un nuovo guest e devo aggiungerlo
 			guest.setId(structure.nextKey());
-			structure.addGuest(guest);
-			
+			structure.addGuest(guest);			
 		}else{
 			//Si tratta di un guest esistente e devo fare l'update
 			structure.updateGuest(guest);			
@@ -305,11 +301,8 @@ public class BookingAction extends ActionSupport implements SessionAware{
 	private Boolean saveUpdateBookingExtras(List<Integer> extras, Structure structure){ 
 		List<Extra>  checkedExtras = null;
 		
-		checkedExtras = new ArrayList<Extra>();
-		checkedExtras = structure.findExtrasByIds(extras);		// popolo checkedExtras con gli extra checkati
-		
-		this.getBooking().setExtras(new ArrayList<Extra>());	// azzero l'array di extra del booking
-		this.getBooking().addExtras(checkedExtras);				// popolo l'array di extra del booking con gli extra checkati
+		checkedExtras = structure.findExtrasByIds(extras);				
+		this.getBooking().setExtras(checkedExtras);	
 		return true;
 	}
 	
@@ -373,7 +366,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 			return "success";
 		}else{
 			this.getMessage().setResult(Message.ERROR);
-			this.getMessage().setDescription("Error: Booking not deleted");
+			this.getMessage().setDescription("Error: booking not deleted");
 			return "error";
 		}		
 	}	
