@@ -30,13 +30,31 @@ public class ExtraAction extends ActionSupport implements SessionAware{
 		
 	})
 	public String findAllExtras() {
-		User user = (User)this.getSession().get("user");
-		//Controllare che sia diverso da null in un interceptor
-		Structure structure = user.getStructure();
+		User user = null;
+		Structure structure = null;
+		
+		user = (User)this.getSession().get("user");
+		structure = user.getStructure();
 		this.setExtras(structure.getExtras());
 		return SUCCESS;
 	}
 	
+	@Actions({
+		@Action(value="/goUpdateExtra",results = {
+				@Result(name="success",location="/extra_edit.jsp")
+		})		
+	})
+	public String goUpdateExtra() {
+		User user = null;
+		Structure structure = null;
+		Extra extra = null;
+		
+		user = (User)this.getSession().get("user");
+		structure = user.getStructure();
+		extra = structure.findExtraById(this.getExtra().getId());
+		this.setExtra(extra);
+		return SUCCESS;
+	}
 		
 	@Actions({
 		@Action(value="/saveUpdateExtra",results = {
@@ -51,17 +69,19 @@ public class ExtraAction extends ActionSupport implements SessionAware{
 	})
 	
 	public String saveUpdateExtra() {
-		User user = (User)this.getSession().get("user");
-		//Controllare che sia diverso da null in un interceptor
-		Structure structure = user.getStructure();
-		Extra oldExtra = structure.findExtraById(this.getExtra().getId());
+		User user = null;
+		Structure structure = null;
+		Extra oldExtra = null;
+		
+		user = (User)this.getSession().get("user");
+		structure = user.getStructure();
+		oldExtra = structure.findExtraById(this.getExtra().getId());
 		if(oldExtra == null){
 			//Si tratta di un add
 			this.getExtra().setId(structure.nextKey());
 /*			this.getExtra().setResourcePriceType("per Room");
 			this.getExtra().setTimePriceType("per Night");*/
-			structure.addExtra(this.getExtra());
-			
+			structure.addExtra(this.getExtra());			
 			this.getMessage().setResult(Message.SUCCESS);
 			this.getMessage().setDescription("Extra Added successfully");
 			return SUCCESS;
@@ -71,27 +91,8 @@ public class ExtraAction extends ActionSupport implements SessionAware{
 			//Aggiungere update error
 			this.getMessage().setResult(Message.SUCCESS);
 			this.getMessage().setDescription("Extra updated successfully");
-			return SUCCESS;
-			
-		}
-		
-		
-	}
-	
-	
-	@Actions({
-		@Action(value="/goUpdateExtra",results = {
-				@Result(name="success",location="/extra_edit.jsp")
-		})
-		
-	})
-	public String goUpdateExtra() {
-		User user = (User)this.getSession().get("user");
-		//Controllare che sia diverso da null in un interceptor
-		Structure structure = user.getStructure();
-		Extra extra = structure.findExtraById(this.getExtra().getId());
-		this.setExtra(extra);
-		return SUCCESS;
+			return SUCCESS;			
+		}		
 	}
 	
 		
@@ -108,10 +109,13 @@ public class ExtraAction extends ActionSupport implements SessionAware{
 	})
 	
 	public String deleteExtra() {
-		User user = (User)this.getSession().get("user");
-		//Controllare che sia diverso da null in un interceptor
-		Structure structure = user.getStructure();
-		Extra currentExtra = structure.findExtraById(this.getExtra().getId());
+		User user = null;
+		Structure structure = null;
+		Extra currentExtra = null;
+		
+		user = (User)this.getSession().get("user");
+		structure = user.getStructure();
+		currentExtra = structure.findExtraById(this.getExtra().getId());
 		if(structure.deleteExtra(currentExtra)){
 			this.getMessage().setResult(Message.SUCCESS);
 			this.getMessage().setDescription("L'extra e' stato cancellato con successo");
@@ -123,17 +127,13 @@ public class ExtraAction extends ActionSupport implements SessionAware{
 		}		
 	}	
 	
-	
 	public Map<String, Object> getSession() {
 		return session;
 	}
-
-
-
+	
 	@Override
 	public void setSession(Map<String, Object> session) {
 		this.session = session;
-		
 	}
 
 	public Message getMessage() {
