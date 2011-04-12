@@ -128,12 +128,15 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		this.setExtras(structure.getExtras());		
 		this.setBookingExtraIds(this.calculateBookingExtraIds());
 		
+		/*
 		extraSubtotal = structure.calculateExtraSubtotalForBooking(this.getBooking());
 		this.getBooking().setExtraSubtotal(extraSubtotal);
+		*/
 		
+		/*
 		roomSubtotal = structure.calculateRoomSubtotalForBooking(this.getBooking());
 		this.getBooking().setRoomSubtotal(roomSubtotal);
-		
+		*/
 		
 		numNights = this.getBooking().calculateNumNights();
 		this.setNumNights(numNights);
@@ -242,10 +245,16 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		}
 		
 		theBookedRoom = structure.findRoomById(this.getBooking().getRoom().getId());
-		this.getBooking().setRoom(theBookedRoom);		
+		this.getBooking().setRoom(theBookedRoom);				
+		
+		checkedExtras = structure.findExtrasByIds(this.getBookingExtraIds());				
+		this.getBooking().setExtras(checkedExtras);	
+		
+		this.saveUpdateAdjustments(structure);
+		this.saveUpdatePayments(structure);
 		
 		guest = this.getBooking().getGuest();
-		oldGuest = structure.findGuestById(this.getBooking().getGuest().getId());		
+		oldGuest = structure.findGuestById(guest.getId());		
 		if(oldGuest == null){
 			//Si tratta di un nuovo guest e devo aggiungerlo
 			guest.setId(structure.nextKey());
@@ -253,13 +262,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		}else{
 			//Si tratta di un guest esistente e devo fare l'update
 			structure.updateGuest(guest);			
-		}		
-		
-		checkedExtras = structure.findExtrasByIds(this.getBookingExtraIds());				
-		this.getBooking().setExtras(checkedExtras);	
-		
-		this.saveUpdateAdjustments(structure);
-		this.saveUpdatePayments(structure);
+		}	
 		
 		oldBooking = 
 			structure.findBookingById(this.getBooking().getId());
@@ -324,6 +327,8 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		return true;
 		
 	}
+	
+	
 	
 	private Boolean saveUpdatePayments(Structure structure){
 		List<Payment> paymentsWithoutNulls = null;
