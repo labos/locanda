@@ -38,6 +38,24 @@ public class Booking {
 		return days;
 	}
 	
+	public Double calculateAdjustmentsSubtotal(){
+		Double ret = 0.0;
+		
+		for(Adjustment each: this.getAdjustments()){
+			ret = ret + each.getAmount();
+		}
+		return ret;
+	}
+	
+	public Double calculatePaymentsSubtotal(){
+		Double ret = 0.0;
+		
+		for(Payment each: this.getPayments()){
+			ret = ret + each.getAmount();
+		}
+		return ret;
+	}
+	
 	public Boolean addExtra(Extra anExtra){
 		return this.getExtras().add(anExtra);
 	}

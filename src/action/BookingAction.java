@@ -42,6 +42,8 @@ public class BookingAction extends ActionSupport implements SessionAware{
 	private String dateOut = null;
 	private List<Extra> extras = null;
 	private List<Integer> bookingExtraIds = new ArrayList<Integer>();
+	private Double adjustmentsSubtotal = 0.0;
+	private Double paymentsSubtotal = 0.0;
 	
 	
 	
@@ -113,6 +115,8 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		Integer numNights = 0;
 		Double extraSubtotal = 0.0;
 		Double roomSubtotal = 0.0;
+		Double adjustmentsSubtotal = 0.0;
+		Double paymentsSubtotal = 0.0;
 		
 		user = (User)this.getSession().get("user");
 		structure = user.getStructure();
@@ -130,8 +134,16 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		roomSubtotal = structure.calculateRoomSubtotalForBooking(this.getBooking());
 		this.getBooking().setRoomSubtotal(roomSubtotal);
 		
+		
 		numNights = this.getBooking().calculateNumNights();
 		this.setNumNights(numNights);
+		
+		adjustmentsSubtotal = this.getBooking().calculateAdjustmentsSubtotal();
+		this.setAdjustmentsSubtotal(adjustmentsSubtotal);
+		
+		paymentsSubtotal = this.getBooking().calculatePaymentsSubtotal();
+		this.setPaymentsSubtotal(paymentsSubtotal);
+		
 		return SUCCESS;
 	}
 	
@@ -459,6 +471,25 @@ public class BookingAction extends ActionSupport implements SessionAware{
 
 	public void setBookingExtraIds(List<Integer> bookingExtraIds) {
 		this.bookingExtraIds = bookingExtraIds;
-	}	
+	}
+
+	public Double getAdjustmentsSubtotal() {
+		return adjustmentsSubtotal;
+	}
+
+	public void setAdjustmentsSubtotal(Double adjustmentsSubtotal) {
+		this.adjustmentsSubtotal = adjustmentsSubtotal;
+	}
+
+	public Double getPaymentsSubtotal() {
+		return paymentsSubtotal;
+	}
+
+	public void setPaymentsSubtotal(Double paymentsSubtotal) {
+		this.paymentsSubtotal = paymentsSubtotal;
+	}
+
+	
+	
 
 }
