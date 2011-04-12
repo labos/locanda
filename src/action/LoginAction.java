@@ -14,6 +14,7 @@ import model.Adjustment;
 import model.Booking;
 import model.Extra;
 import model.Guest;
+import model.Payment;
 import model.Room;
 import model.RoomFacility;
 import model.Structure;
@@ -178,6 +179,7 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		Date dateOut = null;
 		Double roomSubtotal = 0.0;
 		Adjustment anAdjustment = null;
+		Payment aPayment = null;
 		
 		aBooking = new Booking();
 		aRoom = structure.findRoomByName("101");
@@ -199,9 +201,15 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		anAdjustment.setId(structure.nextKey());
 		anAdjustment.setDate(DateUtils.truncate(new Date(),Calendar.DAY_OF_MONTH));
 		anAdjustment.setDescription("Sconto per doccia malfunzionante");
-		anAdjustment.setAmount(-50.0);
+		anAdjustment.setAmount(new Double("-50.0"));
 		aBooking.addAdjustment(anAdjustment);
 		
+		aPayment = new Payment();
+		aPayment.setId(structure.nextKey());
+		aPayment.setDate(DateUtils.truncate(new Date(),Calendar.DAY_OF_MONTH));
+		aPayment.setDescription("Acconto");
+		aPayment.setAmount(new Double("60.0"));
+		aBooking.addPayment(aPayment);
 		structure.addBooking(aBooking);		
 	}
 	
