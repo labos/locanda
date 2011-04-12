@@ -32,10 +32,17 @@ public class ExtraAction extends ActionSupport implements SessionAware{
 	public String findAllExtras() {
 		User user = null;
 		Structure structure = null;
+		Extra anEmptyExtra = null;
+		
+		anEmptyExtra = new Extra();
+		anEmptyExtra.setTimePriceType("per Night");
+		anEmptyExtra.setResourcePriceType("per Room");
+		this.setExtra(anEmptyExtra);
 		
 		user = (User)this.getSession().get("user");
 		structure = user.getStructure();
 		this.setExtras(structure.getExtras());
+		
 		return SUCCESS;
 	}
 	

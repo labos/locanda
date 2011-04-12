@@ -6,27 +6,24 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<link rel='stylesheet' type='text/css' href='css/reset.css' /><!--
-        <link rel='stylesheet' type='text/css' href='http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/start/jquery-ui.css' />
-        -->
-  <link rel='stylesheet' type='text/css' href=
-  'css/south-street/jquery-ui-1.8.9.custom.css' />
-  <link rel='stylesheet' type='text/css' href='css/jquery.weekcalendar.css' />
-  <link rel='stylesheet' type='text/css' href='css/calendar.css' />
-    <link rel='stylesheet' type='text/css' href='css/jquery.jgrowl.css' />
-    <link rel="stylesheet" type='text/css' href="css/jquery.fileupload-ui.css" />
+<link rel='stylesheet' type='text/css' href='css/reset.css' />
+<!--
+<link rel='stylesheet' type='text/css' href='http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/start/jquery-ui.css' />
+-->
+<link rel='stylesheet' type='text/css' href='css/south-street/jquery-ui-1.8.9.custom.css' />
+<link rel='stylesheet' type='text/css' href='css/jquery.weekcalendar.css' />
+<link rel='stylesheet' type='text/css' href='css/calendar.css' />
+<link rel='stylesheet' type='text/css' href='css/jquery.jgrowl.css' />
+<link rel="stylesheet" type='text/css' href="css/jquery.fileupload-ui.css" />
     
-  <script type='text/javascript' src='js/lib/jquery-1.4.4.min.js'>
-</script><!--
-    <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js'></script>
-    -->
+<script type='text/javascript' src='js/lib/jquery-1.4.4.min.js'></script>
+<!--
+<script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js'></script>
+-->
 
-  <script type='text/javascript' src='js/lib/jquery-ui-1.8.9.custom.min.js'>
-</script>
-  <script type='text/javascript' src='js/jquery.fileupload.js'>
-</script>
-  <script type='text/javascript' src='js/jquery.fileupload-ui.js'>
-</script>
+<script type='text/javascript' src='js/lib/jquery-ui-1.8.9.custom.min.js'></script>
+<script type='text/javascript' src='js/jquery.fileupload.js'></script>
+<script type='text/javascript' src='js/jquery.fileupload-ui.js'></script>
       <script>
       $(document).ready(function() {
       <%
@@ -49,26 +46,21 @@
 
       });
       </script>
-  <script type='text/javascript' src='js/ftod.js'>
-</script>
-  <script type='text/javascript' src='js/jquery.validate.min.js'>
-</script>
-  <script type='text/javascript' src='js/jquery.weekcalendar.js'>
-</script>
-  <script type='text/javascript' src='js/main.js'>
-</script>
-  <script type='text/javascript' src='js/jquery.jgrowl_minimized.js'>
-</script>
-  <script type='text/javascript' src='js/jquery.form.js'>
-</script>
+<script type='text/javascript' src='js/ftod.js'></script>
+<script type='text/javascript' src='js/jquery.validate.min.js'></script>
+<script type='text/javascript' src='js/jquery.weekcalendar.js'></script>
+<script type='text/javascript' src='js/main.js'></script>
+<script type='text/javascript' src='js/jquery.jgrowl_minimized.js'></script>
+<script type='text/javascript' src='js/jquery.form.js'></script>
+
+  
   <title>LOCANDA - Open Source Booking Tool</title><!-- (en) Add your meta data here -->
   <!-- (de) Fuegen Sie hier ihre Meta-Daten ein -->
   <link href="css/layout_sliding_door.css" rel="stylesheet" type="text/css" />
+  
   <!--[if lte IE 7]>
-
-<link href="css/patches/patch_sliding_door.css" rel="stylesheet" type="text/css" />
-
-<![endif]-->
+	<link href="css/patches/patch_sliding_door.css" rel="stylesheet" type="text/css" />
+  <![endif]-->
 </head>
 
 <body>
@@ -116,7 +108,7 @@
     			<li class="ui-menu-item"><a href="<s:property value="url_findallseasons"/>?sect=settings">SEASONS</a></li>
     			<li class="ui-menu-item"><a href="#">LISTINI CAMERE</a></li>
     			<li class="ui-menu-item"><a href="emails.jsp?sect=settings">EMAILS</a></li>
-    			<li class="ui-menu-item"><a href="goUpdateDetails?sect=settings">STRUCTURE DETAILS</a></li>
+    			<li class="ui-menu-item"><a href="<s:property value="url_details"/>?sect=settings">STRUCTURE DETAILS</a></li>
   			  </ul>
             </li>         
             <li><a href="#">Help</a></li>
