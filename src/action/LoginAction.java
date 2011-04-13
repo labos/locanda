@@ -85,8 +85,14 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		ret = new Structure();
 		ret.setName("polaris");
 		ret.setEmail("polaris@locanda.it");
-		ret.setPhone("+39070123456");
-		
+		ret.setPhone("+39 070123456");
+		ret.setAddress("località Piscinamanna");
+		ret.setCountry("italy");
+		ret.setZipCode("09135");
+		ret.setUrl("http://www.sardegnaricerche.it");
+		ret.setNotes("struttura ricettiva alberghiera a 5 stelle");
+		ret.setFax("+39 0705678383");
+		ret.setCity("pula");
 		this.buildRoomFacilities(ret);
 		this.buildRooms(ret);
 		this.buildGuests(ret);

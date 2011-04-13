@@ -8,7 +8,7 @@
           <fieldset>
           	<legend>Your Details</legend>
           	<div class="c50l">
-              <input type="hidden" name="redirect_form" value="home.action?sect=planner" />
+              <input type="hidden" name="redirect_form" value="goUpdateDetails.action?sect=settings" />
                 <div class="c50l">
             	  <div class="type-text">
                   	<label for="name">Name <sup title="This field is mandatory.">*</sup></label>
