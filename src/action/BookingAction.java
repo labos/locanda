@@ -1,12 +1,7 @@
 package action;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 import model.Adjustment;
@@ -15,11 +10,9 @@ import model.Extra;
 import model.Guest;
 import model.Payment;
 import model.Room;
-import model.RoomFacility;
 import model.Structure;
 import model.User;
 import model.internal.Message;
-
 
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Actions;
@@ -113,8 +106,6 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		Structure structure = null;
 		Booking oldBooking = null;
 		Integer numNights = 0;
-		Double extraSubtotal = 0.0;
-		Double roomSubtotal = 0.0;
 		Double adjustmentsSubtotal = 0.0;
 		Double paymentsSubtotal = 0.0;
 		
@@ -127,16 +118,6 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		this.setRooms(structure.getRooms());
 		this.setExtras(structure.getExtras());		
 		this.setBookingExtraIds(this.calculateBookingExtraIds());
-		
-		/*
-		extraSubtotal = structure.calculateExtraSubtotalForBooking(this.getBooking());
-		this.getBooking().setExtraSubtotal(extraSubtotal);
-		*/
-		
-		/*
-		roomSubtotal = structure.calculateRoomSubtotalForBooking(this.getBooking());
-		this.getBooking().setRoomSubtotal(roomSubtotal);
-		*/
 		
 		numNights = this.getBooking().calculateNumNights();
 		this.setNumNights(numNights);
@@ -252,8 +233,19 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		checkedExtras = structure.findExtrasByIds(this.getBookingExtraIds());				
 		this.getBooking().setExtras(checkedExtras);	
 		
-		this.saveUpdateAdjustments(structure);
-		this.saveUpdatePayments(structure);
+		this.filterAdjustments();
+		for(Adjustment each: this.getBooking().getAdjustments()){
+			if(each.getId()==null){
+				each.setId(structure.nextKey());
+			}
+		}
+		
+		this.filterPayments();
+		for(Payment each: this.getBooking().getPayments()){
+			if(each.getId()== null){
+				each.setId(structure.nextKey());
+			}
+		}		
 		
 		roomSubtotal = structure.calculateRoomSubtotalForBooking(this.getBooking());
 		this.getBooking().setRoomSubtotal(roomSubtotal);
@@ -313,45 +305,34 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		this.getMessage().setResult(Message.SUCCESS);
 		this.getMessage().setDescription("Booking Dates OK!");
 		return SUCCESS;
-	}
+	}	
 	
-	
-	
-	
-	private Boolean saveUpdateAdjustments(Structure structure){
+	private void filterAdjustments(){
 		List<Adjustment> adjustmentsWithoutNulls = null;
 		
 		adjustmentsWithoutNulls = new ArrayList<Adjustment>();
+		
 		for(Adjustment each: this.getBooking().getAdjustments()){
 			if(each!=null){
-				if(each.getId() == null){
-					each.setId(structure.nextKey());
-				}
 				adjustmentsWithoutNulls.add(each);
 			}			
 		}
 		this.getBooking().setAdjustments(adjustmentsWithoutNulls);
 		
-		return true;
-		
 	}
 	
-	
-	
-	private Boolean saveUpdatePayments(Structure structure){
+	private void filterPayments(){
 		List<Payment> paymentsWithoutNulls = null;
 		
 		paymentsWithoutNulls = new ArrayList<Payment>();
+		
 		for(Payment each: this.getBooking().getPayments()){
 			if(each!=null){
-				if(each.getId() == null){
-					each.setId(structure.nextKey());
-				}
 				paymentsWithoutNulls.add(each);
 			}			
 		}
-		this.getBooking().setPayments(paymentsWithoutNulls);		
-		return true;		
+		this.getBooking().setPayments(paymentsWithoutNulls);
+		
 	}
 	
 	@Actions({
