@@ -29,8 +29,8 @@
                   	<span>Past this code into your website and get booking service</span>
              	  </div>
                   <div class="type-text">
-                  	<textarea readonly="readonly" id="text-widget" rows="5" cols="30"><iframe height="300" width="360" marginheight="0" marginwidth="0"
-        src="http://locanda.com/widget/124394857" scrolling="no"></iframe></textarea>
+                  	<textarea readonly="readonly" id="text-widget" rows="5" cols="30"><iframe height="400" width="400" marginheight="0" marginwidth="0"
+        src="http://localhost:8080/locanda/goOnlineBookingCalendar.action" scrolling="no"></iframe></textarea>
              	  </div>
              	 <div class="type-check">
 					<a href="#" id="customizewidget">Customize Layout</a>
@@ -44,8 +44,8 @@
            		  </div>
 	    <div id ="text-widget-edit" style="display: none">
 	    <textarea  rows="5" cols="30">
-	    <iframe height="300" width="360" marginheight="0" marginwidth="0"
-        src="http://locanda.com/widget/124394857" scrolling="no"></iframe>
+	    <iframe height="400" width="400" marginheight="0" marginwidth="0"
+        src="http://localhost:8080/locanda/goOnlineBookingCalendar.action" scrolling="no"></iframe>
         </textarea>
 	    </div>
 	    
