@@ -27,9 +27,11 @@ public class RoomTypeAction extends ActionSupport implements SessionAware{
 		
 	})
 	public String findAllRoomTypes() {
-		User user = (User)this.getSession().get("user");
-		//Controllare che sia diverso da null in un interceptor
-		Structure structure = user.getStructure();
+		User user = null;
+		Structure structure = null;
+		
+		user = (User)this.getSession().get("user");
+		structure = user.getStructure();
 		this.setRoomTypes(structure.findAllRoomTypes());
 		return SUCCESS;
 	}
@@ -51,10 +53,4 @@ public class RoomTypeAction extends ActionSupport implements SessionAware{
 	public void setRoomTypes(Set<String> roomTypes) {
 		this.roomTypes = roomTypes;
 	}
-	
-	
-	
-	
-	
-
 }

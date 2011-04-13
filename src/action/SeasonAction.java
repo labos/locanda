@@ -41,8 +41,11 @@ public class SeasonAction extends ActionSupport implements SessionAware {
 
 	})
 	public String findAllSeasons() {
-		User user = (User) session.get("user");
-		Structure structure = user.getStructure();
+		User user = null;
+		Structure structure = null;
+		
+		user = (User) session.get("user");
+		structure = user.getStructure();
 		this.setSeasons(structure.getSeasons());
 		return SUCCESS;
 	}
@@ -63,9 +66,12 @@ public class SeasonAction extends ActionSupport implements SessionAware {
 
 	})
 	public String findSeasonByPeriod() {
-		User user = (User) session.get("user");
-		Structure structure = user.getStructure();
-		//in working....
+		User user = null;
+		Structure structure = null;
+		
+		user = (User) session.get("user");
+		structure = user.getStructure();
+		//in progress....
 		return SUCCESS;
 	}
 	
@@ -75,10 +81,13 @@ public class SeasonAction extends ActionSupport implements SessionAware {
 
 	})
 	public String goUpdateSeason() {
-		User user = (User) session.get("user");
-		Structure structure = user.getStructure();
+		User user = null;
+		Structure structure = null;
+		Season theSeason = null;
 		
-		Season theSeason = structure.findSeasonById(this.getId());
+		user = (User) session.get("user");
+		structure = user.getStructure();
+		theSeason = structure.findSeasonById(this.getId());
 		this.setSeason(theSeason);
 		return SUCCESS;
 	}
@@ -91,18 +100,15 @@ public class SeasonAction extends ActionSupport implements SessionAware {
 			@Result(type = "json", name = "error", params = { "root", "message" }) }) })
 	
 	public String saveUpdateSeason() {
-		User user = (User) session.get("user");
-		Structure structure = user.getStructure();
+		User user = null;
+		Structure structure = null;
+		Season oldSeason = null;
+		
+		user = (User) session.get("user");
+		structure = user.getStructure();
 		this.setSeasons(structure.getSeasons());
 		saveUpdatePeriods(structure);
-	/*	if (!this.saveUpdatePeriodDates()) {
-			this.getMessage().setResult(Message.ERROR);
-			this.getMessage().setDescription("Problema ai dati della season!");
-			return ERROR;
-
-		}*/
-
-		Season oldSeason = structure.findSeasonById(this.getSeason().getId());
+		oldSeason = structure.findSeasonById(this.getSeason().getId());
 		if (oldSeason == null) {
 			// Si tratta di una nuova season
 			this.getSeason().setId(structure.nextKey());
@@ -110,9 +116,7 @@ public class SeasonAction extends ActionSupport implements SessionAware {
 		} else {
 			// Si tratta di un update di un booking esistente
 			structure.updateSeason(this.getSeason());
-
 		}
-
 		this.getMessage().setResult(Message.SUCCESS);
 		this.getMessage().setDescription("Season Added successfully");
 		return SUCCESS;
@@ -150,10 +154,13 @@ public class SeasonAction extends ActionSupport implements SessionAware {
 
 	})
 	public String deleteSeason() {
-
-		User user = (User) session.get("user");
-		Structure structure = user.getStructure();
-		Season currentSeason = structure.findSeasonById(this.season.getId());
+		User user = null;
+		Structure structure = null;
+		Season currentSeason = null; 
+		
+		user = (User) session.get("user");
+		structure = user.getStructure();
+		currentSeason = structure.findSeasonById(this.season.getId());
 		if(structure.removeSeason(currentSeason)){
 			this.getMessage().setResult(Message.SUCCESS);
 			this.getMessage().setDescription("Season removed successfully");
@@ -171,10 +178,13 @@ public class SeasonAction extends ActionSupport implements SessionAware {
 
 	})
 	public String deletePeriodFromSeason() {
-
-		User user = (User) session.get("user");
-		Structure structure = user.getStructure();
-		Season currentSeason = structure.findSeasonById(this.season.getId());
+		User user = null;
+		Structure structure = null;
+		Season currentSeason = null;
+		
+		user = (User) session.get("user");
+		structure = user.getStructure();
+		currentSeason = structure.findSeasonById(this.season.getId());
 		try {
 			if (currentSeason.getPeriods().remove(
 					this.getPeriodById(this.idPeriod, currentSeason))) {

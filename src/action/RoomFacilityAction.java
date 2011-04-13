@@ -36,12 +36,12 @@ public class RoomFacilityAction extends ActionSupport implements SessionAware{
 	})
 	
 	public String goUpdateRoomFacilities() {
-		User user = (User)this.getSession().get("user");
-		//Controllare che sia diverso da null in un interceptor
-		Structure structure = user.getStructure();
+		User user = null;
+		Structure structure = null;
 		
+		user = (User)this.getSession().get("user");
+		structure = user.getStructure();
 		this.setRoomFacilities(structure.getRoomFacilities());		
-				
 		for(RoomFacility each: structure.findRoomById(this.idRoom).getFacilities()){			
 			this.roomFacilitiesIds.add(each.getId());			
 		}
@@ -58,15 +58,14 @@ public class RoomFacilityAction extends ActionSupport implements SessionAware{
 	
 	
 	public String updateRoomFacilities() {
-		User user = (User)this.getSession().get("user");
-		//Controllare che sia diverso da null in un interceptor
-		Structure structure = user.getStructure();
-		this.room = structure.findRoomById(this.idRoom);
+		User user = null;
+		Structure structure = null;
 		List<RoomFacility>  checkedFacilities = null;
-		//if(this.roomFacilitiesIds != null){
-		checkedFacilities = structure.findFacilitiesByIds(this.roomFacilitiesIds);	
-		//}		
 		
+		user = (User)this.getSession().get("user");
+		structure = user.getStructure();
+		this.setRoom(structure.findRoomById(this.getIdRoom()));		
+		checkedFacilities = structure.findFacilitiesByIds(this.getRoomFacilitiesIds());			
 		this.room.updateRoomFacilities(checkedFacilities);
 		this.getMessage().setResult(Message.SUCCESS);
 		String text = "Facilities updated successfully";

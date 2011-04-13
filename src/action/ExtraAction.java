@@ -34,14 +34,14 @@ public class ExtraAction extends ActionSupport implements SessionAware{
 		Structure structure = null;
 		Extra anEmptyExtra = null;
 		
-		anEmptyExtra = new Extra();
-		anEmptyExtra.setTimePriceType("per Night");
-		anEmptyExtra.setResourcePriceType("per Room");
-		this.setExtra(anEmptyExtra);
-		
 		user = (User)this.getSession().get("user");
 		structure = user.getStructure();
 		this.setExtras(structure.getExtras());
+		
+		anEmptyExtra = new Extra();
+		anEmptyExtra.setTimePriceType("per Night");
+		anEmptyExtra.setResourcePriceType("per Room");
+		this.setExtra(anEmptyExtra);		
 		
 		return SUCCESS;
 	}
@@ -86,8 +86,6 @@ public class ExtraAction extends ActionSupport implements SessionAware{
 		if(oldExtra == null){
 			//Si tratta di un add
 			this.getExtra().setId(structure.nextKey());
-/*			this.getExtra().setResourcePriceType("per Room");
-			this.getExtra().setTimePriceType("per Night");*/
 			structure.addExtra(this.getExtra());			
 			this.getMessage().setResult(Message.SUCCESS);
 			this.getMessage().setDescription("Extra Added successfully");
@@ -95,7 +93,6 @@ public class ExtraAction extends ActionSupport implements SessionAware{
 		}else{
 			//Si tratta di un update
 			structure.updateExtra(this.getExtra());
-			//Aggiungere update error
 			this.getMessage().setResult(Message.SUCCESS);
 			this.getMessage().setDescription("Extra updated successfully");
 			return SUCCESS;			
@@ -125,11 +122,11 @@ public class ExtraAction extends ActionSupport implements SessionAware{
 		currentExtra = structure.findExtraById(this.getExtra().getId());
 		if(structure.deleteExtra(currentExtra)){
 			this.getMessage().setResult(Message.SUCCESS);
-			this.getMessage().setDescription("L'extra e' stato cancellato con successo");
+			this.getMessage().setDescription("Extra deleted successfully");
 			return "success";
 		}else{
 			this.getMessage().setResult(Message.ERROR);
-			this.getMessage().setDescription("Non e' stato possibile cancellare l'extra");
+			this.getMessage().setDescription("Error deleting extra");
 			return "error";
 		}		
 	}	

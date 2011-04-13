@@ -320,6 +320,7 @@ public class Structure {
 	
 	public Extra findExtraById(Integer id){
 		Extra ret = null;
+		
 		for (Extra each : this.getExtras()) {
 			if (each.getId().equals(id)) {
 				return each;

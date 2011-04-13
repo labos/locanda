@@ -101,7 +101,7 @@ public class GuestAction extends ActionSupport implements SessionAware{
 		
 		user = (User)session.get("user");
 		structure = user.getStructure();
-		this.setGuest(structure.findGuestById(this.getId())); //id della Action che setto con il parametro della request (nel link: ?id=...). con quello setto guest.
+		this.setGuest(structure.findGuestById(this.getId())); 
 		this.setBookings(structure.findBookingsByGuestId(this.getId()));
 		return SUCCESS;
 	}
