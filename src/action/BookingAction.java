@@ -234,6 +234,8 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		Guest guest = null;
 		Guest oldGuest = null;
 		List<Extra>  checkedExtras = null;
+		Double roomSubtotal = 0.0;
+		Double extraSubtotal = 0.0;
 		
 		user = (User)session.get("user");
 		structure = user.getStructure();
@@ -252,6 +254,12 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		
 		this.saveUpdateAdjustments(structure);
 		this.saveUpdatePayments(structure);
+		
+		roomSubtotal = structure.calculateRoomSubtotalForBooking(this.getBooking());
+		this.getBooking().setRoomSubtotal(roomSubtotal);
+		
+		extraSubtotal = structure.calculateExtraSubtotalForBooking(this.getBooking());
+		this.getBooking().setExtraSubtotal(extraSubtotal);
 		
 		guest = this.getBooking().getGuest();
 		oldGuest = structure.findGuestById(guest.getId());		
