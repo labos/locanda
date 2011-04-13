@@ -35,7 +35,7 @@
 						int nr_guests = (Integer) request.getAttribute("room.maxGuests");
 						   for(int i = 1; i <= max_guests; i++) {
 							   %>
-							    <option value="<% out.println(i) ; %>" <% if(nr_guests == i ) {out.println("selected=\"selected\"");}%>><% out.println(i) ; %></option>
+							    <option value="<% out.print(i) ; %>" <% if(nr_guests == i ) {out.print("selected=\"selected\"");}%>><% out.print(i) ; %></option>
 							   <% 
 						   }
 						   }
