@@ -457,7 +457,7 @@ display: none;
               			</div>
                   	  </div>
               		</s:iterator>
-              		<s:if test="booking.adjustments.length() == 0"> 
+              		<s:if test="booking.adjustments.size() == 0"> 
               	         <div  class="subcolumns adjustment_row">
                   	     <div class="c40l"><div class="subcl type-text"><span>Name:</span><input type="text" name="booking.adjustments[0].description" class="require" style="width: 90%;" /></div></div>
                   	  	<div class="c33l"><div class="subcl type-text"><span>Amount(&euro;):</span><input type="text" name="booking.adjustments[0].amount"  class="extra_value_adjustment required"/></div></div>
@@ -492,7 +492,7 @@ display: none;
               			</div>
                   	  </div>
               		</s:iterator>
-              		<s:if test="booking.payments.length() == 0"> 
+              		<s:if test="booking.payments.size() == 0"> 
               	         <div  class="subcolumns payment_row">
                   	     <div class="c40l"><div class="subcl type-text"><span>Name:</span><input type="text" name="booking.payments[0].description" class="require" style="width: 90%;" /></div></div>
                   	  	<div class="c33l"><div class="subcl type-text"><span>Amount(&euro;):</span><input type="text" name="booking.payments[0].amount"  class="extra_value_payment required"/></div></div>
