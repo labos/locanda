@@ -25,6 +25,7 @@
             <div id='calendar'></div>
 
             <div id="event_edit_container" >
+            <div style="text-align: center"><img src="images/loading.gif" /></div>
             </div>
           </div>
 <jsp:include page="jsp/layout/footer.jsp" />     
