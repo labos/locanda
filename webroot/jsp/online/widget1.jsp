@@ -5,136 +5,68 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <jsp:include page="../layout/header_widget.jsp" />
+<!-- Start of first page -->
+<div data-role="page" id="foo2">
 
-        <!-- begin: #col3 static column -->
-<script>
-	$(function() {
-		
-		
-		$( "#largeDatepicker" ).datepicker({
-			dateFormat: I18NSettings.datePattern,
-			 onSelect: function(dateText, inst) {
-				 var selectedData =  $.datepicker.formatDate(I18NSettings.datePattern,$(this).datepicker("getDate"));
-				 if ( selectedData)
-					 {
-						$('input:hidden[name="dateArrival"]').val(selectedData);
+	<div data-role="header">
+		<h1>Select your arrival date</h1>
+	</div><!-- /header -->
 
-					 }
-				  
-			 }
-			
-		});
-		
-	  	$(".btn_next").button({
-	  		icons: {
-	            primary: "ui-icon-seek-next"
-	        }
-	  	});
-	  	
-	  	
-	  	$(".btn_next").click(function(event){
-	  		//event.preventDefault();
-	  		//goOnlineBookingCalendar
-	  		//goOnlineBookingRooms
-	  		//goOnlineBookingExtras
-	  		//goOnlineBookingGuest
-	  		//goOnlineBookingFinal
-	  		if ( $(this).parents(".yform.json").valid() )
-	  		{
-	  			
-	  			var formData = $(this).parents(".yform.json").serialize();
-	  			var action = $(this).parents(".yform.json").attr("action");
-
-	  			$.ajax({
-	  		      url: action,
-	  		      global: false,
-	  		      type: "POST",
-	  		      data: formData,
-	  		      dataType: "html",
-	  		     beforeSend: function(msg){
-	  		    	$(".widget-booking").html("<img src=\"images/loading.gif\" />");
-	  		    	 
-	  		      },
-	  		      success: function(data){
-	  		    	$(".widget-booking").html(data);
-	  		      },
-	  		     error: function(msg){
-	  		         alert(msg);
-	  		      }
-	  		   }
-	  		)
-	  			
-	  		}
-	  		
-	  		// return false;
-	  	});
-	  	
-	});
-	
-	
-	</script>
-	<style>
-	body {
-		background: #4D87C7;
-	}
-		#largeDatepicker {
-
-			width: 99%;
-			height: 80%;
-			}
-	.ui-datepicker {
-
-		width:100%;
-		height: 100%;
-		}
-		
-			.widget-booking {
-
-		width:100%;
-		height: 100%;
-		}
-		
-		.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
-		
-		height:30px;
-			}
-			h2{
-			color: #fff;
-			}
-			.yform label {
-color:#fff;
-text-align: left;
-}
-	</style>
-			<div class="widget-booking">
-			<div><h2>Select your arrival date</h2></div>
-            <div id='largeDatepicker'></div>
-            <form action="goOnlineBookingRooms.action" class="yform json">
+	<div data-role="content">	
+	<div id='largeDatepicker'></div>
+	<!--
+		<p>I'm first in the source order so I'm shown as the page.</p>		
+		-->
+		<p>View internal page called <a href="#bar">bar</a></p>	
+		            <form action="goOnlineBookingRooms.action" class="">
             <input type="hidden" name="dateArrival" value="" />
             <div class="c33l">
-            <div class="subcl type-select">
-               				 <label for="sel_rooms_list">Nights<sup title="This field is mandatory.">*</sup> </label>
-                			 <select name="booking.room.id" id="sel_rooms_list" size="1">
-                      	<option value="1">1</option>
-                      	<option value="2">2</option>
-                      	<option value="3">3</option>
-                    		</select>
-            				</div>
+            <div data-role="fieldcontain">
+	<label for="select-choice-1" class="select">Nights</label>
+	<select name="numNights" id="select-choice-1">
+		<option value="1">1</option>
+		<option value="2">2</option>
+		<option value="3">3</option>
+		<option value="4">4</option>
+		<option value="5">5</option>
+		<option value="6">6</option>
+		<option value="7">7</option>
+	</select>
+</div>
+          
+            				
             				</div>
             				            <div class="c33l">
-            <div class="subcl type-select">
-               				 <label for="sel_rooms_list">People<sup title="This field is mandatory.">*</sup> </label>
-                			 <select name="booking.room.id" id="sel_rooms_list" size="1">
-                      	<option value="1">1</option>
-                      	<option value="2">2</option>
-                      	<option value="3">3</option>
-                    		</select>
+            <div data-role="fieldcontain">
+	<label for="select-choice-2" class="select">People</label>
+	<select name="nrGuests" id="select-choice-2">
+		<option value="1">1</option>
+		<option value="2">2</option>
+		<option value="3">3</option>
+		<option value="4">4</option>
+		<option value="5">5</option>
+		<option value="6">6</option>
+		<option value="7">7</option>
+	</select>
+</div>
+          
+
             				</div>
-            				</div>
+
             	 <div class="c33l">
-            <div class="subcl type-select">
-            <button class="btn_next">NEXT</button>
-            </div>
+<div data-role="fieldcontain">
+<p>&nbsp;</p>
+<button type="submit" data-theme="b">NEXT</button>
+	<!--<a href="index.html" data-role="button" data-theme="b">NEXT</a>
+--></div>
+
             </div>
            </form>
-</div>
+	</div><!-- /content -->
+
+	<div data-role="footer">
+		<h4>Locanda Mobile Widget</h4>
+	</div><!-- /header -->
+</div><!-- /page -->
+
+

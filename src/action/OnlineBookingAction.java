@@ -5,12 +5,14 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import model.Booking;
 import model.Extra;
 import model.Guest;
 import model.Room;
 import model.RoomFacility;
 import model.Structure;
 import model.User;
+import model.internal.Message;
 
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Actions;
@@ -25,6 +27,8 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 	private Map<String, Object> session = null;
 	private List<RoomFacility> roomFacilities = null;
 	private List<Room> rooms = null;
+	private Booking booking = null;
+	private Integer id;
 	private  Date dateArrival;
 	private Integer nrGuests = 1;
 	private Integer numNights = 1;
@@ -65,11 +69,75 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 		
 		user = (User)this.getSession().get("user");
 		structure = user.getStructure();
+		
+/*		if(!structure.hasRoomFreeForBooking(this.getBooking())){
+			this.getMessage().setResult(Message.ERROR);
+			this.getMessage().setDescription("Booking sovrapposti!");
+			return ERROR;
+	}*/
 		this.setRooms(structure.getRooms());
 		this.setRoomFacilities(structure.getRoomFacilities());
 		return SUCCESS;
 	}
 	
+	@Actions({
+		@Action(value="/goOnlineBookingExtras",results = {
+				@Result(name="success",location="/jsp/online/widget3.jsp"),
+				
+				@Result(name="input", location="/validationError.jsp")
+		})
+	})
+	
+	public String goOnlineBookingExtras(){
+		User user = null;
+		Structure structure = null;
+		
+		user = (User)this.getSession().get("user");
+		structure = user.getStructure();
+		this.setRooms(structure.getRooms());
+		this.setRoomFacilities(structure.getRoomFacilities());
+		this.setExtras(structure.getExtras());
+		return SUCCESS;
+	}
+	
+	@Actions({
+		@Action(value="/goOnlineBookingGuest",results = {
+				@Result(name="success",location="/jsp/online/widget4.jsp"),
+				
+				@Result(name="input", location="/validationError.jsp")
+		})
+	})
+	
+	public String goOnlineBookingGuest(){
+		User user = null;
+		Structure structure = null;
+		
+		user = (User)this.getSession().get("user");
+		structure = user.getStructure();
+		this.setRooms(structure.getRooms());
+		this.setRoomFacilities(structure.getRoomFacilities());
+		return SUCCESS;
+	}
+	
+	
+	@Actions({
+		@Action(value="/goOnlineBookingFinal",results = {
+				@Result(name="success",location="/jsp/online/widget5.jsp"),
+				
+				@Result(name="input", location="/validationError.jsp")
+		})
+	})
+	
+	public String goOnlineBookingFinal(){
+		User user = null;
+		Structure structure = null;
+		
+		user = (User)this.getSession().get("user");
+		structure = user.getStructure();
+		this.setRooms(structure.getRooms());
+		this.setRoomFacilities(structure.getRoomFacilities());
+		return SUCCESS;
+	}
 	
 	public List<Extra> getExtras() {
 		return extras;
@@ -152,6 +220,26 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 	public void setSession(Map<String, Object> session) {
 		this.session = session;
 		
+	}
+
+
+	public Booking getBooking() {
+		return booking;
+	}
+
+
+	public void setBooking(Booking booking) {
+		this.booking = booking;
+	}
+
+
+	public Integer getId() {
+		return id;
+	}
+
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 	
 	

@@ -56,3 +56,134 @@
 <script type='text/javascript' src='js/main.js'></script>
 <script type='text/javascript' src='js/jquery.jgrowl_minimized.js'></script>
 <script type='text/javascript' src='js/jquery.form.js'></script>
+	<link rel="stylesheet" href="css/jquery.mobile-1.0a4.1.css" />
+	<script type="text/javascript" src="js/jquery.mobile-1.0a4.1.js"></script>
+
+<style>
+	body {
+		background: #4D87C7;
+		padding: 0px;
+		
+	}
+		#largeDatepicker {
+
+			width: 99%;
+			height: 80%;
+			}
+	.ui-datepicker {
+
+		width:100%;
+		height: 100%;
+		}
+		
+			.widget-booking {
+
+		width:100%;
+		height: 100%;
+		text-align: left;
+		}
+		
+		.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+		
+		height:30px;
+			}
+			h2{
+			color: #fff;
+			}
+			.yform label {
+color:#fff;
+text-align: left;
+}
+.title_widget {
+text-align: left;
+}
+
+.yform {
+margin: 0;
+padding: 0;
+
+}
+.ui-widget {
+margin-top: 0px;
+}
+
+.price_room_widget{
+	font-size: 18px;
+	}
+	.price_room_widget span{
+	font-size: 11px;
+	}
+	.subcolumns {
+	background-color: #6C8DD4;
+	}
+	h1, h4 {
+	color: #fff;
+	}
+</style>
+
+<script>
+	$(function() {
+		
+		
+		$( "#largeDatepicker" ).datepicker({
+			dateFormat: I18NSettings.datePattern,
+			 onSelect: function(dateText, inst) {
+				 var selectedData =  $.datepicker.formatDate(I18NSettings.datePattern,$(this).datepicker("getDate"));
+				 if ( selectedData)
+					 {
+						$('input:hidden[name="dateArrival"]').val(selectedData);
+
+					 }
+				  
+			 }
+			
+		});
+		
+	  	$(".btn_next").button({
+	  		icons: {
+	            primary: "ui-icon-seek-next"
+	        }
+	  	});
+	  	
+	  	
+	  	$(".btn_next").click(function(event){
+	  		//event.preventDefault();
+	  		//goOnlineBookingCalendar
+	  		//goOnlineBookingRooms
+	  		//goOnlineBookingExtras
+	  		//goOnlineBookingGuest
+	  		//goOnlineBookingFinal
+	  		if ( $(this).parents(".yform.json").valid() )
+	  		{
+	  			
+	  			var formData = $(this).parents(".yform.json").serialize();
+	  			var action = $(this).parents(".yform.json").attr("action");
+
+	  			$.ajax({
+	  		      url: action,
+	  		      global: false,
+	  		      type: "POST",
+	  		      data: formData,
+	  		      dataType: "html",
+	  		     beforeSend: function(msg){
+	  		    	$(".widget-booking").html("<img src=\"images/loading.gif\" />");
+	  		    	 
+	  		      },
+	  		      success: function(data){
+	  		    	$(".widget-booking").html(data);
+	  		      },
+	  		     error: function(msg){
+	  		         alert(msg);
+	  		      }
+	  		   }
+	  		)
+	  			
+	  		}
+	  		
+	  		// return false;
+	  	});
+	  	
+	});
+	
+	
+	</script>

@@ -6,26 +6,19 @@
 
 <jsp:include page="../layout/header_widget.jsp" />
 <!-- Start of first page -->
-<div data-role="page" id="foo">
+<div data-role="page" id="foo5" style="min-height:100%">
 
 	<div data-role="header">
-		<h1>Select a Room</h1>
+		<h1>Confirm Details</h1>
 	</div><!-- /header -->
 
 	<div data-role="content">
-			<p><strong><s:property value="dateArrival"/></strong>, <s:property value="numNights"/> nights</p>		
-	<ul data-role="listview" data-theme="g">
-	<s:iterator value="rooms" var="eachRoom" >
-		<li><img src="images/hotel-demo.jpeg"  alt="room photo" />
-	<a rel="external" href="goOnlineBookingExtras.action"><p><s:property value="#eachRoom.roomType"/></p>
-	<p class="price_room_widget">&euro; <s:property value="#eachRoom.price"/> <span>/room/nigth</span></p></a></li>
-	</s:iterator>
-</ul>
-	
-
+			<p>15 Aprile 2011, 1 night</p>	
+		<strong>Congratulation, your booking request has been sent</strong>
+         
 	</div><!-- /content -->
 
 	<div data-role="footer">
 		<h4>Locanda Mobile Widget</h4>
 	</div><!-- /header -->
-</div>
+</div><!-- /page -->
