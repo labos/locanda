@@ -49,6 +49,7 @@
 <script type='text/javascript' src='js/ftod.js'></script>
 <script type='text/javascript' src='js/jquery.validate.min.js'></script>
 <script type='text/javascript' src='js/jquery.weekcalendar.js'></script>
+<script type="text/javascript" src="js/jstree/jquery.jstree.js"></script>
 <script type='text/javascript' src='js/main.js'></script>
 <script type='text/javascript' src='js/jquery.jgrowl_minimized.js'></script>
 <script type='text/javascript' src='js/jquery.form.js'></script>

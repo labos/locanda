@@ -4,7 +4,10 @@
 <%@ taglib uri="/struts-tags" prefix="s" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+
+
 <jsp:include page="jsp/layout/header_menu.jsp" />
+
       <div id="main">
         <!-- begin: #col1 - first float column -->
         <div id="col1" role="complementary">
@@ -14,12 +17,16 @@
         <!-- begin: #col3 static column -->
         <div id="col3" role="main">
           <div id="col3_content" class="clearfix">
-          	<div class="header_section yform">
-              <span class="name_section">Structure Details</span>
-            </div>
-          
-            <div>
- 		  	  <jsp:include page="jsp/contents/details_form.jsp" />    
-            </div>        
-          </div>
-<jsp:include page="jsp/layout/footer.jsp" />         
+          	<div class="header_section">
+          	  <span class="name_section">Manage Price Lists</span>
+      	 	</div>
+      	
+      	    <div class="treeContainer">
+      	      <div class="tree"></div>
+      	    </div>
+            
+            
+               
+		  </div><!-- end: #col3_content-->
+		  
+<jsp:include page="jsp/layout/footer.jsp" />     

@@ -2,8 +2,10 @@ package action;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import model.Booking;
 import model.Extra;
@@ -11,6 +13,9 @@ import model.Room;
 import model.Structure;
 import model.User;
 import model.internal.Message;
+import model.internal.TreeData;
+import model.internal.TreeNode;
+import model.listini.Season;
 
 import org.apache.commons.lang.time.DateUtils;
 import org.apache.struts2.convention.annotation.Action;
@@ -22,12 +27,13 @@ import org.apache.struts2.interceptor.SessionAware;
 import com.opensymphony.xwork2.ActionSupport;
 
 @ParentPackage(value="default")
-public class ListinoCameraAction extends ActionSupport implements SessionAware{
+public class RoomPriceListAction extends ActionSupport implements SessionAware{
 	private Map<String, Object> session = null;
 	private Message message = new Message();
 	private Booking booking = null;
 	private List<Integer> bookingExtraIds = new ArrayList<Integer>();
 	private Integer numNights;
+	private List<TreeNode> treeNodes = new ArrayList<TreeNode>();
 	
 	@Actions({
 		@Action(value="/calculatePrices",results = {
@@ -80,7 +86,53 @@ public class ListinoCameraAction extends ActionSupport implements SessionAware{
 		this.getMessage().setResult(Message.SUCCESS);
 		this.getMessage().setDescription("Prezzo Calcolato con Successo");
 		return "success";				
-	}	
+	}
+	
+	@Actions({
+		@Action(value="/findAllRoomPriceLists",results = {
+				@Result(type ="json",name="success", params={
+						"root","treeNodes"
+				} ),
+				@Result(type ="json",name="error", params={
+						"excludeProperties","session"
+				} ),
+				@Result(name="input", location = "/validationError.jsp" )
+		})
+		
+	})
+	
+	public String findAllRoomPriceLists() {
+		User user = null;
+		Structure structure = null;
+		Set<Integer> years = new HashSet<Integer>();			
+		
+		user = (User)this.getSession().get("user");
+		structure = user.getStructure();
+		for (Season eachSeason : structure.getSeasons()) {
+			years.add(eachSeason.getYear());
+		}
+		for (Integer eachYear : years) {						//costruisco i nodi di primo livello - gli anni
+			TreeData data = new TreeData();
+			data.setTitle(eachYear.toString());
+			TreeNode node1 = new TreeNode();
+			node1.setData(data);
+			this.treeNodes.add(node1);
+		}
+		
+		for (TreeNode eachNode1 : this.treeNodes) {				//costruisco i nodi di secondo livello - le stagioni
+			List<Season> perYearSeasons = structure.findSeasonsByYear(2011);	//tutte le stagioni di quell'anno
+			for (Season eachYearSeason : perYearSeasons) {
+				TreeData data = new TreeData();
+				data.setTitle(eachYearSeason.getName());
+				TreeNode node2 = new TreeNode();
+				node2.setData(data);
+				eachNode1.addChild(node2);
+			}
+		}
+		
+		return "success";
+	}
+	
 	
 	
 	public Map<String, Object> getSession() {
@@ -122,4 +174,14 @@ public class ListinoCameraAction extends ActionSupport implements SessionAware{
 	public void setNumNights(Integer numNights) {
 		this.numNights = numNights;
 	}
+
+	public List<TreeNode> getTreeNodes() {
+		return treeNodes;
+	}
+
+	public void setTreeNodes(List<TreeNode> treeNodes) {
+		this.treeNodes = treeNodes;
+	}
+	
+	
 }
