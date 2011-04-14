@@ -120,7 +120,7 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware{
 		}
 		
 		for (TreeNode eachNode1 : this.treeNodes) {				//costruisco i nodi di secondo livello - le stagioni
-			List<Season> perYearSeasons = structure.findSeasonsByYear(2011);	//tutte le stagioni di quell'anno
+			List<Season> perYearSeasons = structure.findSeasonsByYear(Integer.parseInt(eachNode1.getData().getTitle()));	//tutte le stagioni di quell'anno
 			for (Season eachYearSeason : perYearSeasons) {
 				TreeData data = new TreeData();
 				data.setTitle(eachYearSeason.getName());
