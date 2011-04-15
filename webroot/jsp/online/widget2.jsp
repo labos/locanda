@@ -10,14 +10,16 @@
 
 	<div data-role="header">
 		<h1>Select a Room</h1>
+		<a href="goOnlineBookingCalendar.action" class="ui-btn-right" data-icon="home" data-iconpos="notext" 
+           data-direction="reverse">Home</a> 
 	</div><!-- /header -->
 
 	<div data-role="content">
-			<p><strong><s:property value="dateArrival"/></strong>, <s:property value="numNights"/> nights</p>		
+<p><strong><s:property value="dateArrival"/></strong>, <s:property value="numNight"/> nights, <s:property value="numGuests"/> peoples</p>	
 	<ul data-role="listview" data-theme="g">
 	<s:iterator value="rooms" var="eachRoom" >
 		<li><img src="images/hotel-demo.jpeg"  alt="room photo" />
-	<a rel="external" href="goOnlineBookingExtras.action"><p><s:property value="#eachRoom.roomType"/></p>
+	<a rel="external" href="goOnlineBookingExtras.action?id=<s:property value="id"/>&dateArrival=<s:property value="dateArrival"/>&numNight=<s:property value="numNight"/>&numGuests=<s:property value="numGuests"/>"><p><s:property value="#eachRoom.roomType"/></p>
 	<p class="price_room_widget">&euro; <s:property value="#eachRoom.price"/> <span>/room/nigth</span></p></a></li>
 	</s:iterator>
 </ul>

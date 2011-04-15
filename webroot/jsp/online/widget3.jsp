@@ -10,15 +10,21 @@
 
 	<div data-role="header">
 		<h1>Select extras (optional)</h1>
+				<a href="goOnlineBookingCalendar.action" class="ui-btn-right" data-icon="home" data-iconpos="notext" 
+           data-direction="reverse">Home</a> 
 	</div><!-- /header -->
 
 	<div data-role="content">
-			<p><strong><s:property value="dateArrival"/></strong>, <s:property value="numNights"/> nights</p>	
-			<form action="goOnlineBookingGuest.action">	
+<p><strong><s:property value="dateArrival"/></strong>, <s:property value="numNight"/> nights, <s:property value="numGuests"/> peoples</p>	
+			<form action="goOnlineBookingGuest.action">
+			<input type="hidden" name="id" value="<s:property value="id"/>" />
+			<input type="hidden" name="dateArrival" value="<s:property value="dateArrival"/>" />
+			<input type="hidden" name="numGuests" value="<s:property value="numGuests"/>" />
+			<input type="hidden" name="numNight" value="<s:property value="numNight"/>" />
 <fieldset data-role="controlgroup">
                     <s:iterator value="extras" var="eachExtra"  status="extraStatus">
                   <legend></legend>
-		<input type="checkbox" name="bookingExtraIds" id="checkbox-<s:property value="#extraStatus.index"/>" class="custom" value="<s:property value="#eachExtra.id"/>" />
+		<input type="checkbox" name="bookingExtrasId" id="checkbox-<s:property value="#extraStatus.index"/>" class="custom" value="<s:property value="#eachExtra.id"/>" />
 		<label for="checkbox-<s:property value="#extraStatus.index"/>"><s:property value="#eachExtra.name"/> (&euro; <s:property value="#eachExtra.price"/> / <s:property value="#eachExtra.resourcePriceType"/> / <s:property value="eachExtra.timePriceType"/>)</label>
           </s:iterator>
     </fieldset>

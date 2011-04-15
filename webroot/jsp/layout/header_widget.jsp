@@ -53,6 +53,7 @@
 <script type='text/javascript' src='js/ftod.js'></script>
 <script type='text/javascript' src='js/jquery.validate.min.js'></script>
 <script type='text/javascript' src='js/jquery.weekcalendar.js'></script>
+<script type="text/javascript" src="js/jstree/jquery.jstree.js"></script>
 <script type='text/javascript' src='js/main.js'></script>
 <script type='text/javascript' src='js/jquery.jgrowl_minimized.js'></script>
 <script type='text/javascript' src='js/jquery.form.js'></script>
@@ -119,6 +120,13 @@ margin-top: 0px;
 	h1, h4 {
 	color: #fff;
 	}
+	
+	.alert {
+	display: none;
+	border: 1px dotted red;
+	color: red;
+	font-weight: 600;
+	}
 </style>
 
 <script>
@@ -146,19 +154,24 @@ margin-top: 0px;
 	  	});
 	  	
 	  	
-	  	$(".btn_next").click(function(event){
-	  		//event.preventDefault();
+	  	$("#btn_widg_next").click(function(event){
+	  		event.preventDefault();
 	  		//goOnlineBookingCalendar
 	  		//goOnlineBookingRooms
 	  		//goOnlineBookingExtras
 	  		//goOnlineBookingGuest
 	  		//goOnlineBookingFinal
-	  		if ( $(this).parents(".yform.json").valid() )
+	  		if ( $(this).parents("form").valid() )
 	  		{
+	  			if($('input:hidden[name="dateArrival"]').val()  == ""){
+	  				$(".alert").html("Select a date from the calendar!").show();
+	  			return false;
+	  			}
 	  			
+	  			/*
 	  			var formData = $(this).parents(".yform.json").serialize();
 	  			var action = $(this).parents(".yform.json").attr("action");
-
+					
 	  			$.ajax({
 	  		      url: action,
 	  		      global: false,
@@ -177,10 +190,12 @@ margin-top: 0px;
 	  		      }
 	  		   }
 	  		)
+	  			*/
 	  			
+	  			$(this).parents("form").submit();
 	  		}
 	  		
-	  		// return false;
+	  		 return false;
 	  	});
 	  	
 	});

@@ -10,20 +10,23 @@
 
 	<div data-role="header">
 		<h1>Select your arrival date</h1>
+		<a href="goOnlineBookingCalendar.action" class="ui-btn-right" data-icon="home" data-iconpos="notext" 
+           data-direction="reverse">Home</a> 
 	</div><!-- /header -->
 
-	<div data-role="content">	
+	<div data-role="content">
+	<div class="alert"></div>	
 	<div id='largeDatepicker'></div>
 	<!--
 		<p>I'm first in the source order so I'm shown as the page.</p>		
 		-->
 		<p>View internal page called <a href="#bar">bar</a></p>	
 		            <form action="goOnlineBookingRooms.action" class="">
-            <input type="hidden" name="dateArrival" value="" />
+            <input type="hidden" name="dateArrival" value=""/>
             <div class="c33l">
             <div data-role="fieldcontain">
 	<label for="select-choice-1" class="select">Nights</label>
-	<select name="numNights" id="select-choice-1">
+	<select name="numNight" id="select-choice-1">
 		<option value="1">1</option>
 		<option value="2">2</option>
 		<option value="3">3</option>
@@ -33,13 +36,12 @@
 		<option value="7">7</option>
 	</select>
 </div>
-          
-            				
-            				</div>
-            				            <div class="c33l">
+</div>
+           
+           <div class="c33l">
             <div data-role="fieldcontain">
 	<label for="select-choice-2" class="select">People</label>
-	<select name="nrGuests" id="select-choice-2">
+	<select name="numGuests" id="select-choice-2">
 		<option value="1">1</option>
 		<option value="2">2</option>
 		<option value="3">3</option>
@@ -56,7 +58,7 @@
             	 <div class="c33l">
 <div data-role="fieldcontain">
 <p>&nbsp;</p>
-<button type="submit" data-theme="b">NEXT</button>
+<button type="submit" data-theme="b" id="btn_widg_next">NEXT</button>
 	<!--<a href="index.html" data-role="button" data-theme="b">NEXT</a>
 --></div>
 

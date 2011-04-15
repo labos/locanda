@@ -13,8 +13,8 @@
 	</div><!-- /header -->
 
 	<div data-role="content">
-			<p>15 Aprile 2011, 1 night</p>	
-			<form action="goOnlineBookingFinal.action" class="">	
+			<p><strong><s:property value="dateArrival"/></strong>, <s:property value="numNight"/> nights, <s:property value="numGuests"/> peoples</p>	
+			<form action="goOnlineBookingFinal.action">	
 <div id="firstNameDiv" data-role="fieldcontain">
   <label for="firstNo">First Name*</label>
   <input id="firstNo" name="guest.firstName" type="text" />

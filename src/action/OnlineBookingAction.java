@@ -30,9 +30,10 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 	private Booking booking = null;
 	private Integer id;
 	private  Date dateArrival;
-	private Integer nrGuests = 1;
-	private Integer numNights = 1;
+	private Integer numGuests = 1;
+	private Integer numNight = 1;
 	private List<Extra> extras;
+	private List<Integer> bookingExtrasId = null;
 	private Guest guest;
 	
 	
@@ -169,24 +170,14 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 	}
 
 
-	public Integer getNrGuests() {
-		return nrGuests;
+
+
+
+	public Integer getNumNight() {
+		return numNight;
 	}
 
 
-	public void setNrGuests(Integer nrGuests) {
-		this.nrGuests = nrGuests;
-	}
-
-
-	public Integer getNumNights() {
-		return numNights;
-	}
-
-
-	public void setNumNights(Integer numNights) {
-		this.numNights = numNights;
-	}
 
 
 	public List<RoomFacility> getRoomFacilities() {
@@ -240,6 +231,31 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+
+	public Integer getNumGuests() {
+		return numGuests;
+	}
+
+
+	public void setNumGuests(Integer numGuests) {
+		this.numGuests = numGuests;
+	}
+
+
+	public void setNumNight(Integer numNight) {
+		this.numNight = numNight;
+	}
+
+
+	public List<Integer> getBookingExtrasId() {
+		return bookingExtrasId;
+	}
+
+
+	public void setBookingExtrasId(List<Integer> bookingExtrasId) {
+		this.bookingExtrasId = bookingExtrasId;
 	}
 	
 	
