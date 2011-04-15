@@ -108,10 +108,10 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware{
 		
 		user = (User)this.getSession().get("user");
 		structure = user.getStructure();
-		for (Season eachSeason : structure.getSeasons()) {
+		for (Season eachSeason : structure.getSeasons()) {			//costruisco il set con tutti gli anni
 			years.add(eachSeason.getYear());
 		}
-		for (Integer eachYear : years) {						//costruisco i nodi di primo livello - gli anni
+		for (Integer eachYear : years) {							//costruisco i nodi di primo livello - gli anni
 			TreeData data = new TreeData();
 			data.setTitle(eachYear.toString());
 			TreeNode node1 = new TreeNode();
@@ -119,14 +119,15 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware{
 			this.treeNodes.add(node1);
 		}
 		
-		for (TreeNode eachNode1 : this.treeNodes) {				//costruisco i nodi di secondo livello - le stagioni
+		for (TreeNode eachNode1 : this.treeNodes) {					//costruisco i nodi di secondo livello - le stagioni
 			List<Season> perYearSeasons = structure.findSeasonsByYear(Integer.parseInt(eachNode1.getData().getTitle()));	//tutte le stagioni di quell'anno
 			for (Season eachYearSeason : perYearSeasons) {
-				TreeData data = new TreeData();
-				data.setTitle(eachYearSeason.getName());
-				TreeNode node2 = new TreeNode();
-				node2.setData(data);
-				eachNode1.addChild(node2);
+				eachNode1.buildChild(eachYearSeason.getName());
+			}
+			for (TreeNode eachNode2 : eachNode1.getChildren()) {	//costruisco i nodi di terzo livello - i roomTypes
+				for (String eachRoomType : structure.findAllRoomTypes()) {
+					eachNode2.buildChild(eachRoomType);
+				}			
 			}
 		}
 		

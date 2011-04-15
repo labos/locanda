@@ -42,5 +42,11 @@ public class TreeNode {
 		return this.getChildren().add(childNode);
 	}
 	
-
+	public Boolean buildChild(String childTitle) {	//aggiunge un nodo figlio settandone il title
+		TreeData data = new TreeData();
+		data.setTitle(childTitle);
+		TreeNode childNode = new TreeNode();
+		childNode.setData(data);
+		return this.addChild(childNode);
+	}
 }
