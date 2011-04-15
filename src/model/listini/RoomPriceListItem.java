@@ -1,6 +1,6 @@
 package model.listini;
 
-public class ItemListinoCamera {
+public class RoomPriceListItem {
 	private Integer id;
 	private Integer numGuests;
 	private Double[] prices = new Double[7]; 

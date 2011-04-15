@@ -18,7 +18,7 @@
         <div id="col3" role="main">
           <div id="col3_content" class="clearfix">
           	<div class="header_section">
-          	  <span class="name_section">Manage Price Lists</span>
+          	  <span class="name_section">Room Price Lists</span>
       	 	</div>
       	
       	    <div class="treeContainer">

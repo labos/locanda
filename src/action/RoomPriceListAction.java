@@ -89,6 +89,18 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware{
 	}
 	
 	@Actions({
+		@Action(value="/goFindAllRoomPriceLists",results = {
+				@Result(name="success",location="/priceLists.jsp")
+		}) 
+		
+	})
+	public String goFindAllRoomPriceLists() {
+		
+		return SUCCESS;
+	}
+	
+	
+	@Actions({
 		@Action(value="/findAllRoomPriceLists",results = {
 				@Result(type ="json",name="success", params={
 						"root","treeNodes"

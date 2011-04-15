@@ -80,6 +80,7 @@
 <s:url action="findAllGuests" var="url_findallguest"></s:url>
 <s:url action="findAllExtras" var="url_findallextra"></s:url>
 <s:url action="findAllSeasons" var="url_findallseasons"></s:url>
+<s:url action="goFindAllRoomPriceLists" var="url_findallpricelists"></s:url>
 
   <div class="page_margins">
     <div class="page">
@@ -107,7 +108,7 @@
               <ul class="sub_menu ui-menu ui-widget ui-widget-content ui-corner-all">
     			<li class="ui-menu-item"><a href="goOnlineBookings?sect=settings">ONLINE BOOKINGS</a></li>
     			<li class="ui-menu-item"><a href="<s:property value="url_findallseasons"/>?sect=settings">SEASONS</a></li>
-    			<li class="ui-menu-item"><a href="#">LISTINI CAMERE</a></li>
+    			<li class="ui-menu-item"><a href="<s:property value="url_findallpricelists"/>?sect=settings">ROOM PRICE LISTS</a></li>
     			<li class="ui-menu-item"><a href="emails.jsp?sect=settings">EMAILS</a></li>
     			<li class="ui-menu-item"><a href="<s:property value="url_details"/>?sect=settings">STRUCTURE DETAILS</a></li>
   			  </ul>

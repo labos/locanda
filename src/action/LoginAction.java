@@ -19,8 +19,8 @@ import model.Room;
 import model.RoomFacility;
 import model.Structure;
 import model.User;
-import model.listini.ItemListinoCamera;
-import model.listini.ListinoCamera;
+import model.listini.RoomPriceListItem;
+import model.listini.RoomPriceList;
 import model.listini.Period;
 import model.listini.Season;
 
@@ -83,16 +83,16 @@ public class LoginAction extends ActionSupport implements SessionAware{
 			
 		
 		ret = new Structure();
-		ret.setName("polaris");
+		ret.setName("Polaris");
 		ret.setEmail("polaris@locanda.it");
 		ret.setPhone("+39 070123456");
-		ret.setAddress("località Piscinamanna");
-		ret.setCountry("italy");
+		ret.setAddress("Località Piscinamanna");
+		ret.setCountry("Italy");
 		ret.setZipCode("09135");
 		ret.setUrl("http://www.sardegnaricerche.it");
 		ret.setNotes("struttura ricettiva alberghiera a 5 stelle");
 		ret.setFax("+39 0705678383");
-		ret.setCity("pula");
+		ret.setCity("Pula");
 		this.buildRoomFacilities(ret);
 		this.buildRooms(ret);
 		this.buildGuests(ret);
@@ -296,16 +296,16 @@ public class LoginAction extends ActionSupport implements SessionAware{
 	}
 	
 	private void buildListiniCamere(Structure structure){
-		ListinoCamera listinoCamera = null;
-		ItemListinoCamera itemListinoCamera = null;
+		RoomPriceList listinoCamera = null;
+		RoomPriceListItem itemListinoCamera = null;
 		Double[] prices = null;
 		
 		//Listino Camera Singola Bassa Stagione
-		listinoCamera =	new ListinoCamera();
+		listinoCamera =	new RoomPriceList();
 		listinoCamera.setId(structure.nextKey());
 		listinoCamera.setRoomType("singola");
 		listinoCamera.setSeason(structure.findSeasonByName("Bassa Stagione"));
-		itemListinoCamera = new ItemListinoCamera();
+		itemListinoCamera = new RoomPriceListItem();
 		itemListinoCamera.setId(structure.nextKey());
 		itemListinoCamera.setNumGuests(1);
 		prices = new Double[7];
@@ -322,11 +322,11 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		structure.addListinoCamera(listinoCamera);
 		
 		//Listino Camera Singola Alta Stagione
-		listinoCamera =	new ListinoCamera();
+		listinoCamera =	new RoomPriceList();
 		listinoCamera.setId(structure.nextKey());
 		listinoCamera.setRoomType("singola");
 		listinoCamera.setSeason(structure.findSeasonByName("Alta Stagione"));
-		itemListinoCamera = new ItemListinoCamera();
+		itemListinoCamera = new RoomPriceListItem();
 		itemListinoCamera.setId(structure.nextKey());
 		itemListinoCamera.setNumGuests(1);
 		prices = new Double[7];
@@ -343,12 +343,12 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		structure.addListinoCamera(listinoCamera);
 		
 		//Listino Camera Doppia Bassa Stagione
-		listinoCamera =	new ListinoCamera();
+		listinoCamera =	new RoomPriceList();
 		listinoCamera.setId(structure.nextKey());
 		listinoCamera.setRoomType("doppia");
 		listinoCamera.setSeason(structure.findSeasonByName("Bassa Stagione"));
 		
-		itemListinoCamera = new ItemListinoCamera();
+		itemListinoCamera = new RoomPriceListItem();
 		itemListinoCamera.setId(structure.nextKey());
 		itemListinoCamera.setNumGuests(1);
 		prices = new Double[7];
@@ -362,7 +362,7 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		itemListinoCamera.setPrices(prices);
 		listinoCamera.addItem(itemListinoCamera);
 		
-		itemListinoCamera = new ItemListinoCamera();
+		itemListinoCamera = new RoomPriceListItem();
 		itemListinoCamera.setId(structure.nextKey());
 		itemListinoCamera.setNumGuests(2);
 		prices = new Double[7];
@@ -379,12 +379,12 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		structure.addListinoCamera(listinoCamera);
 		
 		//Listino Camera Doppia Alta Stagione
-		listinoCamera =	new ListinoCamera();
+		listinoCamera =	new RoomPriceList();
 		listinoCamera.setId(structure.nextKey());
 		listinoCamera.setRoomType("doppia");
 		listinoCamera.setSeason(structure.findSeasonByName("Alta Stagione"));
 		
-		itemListinoCamera = new ItemListinoCamera();
+		itemListinoCamera = new RoomPriceListItem();
 		itemListinoCamera.setId(structure.nextKey());
 		itemListinoCamera.setNumGuests(1);
 		prices = new Double[7];
@@ -398,7 +398,7 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		itemListinoCamera.setPrices(prices);
 		listinoCamera.addItem(itemListinoCamera);
 		
-		itemListinoCamera = new ItemListinoCamera();
+		itemListinoCamera = new RoomPriceListItem();
 		itemListinoCamera.setId(structure.nextKey());
 		itemListinoCamera.setNumGuests(2);
 		prices = new Double[7];

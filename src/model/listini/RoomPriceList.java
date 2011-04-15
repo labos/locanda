@@ -4,27 +4,27 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class ListinoCamera {
+public class RoomPriceList {
 	private Integer id;
 	private String roomType;
 	private Season season;
-	private Agevolazione agevolazione;
-	private List<ItemListinoCamera> items;
+	private Convention agevolazione;
+	private List<RoomPriceListItem> items;
 	
-	public ListinoCamera(){
-		this.setItems(new ArrayList<ItemListinoCamera>());
+	public RoomPriceList(){
+		this.setItems(new ArrayList<RoomPriceListItem>());
 	}
 	
-	public Boolean addItem(ItemListinoCamera anItem){
+	public Boolean addItem(RoomPriceListItem anItem){
 		return this.getItems().add(anItem);		
 	}
 	
-	public Boolean removeItem(ItemListinoCamera anItem){
+	public Boolean removeItem(RoomPriceListItem anItem){
 		return this.getItems().remove(anItem);		
 	}
 	
-	public ItemListinoCamera findItemById(Integer id){
-		for(ItemListinoCamera each: this.getItems()){
+	public RoomPriceListItem findItemById(Integer id){
+		for(RoomPriceListItem each: this.getItems()){
 			if(each.getId().equals(id)){
 				return each;
 			}
@@ -32,8 +32,8 @@ public class ListinoCamera {
 		return null;
 	}
 	
-	public Boolean updateItem(ItemListinoCamera anItem){
-		ItemListinoCamera oldItem = null;
+	public Boolean updateItem(RoomPriceListItem anItem){
+		RoomPriceListItem oldItem = null;
 		
 		oldItem = this.findItemById(anItem.getId());
 		if(oldItem == null){
@@ -47,7 +47,7 @@ public class ListinoCamera {
 	public Double findRoomPrice(Integer numGuests, Integer dayOfWeek){
 		Double ret = 0.0;
 		
-		for(ItemListinoCamera each: this.getItems()){
+		for(RoomPriceListItem each: this.getItems()){
 			if(each.getNumGuests().equals(numGuests)){
 				return each.getPrice(dayOfWeek);
 			}
@@ -73,16 +73,16 @@ public class ListinoCamera {
 	public void setSeason(Season season) {
 		this.season = season;
 	}
-	public Agevolazione getAgevolazione() {
+	public Convention getAgevolazione() {
 		return agevolazione;
 	}
-	public void setAgevolazione(Agevolazione agevolazione) {
+	public void setAgevolazione(Convention agevolazione) {
 		this.agevolazione = agevolazione;
 	}
-	public List<ItemListinoCamera> getItems() {
+	public List<RoomPriceListItem> getItems() {
 		return items;
 	}
-	public void setItems(List<ItemListinoCamera> items) {
+	public void setItems(List<RoomPriceListItem> items) {
 		this.items = items;
 	}
 	

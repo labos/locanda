@@ -1,6 +1,6 @@
 package model.listini;
 
-public class Agevolazione {
+public class Convention {
 	private Integer id;
 	private String name;
 	private String description;
