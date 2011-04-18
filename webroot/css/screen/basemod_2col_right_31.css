@@ -34,8 +34,8 @@
   #col1 { float:right; width: 1%; }
   #col1_content { padding-left: 10px; padding-right: 20px; }
 
-  /* Hide #col2 | #col2 abschalten */
-  #col2, #col2_content { display:none }
+  /* Hide #col2 | #col2 abschalten 
+  #col2, #col2_content { display:none }	*/
 
   /* Adjust right margin | Rechten Randabstand anpassen */
   #col3 { margin-left:0; margin-right:15%; width:100%;}
