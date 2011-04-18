@@ -6,7 +6,7 @@
 
 <jsp:include page="../layout/header_widget.jsp" />
 <!-- Start of first page -->
-<div data-role="page" id="foo5" style="min-height:100%">
+<div data-role="page" id="foo5">
 
 	<div data-role="header">
 		<h1>Confirm Details</h1>

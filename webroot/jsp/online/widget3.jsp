@@ -16,8 +16,8 @@
 
 	<div data-role="content">
 <p><strong><s:property value="dateArrival"/></strong>, <s:property value="numNight"/> nights, <s:property value="numGuests"/> peoples</p>	
-			<form action="goOnlineBookingGuest.action">
-			<input type="hidden" name="id" value="<s:property value="id"/>" />
+			<form action="goOnlineBookingGuest.action" method="post">
+		
 			<input type="hidden" name="dateArrival" value="<s:property value="dateArrival"/>" />
 			<input type="hidden" name="numGuests" value="<s:property value="numGuests"/>" />
 			<input type="hidden" name="numNight" value="<s:property value="numNight"/>" />

@@ -8,13 +8,26 @@
 <!-- Start of first page -->
 <div data-role="page" id="foo4">
 
+ <script type="text/javascript"><!--
+ /*$(document).bind("mobileinit", function()
+ {
+   $.extend(  $.mobile , {
+       ajaxEnabled: false
+   });
+ });
+ */
+ </script>
 	<div data-role="header">
 		<h1>Confirm Details</h1>
 	</div><!-- /header -->
 
 	<div data-role="content">
 			<p><strong><s:property value="dateArrival"/></strong>, <s:property value="numNight"/> nights, <s:property value="numGuests"/> peoples</p>	
-			<form action="goOnlineBookingFinal.action">	
+			<form action="goOnlineBookingFinal.action">
+						<input type="hidden" name="id" value="<s:property value="id"/>" />
+			<input type="hidden" name="dateArrival" value="<s:property value="dateArrival"/>" />
+			<input type="hidden" name="numGuests" value="<s:property value="numGuests"/>" />
+			<input type="hidden" name="numNight" value="<s:property value="numNight"/>" />
 <div id="firstNameDiv" data-role="fieldcontain">
   <label for="firstNo">First Name*</label>
   <input id="firstNo" name="guest.firstName" type="text" />

@@ -21,7 +21,7 @@
 		<p>I'm first in the source order so I'm shown as the page.</p>		
 		-->
 		<p>View internal page called <a href="#bar">bar</a></p>	
-		            <form action="goOnlineBookingRooms.action" class="">
+		            <form action="goOnlineBookingRooms.action" class="" method="post">
             <input type="hidden" name="dateArrival" value=""/>
             <div class="c33l">
             <div data-role="fieldcontain">
