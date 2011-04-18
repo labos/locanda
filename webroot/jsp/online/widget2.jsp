@@ -16,21 +16,27 @@
 
 	<div data-role="content">
 			<p><strong><s:property value="dateArrival"/></strong>, <s:property value="numNight"/> nights, <s:property value="numGuests"/> peoples</p>	
-	<ul data-role="listview" data-theme="g">
+<ul data-role="listview" data-theme="g">
 	<s:iterator value="rooms" var="eachRoom" >
+	
+<li data-role="list-divider">
+<div class="ui-grid-b">
 	<form action="goOnlineBookingExtras.action" method="post">
-	<fieldset class="ui-grid-a">
+
 	<div class="ui-block-a"><input type="hidden" name="dateArrival" value="<s:property value="dateArrival"/>" />
 			<input type="hidden" name="numGuests" value="<s:property value="numGuests"/>" />
 			<input type="hidden" name="numNight" value="<s:property value="numNight"/>" />
-		<li><img src="images/hotel-demo.jpeg"  alt="room photo" />
-	<p><s:property value="#eachRoom.roomType"/></p>
-	<p class="price_room_widget">&euro; <s:property value="#eachRoom.price"/> <span>/room/nigth</span></p></div>
-	<div class="ui-block-b"><button type="submit" data-theme="b">SELECT</button></div>	   
-</fieldset>
+		<img src="images/hotel-demo.jpeg"  alt="room photo" /></div>
+	<div class="ui-block-b">	<p><s:property value="#eachRoom.roomType"/></p>
+	<p class="price_room_widget">&euro; <s:property value="#eachRoom.price"/> <span>/room/nigth</span></p></div>  
+	<div class="ui-block-c"><button type="submit" data-theme="b">SELECT</button></div>
+	 
 
-	</li>
+
+
 	</form>
+	</div>
+	</li>	
 	</s:iterator>
 </ul>
 	
