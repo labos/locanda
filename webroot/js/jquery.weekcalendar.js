@@ -956,7 +956,8 @@ $.ajax({
    	               "start": new Date(val.dateIn),
    	               "end": new Date(date_end_rendered_ms) ,
    	               "title":val.guest.lastName  + ' ' + val.guest.firstName,
-   	               "bookId": val.id
+   	               "bookId": val.id,
+   	               "confirmed": val.status
    	            });
    		    	 		
    		    		 });
@@ -1178,6 +1179,15 @@ $.ajax({
            //add room id and booking id into DOM
           var id_room= $('div.wc-time-header-cell#' + position + '  > input[name="id_room"]').val();
           var id_booking = (typeof calEvent.bookId === 'undefined' ) ? -1 : calEvent.bookId;
+          
+          
+	     if((typeof calEvent.confirmed !== 'undefined' ) && calEvent.confirmed== "provisional"){
+	    	 
+	    	 $calEvent.find(".wc-time").css({"background-color": "#FE9A2E"});
+	    	 $calEvent.find(".wc-time").html("online");
+	    	 
+	    	 }
+	        	 
            $calEvent.find(".wc-time").append('<input type="hidden" name="id_booked_room"  value="' +  id_room  + '" />'+
         		   '<input type="hidden" name="id_booking"  value="' +  id_booking  + '" />');
           

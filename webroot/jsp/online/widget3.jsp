@@ -10,14 +10,14 @@
 
 	<div data-role="header">
 		<h1>Select extras (optional)</h1>
-				<a href="goOnlineBookingCalendar.action" class="ui-btn-right" data-icon="home" data-iconpos="notext" 
+				<a href="goOnlineBookingCalendar.action" class="ui-btn-right" rel="external" data-icon="home" data-iconpos="notext" 
            data-direction="reverse">Home</a> 
 	</div><!-- /header -->
 
 	<div data-role="content">
-<p><strong><s:property value="dateArrival"/></strong>, <s:property value="numNight"/> nights, <s:property value="numGuests"/> peoples</p>	
+<p>Date Arrival: <strong><s:property value="dateArrival"/></strong>, <s:property value="numNight"/> nights, <s:property value="numGuests"/> peoples</p>	
 			<form action="goOnlineBookingGuest.action" method="post">
-		
+			<input type="hidden" name="booking.id" value="<s:property value="booking.id"/>" />
 			<input type="hidden" name="dateArrival" value="<s:property value="dateArrival"/>" />
 			<input type="hidden" name="numGuests" value="<s:property value="numGuests"/>" />
 			<input type="hidden" name="numNight" value="<s:property value="numNight"/>" />

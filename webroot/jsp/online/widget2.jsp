@@ -10,7 +10,7 @@
 
 	<div data-role="header">
 		<h1>Select a Room</h1>
-		<a href="goOnlineBookingCalendar.action" class="ui-btn-right" data-icon="home" data-iconpos="notext" 
+		<a href="goOnlineBookingCalendar.action" class="ui-btn-right" rel="external" data-icon="home" data-iconpos="notext" 
            data-direction="reverse">Home</a> 
 	</div><!-- /header -->
 
@@ -23,7 +23,9 @@
 <div class="ui-grid-b">
 	<form action="goOnlineBookingExtras.action" method="post">
 
-	<div class="ui-block-a"><input type="hidden" name="dateArrival" value="<s:property value="dateArrival"/>" />
+	<div class="ui-block-a">
+	<input type="hidden" name="roomId" value="<s:property value="#eachRoom.id"/>" />
+	<input type="hidden" name="dateArrival" value="<s:property value="dateArrival"/>" />
 			<input type="hidden" name="numGuests" value="<s:property value="numGuests"/>" />
 			<input type="hidden" name="numNight" value="<s:property value="numNight"/>" />
 		<img src="images/hotel-demo.jpeg"  alt="room photo" /></div>

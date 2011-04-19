@@ -14,6 +14,7 @@ import model.Structure;
 import model.User;
 import model.internal.Message;
 
+import org.apache.commons.lang.time.DateUtils;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Actions;
 import org.apache.struts2.convention.annotation.ParentPackage;
@@ -35,6 +36,7 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 	private List<Extra> extras;
 	private List<Integer> bookingExtrasId = null;
 	private Guest guest;
+	private Integer roomId;
 	
 	
 	@Actions({
@@ -71,12 +73,24 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 		user = (User)this.getSession().get("user");
 		structure = user.getStructure();
 		
+		List <Room> rooms = new ArrayList<Room>();
+		rooms = structure.getRooms();
+		this.setRooms(new ArrayList<Room>());
+		for(Room each : rooms){
+			
+			if ( structure.hasRoomFreeInPeriod(each.getId(), this.getDateArrival(), this.calculateDateOut()) ) 
+			{
+				this.getRooms().add(each);
+			}
+			
+		}
+		
 /*		if(!structure.hasRoomFreeForBooking(this.getBooking())){
 			this.getMessage().setResult(Message.ERROR);
 			this.getMessage().setDescription("Booking sovrapposti!");
 			return ERROR;
 	}*/
-		this.setRooms(structure.getRooms());
+		//-- this.setRooms(structure.getRooms());
 		this.setRoomFacilities(structure.getRoomFacilities());
 		return SUCCESS;
 	}
@@ -92,10 +106,21 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 	public String goOnlineBookingExtras(){
 		User user = null;
 		Structure structure = null;
-		
+		Room theBookedRoom = null;
 		user = (User)this.getSession().get("user");
 		structure = user.getStructure();
-		this.setRooms(structure.getRooms());
+		theBookedRoom = structure.findRoomById(this.getRoomId());
+		this.setBooking(new Booking());
+		this.getBooking().setRoom(theBookedRoom);	
+		this.setBooking(new Booking());
+		this.getBooking().setId(structure.nextKey());
+		this.getBooking().setRoom(theBookedRoom);
+		this.getBooking().setDateIn(this.getDateArrival());
+		this.getBooking().setDateOut(this.calculateDateOut());
+		this.getBooking().setNrGuests(this.getNumGuests());
+		structure.addBooking(this.getBooking());
+		
+		//this.setRooms(structure.getRooms());
 		this.setRoomFacilities(structure.getRoomFacilities());
 		this.setExtras(structure.getExtras());
 		return SUCCESS;
@@ -112,10 +137,19 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 	public String goOnlineBookingGuest(){
 		User user = null;
 		Structure structure = null;
-		
+		List<Extra>  checkedExtras = null;
 		user = (User)this.getSession().get("user");
 		structure = user.getStructure();
-		this.setRooms(structure.getRooms());
+		//this.setRooms(structure.getRooms());
+		this.setBooking(structure.findBookingById(this.getBooking().getId()));
+		if (this.getBookingExtrasId() != null){
+			
+		checkedExtras = structure.findExtrasByIds(this.getBookingExtrasId());	
+		this.getBooking().setExtras(checkedExtras);	
+		
+		}
+
+		structure.updateBooking(this.getBooking());
 		this.setRoomFacilities(structure.getRoomFacilities());
 		return SUCCESS;
 	}
@@ -124,7 +158,7 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 	@Actions({
 		@Action(value="/goOnlineBookingFinal",results = {
 				@Result(name="success",location="/jsp/online/widget5.jsp"),
-				
+				@Result(name="error",location="/jsp/online/validationError.jsp"),
 				@Result(name="input", location="/jsp/online/validationError.jsp")
 		})
 	})
@@ -132,12 +166,70 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 	public String goOnlineBookingFinal(){
 		User user = null;
 		Structure structure = null;
-		
+		Guest oldGuest = null;
 		user = (User)this.getSession().get("user");
 		structure = user.getStructure();
-		this.setRooms(structure.getRooms());
+		this.setBooking(structure.findBookingById(this.getBooking().getId()));
+		try {
+			
+			
+			oldGuest = structure.findGuestById(this.getGuest().getId());		
+			if(oldGuest == null){
+				//Si tratta di un nuovo guest e devo aggiungerlo
+				this.getGuest().setId(structure.nextKey());
+				structure.addGuest(guest);			
+			}	
+			
+			
+			this.getBooking().setGuest(this.getGuest());
+			this.getBooking().setStatus("provisional");
+			//check if current booking is valid to save
+			if (checkBookingIsValid (this.getBooking())){
+				
+				structure.updateBooking(this.getBooking());
+			}
+			else {
+				
+				structure.deleteBooking(this.getBooking());
+				addActionError("This booking cannot be saved");
+				return ERROR;
+				
+				
+			}
+			
+		}
+		 catch(NullPointerException e) {
+			 
+				structure.deleteBooking(this.getBooking());
+				addActionError("This booking cannot be saved");
+				return ERROR;
+
+		 }
+		
+		
 		this.setRoomFacilities(structure.getRoomFacilities());
 		return SUCCESS;
+	}
+
+	private Date calculateDateOut(){
+
+		Date dateOut = null;
+		
+		if(( this.getNumNight()!=null ) && ( this.getDateArrival()!=null )){
+
+			dateOut  = DateUtils.addDays(this.getDateArrival(), this.getNumNight() );	
+			
+		}		
+		return dateOut;
+	}
+	
+	private Boolean checkBookingIsValid (Booking booking){
+		
+	if(booking.getRoom() != null && booking.getId() != null && booking.getGuest() != null && booking.getDateIn() != null && booking.getDateOut() != null){
+		return true;
+	}
+		
+		return false;
 	}
 	
 	public List<Extra> getExtras() {
@@ -256,6 +348,16 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 
 	public void setBookingExtrasId(List<Integer> bookingExtrasId) {
 		this.bookingExtrasId = bookingExtrasId;
+	}
+
+
+	public Integer getRoomId() {
+		return roomId;
+	}
+
+
+	public void setRoomId(Integer roomId) {
+		this.roomId = roomId;
 	}
 	
 	

@@ -10,13 +10,15 @@
 
 	<div data-role="header">
 		<h1>Confirm Details</h1>
+		<a href="goOnlineBookingCalendar.action" class="ui-btn-right"  rel="external" data-icon="home" data-iconpos="notext" 
+           data-direction="reverse">Home</a> 
 	</div><!-- /header -->
 
 	<div data-role="content">
-<p><strong><s:property value="dateArrival"/></strong>, <s:property value="numNight"/> nights, <s:property value="numGuests"/> peoples</p>	
-	<strong>Congratulation, <s:property value="guest.firstName"/>  <s:property value="guest.lastName"/> your booking request has been sent</strong>
+	<div class="alert"></div>	
+	<strong>Congratulation, <s:property value="booking.guest.firstName"/>  <s:property value="booking.guest.lastName"/>,<br/> your booking request has been sent</strong>
 	<div data-role="fieldcontain">
-	<p>
+	<p class="resume_booking">
 	 <b>Date Arrival: </b><s:property value="dateArrival"/><br/>
 	 <b>Nights: </b><s:property value="numNight"/><br/>
 	 <b>Number of peoples: </b><s:property value="numGuests"/><br/>
@@ -33,7 +35,7 @@
 &sensor=false" />
 	</p>
 	
-	<a href="goOnlineBookingCalendar.action"  rel="external" data-role="button" data-icon="home" data-theme="a">FINISH</a>
+	<a href="goOnlineBookingCalendar.action"  rel="external" data-role="button" data-icon="check" data-theme="b">FINISH</a>
 </div>
 	</div><!-- /content -->
 

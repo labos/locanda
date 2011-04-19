@@ -20,6 +20,7 @@ public class Booking {
 	private List<Extra> extras;
 	private List<Adjustment> adjustments;
 	private List<Payment> payments = null;
+	private String status = "confirmed";
 	
 	public Booking(){
 		this.extras = new ArrayList<Extra>();
@@ -191,6 +192,14 @@ public class Booking {
 
 	public void setPayments(List<Payment> payments) {
 		this.payments = payments;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 	
 	

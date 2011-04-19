@@ -127,6 +127,15 @@ margin-top: 0px;
 	color: red;
 	font-weight: 600;
 	}
+	
+	.error {
+color:#880000;
+font-weight:600;
+}
+
+	.resume_booking {
+text-align: left;
+}
 </style>
 
 <script>
@@ -197,6 +206,34 @@ margin-top: 0px;
 	  		
 	  		 return false;
 	  	});
+	  	
+	  	
+
+		
+		
+		
+		$( '[data-role=page]' ).live('pagebeforecreate', function(event){ 
+			
+			$( "#btn_guest_next" ).click(function(event){
+				
+				event.preventDefault();
+					$(this).validate();
+					
+					if(! $(this).parents("form").valid() ) {
+						
+	  		
+		  			return false;
+						
+					}
+					
+					
+					$(this).parents("form").submit();
+					
+					
+					
+				});
+		});
+
 	  	
 	});
 	
