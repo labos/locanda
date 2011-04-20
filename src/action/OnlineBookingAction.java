@@ -78,7 +78,7 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 		this.setRooms(new ArrayList<Room>());
 		for(Room each : rooms){
 			
-			if ( structure.hasRoomFreeInPeriod(each.getId(), this.getDateArrival(), this.calculateDateOut()) ) 
+			if ( (each.getMaxGuests() >= this.getNumGuests() ) && structure.hasRoomFreeInPeriod(each.getId(), this.getDateArrival(), this.calculateDateOut()) ) 
 			{
 				this.getRooms().add(each);
 			}
