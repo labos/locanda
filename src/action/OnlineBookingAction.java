@@ -69,13 +69,27 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 	public String goOnlineBookingRooms(){
 		User user = null;
 		Structure structure = null;
-		
+		List <Booking> toRemoveBookings = new ArrayList<Booking>();
 		user = (User)this.getSession().get("user");
 		structure = user.getStructure();
 		
 		List <Room> rooms = new ArrayList<Room>();
 		rooms = structure.getRooms();
 		this.setRooms(new ArrayList<Room>());
+		//remove not completed booking from the memory
+		
+		for (Booking abooking : structure.getBookings()){
+			
+			if (! checkBookingIsValid(abooking) ){
+			
+				
+				toRemoveBookings.add(abooking);
+;				
+		}
+			}
+		
+		structure.getBookings().removeAll(toRemoveBookings);
+		
 		for(Room each : rooms){
 			
 			if ( (each.getMaxGuests() >= this.getNumGuests() ) && structure.hasRoomFreeInPeriod(each.getId(), this.getDateArrival(), this.calculateDateOut()) ) 

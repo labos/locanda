@@ -49,7 +49,7 @@
 </div>
   	<div id="stateDiv" data-role="fieldcontain">
   		<label for="state">State*</label>		
-      <select id="state" name="guest.state" tabindex="2" class="required" >
+      <select id="state" name="guest.country" tabindex="2" class="required" >
                 <option selected="selected" value="">Select One</option>
 				<option value="Afghanistan">Afghanistan</option>
 				<option value="Albania">Albania</option>
