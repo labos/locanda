@@ -29,6 +29,6 @@
 
 	#col2 {float: none; width: auto; }
 	#col1 {float: left; width: 25%; }
-	#col3 {margin-left: 25%; margin-right: 0 }
+	#col3 {width: auto; margin-left: 25%; margin-right: 0 }
 }
 

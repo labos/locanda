@@ -1907,7 +1907,13 @@ $(document).ready(function() {
 		  					  },			  
 		  					  
 		  		"plugins" :   [ "themes", "json_data" ]
-		  	  }); 
+		  	  });
+		 	  
+//		 	 $(".priceTable").hide();
+//		 	  $(".jstree-leaf").click (function(){
+//		 		  $(".priceTable").show();
+//		 		  
+//		 	  });
 		  	
 		    //---  END PRICE LISTS SECTION CODE
 		  	

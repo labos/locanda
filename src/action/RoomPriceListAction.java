@@ -2,6 +2,7 @@ package action;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -129,7 +130,7 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware{
 			years.add(eachSeason.getYear());
 		}
 		for (Integer eachYear : years) {							//costruisco i nodi di primo livello - gli anni
-			this.treeNodes.add(TreeNode.buildNodeWithTitle(eachYear.toString()));
+			this.treeNodes.add(TreeNode.buildNode(eachYear.toString()));
 		}
 		
 		for (TreeNode eachNode1 : this.treeNodes) {					//costruisco i nodi di secondo livello - le stagioni
@@ -139,7 +140,10 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware{
 			}
 			for (TreeNode eachNode2 : eachNode1.getChildren()) {	//costruisco i nodi di terzo livello - i roomTypes
 				for (String eachRoomType : structure.findAllRoomTypes()) {
-					eachNode2.buildChild(eachRoomType);
+					String href = "/locanda/findRoomPriceListItems" + 
+						"?seasonId=" + structure.findSeasonByName(eachNode2.getData().getTitle()).getId() + 
+						"&roomType=" + eachRoomType;
+					eachNode2.buildChild(eachRoomType, href);
 				}			
 			}
 		}
@@ -149,15 +153,8 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware{
 	
 	@Actions({
 		@Action(value="/findRoomPriceListItems",results = {
-				@Result(type ="json",name="success", params={
-						"root","priceList"
-				} ),
-				@Result(type ="json",name="error", params={
-						"excludeProperties","session"
-				} ),
-				@Result(name="input", location = "/validationError.jsp" )
+				@Result(name="success",location="/priceLists.jsp")
 		})
-		
 	})
 	
 	public String findRoomPriceListItems() {
