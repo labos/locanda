@@ -15,6 +15,7 @@ import model.User;
 import model.internal.Message;
 import model.internal.TreeData;
 import model.internal.TreeNode;
+import model.listini.RoomPriceList;
 import model.listini.Season;
 
 import org.apache.commons.lang.time.DateUtils;
@@ -34,6 +35,10 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware{
 	private List<Integer> bookingExtraIds = new ArrayList<Integer>();
 	private Integer numNights;
 	private List<TreeNode> treeNodes = new ArrayList<TreeNode>();
+	private RoomPriceList priceList = null;
+	
+	private Integer seasonId = null;
+	private String roomType = null;
 	
 	@Actions({
 		@Action(value="/calculatePrices",results = {
@@ -124,11 +129,7 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware{
 			years.add(eachSeason.getYear());
 		}
 		for (Integer eachYear : years) {							//costruisco i nodi di primo livello - gli anni
-			TreeData data = new TreeData();
-			data.setTitle(eachYear.toString());
-			TreeNode node1 = new TreeNode();
-			node1.setData(data);
-			this.treeNodes.add(node1);
+			this.treeNodes.add(TreeNode.buildNodeWithTitle(eachYear.toString()));
 		}
 		
 		for (TreeNode eachNode1 : this.treeNodes) {					//costruisco i nodi di secondo livello - le stagioni
@@ -144,6 +145,32 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware{
 		}
 		
 		return "success";
+	}
+	
+	@Actions({
+		@Action(value="/findRoomPriceListItems",results = {
+				@Result(type ="json",name="success", params={
+						"root","priceList"
+				} ),
+				@Result(type ="json",name="error", params={
+						"excludeProperties","session"
+				} ),
+				@Result(name="input", location = "/validationError.jsp" )
+		})
+		
+	})
+	
+	public String findRoomPriceListItems() {
+		User user = null;
+		Structure structure = null;
+		Season season = null;
+		
+		user = (User)this.getSession().get("user");
+		structure = user.getStructure();
+		
+		season = structure.findSeasonById(this.getSeasonId());
+		this.setPriceList(structure.findRoomPriceListBySeasonAndRoomType(season, this.getRoomType()));
+		return SUCCESS;
 	}
 	
 	
@@ -195,6 +222,31 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware{
 	public void setTreeNodes(List<TreeNode> treeNodes) {
 		this.treeNodes = treeNodes;
 	}
+
+	public RoomPriceList getPriceList() {
+		return priceList;
+	}
+
+	public void setPriceList(RoomPriceList priceList) {
+		this.priceList = priceList;
+	}
+
+	public Integer getSeasonId() {
+		return seasonId;
+	}
+
+	public void setSeasonId(Integer seasonId) {
+		this.seasonId = seasonId;
+	}
+
+	public String getRoomType() {
+		return roomType;
+	}
+
+	public void setRoomType(String roomType) {
+		this.roomType = roomType;
+	}
+	
 	
 	
 }

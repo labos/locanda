@@ -319,7 +319,7 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		itemListinoCamera.setPrices(prices);
 		listinoCamera.addItem(itemListinoCamera);
 		
-		structure.addListinoCamera(listinoCamera);
+		structure.addRoomPriceList(listinoCamera);
 		
 		//Listino Camera Singola Alta Stagione
 		listinoCamera =	new RoomPriceList();
@@ -340,7 +340,7 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		itemListinoCamera.setPrices(prices);
 		listinoCamera.addItem(itemListinoCamera);
 		
-		structure.addListinoCamera(listinoCamera);
+		structure.addRoomPriceList(listinoCamera);
 		
 		//Listino Camera Doppia Bassa Stagione
 		listinoCamera =	new RoomPriceList();
@@ -376,7 +376,7 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		itemListinoCamera.setPrices(prices);
 		listinoCamera.addItem(itemListinoCamera);
 		
-		structure.addListinoCamera(listinoCamera);
+		structure.addRoomPriceList(listinoCamera);
 		
 		//Listino Camera Doppia Alta Stagione
 		listinoCamera =	new RoomPriceList();
@@ -412,7 +412,7 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		itemListinoCamera.setPrices(prices);
 		listinoCamera.addItem(itemListinoCamera);	
 		
-		structure.addListinoCamera(listinoCamera);				
+		structure.addRoomPriceList(listinoCamera);				
 	}
 	
 	public Map<String, Object> getSession() {

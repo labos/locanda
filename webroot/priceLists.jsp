@@ -30,7 +30,11 @@
         
         <div id="col3" role="main">
           <div id="col3_content" class="clearfix">
-         
+          	<table>
+          	  <tr>
+          	  	<td></td>
+          	  </tr>
+          	</table>
 		  </div>
 		</div>
 	  </div>

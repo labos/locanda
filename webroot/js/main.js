@@ -1897,18 +1897,16 @@ $(document).ready(function() {
 		  		"core" 		: { "initially_open" : [ "root" ] },
 		  		
 		  		"json_data" : {
-		  			"ajax" : {
-						"url" : "findAllRoomPriceLists.action"
-		  			}
+		  			 		  	"ajax" : {"url" : "findAllRoomPriceLists.action"}
 		  					  },
 		  		
 		  		"themes" 	: {
-		  						            "theme" : "default",
-		  							            "dots" : true,
-		  						            "icons" : true
-		  						        },			  
+		  						"theme" : "default",
+		  						"dots" : true,
+		  						"icons" : true
+		  					  },			  
 		  					  
-		  		"plugins" : [ "themes", "json_data" ]
+		  		"plugins" :   [ "themes", "json_data" ]
 		  	  }); 
 		  	
 		    //---  END PRICE LISTS SECTION CODE

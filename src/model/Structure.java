@@ -34,7 +34,7 @@ public class Structure {
 	private List<Booking> bookings;
 	private List<Extra> extras;
 	private List<Season> seasons;
-	private List<RoomPriceList> listiniCamere;
+	private List<RoomPriceList> roomPriceLists;
 	
 	
 	public Structure(){
@@ -46,7 +46,7 @@ public class Structure {
 		this.setBookings(new ArrayList<Booking>());
 		this.setExtras(new ArrayList<Extra>());
 		this.setSeasons(new ArrayList<Season>());
-		this.setListiniCamere(new ArrayList<RoomPriceList>());
+		this.setRoomPriceLists(new ArrayList<RoomPriceList>());
 	}
 	
 	public Integer nextKey(){
@@ -411,19 +411,19 @@ public class Structure {
 	
 	
 	//Listino Camera
-	public Boolean addListinoCamera(RoomPriceList listino){
-		return this.getListiniCamere().add(listino);
+	public Boolean addRoomPriceList(RoomPriceList listino){
+		return this.getRoomPriceLists().add(listino);
 		
 	}
 	
-	public Boolean removeListinoCamera(RoomPriceList listino){
-		return this.getListiniCamere().remove(listino);
+	public Boolean removeRoomPriceList(RoomPriceList listino){
+		return this.getRoomPriceLists().remove(listino);
 	}
 	
-	public RoomPriceList findListinoCameraById(Integer id){
+	public RoomPriceList findRoomPriceListById(Integer id){
 		RoomPriceList ret = null;
 		
-		for(RoomPriceList each: this.getListiniCamere()){
+		for(RoomPriceList each: this.getRoomPriceLists()){
 			if(each.getId().equals(id)){
 				return each;
 			}
@@ -463,7 +463,7 @@ public class Structure {
 		
 		bookingDates = this.calculateBookingDates(booking.getDateIn(), booking.getDateOut());
 		for(Date aBookingDate: bookingDates){
-			listinoCameraDelGiorno = this.findListinoCamera(booking.getRoom(), aBookingDate);
+			listinoCameraDelGiorno = this.findRoomPriceListByRoomAndDate(booking.getRoom(), aBookingDate);
 			calendar = Calendar.getInstance();
 			calendar.setTime(aBookingDate);
 			dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
@@ -499,17 +499,28 @@ public class Structure {
 		return bookingDates;
 	}
 	
-	public RoomPriceList findListinoCamera(Room room, Date date){
+	public RoomPriceList findRoomPriceListByRoomAndDate(Room room, Date date){
 		RoomPriceList ret = null;
 		Season season = null;
 		
 		season = this.findSeasonByDate(date);
-		for(RoomPriceList each: this.getListiniCamere()){
+		for(RoomPriceList each: this.getRoomPriceLists()){
 			if(each.getSeason().getName().equalsIgnoreCase(season.getName()) &&
 					each.getRoomType().equalsIgnoreCase(room.getRoomType()) ){
 				return each;
 			}
 		}		
+		return ret;
+	}
+	
+	public RoomPriceList findRoomPriceListBySeasonAndRoomType(Season season, String roomType) {
+		RoomPriceList ret = null;
+		
+		for(RoomPriceList each: this.getRoomPriceLists()) {
+			if (each.getSeason().equals(season) && each.getRoomType().equalsIgnoreCase(roomType)) {
+				return each;
+			}
+		}
 		return ret;
 	}
 	
@@ -654,12 +665,12 @@ public class Structure {
 		this.seasons = seasons;
 	}
 
-	public List<RoomPriceList> getListiniCamere() {
-		return listiniCamere;
+	public List<RoomPriceList> getRoomPriceLists() {
+		return roomPriceLists;
 	}
 
-	public void setListiniCamere(List<RoomPriceList> listiniCamere) {
-		this.listiniCamere = listiniCamere;
+	public void setRoomPriceLists(List<RoomPriceList> listiniCamere) {
+		this.roomPriceLists = listiniCamere;
 	}
 	public List<RoomFacility> getRoomFacilities() {
 		return roomFacilities;

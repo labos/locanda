@@ -1,14 +1,13 @@
 package model.listini;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class RoomPriceList {
 	private Integer id;
 	private String roomType;
 	private Season season;
-	private Convention agevolazione;
+	private Convention convention;
 	private List<RoomPriceListItem> items;
 	
 	public RoomPriceList(){
@@ -16,11 +15,11 @@ public class RoomPriceList {
 	}
 	
 	public Boolean addItem(RoomPriceListItem anItem){
-		return this.getItems().add(anItem);		
+		return this.getItems().add(anItem);
 	}
 	
 	public Boolean removeItem(RoomPriceListItem anItem){
-		return this.getItems().remove(anItem);		
+		return this.getItems().remove(anItem);
 	}
 	
 	public RoomPriceListItem findItemById(Integer id){
@@ -74,10 +73,10 @@ public class RoomPriceList {
 		this.season = season;
 	}
 	public Convention getAgevolazione() {
-		return agevolazione;
+		return convention;
 	}
 	public void setAgevolazione(Convention agevolazione) {
-		this.agevolazione = agevolazione;
+		this.convention = agevolazione;
 	}
 	public List<RoomPriceListItem> getItems() {
 		return items;

@@ -42,6 +42,14 @@ public class TreeNode {
 		return this.getChildren().add(childNode);
 	}
 	
+	public static TreeNode buildNodeWithTitle(String title) {		//crea un nodo settandone il title
+		TreeData data = new TreeData();
+		data.setTitle(title);
+		TreeNode newNode = new TreeNode();
+		newNode.setData(data);
+		return newNode;
+	}
+	
 	public Boolean buildChild(String childTitle) {	//aggiunge un nodo figlio settandone il title
 		TreeData data = new TreeData();
 		data.setTitle(childTitle);
