@@ -40,7 +40,14 @@
 	</div>
 	</li>	
 	</s:iterator>
+
 </ul>
+	<s:if test="rooms.size() == 0">
+		<h3>No rooms available for the selected period.</h3>
+		<a href="goOnlineBookingCalendar.action"  rel="external" data-role="button" data-icon="alert" data-theme="b">BACK</a>
+		
+	</s:if>
+
 	
 
 	</div><!-- /content -->

@@ -16,6 +16,7 @@
 
 	<div data-role="content">
 <p>Date Arrival: <strong><s:property value="dateArrival"/></strong>, <s:property value="numNight"/> nights, <s:property value="numGuests"/> peoples</p>	
+<p>Total Price: <strong><s:property value="booking.roomSubtotal"/></strong></p>
 			<form action="goOnlineBookingGuest.action" method="post">
 			<input type="hidden" name="booking.id" value="<s:property value="booking.id"/>" />
 			<input type="hidden" name="dateArrival" value="<s:property value="dateArrival"/>" />

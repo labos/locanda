@@ -23,8 +23,9 @@
            data-direction="reverse">Home</a> 
 	</div><!-- /header -->
 
-	<div data-role="content">
+	<div data-role="content" >
 			<p>Date Arrival: <strong><s:property value="dateArrival"/></strong>, <s:property value="numNight"/> nights, <s:property value="numGuests"/> peoples</p>	
+			<p>Total Price: <strong><s:property value="booking.roomSubtotal + booking.extraSubtotal"/></strong></p>
 			<form action="goOnlineBookingFinal.action"  method="post">
 			<input type="hidden" name="booking.id" value="<s:property value="booking.id"/>" />
 			<input type="hidden" name="dateArrival" value="<s:property value="dateArrival"/>" />
@@ -40,7 +41,11 @@
 </div>
 <div id="phoneNameDiv" data-role="fieldcontain">
   <label for="phoneNo">Phone*</label>
-  <input id="phoneNo" name="guest.Phone" type="text" class="required" />
+  <input id="phoneNo" name="guest.phone" type="text" class="required" />
+</div>
+<div id="addressNameDiv" data-role="fieldcontain">
+  <label for="addressNo">Address*</label>
+  <input id="addressNo" name="guest.address" type="text" class="required" />
 </div>
   	<div id="stateDiv" data-role="fieldcontain">
   		<label for="state">State*</label>		
@@ -275,7 +280,10 @@
 				<option value="Zimbabwe Republic">Zimbabwe Republic</option>
     		</select>
     </div>
-	
+	<div id="zipcodeNameDiv" data-role="fieldcontain">
+  <label for="zipcodeNo">ZipCode*</label>
+  <input id="zipcodeNo" name="guest.zipCode" type="text" class="required" />
+</div>
 
 <div data-role="fieldcontain">
 	<button type="submit" data-theme="b" id="btn_guest_next">SUBMIT REQUEST</button>

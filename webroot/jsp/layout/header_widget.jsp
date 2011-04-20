@@ -177,29 +177,6 @@ text-align: left;
 	  			return false;
 	  			}
 	  			
-	  			/*
-	  			var formData = $(this).parents(".yform.json").serialize();
-	  			var action = $(this).parents(".yform.json").attr("action");
-					
-	  			$.ajax({
-	  		      url: action,
-	  		      global: false,
-	  		      type: "POST",
-	  		      data: formData,
-	  		      dataType: "html",
-	  		     beforeSend: function(msg){
-	  		    	$(".widget-booking").html("<img src=\"images/loading.gif\" />");
-	  		    	 
-	  		      },
-	  		      success: function(data){
-	  		    	$(".widget-booking").html(data);
-	  		      },
-	  		     error: function(msg){
-	  		         alert(msg);
-	  		      }
-	  		   }
-	  		)
-	  			*/
 	  			
 	  			$(this).parents("form").submit();
 	  		}

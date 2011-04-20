@@ -22,6 +22,7 @@
 	 <b>Date Arrival: </b><s:property value="dateArrival"/><br/>
 	 <b>Nights: </b><s:property value="numNight"/><br/>
 	 <b>Number of peoples: </b><s:property value="numGuests"/><br/>
+	 <b>Total Price: <strong style="color: red; font-size: 14px;"><s:property value="booking.roomSubtotal + booking.extraSubtotal"/></strong> &euro;</b>
 	</p>	
 	
 	<p>

@@ -107,6 +107,7 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 		User user = null;
 		Structure structure = null;
 		Room theBookedRoom = null;
+		Double roomSubtotal = 0.0;
 		user = (User)this.getSession().get("user");
 		structure = user.getStructure();
 		theBookedRoom = structure.findRoomById(this.getRoomId());
@@ -118,6 +119,10 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 		this.getBooking().setDateIn(this.getDateArrival());
 		this.getBooking().setDateOut(this.calculateDateOut());
 		this.getBooking().setNrGuests(this.getNumGuests());
+		roomSubtotal = structure.calculateRoomSubtotalForBooking(this.getBooking());
+		this.getBooking().setRoomSubtotal(roomSubtotal);
+		
+		
 		structure.addBooking(this.getBooking());
 		
 		//this.setRooms(structure.getRooms());
@@ -138,6 +143,7 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 		User user = null;
 		Structure structure = null;
 		List<Extra>  checkedExtras = null;
+		Double extraSubtotal = 0.0;
 		user = (User)this.getSession().get("user");
 		structure = user.getStructure();
 		//this.setRooms(structure.getRooms());
@@ -146,6 +152,9 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 			
 		checkedExtras = structure.findExtrasByIds(this.getBookingExtrasId());	
 		this.getBooking().setExtras(checkedExtras);	
+		
+		extraSubtotal = structure.calculateExtraSubtotalForBooking(this.getBooking());
+		this.getBooking().setExtraSubtotal(extraSubtotal);
 		
 		}
 

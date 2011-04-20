@@ -17,10 +17,6 @@
 	<div data-role="content">
 	<div class="alert"></div>	
 	<div id='largeDatepicker'></div>
-	<!--
-		<p>I'm first in the source order so I'm shown as the page.</p>		
-		-->
-		<p>View internal page called <a href="#bar">bar</a></p>	
 		            <form action="goOnlineBookingRooms.action" class="" method="post">
             <input type="hidden" name="dateArrival" value=""/>
             <div class="c33l">
@@ -58,7 +54,7 @@
             	 <div class="c33l">
 <div data-role="fieldcontain">
 <p>&nbsp;</p>
-<button type="submit" data-theme="b" id="btn_widg_next">NEXT</button>
+<button type="submit" data-theme="b" data-icon="arrow-r" id="btn_widg_next">NEXT</button>
 	<!--<a href="index.html" data-role="button" data-theme="b">NEXT</a>
 --></div>
 

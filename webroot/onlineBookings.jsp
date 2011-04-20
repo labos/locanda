@@ -29,7 +29,7 @@
                   	<span>Past this code into your website and get booking service</span>
              	  </div>
                   <div class="type-text">
-                  	<textarea readonly="readonly" id="text-widget" rows="5" cols="30"><iframe height="600" width="400" marginheight="0" marginwidth="0"
+                  	<textarea readonly="readonly" id="text-widget" rows="5" cols="30"><iframe height="900" width="400" marginheight="0" marginwidth="0"
         src="http://localhost:8080/locanda/goOnlineBookingCalendar.action" scrolling="no"></iframe></textarea>
              	  </div>
              	 <div class="type-check">
@@ -44,7 +44,7 @@
            		  </div>
 	    <div id ="text-widget-edit" style="display: none">
 	    <textarea  rows="5" cols="30">
-	    <iframe height="600" width="400" marginheight="0" marginwidth="0"
+	    <iframe height="900" width="400" marginheight="0" marginwidth="0"
         src="http://localhost:8080/locanda/goOnlineBookingCalendar.action" scrolling="no"></iframe>
         </textarea>
 	    </div>
