@@ -126,15 +126,22 @@ public class Structure {
 				roomBookings.add(each);
 			}
 		}
-		//               dateIn |-------------------------| dateOut    
-		//       |------------------|    |---|     |---------------------------|    roomBookings
-		//             aBooking         aBooking         aBooking
+		//               dateIn |-------------------------| dateOut              dateIn |-----| dateOut 
+		//       |------------------|    |---|     |---------------------------|    |------------------|  roomBookings
+		//             aBooking         aBooking         aBooking							aBooking 
 		
 		for(Booking aBooking: roomBookings){
 			if(aBooking.getDateOut().after(dateIn) && aBooking.getDateOut().before(dateOut)){
 				return false;
 			}
 			if(aBooking.getDateIn().after(dateIn) && aBooking.getDateIn().before(dateOut)){
+				return false;
+			}
+			
+			if(aBooking.getDateIn().after(dateIn) && aBooking.getDateOut().before(dateOut)){
+				return false;
+			}
+			if(aBooking.getDateOut().after(dateOut) && aBooking.getDateIn().before(dateIn)){
 				return false;
 			}
 		}
