@@ -1909,10 +1909,21 @@ $(document).ready(function() {
 		  		"plugins" :   [ "themes", "json_data" ]
 		  	  });
 		 	  
-//		 	 $(".priceTable").hide();
 //		 	  $(".jstree-leaf").click (function(){
-//		 		  $(".priceTable").show();
-//		 		  
+//		 		$.ajax({
+//		   			url: "findRoomPriceListItemsJson.action",
+//		   			context: document.body,
+//		   			success: function(data){
+//		     			$(data).each(function(i, val){						//iterate over the list
+//		    	 			list_rooms.push(new Room(val.id,val.name));		//add current room to room list
+//		    		 	});
+//		     			num_rooms=list_rooms.length;						//calculates the new lenght of the list
+//		     			$calendar.LoadCalendar();							//now load calendar 
+//		   			},
+//	   	  			error: function(){
+//	   					$().notify("Attenzione", "Problema restituzione lista prezzi...");		//if you cannot retrieve the price list then...
+//	   	 			 }
+//		 		});		 		  
 //		 	  });
 		  	
 		    //---  END PRICE LISTS SECTION CODE
