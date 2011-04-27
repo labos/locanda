@@ -32,22 +32,16 @@
           <div id="col3_content" class="clearfix">
           	
           	<div class="priceTable">
-          	<table class="full">
-          	  <tr></tr>
-          		<th>Guests number</th><th>Monday</th><th>Tuesday</th><th>Wednesday</th><th>Thursday</th><th>Friday</th><th>Saturday</th><th>Sunday</th>
-          	  </tr>
-          	<s:iterator value="priceList.items" var="eachPriceListItem" >
+          	<table class="full priceList_table">
+          	
+          	  <thead>
           	  <tr>
-          	  	<td><s:property value="#eachPriceListItem.numGuests"/></td>	
-          	  	<td><s:property value="#eachPriceListItem.prices[0]"/></td>
-          	  	<td><s:property value="#eachPriceListItem.prices[1]"/></td>
-          	  	<td><s:property value="#eachPriceListItem.prices[2]"/></td>
-          	  	<td><s:property value="#eachPriceListItem.prices[3]"/></td>
-          	  	<td><s:property value="#eachPriceListItem.prices[4]"/></td>
-          	  	<td><s:property value="#eachPriceListItem.prices[5]"/></td>
-          	  	<td><s:property value="#eachPriceListItem.prices[6]"/></td>
-          	  </tr>
-          	</s:iterator>
+          		<th>Guests number</th><th>Monday</th><th>Tuesday</th><th>Wednesday</th><th>Thursday</th><th>Friday</th><th>Saturday</th><th>Sunday</th>
+          		</tr>
+          		
+          	  </thead>
+          	  <tbody>
+          	</tbody>
           	</table>
           	</div>
           	

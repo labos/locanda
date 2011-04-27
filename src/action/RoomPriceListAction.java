@@ -153,7 +153,7 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware{
 	
 	@Actions({
 		@Action(value="/findRoomPriceListItems",results = {
-				@Result(name="success",location="/priceLists.jsp")
+				@Result(name="success",location="/jsp/contents/priceList_table.jsp")
 		}),
 		@Action(value="/findRoomPriceListItemsJson",results = {
 				@Result(type ="json",name="success", params={
