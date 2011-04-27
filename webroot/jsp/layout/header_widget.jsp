@@ -109,7 +109,9 @@ margin-top: 0px;
 }
 
 .price_room_widget{
-	font-size: 18px;
+	font-size: 15px;
+	margin: 0 auto;
+	margin-left: 3px;
 	}
 	.price_room_widget span{
 	font-size: 11px;
