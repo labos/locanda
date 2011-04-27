@@ -136,6 +136,9 @@ font-weight:600;
 	.resume_booking {
 text-align: left;
 }
+.ui-content .ui-listview {
+margin:0 auto;
+}
 </style>
 
 <script>

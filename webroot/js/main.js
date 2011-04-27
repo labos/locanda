@@ -1893,12 +1893,46 @@ $(document).ready(function() {
 		  	
 		    //---  PRICE LISTS SECTION CODE
 		  	
-		 	  $(".tree").jstree({
+		 	  $(".tree").bind("loaded.jstree", function (event, data) {
+		 			
+		 		 $(".jstree-leaf").click(function(event){
+			 		
+				  	event.preventDefault();
+				  	var url_table = $("a", this).attr("href");
+			 		$.ajax({
+						
+			   			url: url_table,
+			   			context: document.body,
+						success: function(data){
+							$(".priceList_table > tbody").html(data);
+						}, 
+			   			
+		   	  			error: function(){
+		   					$().notify("Attenzione", "Problema restituzione lista prezzi...");
+		   	 			 }
+			 		});		 		  
+			 	  });
+		 		  
+		 		  
+		 		})
+.jstree({
 		  		"core" 		: { "initially_open" : [ "root" ] },
 		  		
 		  		"json_data" : {
 		  			 		  	"ajax" : {"url" : "findAllRoomPriceLists.action"}
 		  					  },
+		  			         callback:{
+		  		                onselect: function(node,tree){
+		  		                		alert ("ci sono");
+		  		                },
+		  		              onchange : function (NODE) {
+		  		            	  alert ("ci sono");
+		  		              
+		  		                if($(NODE).is(".leaf")) {
+		  		                  // do something with $(NODE).attr("href");
+		  		                } 
+		  			         }},
+
 		  		
 		  		"themes" 	: {
 		  						"theme" : "default",
@@ -1909,22 +1943,7 @@ $(document).ready(function() {
 		  		"plugins" :   [ "themes", "json_data" ]
 		  	  });
 		 	  
-		 	  $(".jstree-leaf").find("a").click(function(event){
-			  	event.preventDefault();
-			  	var url_table = $(this).attr("href");
-		 		$.ajax({
-					
-		   			url: url_table,
-		   			context: document.body,
-					success: function(data){
-						$(".priceList_table > tbody").html(data);
-					}, 
-		   			
-	   	  			error: function(){
-	   					$().notify("Attenzione", "Problema restituzione lista prezzi...");
-	   	 			 }
-		 		});		 		  
-		 	  });
+
 		  	
 		    //---  END PRICE LISTS SECTION CODE
 		  	
