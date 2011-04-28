@@ -456,7 +456,7 @@ display: none;
                   	  	 <div class="c25r"><label>&nbsp;</label><a href="#" class="erase_adjustment" title="erase"><img src="images/delete.png" alt="Delete Adjustment" />Delete Adjustment</a>
               			</div>
                   	  </div>
-              		</s:iterator>
+              		</s:iterator><!--
               		<s:if test="booking.adjustments.size() == 0"> 
               	         <div  class="subcolumns adjustment_row">
                   	     <div class="c40l"><div class="subcl type-text"><span>Name:</span><input type="text" name="booking.adjustments[0].description" class="require" style="width: 90%;" /></div></div>
@@ -466,7 +466,7 @@ display: none;
                   	  </div>	
               		</s:if>
 
-                   <a name="bottom_anchor"></a> 
+                   --><a name="bottom_anchor"></a> 
                  	<div class="type-text">
                  	  <span>Subtotal: </span><div class="c33r"><span class="subtotal_room" ><s:property value="%{ booking.roomSubtotal + booking.extraSubtotal + adjustmentsSubtotal}"/>
                  	  </span> &euro;<input type="hidden" id="subtotal_room" name="booking.subtotal" value="<s:property value="%{ booking.roomSubtotal + booking.extraSubtotal + adjustmentsSubtotal}"/>" /></div>
@@ -491,7 +491,7 @@ display: none;
                   	  	 <div class="c25r"><label>&nbsp;</label><a href="#bottom_anchor_payment" class="erase_payment" title="erase"><img src="images/delete.png" alt="Delete Payment" />Delete Payment</a>
               			</div>
                   	  </div>
-              		</s:iterator>
+              		</s:iterator><!--
               		<s:if test="booking.payments.size() == 0"> 
               	         <div  class="subcolumns payment_row">
                   	     <div class="c40l"><div class="subcl type-text"><span>Name:</span><input type="text" name="booking.payments[0].description" class="require" style="width: 90%;" /></div></div>
@@ -500,7 +500,7 @@ display: none;
               			</div>
                   	  </div>	
               		</s:if>
-              		<a name="bottom_anchor_payment"></a> 
+              		--><a name="bottom_anchor_payment"></a> 
               		<div class="type-text">
               			<span>Balance Due: </span>
               			<div class="c33r"><span class="balance_room" ><s:property value="%{ booking.roomSubtotal + booking.extraSubtotal + adjustmentsSubtotal - paymentsSubtotal}"/></span> &euro;<input type="hidden" id="balance_room" value="<s:property value="%{ booking.roomSubtotal + booking.extraSubtotal - paymentsSubtotal}"/>" /></div></div>
