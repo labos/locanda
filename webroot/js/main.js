@@ -466,35 +466,73 @@ $(document).ready(function() {
 	 };
 	 
 	 
-	 $.fn.addFacility = function (responseAction)
+	 $.fn.addImageObject = function (responseObject, actionName)
 	 {
+		 if(responseObject && typeof actionName !== "undefined" && actionName && typeof actionName === "string"){
+			 
 		 
-		   //get the name of the facility
-		   var name_facility = responseAction.name;
-		 //get the file name of the facility
-		   var file_facility = responseAction.fileName;
-		   //get the id of the facility
-		   var id_facility = responseAction.id;
-		   //clone the html portion to replicate
-		   var facility_row_checked_cloned = $(".facility:hidden").clone();
-		   //set src file name
-		   var src = facility_row_checked_cloned.find('img').attr("src") + file_facility;
-		   //add src file name
-		   facility_row_checked_cloned.find('img').attr("src", src);
-		   //add checkbox id
-		   facility_row_checked_cloned.find('input:checkbox').attr("id", id_facility + "_fac");
-		   //add checkbox name
-		   facility_row_checked_cloned.find('input:checkbox').attr("name", "roomFacilitiesIds");
-		 //add checkbox value
-		   facility_row_checked_cloned.find('input:checkbox').attr("value", id_facility);
+		 if(responseObject.roomFacility && actionName.indexOf("uploadFacility") >= 0 ){
+			 
+			   //get the name of the facility
+			   var name_facility = responseObject.roomFacility.name;
+			 //get the file name of the facility
+			   var file_facility = responseObject.roomFacility.fileName;
+			   //get the id of the facility
+			   var id_facility = responseObject.roomFacility.id;
+			   //clone the html portion to replicate
+			   var facility_row_checked_cloned = $(".facility:hidden").clone();
+			   //set src file name
+			   var src = facility_row_checked_cloned.find('img').attr("src") + file_facility;
+			   //add src file name
+			   facility_row_checked_cloned.find('img').attr("src", src);
+			   //add checkbox id
+			   facility_row_checked_cloned.find('input:checkbox').attr("id", id_facility + "_fac");
+			   //add checkbox name
+			   facility_row_checked_cloned.find('input:checkbox').attr("name", "roomFacilitiesIds");
+			 //add checkbox value
+			   facility_row_checked_cloned.find('input:checkbox').attr("value", id_facility);
 
-		   //add label text
-		   facility_row_checked_cloned.find('label').attr("for", id_facility + "_fac").text(name_facility);
+			   //add label text
+			   facility_row_checked_cloned.find('label').attr("for", id_facility + "_fac").text(name_facility);
 
-		   
-		   
-		   facility_row_checked_cloned.insertAfter($(".facility:last")).show();
-		   facility_row_checked_cloned.animate({ backgroundColor: "#A2D959", color: "#000", border: "1px solid #fff"}, 500).effect("pulsate", { times:10 }, 1000);
+			   
+			   
+			   facility_row_checked_cloned.insertAfter($(".facility:last")).show();
+			   facility_row_checked_cloned.animate({ backgroundColor: "#A2D959", color: "#000", border: "1px solid #fff"}, 500).effect("pulsate", { times:10 }, 1000);
+
+		 }
+		 else if (responseObject.image && actionName.indexOf("uploadStructureImage") >= 0){
+			 
+			 
+			   //get the name of the image
+			   var name_image = responseObject.image.name;
+			 //get the file name of the image
+			   var file_image = responseObject.image.fileName;
+			   
+			 //get the id of the image
+			   var id_image = responseObject.image.id;
+			   //clone the html portion to replicate
+			   var image_row_cloned = $(".thumbs li:hidden").clone();
+			   //set src file name
+			   var src = image_row_cloned.find('img').attr("src") + file_image;
+			   //add src file name
+			   image_row_cloned.find('img').attr("src", src);
+
+			   image_row_cloned.insertAfter($(".thumbs li:last")).show();
+			   image_row_cloned.animate({opacity:0.67, color: "#000", border: "1px solid #fff"}, 500).effect("pulsate", { times:10 }, 1000);
+
+			 
+			 
+		 }
+		 
+		 
+		 }
+		 
+		 else {
+			 
+			 //nothing
+		 }
+		 
 
 	 };
 	 
@@ -1293,9 +1331,11 @@ $(document).ready(function() {
 	        },
 	        onComplete: function (event, files, index, xhr, handler) {
 	        	var json = handler.response;
+	        	
 	        	if(typeof json.message !== "undefined" &&  json.message.result=="success")
 	        		{
-	        		$().addFacility(json.roomFacility);
+	        		var action =this.uploadForm.attr("action");
+	        		$().addImageObject(json, action);
 	        		$().notify(optionsLoc.alertOK, json.message.description);
 	        		}
 	        	

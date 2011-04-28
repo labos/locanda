@@ -35,6 +35,7 @@ public class Structure {
 	private List<Extra> extras;
 	private List<Season> seasons;
 	private List<RoomPriceList> roomPriceLists;
+	private List<Image> imageLists;
 	
 	
 	public Structure(){
@@ -47,6 +48,7 @@ public class Structure {
 		this.setExtras(new ArrayList<Extra>());
 		this.setSeasons(new ArrayList<Season>());
 		this.setRoomPriceLists(new ArrayList<RoomPriceList>());
+		this.setImageLists(new ArrayList<Image>());
 	}
 	
 	public Integer nextKey(){
@@ -547,6 +549,26 @@ public class Structure {
 		return true;
 	}
 	
+	//Images	
+	public Boolean addStructureImage(Image structureImage){
+		structureImage.setId(this.nextKey());
+		return this.getImageLists().add(structureImage);
+		
+	}
+	
+	public boolean deleteImage(Image aImage) {
+		return this.imageLists.remove(aImage);
+	}
+	
+	public Image findImageById(Integer id){
+		for(Image each: this.getImageLists()){
+			if(each.getId().equals(id)){
+				return each;
+			}
+		}
+		return null;
+	}
+	
 	
 	
 	public String getName() {
@@ -686,6 +708,14 @@ public class Structure {
 
 	public void setRoomFacilities(List<RoomFacility> roomFacilities) {
 		this.roomFacilities = roomFacilities;
+	}
+
+	public List<Image> getImageLists() {
+		return imageLists;
+	}
+
+	public void setImageLists(List<Image> imageLists) {
+		this.imageLists = imageLists;
 	}
 	
 

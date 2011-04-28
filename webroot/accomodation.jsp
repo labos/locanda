@@ -43,7 +43,6 @@
                   <div class="type_rooms">
                     <ul>
 		   	          <li><b>Room type:</b> <s:property value="#eachRoom.roomType"/></li>
-				      <li><b>Price:</b> &euro; <s:property value="#eachRoom.price"/></li>
 				      <li><b>Max Guests:</b> <s:property value="#eachRoom.maxGuests"/></li>
 				      <li><b>Notes:</b> <s:property value="#eachRoom.notes"/></li>
 				    </ul>

@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.servlet.ServletContext;
 
+import model.Image;
 import model.RoomFacility;
 import model.Structure;
 import model.User;
@@ -29,6 +30,7 @@ public class UploadAction extends ActionSupport implements SessionAware{
 	private String name;
 	private Message message = new Message();
 	private RoomFacility roomFacility = null;
+	private Image image = null;
 	
 	
 	@Actions({
@@ -70,6 +72,48 @@ public class UploadAction extends ActionSupport implements SessionAware{
 		
 	
 	}
+	
+	
+	@Actions({
+		@Action(value="/uploadStructureImage",results = {
+				@Result(type ="json",name="success", params={
+						"excludeProperties", "session,upload,uploadFileName,uploadContentType,name"
+						} ),
+				@Result(type ="json",name="error", params={
+						"root","message"
+				} )
+		})
+	})
+
+	public String uploadStructureImage() throws IOException {
+		User user = (User)this.getSession().get("user");
+		ServletContext context = ServletActionContext.getServletContext();
+		String imgPath = context.getRealPath("/")+ "images/structure/";
+		//Controllare che sia diverso da null in un interceptor
+		Structure structure = user.getStructure();
+		if (structure.hasRoomFacilityNamed(this.getName())) {
+			message.setResult(Message.ERROR);
+			message.setDescription("Esiste già una foto con lo stesso nome");
+			return ERROR;
+		};
+		
+		File target = new File(imgPath + this.getUploadFileName());
+		FileUtils.copyFile(this.upload, target);
+		
+		
+		this.image = new Image();
+		this.image.setName(this.name);
+		this.image.setFileName(this.uploadFileName);
+		structure.addStructureImage(this.image);
+		
+		message.setResult(Message.SUCCESS);
+		message.setDescription("Foto inserita correttamente!");
+		return SUCCESS;
+		
+	
+	}
+	
+	
 	public Map<String, Object> getSession() {
 		return session;
 	}
@@ -152,6 +196,16 @@ public class UploadAction extends ActionSupport implements SessionAware{
 
 	public void setRoomFacility(RoomFacility roomFacility) {
 		this.roomFacility = roomFacility;
+	}
+
+
+	public Image getImage() {
+		return image;
+	}
+
+
+	public void setImage(Image image) {
+		this.image = image;
 	}
 	
 	

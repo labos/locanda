@@ -19,10 +19,6 @@
                   	<label for="roomType">Room type: <sup title="This field is mandatory.">*</sup></label>
                   	<input class="required" type="text" name="room.roomType" id="roomType" value="<s:property value="room.roomType"/>" size="20" />
              	  </div>
-             	  <div class="type-text">
-                  	<label for="roomPrice">Price: &euro; <sup title="This field is mandatory.">*</sup></label>
-                  	<input class="required number" type="text" name="room.price" id="roomPrice" value="<s:property value="room.price"/>" size="20" />
-             	  </div>
              	  <div class="type-select">
                   	<label for="roomMaxGuests">Max Guests: <sup title="This field is mandatory.">*</sup></label>            	                 	
              	     <select name="room.maxGuests" id="roomMaxGuests" class="required">

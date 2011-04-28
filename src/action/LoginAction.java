@@ -14,6 +14,7 @@ import model.Adjustment;
 import model.Booking;
 import model.Extra;
 import model.Guest;
+import model.Image;
 import model.Payment;
 import model.Room;
 import model.RoomFacility;
@@ -101,6 +102,7 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		this.buildListiniCamere(ret);
 		this.buildBookings(ret);
 		this.buildExtras(ret);
+		this.buildImages(ret);
 		return ret;		
 	}
 	
@@ -413,6 +415,17 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		listinoCamera.addItem(itemListinoCamera);	
 		
 		structure.addRoomPriceList(listinoCamera);				
+	}
+	
+	private void buildImages(Structure structure){
+		
+		Image img = new Image();
+		img.setId(structure.nextKey());
+		img.setName("Facciata");
+		img.setFileName("facciata.jpg");
+		structure.addStructureImage(img);
+		
+		
 	}
 	
 	public Map<String, Object> getSession() {

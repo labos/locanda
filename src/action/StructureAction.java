@@ -11,6 +11,7 @@ import javax.servlet.ServletContext;
 import org.apache.commons.io.*;
 
 import model.Extra;
+import model.Image;
 import model.Room;
 import model.RoomFacility;
 import model.Structure;
@@ -34,6 +35,7 @@ public class StructureAction extends ActionSupport implements SessionAware {
 	private Message message = new Message();
 	
 	private Structure structure = null;
+	private Image image = null;
 	
 
 	public Map<String, Object> getSession() {
@@ -90,6 +92,31 @@ public class StructureAction extends ActionSupport implements SessionAware {
 		
 	}
 	
+	@Actions({
+		@Action(value="/deleteImageStructure",results = {
+				@Result(name="success",location="/details_edit.jsp")
+		})
+		
+	})
+	public String deleteImageStructure() {
+		User user = (User)this.getSession().get("user");
+		//Controllare che sia diverso da null in un interceptor
+		this.setStructure(user.getStructure());
+		Image aImage = null;
+		aImage = structure.findImageById(this.image.getId());
+		
+		if (structure.deleteImage(aImage)) {
+			
+			return SUCCESS;
+		}
+		else{
+			this.getMessage().setResult(Message.ERROR);
+			this.getMessage().setDescription("Error removing Image");
+			return ERROR;
+		}
+		
+	}
+	
 	private void updateStructure(Structure structure) {
 		structure.setName(this.structure.getName());
 		structure.setEmail(this.structure.getEmail());
@@ -109,6 +136,14 @@ public class StructureAction extends ActionSupport implements SessionAware {
 
 	public void setStructure(Structure structure) {
 		this.structure = structure;
+	}
+
+	public Image getImage() {
+		return image;
+	}
+
+	public void setImage(Image image) {
+		this.image = image;
 	}
 	
 	
