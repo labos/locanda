@@ -94,29 +94,29 @@ display: none;
                  </fieldset>         
               </div>
               <div class="subcolumns_oldgecko">
-               <div class="c40l">
+               <div class="c45l">
               <fieldset>
-    <legend>Booking Details:</legend>
-                <input type="hidden" name="booking.guest.id" value="<s:property value="booking.guest.id"/>"/>
+    <legend>Booker Details:</legend>
+                <input type="hidden" name="booking.booker.id" value="<s:property value="booking.booker.id"/>"/>
 	               <div class="type-text"><label for="lname">Last Name: <sup title="This field is mandatory.">*</sup> </label> 
-	               <input type="text" name="booking.guest.lastName" id="lname" value="<s:property value="booking.guest.lastName"/>" class="required"/></div>
+	               <input type="text" name="booking.booker.lastName" id="lname" value="<s:property value="booking.booker.lastName"/>" class="required"/></div>
 
                   <div class="type-text"><label for="fname">First Name: <sup title="This field is mandatory.">*</sup> </label> 
-                  <input type="text" name="booking.guest.firstName" id="fname" value="<s:property value="booking.guest.firstName"/>" class="required"/></div>
+                  <input type="text" name="booking.booker.firstName" id="fname" value="<s:property value="booking.booker.firstName"/>" class="required"/></div>
                   
                   <a name="top_accordion"></a>
                <div id="accordion">
-               <h2><a href="#top_accordion">GUEST DETAILS</a></h2>
+               <h2><a href="#top_accordion">BOOKER DETAILS</a></h2>
                <div>
                   <div class="type-text"><label for="phone">Phone: <sup title="This field is mandatory.">*</sup> </label> 
-                  <input type="text" name="booking.guest.phone" id="phone" value="<s:property value="booking.guest.phone"/>" class="required"/></div>
+                  <input type="text" name="booking.booker.phone" id="phone" value="<s:property value="booking.booker.phone"/>" class="required"/></div>
 
                   <div class="type-text"><label for="address">Address: <sup title="This field is mandatory.">*</sup> </label> 
-                  <input type="text" name="booking.guest.address" id="address" value="<s:property value="booking.guest.address"/>" class="required" /></div>
+                  <input type="text" name="booking.booker.address" id="address" value="<s:property value="booking.booker.address"/>" class="required" /></div>
 
                   <div class="type-select"><label for="country">Country: <sup title="This field is mandatory.">*</sup> </label> 
-                  <select class="required" name="booking.guest.country" id="country" size="1" aria-required="true">
-				<option selected="selected" value="<s:property value="booking.guest.country"/>"><s:property value="booking.guest.country"/></option>
+                  <select class="required" name="booking.booker.country" id="country" size="1" aria-required="true">
+				<option selected="selected" value="<s:property value="booking.booker.country"/>"><s:property value="booking.booker.country"/></option>
 				<option value="Afghanistan">Afghanistan</option>
 				<option value="Albania">Albania</option>
 				<option value="Algeria">Algeria</option>
@@ -346,10 +346,10 @@ display: none;
 				<option value="Zimbabwe Republic">Zimbabwe Republic</option>
 				</select></div>
                   <div class="type-text"><label for="email">Email:</label> 
-                  <input type="text" name="booking.guest.email" id="email" value="<s:property value="booking.guest.email"/>" /></div>
+                  <input type="text" name="booking.booker.email" id="email" value="<s:property value="booking.booker.email"/>" /></div>
 
                   <div class="type-text"><label for="zipCode">ZipCode: <sup title="This field is mandatory.">*</sup> </label> 
-                  <input type="text" name="booking.guest.zipCode" id="zipCode" value="<s:property value="booking.guest.zipCode"/>" /></div>
+                  <input type="text" name="booking.booker.zipCode" id="zipCode" value="<s:property value="booking.booker.zipCode"/>" /></div>
                   
                    <div class="type-text"><label for="notes">Note:</label> 
                   	  <textarea name="booking.notes" id="notes"><s:property value="booking.notes"/></textarea>
@@ -390,6 +390,26 @@ display: none;
                  		</select>
                  		
                  	  </div>
+                 	 <div class="type-text"><span class="green">&nbsp;Guests: </span>
+              		</div>
+              		<s:iterator value="booking.guests" var="eachGuest" >
+              		 <div  class="subcolumns adjustment_row">
+              		  <div class="c33l"><div class="subcl type-text"><span>FirstName:</span><input type="text" name="booking.guests[<s:property value="#adjustStatus.index"/>].firstName" value="<s:property value="#eachAdjust.description" />" class="require" /></div></div>
+                  	  	<div class="c33l"><div class="subcl type-text"><span>LastName:</span><input type="text" name="booking.guests[<s:property value="#adjustStatus.index"/>].lastName"  value="<s:property value="#eachAdjust.amount" />" class="extra_value_adjustment required" style="width: 90%;"/></div></div>
+                  	  	 <div class="c33r"><label>&nbsp;</label><a href="#" class="erase_adjustment" title="erase"><img src="images/delete.png" alt="Delete Guest" />Delete Guest</a>
+              			</div>
+                  	  </div>
+                  	  </s:iterator>
+                  	  	<s:if test="booking.guests.size() == 0"> 
+                  	  <div  class="subcolumns adjustment_row">
+              		  <div class="c33l"><div class="subcl type-text"><span>FirstName:</span><input type="text" name="booking.guests[0].firstName" value="" class="require" /></div></div>
+                  	  	<div class="c33l"><div class="subcl type-text"><span>LastName:</span><input type="text" name="booking.guests[0].lastName"  value="" class="extra_value_adjustment required" style="width: 90%;"/></div></div>
+                  	  	 <div class="c33r"><label>&nbsp;</label><a href="#" class="erase_adjustment" title="erase"><img src="images/delete.png" alt="Delete Guest" />Delete Guest</a>
+              			</div>
+                  	  </div>
+                  	  </s:if>
+                  	  
+                  	  <div class="type-text"><hr/></div>
                  	  <!-- 
                  	  <div class="type-select">
                  	  	<div class="type_rooms">
@@ -435,7 +455,7 @@ display: none;
                            
                 </fieldset>
                 </div>
-                <div class="c10l">
+                <div class="c5l">
                 &nbsp;
                 </div>
                 <div class="book_details c50l">

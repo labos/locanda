@@ -193,7 +193,7 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		aBooking = new Booking();
 		aRoom = structure.findRoomByName("101");
 		aGuest = structure.getGuests().get(0);
-		aBooking.setGuest(aGuest);
+		aBooking.setBooker(aGuest);
 		aBooking.setRoom(aRoom);
 		dateIn = new Date(System.currentTimeMillis());
 		dateOut = new Date(System.currentTimeMillis() + 3*24*3600*1000);

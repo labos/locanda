@@ -257,7 +257,7 @@ public class Structure {
 		List<Booking> ret = new ArrayList<Booking>();
 		
 		for(Booking each: this.getBookings()){
-			if(each.getGuest()!=null && each.getGuest().getId().equals(guestId)){
+			if(each.getBooker()!=null && each.getBooker().getId().equals(guestId)){
 				ret.add(each);
 			}
 		}

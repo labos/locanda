@@ -37,7 +37,7 @@ $(document).ready(function() {
 				 }
 			});
 			
-			getCustomers("input[name='booking.guest.lastName']");
+			getCustomers("input[name='booking.booker.lastName']");
 			/* end booking section initialization */
 			
 			
@@ -1070,23 +1070,23 @@ $(document).ready(function() {
 			select: function( event, ui ) {
 				if( ui.item ){
 					
-					$('input[name="booking.guest.id"]').val(ui.item.id);
+					$('input[name="booking.booker.id"]').val(ui.item.id);
 					//send an ajax call to guest details retrieving
 					$.ajax({
 						  url: "findGuestById.action",
 						  dataType: 'json',
-						  data: {id: $('input[name="booking.guest.id"]').val()},
+						  data: {id: $('input[name="booking.booker.id"]').val()},
 						  success: function(response){
 							  if(response.message.result == "success")
 								  {
 								  
-							  $("#phone").val(response.guest.phone);
-							  $("#address").val(response.guest.address);
-							  $("#country").val(response.guest.country);
-							  $("#zipCode").val(response.guest.zipCode);
-							  $("#email").val(response.guest.email);
-							  $("#fname").val(response.guest.firstName);
-							  $("#notes").val(response.guest.notes);
+							  $("#phone").val(response.booker.phone);
+							  $("#address").val(response.booker.address);
+							  $("#country").val(response.booker.country);
+							  $("#zipCode").val(response.booker.zipCode);
+							  $("#email").val(response.booker.email);
+							  $("#fname").val(response.booker.firstName);
+							  $("#notes").val(response.booker.notes);
 							  /*$.each( { name: "John", lang: "JS" }, function(i, n){
 								    alert( "Name: " + i + ", Value: " + n );
 								});

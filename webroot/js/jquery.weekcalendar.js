@@ -849,7 +849,7 @@ var dateOutNewBook = self.formatDate(new Date(end_booking) ,"dd/mm/yy" );*/
 $.ajax({
 	  type: 'POST',
 	  url: "checkBookingDates.action",
-	  data: {'booking.room.id':id_book_room,  'booking.dateIn': dateInNewBook , 'booking.dateOut': dateOutNewBook, 'booking.guest.id': "-1"},
+	  data: {'booking.room.id':id_book_room,  'booking.dateIn': dateInNewBook , 'booking.dateOut': dateOutNewBook, 'booking.booker.id': "-1"},
 	  success: function(data_action){
 		   if (data_action.result == "success")
 			   {
@@ -955,7 +955,7 @@ $.ajax({
    	               "id":val.room.id,
    	               "start": new Date(val.dateIn),
    	               "end": new Date(date_end_rendered_ms) ,
-   	               "title":val.guest.lastName  + ' ' + val.guest.firstName,
+   	               "title":val.booker.lastName  + ' ' + val.booker.firstName,
    	               "bookId": val.id,
    	               "confirmed": val.status
    	            });

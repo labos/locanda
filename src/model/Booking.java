@@ -9,7 +9,7 @@ public class Booking {
 	
 	private Integer id;
 	
-	private Guest guest;
+	private Guest booker;
 	private Integer nrGuests = 1;
 	private Room room;
 	private Date dateIn;
@@ -21,11 +21,14 @@ public class Booking {
 	private List<Adjustment> adjustments;
 	private List<Payment> payments = null;
 	private String status = "confirmed";
+	private List<Guest> guests = null;
+	
 	
 	public Booking(){
 		this.extras = new ArrayList<Extra>();
 		this.adjustments = new ArrayList<Adjustment>();
 		this.payments = new ArrayList<Payment>();
+		this.guests = new ArrayList<Guest>();
 	}
 	
 	public Integer calculateNumNights(){
@@ -80,6 +83,14 @@ public class Booking {
 	public Boolean removePayment(Payment aPayment){
 		return this.getPayments().remove(aPayment);
 	}
+	
+	public Boolean addGuest(Guest aGuest){
+		return this.getGuests().add(aGuest);
+	}
+	
+	public Boolean removeGuest(Guest aGuest){
+		return this.getGuests().remove(aGuest);
+	}
 		
 	@Override
 	public int hashCode() {
@@ -114,11 +125,11 @@ public class Booking {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public Guest getGuest() {
-		return guest;
+	public Guest getBooker() {
+		return booker;
 	}
-	public void setGuest(Guest guest) {
-		this.guest = guest;
+	public void setBooker(Guest guest) {
+		this.booker = guest;
 	}
 	public Integer getNrGuests() {
 		return nrGuests;
@@ -200,6 +211,14 @@ public class Booking {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public List<Guest> getGuests() {
+		return guests;
+	}
+
+	public void setGuests(List<Guest> guests) {
+		this.guests = guests;
 	}
 	
 	

@@ -253,7 +253,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		extraSubtotal = structure.calculateExtraSubtotalForBooking(this.getBooking());
 		this.getBooking().setExtraSubtotal(extraSubtotal);
 		
-		guest = this.getBooking().getGuest();
+		guest = this.getBooking().getBooker();
 		oldGuest = structure.findGuestById(guest.getId());		
 		if(oldGuest == null){
 			//Si tratta di un nuovo guest e devo aggiungerlo
