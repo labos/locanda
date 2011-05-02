@@ -1359,15 +1359,13 @@ $(document).ready(function() {
 		  event.preventDefault();
 		  var validator = $(this).parents(".yform.json").validate();
 		  validator.resetForm();
-
-	  });
+	  	});
 	  
 	  //button for form hiding
 	  $(".btn_cancel_form").click(function(event){
 		  $(this).parents(".hideform").fadeOut().hide("slide", {direction: "up"}, 1000);
 		  $(".btn_add_form").show();
-		  return false;
-
+		
 	  });
 	  
 
@@ -2011,56 +2009,69 @@ $(document).ready(function() {
 		  	
 		 	  $(".tree").bind("loaded.jstree", function (event, data) {
 		 			
-		 		 $(".jstree-leaf").click(function(event){
+		 		 			$(".jstree-leaf").click(function(event){
 			 		
-				  	event.preventDefault();
-				  	var url_table = $("a", this).attr("href");
-			 		$.ajax({
+				  				event.preventDefault();
+								//$(".tree").jstree("refresh");
+								//$(".tree").jstree("refresh", $(".jstree-clicked"));
+								//$(this).refresh();
+				  				var url_table = $("a", this).attr("href");
+			 					$.ajax({
 						
-			   			url: url_table,
-			   			context: document.body,
-						success: function(data){
-							$(".priceList_table > tbody").html(data);
-						}, 
+			   						url: url_table,
+			   						context: document.body,
+									success: function(data){
+										$(".priceList_table > tbody").html(data);
+									}, 
 			   			
-		   	  			error: function(){
-		   					$().notify("Attenzione", "Problema restituzione lista prezzi...");
-		   	 			 }
-			 		});		 		  
-			 	  });
+		   	  						error: function(){
+		   								$().notify("Attenzione", "Problema restituzione lista prezzi...");
+		   	 			 			}
+			 					});
+								$("#priceList_buttons").hide();
+								$("#priceList_buttons").html('<button class="btn_save">SAVE</button>' +
+              												 '<button class="btn_reset">CANCEL</button>');	
+								$(".btn_save").button({
+	     	     			 							icons: {
+	     	          											primary: "ui-icon-check"
+	     	      									  }});
+								$(".btn_reset").button({
+	   	     											icons: {
+	   	         												primary: "ui-icon-trash"
+	   	     										  }}).click(function(event){
+		  														event.preventDefault();
+		  														var validator = $(this).parents(".yform.json").validate();
+		  														validator.resetForm();					  
+				  									   });
+								$("#priceList_edit").toggle(function(){
+			  						$("#priceList_form").find("input").removeClass("noBorder");
+									$("#priceList_form").find("input").removeAttr('readonly', 'readonly');
+									$("#priceList_buttons").show();
+									}, function() {
+									$("#priceList_form").find("input").addClass("noBorder");
+									$("#priceList_form").find("input").attr('readonly', 'readonly');
+									$("#priceList_buttons").hide();
+			  					});	 		  
+			 	  			});
 		 		  
-		 		  
-		 		})
-.jstree({
-		  		"core" 		: { "initially_open" : [ "root" ] },
+		 	  })
+			  .jstree({
+		  			 	"core" 		: { "initially_open" : [ "root" ] },
 		  		
-		  		"json_data" : {
-		  			 		  	"ajax" : {"url" : "findAllRoomPriceLists.action"}
-		  					  },
-		  			         callback:{
-		  		                onselect: function(node,tree){
-		  		                		alert ("ci sono");
-		  		                },
-		  		              onchange : function (NODE) {
-		  		            	  alert ("ci sono");
-		  		              
-		  		                if($(NODE).is(".leaf")) {
-		  		                  // do something with $(NODE).attr("href");
-		  		                } 
-		  			         }},
-
+		  				"json_data" : {
+		  			 		  			"ajax" : {"url" : "findAllRoomPriceLists.action"}
+		  					  		  },
 		  		
-		  		"themes" 	: {
-		  						"theme" : "default",
-		  						"dots" : true,
-		  						"icons" : true
-		  					  },			  
+		  				"themes" 	: {
+		  								"theme" : "default",
+		  								"dots" : true,
+		  								"icons" : true
+		  			 				  },			  
 		  					  
-		  		"plugins" :   [ "themes", "json_data" ]
-		  	  });
-		 	  
-
-		  	
+		  				"plugins" :   [ "themes", "json_data" ]
+		  	  		   });
+								
+			  
 		    //---  END PRICE LISTS SECTION CODE
 		  	
 		  	

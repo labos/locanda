@@ -3,10 +3,13 @@ package action;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.SystemUtils;
+import org.apache.commons.lang.time.DateUtils;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Actions;
 import org.apache.struts2.convention.annotation.ParentPackage;
@@ -109,9 +112,11 @@ public class SeasonAction extends ActionSupport implements SessionAware {
 		this.setSeasons(structure.getSeasons());
 		saveUpdatePeriods(structure);
 		oldSeason = structure.findSeasonById(this.getSeason().getId());
+		int currentYear = Calendar.getInstance().get(Calendar.YEAR);		//voglio settare l'anno della stagione con l'anno corrente
 		if (oldSeason == null) {
 			// Si tratta di una nuova season
 			this.getSeason().setId(structure.nextKey());
+			this.getSeason().setYear(currentYear);
 			structure.addSeason(this.getSeason());
 		} else {
 			// Si tratta di un update di un booking esistente
