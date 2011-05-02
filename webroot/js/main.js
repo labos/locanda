@@ -331,6 +331,53 @@ $(document).ready(function() {
 
 	     	   });
 	     	   
+	     	   
+	     	  $(".erase_guest").click( function(){
+	     		  
+	     		 $(this).closest("." + "guest" + "_row").remove();
+	     		  
+	     	  });
+	     	  
+	     	  $(".add_guest").click(function(){
+	   			  	 //count the number max of guests to select
+	   				 var $formParent =	$(".guests-select");
+	   				 var max = 0;
+	   				$(".guests-select option").each(function()
+	   						{
+	   							if(max < $(this).val()){
+	   								max = $(this).val();
+	   							}
+	   						    
+	   						});
+
+					   var numbermaxGuests = parseInt(max);
+
+	   					 //update number of rows to add guests
+
+	   		  		 var selector = "guest";
+	   		  		 
+
+	   				 var num_of_items =  $formParent.siblings(".guest_row").size();
+	   				 // get last subcolumns
+	   				 var dd=  $formParent.siblings("." + selector + "_row:last").length ? $formParent.siblings("." + selector + "_row:last"): $formParent;
+	   				 // setup of cloned row to add
+	   				 	 if(num_of_items >= numbermaxGuests)
+							 	$().notify(optionsLoc.alertKO, "Attenzione, stai aggiungendo un numero di ospiti maggiore della capacità della stanza");
+
+	 	   				 var added= $("#to_add_" + selector + "").clone().insertAfter(dd).removeAttr("id").show();
+	 	   				 added.html ( added.html().replace(/__PVALUE__/ig, num_of_items) );
+	 	   				 // attach listener to cloned row
+	 	   				 	// attach erase click listener
+	 	   				 added.find(".erase_" + selector + "").click( function(){
+	 	   						$(this).closest("." + selector + "_row").remove();
+	 	   					
+	 	   				 });
+	   				        
+
+	     		  
+	     	  });
+	     	  
+	     	   
 	     	   /*ADD LISTENER FOR CHANGE ROOM OR DATEIN OR DATEOUT OR NUMNIGHTS FROM BOOKING*/
 	     	  $('#sel_rooms_list, #booking_duration, input:text[name="booking.dateIn"], input:text[name="booking.dateOut"], input:checkbox[name="bookingExtraIds"], #nr_guests').change (function (){
 	     		  
@@ -368,6 +415,35 @@ $(document).ready(function() {
 	 	   						$("#nr_guests").append('<option value="'+i+'">'+i+'</option');
 	 	   				        
 	 	   				    }
+	 	   					 
+	 	   				   }
+	 	   				   
+	 	   				  if (maxGuests !== null && parseInt(maxGuests) > 0 && ( $clicked.is("select#sel_rooms_list") || $clicked.is("select#nr_guests")) ){
+	 	   					   var numbermaxGuests = parseInt(maxGuests);
+
+	 	   					 //update number of rows to add guests
+
+	 	   		  		 var selector = "guest";
+	 	   		  		 
+	 	   			  	 //count the number of guests already added
+	 	   				 var formParent =	$(".guests-select");
+	 	   				 var num_of_items =  formParent.siblings(".guest_row").size();
+	 	   				 // get last subcolumns
+	 	   				 var dd=  formParent.siblings("." + selector + "_row:last").length ? formParent.siblings("." + selector + "_row:last"): formParent;
+	 	   				 // setup of cloned row to add
+ 	   					 for(var i = num_of_items; i <  numbermaxGuests ;i++)
+	 	   				    {
+ 		 	   				 var added= $("#to_add_" + selector + "").clone().insertAfter(dd).removeAttr("id").show();
+ 		 	   				 added.html ( added.html().replace(/__PVALUE__/ig, num_of_items) );
+ 		 	   				 // attach listener to cloned row
+ 		 	   				 	// attach erase click
+ 		 	   				 added.find(".erase_" + selector + "").click( function(){
+ 		 	   						$(this).closest("." + selector + "_row").remove();
+ 		 	   					
+ 		 	   				 });
+	 	   				        
+	 	   				    }
+
 	 	   					
 	 	   				   }
 	 	   					
@@ -1080,13 +1156,13 @@ $(document).ready(function() {
 							  if(response.message.result == "success")
 								  {
 								  
-							  $("#phone").val(response.booker.phone);
-							  $("#address").val(response.booker.address);
-							  $("#country").val(response.booker.country);
-							  $("#zipCode").val(response.booker.zipCode);
-							  $("#email").val(response.booker.email);
-							  $("#fname").val(response.booker.firstName);
-							  $("#notes").val(response.booker.notes);
+							  $("#phone").val(response.guest.phone);
+							  $("#address").val(response.guest.address);
+							  $("#country").val(response.guest.country);
+							  $("#zipCode").val(response.guest.zipCode);
+							  $("#email").val(response.guest.email);
+							  $("#fname").val(response.guest.firstName);
+							  $("#notes").val(response.guest.notes);
 							  /*$.each( { name: "John", lang: "JS" }, function(i, n){
 								    alert( "Name: " + i + ", Value: " + n );
 								});

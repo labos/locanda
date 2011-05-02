@@ -358,7 +358,7 @@ display: none;
                     </div>
                     </div>
                   <!--  END ACCORDION  -->
-                      <div class="type-select">
+                      <div class="type-select guests-select">
                       	<label for="nr_guests">Guests: <sup title="This field is mandatory.">*</sup></label> 
                       	<select name="booking.nrGuests" id="nr_guests" class="required">
                     	 <% 
@@ -388,23 +388,27 @@ display: none;
 						   }
 						   %>
                  		</select>
-                 		
-                 	  </div>
-                 	 <div class="type-text"><span class="green">&nbsp;Guests: </span>
+                 	<div style="margin-top:3px;">
+                 	 <div class="c60l">
+             			 	<a href="#bottom_anchor" class="add_guest" title="add guest"><img src="images/add-icon.png" alt="Add Guest" />Add New Guest Data</a>
+              			</div>
               		</div>
-              		<s:iterator value="booking.guests" var="eachGuest" >
-              		 <div  class="subcolumns adjustment_row">
-              		  <div class="c33l"><div class="subcl type-text"><span>FirstName:</span><input type="text" name="booking.guests[<s:property value="#adjustStatus.index"/>].firstName" value="<s:property value="#eachAdjust.description" />" class="require" /></div></div>
-                  	  	<div class="c33l"><div class="subcl type-text"><span>LastName:</span><input type="text" name="booking.guests[<s:property value="#adjustStatus.index"/>].lastName"  value="<s:property value="#eachAdjust.amount" />" class="extra_value_adjustment required" style="width: 90%;"/></div></div>
-                  	  	 <div class="c33r"><label>&nbsp;</label><a href="#" class="erase_adjustment" title="erase"><img src="images/delete.png" alt="Delete Guest" />Delete Guest</a>
+                 	  </div>
+
+              		<s:iterator value="booking.guests" var="eachGuest" status="guestStatus" >
+              		 <div  class="subcolumns guest_row">
+              		  <input type="hidden" class="idGuest" name="booking.guests[<s:property value="#guestStatus.index"/>].id" value="<s:property value="#eachGuest.id"/>"/>
+              		    <div class="c33l"><div class="subcl type-text"><span>FirstName:</span><input type="text" name="booking.guests[<s:property value="#guestStatus.index"/>].firstName" value="<s:property value="#eachGuest.firstName" />" class="require" /></div></div>
+                  	  	<div class="c33l"><div class="subcl type-text"><span>LastName:</span><input type="text" name="booking.guests[<s:property value="#guestStatus.index"/>].lastName"  value="<s:property value="#eachGuest.lastName" />" class="extra_value_adjustment required" style="width: 90%;"/></div></div>
+                  	  	 <div class="c33r"><label>&nbsp;</label><a href="#" class="erase_guest" title="erase"><img src="images/delete.png" alt="Delete Guest" />Delete Guest</a>
               			</div>
                   	  </div>
                   	  </s:iterator>
                   	  	<s:if test="booking.guests.size() == 0"> 
-                  	  <div  class="subcolumns adjustment_row">
+                  	  <div  class="subcolumns guest_row">
               		  <div class="c33l"><div class="subcl type-text"><span>FirstName:</span><input type="text" name="booking.guests[0].firstName" value="" class="require" /></div></div>
                   	  	<div class="c33l"><div class="subcl type-text"><span>LastName:</span><input type="text" name="booking.guests[0].lastName"  value="" class="extra_value_adjustment required" style="width: 90%;"/></div></div>
-                  	  	 <div class="c33r"><label>&nbsp;</label><a href="#" class="erase_adjustment" title="erase"><img src="images/delete.png" alt="Delete Guest" />Delete Guest</a>
+                  	  	 <div class="c33r"><label>&nbsp;</label><a href="#" class="erase_guest" title="erase"><img src="images/delete.png" alt="Delete Guest" />Delete Guest</a>
               			</div>
                   	  </div>
                   	  </s:if>
@@ -493,9 +497,9 @@ display: none;
                  	</div>
                   	<div class="type-text"><hr/></div>
                     <div class="type-text"><span class="green">&nbsp;Payment Received: </span>
-                                      	 <div class="c50r">
-             			 <a href="#bottom_anchor" class="add_payment" title="add payment"><img src="images/add-icon.png" alt="Add Payment" />Add New Payment</a>
-              		</div>
+                     	<div class="c50r">
+             			 	<a href="#bottom_anchor" class="add_payment" title="add payment"><img src="images/add-icon.png" alt="Add Payment" />Add New Payment</a>
+              			</div>
               		</div>
               		
               		
@@ -554,5 +558,12 @@ display: none;
                   	     <div class="c40l"><div class="subcl type-text"><span>Name:</span><input type="text" name="booking.payments[__PVALUE__].description" class="require" style="width: 90%;" /></div></div>
                   	  	<div class="c33l"><div class="subcl type-text"><span>Amount(&euro;):</span><input type="text" name="booking.payments[__PVALUE__].amount"  class="extra_value_payment required"/></div></div>
                   	  	 <div class="c25r"><label>&nbsp;</label><a href="#bottom_anchor_payment" class="erase_payment" title="erase"><img src="images/delete.png" alt="Delete Payment" />Delete Payment</a>
+              			</div>
+                  	  </div>
+                  	  
+                  	  <div  class="subcolumns guest_row" id="to_add_guest" style="display: none;">
+              		  <div class="c33l"><div class="subcl type-text"><span>FirstName:</span><input type="text" name="booking.guests[__PVALUE__].firstName" value="" class="require" /></div></div>
+                  	  	<div class="c33l"><div class="subcl type-text"><span>LastName:</span><input type="text" name="booking.guests[__PVALUE__].lastName"  value="" class="extra_value_adjustment required" style="width: 90%;"/></div></div>
+                  	  	 <div class="c33r"><label>&nbsp;</label><a href="#" class="erase_guest" title="erase"><img src="images/delete.png" alt="Delete Guest" />Delete Guest</a>
               			</div>
                   	  </div>

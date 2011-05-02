@@ -247,6 +247,9 @@ public class BookingAction extends ActionSupport implements SessionAware{
 			}
 		}		
 		
+		this.filterGuests();
+		
+		
 		roomSubtotal = structure.calculateRoomSubtotalForBooking(this.getBooking());
 		this.getBooking().setRoomSubtotal(roomSubtotal);
 		
@@ -332,6 +335,20 @@ public class BookingAction extends ActionSupport implements SessionAware{
 			}			
 		}
 		this.getBooking().setPayments(paymentsWithoutNulls);
+		
+	}
+	
+	private void filterGuests(){
+		List<Guest> guestWithoutNulls = null;
+		
+		guestWithoutNulls = new ArrayList<Guest>();
+		
+		for(Guest each: this.getBooking().getGuests()){
+			if(each!=null){
+				guestWithoutNulls.add(each);
+			}			
+		}
+		this.getBooking().setGuests(guestWithoutNulls);
 		
 	}
 	
