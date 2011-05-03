@@ -613,9 +613,8 @@ margin:-20px 0 1em;
 padding:0.5em;
 }
 
-div.beautifyfloat
+div.beauty
 {
-float: left;
 background:none repeat scroll 0 0 #FAFAFA;
 border:1px solid #DDDDDD;
 margin:0px 0 1em;
@@ -634,14 +633,14 @@ background-position: center;
 
 }
 
-ul.thumbs {
+ul.thumbs, ul.thumbs_facility {
 float:left;
 margin:0;
 padding:0;
 position:relative;
 }
 
-ul.thumbs li {
+ul.thumbs li, ul.thumbs_facility li {
 float:left;
 list-style:none outside none;
 margin:2px;
@@ -649,11 +648,11 @@ padding:0;
 opacity: 0.67;
 }
 
-ul.thumbs li:hover {
+ul.thumbs li:hover, ul.thumbs_facility li:hover  {
 opacity: 1.0;
 }
 
-ul.thumbs li a.thumb img {
+ul.thumbs li a.thumb img,ul.thumbs_facility li a.thumb img {
 border:medium none;
 display:block;
 width: 95px;
@@ -661,7 +660,7 @@ height: 95px;
 
 }
 
-ul.thumbs li  span {
+ul.thumbs li  span,  ul.thumbs_facility li  span {
 background:none repeat scroll 0 0 rgba(0, 0, 0, 0.5);
 bottom:5px;
 right:5px;
@@ -672,7 +671,7 @@ color: #fff;
 font-weight: 600;
 }
 
-ul.thumbs li  span a {
+ul.thumbs li  span a, ul.thumbs_facility li span a {
 right: 0px;
 position:absolute;
 

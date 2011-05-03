@@ -289,22 +289,64 @@
             </div>
           </fieldset>  
         </form>
-                  <div class="beautify">
+        <!-- STRUCTURE FACILITY UPLOADING -->
+          <div class="beauty">
+     	  	<div class="subcolumns">
+           	  <div class="c33l">
+    			<label for="name_facility">Facility Name:</label>&nbsp;<input type="text" name="facility_name" value="" id="name_facility" class="require"/>
+ 			  </div>
+ 			  <div class="c20l">
+ 				<br/>
+ 				<form id="uploadStructFacility" action="uploadStructureFacility.action" method="post" enctype="multipart/form-data">
+   				  <input type="hidden" name="name" value=" "/>
+     			  <input type="file" name="upload" multiple/>
+    			  <button>Upload</button>
+    			  <div>Upload Facility Image</div>  
+				</form> 
+		   	  </div>
+		   	</div>      
+          </div>
+          
+          
+               <div class="subcolumns">
+                  <a name="bottom_anchor" />
+        			<ul class="thumbs_facility">
+        					<s:iterator value="structure.structureFacilities" var="eachFacility" >
+        					<li>
+								<a title="<s:property value="#eachFacility.name" />" href="#drop" class="thumb" rel="history">
+									<img alt="<s:property value="#eachFacility.name" />" src="images/struct_facilities/<s:property value="#eachFacility.fileName" />" />
+									</a>
+									<span><s:property value="#eachFacility.name" /><a class="erase_image" href="deleteStructureFacility.action?image.id=<s:property value="#eachFacility.id" />"  title="erase"><img src="images/delete.png" alt="Delete Image" /></a></span>
+								
+							</li>
+       						 </s:iterator>
+							<li style="display: none">
+								<a title="Title #1" href="#drop" class="thumb" rel="history">
+									<img alt="Title #1" src="images/struct_facilities/" />
+								</a>		
+							</li>
+							</ul>
+						</div>
+						
+						<div class="subcolumns">
+						&nbsp;
+						</div>
+          
+          
+        <!--  STRUCTURE IMAGE UPLOADING  -->
+           <div class="beauty">
      	  	<div class="subcolumns">
            	  <div class="c33l">
     			<label for="name_facility">Image Name:</label>&nbsp;<input type="text" name="facility_name" value="" id="name_facility" class="require"/>
  			  </div>
  			  <div class="c20l">
  				<br/>
- 				<form id="uploadFacility" action="uploadStructureImage.action" method="post" enctype="multipart/form-data">
+ 				<form id="uploadImage" action="uploadStructureImage.action" method="post" enctype="multipart/form-data">
    				  <input type="hidden" name="name" value=" "/>
      			  <input type="file" name="upload" multiple/>
     			  <button>Upload</button>
     			  <div>Upload Structure Image</div>  
 				</form> 
-		  	 	<div class="result_facility_upload" id="result_facility_upload" ></div>
-		   		<div class="upload_loader">&nbsp;</div>
-		   		<div class="image_preview"></div>
 		   	  </div>
 		   	</div>      
           </div>
@@ -316,19 +358,21 @@
 								<a title="<s:property value="#eachImage.name" />" href="#drop" class="thumb" rel="history">
 									<img alt="<s:property value="#eachImage.name" />" src="images/structure/<s:property value="#eachImage.fileName" />" />
 									</a>
-									<span><s:property value="#eachImage.name" /><a href="deleteImageStructure.action?image.id=<s:property value="#eachImage.id" />"  title="erase"><img src="images/delete.png" alt="Delete Image" /></a></span>
+									<span><s:property value="#eachImage.name" /><a class="erase_image" href="deleteImageStructure.action?image.id=<s:property value="#eachImage.id" />"  title="erase"><img src="images/delete.png" alt="Delete Image" /></a></span>
 								
 							</li>
         </s:iterator>
 							<li style="display: none">
 								<a title="Title #1" href="#drop" class="thumb" rel="history">
 									<img alt="Title #1" src="images/structure/" />
-								</a>
-								
+								</a>		
 							</li>
-	
-							
-						</ul>
+							</ul>
+						</div>
+						<div class="subcolumns">
+							<div class="result_facility_upload" id="result_facility_upload" ></div>
+		   					<div class="upload_loader">&nbsp;</div>
+		   					<div class="image_preview"></div>
 						</div>
                       
                       

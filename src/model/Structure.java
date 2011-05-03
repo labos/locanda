@@ -30,6 +30,7 @@ public class Structure {
 	private List<Room> rooms;
 	private TreeSet<Integer> keys;
 	private List<RoomFacility> roomFacilities;
+	private List<StructureFacility> structureFacilities;
 	private List<Guest> guests;
 	private List<Booking> bookings;
 	private List<Extra> extras;
@@ -49,6 +50,7 @@ public class Structure {
 		this.setSeasons(new ArrayList<Season>());
 		this.setRoomPriceLists(new ArrayList<RoomPriceList>());
 		this.setImageLists(new ArrayList<Image>());
+		this.setStructureFacilities(new ArrayList<StructureFacility>());
 	}
 	
 	public Integer nextKey(){
@@ -550,16 +552,24 @@ public class Structure {
 		return true;
 	}
 	
-	//Images	
+	//Structure Images	
 	public Boolean addStructureImage(Image structureImage){
 		structureImage.setId(this.nextKey());
 		return this.getImageLists().add(structureImage);
 		
 	}
 	
-	public boolean deleteImage(Image aImage) {
-		return this.imageLists.remove(aImage);
+	//Facility structure Images	
+	public Boolean addStructureFacility(StructureFacility structureFacility){
+		structureFacility.setId(this.nextKey());
+		return this.getStructureFacilities().add(structureFacility);
+		
 	}
+	
+	public boolean deleteImage(Image aImage) {
+		return this.getImageLists().remove(aImage);
+	}
+	
 	
 	public Image findImageById(Integer id){
 		for(Image each: this.getImageLists()){
@@ -570,7 +580,18 @@ public class Structure {
 		return null;
 	}
 	
+	public StructureFacility findStructureFacilityById(Integer id){
+		for(StructureFacility each: this.getStructureFacilities() ){
+			if(each.getId().equals(id)){
+				return each;
+			}
+		}
+		return null;
+	}
 	
+	public boolean deleteStructureFacility(StructureFacility aStructFacility) {
+		return this.getStructureFacilities().remove(aStructFacility);
+	}
 	
 	public String getName() {
 		return name;
@@ -717,6 +738,14 @@ public class Structure {
 
 	public void setImageLists(List<Image> imageLists) {
 		this.imageLists = imageLists;
+	}
+
+	public List<StructureFacility> getStructureFacilities() {
+		return structureFacilities;
+	}
+
+	public void setStructureFacilities(List<StructureFacility> structureFacilities) {
+		this.structureFacilities = structureFacilities;
 	}
 	
 

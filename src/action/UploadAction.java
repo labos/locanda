@@ -9,6 +9,7 @@ import javax.servlet.ServletContext;
 import model.Image;
 import model.RoomFacility;
 import model.Structure;
+import model.StructureFacility;
 import model.User;
 import model.internal.Message;
 
@@ -30,6 +31,7 @@ public class UploadAction extends ActionSupport implements SessionAware{
 	private String name;
 	private Message message = new Message();
 	private RoomFacility roomFacility = null;
+	private StructureFacility structureFacility = null;
 	private Image image = null;
 	
 	
@@ -108,6 +110,44 @@ public class UploadAction extends ActionSupport implements SessionAware{
 		
 		message.setResult(Message.SUCCESS);
 		message.setDescription("Foto inserita correttamente!");
+		return SUCCESS;
+		
+	
+	}
+	
+	@Actions({
+		@Action(value="/uploadStructureFacility",results = {
+				@Result(type ="json",name="success", params={
+						"excludeProperties", "session,upload,uploadFileName,uploadContentType,name,roomFacility,image"
+						} ),
+				@Result(type ="json",name="error", params={
+						"root","message"
+				} )
+		})
+	})
+
+	public String uploadStructureFacility() throws IOException {
+		User user = (User)this.getSession().get("user");
+		ServletContext context = ServletActionContext.getServletContext();
+		String imgPath = context.getRealPath("/")+ "images/struct_facilities/";
+		//Controllare che sia diverso da null in un interceptor
+		Structure structure = user.getStructure();
+		if (structure.hasRoomFacilityNamed(this.getName())) {
+			message.setResult(Message.ERROR);
+			message.setDescription("Esiste già una facility con lo stesso nome");
+			return ERROR;
+		};
+		
+		File target = new File(imgPath + this.getUploadFileName());
+		FileUtils.copyFile(this.upload, target);
+		
+		
+		this.structureFacility = new StructureFacility();
+		this.structureFacility.setName(this.name);
+		this.structureFacility.setFileName(this.uploadFileName);
+		structure.addStructureFacility(this.structureFacility);
+		message.setResult(Message.SUCCESS);
+		message.setDescription("Facility inserita correttamente!");
 		return SUCCESS;
 		
 	
@@ -206,6 +246,16 @@ public class UploadAction extends ActionSupport implements SessionAware{
 
 	public void setImage(Image image) {
 		this.image = image;
+	}
+
+
+	public StructureFacility getStructureFacility() {
+		return structureFacility;
+	}
+
+
+	public void setStructureFacility(StructureFacility structureFacility) {
+		this.structureFacility = structureFacility;
 	}
 	
 	

@@ -15,6 +15,7 @@ import model.Image;
 import model.Room;
 import model.RoomFacility;
 import model.Structure;
+import model.StructureFacility;
 import model.User;
 import model.internal.Message;
 
@@ -94,7 +95,12 @@ public class StructureAction extends ActionSupport implements SessionAware {
 	
 	@Actions({
 		@Action(value="/deleteImageStructure",results = {
-				@Result(name="success",location="/details_edit.jsp")
+				@Result(type ="json",name="success", params={
+						"root","message"
+				} ),
+				@Result(type ="json",name="error", params={
+						"root","message"
+				} )
 		})
 		
 	})
@@ -106,6 +112,8 @@ public class StructureAction extends ActionSupport implements SessionAware {
 		aImage = structure.findImageById(this.image.getId());
 		
 		if (structure.deleteImage(aImage)) {
+			this.getMessage().setResult(Message.SUCCESS);
+			this.getMessage().setDescription("Structure image deleted modified succesfully");
 			
 			return SUCCESS;
 		}
@@ -116,6 +124,43 @@ public class StructureAction extends ActionSupport implements SessionAware {
 		}
 		
 	}
+	
+	
+	@Actions({
+		@Action(value="/deleteStructureFacility",results = {
+				@Result(type ="json",name="success", params={
+						"root","message"
+				} ),
+				@Result(type ="json",name="error", params={
+						"root","message"
+				} )
+		})
+		
+	})
+	public String deleteStructureFacility() {
+		User user = (User)this.getSession().get("user");
+		//Controllare che sia diverso da null in un interceptor
+		this.setStructure(user.getStructure());
+		StructureFacility aStructFacility = null;
+
+		aStructFacility = structure.findStructureFacilityById(this.image.getId());
+		
+		if ( structure.deleteStructureFacility( aStructFacility )) {
+			this.getMessage().setResult(Message.SUCCESS);
+			this.getMessage().setDescription("Structure Facility deleted succesfully");
+			
+			return SUCCESS;
+		}
+		else{
+			this.getMessage().setResult(Message.ERROR);
+			this.getMessage().setDescription("Error removing Structure Facility");
+			return ERROR;
+		}
+		
+	}
+	
+	
+	
 	
 	private void updateStructure(Structure structure) {
 		structure.setName(this.structure.getName());

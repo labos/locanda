@@ -600,6 +600,29 @@ $(document).ready(function() {
 			 
 			 
 		 }
+		 else if (responseObject.structureFacility && actionName.indexOf("uploadStructureFacility") >= 0){
+			 
+			 //get the name of the facility
+			   var name_facility = responseObject.structureFacility.name;
+			 //get the file name of the facility
+			   var file_facility = responseObject.structureFacility.fileName;
+			   //get the id of the facility
+			   var id_facility = responseObject.structureFacility.id;
+			   //clone the html portion to replicate
+			   var image_row_cloned = $(".thumbs_facility li:hidden").clone();
+			   //set src file name
+			   var src = image_row_cloned.find('img').attr( "src") +  file_facility ;
+			   //add src file name
+			   image_row_cloned.find('img').attr("src", src);
+
+			   
+			   image_row_cloned.insertAfter($(".thumbs_facility li:last")).show();
+			   image_row_cloned.animate({opacity:0.67, color: "#000", border: "1px solid #fff"}, 500).effect("pulsate", { times:10 }, 1000);
+
+			 
+
+		 
+		 }
 		 
 		 
 		 }
@@ -1369,7 +1392,7 @@ $(document).ready(function() {
 	  });
 	  
 
-	    $('#uploadFacility').fileUploadUI({
+	    $('#uploadFacility, #uploadImage, #uploadStructFacility').fileUploadUI({
 	        uploadTable: $('#result_facility_upload'),
 	        downloadTable: $('#result_facility_upload'),
 	     
@@ -1422,17 +1445,17 @@ $(document).ready(function() {
                 handler.removeNode(handler.uploadRow);
 	        },
 	        beforeSend: function (event, files, index, xhr, handler, callBack) {
-	            var facility_name = $("#name_facility").val();
+	            var facility_name = handler.uploadForm.parents(".beauty").find('input[name="facility_name"]').val();
 	            var type_img = files.type;
 	            if (facility_name.length > 2)
 	            	{
 	            	
-	           	        	$("#uploadFacility").find('input:hidden[name="name"]').val($("#name_facility").val());
+	            	handler.uploadForm.find('input:hidden[name="name"]').val($("#name_facility").val());
 	           	        	callBack();
 	            	}
 	            else
 	            	{
-	            	$("#name_facility").addClass("error").after('<label for="name_facility"  class="error">This field is required.</label>');
+	            	handler.uploadForm.parents(".beauty").find('input[name="facility_name"]').addClass("error").after('<label for="name_facility"  class="error">This field is required.</label>');
 	                var readyState = xhr.readyState;
 	                xhr.abort();
 
@@ -1770,7 +1793,54 @@ $(document).ready(function() {
    
    
    //---  DETAILS SECTION CODE   
-   
+		
+   	  $("a.erase_image").click( function(event){
+   		  
+   		  event.preventDefault();
+   		  var $this = $(this);
+   		  $(this).closest("." + "guest" + "_row").remove();
+   		  var urlAction = $(this).attr("href");
+		  $.ajax({
+			  type: 'POST',
+			  url: urlAction,
+			  success: function(data_action){
+				  
+		   			var title_notification = null;
+		   			
+		   			   if (data_action.result == "success")
+		   				   {
+		   			
+		   				$().notify("Congratulazioni", data_action.description);
+		   				
+		   				$this.parents("li").remove();    				    
+		   				   }
+		   		    
+		   		     else if (data_action.result == "error")
+		   		    	 {
+		   		    	 	$().notify("Attenzione", data_action.description);
+		   		    	 }
+		   		   	else{
+		   		   		$(".validationErrors").html(data_action);
+		   		   		}
+					  
+				  },
+			            cancel : function() {
+			            	 
+			            	$(this).dialog("close");
+			                  
+			              
+				  
+			  },
+			  error: function(){
+				  
+					$().notify("Errore Grave", "Problema nella risorsa interrogata nel server");
+			   		   
+				  
+			  }
+			  
+			});
+  		  
+  	  });
 	  
 	  $('a[id*=toggle]').click(function(){
 		    if ($(this).hasClass('active') === true) {
