@@ -85,7 +85,7 @@
           </form>
           
          
-          <div class="beautify">
+          <div class="beauty">
      	  	<div class="subcolumns">
            	  <div class="c33l">
     			<label for="name_facility">Facility Name:</label>&nbsp;<input type="text" name="facility_name" value="" id="name_facility" class="require"/>

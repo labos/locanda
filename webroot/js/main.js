@@ -590,10 +590,17 @@ $(document).ready(function() {
 			   //clone the html portion to replicate
 			   var image_row_cloned = $(".thumbs li:hidden").clone();
 			   //set src file name
-			   var src = image_row_cloned.find('img').attr("src") + file_image;
+			   var src = image_row_cloned.find('a.thumb img').attr("src") + file_image;
 			   //add src file name
-			   image_row_cloned.find('img').attr("src", src);
+			   image_row_cloned.find('a.thumb img').attr("src", src);
+			   
+			   image_row_cloned.find("span.name_image").html (function(index, oldhtml){
+				   return oldhtml.replace(/__PVALUE__/ig, name_image);
+			   }  );
 
+			   image_row_cloned.find("a.erase_image").attr("href", function(i, val) {
+				   return val + id_image	;	   }).click( function(event){addEventDeleteImage(event);});
+			   
 			   image_row_cloned.insertAfter($(".thumbs li:last")).show();
 			   image_row_cloned.animate({opacity:0.67, color: "#000", border: "1px solid #fff"}, 500).effect("pulsate", { times:10 }, 1000);
 
@@ -611,17 +618,19 @@ $(document).ready(function() {
 			   //clone the html portion to replicate
 			   var image_row_cloned = $(".thumbs_facility li:hidden").clone();
 			   //set src file name
-			   var src = image_row_cloned.find('img').attr( "src") +  file_facility ;
+			   var src = image_row_cloned.find('a.thumb img').attr( "src") +  file_facility ;
 			   //add src file name
-			   image_row_cloned.find('img').attr("src", src);
+			   image_row_cloned.find('a.thumb img').attr("src", src);
+			   image_row_cloned.find("span.name_image").html (function(index, oldhtml){
+				   return oldhtml.replace(/__PVALUE__/ig, name_facility);
+			   }  );
 
-			   
+			   image_row_cloned.find("a.erase_image").attr("href", function(i, val) {
+				   return val + id_facility	;	   }).click( function(event){addEventDeleteImage(event);});
 			   image_row_cloned.insertAfter($(".thumbs_facility li:last")).show();
 			   image_row_cloned.animate({opacity:0.67, color: "#000", border: "1px solid #fff"}, 500).effect("pulsate", { times:10 }, 1000);
 
-			 
 
-		 
 		 }
 		 
 		 
@@ -1793,54 +1802,50 @@ $(document).ready(function() {
    
    
    //---  DETAILS SECTION CODE   
-		
-   	  $("a.erase_image").click( function(event){
-   		  
-   		  event.preventDefault();
-   		  var $this = $(this);
-   		  $(this).closest("." + "guest" + "_row").remove();
-   		  var urlAction = $(this).attr("href");
-		  $.ajax({
-			  type: 'POST',
-			  url: urlAction,
-			  success: function(data_action){
-				  
-		   			var title_notification = null;
-		   			
-		   			   if (data_action.result == "success")
-		   				   {
-		   			
-		   				$().notify("Congratulazioni", data_action.description);
-		   				
-		   				$this.parents("li").remove();    				    
-		   				   }
-		   		    
-		   		     else if (data_action.result == "error")
-		   		    	 {
-		   		    	 	$().notify("Attenzione", data_action.description);
-		   		    	 }
-		   		   	else{
-		   		   		$(".validationErrors").html(data_action);
-		   		   		}
+	var addEventDeleteImage = 	function (event){
+	   		  
+	   		  event.preventDefault();
+	   		  var $this = $( event.currentTarget );
+	   		//--  $(this).closest("." + "guest" + "_row").remove();
+	   		  var urlAction = $this.attr("href");
+			  $.ajax({
+				  type: 'POST',
+				  url: urlAction,
+				  success: function(data_action){
 					  
-				  },
-			            cancel : function() {
-			            	 
-			            	$(this).dialog("close");
-			                  
-			              
+			   			var title_notification = null;
+			   			
+			   			   if (data_action.result == "success")
+			   				   {
+			   			
+			   				$().notify("Congratulazioni", data_action.description);
+			   				
+			   				$this.parents("li").remove();    				    
+			   				   }
+			   		    
+			   		     else if (data_action.result == "error")
+			   		    	 {
+			   		    	 	$().notify("Attenzione", data_action.description);
+			   		    	 }
+			   		   	else{
+			   		   		$(".validationErrors").html(data_action);
+			   		   		}
+						  
+					  },
+				  error: function(){
+					  
+						$().notify("Errore Grave", "Problema nella risorsa interrogata nel server");
+				   		   
+					  
+				  }
 				  
-			  },
-			  error: function(){
-				  
-					$().notify("Errore Grave", "Problema nella risorsa interrogata nel server");
-			   		   
-				  
-			  }
-			  
-			});
-  		  
-  	  });
+				});
+	  		  
+	  	  }
+		
+		
+		
+   	  $("a.erase_image").click( function(event) {addEventDeleteImage(event)});
 	  
 	  $('a[id*=toggle]').click(function(){
 		    if ($(this).hasClass('active') === true) {

@@ -609,8 +609,9 @@ div.beautify
 {
 background:none repeat scroll 0 0 #FAFAFA;
 border:1px solid #DDDDDD;
-margin:-20px 0 1em;
+margin:-13px 0 1em;
 padding:0.5em;
+float:left;
 }
 
 div.beauty

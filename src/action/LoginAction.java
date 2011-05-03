@@ -19,6 +19,7 @@ import model.Payment;
 import model.Room;
 import model.RoomFacility;
 import model.Structure;
+import model.StructureFacility;
 import model.User;
 import model.listini.RoomPriceListItem;
 import model.listini.RoomPriceList;
@@ -103,6 +104,7 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		this.buildBookings(ret);
 		this.buildExtras(ret);
 		this.buildImages(ret);
+		this.buildStructureFacilities(ret);
 		return ret;		
 	}
 	
@@ -424,6 +426,17 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		img.setName("Facciata");
 		img.setFileName("facciata.jpg");
 		structure.addStructureImage(img);
+		
+		
+	}
+	
+	private void buildStructureFacilities(Structure structure){
+		
+		StructureFacility structFacility = new StructureFacility();
+		structFacility.setId(structure.nextKey());
+		structFacility.setName("Restaurant");
+		structFacility.setFileName("restaurant.png");
+		structure.addStructureFacility(structFacility);
 		
 		
 	}

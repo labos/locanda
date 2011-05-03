@@ -21,7 +21,7 @@
           
           <span class="name_section">Online Bookings</span>
                </div>
-  		  <form method="post" action="saveUpdateRoom.action" class="yform json full" role="application">
+  		  <form method="post" action="#" class="yform json full" role="application">
             <fieldset>
               <legend>Widget</legend>
               <div class="c50l">

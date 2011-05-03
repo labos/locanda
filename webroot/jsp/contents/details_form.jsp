@@ -308,7 +308,8 @@
           </div>
           
           
-               <div class="subcolumns">
+                 <div class="beautify">
+                  <div class="subcolumns">
                   <a name="bottom_anchor" />
         			<ul class="thumbs_facility">
         					<s:iterator value="structure.structureFacilities" var="eachFacility" >
@@ -323,13 +324,15 @@
 							<li style="display: none">
 								<a title="Title #1" href="#drop" class="thumb" rel="history">
 									<img alt="Title #1" src="images/struct_facilities/" />
-								</a>		
+								</a>
+							<span class="name_image">__PVALUE__<a class="erase_image" href="deleteStructureFacility.action?image.id="  title="erase"><img src="images/delete.png" alt="Delete Image" /></a></span>
 							</li>
 							</ul>
 						</div>
 						
 						<div class="subcolumns">
 						&nbsp;
+						</div>
 						</div>
           
           
@@ -350,6 +353,7 @@
 		   	  </div>
 		   	</div>      
           </div>
+                 <div class="beautify">
                   <div class="subcolumns">
                   <a name="bottom_anchor" />
         <ul class="thumbs">
@@ -365,7 +369,9 @@
 							<li style="display: none">
 								<a title="Title #1" href="#drop" class="thumb" rel="history">
 									<img alt="Title #1" src="images/structure/" />
-								</a>		
+								</a>
+								<span class="name_image">__PVALUE__<a class="erase_image" href="deleteImageStructure.action?image.id="  title="erase"><img src="images/delete.png" alt="Delete Image" /></a></span>
+										
 							</li>
 							</ul>
 						</div>
@@ -373,6 +379,7 @@
 							<div class="result_facility_upload" id="result_facility_upload" ></div>
 		   					<div class="upload_loader">&nbsp;</div>
 		   					<div class="image_preview"></div>
+						</div>
 						</div>
                       
                       
