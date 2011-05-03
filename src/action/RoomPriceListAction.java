@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.servlet.ServletContext;
+
 import model.Booking;
 import model.Extra;
 import model.Room;
@@ -20,12 +22,14 @@ import model.listini.RoomPriceList;
 import model.listini.Season;
 
 import org.apache.commons.lang.time.DateUtils;
+import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Actions;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.interceptor.SessionAware;
 
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
 @ParentPackage(value="default")
@@ -122,7 +126,9 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware{
 	public String findAllRoomPriceLists() {
 		User user = null;
 		Structure structure = null;
-		Set<Integer> years = new HashSet<Integer>();			
+		Set<Integer> years = new HashSet<Integer>();
+		ServletContext context = ServletActionContext.getServletContext();
+		String webappPath = context.getContextPath();
 		
 		user = (User)this.getSession().get("user");
 		structure = user.getStructure();
@@ -140,7 +146,7 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware{
 			}
 			for (TreeNode eachNode2 : eachNode1.getChildren()) {	//costruisco i nodi di terzo livello - i roomTypes
 				for (String eachRoomType : structure.findAllRoomTypes()) {
-					String href = "/locanda/findRoomPriceListItems" + 
+					String href = webappPath + "/findRoomPriceListItems" +
 						"?seasonId=" + structure.findSeasonByName(eachNode2.getData().getTitle()).getId() + 
 						"&roomType=" + eachRoomType;
 					eachNode2.buildChild(eachRoomType, href);
