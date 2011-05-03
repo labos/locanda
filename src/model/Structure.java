@@ -322,6 +322,7 @@ public class Structure {
 		oldExtra.setPrice(extra.getPrice());
 		oldExtra.setTimePriceType(extra.getTimePriceType());
 		oldExtra.setResourcePriceType(extra.getResourcePriceType());
+		oldExtra.setDescription(extra.getDescription());
 		
 		return true;
 	}

@@ -7,6 +7,7 @@ public class Extra {
 	private Double price;
 	private String timePriceType;
 	private String resourcePriceType;
+	private String description;
 	
 	
 	@Override
@@ -61,6 +62,12 @@ public class Extra {
 	}
 	public void setResourcePriceType(String resourcePriceType) {
 		this.resourcePriceType = resourcePriceType;
+	}
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
 	}
 	
 	

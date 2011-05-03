@@ -45,7 +45,10 @@
 				  </div>
 				  
 				  </div>
-							 
+				  <div class="type-text">	
+                  	<label for="extraFormName">Extra Description</label>
+					<textarea name="extra.description"><s:property value="#eachExtra.description"/></textarea>		 
+                  </div>
                   <div class="type-button">
                   	<button class="btn_save">SAVE</button>
                     <button class="btn_reset btn_cancel_form">CANCEL</button>
