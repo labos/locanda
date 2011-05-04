@@ -15,38 +15,21 @@
                   	<label for="roomName">Room name: <sup title="This field is mandatory.">*</sup></label>
                   	<input class="required" type="text" name="room.name" id="roomName" value="<s:property value="room.name"/>" size="20" />
              	  </div>
-                  <div class="type-text">
-                  	<label for="roomType">Room type: <sup title="This field is mandatory.">*</sup></label>
-                  	<input class="required" type="text" name="room.roomType" id="roomType" value="<s:property value="room.roomType"/>" size="20" />
-             	  </div>
              	  <div class="type-select">
-                  	<label for="roomMaxGuests">Max Guests: <sup title="This field is mandatory.">*</sup></label>            	                 	
-             	     <select name="room.maxGuests" id="roomMaxGuests" class="required">
-                    	 <% 
-                    	 if ( request.getAttribute("room.maxGuests") != null)
-                    	 {
-                    		 
-                    	 
- 						int max_guests= 4;
-						int nr_guests = (Integer) request.getAttribute("room.maxGuests");
-						   for(int i = 1; i <= max_guests; i++) {
-							   %>
-							    <option value="<% out.print(i) ; %>" <% if(nr_guests == i ) {out.print("selected=\"selected\"");}%>><% out.print(i) ; %></option>
-							   <% 
-						   }
-						   }
-						   else
-						   {
-						   %>
-                       	  <option value="1">1</option>
-                    	  <option value="2">2</option>
-                    	  <option value="3">3</option>
-                    	  <option value="4">4</option>
-      							<% 
-	   
-						   }
-						   %>
-                 		</select>
+                  	<label for="roomType">Room Type: <sup title="This field is mandatory.">*</sup></label>            	                 	
+             	     <select name="room.roomType.id" id="roomType">
+                    	
+                    	<s:iterator value="roomTypes" var="eachRoomType" >
+                   			<option 
+                   			  <s:if test="#eachRoomType.id == room.roomType.id">selected="selected"</s:if>	 
+                   			  value="<s:property value="#eachRoomType.id"/>"><s:property value="#eachRoomType.name"/>
+                   			</option>
+                    	</s:iterator>
+                    	<s:if test="room.roomType == null">
+							<option selected="selected" value="-1">Select One</option>
+						</s:if>
+                    	
+                 	</select>
              	  </div>
              	  <div class="type-text">
                   	<label for="roomNotes">Notes:</label> 

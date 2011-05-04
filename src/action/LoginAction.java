@@ -18,6 +18,7 @@ import model.Image;
 import model.Payment;
 import model.Room;
 import model.RoomFacility;
+import model.RoomType;
 import model.Structure;
 import model.StructureFacility;
 import model.User;
@@ -95,10 +96,11 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		ret.setNotes("struttura ricettiva alberghiera a 5 stelle");
 		ret.setFax("+39 0705678383");
 		ret.setCity("Pula");
+		
 		this.buildRoomFacilities(ret);
+		this.buildRoomTypes(ret);
 		this.buildRooms(ret);
 		this.buildGuests(ret);
-	
 		this.buildSeasons(ret);
 		this.buildListiniCamere(ret);
 		this.buildBookings(ret);
@@ -114,21 +116,35 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		aRoom = new Room();
 		aRoom.setId(structure.nextKey());
 		aRoom.setName("101");
-		aRoom.setRoomType("singola");
 		aRoom.setPrice(80.0);
-		aRoom.setMaxGuests(1);
 		aRoom.addRoomFacility(structure.getRoomFacilities().get(0));
 		aRoom.addRoomFacility(structure.getRoomFacilities().get(2));
+		aRoom.setRoomType(structure.getRoomTypes().get(0));
 		structure.addRoom(aRoom);
 		
 		aRoom = new Room();
 		aRoom.setId(structure.nextKey());
 		aRoom.setName("201");
-		aRoom.setRoomType("doppia");
 		aRoom.setPrice(120.0);
-		aRoom.setMaxGuests(2);
 		aRoom.addRoomFacility(structure.getRoomFacilities().get(1));
+		aRoom.setRoomType(structure.getRoomTypes().get(1));
 		structure.addRoom(aRoom);
+	}
+	
+	private void buildRoomTypes(Structure structure){
+		RoomType aRoomType = null;
+		
+		aRoomType = new RoomType();
+		aRoomType.setId(structure.nextKey());
+		aRoomType.setName("singola");
+		aRoomType.setMaxGuests(1);
+		structure.addRoomType(aRoomType);
+		
+		aRoomType = new RoomType();
+		aRoomType.setId(structure.nextKey());
+		aRoomType.setName("doppia");
+		aRoomType.setMaxGuests(2);
+		structure.addRoomType(aRoomType);
 	}
 	
 	private void buildRoomFacilities(Structure structure){
@@ -307,7 +323,7 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		//Listino Camera Singola Bassa Stagione
 		listinoCamera =	new RoomPriceList();
 		listinoCamera.setId(structure.nextKey());
-		listinoCamera.setRoomType("singola");
+		listinoCamera.setRoomType(structure.getRoomTypes().get(0));
 		listinoCamera.setSeason(structure.findSeasonByName("Bassa Stagione"));
 		itemListinoCamera = new RoomPriceListItem();
 		itemListinoCamera.setId(structure.nextKey());
@@ -328,7 +344,7 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		//Listino Camera Singola Alta Stagione
 		listinoCamera =	new RoomPriceList();
 		listinoCamera.setId(structure.nextKey());
-		listinoCamera.setRoomType("singola");
+		listinoCamera.setRoomType(structure.getRoomTypes().get(0));
 		listinoCamera.setSeason(structure.findSeasonByName("Alta Stagione"));
 		itemListinoCamera = new RoomPriceListItem();
 		itemListinoCamera.setId(structure.nextKey());
@@ -349,7 +365,7 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		//Listino Camera Doppia Bassa Stagione
 		listinoCamera =	new RoomPriceList();
 		listinoCamera.setId(structure.nextKey());
-		listinoCamera.setRoomType("doppia");
+		listinoCamera.setRoomType(structure.getRoomTypes().get(1));
 		listinoCamera.setSeason(structure.findSeasonByName("Bassa Stagione"));
 		
 		itemListinoCamera = new RoomPriceListItem();
@@ -385,7 +401,7 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		//Listino Camera Doppia Alta Stagione
 		listinoCamera =	new RoomPriceList();
 		listinoCamera.setId(structure.nextKey());
-		listinoCamera.setRoomType("doppia");
+		listinoCamera.setRoomType(structure.getRoomTypes().get(1));
 		listinoCamera.setSeason(structure.findSeasonByName("Alta Stagione"));
 		
 		itemListinoCamera = new RoomPriceListItem();

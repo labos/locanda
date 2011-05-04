@@ -3,9 +3,11 @@ package model.listini;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.RoomType;
+
 public class RoomPriceList {
 	private Integer id;
-	private String roomType;
+	private RoomType roomType;
 	private Season season;
 	private Convention convention;
 	private List<RoomPriceListItem> items;
@@ -60,23 +62,28 @@ public class RoomPriceList {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public String getRoomType() {
+	
+	public RoomType getRoomType() {
 		return roomType;
 	}
-	public void setRoomType(String roomType) {
+
+	public void setRoomType(RoomType roomType) {
 		this.roomType = roomType;
 	}
+
+	public Convention getConvention() {
+		return convention;
+	}
+
+	public void setConvention(Convention convention) {
+		this.convention = convention;
+	}
+
 	public Season getSeason() {
 		return season;
 	}
 	public void setSeason(Season season) {
 		this.season = season;
-	}
-	public Convention getAgevolazione() {
-		return convention;
-	}
-	public void setAgevolazione(Convention agevolazione) {
-		this.convention = agevolazione;
 	}
 	public List<RoomPriceListItem> getItems() {
 		return items;

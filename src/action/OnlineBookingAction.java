@@ -30,7 +30,7 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 	private List<Room> rooms = null;
 	private Booking booking = null;
 	private Integer id;
-	private  Date dateArrival;
+	private Date dateArrival;
 	private Integer numGuests = 1;
 	private Integer numNight = 1;
 	private List<Extra> extras;
@@ -92,7 +92,7 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 		
 		for(Room each : rooms){
 			
-			if ( (each.getMaxGuests() >= this.getNumGuests() ) && structure.hasRoomFreeInPeriod(each.getId(), this.getDateArrival(), this.calculateDateOut()) ) 
+			if ( (each.getRoomType().getMaxGuests() >= this.getNumGuests() ) && structure.hasRoomFreeInPeriod(each.getId(), this.getDateArrival(), this.calculateDateOut()) ) 
 			{
 				this.getRooms().add(each);
 			}

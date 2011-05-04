@@ -362,11 +362,11 @@ display: none;
                       	<label for="nr_guests">Guests: <sup title="This field is mandatory.">*</sup></label> 
                       	<select name="booking.nrGuests" id="nr_guests" class="required">
                     	 <% 
-                    	 if ( request.getAttribute("booking.room.maxGuests") != null)
+                    	 if ( request.getAttribute("booking.room.roomType.maxGuests") != null)
                     	 {
                     		 
                     	 
- 						int max_guests= (Integer) request.getAttribute("booking.room.maxGuests");
+ 						int max_guests= (Integer) request.getAttribute("booking.room.roomType.maxGuests");
 						int nr_guests = (Integer) request.getAttribute("booking.nrGuests");
 						   for(int i = 1; i <= max_guests; i++) {
 							   %>

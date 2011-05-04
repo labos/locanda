@@ -32,7 +32,7 @@ public class RoomTypeAction extends ActionSupport implements SessionAware{
 		
 		user = (User)this.getSession().get("user");
 		structure = user.getStructure();
-		this.setRoomTypes(structure.findAllRoomTypes());
+		this.setRoomTypes(structure.findAllRoomTypeNames());
 		return SUCCESS;
 	}
 	

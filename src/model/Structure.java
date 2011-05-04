@@ -28,6 +28,7 @@ public class Structure {
 	private String notes;
 	
 	private List<Room> rooms;
+	private List<RoomType> roomTypes;
 	private TreeSet<Integer> keys;
 	private List<RoomFacility> roomFacilities;
 	private List<StructureFacility> structureFacilities;
@@ -50,6 +51,7 @@ public class Structure {
 		this.setSeasons(new ArrayList<Season>());
 		this.setRoomPriceLists(new ArrayList<RoomPriceList>());
 		this.setImageLists(new ArrayList<Image>());
+		this.setRoomTypes(new ArrayList<RoomType>());
 		this.setStructureFacilities(new ArrayList<StructureFacility>());
 	}
 	
@@ -108,7 +110,6 @@ public class Structure {
 			return false;
 		}
 		originalRoom.setName(room.getName());
-		originalRoom.setMaxGuests(room.getMaxGuests());
 		originalRoom.setNotes(room.getNotes());
 		originalRoom.setPrice(room.getPrice());
 		originalRoom.setRoomType(room.getRoomType());
@@ -356,11 +357,29 @@ public class Structure {
 	
 	
 	//RoomTypes
-	public Set<String> findAllRoomTypes(){
+	public Boolean addRoomType(RoomType aRoomType){
+		return this.getRoomTypes().add(aRoomType);
+	}
+	
+	public Boolean removeRoomType(RoomType aRoomType){
+		return this.getRoomTypes().remove(aRoomType);		
+	}
+	
+	
+	public RoomType findRoomTypeById(Integer id){
+		for(RoomType each: this.getRoomTypes()){
+			if(each.getId().equals(id)){
+				return each;
+			}
+		}
+		return null;
+	}
+	
+	public Set<String> findAllRoomTypeNames(){
 		Set<String> ret = new TreeSet<String>();
 		
-		for(Room each: this.getRooms()){
-			ret.add(each.getRoomType());
+		for(RoomType each: this.getRoomTypes()){
+			ret.add(each.getName());
 		}
 		return ret;
 	}
@@ -520,18 +539,18 @@ public class Structure {
 		season = this.findSeasonByDate(date);
 		for(RoomPriceList each: this.getRoomPriceLists()){
 			if(each.getSeason().getName().equalsIgnoreCase(season.getName()) &&
-					each.getRoomType().equalsIgnoreCase(room.getRoomType()) ){
+					each.getRoomType().equals(room.getRoomType()) ){
 				return each;
 			}
 		}		
 		return ret;
 	}
 	
-	public RoomPriceList findRoomPriceListBySeasonAndRoomType(Season season, String roomType) {
+	public RoomPriceList findRoomPriceListBySeasonAndRoomType(Season season, RoomType roomType) {
 		RoomPriceList ret = null;
 		
 		for(RoomPriceList each: this.getRoomPriceLists()) {
-			if (each.getSeason().equals(season) && each.getRoomType().equalsIgnoreCase(roomType)) {
+			if (each.getSeason().equals(season) && each.getRoomType().equals(roomType)) {
 				return each;
 			}
 		}
@@ -676,6 +695,14 @@ public class Structure {
 	}
 	public void setRooms(List<Room> rooms) {
 		this.rooms = rooms;
+	}
+
+	public List<RoomType> getRoomTypes() {
+		return roomTypes;
+	}
+
+	public void setRoomTypes(List<RoomType> roomTypes) {
+		this.roomTypes = roomTypes;
 	}
 
 	public TreeSet<Integer> getKeys() {

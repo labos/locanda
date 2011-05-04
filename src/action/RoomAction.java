@@ -8,6 +8,7 @@ import java.util.Map;
 import model.Extra;
 import model.Room;
 import model.RoomFacility;
+import model.RoomType;
 import model.Structure;
 import model.User;
 import model.internal.Message;
@@ -29,6 +30,7 @@ public class RoomAction extends ActionSupport implements SessionAware{
 	private List<Integer> roomFacilitiesIds = new ArrayList<Integer>();
 	private List<Room> rooms = null;
 	private Integer roomId;
+	private List<RoomType> roomTypes = null;
 	
 	
 	@Actions({
@@ -49,6 +51,7 @@ public class RoomAction extends ActionSupport implements SessionAware{
 		//Controllare che sia diverso da null in un interceptor
 		structure = user.getStructure();
 		this.setRooms(structure.getRooms());
+		this.setRoomTypes(structure.getRoomTypes());
 		this.setRoomFacilities(structure.getRoomFacilities());
 		return SUCCESS;
 	}
@@ -89,6 +92,7 @@ public class RoomAction extends ActionSupport implements SessionAware{
 		structure = user.getStructure();
 		oldRoom = structure.findRoomById(this.getRoom().getId());
 		this.setRoom(oldRoom);
+		this.setRoomTypes(structure.getRoomTypes());
 		this.setRoomFacilities(structure.getRoomFacilities());
 		for(RoomFacility each: this.getRoom().getFacilities()){			
 			this.getRoomFacilitiesIds().add(each.getId());		//popolo l'array roomFacilitiesIds con gli id delle Facilities già presenti nella Room da editare
@@ -132,6 +136,7 @@ public class RoomAction extends ActionSupport implements SessionAware{
 		List<Room> rooms = null;
 		String names = "";
 		List<RoomFacility> checkedFacilities = null;
+		RoomType theRoomType = null;
 		
 		rooms = this.splitRooms();					
 		for(Room each: rooms){
@@ -151,6 +156,8 @@ public class RoomAction extends ActionSupport implements SessionAware{
 			for(Room each: rooms){
 				each.setId(structure.nextKey());				
 				each.setFacilities(checkedFacilities);
+				theRoomType = structure.findRoomTypeById(this.getRoom().getRoomType().getId());
+				each.setRoomType(theRoomType);
 				structure.addRoom(each);
 			}
 			this.getMessage().setResult(Message.SUCCESS);
@@ -169,8 +176,7 @@ public class RoomAction extends ActionSupport implements SessionAware{
 				Room aRoom = new Room();
 				aRoom.setName(each.trim());
 				aRoom.setPrice(this.getRoom().getPrice());
-				aRoom.setNotes(this.getRoom().getNotes());
-				aRoom.setMaxGuests(this.getRoom().getMaxGuests());				
+				aRoom.setNotes(this.getRoom().getNotes());		
 				aRoom.setRoomType(this.getRoom().getRoomType());
 				rooms.add(aRoom);				
 			}
@@ -182,6 +188,7 @@ public class RoomAction extends ActionSupport implements SessionAware{
 		//Si tratta di un update
 		String newName = null;
 		List<RoomFacility> checkedFacilities = null;
+		RoomType theRoomType = null;
 		
 		newName = this.getRoom().getName();
 		if(newName.contains(",")){
@@ -198,6 +205,10 @@ public class RoomAction extends ActionSupport implements SessionAware{
 		}
 		checkedFacilities = structure.findFacilitiesByIds(this.getRoomFacilitiesIds());
 		this.getRoom().setFacilities(checkedFacilities);
+		
+		theRoomType = structure.findRoomTypeById(this.getRoom().getRoomType().getId());
+		this.getRoom().setRoomType(theRoomType);
+		
 		structure.updateRoom(this.getRoom());
 		this.getMessage().setResult(Message.SUCCESS);
 		this.getMessage().setDescription("La stanza e' stata modificata con successo");
@@ -303,7 +314,13 @@ public class RoomAction extends ActionSupport implements SessionAware{
 	public void setRoomFacilitiesIds(List<Integer> roomFacilitiesIds) {
 		this.roomFacilitiesIds = roomFacilitiesIds;
 	}
+
+	public List<RoomType> getRoomTypes() {
+		return roomTypes;
+	}
 	
-	
+	public void setRoomTypes(List<RoomType> roomTypes) {
+		this.roomTypes = roomTypes;
+	}
 	
 }

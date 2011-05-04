@@ -9,8 +9,7 @@ public class Room {
 	private String name;
 	private Double price;
 	private String notes;
-	private Integer maxGuests;
-	private String roomType;
+	private RoomType roomType;
 	private List<RoomFacility> facilities;
 	
 	public Room(){
@@ -70,14 +69,6 @@ public class Room {
 		this.name = name;
 	}
 
-	public String getRoomType() {
-		return roomType;
-	}
-
-	public void setRoomType(String roomType) {
-		this.roomType = roomType;
-	}
-
 	public Double getPrice() {
 		return price;
 	}
@@ -94,20 +85,22 @@ public class Room {
 		this.notes = notes;
 	}
 
-	public Integer getMaxGuests() {
-		return maxGuests;
-	}
-
-	public void setMaxGuests(Integer maxGuests) {
-		this.maxGuests = maxGuests;
-	}
-
 	public List<RoomFacility> getFacilities() {
 		return facilities;
 	}
 
 	public void setFacilities(List<RoomFacility> facilities) {
 		this.facilities = facilities;
+	}
+
+	public RoomType getRoomType() {
+		return roomType;
+	}
+
+	public void setRoomType(RoomType roomType) {
+		this.roomType = roomType;
 	}	
+	
+	
 
 }

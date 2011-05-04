@@ -13,6 +13,7 @@ import javax.servlet.ServletContext;
 import model.Booking;
 import model.Extra;
 import model.Room;
+import model.RoomType;
 import model.Structure;
 import model.User;
 import model.internal.Message;
@@ -43,7 +44,7 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware{
 	private RoomPriceList priceList = null;
 	
 	private Integer seasonId = null;
-	private String roomType = null;
+	private Integer roomTypeId = null;
 	
 	@Actions({
 		@Action(value="/calculatePrices",results = {
@@ -64,7 +65,7 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware{
 		Double extraSubtotal = 0.0;
 		Structure structure = null; 
 		Room theBookedRoom = null;
-		List<Extra>  checkedExtras = null;
+		List<Extra> checkedExtras = null;
 		Integer numNights;
 						
 		user = (User)this.getSession().get("user");
@@ -145,11 +146,11 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware{
 				eachNode1.buildChild(eachYearSeason.getName());
 			}
 			for (TreeNode eachNode2 : eachNode1.getChildren()) {	//costruisco i nodi di terzo livello - i roomTypes
-				for (String eachRoomType : structure.findAllRoomTypes()) {
+				for (RoomType eachRoomType : structure.getRoomTypes()) {
 					String href = webappPath + "/findRoomPriceListItems" +
 						"?seasonId=" + structure.findSeasonByName(eachNode2.getData().getTitle()).getId() + 
-						"&roomType=" + eachRoomType;
-					eachNode2.buildChild(eachRoomType, href);
+						"&roomTypeId=" + eachRoomType.getId();
+					eachNode2.buildChild(eachRoomType.getName(), href);
 				}			
 			}
 		}
@@ -171,12 +172,15 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware{
 		User user = null;
 		Structure structure = null;
 		Season season = null;
+		RoomType roomType = null;
 		
 		user = (User)this.getSession().get("user");
 		structure = user.getStructure();
 		
 		season = structure.findSeasonById(this.getSeasonId());
-		this.setPriceList(structure.findRoomPriceListBySeasonAndRoomType(season, this.getRoomType()));
+		roomType = structure.findRoomTypeById(this.getRoomTypeId());
+		
+		this.setPriceList(structure.findRoomPriceListBySeasonAndRoomType(season, roomType));
 		return SUCCESS;
 	}
 	
@@ -246,14 +250,14 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware{
 		this.seasonId = seasonId;
 	}
 
-	public String getRoomType() {
-		return roomType;
+	public Integer getRoomTypeId() {
+		return roomTypeId;
 	}
 
-	public void setRoomType(String roomType) {
-		this.roomType = roomType;
+	public void setRoomTypeId(Integer roomTypeId) {
+		this.roomTypeId = roomTypeId;
 	}
-	
+
 	
 	
 }

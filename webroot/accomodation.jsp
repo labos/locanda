@@ -42,8 +42,8 @@
       		 	<div class="c40l">
                   <div class="type_rooms">
                     <ul>
-		   	          <li><b>Room type:</b> <s:property value="#eachRoom.roomType"/></li>
-				      <li><b>Max Guests:</b> <s:property value="#eachRoom.maxGuests"/></li>
+				      <li><b>Room type:</b> <s:property value="#eachRoom.roomType.name"/></li>
+				      <li><b>Max Guests:</b> <s:property value="#eachRoom.roomType.maxGuests"/></li>
 				      <li><b>Notes:</b> <s:property value="#eachRoom.notes"/></li>
 				    </ul>
            			<fieldset> 
