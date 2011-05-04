@@ -111,7 +111,6 @@ public class Structure {
 		}
 		originalRoom.setName(room.getName());
 		originalRoom.setNotes(room.getNotes());
-		originalRoom.setPrice(room.getPrice());
 		originalRoom.setRoomType(room.getRoomType());
 		originalRoom.setFacilities(room.getFacilities());
 		return true;

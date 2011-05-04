@@ -57,26 +57,6 @@ public class RoomAction extends ActionSupport implements SessionAware{
 	}
 	
 	
-	
-	@Actions({
-		@Action(value="/goAddNewRoom",results = {
-				@Result(name="success",location="/add_new.jsp")
-		})
-		
-	})
-	public String goAddNewRoom() {
-		User user = null;
-		Structure structure = null;
-		
-		user = (User)this.getSession().get("user");
-		structure = user.getStructure();
-		this.setRoomFacilities(structure.getRoomFacilities());
-		return SUCCESS;
-	}
-	
-	
-	
-	
 	@Actions({
 		@Action(value="/goUpdateRoom",results = {
 				@Result(name="success",location="/room_edit.jsp")
@@ -175,7 +155,6 @@ public class RoomAction extends ActionSupport implements SessionAware{
 			if(each.trim().length()>0){
 				Room aRoom = new Room();
 				aRoom.setName(each.trim());
-				aRoom.setPrice(this.getRoom().getPrice());
 				aRoom.setNotes(this.getRoom().getNotes());		
 				aRoom.setRoomType(this.getRoom().getRoomType());
 				rooms.add(aRoom);				

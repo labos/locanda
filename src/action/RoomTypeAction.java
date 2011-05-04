@@ -60,7 +60,7 @@ public class RoomTypeAction extends ActionSupport implements SessionAware{
 		@Action(value="/saveUpdateRoomType",results = {
 				@Result(type ="json",name="success", params={
 						"root","message"
-				} )
+				})
 		})
 		
 	})

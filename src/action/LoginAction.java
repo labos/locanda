@@ -116,7 +116,6 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		aRoom = new Room();
 		aRoom.setId(structure.nextKey());
 		aRoom.setName("101");
-		aRoom.setPrice(80.0);
 		aRoom.addRoomFacility(structure.getRoomFacilities().get(0));
 		aRoom.addRoomFacility(structure.getRoomFacilities().get(2));
 		aRoom.setRoomType(structure.getRoomTypes().get(0));
@@ -125,7 +124,6 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		aRoom = new Room();
 		aRoom.setId(structure.nextKey());
 		aRoom.setName("201");
-		aRoom.setPrice(120.0);
 		aRoom.addRoomFacility(structure.getRoomFacilities().get(1));
 		aRoom.setRoomType(structure.getRoomTypes().get(1));
 		structure.addRoom(aRoom);
