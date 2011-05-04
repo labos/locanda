@@ -59,7 +59,6 @@ public class GuestAction extends ActionSupport implements SessionAware{
 				})}) 
 		
 	})	
-	
 	public String findGuestById(){
 		User user = null;
 		Structure structure = null;
@@ -76,17 +75,6 @@ public class GuestAction extends ActionSupport implements SessionAware{
 		this.getMessage().setResult(Message.ERROR);
 		this.getMessage().setDescription("Guest not found!");
 		return ERROR;
-	}
-	
-	
-	@Actions({
-		@Action(value="/goAddNewGuest",results = {
-				@Result(name="success",location="/guest_new.jsp")
-		})
-		
-	})
-	public String goAddNewGuest() {		
-		return SUCCESS;
 	}
 	
 	@Actions({

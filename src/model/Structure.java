@@ -121,7 +121,6 @@ public class Structure {
 		return this.getRooms().remove(aRoom);
 	}
 	
-	
 	public Boolean hasRoomFreeInPeriod(Integer roomId, Date dateIn, Date dateOut){
 		//Estraggo i Booking della camera con roomId dato
 		List<Booking> roomBookings = new ArrayList<Booking>();
@@ -218,7 +217,7 @@ public class Structure {
 	
 	//Booking	
 	public boolean addBooking(Booking aBooking) {
-		return this.bookings.add(aBooking);
+		return this.getBookings().add(aBooking);
 	}
 	
 	public Boolean updateBooking(Booking booking){
@@ -244,7 +243,7 @@ public class Structure {
 	}
 	
 	public boolean deleteBooking(Booking aBooking) {
-		return this.bookings.remove(aBooking);
+		return this.getBookings().remove(aBooking);
 	}
 	
 	public Booking findBookingById(Integer id){
@@ -273,7 +272,7 @@ public class Structure {
 
 	//Guest	
 	public boolean addGuest(Guest aGuest) {
-		return this.guests.add(aGuest);
+		return this.getGuests().add(aGuest);
 	}
 	
 	public Boolean updateGuest(Guest guest){
@@ -294,24 +293,24 @@ public class Structure {
 	}	
 	
 	public boolean deleteGuest(Guest aGuest) {
-		return this.guests.remove(aGuest);
+		return this.getGuests().remove(aGuest);
 	}
 	
 	public Guest findGuestById(Integer id){
 		Guest ret = null;
+		
 		for (Guest each : this.getGuests()) {
 			if (each.getId().equals(id)) {
 				return each;
 			}
 		}
-		
 		return ret;
 	}
 	
 	
 	//Extra
 	public boolean addExtra(Extra anExtra) {
-		return this.extras.add(anExtra);
+		return this.getExtras().add(anExtra);
 	}
 	
 	public Boolean updateExtra(Extra extra){
@@ -329,9 +328,8 @@ public class Structure {
 		return true;
 	}
 	
-	
 	public boolean deleteExtra(Extra anExtra) {
-		return this.extras.remove(anExtra);
+		return this.getExtras().remove(anExtra);
 	}
 	
 	public Extra findExtraById(Integer id){
@@ -342,12 +340,12 @@ public class Structure {
 				return each;
 			}
 		}
-		
 		return ret;
 	}
 	
 	public List<Extra> findExtrasByIds(List<Integer> ids){
 		List<Extra> ret = new ArrayList<Extra>();
+		
 		for(Integer each:ids){
 			Extra anExtra = this.findExtraById(each);
 			ret.add(anExtra);
@@ -366,24 +364,29 @@ public class Structure {
 		return this.getRoomTypes().remove(aRoomType);		
 	}
 	
-	
+	public Boolean updateRoomType(RoomType aRoomType){
+		
+		RoomType oldRoomType = this.findRoomTypeById(aRoomType.getId());
+		if(oldRoomType==null){
+			return false;
+		}
+		oldRoomType.setName(aRoomType.getName());
+		oldRoomType.setMaxGuests(aRoomType.getMaxGuests());
+		
+		return true;
+	}
+
 	public RoomType findRoomTypeById(Integer id){
+		RoomType ret = null;
+		
 		for(RoomType each: this.getRoomTypes()){
 			if(each.getId().equals(id)){
 				return each;
 			}
 		}
-		return null;
-	}
-	
-	public Set<String> findAllRoomTypeNames(){
-		Set<String> ret = new TreeSet<String>();
-		
-		for(RoomType each: this.getRoomTypes()){
-			ret.add(each.getName());
-		}
 		return ret;
 	}
+	
 	
 	
 	//Season
@@ -393,19 +396,19 @@ public class Structure {
 	}
 	
 	public Boolean removeSeason(Season aSeason){
-		
 		return this.getSeasons().remove(aSeason);		
 		
 	}
 	
-	
 	public Season findSeasonById(Integer id){
+		Season ret = null;
+		
 		for(Season each: this.getSeasons()){
 			if(each.getId().equals(id)){
 				return each;
 			}
 		}
-		return null;
+		return ret;
 	}
 	
 	public List<Season> findSeasonsByYear(Integer year){

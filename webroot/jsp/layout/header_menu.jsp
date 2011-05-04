@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="/struts-tags" prefix="s" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -17,14 +16,14 @@
 <link rel="stylesheet" type='text/css' href="css/jquery.fileupload-ui.css" />
     
 <script type='text/javascript' src='js/lib/jquery-1.4.4.min.js'></script>
-<!--
-<script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js'></script>
--->
-
+<!--<script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js'></script>-->
 <script type='text/javascript' src='js/lib/jquery-ui-1.8.9.custom.min.js'></script>
+<script type='text/javascript' src='js/ftod.js'></script>
+<script type="text/javascript" src="js/jstree/jquery.jstree.js"></script>
+<script type='text/javascript' src='js/jquery.form.js'></script>
 <script type='text/javascript' src='js/jquery.fileupload.js'></script>
 <script type='text/javascript' src='js/jquery.fileupload-ui.js'></script>
-      <script>
+<script>
       $(document).ready(function() {
       <%
       	//code for menu tabs activation
@@ -45,15 +44,11 @@
     	  }
 
       });
-      </script>
-<script type='text/javascript' src='js/ftod.js'></script>
-<script type='text/javascript' src='js/jquery.validate.min.js'></script>
+</script>
 <script type='text/javascript' src='js/jquery.weekcalendar.js'></script>
-<script type="text/javascript" src="js/jstree/jquery.jstree.js"></script>
+<script type='text/javascript' src='js/jquery.validate.min.js'></script>
 <script type='text/javascript' src='js/main.js'></script>
 <script type='text/javascript' src='js/jquery.jgrowl_minimized.js'></script>
-<script type='text/javascript' src='js/jquery.form.js'></script>
-
   
   <title>LOCANDA - Open Source Booking Tool</title><!-- (en) Add your meta data here -->
   <!-- (de) Fuegen Sie hier ihre Meta-Daten ein -->
@@ -69,19 +64,19 @@
 
   <ul id="skiplinks">
     <li><a class="skip" href="#nav">Skip to navigation (Press Enter).</a></li>
-
     <li><a class="skip" href="#col3">Skip to main content (Press Enter).</a></li>
   </ul>
   
 <s:url action="logout" var="url_logout"></s:url>
 <s:url action="home" var="url_home"></s:url>
-<s:url action="goUpdateDetails" var="url_details"></s:url>
 <s:url action="findAllRooms" var="url_findallroom"></s:url>
 <s:url action="findAllRoomTypes" var="url_findallroomtypes"></s:url>
 <s:url action="findAllGuests" var="url_findallguest"></s:url>
 <s:url action="findAllExtras" var="url_findallextra"></s:url>
 <s:url action="findAllSeasons" var="url_findallseasons"></s:url>
+<s:url action="goUpdateDetails" var="url_details"></s:url>
 <s:url action="goFindAllRoomPriceLists" var="url_findallpricelists"></s:url>
+<s:url action="goOnlineBookings" var="url_onlinebookings"></s:url>
 
   <div class="page_margins">
     <div class="page">
@@ -108,7 +103,7 @@
             <li id="reports"><a href="#">Reports</a></li>
             <li id="settings"><a href="#">Settings</a>
               <ul class="sub_menu ui-menu ui-widget ui-widget-content ui-corner-all">
-    			<li class="ui-menu-item"><a href="goOnlineBookings?sect=settings">ONLINE BOOKINGS</a></li>
+    			<li class="ui-menu-item"><a href="<s:property value="url_onlinebookings"/>?sect=settings">ONLINE BOOKINGS</a></li>
     			<li class="ui-menu-item"><a href="<s:property value="url_findallseasons"/>?sect=settings">SEASONS</a></li>
     			<li class="ui-menu-item"><a href="<s:property value="url_findallpricelists"/>?sect=settings">ROOM PRICE LISTS</a></li>
     			<li class="ui-menu-item"><a href="emails.jsp?sect=settings">EMAILS</a></li>
