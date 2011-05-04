@@ -55,7 +55,9 @@ $(document).ready(function() {
 					     active: false, animated:  'bounceslide',
 					     autoHeight: true
 				});
-
+				
+				
+			   	$(".btn_checked").button( { disabled: true});
 		
 	  	$(".btn_check_in").button({
 	  		icons: {
@@ -84,17 +86,20 @@ $(document).ready(function() {
 		   				   {
 		   			
 		   				$().notify("Congratulazioni", data_action.description);
-		   				 
-		   			  	//-- $this.attr("class", "btn_check_out").button( "option", "label", "CHECK OUT" );
-		   			  	
-		   			  	//ADD CHECKOUT LISTENER
-		   			  	
-		   			  	
+
+  			   			 //UPDATE BOOKING STATUS HIDDEN FIELD
+  			   			 
+  			   			 $("input:hidden[name='booking.status']").val("checkin");
+  			   			 
+  			   		//ADD CHECKOUT LISTENER
+  			   			 
 		   			 $this.attr("class", "btn_check_out").button("destroy").button({
 		   				 label: "CHECK OUT",
 		   		  		icons: {
 		   		            primary: "ui-icon-check"
 		   		        }
+		   			 
+		   			 
 		   		  	}).click( function(event){
 		   		  		
 		   		  		event.preventDefault();
@@ -115,15 +120,14 @@ $(document).ready(function() {
 		   			   				   {
 		   			   			
 		   			   				$().notify("Congratulazioni", data_action.description);
-		   			   			  	$this.text("CHECKED").button("destroy").button({
-		   			   			  		
-		   			   			  		icons: {
-		   			   			            primary: "ui-icon-check"
-		   			   			        }
-		   			   			  	}).button("refresh");
-		   			   				    
-		   			   			  	
+		   			   				// UPDATE BUTTON CHECKING
+		 	   			   			  	
 		   			   			 $this.button( { disabled: true, label:"CHECKED" });
+		   			   			 // END UPDATE BUTTON CHECKING
+		   			   			 
+		   			   			 //UPDATE BOOKING STATUS HIDDEN FIELD
+		   			   			 
+		   			   			 $("input:hidden[name='booking.status']").val("checkout");
 		   			   			  	
 		   			   				   }
 		   			   		    
@@ -134,6 +138,9 @@ $(document).ready(function() {
 		   			   		   	else{
 		   			   		   		$(".validationErrors").html(data_action);
 		   			   		   		}
+		   			   			   
+		   			   			   
+		   			   			   
 		   			   		    	
 		   			   		   },
 		   			   		   
@@ -149,9 +156,7 @@ $(document).ready(function() {
 		   			  	
 		   			  	
 		   			  	//END ADDING CHECKOUT LISTENER
-		   			  	
-		   			  	
-		   			  	
+
 		   			  
 		   				   }
 		   		    
@@ -200,15 +205,13 @@ $(document).ready(function() {
 		   				   {
 		   			
 		   				$().notify("Congratulazioni", data_action.description);
-		   			  	$this.text("CHECKED").button("destroy").button({
-		   			  		
-		   			  		icons: {
-		   			            primary: "ui-icon-check"
-		   			        }
-		   			  	}).button("refresh");
-		   				    
+
 		   			  	
 		   			 $this.button( { disabled: true, label:"CHECKED" });
+		   				    
+		   			  	
+		   			 $("input:hidden[name='booking.status']").val("checkout");
+		   			 
 		   			  	
 		   				   }
 		   		    
@@ -1153,7 +1156,7 @@ $(document).ready(function() {
         /* $dialogContent.find(".date_holder").text($calendar.weekCalendar("formatDate", calEvent.start));               <input type="hidden" name="season.periods[<s:property value="#periodStatus.index"/>].id" value="<s:property value="#eachPeriod.id"/>"/>
 
          */
-         setupStartAndEndTimeFields(startField, endField, calEvent, $calendar.weekCalendar("getTimeslotTimes", calEvent.start));
+       //--  setupStartAndEndTimeFields(startField, endField, calEvent, $calendar.weekCalendar("getTimeslotTimes", calEvent.start));
 
       },
       eventDrop : function(calEvent, $event) {

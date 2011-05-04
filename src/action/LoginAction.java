@@ -237,6 +237,7 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		aPayment.setDescription("Acconto");
 		aPayment.setAmount(new Double("60.0"));
 		aBooking.addPayment(aPayment);
+		aBooking.setStatus("checkout");
 		structure.addBooking(aBooking);		
 	}
 	

@@ -82,16 +82,19 @@ display: none;
 							</div>
 							</div>
 							<div class="c20l">
-                             <span id="date_booking" ></span><span id="duration"></span>
+                             
                              <div class="subcl type-select">
                               <s:if test="booking.status == \"provisional\"">
+                              <input type="hidden" name="booking.status" value="provisional" />
                               <button class="btn_check_in">CHECK IN</button>
                               </s:if>
                               <s:if test="booking.status == \"checkin\"">
+                              <input type="hidden" name="booking.status" value="checkin" />
                               <button class="btn_check_out">CHECK OUT</button>
                               </s:if>
                                <s:if test="booking.status == \"checkout\"">
-                              <span>CHECKED</span>
+                               <input type="hidden" name="booking.status" value="checkout" />
+                              <button class="btn_checked">CHECKED</button>
                               </s:if>           
                              <!--
                              <label for="confirm">Confirmed?</label>
@@ -409,7 +412,7 @@ display: none;
               		 <div  class="subcolumns guest_row">
               		  <input type="hidden" class="idGuest" name="booking.guests[<s:property value="#guestStatus.index"/>].id" value="<s:property value="#eachGuest.id"/>"/>
               		    <div class="c33l"><div class="subcl type-text"><span>FirstName:</span><input type="text" name="booking.guests[<s:property value="#guestStatus.index"/>].firstName" value="<s:property value="#eachGuest.firstName" />" class="require" /></div></div>
-                  	  	<div class="c33l"><div class="subcl type-text"><span>LastName:</span><input type="text" name="booking.guests[<s:property value="#guestStatus.index"/>].lastName"  value="<s:property value="#eachGuest.lastName" />" class="extra_value_adjustment required" style="width: 90%;"/></div></div>
+                  	  	<div class="c33l"><div class="subcl type-text"><span>LastName:</span><input type="text" name="booking.guests[<s:property value="#guestStatus.index"/>].lastName"  value="<s:property value="#eachGuest.lastName" />" class="required" style="width: 90%;"/></div></div>
                   	  	 <div class="c33r"><label>&nbsp;</label><a href="#" class="erase_guest" title="erase"><img src="images/delete.png" alt="Delete Guest" />Delete Guest</a>
               			</div>
                   	  </div>
@@ -417,7 +420,7 @@ display: none;
                   	  	<s:if test="booking.guests.size() == 0"> 
                   	  <div  class="subcolumns guest_row">
               		  <div class="c33l"><div class="subcl type-text"><span>FirstName:</span><input type="text" name="booking.guests[0].firstName" value="" class="require" /></div></div>
-                  	  	<div class="c33l"><div class="subcl type-text"><span>LastName:</span><input type="text" name="booking.guests[0].lastName"  value="" class="extra_value_adjustment required" style="width: 90%;"/></div></div>
+                  	  	<div class="c33l"><div class="subcl type-text"><span>LastName:</span><input type="text" name="booking.guests[0].lastName"  value="" class="required" style="width: 90%;"/></div></div>
                   	  	 <div class="c33r"><label>&nbsp;</label><a href="#" class="erase_guest" title="erase"><img src="images/delete.png" alt="Delete Guest" />Delete Guest</a>
               			</div>
                   	  </div>
@@ -573,7 +576,7 @@ display: none;
                   	  
                   	  <div  class="subcolumns guest_row" id="to_add_guest" style="display: none;">
               		  <div class="c33l"><div class="subcl type-text"><span>FirstName:</span><input type="text" name="booking.guests[__PVALUE__].firstName" value="" class="require" /></div></div>
-                  	  	<div class="c33l"><div class="subcl type-text"><span>LastName:</span><input type="text" name="booking.guests[__PVALUE__].lastName"  value="" class="extra_value_adjustment required" style="width: 90%;"/></div></div>
+                  	  	<div class="c33l"><div class="subcl type-text"><span>LastName:</span><input type="text" name="booking.guests[__PVALUE__].lastName"  value="" class="required" style="width: 90%;"/></div></div>
                   	  	 <div class="c33r"><label>&nbsp;</label><a href="#" class="erase_guest" title="erase"><img src="images/delete.png" alt="Delete Guest" />Delete Guest</a>
               			</div>
                   	  </div>
