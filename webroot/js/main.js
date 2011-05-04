@@ -405,7 +405,7 @@ $(document).ready(function() {
 	 	   				   var numNights = data_action.numNights;
 	 	   				   var priceRoom = 0;
 	 	   				   var subTotal = roomSubTotal + extraSubTotal;
-	 	   				   var maxGuests = data_action.booking.room.maxGuests;
+	 	   				   var maxGuests = data_action.booking.room.roomType.maxGuests;
 	 	   				   
 	 	   				   if (maxGuests !== null && parseInt(maxGuests) > 0 && $clicked.is("select#sel_rooms_list")){
 	 	   					   var numbermaxGuests = parseInt(maxGuests);
