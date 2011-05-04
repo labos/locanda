@@ -1,8 +1,10 @@
 package action;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import model.RoomType;
 import model.Structure;
 import model.User;
 
@@ -16,15 +18,12 @@ import com.opensymphony.xwork2.ActionSupport;
 @ParentPackage(value="default")
 public class RoomTypeAction extends ActionSupport implements SessionAware{
 	private Map<String, Object> session = null;
-	private Set<String> roomTypes = null;	
+	private List<RoomType> roomTypes;	
 	
 	@Actions({
 		@Action(value="/findAllRoomTypes",results = {
-				@Result(type ="json",name="success", params={
-						"root","roomTypes"
-				} )
+				@Result(name="success",location="/roomTypes.jsp")
 		})
-		
 	})
 	public String findAllRoomTypes() {
 		User user = null;
@@ -32,7 +31,7 @@ public class RoomTypeAction extends ActionSupport implements SessionAware{
 		
 		user = (User)this.getSession().get("user");
 		structure = user.getStructure();
-		this.setRoomTypes(structure.findAllRoomTypeNames());
+		this.setRoomTypes(structure.getRoomTypes());
 		return SUCCESS;
 	}
 	
@@ -46,11 +45,12 @@ public class RoomTypeAction extends ActionSupport implements SessionAware{
 		
 	}
 
-	public Set<String> getRoomTypes() {
+	public List<RoomType> getRoomTypes() {
 		return roomTypes;
 	}
 
-	public void setRoomTypes(Set<String> roomTypes) {
+	public void setRoomTypes(List<RoomType> roomTypes) {
 		this.roomTypes = roomTypes;
 	}
+	
 }

@@ -77,6 +77,7 @@
 <s:url action="home" var="url_home"></s:url>
 <s:url action="goUpdateDetails" var="url_details"></s:url>
 <s:url action="findAllRooms" var="url_findallroom"></s:url>
+<s:url action="findAllRoomTypes" var="url_findallroomtypes"></s:url>
 <s:url action="findAllGuests" var="url_findallguest"></s:url>
 <s:url action="findAllExtras" var="url_findallextra"></s:url>
 <s:url action="findAllSeasons" var="url_findallseasons"></s:url>
@@ -99,6 +100,7 @@
             <li id="accomodation"><a href="#">Accomodation</a>
               <ul class="sub_menu ui-menu ui-widget ui-widget-content ui-corner-all">
     			<li class="ui-menu-item"><a href="<s:property value="url_findallroom"/>?sect=accomodation">ACCOMODATION</a></li>
+    			<li class="ui-menu-item"><a href="<s:property value="url_findallroomtypes"/>?sect=accomodation">ROOM TYPES</a></li>
     			<li class="ui-menu-item"><a href="<s:property value="url_findallextra"/>?sect=accomodation">EXTRAS</a></li>
   			  </ul>
             </li>

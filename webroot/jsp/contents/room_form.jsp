@@ -18,7 +18,6 @@
              	  <div class="type-select">
                   	<label for="roomType">Room Type: <sup title="This field is mandatory.">*</sup></label>            	                 	
              	     <select name="room.roomType.id" id="roomType">
-                    	
                     	<s:iterator value="roomTypes" var="eachRoomType" >
                    			<option 
                    			  <s:if test="#eachRoomType.id == room.roomType.id">selected="selected"</s:if>	 
@@ -28,7 +27,6 @@
                     	<s:if test="room.roomType == null">
 							<option selected="selected" value="-1">Select One</option>
 						</s:if>
-                    	
                  	</select>
              	  </div>
              	  <div class="type-text">

@@ -47,7 +47,7 @@
 				  </div>
 				  <div class="type-text">	
                   	<label for="extraFormName">Extra Description</label>
-					<textarea name="extra.description"><s:property value="#eachExtra.description"/></textarea>		 
+					<textarea name="extra.description"><s:property value="extra.description"/></textarea>		 
                   </div>
                   <div class="type-button">
                   	<button class="btn_save">SAVE</button>
