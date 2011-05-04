@@ -238,6 +238,7 @@ public class Structure {
 		oldBooking.setAdjustments(booking.getAdjustments());
 		oldBooking.setPayments(booking.getPayments());
 		oldBooking.setGuests(booking.getGuests());
+		oldBooking.setStatus(booking.getStatus());
 		
 		return true;
 	}

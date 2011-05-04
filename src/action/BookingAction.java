@@ -383,6 +383,76 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		}		
 	}	
 	
+	
+	@Actions({
+		@Action(value="/checkInBooking",results = {
+				@Result(type ="json",name="success", params={
+						"root","message"
+				} ),
+				@Result(type ="json",name="error", params={
+						"root","message"
+				} )
+		})
+		
+	})
+	
+	public String checkInBooking() {
+		
+		User user = null;
+		Structure structure = null;
+		Booking aBooking = null;
+		
+		user = (User)session.get("user");
+		structure = user.getStructure();
+		aBooking = structure.findBookingById(this.getId());
+		if(aBooking!=null){
+			aBooking.setStatus("checkin");
+			structure.updateBooking(aBooking);		
+			this.getMessage().setResult(Message.SUCCESS);
+			this.getMessage().setDescription("Booking checked In successfully");
+			return SUCCESS;
+		}
+		this.getMessage().setResult(Message.ERROR);
+		this.getMessage().setDescription("Booking not found!");
+		return ERROR;
+			
+	}
+	
+	@Actions({
+		@Action(value="/checkOutBooking",results = {
+				@Result(type ="json",name="success", params={
+						"root","message"
+				} ),
+				@Result(type ="json",name="error", params={
+						"root","message"
+				} )
+		})
+		
+	})
+	
+	public String checkOutBooking() {
+		
+		User user = null;
+		Structure structure = null;
+		Booking aBooking = null;
+		
+		user = (User)session.get("user");
+		structure = user.getStructure();
+		aBooking = structure.findBookingById(this.getId());
+		if(aBooking!=null){
+			aBooking.setStatus("checkout");
+			structure.updateBooking(aBooking);		
+			this.getMessage().setResult(Message.SUCCESS);
+			this.getMessage().setDescription("Booking checked Out successfully");
+			return SUCCESS;
+		}
+		this.getMessage().setResult(Message.ERROR);
+		this.getMessage().setDescription("Booking not found!");
+		return ERROR;
+			
+	}
+	
+	
 	@Actions({
 		@Action(value="/goOnlineBookings",results = {
 				@Result(name="success",location="/onlineBookings.jsp")

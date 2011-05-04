@@ -84,12 +84,22 @@ display: none;
 							<div class="c20l">
                              <span id="date_booking" ></span><span id="duration"></span>
                              <div class="subcl type-select">
+                              <s:if test="booking.status == \"provisional\"">
+                              <button class="btn_check_in">CHECK IN</button>
+                              </s:if>
+                              <s:if test="booking.status == \"checkin\"">
+                              <button class="btn_check_out">CHECK OUT</button>
+                              </s:if>
+                               <s:if test="booking.status == \"checkout\"">
+                              <span>CHECKED</span>
+                              </s:if>           
+                             <!--
                              <label for="confirm">Confirmed?</label>
                              <select name="confirm" class="confirm" id="confirm">
                              <option value="1">Confirmed</option>
                              <option value="0">Provisional</option>
                              </select>
-                             </div>
+                             --></div>
                              </div>
                  </fieldset>         
               </div>

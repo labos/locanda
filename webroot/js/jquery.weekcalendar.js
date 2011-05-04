@@ -1184,7 +1184,7 @@ $.ajax({
 	     if((typeof calEvent.confirmed !== 'undefined' ) && calEvent.confirmed== "provisional"){
 	    	 
 	    	 $calEvent.find(".wc-time").css({"background-color": "#FE9A2E"});
-	    	 $calEvent.find(".wc-time").html("online");
+	    	 $calEvent.find(".wc-time").html("provisional");
 	    	 
 	    	 }
 	        	 

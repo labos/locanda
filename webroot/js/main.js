@@ -61,6 +61,175 @@ $(document).ready(function() {
 	  		icons: {
 	            primary: "ui-icon-check"
 	        }
+	  	}).click( function(event){
+	  		
+	  		event.preventDefault();
+	  		
+	  		var hrefAction =  "checkInBooking.action",
+	  		$this = $(this),
+	  		idBooking = ( typeof parseInt( $('input:hidden[name="booking.id"]').val() ) === 'number' ) ? parseInt( $('input:hidden[name="booking.id"]').val() ) : null  ;
+	  		
+	  		
+	  		if(idBooking !== null && idBooking > 0 ){
+	  			
+	   		$.ajax({
+		   		   type: "POST",
+		   		   url: hrefAction,
+		   		   data: {id: idBooking},
+		   		   success: function(data_action){
+		   			   
+		   			var title_notification = null;
+		   			
+		   			   if (data_action.result == "success")
+		   				   {
+		   			
+		   				$().notify("Congratulazioni", data_action.description);
+		   				 
+		   			  	//-- $this.attr("class", "btn_check_out").button( "option", "label", "CHECK OUT" );
+		   			  	
+		   			  	//ADD CHECKOUT LISTENER
+		   			  	
+		   			  	
+		   			 $this.attr("class", "btn_check_out").button("destroy").button({
+		   				 label: "CHECK OUT",
+		   		  		icons: {
+		   		            primary: "ui-icon-check"
+		   		        }
+		   		  	}).click( function(event){
+		   		  		
+		   		  		event.preventDefault();
+		   		  		var hrefAction =  "checkOutBooking.action",
+		   		  		$this = $(this),
+		   		  		idBooking = ( typeof parseInt( $('input:hidden[name="booking.id"]').val() ) === 'number' ) ? parseInt( $('input:hidden[name="booking.id"]').val() ) : null  ;
+		   		  		
+		   		  		
+		   		   		$.ajax({
+		   			   		   type: "POST",
+		   			   		   url: hrefAction,
+		   			   		   data:  {id: idBooking},
+		   			   		   success: function(data_action){
+		   			   			   
+		   			   			var title_notification = null;
+		   			   			
+		   			   			   if (data_action.result == "success")
+		   			   				   {
+		   			   			
+		   			   				$().notify("Congratulazioni", data_action.description);
+		   			   			  	$this.text("CHECKED").button("destroy").button({
+		   			   			  		
+		   			   			  		icons: {
+		   			   			            primary: "ui-icon-check"
+		   			   			        }
+		   			   			  	}).button("refresh");
+		   			   				    
+		   			   			  	
+		   			   			 $this.button( { disabled: true, label:"CHECKED" });
+		   			   			  	
+		   			   				   }
+		   			   		    
+		   			   		     else if (data_action.result == "error")
+		   			   		    	 {
+		   			   		    	 	$().notify("Attenzione", data_action.description);
+		   			   		    	 }
+		   			   		   	else{
+		   			   		   		$(".validationErrors").html(data_action);
+		   			   		   		}
+		   			   		    	
+		   			   		   },
+		   			   		   
+		   			   		   error: function (){
+		   			   			   
+		   			   			$().notify("Errore Grave", "Problema nella risorsa interrogata nel server");
+		   			   		   }
+
+		   			   		 });
+		   		  		
+		   		  		
+		   		  	});
+		   			  	
+		   			  	
+		   			  	//END ADDING CHECKOUT LISTENER
+		   			  	
+		   			  	
+		   			  	
+		   			  
+		   				   }
+		   		    
+		   		     else if (data_action.result == "error")
+		   		    	 {
+		   		    	 	$().notify("Attenzione", data_action.description);
+		   		    	 }
+		   		   	else{
+		   		   		$(".validationErrors").html(data_action);
+		   		   		}
+		   		    	
+		   		   },
+		   		   
+		   		   error: function (){
+		   			   
+		   			$().notify("Errore Grave", "Problema nella risorsa interrogata nel server");
+		   		   }
+
+		   		 });
+	  		
+	  	}
+
+	  	});
+	  	
+	  	$(".btn_check_out").button({
+	  		icons: {
+	            primary: "ui-icon-check"
+	        }
+	  	}).click( function(event){
+	  		
+	  		event.preventDefault();
+	  		var hrefAction =  "checkOutBooking.action",
+	  		$this = $(this),
+	  		idBooking = ( typeof parseInt( $('input:hidden[name="booking.id"]').val() ) === 'number' ) ? parseInt( $('input:hidden[name="booking.id"]').val() ) : null  ;
+	  		
+	  		
+	   		$.ajax({
+		   		   type: "POST",
+		   		   url: hrefAction,
+		   		   data:  {id: idBooking},
+		   		   success: function(data_action){
+		   			   
+		   			var title_notification = null;
+		   			
+		   			   if (data_action.result == "success")
+		   				   {
+		   			
+		   				$().notify("Congratulazioni", data_action.description);
+		   			  	$this.text("CHECKED").button("destroy").button({
+		   			  		
+		   			  		icons: {
+		   			            primary: "ui-icon-check"
+		   			        }
+		   			  	}).button("refresh");
+		   				    
+		   			  	
+		   			 $this.button( { disabled: true, label:"CHECKED" });
+		   			  	
+		   				   }
+		   		    
+		   		     else if (data_action.result == "error")
+		   		    	 {
+		   		    	 	$().notify("Attenzione", data_action.description);
+		   		    	 }
+		   		   	else{
+		   		   		$(".validationErrors").html(data_action);
+		   		   		}
+		   		    	
+		   		   },
+		   		   
+		   		   error: function (){
+		   			   
+		   			$().notify("Errore Grave", "Problema nella risorsa interrogata nel server");
+		   		   }
+
+		   		 });
+	  		
+	  		
 	  	});
 	  	
 	  		/* extras adding */
