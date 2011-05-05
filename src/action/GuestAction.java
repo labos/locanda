@@ -28,6 +28,7 @@ public class GuestAction extends ActionSupport implements SessionAware{
 	private Integer id;
 	private Message message = new Message();
 	private List<Booking> bookings = null;
+	private String term;
 	
 	@Actions({
 		@Action(value="/findAllGuests",results = {
@@ -42,13 +43,40 @@ public class GuestAction extends ActionSupport implements SessionAware{
 	public String findAllGuests(){
 		User user = null;
 		Structure structure = null;
-		
+		List <Guest> allGuests = null;
+		List <Guest> returnedGuests = new ArrayList<Guest>();
 		user = (User)session.get("user");
 		structure = user.getStructure();
-		this.setGuests(structure.getGuests());
+		
+		
+		   if (this.getTerm()!= null && this.getTerm().length() > 1)
+		    {
+			   allGuests = structure.getGuests();
+		      
+		      for (Guest guest: allGuests)
+		      {
+		        if ( guest.getLastName().toLowerCase().contains(this.getTerm().toLowerCase()))
+		        {
+		        	returnedGuests.add(guest);
+		        }
+		      }
+		      
+		    }
+		   this.setGuests(returnedGuests);
+		
+		
+		
 		return SUCCESS;		
 	}
 	
+	public String getTerm() {
+		return term;
+	}
+
+	public void setTerm(String term) {
+		this.term = term;
+	}
+
 	@Actions({
 		@Action(value="/findGuestById",results = {
 				@Result(type ="json",name="success", params={
