@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.servlet.ServletContext;
 
 import model.Image;
+import model.Room;
 import model.RoomFacility;
 import model.Structure;
 import model.StructureFacility;
@@ -31,6 +32,7 @@ public class UploadAction extends ActionSupport implements SessionAware{
 	private String name;
 	private Message message = new Message();
 	private RoomFacility roomFacility = null;
+	private Room room = null;
 	private StructureFacility structureFacility = null;
 	private Image image = null;
 	
@@ -154,6 +156,70 @@ public class UploadAction extends ActionSupport implements SessionAware{
 	}
 	
 	
+	
+	@Actions({
+		@Action(value="/uploadRoomImage",results = {
+				@Result(type ="json",name="success", params={
+						"excludeProperties", "session,upload,uploadFileName,uploadContentType,name"
+						} ),
+				@Result(type ="json",name="error", params={
+						"root","message"
+				} )
+		})
+	})
+
+	public String uploadRoomImage() throws IOException {
+		Room aRoom = null;
+		User user = (User)this.getSession().get("user");
+		ServletContext context = ServletActionContext.getServletContext();
+		String imgPath = context.getRealPath("/")+ "images/room_images/";
+		//Controllare che sia diverso da null in un interceptor
+		Structure structure = user.getStructure();
+		if (structure.hasRoomPhotoNamed(this.getName())) {
+			message.setResult(Message.ERROR);
+			message.setDescription("Esiste già una foto con lo stesso nome");
+			return ERROR;
+		};
+		
+		File target = new File(imgPath + this.getUploadFileName());
+		FileUtils.copyFile(this.upload, target);
+		
+		
+		this.image = new Image();
+		this.image.setId(structure.nextKey());
+		this.image.setName(this.name);
+		this.image.setFileName(this.uploadFileName);
+		aRoom = structure.findRoomById(this.getRoom().getId());
+		if (aRoom == null){
+			
+			message.setResult(Message.ERROR);
+			message.setDescription("Non esiste la Room per l'aggiunta della foto");
+			return ERROR;
+		}
+		
+		try {
+			
+			aRoom.addRoomImage(this.getImage());
+			structure.updateRoom(aRoom);
+			
+		}
+		catch(Exception e){
+			
+			message.setResult(Message.ERROR);
+			message.setDescription("Problema nell'aggiunta della foto");
+			return ERROR;
+			
+		}
+
+		
+		
+		message.setResult(Message.SUCCESS);
+		message.setDescription("Foto inserita correttamente!");
+		return SUCCESS;
+		
+	
+	}
+	
 	public Map<String, Object> getSession() {
 		return session;
 	}
@@ -256,6 +322,16 @@ public class UploadAction extends ActionSupport implements SessionAware{
 
 	public void setStructureFacility(StructureFacility structureFacility) {
 		this.structureFacility = structureFacility;
+	}
+
+
+	public Room getRoom() {
+		return room;
+	}
+
+
+	public void setRoom(Room room) {
+		this.room = room;
 	}
 	
 	

@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import model.Extra;
+import model.Image;
 import model.Room;
 import model.RoomFacility;
 import model.RoomType;
@@ -30,6 +31,7 @@ public class RoomAction extends ActionSupport implements SessionAware{
 	private List<Integer> roomFacilitiesIds = new ArrayList<Integer>();
 	private List<Room> rooms = null;
 	private Integer roomId;
+	private Image image = null;
 	private List<RoomType> roomTypes = null;
 	
 	
@@ -226,6 +228,41 @@ public class RoomAction extends ActionSupport implements SessionAware{
 			return "error";
 		}		
 	}	
+	
+	
+	@Actions({
+		@Action(value="/deletePhotoRoom",results = {
+				@Result(type ="json",name="success", params={
+						"root","message"
+				} ),
+				@Result(type ="json",name="error", params={
+						"root","message"
+				} )
+		})
+		
+	})
+	public String deletePhotoRoom() {
+		User user = null; 
+		Structure structure = null;
+		Room aRoom = null;
+		Image aImage = null;
+		user = (User)this.getSession().get("user");
+		//Controllare che sia diverso da null in un interceptor
+		structure = user.getStructure();
+		
+		aRoom = structure.findRoomById(this.getRoom().getId());
+		
+		if(aRoom.deleteImage(this.getImage())){
+			this.getMessage().setResult(Message.SUCCESS);
+			this.getMessage().setDescription("La foto e' stata cancellata con successo");
+			return "success";
+		}else{
+			this.getMessage().setResult(Message.ERROR);
+			this.getMessage().setDescription("Non e' stato possibile cancellare la foto");
+			return "error";
+		}		
+	}	
+	
 
 	public Map<String, Object> getSession() {
 		return session;
@@ -300,6 +337,18 @@ public class RoomAction extends ActionSupport implements SessionAware{
 	
 	public void setRoomTypes(List<RoomType> roomTypes) {
 		this.roomTypes = roomTypes;
+	}
+
+
+
+	public Image getImage() {
+		return image;
+	}
+
+
+
+	public void setImage(Image image) {
+		this.image = image;
 	}
 	
 }

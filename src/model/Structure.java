@@ -113,6 +113,7 @@ public class Structure {
 		originalRoom.setNotes(room.getNotes());
 		originalRoom.setRoomType(room.getRoomType());
 		originalRoom.setFacilities(room.getFacilities());
+		originalRoom.setImageLists(room.getImageLists());
 		return true;
 	}
 	
@@ -193,6 +194,16 @@ public class Structure {
 		}
 		return false;
 	}
+	
+	public boolean hasRoomPhotoNamed(String roomPhotoName){
+/*		for(RoomFacility each: this.getRooms()){
+			if(each.getName().equals(roomFacilityName)){
+				return true;
+			}
+		}*/
+		return false;
+	}
+	
 	
 	public List<RoomFacility> findFacilitiesByIds(List<Integer> ids){
 		List<RoomFacility> ret = new ArrayList<RoomFacility>();

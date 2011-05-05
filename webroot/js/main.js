@@ -805,6 +805,37 @@ $(document).ready(function() {
 
 		 }
 		 
+		 else if (responseObject.image && actionName.indexOf("uploadRoomImage") >= 0){
+			 
+			 
+			   //get the name of the image
+			   var name_image = responseObject.image.name;
+			 //get the file name of the image
+			   var file_image = responseObject.image.fileName;
+			   
+			 //get the id of the image
+			   var id_image = responseObject.image.id;
+			   //clone the html portion to replicate
+			   var image_row_cloned = $(".thumbs li:hidden").clone();
+			   //set src file name
+			   var src = image_row_cloned.find('a.thumb img').attr("src") + file_image;
+			   //add src file name
+			   image_row_cloned.find('a.thumb img').attr("src", src);
+			   
+			   image_row_cloned.find("span.name_image").html (function(index, oldhtml){
+				   return oldhtml.replace(/__PVALUE__/ig, name_image);
+			   }  );
+
+			   image_row_cloned.find("a.erase_image").attr("href", function(i, val) {
+				   return val + id_image	;	   }).click( function(event){addEventDeleteImage(event);});
+			   
+			   image_row_cloned.insertAfter($(".thumbs li:last")).show();
+			   image_row_cloned.animate({opacity:0.67, color: "#000", border: "1px solid #fff"}, 500).effect("pulsate", { times:10 }, 1000);
+
+			 
+			 
+		 }
+		 
 		 
 		 }
 		 
@@ -1617,8 +1648,10 @@ $(document).ready(function() {
 	        		$().notify(optionsLoc.alertOK, json.message.description);
 	        		}
 	        	
-	        	else
-	        		$().notify(optionsLoc.alertKO, json.description);
+	        	else{
+	        			$().notify(optionsLoc.alertKO, json.description);
+	        	}
+	        		
 	        },
 	        onAbort: function (event, files, index, xhr, handler) {
 	        	
@@ -1631,7 +1664,7 @@ $(document).ready(function() {
 	            if (facility_name.length > 2)
 	            	{
 	            	
-	            	handler.uploadForm.find('input:hidden[name="name"]').val($("#name_facility").val());
+	            	handler.uploadForm.find('input:hidden[name="name"]').val(facility_name);
 	           	        	callBack();
 	            	}
 	            else
