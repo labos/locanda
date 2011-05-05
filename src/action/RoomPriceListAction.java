@@ -82,6 +82,10 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware{
 		theBookedRoom = structure.findRoomById(this.getBooking().getRoom().getId());
 		this.getBooking().setRoom(theBookedRoom);
 		
+		if (this.getBooking().getNrGuests() > theBookedRoom.getRoomType().getMaxGuests()) {	//nel caso cambiassi la room con preselezionato un nrGuests superiore al maxGuests della room stessa
+			this.getBooking().setNrGuests(theBookedRoom.getRoomType().getMaxGuests());
+		}
+		
 		checkedExtras = structure.findExtrasByIds(this.getBookingExtraIds());
 		this.getBooking().setExtras(checkedExtras);	
 		
