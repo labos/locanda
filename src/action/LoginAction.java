@@ -22,6 +22,7 @@ import model.RoomType;
 import model.Structure;
 import model.StructureFacility;
 import model.User;
+import model.listini.Convention;
 import model.listini.RoomPriceListItem;
 import model.listini.RoomPriceList;
 import model.listini.Period;
@@ -102,9 +103,10 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		this.buildRooms(ret);
 		this.buildGuests(ret);
 		this.buildSeasons(ret);
-		this.buildListiniCamere(ret);
-		this.buildBookings(ret);
+		this.buildConventions(ret);
+		this.buildRoomPriceLists(ret);
 		this.buildExtras(ret);
+		this.buildBookings(ret);
 		this.buildImages(ret);
 		this.buildStructureFacilities(ret);
 		return ret;		
@@ -209,6 +211,7 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		Booking aBooking = null;
 		Room aRoom = null;
 		Guest aGuest = null;
+		List<Extra> extras = null;
 		Date dateIn = null;
 		Date dateOut = null;
 		Double roomSubtotal = 0.0;
@@ -218,6 +221,10 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		aBooking = new Booking();
 		aRoom = structure.findRoomByName("101");
 		aGuest = structure.getGuests().get(0);
+		extras = new ArrayList<Extra>();
+		extras.add(structure.getExtras().get(0));
+		extras.add(structure.getExtras().get(1));
+		aBooking.addExtras(extras);
 		aBooking.setBooker(aGuest);
 		aBooking.setRoom(aRoom);
 		dateIn = new Date(System.currentTimeMillis());
@@ -249,27 +256,22 @@ public class LoginAction extends ActionSupport implements SessionAware{
 	}
 	
 	private void buildExtras(Structure structure){
-		Booking aBooking = null;
 		Extra anExtra = null;
 		
 		anExtra = new Extra();
-		aBooking = structure.getBookings().get(0);
 		anExtra.setId(structure.nextKey());
 		anExtra.setName("Breakfast");
 		anExtra.setPrice(10.0);
 		anExtra.setResourcePriceType("per Room");
 		anExtra.setTimePriceType("per Night");
-		aBooking.addExtra(anExtra);
 		structure.addExtra(anExtra);
 		
 		anExtra = new Extra();
-		aBooking = structure.getBookings().get(0);
 		anExtra.setId(structure.nextKey());
 		anExtra.setName("Parking");
 		anExtra.setPrice(15.0);
 		anExtra.setResourcePriceType("per Room");
 		anExtra.setTimePriceType("per Night");
-		aBooking.addExtra(anExtra);
 		structure.addExtra(anExtra);
 	}
 	
@@ -323,7 +325,20 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		structure.addSeason(aSeason);
 	}
 	
-	private void buildListiniCamere(Structure structure){
+	private void buildConventions(Structure structure){
+		Convention convention = null;
+		
+		//convenzione di default
+		convention = new Convention();
+		convention.setId(structure.nextKey());
+		convention.setName("default");
+		convention.setDescription("default convention");
+		convention.setActivationCode("XXX");
+		
+		structure.addConvention(convention);
+	}
+	
+	private void buildRoomPriceLists(Structure structure){
 		RoomPriceList listinoCamera = null;
 		RoomPriceListItem itemListinoCamera = null;
 		Double[] prices = null;
@@ -333,6 +348,7 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		listinoCamera.setId(structure.nextKey());
 		listinoCamera.setRoomType(structure.getRoomTypes().get(0));
 		listinoCamera.setSeason(structure.findSeasonByName("Bassa Stagione"));
+		listinoCamera.setConvention(structure.getConventions().get(0));
 		itemListinoCamera = new RoomPriceListItem();
 		itemListinoCamera.setId(structure.nextKey());
 		itemListinoCamera.setNumGuests(1);
@@ -346,7 +362,6 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		prices[6] = 57.0;//dom
 		itemListinoCamera.setPrices(prices);
 		listinoCamera.addItem(itemListinoCamera);
-		
 		structure.addRoomPriceList(listinoCamera);
 		
 		//Listino Camera Singola Alta Stagione
@@ -354,6 +369,7 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		listinoCamera.setId(structure.nextKey());
 		listinoCamera.setRoomType(structure.getRoomTypes().get(0));
 		listinoCamera.setSeason(structure.findSeasonByName("Alta Stagione"));
+		listinoCamera.setConvention(structure.getConventions().get(0));
 		itemListinoCamera = new RoomPriceListItem();
 		itemListinoCamera.setId(structure.nextKey());
 		itemListinoCamera.setNumGuests(1);
@@ -367,7 +383,6 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		prices[6] = 80.0;//dom
 		itemListinoCamera.setPrices(prices);
 		listinoCamera.addItem(itemListinoCamera);
-		
 		structure.addRoomPriceList(listinoCamera);
 		
 		//Listino Camera Doppia Bassa Stagione
@@ -375,7 +390,7 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		listinoCamera.setId(structure.nextKey());
 		listinoCamera.setRoomType(structure.getRoomTypes().get(1));
 		listinoCamera.setSeason(structure.findSeasonByName("Bassa Stagione"));
-		
+		listinoCamera.setConvention(structure.getConventions().get(0));
 		itemListinoCamera = new RoomPriceListItem();
 		itemListinoCamera.setId(structure.nextKey());
 		itemListinoCamera.setNumGuests(1);
@@ -411,7 +426,7 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		listinoCamera.setId(structure.nextKey());
 		listinoCamera.setRoomType(structure.getRoomTypes().get(1));
 		listinoCamera.setSeason(structure.findSeasonByName("Alta Stagione"));
-		
+		listinoCamera.setConvention(structure.getConventions().get(0));
 		itemListinoCamera = new RoomPriceListItem();
 		itemListinoCamera.setId(structure.nextKey());
 		itemListinoCamera.setNumGuests(1);
@@ -450,8 +465,6 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		img.setName("Facciata");
 		img.setFileName("facciata.jpg");
 		structure.addStructureImage(img);
-		
-		
 	}
 	
 	private void buildStructureFacilities(Structure structure){
@@ -461,8 +474,6 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		structFacility.setName("Restaurant");
 		structFacility.setFileName("restaurant.png");
 		structure.addStructureFacility(structFacility);
-		
-		
 	}
 	
 	public Map<String, Object> getSession() {
@@ -472,29 +483,23 @@ public class LoginAction extends ActionSupport implements SessionAware{
 	@Override
 	public void setSession(Map<String, Object> session) {
 		this.session = session;
-		
 	}
-
 
 	public String getEmail() {
 		return email;
 	}
 
-
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
 
 	public String getPassword() {
 		return password;
 	}
 
-
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
 	
 
 }

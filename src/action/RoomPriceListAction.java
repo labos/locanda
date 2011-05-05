@@ -2,7 +2,6 @@ package action;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -17,8 +16,8 @@ import model.RoomType;
 import model.Structure;
 import model.User;
 import model.internal.Message;
-import model.internal.TreeData;
 import model.internal.TreeNode;
+import model.listini.Convention;
 import model.listini.RoomPriceList;
 import model.listini.Season;
 
@@ -30,7 +29,6 @@ import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.interceptor.SessionAware;
 
-import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
 @ParentPackage(value="default")
@@ -45,6 +43,7 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware{
 	
 	private Integer seasonId = null;
 	private Integer roomTypeId = null;
+	private Integer conventionId = null;
 	
 	@Actions({
 		@Action(value="/calculatePrices",results = {
@@ -144,17 +143,24 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware{
 			this.treeNodes.add(TreeNode.buildNode(eachYear.toString()));
 		}
 		
-		for (TreeNode eachNode1 : this.treeNodes) {					//costruisco i nodi di secondo livello - le stagioni
+		for (TreeNode eachNode1 : this.treeNodes) {						//costruisco i nodi di secondo livello - le stagioni
 			List<Season> perYearSeasons = structure.findSeasonsByYear(Integer.parseInt(eachNode1.getData().getTitle()));	//tutte le stagioni di quell'anno
 			for (Season eachYearSeason : perYearSeasons) {
 				eachNode1.buildChild(eachYearSeason.getName());
 			}
-			for (TreeNode eachNode2 : eachNode1.getChildren()) {	//costruisco i nodi di terzo livello - i roomTypes
+			for (TreeNode eachNode2 : eachNode1.getChildren()) {		//costruisco i nodi di terzo livello - i roomTypes
 				for (RoomType eachRoomType : structure.getRoomTypes()) {
-					String href = webappPath + "/findRoomPriceListItems" +
-						"?seasonId=" + structure.findSeasonByName(eachNode2.getData().getTitle()).getId() + 
-						"&roomTypeId=" + eachRoomType.getId();
-					eachNode2.buildChild(eachRoomType.getName(), href);
+					eachNode2.buildChild(eachRoomType.getName());
+					for (TreeNode eachNode3 : eachNode2.getChildren()) {//costruisco i nodi di quarto livello - le convenzioni
+						Set<Convention> perRoomTypeConventions = structure.findConventionsBySeasonAndRoomType(structure.findSeasonByName(eachNode2.getData().getTitle()), structure.findRoomTypeByName(eachNode3.getData().getTitle()));//tutte le convenzioni associate a quel roomType in un certo listino
+						for (Convention eachRoomTypeConvention : perRoomTypeConventions) {
+							String href = webappPath + "/findRoomPriceListItems" +
+							"?seasonId=" + structure.findSeasonByName(eachNode2.getData().getTitle()).getId() + 
+							"&roomTypeId=" + eachRoomType.getId() +
+							"&conventionId=" + eachRoomTypeConvention.getId();
+							eachNode3.buildChild(eachRoomTypeConvention.getName(), href);
+						}
+					}
 				}			
 			}
 		}
@@ -177,14 +183,16 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware{
 		Structure structure = null;
 		Season season = null;
 		RoomType roomType = null;
+		Convention convention = null;
 		
 		user = (User)this.getSession().get("user");
 		structure = user.getStructure();
 		
 		season = structure.findSeasonById(this.getSeasonId());
 		roomType = structure.findRoomTypeById(this.getRoomTypeId());
+		convention = structure.findConventionById(this.getConventionId());
 		
-		this.setPriceList(structure.findRoomPriceListBySeasonAndRoomType(season, roomType));
+		this.setPriceList(structure.findRoomPriceListBySeasonAndRoomTypeAndConvention(season, roomType, convention));
 		return SUCCESS;
 	}
 	
@@ -262,6 +270,13 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware{
 		this.roomTypeId = roomTypeId;
 	}
 
-	
+	public Integer getConventionId() {
+		return conventionId;
+	}
+
+	public void setConventionId(Integer conventionId) {
+		this.conventionId = conventionId;
+	}
+
 	
 }

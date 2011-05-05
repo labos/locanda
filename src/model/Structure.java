@@ -38,6 +38,7 @@ public class Structure {
 	private List<Season> seasons;
 	private List<RoomPriceList> roomPriceLists;
 	private List<Image> imageLists;
+	private List<Convention> conventions;
 	
 	
 	public Structure(){
@@ -53,6 +54,7 @@ public class Structure {
 		this.setImageLists(new ArrayList<Image>());
 		this.setRoomTypes(new ArrayList<RoomType>());
 		this.setStructureFacilities(new ArrayList<StructureFacility>());
+		this.setConventions(new ArrayList<Convention>());
 	}
 	
 	public Integer nextKey(){
@@ -360,7 +362,6 @@ public class Structure {
 	}	
 	
 	
-	
 	//RoomTypes
 	public Boolean addRoomType(RoomType aRoomType){
 		return this.getRoomTypes().add(aRoomType);
@@ -387,6 +388,17 @@ public class Structure {
 		
 		for(RoomType each: this.getRoomTypes()){
 			if(each.getId().equals(id)){
+				return each;
+			}
+		}
+		return ret;
+	}
+	
+	public RoomType findRoomTypeByName(String name){
+		RoomType ret = null;
+		
+		for(RoomType each: this.getRoomTypes()){
+			if(each.getName().equalsIgnoreCase(name)){
 				return each;
 			}
 		}
@@ -456,7 +468,6 @@ public class Structure {
 	//Listino Camera
 	public Boolean addRoomPriceList(RoomPriceList listino){
 		return this.getRoomPriceLists().add(listino);
-		
 	}
 	
 	public Boolean removeRoomPriceList(RoomPriceList listino){
@@ -469,6 +480,74 @@ public class Structure {
 		for(RoomPriceList each: this.getRoomPriceLists()){
 			if(each.getId().equals(id)){
 				return each;
+			}
+		}
+		return ret;
+	}
+	
+	public RoomPriceList findRoomPriceListByRoomAndDate(Room room, Date date){
+		RoomPriceList ret = null;
+		Season season = null;
+		
+		season = this.findSeasonByDate(date);
+		for(RoomPriceList each: this.getRoomPriceLists()){
+			if(each.getSeason().getName().equalsIgnoreCase(season.getName()) &&
+					each.getRoomType().equals(room.getRoomType()) ){
+				return each;
+			}
+		}		
+		return ret;
+	}
+	
+	public List<RoomPriceList> findRoomPriceListsBySeason(Season season){
+		List<RoomPriceList> ret = new ArrayList<RoomPriceList>();
+		
+		for(RoomPriceList each: this.getRoomPriceLists()){
+			if (each.getSeason().equals(season)) {
+				ret.add(each);
+			}
+		}
+		return ret;
+	}
+	
+	public RoomPriceList findRoomPriceListBySeasonAndRoomTypeAndConvention(Season season, RoomType roomType, Convention convention) {
+		RoomPriceList ret = null;
+		
+		for(RoomPriceList each: this.getRoomPriceLists()) {
+			if (each.getSeason().equals(season) && each.getRoomType().equals(roomType) && each.getConvention().equals(convention)) {
+				return each;
+			}
+		}
+		return ret;
+	}
+	
+	
+	//Convenzione
+	public Boolean addConvention(Convention convention){
+		return this.getConventions().add(convention);
+	}
+	
+	public Boolean removeConvention(Convention convention){
+		return this.getConventions().remove(convention);
+	}
+	
+	public Convention findConventionById(Integer id){
+		Convention ret = null;
+		
+		for(Convention each: this.getConventions()){
+			if(each.getId().equals(id)){
+				return each;
+			}
+		}
+		return ret;
+	}
+	
+	public Set<Convention> findConventionsBySeasonAndRoomType(Season season, RoomType roomType){
+		Set<Convention> ret = new HashSet<Convention>();
+		
+		for (RoomPriceList roomPriceListBySeason : this.findRoomPriceListsBySeason(season)) {
+			if (roomPriceListBySeason.getRoomType().equals(roomType)) {
+				ret.add(roomPriceListBySeason.getConvention());
 			}
 		}
 		return ret;
@@ -540,31 +619,6 @@ public class Structure {
 		}
 		
 		return bookingDates;
-	}
-	
-	public RoomPriceList findRoomPriceListByRoomAndDate(Room room, Date date){
-		RoomPriceList ret = null;
-		Season season = null;
-		
-		season = this.findSeasonByDate(date);
-		for(RoomPriceList each: this.getRoomPriceLists()){
-			if(each.getSeason().getName().equalsIgnoreCase(season.getName()) &&
-					each.getRoomType().equals(room.getRoomType()) ){
-				return each;
-			}
-		}		
-		return ret;
-	}
-	
-	public RoomPriceList findRoomPriceListBySeasonAndRoomType(Season season, RoomType roomType) {
-		RoomPriceList ret = null;
-		
-		for(RoomPriceList each: this.getRoomPriceLists()) {
-			if (each.getSeason().equals(season) && each.getRoomType().equals(roomType)) {
-				return each;
-			}
-		}
-		return ret;
 	}
 	
 	public Season findSeasonByDate(Date date){
@@ -785,6 +839,14 @@ public class Structure {
 	public void setStructureFacilities(List<StructureFacility> structureFacilities) {
 		this.structureFacilities = structureFacilities;
 	}
-	
 
+	public List<Convention> getConventions() {
+		return conventions;
+	}
+
+	public void setConventions(List<Convention> conventions) {
+		this.conventions = conventions;
+	}
+	
+	
 }
