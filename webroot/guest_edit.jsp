@@ -28,16 +28,29 @@
  		      <jsp:include page="jsp/contents/guest_form.jsp" />    
 		    
 		
-		<fieldset>
+		<div class="beautify">
               <legend>Bookings</legend>
-              
+              <%@ page import="model.Booking;" %>
               <s:iterator value="bookings" var="eachBooking" >
-              
+                    <%
+            		Double adjustmentsSubtotal = 0.0;
+            		Double paymentsSubtotal = 0.0;
+            		Double roomSubtotal = 0.0;
+            		Double extraSubtotal = 0.0;
+            		Double adjPluspay = 0.0;
+                    Booking aBooking = (Booking) request.getAttribute("eachBooking");
+                    		adjustmentsSubtotal = aBooking.calculateAdjustmentsSubtotal();
+							paymentsSubtotal = aBooking.calculatePaymentsSubtotal();
+							roomSubtotal = aBooking.getRoomSubtotal();
+							extraSubtotal = aBooking.getExtraSubtotal();
+							adjPluspay = adjustmentsSubtotal  + roomSubtotal + extraSubtotal;
+      %>
               <div class="subcolumns">
-              	<div class="c50l book_guest">                    
+              	<div class="c50l book_guest">
+              	  <div class="c20l"><b>Room:</b> <p><s:property value="#eachBooking.room.name"/>/<s:property value="#eachBooking.room.roomType.name"/></p></div>                    
               	  <div class="c20l"><b>CheckIn:</b> <p><s:property value="#eachBooking.dateIn"/></p></div>
               	  <div class="c20l"><b>CheckOut:</b> <p><s:property value="#eachBooking.dateOut"/></p></div>
-              	  <div class="c20l"><b>Subtotal:</b> <p>&euro; <s:property value="#eachBooking.subtotal"/></p></div>
+              	  <div class="c20l"><b>Subtotal:</b> <p>&euro; <% out.print(adjPluspay) ; %></p></div>
               	</div>
               	<div class="book_guest">                    
               	  <div class="c20l"><a href="goUpdateBooking.action?sect=planner&id=<s:property value="#eachBooking.id"/>"><span class="link">Details</span></a></div>
@@ -47,7 +60,7 @@
               
               </s:iterator>
               
-              </fieldset>
+              </div>
              </div>        
           </div>
           <jsp:include page="jsp/layout/footer.jsp" />     
