@@ -131,17 +131,26 @@ public class LoginAction extends ActionSupport implements SessionAware{
 	
 	private void buildRoomTypes(Structure structure){
 		RoomType aRoomType = null;
-		
+		Image image = new Image();
+		image.setId(structure.nextKey());
+		image.setName("singola");
+		image.setFileName("single.jpg");
 		aRoomType = new RoomType();
 		aRoomType.setId(structure.nextKey());
 		aRoomType.setName("singola");
 		aRoomType.setMaxGuests(1);
+		aRoomType.addRoomTypeImage(image);
 		structure.addRoomType(aRoomType);
 		
+		image = new Image();
+		image.setId(structure.nextKey());
+		image.setName("doppia");
+		image.setFileName("double.jpg");
 		aRoomType = new RoomType();
 		aRoomType.setId(structure.nextKey());
 		aRoomType.setName("doppia");
 		aRoomType.setMaxGuests(2);
+		aRoomType.addRoomTypeImage(image);
 		structure.addRoomType(aRoomType);
 	}
 	

@@ -44,6 +44,20 @@
                     </div>                  
                   </div>
                 </div>
+                <div class="subcolumns">
+                        <ul class="thumbs">
+        <s:iterator value="#eachRoomType.imageLists" var="eachImage" >
+        					<li>
+									<img width="45" height="45" alt="<s:property value="#eachImage.name" />" src="images/roomtype/<s:property value="#eachImage.fileName" />" />
+														
+							</li>
+        </s:iterator>
+
+							</ul>
+                
+                </div>
+                
+                
              	<div class="type-button">
              	  <button class="btn_delete">DELETE</button>
                 </div>

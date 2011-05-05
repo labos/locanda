@@ -31,7 +31,7 @@
 	<input type="hidden" name="dateArrival" value="<s:property value="dateArrival"/>" />
 			<input type="hidden" name="numGuests" value="<s:property value="numGuests"/>" />
 			<input type="hidden" name="numNight" value="<s:property value="numNight"/>" />
-		<img src="images/hotel-demo.jpeg"  alt="room photo" /></div>
+		<img width="90" height="75" src="images/roomtype/<s:property value="#eachRoom.roomType.imageLists[0].fileName"/>"  alt="room photo" /></div>
 	<div class="ui-block-b">	<p class="price_room_widget"><s:property value="#eachRoom.roomType.name"/></p>
 	<p class="price_room_widget">&euro; <s:property value="#eachRoom.price"/> <span>/room/nigth</span></p></div>  
 	<div class="ui-block-c"><button type="submit" data-theme="b">SELECT</button></div>

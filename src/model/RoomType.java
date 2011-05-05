@@ -1,10 +1,32 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class RoomType {
 	
 	private Integer id;
 	private String name;
 	private Integer maxGuests;
+	private List<Image> imageLists;
+	
+	
+	public RoomType(){
+		
+		this.imageLists = new ArrayList<Image>();
+	}
+	
+	//RoomType Photo Adding	
+	public Boolean addRoomTypeImage(Image roomTypeImage){
+		
+		return this.getImageLists().add(roomTypeImage);
+		
+	}
+	
+	public boolean deleteImage(Image aImage) {
+		return this.getImageLists().remove(aImage);
+	}
+	
 	
 	@Override
 	public int hashCode() {
@@ -47,6 +69,12 @@ public class RoomType {
 	}
 	public void setMaxGuests(Integer maxGuests) {
 		this.maxGuests = maxGuests;
+	}
+	public List<Image> getImageLists() {
+		return imageLists;
+	}
+	public void setImageLists(List<Image> imageLists) {
+		this.imageLists = imageLists;
 	}
 	
 	

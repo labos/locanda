@@ -245,7 +245,6 @@ public class RoomAction extends ActionSupport implements SessionAware{
 		User user = null; 
 		Structure structure = null;
 		Room aRoom = null;
-		Image aImage = null;
 		user = (User)this.getSession().get("user");
 		//Controllare che sia diverso da null in un interceptor
 		structure = user.getStructure();

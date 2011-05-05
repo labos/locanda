@@ -196,11 +196,7 @@ public class Structure {
 	}
 	
 	public boolean hasRoomPhotoNamed(String roomPhotoName){
-/*		for(RoomFacility each: this.getRooms()){
-			if(each.getName().equals(roomFacilityName)){
-				return true;
-			}
-		}*/
+				/*	IN PROGRESS...	*/
 		return false;
 	}
 	
