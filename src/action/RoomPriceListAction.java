@@ -49,15 +49,13 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware{
 		@Action(value="/calculatePrices",results = {
 				@Result(type ="json",name="success", params={
 						"excludeProperties","session"
-				} ),
+				}),
 				@Result(type ="json",name="error", params={
 						"excludeProperties","session"
-				} ),
+				}),
 				@Result(name="input", location = "/validationError.jsp" )
 		})
-		
 	})	
-	
 	public String calculatePrices() {
 		User user = null; 
 		Double roomSubtotal = 0.0;
@@ -126,7 +124,6 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware{
 		})
 		
 	})
-	
 	public String findAllRoomPriceLists() {
 		User user = null;
 		Structure structure = null;
@@ -143,25 +140,26 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware{
 			this.treeNodes.add(TreeNode.buildNode(eachYear.toString()));
 		}
 		
-		for (TreeNode eachNode1 : this.treeNodes) {						//costruisco i nodi di secondo livello - le stagioni
+		for (TreeNode eachNode1 : this.treeNodes) {						//per ogni anno costruisco i nodi di secondo livello - le stagioni
 			List<Season> perYearSeasons = structure.findSeasonsByYear(Integer.parseInt(eachNode1.getData().getTitle()));	//tutte le stagioni di quell'anno
 			for (Season eachYearSeason : perYearSeasons) {
 				eachNode1.buildChild(eachYearSeason.getName());
 			}
-			for (TreeNode eachNode2 : eachNode1.getChildren()) {		//costruisco i nodi di terzo livello - i roomTypes
+			for (TreeNode eachNode2 : eachNode1.getChildren()) {		//per ogni stagione costruisco i nodi di terzo livello - i roomTypes
 				for (RoomType eachRoomType : structure.getRoomTypes()) {
 					eachNode2.buildChild(eachRoomType.getName());
-					for (TreeNode eachNode3 : eachNode2.getChildren()) {//costruisco i nodi di quarto livello - le convenzioni
-						Set<Convention> perRoomTypeConventions = structure.findConventionsBySeasonAndRoomType(structure.findSeasonByName(eachNode2.getData().getTitle()), structure.findRoomTypeByName(eachNode3.getData().getTitle()));//tutte le convenzioni associate a quel roomType in un certo listino
+				}
+					for (TreeNode eachNode3 : eachNode2.getChildren()) {//per ogni roomType costruisco i nodi di quarto livello - le convenzioni
+						Set<Convention> perRoomTypeConventions = new HashSet<Convention>();	//tutte le convenzioni associate a quel roomType in un certo listino
+						perRoomTypeConventions = structure.findConventionsBySeasonAndRoomType(structure.findSeasonByName(eachNode2.getData().getTitle()), structure.findRoomTypeByName(eachNode3.getData().getTitle()));
 						for (Convention eachRoomTypeConvention : perRoomTypeConventions) {
 							String href = webappPath + "/findRoomPriceListItems" +
 							"?seasonId=" + structure.findSeasonByName(eachNode2.getData().getTitle()).getId() + 
-							"&roomTypeId=" + eachRoomType.getId() +
+							"&roomTypeId=" + structure.findRoomTypeByName(eachNode3.getData().getTitle()).getId() +
 							"&conventionId=" + eachRoomTypeConvention.getId();
 							eachNode3.buildChild(eachRoomTypeConvention.getName(), href);
 						}
-					}
-				}			
+					}			
 			}
 		}
 		
@@ -177,7 +175,6 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware{
 						"root","priceList"
 				})})
 	})
-	
 	public String findRoomPriceListItems() {
 		User user = null;
 		Structure structure = null;
@@ -219,8 +216,6 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware{
 	public void setBooking(Booking booking) {
 		this.booking = booking;
 	}
-
-
 
 	public List<Integer> getBookingExtraIds() {
 		return bookingExtraIds;
