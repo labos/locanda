@@ -106,7 +106,8 @@ public class GuestAction extends ActionSupport implements SessionAware{
 		      
 		      for (Guest guest: allGuests)
 		      {
-		        if ( guest.getLastName().toLowerCase().contains(this.getTerm().toLowerCase()))
+		    	 String allName =  guest.getFirstName().toLowerCase() + guest.getLastName().toLowerCase();
+		        if ( allName.equals(this.getTerm().toLowerCase() ))
 		        {
 		        	returnedGuests.add(guest);
 		        }

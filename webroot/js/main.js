@@ -1376,11 +1376,11 @@ $(document).ready(function() {
 	}
    
    
-   function getCustomers(selector)
+   function getCustomers(selector, onselectToDo)
    {
 		var cache = {},
 		lastXhr;
-
+		var toDo = onselectToDo || null;
 	   $(selector).autocomplete({
 			minLength: 2,
 			source: function( request, response ) {
@@ -1396,7 +1396,7 @@ $(document).ready(function() {
 					try {
 						$.each(data, function(key, value){
 						
-						result.push({"id": value.id, "label":value.lastName, "value":value.lastName} );
+						result.push({"id": value.id, "label":value.lastName, "value":value.firstName+value.lastName} );
 					});
 					}
 					catch(e)
@@ -1414,6 +1414,17 @@ $(document).ready(function() {
 			select: function( event, ui ) {
 				if( ui.item ){
 					
+					
+					if (toDo == "findAllGuests")
+						{
+						var name = ui.item.value;
+						
+						window.location.href = "findAllGuestsByName.action?term=" + name;
+						
+						
+						}
+					
+					else{
 					$('input[name="booking.booker.id"]').val(ui.item.id);
 					//send an ajax call to guest details retrieving
 					$.ajax({
@@ -1452,6 +1463,9 @@ $(document).ready(function() {
 					   		  
 					   	  }
 						});
+					
+				}//END ELSE tODO
+					
 					
 				}
 				
@@ -1915,7 +1929,7 @@ $(document).ready(function() {
    //---  GUESTS SECTION CODE   
    
 		 
-		 getCustomers("input[name='guest_search']");
+		 getCustomers("input[name='guest_search']", "findAllGuests");
 		 
 		  $(".btn_g_search").button({
 		      icons: {
