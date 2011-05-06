@@ -463,7 +463,7 @@ color: red;
 select[name="confirm"]{
 width: 120px;
 }
-.yform .type-text input.txt_guest_search{
+input.txt_guest_search{
 width: 320px;
 float:left;
 height: 25px;

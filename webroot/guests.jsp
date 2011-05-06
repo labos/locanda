@@ -13,7 +13,7 @@
     <!-- begin: #col3 static column -->
     <div id="col3" role="main">
       <div id="col3_content" class="clearfix">
-        <div class="header_section yform">
+        <div class="header_section">
           <span class="name_section">Manage Guests</span>   
           <div class="right type-text">
             <input type="text" name="guest_search" class="txt_guest_search" /><button class="btn_g_search">SEARCH</button>      

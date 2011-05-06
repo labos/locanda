@@ -1915,6 +1915,8 @@ $(document).ready(function() {
    //---  GUESTS SECTION CODE   
    
 		 
+		 getCustomers("input[name='guest_search']");
+		 
 		  $(".btn_g_search").button({
 		      icons: {
 		          secondary: "ui-icon-arrowreturnthick-1-e"

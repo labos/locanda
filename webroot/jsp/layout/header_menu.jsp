@@ -15,7 +15,7 @@
 <link rel='stylesheet' type='text/css' href='css/jquery.jgrowl.css' />
 <link rel="stylesheet" type='text/css' href="css/jquery.fileupload-ui.css" />
     
-<script type='text/javascript' src='js/lib/jquery-1.4.4.min.js'></script>
+<script type='text/javascript' src='js/lib/jquery.min.js'></script>
 <!--<script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js'></script>-->
 <script type='text/javascript' src='js/lib/jquery-ui-1.8.9.custom.min.js'></script>
 <script type='text/javascript' src='js/ftod.js'></script>
@@ -74,6 +74,7 @@
 <s:url action="findAllGuests" var="url_findallguest"></s:url>
 <s:url action="findAllExtras" var="url_findallextra"></s:url>
 <s:url action="findAllSeasons" var="url_findallseasons"></s:url>
+<s:url action="findAllConventions" var="url_findallconventions"></s:url>
 <s:url action="goUpdateDetails" var="url_details"></s:url>
 <s:url action="goFindAllRoomPriceLists" var="url_findallpricelists"></s:url>
 <s:url action="goOnlineBookings" var="url_onlinebookings"></s:url>
@@ -106,6 +107,7 @@
     			<li class="ui-menu-item"><a href="<s:property value="url_onlinebookings"/>?sect=settings">ONLINE BOOKINGS</a></li>
     			<li class="ui-menu-item"><a href="<s:property value="url_findallseasons"/>?sect=settings">SEASONS</a></li>
     			<li class="ui-menu-item"><a href="<s:property value="url_findallpricelists"/>?sect=settings">ROOM PRICE LISTS</a></li>
+    			<li class="ui-menu-item"><a href="<s:property value="url_findallconventions"/>?sect=settings">CONVENTIONS</a></li>
     			<li class="ui-menu-item"><a href="emails.jsp?sect=settings">EMAILS</a></li>
     			<li class="ui-menu-item"><a href="<s:property value="url_details"/>?sect=settings">STRUCTURE DETAILS</a></li>
   			  </ul>

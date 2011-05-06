@@ -33,14 +33,29 @@ public class GuestAction extends ActionSupport implements SessionAware{
 	@Actions({
 		@Action(value="/findAllGuests",results = {
 				@Result(name="success",location="/guests.jsp")
-		}),
+		}) 
+		
+	})
+	public String findAllGuests(){
+		User user = null;
+		Structure structure = null;
+		
+		user = (User)session.get("user");
+		structure = user.getStructure();
+		this.setGuests(structure.getGuests());
+		return SUCCESS;		
+	}
+	
+	
+	@Actions({
+
 		@Action(value="/findAllGuestsJson",results = {
 				@Result(type ="json",name="success", params={
 						"root","guests"
 				})}) 
 		
 	})
-	public String findAllGuests(){
+	public String findAllGuestsFiltered(){
 		User user = null;
 		Structure structure = null;
 		List <Guest> allGuests = null;
@@ -68,6 +83,43 @@ public class GuestAction extends ActionSupport implements SessionAware{
 		
 		return SUCCESS;		
 	}
+	
+	
+	@Actions({
+		@Action(value="/findAllGuestsByName",results = {
+				@Result(name="success",location="/guests.jsp")
+		}) 
+		
+	})
+	public String findAllGuestsByName(){
+		User user = null;
+		Structure structure = null;
+		List <Guest> allGuests = null;
+		List <Guest> returnedGuests = new ArrayList<Guest>();
+		user = (User)session.get("user");
+		structure = user.getStructure();
+		
+		
+		   if (this.getTerm()!= null && this.getTerm().length() > 1)
+		    {
+			   allGuests = structure.getGuests();
+		      
+		      for (Guest guest: allGuests)
+		      {
+		        if ( guest.getLastName().toLowerCase().contains(this.getTerm().toLowerCase()))
+		        {
+		        	returnedGuests.add(guest);
+		        }
+		      }
+		      
+		    }
+		   this.setGuests(returnedGuests);
+		
+		
+		
+		return SUCCESS;		
+	}
+	
 	
 	public String getTerm() {
 		return term;

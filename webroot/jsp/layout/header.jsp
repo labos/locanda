@@ -9,7 +9,7 @@
 <link type='text/css' href='css/south-street/jquery-ui-1.8.9.custom.css' rel='stylesheet' />
 <link type="text/css" href="css/layout_sliding_door.css" rel="stylesheet"  />
   
-<script type='text/javascript' src='js/lib/jquery-1.4.4.min.js'></script>
+<script type='text/javascript' src='js/lib/jquery.min.js'></script>
 <!--<script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js'></script>-->
 <script type='text/javascript' src='js/lib/jquery-ui-1.8.9.custom.min.js'></script>
 <script type="text/javascript" src="js/jstree/jquery.jstree.js"></script>
