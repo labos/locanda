@@ -553,6 +553,18 @@ public class Structure {
 		return ret;
 	}
 	
+	public Boolean updateConvention(Convention aConvention){
+		Convention oldConvention = this.findConventionById(aConvention.getId());
+		
+		if(oldConvention == null){
+			return false;
+		}
+		oldConvention.setName(aConvention.getName());
+		oldConvention.setActivationCode(aConvention.getActivationCode());
+		oldConvention.setDescription(aConvention.getDescription());
+		return true;
+	}
+	
 	/*
 	public Double calculateRoomSubtotal(Room room, Date dateIn, Date dateOut,  Agevolazione agevolazione, Integer numGuests){
 		Double ret = 0.0;

@@ -162,7 +162,6 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware{
 					}			
 			}
 		}
-		
 		return "success";
 	}
 	

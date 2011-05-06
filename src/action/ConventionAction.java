@@ -1,10 +1,8 @@
 package action;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import model.Guest;
 import model.Structure;
 import model.User;
 import model.internal.Message;
@@ -21,8 +19,10 @@ import com.opensymphony.xwork2.ActionSupport;
 @ParentPackage(value="default")
 public class ConventionAction extends ActionSupport implements SessionAware{
 	private Map<String, Object> session = null;
+	private Message message = new Message();
 	private List<Convention> conventions = null;
 	private Convention convention = null;
+	
 	@Actions({
 		@Action(value="/findAllConventions",results = {
 				@Result(name="success",location="/conventions.jsp")
@@ -32,49 +32,86 @@ public class ConventionAction extends ActionSupport implements SessionAware{
 	public String findAllConventions(){
 		User user = null;
 		Structure structure = null;
-		user = (User)session.get("user");
+	
+		user = (User)this.getSession().get("user");
 		structure = user.getStructure();
-		
-
-		
-		
-		
+		this.setConventions(structure.getConventions());
 		return SUCCESS;		
 	}
 	
-	
+	@Actions({
+		@Action(value="/goUpdateConvention",results = {
+				@Result(name="success",location="/convention_edit.jsp")
+		})
+	})
+	public String goUpdateConvention() {
+		User user = null;
+		Structure structure = null;
+		
+		user = (User)session.get("user");
+		structure = user.getStructure();
+		this.setConvention(structure.findConventionById(this.getConvention().getId())); 
+		return SUCCESS;
+	}
 	
 	@Actions({
 		@Action(value="/saveUpdateConvention",results = {
+				@Result(type ="json",name="success", params={
+						"root","message"
+				})
+		})
+		
+	})
+	public String saveUpdateConvention(){
+		User user = null;
+		Structure structure = null;
+		Convention oldConvention = null;
+		
+		user = (User)session.get("user");
+		structure = user.getStructure();
+		
+		oldConvention = structure.findConventionById(this.getConvention().getId());
+		if(oldConvention == null){
+			//Si tratta di una aggiunta
+			this.getConvention().setId(structure.nextKey());
+			structure.addConvention(this.getConvention());
+			this.getMessage().setResult(Message.SUCCESS);
+			this.getMessage().setDescription("Convention added successfully");
+			
+		}else{
+			//Si tratta di un update
+			structure.updateConvention(this.getConvention());
+			this.getMessage().setResult(Message.SUCCESS);
+			this.getMessage().setDescription("Convention updated successfully");
+		}
+		return SUCCESS;		
+	}
+	
+	@Actions({
+		@Action(value="/deleteConvention",results = {
 				@Result(type ="json",name="success", params={
 						"root","message"
 				} )
 		})
 		
 	})
-	public String saveUpdateConvention(){
-/*		User user = null;
+	public String deleteConvention(){
+		User user = null;
 		Structure structure = null;
-		Guest oldGuest = null;
+		Convention currentConvention = null;
 		
 		user = (User)session.get("user");
 		structure = user.getStructure();
-		
-		oldGuest = structure.findGuestById(this.getGuest().getId());
-		if(oldGuest == null){
-			//Si tratta di una aggiunta
-			this.getGuest().setId(structure.nextKey());
-			structure.addGuest(this.getGuest());
+		currentConvention = structure.findConventionById(this.getConvention().getId());
+		if(structure.removeConvention(currentConvention)){
 			this.getMessage().setResult(Message.SUCCESS);
-			this.getMessage().setDescription("Guest added successfully");
-			
+			this.getMessage().setDescription("Convention removed successfully");
+			return SUCCESS;
 		}else{
-			//Si tratta di un update
-			structure.updateGuest(this.getGuest());
-			this.getMessage().setResult(Message.SUCCESS);
-			this.getMessage().setDescription("Guest updated successfully");
-		}*/
-		return SUCCESS;		
+			this.getMessage().setResult(Message.ERROR);
+			this.getMessage().setDescription("Error deleting convention");
+			return ERROR;
+		}
 	}
 	
 	
@@ -113,6 +150,18 @@ public class ConventionAction extends ActionSupport implements SessionAware{
 
 	public void setConvention(Convention convention) {
 		this.convention = convention;
+	}
+
+
+
+	public Message getMessage() {
+		return message;
+	}
+
+
+
+	public void setMessage(Message message) {
+		this.message = message;
 	}
 	
 	

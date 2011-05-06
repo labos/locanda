@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 
 import model.Booking;
-import model.Extra;
 import model.Guest;
 import model.Structure;
 import model.User;

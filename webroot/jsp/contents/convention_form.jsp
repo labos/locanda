@@ -17,7 +17,7 @@
                   </div>
                   <div class="type-text">           
        				<label for="conventionFormCode">Convention code <sup title="This field is mandatory.">*</sup></label>
-                    <input type="text" class="required number" name="convention.activationCode" id="conventionFormCode" value="<s:property value="convention.activationCode"/>" aria-required="true"/>
+                    <input type="text" class="required" name="convention.activationCode" id="conventionFormCode" value="<s:property value="convention.activationCode"/>" aria-required="true"/>
       		      </div> 
 				  <div class="type-text">	
                   	<label for="conventionFormDescr">Convention description</label>
