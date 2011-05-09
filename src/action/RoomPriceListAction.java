@@ -19,6 +19,7 @@ import model.internal.Message;
 import model.internal.TreeNode;
 import model.listini.Convention;
 import model.listini.RoomPriceList;
+import model.listini.RoomPriceListItem;
 import model.listini.Season;
 
 import org.apache.commons.lang.time.DateUtils;
@@ -190,6 +191,31 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware{
 		
 		this.setPriceList(structure.findRoomPriceListBySeasonAndRoomTypeAndConvention(season, roomType, convention));
 		return SUCCESS;
+	}
+	
+	@Actions({
+		@Action(value="/updateRoomPriceListItems",results = {
+				@Result(type ="json",name="success", params={
+						"root","message"
+				})
+		})
+	})
+	public String updateRoomPriceListItems(){
+		User user = null;
+		Structure structure = null;
+		RoomPriceList oldRoomPriceList = null;
+		
+		user = (User)this.getSession().get("user");
+		structure = user.getStructure();
+		oldRoomPriceList = structure.findRoomPriceListById(this.getPriceList().getId());
+	
+		for (RoomPriceListItem roomPriceListItem : oldRoomPriceList.getItems()) {
+			this.getPriceList().updateItem(roomPriceListItem);
+			structure.updateRoomPriceList(this.getPriceList());
+			this.getMessage().setResult(Message.SUCCESS);
+			this.getMessage().setDescription("Price List Items updated successfully");
+		}
+		return SUCCESS;		
 	}
 	
 	

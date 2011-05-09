@@ -8,7 +8,7 @@
 		  <fieldset>
           	<legend>Convention details</legend>
           	  <div class="c50l">
-              	<input type="hidden" name="redirect_form" value="findAllConventions.action?sect=settins" />
+              	<input type="hidden" name="redirect_form" value="findAllConventions.action?sect=settings" />
                 <input type="hidden" name="convention.id" value="<s:property value="convention.id"/>"/>
                 <div class="c50l">
                   <div class="type-text">	

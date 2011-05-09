@@ -466,12 +466,24 @@ public class Structure {
 	
 	
 	//Listino Camera
-	public Boolean addRoomPriceList(RoomPriceList listino){
-		return this.getRoomPriceLists().add(listino);
+	public Boolean addRoomPriceList(RoomPriceList aPriceList){
+		return this.getRoomPriceLists().add(aPriceList);
 	}
 	
-	public Boolean removeRoomPriceList(RoomPriceList listino){
-		return this.getRoomPriceLists().remove(listino);
+	public Boolean removeRoomPriceList(RoomPriceList aPriceList){
+		return this.getRoomPriceLists().remove(aPriceList);
+	}
+	
+	public Boolean updateRoomPriceList(RoomPriceList aPriceList){
+		RoomPriceList oldRoomPriceList = this.findRoomPriceListById(aPriceList.getId());
+		
+		if(oldRoomPriceList == null){
+			return false;
+		}
+		oldRoomPriceList.setSeason(aPriceList.getSeason());
+		oldRoomPriceList.setRoomType(aPriceList.getRoomType());
+		oldRoomPriceList.setItems(aPriceList.getItems());
+		return true;
 	}
 	
 	public RoomPriceList findRoomPriceListById(Integer id){
@@ -644,9 +656,6 @@ public class Structure {
 		return ret;
 	}
 	
-	public Boolean updateListinoCamera(RoomPriceList listino){		
-		return true;
-	}
 	
 	//Structure Images	
 	public Boolean addStructureImage(Image structureImage){
