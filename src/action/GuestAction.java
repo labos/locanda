@@ -51,7 +51,10 @@ public class GuestAction extends ActionSupport implements SessionAware{
 		@Action(value="/findAllGuestsJson",results = {
 				@Result(type ="json",name="success", params={
 						"root","guests"
-				})}) 
+				})}) ,
+				@Action(value="/findAllGuestsFiltered",results = {
+						@Result(name="success",location="/guests.jsp")
+				})
 		
 	})
 	public String findAllGuestsFiltered(){

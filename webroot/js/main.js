@@ -1929,7 +1929,7 @@ $(document).ready(function() {
    //---  GUESTS SECTION CODE   
    
 		 
-		 getCustomers("input[name='guest_search']", "findAllGuests");
+		 getCustomers(".txt_guest_search", "findAllGuests");
 		 
 		  $(".btn_g_search").button({
 		      icons: {
