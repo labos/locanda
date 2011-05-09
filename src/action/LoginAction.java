@@ -331,8 +331,8 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		//convenzione di default
 		convention = new Convention();
 		convention.setId(structure.nextKey());
-		convention.setName("default");
-		convention.setDescription("default convention");
+		convention.setName("agevolazione Default");
+		convention.setDescription("Default convention");
 		convention.setActivationCode("XXX");
 		
 		structure.addConvention(convention);

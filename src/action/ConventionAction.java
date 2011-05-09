@@ -1,12 +1,17 @@
 package action;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import model.RoomType;
 import model.Structure;
 import model.User;
 import model.internal.Message;
 import model.listini.Convention;
+import model.listini.RoomPriceList;
+import model.listini.RoomPriceListItem;
+import model.listini.Season;
 
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Actions;
@@ -26,8 +31,7 @@ public class ConventionAction extends ActionSupport implements SessionAware{
 	@Actions({
 		@Action(value="/findAllConventions",results = {
 				@Result(name="success",location="/conventions.jsp")
-		}) 
-		
+		})
 	})
 	public String findAllConventions(){
 		User user = null;
@@ -60,7 +64,6 @@ public class ConventionAction extends ActionSupport implements SessionAware{
 						"root","message"
 				})
 		})
-		
 	})
 	public String saveUpdateConvention(){
 		User user = null;
@@ -75,6 +78,7 @@ public class ConventionAction extends ActionSupport implements SessionAware{
 			//Si tratta di una aggiunta
 			this.getConvention().setId(structure.nextKey());
 			structure.addConvention(this.getConvention());
+			this.buildRoomPriceListFromConvention();
 			this.getMessage().setResult(Message.SUCCESS);
 			this.getMessage().setDescription("Convention added successfully");
 			
@@ -91,7 +95,7 @@ public class ConventionAction extends ActionSupport implements SessionAware{
 		@Action(value="/deleteConvention",results = {
 				@Result(type ="json",name="success", params={
 						"root","message"
-				} )
+				})
 		})
 		
 	})
@@ -114,13 +118,42 @@ public class ConventionAction extends ActionSupport implements SessionAware{
 		}
 	}
 	
-	
+	public void buildRoomPriceListFromConvention(){
+		User user = null;
+		Structure structure = null;
+		RoomPriceList newRoomPriceList = null;
+		RoomPriceListItem newRoomPriceListItem = null;
+		Double[] prices = null;
+		
+		user = (User)session.get("user");
+		structure = user.getStructure();
+		for (Season eachSeason : structure.getSeasons()) {
+			for (RoomType eachRoomType : structure.getRoomTypes()) {
+				newRoomPriceList = new RoomPriceList();
+				newRoomPriceList.setId(structure.nextKey());
+				newRoomPriceList.setSeason(eachSeason);
+				newRoomPriceList.setRoomType(eachRoomType);
+				newRoomPriceList.setConvention(this.getConvention());
+				List<RoomPriceListItem> items = new ArrayList<RoomPriceListItem>();
+				for (int i=1; i<=eachRoomType.getMaxGuests(); i++) {
+					newRoomPriceListItem = new RoomPriceListItem();
+					newRoomPriceListItem.setNumGuests(i);
+					prices = new Double[7];
+					for (int y=0; y<prices.length; y++) {
+						prices[y] = 0.0;
+					}
+					items.add(newRoomPriceListItem);
+					newRoomPriceList.setItems(items);
+					structure.addRoomPriceList(newRoomPriceList);
+				}		
+			}
+		}
+	}
 
+	
 	public Map<String, Object> getSession() {
 		return session;
 	}
-
-
 
 	@Override
 	public void setSession(Map<String, Object> session) {
@@ -128,43 +161,29 @@ public class ConventionAction extends ActionSupport implements SessionAware{
 		
 	}
 
-
-
 	public List<Convention> getConventions() {
 		return conventions;
 	}
-
-
 
 	public void setConventions(List<Convention> conventions) {
 		this.conventions = conventions;
 	}
 
-
-
 	public Convention getConvention() {
 		return convention;
 	}
-
-
 
 	public void setConvention(Convention convention) {
 		this.convention = convention;
 	}
 
-
-
 	public Message getMessage() {
 		return message;
 	}
 
-
-
 	public void setMessage(Message message) {
 		this.message = message;
 	}
-	
-	
 	
 
 }

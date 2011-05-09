@@ -2088,20 +2088,13 @@ $(document).ready(function() {
 			   		   	else{
 			   		   		$(".validationErrors").html(data_action);
 			   		   		}
-						  
 					  },
 				  error: function(){
 					  
 						$().notify("Errore Grave", "Problema nella risorsa interrogata nel server");
-				   		   
-					  
 				  }
-				  
 				});
-			  
-			  
 	   		  }
-	  		  
 	  	  };
 	  	  
 		
@@ -2354,9 +2347,9 @@ $(document).ready(function() {
 								//$(this).refresh();
 				  				var url_table = $("a", this).attr("href");
 			 					$.ajax({
-			 						dataType: "html",
 			   						url: url_table,
 			   						context: document.body,
+									dataType: "html",
 									success: function(data){
 										$(".priceList_table > tbody").html(data);
 									}, 
