@@ -2062,6 +2062,10 @@ $(document).ready(function() {
 	   		  var $this = $( event.currentTarget );
 	   		//--  $(this).closest("." + "guest" + "_row").remove();
 	   		  var urlAction = $this.attr("href");
+	   		  
+	   		  if(confirm("Do you REALLY want to delete it?")){
+
+    		  
 			  $.ajax({
 				  type: 'POST',
 				  url: urlAction,
@@ -2094,8 +2098,12 @@ $(document).ready(function() {
 				  }
 				  
 				});
+			  
+			  
+	   		  }
 	  		  
-	  	  }
+	  	  };
+	  	  
 		
 		
 		
@@ -2346,14 +2354,14 @@ $(document).ready(function() {
 								//$(this).refresh();
 				  				var url_table = $("a", this).attr("href");
 			 					$.ajax({
-						
+			 						dataType: "html",
 			   						url: url_table,
 			   						context: document.body,
 									success: function(data){
 										$(".priceList_table > tbody").html(data);
 									}, 
 			   			
-		   	  						error: function(){
+		   	  						error: function(request,state,errors){
 		   								$().notify("Attenzione", "Problema restituzione lista prezzi...");
 		   	 			 			}
 			 					});

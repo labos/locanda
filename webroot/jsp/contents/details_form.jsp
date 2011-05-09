@@ -6,7 +6,7 @@
 
 		<form method="post" action="updateDetails.action" class="yform json full" role="application">
           <fieldset>
-          	<legend>Your Details</legend>
+          	<legend>Structure Details</legend>
           	<div class="c50l">
               <input type="hidden" name="redirect_form" value="goUpdateDetails.action?sect=settings" />
                 <div class="c50l">
@@ -314,6 +314,7 @@
         			<ul class="thumbs_facility">
         					<s:iterator value="structure.structureFacilities" var="eachFacility" >
         					<li>
+        					<h4><s:property value="#eachFacility.name" /></h4>
 								<a title="<s:property value="#eachFacility.name" />" href="#drop" class="thumb" rel="history">
 									<img alt="<s:property value="#eachFacility.name" />" src="images/struct_facilities/<s:property value="#eachFacility.fileName" />" />
 									</a>
@@ -359,6 +360,7 @@
         <ul class="thumbs">
         <s:iterator value="structure.imageLists" var="eachImage" >
         					<li>
+        					<h4><s:property value="#eachImage.name" /></h4>
 								<a title="<s:property value="#eachImage.name" />" href="#drop" class="thumb" rel="history">
 									<img alt="<s:property value="#eachImage.name" />" src="images/structure/<s:property value="#eachImage.fileName" />" />
 									</a>

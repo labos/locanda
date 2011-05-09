@@ -36,7 +36,7 @@
    				  <input type="hidden" name="roomType.id" value="<s:property value="roomType.id"/>"/>
      			  <input type="file" name="upload" multiple/>
     			  <button>Upload</button>
-    			  <div>Upload Room Photo</div>  
+    			  <div>Upload Room Type Photo</div>  
 				</form> 
 		   	  </div>
 		   	</div>
@@ -45,6 +45,7 @@
         <ul class="thumbs">
         <s:iterator value="roomType.imageLists" var="eachImage" >
         					<li>
+        					<s:property value="#eachImage.name" />
 								<a title="<s:property value="#eachImage.name" />" href="#drop" class="thumb" rel="history">
 									<img alt="<s:property value="#eachImage.name" />" src="images/roomtype/<s:property value="#eachImage.fileName" />" />
 									</a>
