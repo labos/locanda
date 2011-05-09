@@ -28,6 +28,7 @@
           
           <div>
 		    <form method="post" action="deleteRoomType.action" class="yform json full" role="application">
+		    <a name="<s:property value="#eachRoomType.name"/>"></a>
               <fieldset>
                 <input type="hidden" name="redirect_form" value="findAllRoomTypes.action?sect=accomodation" />
                 <input type="hidden" name="roomType.id" value="<s:property value="#eachRoomType.id"/>"/>

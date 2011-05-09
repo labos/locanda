@@ -719,7 +719,7 @@ $(document).ready(function() {
 		 if(responseObject && typeof actionName !== "undefined" && actionName && typeof actionName === "string"){
 			 
 		 
-		 if(responseObject.roomFacility && actionName.indexOf("uploadFacility") >= 0 ){
+		 if(responseObject.roomFacility &&   actionName.indexOf("uploadFacility") >= 0){
 			 
 			   //get the name of the facility
 			   var name_facility = responseObject.roomFacility.name;
@@ -749,6 +749,38 @@ $(document).ready(function() {
 			   facility_row_checked_cloned.animate({ backgroundColor: "#A2D959", color: "#000", border: "1px solid #fff"}, 500).effect("pulsate", { times:10 }, 1000);
 
 		 }
+		 else if(responseObject.roomFacility &&  actionName.indexOf("uploadRoomTypeFacility") >= 0 ){
+			 
+			   //get the name of the facility
+			   var name_facility = responseObject.roomFacility.name;
+			 //get the file name of the facility
+			   var file_facility = responseObject.roomFacility.fileName;
+			   //get the id of the facility
+			   var id_facility = responseObject.roomFacility.id;
+			   //clone the html portion to replicate
+			   var facility_row_checked_cloned = $(".facility:hidden").clone();
+			   //set src file name
+			   var src = facility_row_checked_cloned.find('img').attr("src") + file_facility;
+			   //add src file name
+			   facility_row_checked_cloned.find('img').attr("src", src);
+			   //add checkbox id
+			   facility_row_checked_cloned.find('input:checkbox').attr("id", id_facility + "_fac");
+			   //add checkbox name
+			   facility_row_checked_cloned.find('input:checkbox').attr("name", "roomTypeFacilitiesIds");
+			 //add checkbox value
+			   facility_row_checked_cloned.find('input:checkbox').attr("value", id_facility);
+
+			   //add label text
+			   facility_row_checked_cloned.find('label').attr("for", id_facility + "_fac").text(name_facility);
+
+			   
+			   
+			   facility_row_checked_cloned.insertAfter($(".facility:last")).show();
+			   facility_row_checked_cloned.animate({ backgroundColor: "#A2D959", color: "#000", border: "1px solid #fff"}, 500).effect("pulsate", { times:10 }, 1000);
+
+		 }
+		 
+		 
 		 else if (responseObject.image && actionName.indexOf("uploadStructureImage") >= 0){
 			 
 			 

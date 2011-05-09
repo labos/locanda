@@ -39,6 +39,7 @@ public class Structure {
 	private List<RoomPriceList> roomPriceLists;
 	private List<Image> imageLists;
 	private List<Convention> conventions;
+	private List<RoomFacility>roomTypeFacilities;
 	
 	
 	public Structure(){
@@ -55,6 +56,7 @@ public class Structure {
 		this.setRoomTypes(new ArrayList<RoomType>());
 		this.setStructureFacilities(new ArrayList<StructureFacility>());
 		this.setConventions(new ArrayList<Convention>());
+		this.setRoomTypeFacilities(new ArrayList<RoomFacility>());
 	}
 	
 	public Integer nextKey(){
@@ -197,6 +199,23 @@ public class Structure {
 		return false;
 	}
 	
+	//RoomTypeFacility	
+	public Boolean addRoomTypeFacility(RoomFacility roomFacility){
+		roomFacility.setId(this.nextKey());
+		return this.getRoomTypeFacilities().add(roomFacility);
+	}	
+	
+	public boolean hasRoomTypeFacilityNamed(String roomFacilityName){
+		for(RoomFacility each: this.getRoomTypeFacilities()){
+			if(each.getName().equals(roomFacilityName)){
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	
+	
 	public boolean hasRoomPhotoNamed(String roomPhotoName){
 				/*	IN PROGRESS...	*/
 		return false;
@@ -212,6 +231,15 @@ public class Structure {
 		return ret;
 	}
 	
+	public List<RoomFacility> findRoomTypeFacilitiesByIds(List<Integer> ids){
+		List<RoomFacility> ret = new ArrayList<RoomFacility>();
+		for(Integer each:ids){
+			RoomFacility aRoomFacility = this.findRoomTypeFacilityById(each);
+			ret.add(aRoomFacility);
+		}
+		return ret;
+	}
+	
 	public RoomFacility findFacilityById(Integer id){
 		RoomFacility ret = null;
 		for (RoomFacility each:this.getRoomFacilities()){
@@ -222,6 +250,15 @@ public class Structure {
 		return ret;
 	}
 	
+	public RoomFacility findRoomTypeFacilityById(Integer id){
+		RoomFacility ret = null;
+		for (RoomFacility each:this.getRoomTypeFacilities()){
+			if (each.getId().equals(id)) {
+				return each;
+			}
+		}
+		return ret;
+	}
 	
 	//Booking	
 	public boolean addBooking(Booking aBooking) {
@@ -379,6 +416,7 @@ public class Structure {
 		}
 		oldRoomType.setName(aRoomType.getName());
 		oldRoomType.setMaxGuests(aRoomType.getMaxGuests());
+		oldRoomType.setRoomTypeFacilities(aRoomType.getRoomTypeFacilities());
 		
 		return true;
 	}
@@ -867,6 +905,14 @@ public class Structure {
 
 	public void setConventions(List<Convention> conventions) {
 		this.conventions = conventions;
+	}
+
+	public List<RoomFacility> getRoomTypeFacilities() {
+		return roomTypeFacilities;
+	}
+
+	public void setRoomTypeFacilities(List<RoomFacility> roomTypeFacilities) {
+		this.roomTypeFacilities = roomTypeFacilities;
 	}
 	
 	

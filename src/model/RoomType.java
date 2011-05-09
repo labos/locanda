@@ -9,11 +9,13 @@ public class RoomType {
 	private String name;
 	private Integer maxGuests;
 	private List<Image> imageLists;
+	private List<RoomFacility> roomTypeFacilities;
 	
 	
 	public RoomType(){
 		
 		this.imageLists = new ArrayList<Image>();
+		this.roomTypeFacilities = new ArrayList<RoomFacility>();
 	}
 	
 	//RoomType Photo Adding	
@@ -25,6 +27,18 @@ public class RoomType {
 	
 	public boolean deleteImage(Image aImage) {
 		return this.getImageLists().remove(aImage);
+	}
+	
+	
+	//RoomType facility Adding	
+	public Boolean addRoomTypeFacility(RoomFacility roomTypeFacility){
+		
+		return this.getRoomTypeFacilities().add(roomTypeFacility);
+		
+	}
+	
+	public boolean deleteFacility(RoomFacility roomTypeFacility) {
+		return this.getRoomTypeFacilities().remove(roomTypeFacility);
 	}
 	
 	
@@ -75,6 +89,14 @@ public class RoomType {
 	}
 	public void setImageLists(List<Image> imageLists) {
 		this.imageLists = imageLists;
+	}
+
+	public List<RoomFacility> getRoomTypeFacilities() {
+		return roomTypeFacilities;
+	}
+
+	public void setRoomTypeFacilities(List<RoomFacility> facilityList) {
+		this.roomTypeFacilities = facilityList;
 	}
 	
 	

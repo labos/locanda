@@ -290,6 +290,48 @@ public class UploadAction extends ActionSupport implements SessionAware{
 	
 	
 	
+	
+	@Actions({
+		@Action(value="/uploadRoomTypeFacility",results = {
+				@Result(type ="json",name="success", params={
+						"excludeProperties", "session,upload,uploadFileName,uploadContentType,name"
+						} ),
+				@Result(type ="json",name="error", params={
+						"root","message"
+				} )
+		})
+	})
+
+	public String uploadRoomTypeFacility() throws IOException {
+		RoomType aRoomType = null;
+		User user = (User)this.getSession().get("user");
+		ServletContext context = ServletActionContext.getServletContext();
+		String imgPath = context.getRealPath("/")+ "images/roomtype_facilities/";
+		//Controllare che sia diverso da null in un interceptor
+		Structure structure = user.getStructure();
+		if (structure.hasRoomTypeFacilityNamed(this.getName())) {
+			message.setResult(Message.ERROR);
+			message.setDescription("Esiste già una facility con lo stesso nome");
+			return ERROR;
+		};
+		
+		File target = new File(imgPath + this.getUploadFileName());
+		FileUtils.copyFile(this.upload, target);
+		
+		
+		this.roomFacility = new RoomFacility();
+		this.roomFacility.setName(this.name);
+		this.roomFacility.setFileName(this.uploadFileName);
+		this.roomFacility.setId(structure.nextKey());
+		
+		structure.addRoomTypeFacility(this.roomFacility);
+		message.setResult(Message.SUCCESS);
+		message.setDescription("Logo inserito correttamente!");
+		return SUCCESS;
+		
+	
+	}
+	
 	public Map<String, Object> getSession() {
 		return session;
 	}
