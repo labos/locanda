@@ -60,6 +60,32 @@ public class RoomAction extends ActionSupport implements SessionAware{
 		return SUCCESS;
 	}
 	
+	@Actions({
+		@Action(value="/findRoomTypesForRoom",results = {
+				@Result(name="success",location="/jsp/contents/roomTypeFacility_table.jsp")
+		}),
+		@Action(value="/findRoomTypesForRoomJson",results = {
+				@Result(name="input", location="/validationError.jsp"),
+				@Result(type ="json",name="success", params={
+						"root","message"
+				} ),
+				@Result(type ="json",name="error", params={
+						"root","message"
+				} )
+		})
+	})
+	public String findAllRoomTypesForRoom() {
+		User user = null;
+		Structure structure = null;
+		List <RoomFacility> selectedFacility = null;
+		user = (User)this.getSession().get("user");
+		structure = user.getStructure();
+		this.setRoomFacilities(structure.getRoomFacilities());
+		selectedFacility = structure.findRoomTypeById(this.getRoom().getRoomType().getId() ).getRoomTypeFacilities();
+		this.setRoomTypeFacility(selectedFacility);
+		return SUCCESS;
+	}
+	
 	
 	@Actions({
 		@Action(value="/goUpdateRoom",results = {

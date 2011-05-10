@@ -2351,6 +2351,36 @@ $(document).ready(function() {
 			    	window.location.href="goAddNewRoom.action?sect=accomodation"; 
 			    	return false;
 			      });
+		  
+		  
+		  
+		  $("#roomType").change(function(){
+			  
+			  var selectedId = $(this).find(":selected").val();
+			  			  
+			  if(typeof parseInt(selectedId) =="number"  && parseInt(selectedId) >0){
+				 
+				  var url_table = "findRoomTypesForRoom.action?room.roomType.id=" + selectedId;
+				  
+					$.ajax({
+						url: url_table,
+						context: document.body,
+					dataType: "html",
+					success: function(data){
+						$(".wrapper-facility").empty();
+						$(".wrapper-facility").append( data );
+					}, 
+			
+ 						error: function(request,state,errors){
+							$().notify("Attenzione", "Problema restituzione lista Facility delle room types...");
+			 			}
+					});
+				  
+			  }
+				  
+
+			  
+		  });
 		 
 		//---  END ACCOMODATION SECTION CODE   
 		  

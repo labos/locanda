@@ -18,15 +18,16 @@
              	  <div class="type-select">
                   	<label for="roomType">Room Type: <sup title="This field is mandatory.">*</sup></label>            	                 	
              	     <select name="room.roomType.id" id="roomType">
+             	        <s:if test="room == null">
+							<option selected="selected" value="-1">Select One</option>
+						</s:if>
                     	<s:iterator value="roomTypes" var="eachRoomType" >
                    			<option 
                    			  <s:if test="#eachRoomType.id == room.roomType.id">selected="selected"</s:if>	 
                    			  value="<s:property value="#eachRoomType.id"/>"><s:property value="#eachRoomType.name"/>
                    			</option>
                     	</s:iterator>
-                    	<s:if test="room.roomType == null">
-							<option selected="selected" value="-1">Select One</option>
-						</s:if>
+
                  	</select>
              	  </div>
              	  <div class="type-text">
@@ -43,92 +44,28 @@
               </div>
               
               <div class="c50l">
-                <div class="subcr type-check">
-               		<label for="">Facilities:</label>
-                	<s:iterator value="roomFacilities" var="each">
-               		  <div class="facility">
-						<img width="24" height="24" src="images/room_facilities/<s:property value="#each.fileName"/>" alt="facility"/>
-						<s:checkbox id="%{#each.name}" name="roomFacilitiesIds" value="roomFacilitiesIds.contains(#each.id)" fieldValue="%{#each.id}"/>
-						<label for="<s:property value="name"/>_fac"><s:property value="#each.name"/></label>
-					  </div>
-					</s:iterator>
-				   <s:iterator value="room.roomType.roomTypeFacilities" var="each">
-               		  <div class="facility">
-						<img width="24" height="24" src="images/roomtype_facilities/<s:property value="#each.fileName"/>" alt="facility"/>
-						<s:checkbox id="%{#each.name}" name="roomFacilitiesIds" value="roomFacilitiesIds.contains(#each.id)" fieldValue="%{#each.id}"/>
-						<label for="<s:property value="name"/>_fac"><s:property value="#each.name"/></label>
-					  </div>
-					</s:iterator>	
-					<s:if test="room == null">
+                <div class="wrapper-facility type-check">
+               		<jsp:include page="roomTypeFacility_table.jsp" />
+               		
+               		
+               		
+					<!-- 
 					<s:iterator value="roomTypeFacility" var="each">
                		  <div class="facility">
 						<img width="24" height="24" src="images/roomtype_facilities/<s:property value="#each.fileName"/>" alt="facility"/>
 						<s:checkbox id="%{#each.name}" name="roomFacilitiesIds" value="roomFacilitiesIds.contains(#each.id)" fieldValue="%{#each.id}"/>
 						<label for="<s:property value="name"/>_fac"><s:property value="#each.name"/></label>
 					  </div>
-					</s:iterator>	
-					</s:if>
-				    <!-- div facility for javascript purpose-->
-				  	<div class="facility" style="display: none; border-color: red;">
-					  <img  width="24" height="24" src="images/room_facilities/" alt="facility"/>
-					  <input type="checkbox" id="" name="" checked="checked"/>
-					  <label for=""></label>
-				  	</div>
-				  	<!-- end div facility for javascript purpose-->
+					</s:iterator>
+					<s:if test="room == null">
+					</s:if>	
+					 -->	
 				</div>
          	  </div>
-         	 
-            </fieldset>
+         	 </fieldset>
           </form>
                     
-        <!--  ROOM IMAGE UPLOADING  -->
-           <div class="beauty">
-     	  	<div class="subcolumns">
-           	  <div class="c33l">
-    			<label for="name_facility">Image Name:</label>&nbsp;<input type="text" name="facility_name" value="" id="name_image" class="require"/>
- 			  </div>
- 			  <div class="c20l">
- 				<br/>
- 				<form id="uploadImage" action="uploadRoomImage.action" method="post" enctype="multipart/form-data">
-   				  <input type="hidden" name="name" value=" "/>
-   				  <input type="hidden" name="room.id" value="<s:property value="room.id"/>"/>
-     			  <input type="file" name="upload" multiple/>
-    			  <button>Upload</button>
-    			  <div>Upload Room Photo</div>  
-				</form> 
-		   	  </div>
-		   	</div>
-		   	<div class="subcolumns">
-                  <a name="bottom_anchor" />
-        <ul class="thumbs">
-        <s:iterator value="room.imageLists" var="eachImage" >
-        					<li>
-        					<h4><s:property value="#eachImage.name" /></h4>
-								<a title="<s:property value="#eachImage.name" />" href="#drop" class="thumb" rel="history">
-									<img alt="<s:property value="#eachImage.name" />" src="images/room_images/<s:property value="#eachImage.fileName" />" />
-									</a>
-									<span><s:property value="#eachImage.name" /><a class="erase_image" href="deletePhotoRoom.action?image.id=<s:property value="#eachImage.id" />&room.id=<s:property value="room.id" />"  title="erase"><img src="images/delete.png" alt="Delete Image" /></a></span>
-								
-							</li>
-        </s:iterator>
-							<li style="display: none">
-								<a title="Title #1" href="#drop" class="thumb" rel="history">
-									<img alt="Title #1" src="images/room_images/" />
-								</a>
-								<span class="name_image">__PVALUE__<a class="erase_image" href="deletePhotoRoom.action?room.id=<s:property value="room.id" />&image.id="  title="erase"><img src="images/delete.png" alt="Delete Image" /></a></span>
-										
-							</li>
-							</ul>
-						</div>
-		   	
-		   	    
-          </div>
-         
-         <div class="subcolumns">
-				<div class="result_facility_upload" id="result_facility_upload" ></div>
-		   			<div class="upload_loader">&nbsp;</div>
-		   			<div class="image_preview"></div>
-		</div>
+          
           <div class="beauty">
      	  	<div class="subcolumns">
            	  <div class="c33l">
@@ -145,4 +82,10 @@
 
 		   	  </div>
 		   	</div>      
-          </div>	 		  
+          </div>	
+                 <div class="subcolumns">
+				<div class="result_facility_upload" id="result_facility_upload" ></div>
+		   			<div class="upload_loader">&nbsp;</div>
+		   			<div class="image_preview"></div>
+		</div>  
+           		  

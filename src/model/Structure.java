@@ -118,7 +118,8 @@ public class Structure {
 		originalRoom.setNotes(room.getNotes());
 		originalRoom.setRoomType(room.getRoomType());
 		originalRoom.setFacilities(room.getFacilities());
-		originalRoom.setImageLists(room.getImageLists());
+		//la lista delle immagini gli viene aggiornata solo in occasione ogni upload
+		//originalRoom.setImageLists(room.getImageLists());
 		return true;
 	}
 	

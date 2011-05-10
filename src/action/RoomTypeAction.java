@@ -44,6 +44,10 @@ public class RoomTypeAction extends ActionSupport implements SessionAware{
 		return SUCCESS;
 	}
 	
+
+	
+	
+	
 	@Actions({
 		@Action(value="/goUpdateRoomType",results = {
 				@Result(name="success",location="/roomType_edit.jsp")
