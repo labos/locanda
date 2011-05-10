@@ -3,12 +3,7 @@ package action;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-
-import model.Extra;
-import model.Guest;
 import model.Image;
-import model.Room;
 import model.RoomFacility;
 import model.RoomType;
 import model.Structure;

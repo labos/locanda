@@ -3,6 +3,7 @@ package action;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -208,13 +209,12 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware{
 		user = (User)this.getSession().get("user");
 		structure = user.getStructure();
 		oldRoomPriceList = structure.findRoomPriceListById(this.getPriceList().getId());
-	
-		for (RoomPriceListItem roomPriceListItem : oldRoomPriceList.getItems()) {
-			this.getPriceList().updateItem(roomPriceListItem);
-			structure.updateRoomPriceList(this.getPriceList());
-			this.getMessage().setResult(Message.SUCCESS);
-			this.getMessage().setDescription("Price List Items updated successfully");
+		
+		for (int i = 0; i < oldRoomPriceList.getItems().size(); i++) {
+			oldRoomPriceList.updateItem(this.getPriceList().getItems().get(i));
 		}
+		this.getMessage().setResult(Message.SUCCESS);
+		this.getMessage().setDescription("Price List Items updated successfully");
 		return SUCCESS;		
 	}
 	

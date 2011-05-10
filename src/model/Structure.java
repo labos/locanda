@@ -521,18 +521,6 @@ public class Structure {
 		return this.getRoomPriceLists().remove(aPriceList);
 	}
 	
-	public Boolean updateRoomPriceList(RoomPriceList aPriceList){
-		RoomPriceList oldRoomPriceList = this.findRoomPriceListById(aPriceList.getId());
-		
-		if(oldRoomPriceList == null){
-			return false;
-		}
-		oldRoomPriceList.setSeason(aPriceList.getSeason());
-		oldRoomPriceList.setRoomType(aPriceList.getRoomType());
-		oldRoomPriceList.setItems(aPriceList.getItems());
-		return true;
-	}
-	
 	public RoomPriceList findRoomPriceListById(Integer id){
 		RoomPriceList ret = null;
 		

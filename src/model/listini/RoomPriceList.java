@@ -40,7 +40,6 @@ public class RoomPriceList {
 		if(oldItem == null){
 			return false;			
 		}
-		oldItem.setNumGuests(anItem.getNumGuests());
 		oldItem.setPrices(anItem.getPrices());
 		return true;
 	}
@@ -93,8 +92,4 @@ public class RoomPriceList {
 	}
 	
 	
-	
-	
-	
-
 }

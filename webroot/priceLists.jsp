@@ -35,7 +35,6 @@
         <form class="yform json full noBorder" id="priceList_form" action="updateRoomPriceListItems.action">
 	  	  <fieldset>
           	<legend>Click to edit the Price List -> <a href="#" id="priceList_edit"><img src="images/sign-up-icon.png" alt="edit" /></a> </legend>
-          	<input type="hidden" name="priceList.id" value="<s:property value="priceList.id"/>"/>
           	<table class="full priceList_table">
           	  <thead>
           	  	<tr>
