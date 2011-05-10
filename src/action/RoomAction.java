@@ -33,6 +33,7 @@ public class RoomAction extends ActionSupport implements SessionAware{
 	private Integer roomId;
 	private Image image = null;
 	private List<RoomType> roomTypes = null;
+	private List<RoomFacility> roomTypeFacility = null;
 	
 	
 	@Actions({
@@ -55,6 +56,7 @@ public class RoomAction extends ActionSupport implements SessionAware{
 		this.setRooms(structure.getRooms());
 		this.setRoomTypes(structure.getRoomTypes());
 		this.setRoomFacilities(structure.getRoomFacilities());
+		this.setRoomTypeFacility(structure.getRoomTypeFacilities());
 		return SUCCESS;
 	}
 	
@@ -134,7 +136,7 @@ public class RoomAction extends ActionSupport implements SessionAware{
 			return "error";			
 		}	
 		else{	
-			checkedFacilities = structure.findFacilitiesByIds(this.getRoomFacilitiesIds());
+			checkedFacilities = structure.findAllFacilitiesByIds(this.getRoomFacilitiesIds());
 			for(Room each: rooms){
 				each.setId(structure.nextKey());				
 				each.setFacilities(checkedFacilities);
@@ -184,7 +186,7 @@ public class RoomAction extends ActionSupport implements SessionAware{
 				return "error";
 			}
 		}
-		checkedFacilities = structure.findFacilitiesByIds(this.getRoomFacilitiesIds());
+		checkedFacilities = structure.findAllFacilitiesByIds(this.getRoomFacilitiesIds());
 		this.getRoom().setFacilities(checkedFacilities);
 		
 		theRoomType = structure.findRoomTypeById(this.getRoom().getRoomType().getId());
@@ -348,6 +350,16 @@ public class RoomAction extends ActionSupport implements SessionAware{
 
 	public void setImage(Image image) {
 		this.image = image;
+	}
+
+
+	public List<RoomFacility> getRoomTypeFacility() {
+		return roomTypeFacility;
+	}
+
+
+	public void setRoomTypeFacility(List<RoomFacility> roomTypeFacility) {
+		this.roomTypeFacility = roomTypeFacility;
 	}
 	
 }

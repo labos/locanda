@@ -52,6 +52,22 @@
 						<label for="<s:property value="name"/>_fac"><s:property value="#each.name"/></label>
 					  </div>
 					</s:iterator>
+				   <s:iterator value="room.roomType.roomTypeFacilities" var="each">
+               		  <div class="facility">
+						<img width="24" height="24" src="images/roomtype_facilities/<s:property value="#each.fileName"/>" alt="facility"/>
+						<s:checkbox id="%{#each.name}" name="roomFacilitiesIds" value="roomFacilitiesIds.contains(#each.id)" fieldValue="%{#each.id}"/>
+						<label for="<s:property value="name"/>_fac"><s:property value="#each.name"/></label>
+					  </div>
+					</s:iterator>	
+					<s:if test="room == null">
+					<s:iterator value="roomTypeFacility" var="each">
+               		  <div class="facility">
+						<img width="24" height="24" src="images/roomtype_facilities/<s:property value="#each.fileName"/>" alt="facility"/>
+						<s:checkbox id="%{#each.name}" name="roomFacilitiesIds" value="roomFacilitiesIds.contains(#each.id)" fieldValue="%{#each.id}"/>
+						<label for="<s:property value="name"/>_fac"><s:property value="#each.name"/></label>
+					  </div>
+					</s:iterator>	
+					</s:if>
 				    <!-- div facility for javascript purpose-->
 				  	<div class="facility" style="display: none; border-color: red;">
 					  <img  width="24" height="24" src="images/room_facilities/" alt="facility"/>

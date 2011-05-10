@@ -3,6 +3,7 @@ package model;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -219,6 +220,14 @@ public class Structure {
 	public boolean hasRoomPhotoNamed(String roomPhotoName){
 				/*	IN PROGRESS...	*/
 		return false;
+	}
+	
+	public List<RoomFacility> findAllFacilitiesByIds(List<Integer> ids){
+		List<RoomFacility> ret = null;
+		ret = this.findFacilitiesByIds(ids);
+		ret.addAll(this.findRoomTypeFacilitiesByIds(ids));
+		ret.removeAll(Collections.singletonList(null));
+		return ret;
 	}
 	
 	

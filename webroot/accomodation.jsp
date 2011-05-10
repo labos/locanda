@@ -49,7 +49,12 @@
            			<fieldset> 
            		      <legend>Facilities</legend>
            		  	  <s:iterator value="#eachRoom.facilities" var="eachFacility">
-					    <img width="24" height="24"  src="images/room_facilities/<s:property value="fileName"/>" alt="<s:property value="#eachFacility.name"/>"/>
+           		  	  <s:if test="roomTypeFacility.contains(#eachFacility)">
+           		  	   <img width="24" height="24"  src="images/roomtype_facilities/<s:property value="fileName"/>" alt="<s:property value="#eachFacility.name"/>"/>
+           		  	   </s:if>
+           		  	   <s:else>
+           		  	   	 <img width="24" height="24"  src="images/room_facilities/<s:property value="fileName"/>" alt="<s:property value="#eachFacility.name"/>"/>
+           		  	   	</s:else>
       				  </s:iterator>
     				</fieldset>
                   </div>                  
