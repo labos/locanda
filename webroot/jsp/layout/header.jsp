@@ -53,7 +53,7 @@
     <div class="page">
       <div id="header" role="banner">
         <div id="topnav" role="contentinfo">
-          <span><a href="login.jsp">Login/Signup</a></span>
+          <span><a class="login-top" href="login.jsp">Login/Signup</a></span>
         </div>
         <h1>
         <span>&nbsp;</span><em>&nbsp;</em></h1><span>&nbsp;</span>

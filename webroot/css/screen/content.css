@@ -687,6 +687,29 @@ input.static_small_input {
 	width: 40px;
 }
 
+#topnav a.login-top{
+color:#3B5998;
+background:url("../images/key-icon.png") no-repeat scroll 5px 5px #DEE8FC;
+-webkit-border-radius: 5px 5px 5px 5px;
+-moz-border-radius:5px 5px 5px 5px;
+border:1px solid #88A4D6;
+cursor:pointer;
+font-size:15px;
+font-weight:bold;
+left:690px;
+padding:2px 7px 2px 27px;
+text-decoration:none;
+top:24px;
+
+}
+
+#topnav a.login-top:hover{
+color:#fff;
+background:url("../images/key-icon.png") no-repeat scroll 5px 5px #88A4D6;
+
+
+}
+
 /*.validationErrors{
 	border: 1px dotted red;
 }*/
