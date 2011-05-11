@@ -28,7 +28,7 @@
         
         <s:iterator value="rooms" var="eachRoom" >
          
-        <div> 
+        <div style="display:block; height:100%;"> 
 		  <form method="post" action="deleteRoom.action" class="yform json full" role="application">
             <fieldset>
               <input type="hidden" name="redirect_form" value="findAllRooms.action?sect=accomodation" />

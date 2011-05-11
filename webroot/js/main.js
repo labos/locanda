@@ -1629,7 +1629,10 @@ $(document).ready(function() {
    
    //---  LOGIN SECTION CODE   
    		
-   		$(".btn_submit").button();
+   		$(".btn_submit").button({
+	   	     icons: {
+	   	         primary: "ui-icon-triangle-1-e"
+	   	     }});
    		
    //---  END LOGIN SECTION CODE   
    
