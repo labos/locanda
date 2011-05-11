@@ -2399,13 +2399,11 @@ $(document).ready(function() {
 		  	
 		    //---  PRICE LISTS SECTION CODE
 		  	
-		 	  $(".tree").bind("loaded.jstree", function (event, data) {
-		 			
+		 	  $(".room_tree, .extra_tree").bind("loaded.jstree", function (event, data) {
 		 		 			$(".jstree-leaf").click(function(event){
-			 		
 				  				event.preventDefault();
-								//$(".tree").jstree("refresh");
-								//$(".tree").jstree("refresh", $(".jstree-clicked"));
+								//$(".room_tree").jstree("refresh");
+								//$(".room_tree").jstree("refresh", $(".jstree-clicked"));
 								//$(this).refresh();
 				  				var url_table = $("a", this).attr("href");
 			 					$.ajax({
@@ -2417,7 +2415,7 @@ $(document).ready(function() {
 									}, 
 			   			
 		   	  						error: function(request,state,errors){
-		   								$().notify("Attenzione", "Problema restituzione lista prezzi...");
+		   								$().notify("Attenzione", "Problema restituzione lista...");
 		   	 			 			}
 			 					});
 								$("#priceList_buttons").hide();
@@ -2445,26 +2443,34 @@ $(document).ready(function() {
 									$("#priceList_buttons").hide();
 			  					});	 		  
 			 	  			});
-		 		  
-		 	  })
-			  .jstree({
+		 	  });
+			  
+			  $(".room_tree").jstree({
 		  			 	"core" 		: { "initially_open" : [ "root" ] },
-		  		
 		  				"json_data" : {
 		  			 		  			"ajax" : {"url" : "findAllRoomPriceLists.action"}
 		  					  		  },
-		  		
 		  				"themes" 	: {
 		  								"theme" : "default",
 		  								"dots" : true,
 		  								"icons" : true
-		  			 				  },			  
-		  					  
+		  			 				  },			   
 		  				"plugins" :   [ "themes", "json_data" ]
-		  	  		   });
+		  	  });
+			
+			  $(".extra_tree").jstree({
+		  			 	"core" 		: { "initially_open" : [ "root" ] },
+		  				"json_data" : {
+		  			 		  			"ajax" : {"url" : "findAllExtraPriceLists.action"}
+		  					  		  },
+		  				"themes" 	: {
+		  								"theme" : "default",
+		  								"dots" : true,
+		  								"icons" : true
+		  			 				  },			   
+		  				"plugins" :   [ "themes", "json_data" ]
+		  	  });
 								
-			  
-		    //---  END PRICE LISTS SECTION CODE
-		  	
+		    //---  END PRICE LISTS SECTION CODE 	
 		  	
 });

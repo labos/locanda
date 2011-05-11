@@ -15,7 +15,7 @@
     <div id="col2" role="complementary">
       <div id="col2_content" class="clearfix">
         <div class="header_section">
-       	  <span class="name_section">Room Price Lists</span>
+       	  <span class="name_section">Extra Price Lists</span>
       	</div>
       </div>
     </div>
@@ -23,7 +23,7 @@
     <div id="col1" role="complementary">
       <div id="col1_content" class="clearfix">
         <div class="treeContainer">
-      	  <div class="tree"></div>
+      	  <div class="extra_tree"></div>
       	</div>
       </div>
     </div>
@@ -32,13 +32,13 @@
       <div id="col3_content" class="clearfix">
           	
       <div class="priceTable">
-        <form class="yform json full noBorder" id="priceList_form" action="updateRoomPriceListItems.action">
+        <form class="yform json full noBorder" id="priceList_form" action="updateExtraPriceListItems.action">
 	  	  <fieldset>
           	<legend>Click to edit the Price List -> <a href="#" id="priceList_edit"><img src="images/sign-up-icon.png" alt="edit" /></a> </legend>
           	<table class="full priceList_table">
           	  <thead>
           	  	<tr>
-          		  <th>Guests number</th><th>Monday</th><th>Tuesday</th><th>Wednesday</th><th>Thursday</th><th>Friday</th><th>Saturday</th><th>Sunday</th>
+          		  <th>Extra</th><th>Monday</th><th>Tuesday</th><th>Wednesday</th><th>Thursday</th><th>Friday</th><th>Saturday</th><th>Sunday</th>
           		</tr>
           	  </thead>
           	  <tbody>

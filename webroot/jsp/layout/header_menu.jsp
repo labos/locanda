@@ -76,7 +76,8 @@
 <s:url action="findAllSeasons" var="url_findallseasons"></s:url>
 <s:url action="findAllConventions" var="url_findallconventions"></s:url>
 <s:url action="goUpdateDetails" var="url_details"></s:url>
-<s:url action="goFindAllRoomPriceLists" var="url_findallpricelists"></s:url>
+<s:url action="goFindAllRoomPriceLists" var="url_findallroompricelists"></s:url>
+<s:url action="goFindAllExtraPriceLists" var="url_findallextrapricelists"></s:url>
 <s:url action="goOnlineBookings" var="url_onlinebookings"></s:url>
 
   <div class="page_margins">
@@ -106,7 +107,8 @@
               <ul class="sub_menu ui-menu ui-widget ui-widget-content ui-corner-all">
     			<li class="ui-menu-item"><a href="<s:property value="url_onlinebookings"/>?sect=settings">ONLINE BOOKINGS</a></li>
     			<li class="ui-menu-item"><a href="<s:property value="url_findallseasons"/>?sect=settings">SEASONS</a></li>
-    			<li class="ui-menu-item"><a href="<s:property value="url_findallpricelists"/>?sect=settings">ROOM PRICE LISTS</a></li>
+    			<li class="ui-menu-item"><a href="<s:property value="url_findallroompricelists"/>?sect=settings">ROOM PRICE LISTS</a></li>
+    			<li class="ui-menu-item"><a href="<s:property value="url_findallextrapricelists"/>?sect=settings">EXTRA PRICE LISTS</a></li>
     			<li class="ui-menu-item"><a href="<s:property value="url_findallconventions"/>?sect=settings">CONVENTIONS</a></li>
     			<li class="ui-menu-item"><a href="emails.jsp?sect=settings">EMAILS</a></li>
     			<li class="ui-menu-item"><a href="<s:property value="url_details"/>?sect=settings">STRUCTURE DETAILS</a></li>

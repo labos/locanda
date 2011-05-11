@@ -1,7 +1,6 @@
 package action;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -10,18 +9,15 @@ import java.util.Set;
 import javax.servlet.ServletContext;
 
 import model.Booking;
-import model.Extra;
-import model.Room;
 import model.RoomType;
 import model.Structure;
 import model.User;
 import model.internal.Message;
 import model.internal.TreeNode;
 import model.listini.Convention;
-import model.listini.RoomPriceList;
+import model.listini.ExtraPriceList;
 import model.listini.Season;
 
-import org.apache.commons.lang.time.DateUtils;
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Actions;
@@ -32,88 +28,34 @@ import org.apache.struts2.interceptor.SessionAware;
 import com.opensymphony.xwork2.ActionSupport;
 
 @ParentPackage(value="default")
-public class RoomPriceListAction extends ActionSupport implements SessionAware{
+public class ExtraPriceListAction extends ActionSupport implements SessionAware{
 	private Map<String, Object> session = null;
 	private Message message = new Message();
 	private Booking booking = null;
 	private List<Integer> bookingExtraIds = new ArrayList<Integer>();
 	private Integer numNights;
 	private List<TreeNode> treeNodes = new ArrayList<TreeNode>();
-	private RoomPriceList priceList = null;
+	private ExtraPriceList priceList = null;
 	
 	private Integer seasonId = null;
 	private Integer roomTypeId = null;
 	private Integer conventionId = null;
 	
-	@Actions({
-		@Action(value="/calculatePrices",results = {
-				@Result(type ="json",name="success", params={
-						"excludeProperties","session"
-				}),
-				@Result(type ="json",name="error", params={
-						"excludeProperties","session"
-				}),
-				@Result(name="input", location = "/validationError.jsp" )
-		})
-	})	
-	public String calculatePrices() {
-		User user = null; 
-		Double roomSubtotal = 0.0;
-		Double extraSubtotal = 0.0;
-		Structure structure = null; 
-		Room theBookedRoom = null;
-		List<Extra> checkedExtras = null;
-		Integer numNights;
-						
-		user = (User)this.getSession().get("user");
-		structure = user.getStructure();
-		
-		if ( (this.getBooking().getDateOut() != null) && (this.getBooking().getDateIn() != null) ) {
-			if(DateUtils.truncatedCompareTo(this.getBooking().getDateOut(), this.getBooking().getDateIn(), Calendar.DAY_OF_MONTH)<=0){
-				this.getMessage().setResult(Message.ERROR);
-				this.getMessage().setDescription("DateOut deve essere maggiore di DateIn!");
-				return "error";
-			}				
-		}
-		
-		theBookedRoom = structure.findRoomById(this.getBooking().getRoom().getId());
-		this.getBooking().setRoom(theBookedRoom);
-		
-		if (this.getBooking().getNrGuests() > theBookedRoom.getRoomType().getMaxGuests()) {	//nel caso cambiassi la room con preselezionato un nrGuests superiore al maxGuests della room stessa
-			this.getBooking().setNrGuests(theBookedRoom.getRoomType().getMaxGuests());
-		}
-		
-		checkedExtras = structure.findExtrasByIds(this.getBookingExtraIds());
-		this.getBooking().setExtras(checkedExtras);	
-		
-		numNights = this.getBooking().calculateNumNights();
-		this.setNumNights(numNights);
-		
-		roomSubtotal = structure.calculateRoomSubtotalForBooking(this.getBooking());		
-		this.getBooking().setRoomSubtotal(roomSubtotal);
-		
-		extraSubtotal = structure.calculateExtraSubtotalForBooking(this.getBooking());
-		this.getBooking().setExtraSubtotal(extraSubtotal);	
-		
-		this.getMessage().setResult(Message.SUCCESS);
-		this.getMessage().setDescription("Prezzo Calcolato con Successo");
-		return "success";				
-	}
 	
 	@Actions({
-		@Action(value="/goFindAllRoomPriceLists",results = {
-				@Result(name="success",location="/roomPriceLists.jsp")
+		@Action(value="/goFindAllExtraPriceLists",results = {
+				@Result(name="success",location="/extraPriceLists.jsp")
 		}) 
 		
 	})
-	public String goFindAllRoomPriceLists() {
+	public String goFindAllExtraPriceLists() {
 		
 		return SUCCESS;
 	}
 	
 	
 	@Actions({
-		@Action(value="/findAllRoomPriceLists",results = {
+		@Action(value="/findAllExtraPriceLists",results = {
 				@Result(type ="json",name="success", params={
 						"root","treeNodes"
 				} ),
@@ -124,7 +66,7 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware{
 		})
 		
 	})
-	public String findAllRoomPriceLists() {
+	public String findAllExtraPriceLists() {
 		User user = null;
 		Structure structure = null;
 		Set<Integer> years = new HashSet<Integer>();
@@ -153,7 +95,7 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware{
 						Set<Convention> perRoomTypeConventions = new HashSet<Convention>();	//tutte le convenzioni associate a quel roomType in un certo listino
 						perRoomTypeConventions = structure.findConventionsBySeasonAndRoomType(structure.findSeasonByName(eachNode2.getData().getTitle()), structure.findRoomTypeByName(eachNode3.getData().getTitle()));
 						for (Convention eachRoomTypeConvention : perRoomTypeConventions) {
-							String href = webappPath + "/findRoomPriceListItems" +
+							String href = webappPath + "/findExtraPriceListItems" +
 							"?seasonId=" + structure.findSeasonByName(eachNode2.getData().getTitle()).getId() + 
 							"&roomTypeId=" + structure.findRoomTypeByName(eachNode3.getData().getTitle()).getId() +
 							"&conventionId=" + eachRoomTypeConvention.getId();
@@ -166,15 +108,15 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware{
 	}
 	
 	@Actions({
-		@Action(value="/findRoomPriceListItems",results = {
-				@Result(name="success",location="/jsp/contents/roomPriceList_table.jsp")
+		@Action(value="/findExtraPriceListItems",results = {
+				@Result(name="success",location="/jsp/contents/extraPriceList_table.jsp")
 		}),
-		@Action(value="/findRoomPriceListItemsJson",results = {
+		@Action(value="/findExtraPriceListItemsJson",results = {
 				@Result(type ="json",name="success", params={
 						"root","priceList"
 				})})
 	})
-	public String findRoomPriceListItems() {
+	public String findExtraPriceListItems() {
 		User user = null;
 		Structure structure = null;
 		Season season = null;
@@ -188,28 +130,28 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware{
 		roomType = structure.findRoomTypeById(this.getRoomTypeId());
 		convention = structure.findConventionById(this.getConventionId());
 		
-		this.setPriceList(structure.findRoomPriceListBySeasonAndRoomTypeAndConvention(season, roomType, convention));
+		this.setPriceList(structure.findExtraPriceListBySeasonAndRoomTypeAndConvention(season, roomType, convention));
 		return SUCCESS;
 	}
 	
 	@Actions({
-		@Action(value="/updateRoomPriceListItems",results = {
+		@Action(value="/updateExtraPriceListItems",results = {
 				@Result(type ="json",name="success", params={
 						"root","message"
 				})
 		})
 	})
-	public String updateRoomPriceListItems(){
+	public String updateExtraPriceListItems(){
 		User user = null;
 		Structure structure = null;
-		RoomPriceList oldRoomPriceList = null;
+		ExtraPriceList oldExtraPriceList = null;
 		
 		user = (User)this.getSession().get("user");
 		structure = user.getStructure();
-		oldRoomPriceList = structure.findRoomPriceListById(this.getPriceList().getId());
+		oldExtraPriceList = structure.findExtraPriceListById(this.getPriceList().getId());
 		
-		for (int i = 0; i < oldRoomPriceList.getItems().size(); i++) {
-			oldRoomPriceList.updateItem(this.getPriceList().getItems().get(i));
+		for (int i = 0; i < oldExtraPriceList.getItems().size(); i++) {
+			oldExtraPriceList.updateItem(this.getPriceList().getItems().get(i));
 		}
 		this.getMessage().setResult(Message.SUCCESS);
 		this.getMessage().setDescription("Price List Items updated successfully");
@@ -264,11 +206,11 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware{
 		this.treeNodes = treeNodes;
 	}
 
-	public RoomPriceList getPriceList() {
+	public ExtraPriceList getPriceList() {
 		return priceList;
 	}
 
-	public void setPriceList(RoomPriceList priceList) {
+	public void setPriceList(ExtraPriceList priceList) {
 		this.priceList = priceList;
 	}
 

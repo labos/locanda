@@ -9,7 +9,6 @@
 		
 		<s:iterator value="priceList.items" var="eachPriceListItem" status="itemStatus">
 		<input type="hidden" name="priceList.items[<s:property value="#itemStatus.index"/>].id" value="<s:property value="#eachPriceListItem.id"/>"/>
-		<input type="hidden" name="priceList.items[<s:property value="#itemStatus.index"/>].numGuests" value="<s:property value="#eachPriceListItem.numGuests"/>"/>
           	  <tr>
           	  	<td><s:property value="#eachPriceListItem.numGuests"/></td>
           	  	<td><input type="text" name="priceList.items[<s:property value="#itemStatus.index"/>].prices[0]" id="prices[0]" value="<s:property value="#eachPriceListItem.prices[0]"/>" class="required number noBorder static_small_input" readonly="readonly"/></td>

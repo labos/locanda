@@ -13,6 +13,7 @@ import java.util.TreeSet;
 import org.apache.commons.lang.time.DateUtils;
 
 import model.listini.Convention;
+import model.listini.ExtraPriceList;
 import model.listini.RoomPriceList;
 import model.listini.Season;
 
@@ -38,6 +39,7 @@ public class Structure {
 	private List<Extra> extras;
 	private List<Season> seasons;
 	private List<RoomPriceList> roomPriceLists;
+	private List<ExtraPriceList> extraPriceLists;
 	private List<Image> imageLists;
 	private List<Convention> conventions;
 	private List<RoomFacility>roomTypeFacilities;
@@ -53,6 +55,7 @@ public class Structure {
 		this.setExtras(new ArrayList<Extra>());
 		this.setSeasons(new ArrayList<Season>());
 		this.setRoomPriceLists(new ArrayList<RoomPriceList>());
+		this.setExtraPriceLists(new ArrayList<ExtraPriceList>());
 		this.setImageLists(new ArrayList<Image>());
 		this.setRoomTypes(new ArrayList<RoomType>());
 		this.setStructureFacilities(new ArrayList<StructureFacility>());
@@ -324,7 +327,6 @@ public class Structure {
 	}
 	
 	
-
 	//Guest	
 	public boolean addGuest(Guest aGuest) {
 		return this.getGuests().add(aGuest);
@@ -570,6 +572,61 @@ public class Structure {
 	}
 	
 	
+	//Listino Extra
+	public Boolean addExtraPriceList(ExtraPriceList aPriceList){
+		return this.getExtraPriceLists().add(aPriceList);
+	}
+	
+	public Boolean removeExtraPriceList(ExtraPriceList aPriceList){
+		return this.getExtraPriceLists().remove(aPriceList);
+	}
+	
+	public ExtraPriceList findExtraPriceListById(Integer id){
+		ExtraPriceList ret = null;
+		
+		for(ExtraPriceList each: this.getExtraPriceLists()){
+			if(each.getId().equals(id)){
+				return each;
+			}
+		}
+		return ret;
+	}
+	
+	public ExtraPriceList findExtraPriceListByRoomAndDate(Room room, Date date){
+		ExtraPriceList ret = null;
+		Season season = null;
+		
+		season = this.findSeasonByDate(date);
+		for(ExtraPriceList each: this.getExtraPriceLists()){
+			if(each.getSeason().getName().equalsIgnoreCase(season.getName()) &&
+					each.getRoomType().equals(room.getRoomType()) ){
+				return each;
+			}
+		}		
+		return ret;
+	}
+	
+	public List<ExtraPriceList> findExtraPriceListsBySeason(Season season){
+		List<ExtraPriceList> ret = new ArrayList<ExtraPriceList>();
+		
+		for(ExtraPriceList each: this.getExtraPriceLists()){
+			if (each.getSeason().equals(season)) {
+				ret.add(each);
+			}
+		}
+		return ret;
+	}
+	
+	public ExtraPriceList findExtraPriceListBySeasonAndRoomTypeAndConvention(Season season, RoomType roomType, Convention convention) {
+		ExtraPriceList ret = null;
+		
+		for(ExtraPriceList each: this.getExtraPriceLists()) {
+			if (each.getSeason().equals(season) && each.getRoomType().equals(roomType) && each.getConvention().equals(convention)) {
+				return each;
+			}
+		}
+		return ret;
+	}
 	//Convenzione
 	public Boolean addConvention(Convention convention){
 		return this.getConventions().add(convention);
@@ -873,6 +930,16 @@ public class Structure {
 	public void setRoomPriceLists(List<RoomPriceList> listiniCamere) {
 		this.roomPriceLists = listiniCamere;
 	}
+	
+	
+	public List<ExtraPriceList> getExtraPriceLists() {
+		return extraPriceLists;
+	}
+
+	public void setExtraPriceLists(List<ExtraPriceList> extraPriceLists) {
+		this.extraPriceLists = extraPriceLists;
+	}
+
 	public List<RoomFacility> getRoomFacilities() {
 		return roomFacilities;
 	}
