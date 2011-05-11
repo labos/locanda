@@ -8,9 +8,9 @@
       	<h1>Locanda - The Open Source Booking Software</h1>
       	<p>Easy booking management for your hotel, B&amp;B and guesthouse.</p>
       	<p id="home_images">
-      	<img src="images/pan_small.jpg" alt="img_home1" />
-        <img src="images/horse_small.jpg" alt="img_home2" />
-        <img src="images/water_small.jpg" alt="img_home3" />
+      	<img width="220" src="images/pan_small.jpg" alt="img_home1" />
+        <img width="220" src="images/horse_small.jpg" alt="img_home2" />
+        <img width="220" src="images/water_small.jpg" alt="img_home3" />
       	</p>
       </div>
 <jsp:include page="jsp/layout/footer.jsp" />     

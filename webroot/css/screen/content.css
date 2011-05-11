@@ -338,6 +338,7 @@ background-color: #fff;
 .yform {
 background: none;
 border: none;
+text-align: left;
 }
 .yform div.chng_pwd{
 display: none;
@@ -410,6 +411,7 @@ display: inline;
   #home {
     font-size: 120%;
     padding: 3%;
+	text-align: center;
   }
   
   
@@ -700,6 +702,8 @@ left:690px;
 padding:2px 7px 2px 27px;
 text-decoration:none;
 top:24px;
+width: 130px;
+heigth: 32px;
 
 }
 
