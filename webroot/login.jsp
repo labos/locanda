@@ -6,7 +6,6 @@
 <jsp:include page="jsp/layout/header.jsp" />
       <div id="home">
       	<h1>Log In</h1>
-      	<p>Not yet registered? <a href="signup.jsp">Signup</a></span>.</p>
       	
       	<s:url action="login" var="url"></s:url>
       	
