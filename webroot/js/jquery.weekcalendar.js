@@ -949,12 +949,16 @@ $.ajax({
    		     $(data).each(function(i, val)
    		    		 {
    		    	 //add current room to room list 
-   			    var date_end_ms = new Date(val.dateOut).getTime();
+
+   		    	var date_in = $.weekCalendar.parseISO8601(val.dateIn,true);
+   			    var date_end_ms = $.weekCalendar.parseISO8601(val.dateOut,true).getTime();		    
    			    var date_end_rendered_ms = date_end_ms - ONE_DAY;
+   			    var date_end = new Date( date_end_rendered_ms);
+   			 
    		    	 list_bookings.push( {
    	               "id":val.room.id,
-   	               "start": new Date(val.dateIn),
-   	               "end": new Date(date_end_rendered_ms) ,
+   	               "start": date_in,
+   	               "end": date_end ,
    	               "title":val.booker.lastName  + ' ' + val.booker.firstName,
    	               "bookId": val.id,
    	               "confirmed": val.status
