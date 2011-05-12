@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.TreeSet;
 
+import model.listini.Convention;
+
 public class Booking {
 	
 	private Integer id;
@@ -22,6 +24,7 @@ public class Booking {
 	private List<Payment> payments = null;
 	private String status = "provisional";
 	private List<Guest> guests = null;
+	private Convention convention = null;
 	
 	
 	public Booking(){
@@ -220,8 +223,14 @@ public class Booking {
 	public void setGuests(List<Guest> guests) {
 		this.guests = guests;
 	}
-	
-	
+
+	public Convention getConvention() {
+		return convention;
+	}
+
+	public void setConvention(Convention convention) {
+		this.convention = convention;
+	}
 	
 	
 }

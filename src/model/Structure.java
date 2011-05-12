@@ -14,6 +14,7 @@ import org.apache.commons.lang.time.DateUtils;
 
 import model.listini.Convention;
 import model.listini.ExtraPriceList;
+import model.listini.ExtraPriceListItem;
 import model.listini.RoomPriceList;
 import model.listini.Season;
 
@@ -296,6 +297,7 @@ public class Structure {
 		oldBooking.setPayments(booking.getPayments());
 		oldBooking.setGuests(booking.getGuests());
 		oldBooking.setStatus(booking.getStatus());
+		oldBooking.setConvention(booking.getConvention());
 		
 		return true;
 	}
@@ -377,7 +379,6 @@ public class Structure {
 			return false;
 		}
 		oldExtra.setName(extra.getName());
-		oldExtra.setPrice(extra.getPrice());
 		oldExtra.setTimePriceType(extra.getTimePriceType());
 		oldExtra.setResourcePriceType(extra.getResourcePriceType());
 		oldExtra.setDescription(extra.getDescription());
@@ -592,16 +593,15 @@ public class Structure {
 		return ret;
 	}
 	
-	public ExtraPriceList findExtraPriceListByRoomAndDate(Room room, Date date){
+	public ExtraPriceList findExtraPriceListByRoomTypeAndDate(RoomType roomType, Date date){
 		ExtraPriceList ret = null;
 		Season season = null;
 		
 		season = this.findSeasonByDate(date);
 		for(ExtraPriceList each: this.getExtraPriceLists()){
-			if(each.getSeason().getName().equalsIgnoreCase(season.getName()) &&
-					each.getRoomType().equals(room.getRoomType()) ){
-				return each;
-			}
+				if(each.getSeason().equals(season) && each.getRoomType().equals(roomType)){
+					return each;
+				}
 		}		
 		return ret;
 	}
@@ -697,12 +697,14 @@ public class Structure {
 		Double ret = 0.0;
 		List<Date> bookingDates = null;
 		RoomPriceList listinoCameraDelGiorno;
+		Season season = null;
 		Integer dayOfWeek = 0;
 		Calendar calendar;
 		
 		bookingDates = this.calculateBookingDates(booking.getDateIn(), booking.getDateOut());
 		for(Date aBookingDate: bookingDates){
-			listinoCameraDelGiorno = this.findRoomPriceListByRoomAndDate(booking.getRoom(), aBookingDate);
+			season = this.findSeasonByDate(aBookingDate);
+			listinoCameraDelGiorno = this.findRoomPriceListBySeasonAndRoomTypeAndConvention(season, booking.getRoom().getRoomType(), booking.getConvention());
 			calendar = Calendar.getInstance();
 			calendar.setTime(aBookingDate);
 			dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
@@ -713,10 +715,23 @@ public class Structure {
 	
 	public Double calculateExtraSubtotalForBooking(Booking booking){
 		Double ret = 0.0;
+		List<Date> bookingDates = null;
+		ExtraPriceList extraPriceList = null;
+		Season season = null;
+		Integer dayOfWeek = 0;
+		Calendar calendar;
 		
-		for(Extra each: booking.getExtras()){
-			ret = ret + each.getPrice();
-		}		
+		bookingDates = this.calculateBookingDates(booking.getDateIn(), booking.getDateOut());
+		for (Extra eachExtra : booking.getExtras()) {
+		  for(Date aBookingDate: bookingDates){
+			season = this.findSeasonByDate(aBookingDate);
+			extraPriceList = this.findExtraPriceListBySeasonAndRoomTypeAndConvention(season, booking.getRoom().getRoomType(), booking.getConvention());
+			calendar = Calendar.getInstance();
+			calendar.setTime(aBookingDate);
+			dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+			ret = ret + extraPriceList.findExtraPrice(eachExtra, dayOfWeek);
+		  }
+		}
 		return ret;
 	}
 	

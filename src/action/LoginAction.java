@@ -255,6 +255,7 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		aBooking.setDateOut(dateOut);
 		aBooking.setId(structure.nextKey());
 		aBooking.setNrGuests(1);
+		aBooking.setConvention(structure.getConventions().get(0));
 		roomSubtotal = structure.calculateRoomSubtotalForBooking(aBooking);
 		aBooking.setRoomSubtotal(roomSubtotal);
 		
@@ -281,7 +282,6 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		anExtra = new Extra();
 		anExtra.setId(structure.nextKey());
 		anExtra.setName("Breakfast");
-		anExtra.setPrice(10.0);
 		anExtra.setResourcePriceType("per Room");
 		anExtra.setTimePriceType("per Night");
 		structure.addExtra(anExtra);
@@ -289,7 +289,6 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		anExtra = new Extra();
 		anExtra.setId(structure.nextKey());
 		anExtra.setName("Parking");
-		anExtra.setPrice(15.0);
 		anExtra.setResourcePriceType("per Room");
 		anExtra.setTimePriceType("per Night");
 		structure.addExtra(anExtra);

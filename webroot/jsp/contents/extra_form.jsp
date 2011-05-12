@@ -14,11 +14,7 @@
                   <div class="type-text">	
                   	<label for="extraFormName">Extra name <sup title="This field is mandatory.">*</sup></label>
                 	<input type="text" class="required" name="extra.name" id="extraFormName" value="<s:property value="extra.name"/>" aria-required="true"/>
-                  </div>
-                  <div class="type-text">           
-       				<label for="extraFormPrice">Extra price <sup title="This field is mandatory.">*</sup></label>
-                    <input type="text" class="required number" name="extra.price" id="extraFormPrice" value="<s:property value="extra.price"/>" aria-required="true"/>
-      		      </div> 
+                  </div> 
                   <div class="subcr type-check">
                   <div class="c50l">
 					<input 

@@ -153,8 +153,6 @@ $(document).ready(function() {
 		   		  		
 		   		  		
 		   		  	});
-		   			  	
-		   			  	
 		   			  	//END ADDING CHECKOUT LISTENER
 
 		   			  
@@ -232,7 +230,6 @@ $(document).ready(function() {
 
 		   		 });
 	  		
-	  		
 	  	});
 	  	
 	  		/* extras adding */
@@ -250,9 +247,6 @@ $(document).ready(function() {
 			   //update subtotal
 			   updateSubtotal();
 	  		 
-	  		   
-	  		   
-	  		   
 	  	   });
 	  	   */
 	  	   
@@ -267,8 +261,7 @@ $(document).ready(function() {
 	  			   //update subtotal
 	  			   updateSubtotal();
 	  		   }
-	  		   
-	  		   
+	  	 
 	  	   });
 	  	   */
 			
@@ -381,7 +374,6 @@ $(document).ready(function() {
 			 });
 	  	});
 		 
-		 
 		   
 		   $('input[name="pay_value_adjustment[]"]').keyup(function() {
 			   var current_parent=$(this).parents(".type-text");
@@ -471,16 +463,13 @@ $(document).ready(function() {
 			
 			*/
 			
-			
 		   	   //---  ADD ROOMS SECTION CODE   
 		   	   
 	     	  $(".btn_save").button({
 	     	      icons: {
 	     	          primary: "ui-icon-check"
 	     	      }});
-	     	  
-	     	  
-	     	  
+	     	 
 	     	   //update of dateOut changing num of nights.
 	     	   $("select[name='numNights']").change(function() {
 	     		  $('input[name="booking.dateIn"]').rules("add",  "date");
@@ -502,8 +491,7 @@ $(document).ready(function() {
 	     	     $('input[name="booking.dateOut"]').datepicker("setDate", dateOut);
 
 	     	   });
-	     	   
-	     	   
+	     	        	   
 	     	  $(".erase_guest").click( function(){
 	     		  
 	     		 $(this).closest("." + "guest" + "_row").remove();
@@ -527,7 +515,6 @@ $(document).ready(function() {
 	   					 //update number of rows to add guests
 
 	   		  		 var selector = "guest";
-	   		  		 
 
 	   				 var num_of_items =  $formParent.siblings(".guest_row").size();
 	   				 // get last subcolumns
@@ -544,14 +531,11 @@ $(document).ready(function() {
 	 	   						$(this).closest("." + selector + "_row").remove();
 	 	   					
 	 	   				 });
-	   				        
-
-	     		  
+	   				 
 	     	  });
-	     	  
-	     	   
+	     	 
 	     	   /*ADD LISTENER FOR CHANGE ROOM OR DATEIN OR DATEOUT OR NUMNIGHTS FROM BOOKING*/
-	     	  $('#sel_rooms_list, #booking_duration, input:text[name="booking.dateIn"], input:text[name="booking.dateOut"], input:checkbox[name="bookingExtraIds"], #nr_guests').change (function (){
+	     	  $('#sel_rooms_list, #booking_duration, input:text[name="booking.dateIn"], input:text[name="booking.dateOut"], input:checkbox[name="bookingExtraIds"], #nr_guests, #convention').change (function (){
 	     		  
 	     		 // check in room was selected
 	     		  if ( !  ( parseInt ( $('#sel_rooms_list').val() ) > 0  ) ) {
@@ -586,8 +570,7 @@ $(document).ready(function() {
 	 	   				    {
 	 	   						$("#nr_guests").append('<option value="'+i+'">'+i+'</option');
 	 	   				        
-	 	   				    }
-	 	   					 
+	 	   				    }		 
 	 	   				   }
 	 	   				   
 	 	   				  if (maxGuests !== null && parseInt(maxGuests) > 0 && ( $clicked.is("select#sel_rooms_list") || $clicked.is("select#nr_guests")) ){
@@ -616,10 +599,8 @@ $(document).ready(function() {
 	 	   				        
 	 	   				    }
 
-	 	   					
 	 	   				   }
 	 	   					
-	 	   				   
 	 	   				   $("#price_room").html(roomSubTotal);
 	 		  			   $("#extras_room").html(extraSubTotal);
 	 		  			   $('input:hidden[name="booking.subtotal"]').val(subTotal);
@@ -660,19 +641,11 @@ $(document).ready(function() {
 	 	   			   
 	 	   			$().notify("Errore Grave", "Problema nella risorsa interrogata nel server");
 	 	   		   }
-
-	 	   		
 	 	   		 });
-	     		  
-	     		  
+	     		
 	     	  })
-	     	  
-	     	  
-			
-			
+	  
 		};
-		
-
 		};
 		
 		var optionsLoc = new Option(I18NSettings.lang,I18NSettings.datePattern);

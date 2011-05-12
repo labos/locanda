@@ -20,20 +20,15 @@ display: none;
                              <div class="subcl type-select">
                				 <label for="sel_rooms_list">Room <sup title="This field is mandatory.">*</sup> </label>
                 			 <select size="1" id="sel_rooms_list" name="booking.room.id">
-                			 <!--
-                  			 <option selected="selected" value="<s:property value="booking.room.id"/>"><s:property value="booking.room.name"/></option>
-                  			 -->
                   			 <s:iterator value="rooms" var="eachRoom" >
-                   			 <option 
-                   			 <s:if test="#eachRoom.id == booking.room.id">
-								   selected="selected"
-								</s:if>
-	                  			 
-                   			 value="<s:property value="#eachRoom.id"/>"><s:property value="#eachRoom.name"/></option>
+                   			   <option 
+                   			   <s:if test="#eachRoom.id == booking.room.id">selected="selected"</s:if> 
+                   			   value="<s:property value="#eachRoom.id"/>"><s:property value="#eachRoom.name"/>
+                   			   </option>
                     		</s:iterator>
                     		<s:if test="booking.room == null">
-								   <option selected="selected" value="-1">Select One</option>
-								</s:if>	
+							  <option selected="selected" value="-1">Select One</option>
+							</s:if>	
                     		</select>
             				</div>
             				</div>
@@ -427,48 +422,27 @@ display: none;
                   	  </s:if>
                   	  
                   	  <div class="type-text"><hr/></div>
-                 	  <!-- 
-                 	  <div class="type-select">
-                 	  	<div class="type_rooms">
-                      	  <input type="text" name="per_value" id="per_value" value="<s:property value="booking.room.price"/>" class="number"/>
-                    	</div>
-                  	    <div class="type_rooms">
-                      	  <input type="radio" name="per_room_person" id="per_room" value="1" />
-                      	  <label for="per_room">Per Room:</label>
-                        </div>
-                      	<div class="type_rooms">
-                          <input type="radio" name="per_room_person" id="per_person" value="3" />
-                          <label for="per_person">Per Person:</label>
-                      	</div>
-                      	<div class="type_rooms">
-                          <input type="radio" name="per_night_week" id="per_night" value="2" />
-                          <label for="per_night">Per Night:</label>
-                      	</div>
-                      	<div class="type_rooms">
-                          <input type="radio" name="per_night_week" id="per_week" value="4" />
-                          <label for="per_week">Per Week:</label>
-                      	</div>
-                      </div>
-                  <div class="type-text">
-                      <div id="rate">
-                      <span><s:property value="booking.room.price"/> &euro;</span><span> / Room</span><span> / Night</span>
-                      (<a id="change_rate" href="#">Change Rate for this booking</a>)
-                    </div>
-                  </div>
-                    -->
+                 	  
                   <div class="type-select"><label for="">Extras:</label>
-                  
                     <s:iterator value="extras" var="eachExtra" >
-                  
-                    <div class="type-check">
-                    <s:checkbox id="extras_array[]" name="bookingExtraIds"  value="bookingExtraIds.contains(#eachExtra.id)" fieldValue="%{#eachExtra.id}" />
-                    <input type="hidden" value="<s:property value="#eachExtra.price"/>" name="extra_price" />
-					<label for="<s:property value="extras_array[]"/>"><s:property value="#eachExtra.name"/></label>
-                    </div>                  
-                    
+                      <div class="type-check">
+                    	<s:checkbox id="extras_array[]" name="bookingExtraIds"  value="bookingExtraIds.contains(#eachExtra.id)" fieldValue="%{#eachExtra.id}" />
+						<label for="<s:property value="extras_array[]"/>"><s:property value="#eachExtra.name"/></label>
+                      </div>                  
                     </s:iterator>
-                  
                   </div>
+                   
+                  <div class="type-select">
+                  	<label for="convention">Convention: <sup title="This field is mandatory.">*</sup></label> 
+                    <select name="booking.convention.id" id="convention" class="required">
+                    <s:iterator value="conventions" var="eachConvention">
+                   	  <option 
+                   	  	<s:if test="#eachConvention.id == booking.convention.id">selected="selected"</s:if> 
+                   		value="<s:property value="#eachConvention.id"/>"><s:property value="#eachConvention.name"/>
+                   	  </option>
+                   	</s:iterator>
+                   	</select>
+                  </div>  
                            
                 </fieldset>
                 </div>

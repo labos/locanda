@@ -13,6 +13,7 @@ import model.Room;
 import model.Structure;
 import model.User;
 import model.internal.Message;
+import model.listini.Convention;
 
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Actions;
@@ -34,6 +35,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 	private Message message = new Message();
 	private String dateOut = null;
 	private List<Extra> extras = null;
+	private List<Convention> conventions = null;
 	private List<Integer> bookingExtraIds = new ArrayList<Integer>();
 	private Double adjustmentsSubtotal = 0.0;
 	private Double paymentsSubtotal = 0.0;
@@ -63,6 +65,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		
 		this.setRooms(structure.getRooms());
 		this.setExtras(structure.getExtras());
+		this.setConventions(structure.getConventions());
 		
 		roomSubtotal = structure.calculateRoomSubtotalForBooking(this.getBooking());
 		this.getBooking().setRoomSubtotal(roomSubtotal);
@@ -87,7 +90,8 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		structure = user.getStructure();
 		
 		this.setRooms(structure.getRooms());
-		this.setExtras(structure.getExtras());		
+		this.setExtras(structure.getExtras());
+		this.setConventions(structure.getConventions());
 		this.setBooking(new Booking());		
 		return SUCCESS;
 	}
@@ -127,6 +131,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		this.setRooms(structure.getRooms());
 		this.setExtras(structure.getExtras());		
 		this.setBookingExtraIds(this.calculateBookingExtraIds());
+		this.setConventions(structure.getConventions());
 		
 		numNights = this.getBooking().calculateNumNights();
 		this.setNumNights(numNights);
@@ -275,9 +280,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 			//Si tratta di un guest esistente e devo fare l'update
 			structure.updateGuest(guest);			
 		}	
-		
-		oldBooking = 
-			structure.findBookingById(this.getBooking().getId());
+		oldBooking = structure.findBookingById(this.getBooking().getId());
 		if(oldBooking==null){
 			//Si tratta di un nuovo booking
 			this.getBooking().setId(structure.nextKey());
@@ -579,6 +582,13 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		this.paymentsSubtotal = paymentsSubtotal;
 	}
 
+	public List<Convention> getConventions() {
+		return conventions;
+	}
+
+	public void setConventions(List<Convention> conventions) {
+		this.conventions = conventions;
+	}
 	
 	
 
