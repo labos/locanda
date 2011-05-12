@@ -65,7 +65,7 @@ public class RoomFacilityAction extends ActionSupport implements SessionAware{
 		user = (User)this.getSession().get("user");
 		structure = user.getStructure();
 		this.setRoom(structure.findRoomById(this.getIdRoom()));		
-		checkedFacilities = structure.findFacilitiesByIds(this.getRoomFacilitiesIds());			
+		checkedFacilities = structure.findRoomFacilitiesByIds(this.getRoomFacilitiesIds());			
 		this.room.updateRoomFacilities(checkedFacilities);
 		this.getMessage().setResult(Message.SUCCESS);
 		String text = "Facilities updated successfully";

@@ -14,7 +14,6 @@ import org.apache.commons.lang.time.DateUtils;
 
 import model.listini.Convention;
 import model.listini.ExtraPriceList;
-import model.listini.ExtraPriceListItem;
 import model.listini.RoomPriceList;
 import model.listini.Season;
 
@@ -66,7 +65,6 @@ public class Structure {
 	
 	public Integer nextKey(){
 		Integer ret = 0;
-		
 		ret = this.getKeys().last();
 		ret = ret + 1;
 		this.getKeys().add(ret);
@@ -113,7 +111,6 @@ public class Structure {
 	}	
 	
 	public Boolean updateRoom(Room room){
-		
 		Room originalRoom = this.findRoomById(room.getId());
 		if(originalRoom==null){
 			return false;
@@ -147,12 +144,10 @@ public class Structure {
 		for(Booking aBooking: roomBookings){
 			if(aBooking.getDateOut().after(dateIn) && (aBooking.getDateOut().compareTo(dateOut)<= 0 ) ){
 				return false;
-				
 			}
 			if(aBooking.getDateIn().after(dateIn) && aBooking.getDateIn().before(dateOut)){
 				return false;
 			}
-			
 			if(aBooking.getDateIn().after(dateIn) && aBooking.getDateOut().before(dateOut)){
 				return false;
 			}
@@ -160,7 +155,6 @@ public class Structure {
 				return false;
 			}
 		}
-		
 		return true;
 	}
 	
@@ -185,7 +179,6 @@ public class Structure {
 				return false;
 			}
 		}
-		
 		return true;
 	}
 	
@@ -205,6 +198,7 @@ public class Structure {
 		return false;
 	}
 	
+	
 	//RoomTypeFacility	
 	public Boolean addRoomTypeFacility(RoomFacility roomFacility){
 		roomFacility.setId(this.nextKey());
@@ -220,26 +214,23 @@ public class Structure {
 		return false;
 	}
 	
-	
-	
 	public boolean hasRoomPhotoNamed(String roomPhotoName){
 				/*	IN PROGRESS...	*/
 		return false;
 	}
 	
-	public List<RoomFacility> findAllFacilitiesByIds(List<Integer> ids){
+	public List<RoomFacility> findAllRoomFacilitiesByIds(List<Integer> ids){
 		List<RoomFacility> ret = null;
-		ret = this.findFacilitiesByIds(ids);
+		ret = this.findRoomFacilitiesByIds(ids);
 		ret.addAll(this.findRoomTypeFacilitiesByIds(ids));
 		ret.removeAll(Collections.singletonList(null));
 		return ret;
 	}
 	
-	
-	public List<RoomFacility> findFacilitiesByIds(List<Integer> ids){
+	public List<RoomFacility> findRoomFacilitiesByIds(List<Integer> ids){
 		List<RoomFacility> ret = new ArrayList<RoomFacility>();
 		for(Integer each:ids){
-			RoomFacility aRoomFacility = this.findFacilityById(each);
+			RoomFacility aRoomFacility = this.findRoomFacilityById(each);
 			ret.add(aRoomFacility);
 		}
 		return ret;
@@ -254,7 +245,7 @@ public class Structure {
 		return ret;
 	}
 	
-	public RoomFacility findFacilityById(Integer id){
+	public RoomFacility findRoomFacilityById(Integer id){
 		RoomFacility ret = null;
 		for (RoomFacility each:this.getRoomFacilities()){
 			if (each.getId().equals(id)) {
@@ -274,13 +265,13 @@ public class Structure {
 		return ret;
 	}
 	
+	
 	//Booking	
 	public boolean addBooking(Booking aBooking) {
 		return this.getBookings().add(aBooking);
 	}
 	
 	public Boolean updateBooking(Booking booking){
-		
 		Booking oldBooking = this.findBookingById(booking.getId());
 		if(oldBooking==null){
 			return false;
@@ -298,7 +289,6 @@ public class Structure {
 		oldBooking.setGuests(booking.getGuests());
 		oldBooking.setStatus(booking.getStatus());
 		oldBooking.setConvention(booking.getConvention());
-		
 		return true;
 	}
 	
@@ -382,7 +372,6 @@ public class Structure {
 		oldExtra.setTimePriceType(extra.getTimePriceType());
 		oldExtra.setResourcePriceType(extra.getResourcePriceType());
 		oldExtra.setDescription(extra.getDescription());
-		
 		return true;
 	}
 	
@@ -412,7 +401,7 @@ public class Structure {
 	}	
 	
 	
-	//RoomTypes
+	//RoomType
 	public Boolean addRoomType(RoomType aRoomType){
 		return this.getRoomTypes().add(aRoomType);
 	}
@@ -422,15 +411,14 @@ public class Structure {
 	}
 	
 	public Boolean updateRoomType(RoomType aRoomType){
-		
 		RoomType oldRoomType = this.findRoomTypeById(aRoomType.getId());
+		
 		if(oldRoomType==null){
 			return false;
 		}
 		oldRoomType.setName(aRoomType.getName());
 		oldRoomType.setMaxGuests(aRoomType.getMaxGuests());
 		oldRoomType.setRoomTypeFacilities(aRoomType.getRoomTypeFacilities());
-		
 		return true;
 	}
 
@@ -457,16 +445,13 @@ public class Structure {
 	}
 	
 	
-	
 	//Season
 	public Boolean addSeason(Season aSeason){
 		return this.getSeasons().add(aSeason);
-		
 	}
 	
 	public Boolean removeSeason(Season aSeason){
 		return this.getSeasons().remove(aSeason);		
-		
 	}
 	
 	public Season findSeasonById(Integer id){
@@ -491,7 +476,6 @@ public class Structure {
 		return ret;
 	}
 	
-	
 	public Boolean updateSeason(Season aSeason){
 		Season oldSeason = this.findSeasonById(aSeason.getId());
 		
@@ -515,8 +499,19 @@ public class Structure {
 		return ret;
 	}
 	
+	public Season findSeasonByDate(Date date){
+		Season ret = null;
+		
+		for(Season each: this.getSeasons()){
+			if(each.includesDate(date)){
+				return each;
+			}
+		}
+		return ret;
+	}
 	
-	//Listino Camera
+	
+	//Room Price List
 	public Boolean addRoomPriceList(RoomPriceList aPriceList){
 		return this.getRoomPriceLists().add(aPriceList);
 	}
@@ -533,20 +528,6 @@ public class Structure {
 				return each;
 			}
 		}
-		return ret;
-	}
-	
-	public RoomPriceList findRoomPriceListByRoomAndDate(Room room, Date date){
-		RoomPriceList ret = null;
-		Season season = null;
-		
-		season = this.findSeasonByDate(date);
-		for(RoomPriceList each: this.getRoomPriceLists()){
-			if(each.getSeason().getName().equalsIgnoreCase(season.getName()) &&
-					each.getRoomType().equals(room.getRoomType()) ){
-				return each;
-			}
-		}		
 		return ret;
 	}
 	
@@ -573,7 +554,7 @@ public class Structure {
 	}
 	
 	
-	//Listino Extra
+	//Extra Price List
 	public Boolean addExtraPriceList(ExtraPriceList aPriceList){
 		return this.getExtraPriceLists().add(aPriceList);
 	}
@@ -590,19 +571,6 @@ public class Structure {
 				return each;
 			}
 		}
-		return ret;
-	}
-	
-	public ExtraPriceList findExtraPriceListByRoomTypeAndDate(RoomType roomType, Date date){
-		ExtraPriceList ret = null;
-		Season season = null;
-		
-		season = this.findSeasonByDate(date);
-		for(ExtraPriceList each: this.getExtraPriceLists()){
-				if(each.getSeason().equals(season) && each.getRoomType().equals(roomType)){
-					return each;
-				}
-		}		
 		return ret;
 	}
 	
@@ -627,7 +595,9 @@ public class Structure {
 		}
 		return ret;
 	}
-	//Convenzione
+	
+	
+	//Convention
 	public Boolean addConvention(Convention convention){
 		return this.getConventions().add(convention);
 	}
@@ -670,29 +640,8 @@ public class Structure {
 		return true;
 	}
 	
-	/*
-	public Double calculateRoomSubtotal(Room room, Date dateIn, Date dateOut,  Agevolazione agevolazione, Integer numGuests){
-		Double ret = 0.0;
-		//Prendere i giorni dell'intervallo dateIn dateOut
-		//Per ogni giorno dell'intervallo ricavare il listino
-		//Chiedere il prezzo del giorno al listino
-		List<Date> bookingDates = null;
-		ListinoCamera listinoCameraDelGiorno;
-		Integer dayOfWeek = 0;
-		Calendar calendar;
-		
-		bookingDates = this.calculateBookingDates(dateIn, dateOut);
-		for(Date aBookingDate: bookingDates){
-			listinoCameraDelGiorno = this.findListinoCamera(room, aBookingDate);
-			calendar = Calendar.getInstance();
-			calendar.setTime(aBookingDate);
-			dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
-			ret = ret + listinoCameraDelGiorno.findRoomPrice(numGuests, dayOfWeek);
-		}			
-		return ret;
-	}
-	*/
 	
+	// Prezzi
 	public Double calculateRoomSubtotalForBooking(Booking booking){
 		Double ret = 0.0;
 		List<Date> bookingDates = null;
@@ -753,17 +702,6 @@ public class Structure {
 		return bookingDates;
 	}
 	
-	public Season findSeasonByDate(Date date){
-		Season ret = null;
-		
-		for(Season each: this.getSeasons()){
-			if(each.includesDate(date)){
-				return each;
-			}
-		}
-		return ret;
-	}
-	
 	
 	//Structure Images	
 	public Boolean addStructureImage(Image structureImage){
@@ -783,7 +721,6 @@ public class Structure {
 		return this.getImageLists().remove(aImage);
 	}
 	
-	
 	public Image findImageById(Integer id){
 		for(Image each: this.getImageLists()){
 			if(each.getId().equals(id)){
@@ -793,6 +730,8 @@ public class Structure {
 		return null;
 	}
 	
+	
+	//Structure Facility
 	public StructureFacility findStructureFacilityById(Integer id){
 		for(StructureFacility each: this.getStructureFacilities() ){
 			if(each.getId().equals(id)){
@@ -818,182 +757,136 @@ public class Structure {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
 	public String getUrl() {
 		return url;
 	}
-
 	public void setUrl(String url) {
 		this.url = url;
 	}
-
 	public String getPhone() {
 		return phone;
 	}
-
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-
 	public String getFax() {
 		return fax;
 	}
-
 	public void setFax(String fax) {
 		this.fax = fax;
 	}
-
 	public String getAddress() {
 		return address;
 	}
-
 	public void setAddress(String address) {
 		this.address = address;
 	}
-
 	public String getCity() {
 		return city;
 	}
-
 	public void setCity(String city) {
 		this.city = city;
 	}
-
 	public String getCountry() {
 		return country;
 	}
-
 	public void setCountry(String country) {
 		this.country = country;
 	}
-
 	public String getZipCode() {
 		return zipCode;
 	}
-
 	public void setZipCode(String zipCode) {
 		this.zipCode = zipCode;
 	}
-
 	public String getNotes() {
 		return notes;
 	}
-
 	public void setNotes(String notes) {
 		this.notes = notes;
 	}
-
 	public List<Room> getRooms() {
 		return rooms;
 	}
 	public void setRooms(List<Room> rooms) {
 		this.rooms = rooms;
 	}
-
 	public List<RoomType> getRoomTypes() {
 		return roomTypes;
 	}
-
 	public void setRoomTypes(List<RoomType> roomTypes) {
 		this.roomTypes = roomTypes;
 	}
-
 	public TreeSet<Integer> getKeys() {
 		return keys;
 	}
-
 	public void setKeys(TreeSet<Integer> keys) {
 		this.keys = keys;
 	}
-
 	public List<Guest> getGuests() {
 		return guests;
 	}
-
 	public void setGuests(List<Guest> guests) {
 		this.guests = guests;
 	}
-
 	public List<Booking> getBookings() {
 		return bookings;
 	}
-
 	public void setBookings(List<Booking> bookings) {
 		this.bookings = bookings;
 	}
-
 	public List<Extra> getExtras() {
 		return extras;
 	}
-
 	public void setExtras(List<Extra> extras) {
 		this.extras = extras;
 	}
-
 	public List<Season> getSeasons() {
 		return seasons;
 	}
-
 	public void setSeasons(List<Season> seasons) {
 		this.seasons = seasons;
 	}
-
 	public List<RoomPriceList> getRoomPriceLists() {
 		return roomPriceLists;
 	}
-
 	public void setRoomPriceLists(List<RoomPriceList> listiniCamere) {
 		this.roomPriceLists = listiniCamere;
 	}
-	
-	
 	public List<ExtraPriceList> getExtraPriceLists() {
 		return extraPriceLists;
 	}
-
 	public void setExtraPriceLists(List<ExtraPriceList> extraPriceLists) {
 		this.extraPriceLists = extraPriceLists;
 	}
-
 	public List<RoomFacility> getRoomFacilities() {
 		return roomFacilities;
 	}
-
 	public void setRoomFacilities(List<RoomFacility> roomFacilities) {
 		this.roomFacilities = roomFacilities;
 	}
-
 	public List<Image> getImageLists() {
 		return imageLists;
 	}
-
 	public void setImageLists(List<Image> imageLists) {
 		this.imageLists = imageLists;
 	}
-
 	public List<StructureFacility> getStructureFacilities() {
 		return structureFacilities;
 	}
-
 	public void setStructureFacilities(List<StructureFacility> structureFacilities) {
 		this.structureFacilities = structureFacilities;
 	}
-
 	public List<Convention> getConventions() {
 		return conventions;
 	}
-
 	public void setConventions(List<Convention> conventions) {
 		this.conventions = conventions;
 	}
-
 	public List<RoomFacility> getRoomTypeFacilities() {
 		return roomTypeFacilities;
 	}
-
 	public void setRoomTypeFacilities(List<RoomFacility> roomTypeFacilities) {
 		this.roomTypeFacilities = roomTypeFacilities;
-	}
-	
-	
+	}	
 }

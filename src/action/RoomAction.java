@@ -162,7 +162,7 @@ public class RoomAction extends ActionSupport implements SessionAware{
 			return "error";			
 		}	
 		else{	
-			checkedFacilities = structure.findAllFacilitiesByIds(this.getRoomFacilitiesIds());
+			checkedFacilities = structure.findAllRoomFacilitiesByIds(this.getRoomFacilitiesIds());
 			for(Room each: rooms){
 				each.setId(structure.nextKey());				
 				each.setFacilities(checkedFacilities);
@@ -212,7 +212,7 @@ public class RoomAction extends ActionSupport implements SessionAware{
 				return "error";
 			}
 		}
-		checkedFacilities = structure.findAllFacilitiesByIds(this.getRoomFacilitiesIds());
+		checkedFacilities = structure.findAllRoomFacilitiesByIds(this.getRoomFacilitiesIds());
 		this.getRoom().setFacilities(checkedFacilities);
 		
 		theRoomType = structure.findRoomTypeById(this.getRoom().getRoomType().getId());

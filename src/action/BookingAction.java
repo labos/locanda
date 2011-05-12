@@ -54,6 +54,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		User user = null;
 		Structure structure = null;
 		Room theBookedRoom = null;
+		Convention defaultConvention = null;
 		Integer numNights = 0;
 		Double roomSubtotal = 0.0;
 		
@@ -62,6 +63,8 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		
 		theBookedRoom = structure.findRoomById(this.getBooking().getRoom().getId());
 		this.getBooking().setRoom(theBookedRoom);
+		defaultConvention = structure.getConventions().get(0);
+		this.getBooking().setConvention(defaultConvention);
 		
 		this.setRooms(structure.getRooms());
 		this.setExtras(structure.getExtras());
@@ -85,14 +88,17 @@ public class BookingAction extends ActionSupport implements SessionAware{
 	public String goAddNewBooking() {
 		User user = null;
 		Structure structure = null;
+		Convention defaultConvention = null;
 		
 		user = (User)this.getSession().get("user");
 		structure = user.getStructure();
 		
+		defaultConvention = structure.getConventions().get(0);
 		this.setRooms(structure.getRooms());
 		this.setExtras(structure.getExtras());
 		this.setConventions(structure.getConventions());
-		this.setBooking(new Booking());		
+		this.setBooking(new Booking());
+		this.getBooking().setConvention(defaultConvention);
 		return SUCCESS;
 	}
 	
