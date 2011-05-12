@@ -483,7 +483,7 @@ $(document).ready(function() {
 	     	  
 	     	   //update of dateOut changing num of nights.
 	     	   $("select[name='numNights']").change(function() {
-	     		  $('input[name="booking.dateIn"]').rules("add",  "date");
+	     		  $('input[name="booking.dateIn"]').rules("add",  {   required: true });
 	     		  var dateOut = '';
 	     	      var numNights = $(this).find(":selected").val();
 	     	     var dateInVal = $('input[name="booking.dateIn"]').datepicker('getDate');

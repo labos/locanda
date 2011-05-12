@@ -541,6 +541,7 @@ font-weight: 600;
      background-color:#000;
      opacity: 0.7;
 	 display: none;
+	z-index: 1500;
      }
 
 .upload_loader {
