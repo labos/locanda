@@ -12,6 +12,7 @@ $(document).ready(function() {
 		{
 			
 			$(".yform").validate(); 
+			$(".yform.json").validate(); 
 			
 			/* booking section initialization */
 			$( ".datepicker" ).datepicker({
@@ -2003,7 +2004,7 @@ $(document).ready(function() {
    //---  EXTRAS SECTION CODE   
    
 		var values = []; 
-		$("#newExtraForm").validate();
+		
 		$(".btn_addExtra").show();
 	  	$(".btn_addExtra").button({
 	  		icons: {
@@ -2049,7 +2050,7 @@ $(document).ready(function() {
 			  $(".renameExtra").show(); 					//mostro il link di rinomina
 			  $(this).siblings(".extraName").text(newName); //setto il nome dell'extra modificato
 			  $(".extraName").show();						//mostro il nome dell'extra modificato
-			  $("#extraForm").valid();
+			 // $("#extraForm").valid();
 			});
 			
 		/*$(".btn_cancel").click(function() {	
