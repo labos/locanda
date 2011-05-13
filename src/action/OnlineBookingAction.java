@@ -13,6 +13,7 @@ import model.RoomFacility;
 import model.Structure;
 import model.User;
 import model.internal.Message;
+import model.listini.Convention;
 
 import org.apache.commons.lang.time.DateUtils;
 import org.apache.struts2.convention.annotation.Action;
@@ -84,7 +85,7 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 			
 				
 				toRemoveBookings.add(abooking);
-;				
+			
 		}
 			}
 		
@@ -94,6 +95,7 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 			
 			if ( (each.getRoomType().getMaxGuests() >= this.getNumGuests() ) && structure.hasRoomFreeInPeriod(each.getId(), this.getDateArrival(), this.calculateDateOut()) ) 
 			{
+				each.setPrice( calculateTotalForBooking(each));
 				this.getRooms().add(each);
 			}
 			
@@ -122,6 +124,7 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 		Structure structure = null;
 		Room theBookedRoom = null;
 		Double roomSubtotal = 0.0;
+		Convention defaultConvention = null;
 		user = (User)this.getSession().get("user");
 		structure = user.getStructure();
 		theBookedRoom = structure.findRoomById(this.getRoomId());
@@ -133,6 +136,8 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 		this.getBooking().setDateIn(this.getDateArrival());
 		this.getBooking().setDateOut(this.calculateDateOut());
 		this.getBooking().setNrGuests(this.getNumGuests());
+		defaultConvention = structure.getConventions().get(0);
+		this.getBooking().setConvention(defaultConvention);
 		roomSubtotal = structure.calculateRoomSubtotalForBooking(this.getBooking());
 		this.getBooking().setRoomSubtotal(roomSubtotal);
 		
@@ -244,6 +249,30 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 			
 		}		
 		return dateOut;
+	}
+	
+	
+	private Double calculateTotalForBooking(Room aRoom){
+		User user = null;
+		Structure structure = null;
+		Double subTotal = null;
+		Booking aBooking = new Booking();
+		Convention defaultConvention = null;
+		user = (User)this.getSession().get("user");
+		structure = user.getStructure();
+		
+
+		
+		aBooking.setId(structure.nextKey());
+		aBooking.setRoom(aRoom);
+		aBooking.setDateIn(this.getDateArrival());
+		aBooking.setDateOut(this.calculateDateOut());
+		aBooking.setNrGuests(this.getNumGuests());
+		defaultConvention = structure.getConventions().get(0);
+		aBooking.setConvention(defaultConvention);
+		subTotal = structure.calculateRoomSubtotalForBooking(aBooking);
+		return subTotal;
+		
 	}
 	
 	private Boolean checkBookingIsValid (Booking booking){

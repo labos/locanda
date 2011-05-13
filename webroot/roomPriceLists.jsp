@@ -34,13 +34,16 @@
       <div class="priceTable">
         <form class="yform json full noBorder" id="priceList_form" action="updateRoomPriceListItems.action">
 	  	  <fieldset>
-          	<legend>Click to edit the Price List -> <a href="#" id="priceList_edit"><img src="images/sign-up-icon.png" alt="edit" /></a> </legend>
+          	<legend><span>Click to edit the Price List -></span> <a href="#" id="priceList_edit"><img src="images/sign-up-icon.png" alt="edit" /></a> </legend>
           	<table class="full priceList_table">
           	  <thead>
           	  	<tr>
           		  <th>Guests number</th><th>Monday</th><th>Tuesday</th><th>Wednesday</th><th>Thursday</th><th>Friday</th><th>Saturday</th><th>Sunday</th>
           		</tr>
           	  </thead>
+         <input type="hidden" name="redirect_form" value="goFindAllRoomPriceLists.action?sect=settings" />
+		<input type="hidden" name="priceList.id" value="<s:property value="priceList.id"/>"/>
+		
           	  <tbody>
           	  <!-- here an AJAX call puts the table rows-->
           	 </tbody>
