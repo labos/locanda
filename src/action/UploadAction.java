@@ -81,6 +81,9 @@ public class UploadAction extends ActionSupport implements SessionAware{
 	
 	
 	@Actions({
+		@Action(value="/uploadStructureImageIF",results = {
+				@Result(name="success",location="/message_upload.jsp")
+		}),
 		@Action(value="/uploadStructureImage",results = {
 				@Result(type ="json",name="success", params={
 						"excludeProperties", "session,upload,uploadFileName,uploadContentType,name"

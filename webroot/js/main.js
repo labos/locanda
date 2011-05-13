@@ -1690,6 +1690,20 @@ $(document).ready(function() {
 	    $('#uploadFacility, #uploadImage, #uploadStructFacility').fileUploadUI({
 	        uploadTable: $('#result_facility_upload'),
 	        downloadTable: $('#result_facility_upload'),
+	        
+	        url: function (form) {
+	            var actionUrl =  form.attr('action');
+	            var splittedUrl = ["",""];
+	            splittedUrl = actionUrl .split(".");
+	            if ( $.browser.msie  || $.browser.opera) {
+	            	
+	            	actionUrl = splittedUrl[0] + 'IF' + splittedUrl[1];
+	            }
+	            
+	            return actionUrl;
+	        },
+
+	        	
 	     
 	        onProgress: function (event, files, index, xhr, handler) {
 	            if (handler.progressbar) {
