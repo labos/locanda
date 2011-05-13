@@ -38,7 +38,7 @@
           	<table class="full priceList_table">
           	  <thead>
           	  	<tr>
-          		  <th>Extra</th><th>Monday</th><th>Tuesday</th><th>Wednesday</th><th>Thursday</th><th>Friday</th><th>Saturday</th><th>Sunday</th>
+          		  <th>Extra</th><th>Price</th>
           		</tr>
           	  </thead>
           	  <tbody>

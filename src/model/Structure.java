@@ -684,6 +684,54 @@ public class Structure {
 		return ret;
 	}
 	
+//	TENERE PER RECUPERARE LA LOGICA DI BUSINESS DELLE TIPOLOGIE DI PREZZO
+//	public Double calculateExtraSubtotalForBooking(Booking booking){
+//		Double ret = 0.0;
+//		List<Date> bookingDates = null;
+//		ExtraPriceList extraPriceList = null;
+//		Season season = null;
+//		Integer dayOfWeek = 0;
+//		Calendar calendar;
+//		
+//		bookingDates = this.calculateBookingDates(booking.getDateIn(), booking.getDateOut());
+//		for (Extra eachExtra : booking.getExtras()) {
+//		  for(Date aBookingDate: bookingDates){
+//			  season = this.findSeasonByDate(aBookingDate);
+//			  extraPriceList = this.findExtraPriceListBySeasonAndRoomTypeAndConvention(season, booking.getRoom().getRoomType(), booking.getConvention());
+//			  calendar = Calendar.getInstance();
+//			  calendar.setTime(aBookingDate);
+//			  dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+//			  if (eachExtra.getTimePriceType() == "per Night") {
+//				if (eachExtra.getResourcePriceType() == "per Room") {
+//					ret = ret + extraPriceList.findExtraPrice(eachExtra, dayOfWeek);
+//				}else if (eachExtra.getResourcePriceType() == "per Person") {
+//					ret = ret + extraPriceList.findExtraPrice(eachExtra, dayOfWeek) * booking.getNrGuests();
+//				}else {
+//					//ret = ret + extraPriceList.findExtraPrice(eachExtra, dayOfWeek) * nrItems???
+//				}
+//			}else 
+//			  if (eachExtra.getTimePriceType() == "per Week") {
+//				if (eachExtra.getResourcePriceType() == "per Room") {
+//					ret = ret + extraPriceList.findExtraPrice(eachExtra, dayOfWeek);
+//				}else if (eachExtra.getResourcePriceType() == "per Person") {
+//					ret = ret + extraPriceList.findExtraPrice(eachExtra, dayOfWeek) * booking.getNrGuests();
+//				}else {
+//					//ret = ret + extraPriceList.findExtraPrice(eachExtra, dayOfWeek) * nrItems???
+//			    }
+//			}else { //per Booking
+//			    if (eachExtra.getResourcePriceType() == "per Room") {
+//			    	ret = ret + extraPriceList.findExtraPrice(eachExtra, dayOfWeek);
+//			}else if (eachExtra.getResourcePriceType() == "per Person") {
+//				ret = ret + extraPriceList.findExtraPrice(eachExtra, dayOfWeek) * booking.getNrGuests();
+//			}else {
+//				//ret = ret + extraPriceList.findExtraPrice(eachExtra, dayOfWeek) * nrItems???
+//			}	
+//			}	
+//		  }
+//		}
+//		return ret;
+//	}
+	
 	private List<Date> calculateBookingDates(Date dateIn, Date dateOut){
 		List<Date> bookingDates = null; 
 		Date current = null;

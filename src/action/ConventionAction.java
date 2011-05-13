@@ -129,6 +129,7 @@ public class ConventionAction extends ActionSupport implements SessionAware{
 		RoomPriceListItem newRoomPriceListItem = null;
 		ExtraPriceListItem newExtraPriceListItem = null;
 		Double[] prices = null;
+		Double price = 0.0;
 		
 		user = (User)session.get("user");
 		structure = user.getStructure();
@@ -169,6 +170,7 @@ public class ConventionAction extends ActionSupport implements SessionAware{
 						prices[y] = 0.0;
 					}
 					newExtraPriceListItem.setPrices(prices);
+					newExtraPriceListItem.setPrice(price);
 					extraItems.add(newExtraPriceListItem);
 				}
 				newExtraPriceList.setItems(extraItems);

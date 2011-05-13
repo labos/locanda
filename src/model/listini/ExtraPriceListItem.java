@@ -5,6 +5,8 @@ import model.Extra;
 public class ExtraPriceListItem {
 	private Integer id;
 	private Extra extra;
+	private Double price;
+	
 	private Double[] prices = new Double[7]; 
 	
 	//prezzo lunedi = prices[0]
@@ -50,6 +52,7 @@ public class ExtraPriceListItem {
 		}
 		return ret;
 	}
+	
 	public Integer getId() {
 		return id;
 	}
@@ -68,6 +71,11 @@ public class ExtraPriceListItem {
 	public void setExtra(Extra extra) {
 		this.extra = extra;
 	}
-		
+	public Double getPrice() {
+		return price;
+	}
+	public void setPrice(Double price) {
+		this.price = price;
+	}	
 
 }
