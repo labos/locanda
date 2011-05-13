@@ -426,8 +426,8 @@ display: none;
                   <div class="type-select"><label for="">Extras:</label>
                     <s:iterator value="extras" var="eachExtra" >
                       <div class="type-check">
-                    	<s:checkbox id="extras_array[]" name="bookingExtraIds"  value="bookingExtraIds.contains(#eachExtra.id)" fieldValue="%{#eachExtra.id}" />
-						<label for="<s:property value="extras_array[]"/>"><s:property value="#eachExtra.name"/></label>
+                    	<s:checkbox id="%{#eachExtra.id}_idExtra" name="bookingExtraIds"  value="bookingExtraIds.contains(#eachExtra.id)" fieldValue="%{#eachExtra.id}" />
+						<label for="<s:property value="#eachExtra.id" />_idExtra""><s:property value="#eachExtra.name"/></label>
                       </div>                  
                     </s:iterator>
                   </div>

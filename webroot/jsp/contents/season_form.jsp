@@ -20,16 +20,16 @@
               </div>
               </div>
               <div class="subcolumns period">
-             <div class="c20l">
+             <div class="c25l">
                <div class="subcl type-text">
                 <span>From:</span>
-                <input type="text" class="datepicker required date" name="periods[0].startDate" value="<s:date name="season.periods[0].startDate" format="%{#session.datePattern}" />" style="display: inline;"/>
+                <input type="text" class="datepicker required" name="periods[0].startDate" value="<s:date name="season.periods[0].startDate" format="%{#session.datePattern}" />" style="display: inline;"/>
               </div>
               </div>
               <div class="c20l">
               <div class="subcl type-text">
               <span>To:</span>
-              <input type="text" class="datepicker required date" name="periods[0].endDate" value="<s:date name="season.periods[0].endDate" format="%{#session.datePattern}" />" style="display: inline;"/>
+              <input type="text" class="datepicker required" name="periods[0].endDate" value="<s:date name="season.periods[0].endDate" format="%{#session.datePattern}" />" style="display: inline;"/>
               </div>
               </div>
               <div class="c10l">
@@ -42,16 +42,16 @@
               <s:iterator value="season.periods" var="eachPeriod" status="periodStatus">
      <s:if test="#periodStatus.index > 0"> 
 <div class="subcolumns period">
-             <div class="c20l">
+             <div class="c25l">
                <div class="subcl type-text">
                 <span>From:</span>
-               <input type="text" class="datepicker required date" name="periods[<s:property value="#periodStatus.index"/>].startDate" value="<s:date name="#eachPeriod.startDate" format="%{#session.datePattern}" />" style="display: inline;"/>
+               <input type="text" class="datepicker required" name="periods[<s:property value="#periodStatus.index"/>].startDate" value="<s:date name="#eachPeriod.startDate" format="%{#session.datePattern}" />" style="display: inline;"/>
               </div>
               </div>
               <div class="c20l">
               <div class="subcl type-text">
               <span>To:</span>
-              <input type="text" class="datepicker required date" name="periods[<s:property value="#periodStatus.index"/>].endDate" value="<s:date name="#eachPeriod.endDate" format="%{#session.datePattern}" />" style="display: inline;"/>
+              <input type="text" class="datepicker required" name="periods[<s:property value="#periodStatus.index"/>].endDate" value="<s:date name="#eachPeriod.endDate" format="%{#session.datePattern}" />" style="display: inline;"/>
               </div>
               </div>
               <div class="c10l">
@@ -76,16 +76,16 @@
           </form>        
           <!--  Hidden new season  -->
              <div class="subcolumns period" id="to_add_period" style="display: none;">
-             <div class="c20l">
+             <div class="c25l">
                <div class="subcl type-text">
                 <span>From:</span>
-                <input type="text" class="adddatepicker required date" name="periods[__PVALUE__].startDate" value="" style="display: inline;"/>
+                <input type="text" class="adddatepicker required" name="periods[__PVALUE__].startDate" value="" style="display: inline;"/>
               </div>
               </div>
               <div class="c20l">
               <div class="subcl type-text">
               <span>To:</span>
-              <input type="text" class="adddatepicker required date" name="periods[__PVALUE__].endDate" value="" style="display: inline;"/>
+              <input type="text" class="adddatepicker required" name="periods[__PVALUE__].endDate" value="" style="display: inline;"/>
               </div>
               </div>
               <div class="c10l">

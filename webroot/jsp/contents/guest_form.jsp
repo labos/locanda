@@ -7,11 +7,10 @@
 <form method="post" action="saveUpdateGuest.action" class="yform json" role="application">           
   		  <fieldset>
           	<legend>Guest details</legend>
-              <div class="c50l">
+              <div class="c80l">
               	<input type="hidden" name="redirect_form" value="findAllGuests.action?sect=guests" />
               	<input type="hidden" name="id" value="<s:property value="id"/>"/>
            	 	<input type="hidden" name="guest.id" value="<s:property value="guest.id"/>"/>
-                <div class="c50l">
            	 	  <div class="type-text">
                   	<label for="firstName">First name: <sup title="This field is mandatory.">*</sup></label>
                   	<input class="required" type="text" name="guest.firstName" id="firstName" value="<s:property value="guest.firstName"/>" size="20" />
@@ -278,8 +277,7 @@
             		<button class="btn_save">SAVE</button>
            		 	<button class="btn_reset btn_cancel_form">CANCEL</button>
            		  </div>
-           		  
-                </div>
+
               </div>
             </fieldset>
               
