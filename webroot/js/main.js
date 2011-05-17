@@ -1686,7 +1686,23 @@ $(document).ready(function() {
 		
 	  });
 	  
-
+	  
+	  
+	 
+	  
+	  $.fn.deprecatedBrowser = function(){
+		  
+		  var deprecated = false;
+	            if ( $.browser.msie  || $.browser.opera || ($.browser.mozilla &&  $.browser.version.slice(0,3) == "1.9" && parseInt($.browser.version.slice(4,5)) < 2)) {
+          	
+        	  deprecated = true;
+          } 
+          
+          return deprecated;
+		  
+	  };
+	  
+	
 	    $('#uploadFacility, #uploadImage, #uploadStructFacility').fileUploadUI({
 	        uploadTable: $('#result_facility_upload'),
 	        downloadTable: $('#result_facility_upload'),
@@ -1695,9 +1711,10 @@ $(document).ready(function() {
 	            var actionUrl =  form.attr('action');
 	            var splittedUrl = ["",""];
 	            splittedUrl = actionUrl .split(".");
-	            if ( $.browser.msie  || $.browser.opera) {
+	         
+	            if ($().deprecatedBrowser()) {
 	            	
-	            	actionUrl = splittedUrl[0] + 'IF' + splittedUrl[1];
+	            	actionUrl = splittedUrl[0] + 'IF.' + splittedUrl[1];
 	            }
 	            
 	            return actionUrl;
@@ -1724,13 +1741,13 @@ $(document).ready(function() {
 	        },
 	        buildDownloadRow: function (file) {
 	        		var resultRow = "";
-	        	if(typeof file.message !== "undefined")
+	        	if(typeof file !== "undefined")
 	        		{
 	        			resultRow = file.message.result;
 	        		}
 	        	else
 	        		{
-	        		resultRow = file.result;
+	        		resultRow = "";
 	        		}
 	        	
 	            return $('<tr><td>' + resultRow + '<\/td><\/tr>');
@@ -1738,16 +1755,26 @@ $(document).ready(function() {
 	        onComplete: function (event, files, index, xhr, handler) {
 	        	var json = handler.response;
 	        	
-	        	if(typeof json.message !== "undefined" &&  json.message.result=="success")
+	        	if(typeof json !== "undefined" && typeof json.message !== "undefined" &&  json.message.result=="success")
 	        		{
 	        		var action =this.uploadForm.attr("action");
-	        		$().addImageObject(json, action);
+	        		try {
+	        			$().addImageObject(json, action);
+	        		}
+	        		catch(e){
+	        				alert(e);
+	        		}
+	        		
 	        		$().notify(optionsLoc.alertOK, json.message.description);
 	        		}
 	        	
-	        	else{
+	        	else if(typeof json !== "undefined" && typeof json.message !== "undefined" &&  json.message.result=="error"){
 	        			$().notify(optionsLoc.alertKO, json.description);
 	        	}
+	        else{
+    			$().notify(optionsLoc.alertKO, "Errore nei dati restituiti");
+
+	        }
 	        		
 	        },
 	        onAbort: function (event, files, index, xhr, handler) {
@@ -1755,6 +1782,27 @@ $(document).ready(function() {
 	        	$().notify(optionsLoc.alertKO, "E'stato interrotto l'upload");
                 handler.removeNode(handler.uploadRow);
 	        },
+	        onError: function (event, files, index, xhr, handler) {
+	        		
+	            if (handler.originalEvent) {
+	                // handle JSON parsing errors 
+	            } else {
+	                // handle XHR upload errors ... 
+	            }
+
+	        	
+	        },
+	        parseResponse: function (xhr, handler) {
+	        	//var prova = xhr.contents();
+	            if (typeof xhr.responseText !== 'undefined') {
+	                return $.parseJSON(xhr.responseText);
+	            } else {
+	                // Instead of an XHR object, an iframe is used for legacy browsers:
+	                return $.parseJSON(xhr.contents().text());
+	            }
+	        }
+,
+	        
 	        beforeSend: function (event, files, index, xhr, handler, callBack) {
 	            var facility_name = handler.uploadForm.parents(".beauty").find('input[name="facility_name"]').val();
 	            var type_img = files.type;
@@ -1791,8 +1839,8 @@ $(document).ready(function() {
 
 	    });
 
-
 	  
+	 
    	 $(".btn_delete").button({
    	     icons: {
    	         primary: "ui-icon-trash"

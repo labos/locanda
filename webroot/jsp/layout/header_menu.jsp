@@ -23,6 +23,7 @@
 <script type='text/javascript' src='js/jquery.form.js'></script>
 <script type='text/javascript' src='js/jquery.fileupload.js'></script>
 <script type='text/javascript' src='js/jquery.fileupload-ui.js'></script>
+<script type='text/javascript' src="js/jquery.fileupload-uix.js"></script>
 <script>
       $(document).ready(function() {
       <%

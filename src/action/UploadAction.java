@@ -40,6 +40,9 @@ public class UploadAction extends ActionSupport implements SessionAware{
 	
 	
 	@Actions({
+		@Action(value="/uploadFacilityIF",results = {
+				@Result(name="success",location="/message_upload.jsp")
+		}),
 		@Action(value="/uploadFacility",results = {
 				@Result(type ="json",name="success", params={
 						"excludeProperties", "session,upload,uploadFileName,uploadContentType,name"
@@ -123,6 +126,9 @@ public class UploadAction extends ActionSupport implements SessionAware{
 	}
 	
 	@Actions({
+		@Action(value="/uploadStructureFacilityIF",results = {
+				@Result(name="success",location="/message_upload.jsp")
+		}),
 		@Action(value="/uploadStructureFacility",results = {
 				@Result(type ="json",name="success", params={
 						"excludeProperties", "session,upload,uploadFileName,uploadContentType,name,roomFacility,image"
@@ -163,6 +169,9 @@ public class UploadAction extends ActionSupport implements SessionAware{
 	
 	
 	@Actions({
+		@Action(value="/uploadRoomImageIF",results = {
+				@Result(name="success",location="/message_upload.jsp")
+		}),
 		@Action(value="/uploadRoomImage",results = {
 				@Result(type ="json",name="success", params={
 						"excludeProperties", "session,upload,uploadFileName,uploadContentType,name"
@@ -228,6 +237,9 @@ public class UploadAction extends ActionSupport implements SessionAware{
 	
 	
 	@Actions({
+		@Action(value="/uploadRoomTypeImageIF",results = {
+				@Result(name="success",location="/message_upload.jsp")
+		}),
 		@Action(value="/uploadRoomTypeImage",results = {
 				@Result(type ="json",name="success", params={
 						"excludeProperties", "session,upload,uploadFileName,uploadContentType,name"
@@ -295,6 +307,9 @@ public class UploadAction extends ActionSupport implements SessionAware{
 	
 	
 	@Actions({
+		@Action(value="/uploadRoomTypeFacilityIF",results = {
+				@Result(name="success",location="/message_upload.jsp")
+		}),
 		@Action(value="/uploadRoomTypeFacility",results = {
 				@Result(type ="json",name="success", params={
 						"excludeProperties", "session,upload,uploadFileName,uploadContentType,name"
