@@ -1762,7 +1762,7 @@ $(document).ready(function() {
 	        			$().addImageObject(json, action);
 	        		}
 	        		catch(e){
-	        				alert(e);
+	        				//var log = e;
 	        		}
 	        		
 	        		$().notify(optionsLoc.alertOK, json.message.description);
