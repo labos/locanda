@@ -165,11 +165,6 @@ public class ConventionAction extends ActionSupport implements SessionAware{
 					newExtraPriceListItem = new ExtraPriceListItem();
 					newExtraPriceListItem.setId(structure.nextKey());
 					newExtraPriceListItem.setExtra(eachExtra);
-					prices = new Double[7];
-					for (int y=0; y<7; y++) {
-						prices[y] = 0.0;
-					}
-					newExtraPriceListItem.setPrices(prices);
 					newExtraPriceListItem.setPrice(price);
 					extraItems.add(newExtraPriceListItem);
 				}

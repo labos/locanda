@@ -11,6 +11,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import model.Adjustment;
+import model.BookedExtraItem;
 import model.Booking;
 import model.Extra;
 import model.Guest;
@@ -232,6 +233,7 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		Room aRoom = null;
 		Guest aGuest = null;
 		List<Extra> extras = null;
+		BookedExtraItem extraItem = null;
 		Date dateIn = null;
 		Date dateOut = null;
 		Double roomSubtotal = 0.0;
@@ -258,6 +260,15 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		aBooking.setConvention(structure.getConventions().get(0));
 		roomSubtotal = structure.calculateRoomSubtotalForBooking(aBooking);
 		aBooking.setRoomSubtotal(roomSubtotal);
+		
+		for (Extra eachExtra : extras) {
+			extraItem = new BookedExtraItem();
+			extraItem.setId(structure.nextKey());
+			extraItem.setExtra(eachExtra);
+			extraItem.setQuantity(aBooking.calculateExtraItemQuantity(extraItem));
+			extraItem.setUnitaryPrice(aBooking.calculateExtraItemUnitaryPrice(structure, extraItem));
+			aBooking.getExtraItems().add(extraItem);
+		}
 		
 		anAdjustment = new Adjustment();
 		anAdjustment.setId(structure.nextKey());
@@ -360,7 +371,6 @@ public class LoginAction extends ActionSupport implements SessionAware{
 	private void buildExtraPriceLists(Structure structure){
 		ExtraPriceList extraPriceList = null;
 		ExtraPriceListItem extraPriceListItem = null;
-		Double prices[] = null;
 		Double price = null;
 		
 		//Listino Extra per Camera Singola Bassa Stagione
@@ -373,15 +383,6 @@ public class LoginAction extends ActionSupport implements SessionAware{
 			extraPriceListItem = new ExtraPriceListItem();
 			extraPriceListItem.setId(structure.nextKey());
 			extraPriceListItem.setExtra(eachExtra);
-			prices = new Double[7];
-			prices[0] = 10.0;//lun
-			prices[1] = 10.0;//mar
-			prices[2] = 10.0;//mer
-			prices[3] = 10.0;//gio
-			prices[4] = 12.0;//ven
-			prices[5] = 15.0;//sab
-			prices[6] = 15.0;//dom
-			extraPriceListItem.setPrices(prices);
 			price = 10.0;
 			extraPriceListItem.setPrice(price);
 			extraPriceList.addItem(extraPriceListItem);
@@ -398,15 +399,6 @@ public class LoginAction extends ActionSupport implements SessionAware{
 			extraPriceListItem = new ExtraPriceListItem();
 			extraPriceListItem.setId(structure.nextKey());
 			extraPriceListItem.setExtra(eachExtra);
-			prices = new Double[7];
-			prices[0] = 10.0;//lun
-			prices[1] = 10.0;//mar
-			prices[2] = 10.0;//mer
-			prices[3] = 10.0;//gio
-			prices[4] = 12.0;//ven
-			prices[5] = 15.0;//sab
-			prices[6] = 15.0;//dom
-			extraPriceListItem.setPrices(prices);
 			price = 15.0;
 			extraPriceListItem.setPrice(price);
 			extraPriceList.addItem(extraPriceListItem);
@@ -423,15 +415,6 @@ public class LoginAction extends ActionSupport implements SessionAware{
 			extraPriceListItem = new ExtraPriceListItem();
 			extraPriceListItem.setId(structure.nextKey());
 			extraPriceListItem.setExtra(eachExtra);
-			prices = new Double[7];
-			prices[0] = 10.0;//lun
-			prices[1] = 10.0;//mar
-			prices[2] = 10.0;//mer
-			prices[3] = 10.0;//gio
-			prices[4] = 12.0;//ven
-			prices[5] = 15.0;//sab
-			prices[6] = 15.0;//dom
-			extraPriceListItem.setPrices(prices);
 			price = 10.0;
 			extraPriceListItem.setPrice(price);
 			extraPriceList.addItem(extraPriceListItem);
@@ -448,15 +431,6 @@ public class LoginAction extends ActionSupport implements SessionAware{
 			extraPriceListItem = new ExtraPriceListItem();
 			extraPriceListItem.setId(structure.nextKey());
 			extraPriceListItem.setExtra(eachExtra);
-			prices = new Double[7];
-			prices[0] = 10.0;//lun
-			prices[1] = 10.0;//mar
-			prices[2] = 10.0;//mer
-			prices[3] = 10.0;//gio
-			prices[4] = 12.0;//ven
-			prices[5] = 15.0;//sab
-			prices[6] = 15.0;//dom
-			extraPriceListItem.setPrices(prices);
 			price = 15.0;
 			extraPriceListItem.setPrice(price);
 			extraPriceList.addItem(extraPriceListItem);
@@ -478,6 +452,14 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		roomPriceListItem = new RoomPriceListItem();
 		roomPriceListItem.setId(structure.nextKey());
 		roomPriceListItem.setNumGuests(1);
+		prices = new Double[7];
+		prices[0] = 50.0;//lun
+		prices[1] = 50.0;//mar
+		prices[2] = 50.0;//mer
+		prices[3] = 50.0;//gio
+		prices[4] = 50.0;//ven
+		prices[5] = 50.0;//sab
+		prices[6] = 50.0;//dom
 		roomPriceListItem.setPrices(prices);
 		roomPriceList.addItem(roomPriceListItem);
 		structure.addRoomPriceList(roomPriceList);

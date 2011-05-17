@@ -54,7 +54,7 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware{
 				@Result(type ="json",name="error", params={
 						"excludeProperties","session"
 				}),
-				@Result(name="input", location = "/validationError.jsp" )
+				@Result(name="input", location = "/validationError.jsp")
 		})
 	})	
 	public String calculatePrices() {
@@ -86,6 +86,10 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware{
 		}
 		
 		checkedExtras = structure.findExtrasByIds(this.getBookingExtraIds());
+<<<<<<< .mine
+		this.getBooking().setExtras(checkedExtras);
+		this.getBooking().buildExtraItemsFromExtras(structure, checkedExtras);
+=======
 		this.getBooking().setExtras(checkedExtras);
 		for (Extra eachExtra : checkedExtras) {
 			extraItem = new BookedExtraItem();
@@ -95,6 +99,7 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware{
 			extraItem.setUnitaryPrice(this.booking.calculateExtraItemUnitaryPrice(structure, extraItem));
 			this.getBooking().getExtraItems().add(extraItem);
 		}
+>>>>>>> .r764
 		
 		numNights = this.getBooking().calculateNumNights();
 		this.setNumNights(numNights);
@@ -117,7 +122,6 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware{
 		
 	})
 	public String goFindAllRoomPriceLists() {
-		
 		return SUCCESS;
 	}
 	
@@ -125,11 +129,11 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware{
 		@Action(value="/findAllRoomPriceLists",results = {
 				@Result(type ="json",name="success", params={
 						"root","treeNodes"
-				} ),
+				}),
 				@Result(type ="json",name="error", params={
 						"excludeProperties","session"
-				} ),
-				@Result(name="input", location = "/validationError.jsp" )
+				}),
+				@Result(name="input", location = "/validationError.jsp")
 		})
 	})
 	public String findAllRoomPriceLists() {
@@ -176,11 +180,12 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware{
 	@Actions({
 		@Action(value="/findRoomPriceListItems",results = {
 				@Result(name="success",location="/jsp/contents/roomPriceList_table.jsp")
-		}),
+				}),
 		@Action(value="/findRoomPriceListItemsJson",results = {
 				@Result(type ="json",name="success", params={
 						"root","priceList"
-				})})
+				})
+		})
 	})
 	public String findRoomPriceListItems() {
 		User user = null;
@@ -225,15 +230,12 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware{
 	}
 	
 	
-	
 	public Map<String, Object> getSession() {
 		return session;
 	}
-	
 	@Override
 	public void setSession(Map<String, Object> session) {
-		this.session = session;
-		
+		this.session = session;	
 	}
 	public Message getMessage() {
 		return message;
@@ -247,62 +249,47 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware{
 	public void setBooking(Booking booking) {
 		this.booking = booking;
 	}
-
 	public List<Integer> getBookingExtraIds() {
 		return bookingExtraIds;
 	}
-
 	public void setBookingExtraIds(List<Integer> bookingExtraIds) {
 		this.bookingExtraIds = bookingExtraIds;
 	}
-
 	public Integer getNumNights() {
 		return numNights;
 	}
-
 	public void setNumNights(Integer numNights) {
 		this.numNights = numNights;
 	}
-
 	public List<TreeNode> getTreeNodes() {
 		return treeNodes;
 	}
-
 	public void setTreeNodes(List<TreeNode> treeNodes) {
 		this.treeNodes = treeNodes;
 	}
-
 	public RoomPriceList getPriceList() {
 		return priceList;
 	}
-
 	public void setPriceList(RoomPriceList priceList) {
 		this.priceList = priceList;
 	}
-
 	public Integer getSeasonId() {
 		return seasonId;
 	}
-
 	public void setSeasonId(Integer seasonId) {
 		this.seasonId = seasonId;
 	}
-
 	public Integer getRoomTypeId() {
 		return roomTypeId;
 	}
-
 	public void setRoomTypeId(Integer roomTypeId) {
 		this.roomTypeId = roomTypeId;
 	}
-
 	public Integer getConventionId() {
 		return conventionId;
 	}
-
 	public void setConventionId(Integer conventionId) {
 		this.conventionId = conventionId;
 	}
-
 	
 }

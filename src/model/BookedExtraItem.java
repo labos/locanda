@@ -33,10 +33,10 @@ public class BookedExtraItem {
 		return true;
 	}
 	
-	
 	public Double getSubtotal() {
 		return this.unitaryPrice * this.quantity;
 	}
+	
 	
 	public Integer getId() {
 		return id;

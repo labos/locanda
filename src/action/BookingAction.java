@@ -114,6 +114,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		User user = null;
 		Structure structure = null;
 		Booking oldBooking = null;
+		List<Extra>  checkedExtras = null;
 		Integer numNights = 0;
 		Double roomSubtotal = 0.0;
 		Double extraSubtotal = 0.0;
@@ -126,19 +127,22 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		oldBooking = structure.findBookingById(this.getId());
 		this.setBooking(oldBooking);
 		
-		
-		
-		//Update subtotals for any price list changes
-		roomSubtotal = structure.calculateRoomSubtotalForBooking(oldBooking);
-		this.getBooking().setRoomSubtotal(roomSubtotal);
-		extraSubtotal = structure.calculateExtraSubtotalForBooking(this.getBooking());
-		this.getBooking().setExtraSubtotal(extraSubtotal);
-		
 		this.setRooms(structure.getRooms());
 		this.setExtras(structure.getExtras());		
 		this.setBookingExtraIds(this.calculateBookingExtraIds());
 		this.setConventions(structure.getConventions());
 		
+		
+
+		//Update subtotals for any price list changes
+		roomSubtotal = structure.calculateRoomSubtotalForBooking(oldBooking);
+		this.getBooking().setRoomSubtotal(roomSubtotal);
+		checkedExtras = structure.findExtrasByIds(this.getBookingExtraIds());
+		this.getBooking().buildExtraItemsFromExtras(structure, checkedExtras);
+		extraSubtotal = structure.calculateExtraSubtotalForBooking(this.getBooking());
+		this.getBooking().setExtraSubtotal(extraSubtotal);
+		
+
 		numNights = this.getBooking().calculateNumNights();
 		this.setNumNights(numNights);
 		
@@ -217,7 +221,6 @@ public class BookingAction extends ActionSupport implements SessionAware{
 						"root","message"
 				})
 		})
-		
 	})
 	public String saveUpdateBooking(){
 		User user = null;
@@ -244,6 +247,10 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		this.getBooking().setRoom(theBookedRoom);				
 		
 		checkedExtras = structure.findExtrasByIds(this.getBookingExtraIds());				
+<<<<<<< .mine
+		this.getBooking().setExtras(checkedExtras);
+		this.getBooking().buildExtraItemsFromExtras(structure, checkedExtras);
+=======
 		this.getBooking().setExtras(checkedExtras);
 		for (Extra eachExtra : checkedExtras) {
 			extraItem = new BookedExtraItem();
@@ -253,6 +260,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 			extraItem.setUnitaryPrice(this.booking.calculateExtraItemUnitaryPrice(structure, extraItem));
 			this.booking.getExtraItems().add(extraItem);
 		}
+>>>>>>> .r764
 		
 		this.filterAdjustments();
 		for(Adjustment each: this.getBooking().getAdjustments()){
@@ -302,13 +310,12 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		@Action(value="/checkBookingDates",results = {
 				@Result(type ="json",name="success", params={
 						"root","message"
-				} ),
+				}),
 				@Result(name="input", location="/validationError.jsp"),
 				@Result(type ="json",name="error", params={
 						"root","message"
-				} )
+				})
 		})
-		
 	})
 	public String checkBookingDates(){
 		User user = null;
@@ -377,7 +384,6 @@ public class BookingAction extends ActionSupport implements SessionAware{
 						"root","message"
 				})
 		})
-		
 	})
 	public String deleteBooking() {
 		User user = null;
@@ -407,7 +413,6 @@ public class BookingAction extends ActionSupport implements SessionAware{
 						"root","message"
 				})
 		})
-		
 	})
 	public String checkInBooking() {
 		User user = null;
@@ -438,7 +443,6 @@ public class BookingAction extends ActionSupport implements SessionAware{
 						"root","message"
 				})
 		})
-		
 	})
 	public String checkOutBooking() {
 		User user = null;
@@ -463,8 +467,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 	@Actions({
 		@Action(value="/goOnlineBookings",results = {
 				@Result(name="success",location="/onlineBookings.jsp")
-		}) 
-		
+		}) 	
 	})
 	public String goOnlineBookings(){
 		return SUCCESS;		

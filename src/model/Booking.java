@@ -65,30 +65,49 @@ public class Booking {
 		return ret;
 	}
 	
+	public void buildExtraItemsFromExtras(Structure structure, List<Extra> extras) {
+		BookedExtraItem extraItem = null;
+		List<BookedExtraItem> extraItemList = new ArrayList<BookedExtraItem>();
+		
+		for (Extra eachExtra : extras) {
+			extraItem = new BookedExtraItem();
+			extraItem.setId(structure.nextKey());
+			extraItem.setExtra(eachExtra);
+			extraItem.setQuantity(this.calculateExtraItemQuantity(extraItem));
+			extraItem.setUnitaryPrice(this.calculateExtraItemUnitaryPrice(structure, extraItem));
+			extraItemList.add(extraItem);
+			this.setExtraItems(extraItemList);
+		}
+	}
+	
 	public Integer calculateExtraItemQuantity(BookedExtraItem extraItem) {
 		Integer ret = 0;
 		Integer numNights = this.calculateNumNights();
-		Integer numGuests = this.getNrGuests();
 		Extra extra = extraItem.getExtra();
 		
 		if (extra.getTimePriceType() == "per Night") {
 			if (extra.getResourcePriceType() == "per Room") {
 				ret = numNights;
-			}else ret = numNights * numGuests; //per Person
-		}else if (extra.getTimePriceType() == "per Booking") {
+			}
+			else ret = numNights * this.nrGuests; 			//per Person - per Item non può esistere
+		}
+		else if (extra.getTimePriceType() == "per Week") {
 			if (extra.getResourcePriceType() == "per Room") {
-				ret = 1;	//un Booking per ora è associato ad una sola Room!
-			}else if (extra.getResourcePriceType() == "per Room") {
-				ret = numGuests;
-			}else ret = 1; //per Item
-		}else {	//per Week
+				ret = numNights/7 + 1;						//assumendo l'extra per week come indivisibile
+			}
+			else ret = (numNights/7 + 1) * this.nrGuests;	//per Person - per Item non può esistere
+		}else {												//per Booking
 			if (extra.getResourcePriceType() == "per Room") {
-				ret = numNights/7 + 1;	//assumendo l'extra per week come indivisibile
-			}else ret = (numNights/7 + 1) * nrGuests;	//per Person
+				ret = 1;									//un Booking per ora è associato ad una sola Room!
+			}
+			else if (extra.getResourcePriceType() == "per Person") {
+				ret = this.nrGuests;
+			}
+			else ret = 1; //per Item
 		}
 		return ret;
 	}
-	
+
 	public Double calculateExtraItemUnitaryPrice(Structure structure, BookedExtraItem extraItem) {
 		Double ret = 0.0;
 		ExtraPriceList priceList = null;
@@ -114,7 +133,7 @@ public class Booking {
 		return ret;
 	}
 	
-	
+
 	public Boolean addExtra(Extra anExtra){
 		return this.getExtras().add(anExtra);
 	}

@@ -41,16 +41,16 @@ public class ExtraPriceList {
 		if(oldItem == null){
 			return false;			
 		}
-		oldItem.setPrices(anItem.getPrices());
+		oldItem.setPrice(anItem.getPrice());
 		return true;
 	}
 	
-	public Double findExtraPrice(Extra extra, Integer dayOfWeek){
+	public Double findExtraPrice(Extra extra){
 		Double ret = 0.0;
 		
 		for(ExtraPriceListItem each: this.getItems()){
 			if(each.getExtra().equals(extra)){
-				return each.getPrice(dayOfWeek);
+				return each.getPrice();
 			}
 		}
 		return ret;
