@@ -9,6 +9,7 @@ import java.util.Set;
 
 import javax.servlet.ServletContext;
 
+import model.BookedExtraItem;
 import model.Booking;
 import model.Extra;
 import model.Room;
@@ -64,6 +65,7 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware{
 		Room theBookedRoom = null;
 		List<Extra> checkedExtras = null;
 		Integer numNights;
+		BookedExtraItem extraItem = null;
 						
 		user = (User)this.getSession().get("user");
 		structure = user.getStructure();
@@ -84,7 +86,15 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware{
 		}
 		
 		checkedExtras = structure.findExtrasByIds(this.getBookingExtraIds());
-		this.getBooking().setExtras(checkedExtras);	
+		this.getBooking().setExtras(checkedExtras);
+		for (Extra eachExtra : checkedExtras) {
+			extraItem = new BookedExtraItem();
+			extraItem.setId(structure.nextKey());
+			extraItem.setExtra(eachExtra);
+			extraItem.setQuantity(this.booking.calculateExtraItemQuantity(extraItem));
+			extraItem.setUnitaryPrice(this.booking.calculateExtraItemUnitaryPrice(structure, extraItem));
+			this.getBooking().getExtraItems().add(extraItem);
+		}
 		
 		numNights = this.getBooking().calculateNumNights();
 		this.setNumNights(numNights);
@@ -111,7 +121,6 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware{
 		return SUCCESS;
 	}
 	
-	
 	@Actions({
 		@Action(value="/findAllRoomPriceLists",results = {
 				@Result(type ="json",name="success", params={
@@ -122,7 +131,6 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware{
 				} ),
 				@Result(name="input", location = "/validationError.jsp" )
 		})
-		
 	})
 	public String findAllRoomPriceLists() {
 		User user = null;

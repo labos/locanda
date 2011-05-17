@@ -3,9 +3,9 @@ package model;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.TreeSet;
-
 import model.listini.Convention;
+import model.listini.ExtraPriceList;
+import model.listini.Season;
 
 public class Booking {
 	
@@ -25,6 +25,7 @@ public class Booking {
 	private String status = "provisional";
 	private List<Guest> guests = null;
 	private Convention convention = null;
+	private List<BookedExtraItem> extraItems;
 	
 	
 	public Booking(){
@@ -32,6 +33,7 @@ public class Booking {
 		this.adjustments = new ArrayList<Adjustment>();
 		this.payments = new ArrayList<Payment>();
 		this.guests = new ArrayList<Guest>();
+		this.extraItems = new ArrayList<BookedExtraItem>();
 	}
 	
 	public Integer calculateNumNights(){
@@ -62,6 +64,56 @@ public class Booking {
 		}
 		return ret;
 	}
+	
+	public Integer calculateExtraItemQuantity(BookedExtraItem extraItem) {
+		Integer ret = 0;
+		Integer numNights = this.calculateNumNights();
+		Integer numGuests = this.getNrGuests();
+		Extra extra = extraItem.getExtra();
+		
+		if (extra.getTimePriceType() == "per Night") {
+			if (extra.getResourcePriceType() == "per Room") {
+				ret = numNights;
+			}else ret = numNights * numGuests; //per Person
+		}else if (extra.getTimePriceType() == "per Booking") {
+			if (extra.getResourcePriceType() == "per Room") {
+				ret = 1;	//un Booking per ora è associato ad una sola Room!
+			}else if (extra.getResourcePriceType() == "per Room") {
+				ret = numGuests;
+			}else ret = 1; //per Item
+		}else {	//per Week
+			if (extra.getResourcePriceType() == "per Room") {
+				ret = numNights/7 + 1;	//assumendo l'extra per week come indivisibile
+			}else ret = (numNights/7 + 1) * nrGuests;	//per Person
+		}
+		return ret;
+	}
+	
+	public Double calculateExtraItemUnitaryPrice(Structure structure, BookedExtraItem extraItem) {
+		Double ret = 0.0;
+		ExtraPriceList priceList = null;
+		ExtraPriceList otherPriceList = null;
+		Season season = null;
+		Season otherSeason = null;
+		Double price = 0.0;
+		Double otherPrice = 0.0;
+		
+		season = structure.findSeasonByDate(this.getDateIn());
+		priceList = structure.findExtraPriceListBySeasonAndRoomTypeAndConvention(season, this.getRoom().getRoomType(), this.getConvention());
+		price = priceList.findExtraPrice(extraItem.getExtra());
+		ret = price;
+		
+		if (!this.getDateIn().equals(this.getDateOut())) {	//se ho un booking a cavallo di due stagioni, prendo il prezzo più basso
+			otherSeason = structure.findSeasonByDate(this.getDateOut());
+			otherPriceList = structure.findExtraPriceListBySeasonAndRoomTypeAndConvention(otherSeason, this.getRoom().getRoomType(), this.getConvention());				price = priceList.findExtraPrice(extraItem.getExtra());
+			otherPrice = otherPriceList.findExtraPrice(extraItem.getExtra());
+			if (price > otherPrice) {
+				ret = otherPrice;
+			}
+		}
+		return ret;
+	}
+	
 	
 	public Boolean addExtra(Extra anExtra){
 		return this.getExtras().add(anExtra);
@@ -94,6 +146,14 @@ public class Booking {
 	public Boolean removeGuest(Guest aGuest){
 		return this.getGuests().remove(aGuest);
 	}
+	
+	public Boolean addExtraItem(BookedExtraItem anExtraItem){
+		return this.getExtraItems().add(anExtraItem);
+	}
+	
+	public Boolean removeExtraItem(Guest anExtraItem){
+		return this.getExtraItems().remove(anExtraItem);
+	}
 		
 	@Override
 	public int hashCode() {
@@ -102,8 +162,6 @@ public class Booking {
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
-
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -158,7 +216,6 @@ public class Booking {
 	public void setDateOut(Date dateOut) {
 		this.dateOut = dateOut;
 	}
-	
 	public String getNotes() {
 		return notes;
 	}
@@ -171,66 +228,54 @@ public class Booking {
 	public void setExtras(List<Extra> extras) {
 		this.extras = extras;
 	}
-
 	public Double getExtraSubtotal() {
 		return extraSubtotal;
 	}
-
 	public void setExtraSubtotal(Double extraSubtotal) {
 		this.extraSubtotal = extraSubtotal;
 	}
-
 	public Double getRoomSubtotal() {
 		return roomSubtotal;
 	}
-
 	public void setRoomSubtotal(Double roomSubtotal) {
 		this.roomSubtotal = roomSubtotal;
 	}
-
-
 	public List<Adjustment> getAdjustments() {
 		return adjustments;
 	}
-
-
 	public void setAdjustments(List<Adjustment> adjustments) {
 		this.adjustments = adjustments;
 	}
-
-
 	public List<Payment> getPayments() {
 		return payments;
 	}
-
-
 	public void setPayments(List<Payment> payments) {
 		this.payments = payments;
 	}
-
 	public String getStatus() {
 		return status;
 	}
-
 	public void setStatus(String status) {
 		this.status = status;
 	}
-
 	public List<Guest> getGuests() {
 		return guests;
 	}
-
 	public void setGuests(List<Guest> guests) {
 		this.guests = guests;
 	}
-
 	public Convention getConvention() {
 		return convention;
 	}
-
 	public void setConvention(Convention convention) {
 		this.convention = convention;
 	}
-	
+	public List<BookedExtraItem> getExtraItems() {
+		return extraItems;
+	}
+	public void setExtraItems(List<BookedExtraItem> extraItems) {
+		this.extraItems = extraItems;
+	}
+
 	
 }

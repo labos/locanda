@@ -56,6 +56,17 @@ public class ExtraPriceList {
 		return ret;
 	}
 	
+	public Double findExtraPrice(Extra extra){
+		Double ret = 0.0;
+		
+		for(ExtraPriceListItem each: this.getItems()){
+			if(each.getExtra().equals(extra)){
+				return each.getPrice();
+			}
+		}
+		return ret;
+	}
+	
 	public Integer getId() {
 		return id;
 	}
