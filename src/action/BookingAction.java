@@ -247,10 +247,10 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		this.getBooking().setRoom(theBookedRoom);				
 		
 		checkedExtras = structure.findExtrasByIds(this.getBookingExtraIds());				
-<<<<<<< .mine
+
 		this.getBooking().setExtras(checkedExtras);
 		this.getBooking().buildExtraItemsFromExtras(structure, checkedExtras);
-=======
+
 		this.getBooking().setExtras(checkedExtras);
 		for (Extra eachExtra : checkedExtras) {
 			extraItem = new BookedExtraItem();
@@ -260,7 +260,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 			extraItem.setUnitaryPrice(this.booking.calculateExtraItemUnitaryPrice(structure, extraItem));
 			this.booking.getExtraItems().add(extraItem);
 		}
->>>>>>> .r764
+
 		
 		this.filterAdjustments();
 		for(Adjustment each: this.getBooking().getAdjustments()){
