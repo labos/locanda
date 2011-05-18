@@ -11,7 +11,6 @@ import java.util.Locale;
 import java.util.Map;
 
 import model.Adjustment;
-import model.BookedExtraItem;
 import model.Booking;
 import model.Extra;
 import model.Guest;
@@ -51,8 +50,7 @@ public class LoginAction extends ActionSupport implements SessionAware{
 					@Result(name="input",location="/WEB-INF/jsp/login.jsp"),
 					@Result(name="loginSuccess", location="/homeLogged.jsp"),	
 					@Result(name="loginError", location="/login.jsp")
-			})
-			
+			})	
 	})	
 	
 	public String execute(){
@@ -233,7 +231,6 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		Room aRoom = null;
 		Guest aGuest = null;
 		List<Extra> extras = null;
-		BookedExtraItem extraItem = null;
 		Date dateIn = null;
 		Date dateOut = null;
 		Double roomSubtotal = 0.0;
@@ -260,15 +257,7 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		aBooking.setConvention(structure.getConventions().get(0));
 		roomSubtotal = structure.calculateRoomSubtotalForBooking(aBooking);
 		aBooking.setRoomSubtotal(roomSubtotal);
-		
-		for (Extra eachExtra : extras) {
-			extraItem = new BookedExtraItem();
-			extraItem.setId(structure.nextKey());
-			extraItem.setExtra(eachExtra);
-			extraItem.setQuantity(aBooking.calculateExtraItemQuantity(extraItem));
-			extraItem.setUnitaryPrice(aBooking.calculateExtraItemUnitaryPrice(structure, extraItem));
-			aBooking.getExtraItems().add(extraItem);
-		}
+		aBooking.buildExtraItemsFromExtras(structure, aBooking.getExtras());
 		
 		anAdjustment = new Adjustment();
 		anAdjustment.setId(structure.nextKey());
@@ -579,27 +568,21 @@ public class LoginAction extends ActionSupport implements SessionAware{
 	public Map<String, Object> getSession() {
 		return session;
 	}
-
 	@Override
 	public void setSession(Map<String, Object> session) {
 		this.session = session;
 	}
-
 	public String getEmail() {
 		return email;
 	}
-
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
 	public String getPassword() {
 		return password;
 	}
-
 	public void setPassword(String password) {
 		this.password = password;
 	}
 	
-
 }

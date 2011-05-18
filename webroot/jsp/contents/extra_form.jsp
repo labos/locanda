@@ -31,13 +31,13 @@
 				  <div class="c50l">
 				  	<input 
 					  <s:if test="extra.resourcePriceType == 'per Room'">checked="checked"</s:if>
-					  type="radio" name="extra.resourcePriceType" value="per Room" />per Room<br/>
+					  type="radio" name="extra.resourcePriceType" value="per Room"/>per Room<br/>
                     <input 
                       <s:if test="extra.resourcePriceType == 'per Person'">checked="checked"</s:if>
-					  type="radio" name="extra.resourcePriceType" value="per Person" />per Person<br/>
+					  type="radio" name="extra.resourcePriceType" value="per Person"/>per Person<br/>
                     <input 
                       <s:if test="extra.resourcePriceType == 'per Item'">checked="checked"</s:if>
-					  type="radio" name="extra.resourcePriceType" value="per Item" />per Item
+					  type="radio" name="extra.resourcePriceType" value="per Item"/>per Item
 				  </div>
 				  
 				  </div>

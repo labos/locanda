@@ -9,7 +9,6 @@ import java.util.Set;
 
 import javax.servlet.ServletContext;
 
-import model.BookedExtraItem;
 import model.Booking;
 import model.Extra;
 import model.Room;

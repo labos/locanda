@@ -433,7 +433,7 @@ display: none;
                   </div>
                    
                   <div class="type-select">
-                  	<label for="convention">Convention: <sup title="This field is mandatory.">*</sup></label> 
+                  	<label for="convention">Convention: </label> 
                     <select name="booking.convention.id" id="convention" class="required">
                     <s:iterator value="conventions" var="eachConvention">
                    	  <option 

@@ -85,22 +85,22 @@ public class Booking {
 		Integer numNights = this.calculateNumNights();
 		Extra extra = extraItem.getExtra();
 		
-		if (extra.getTimePriceType() == "per Night") {
-			if (extra.getResourcePriceType() == "per Room") {
+		if (extra.getTimePriceType().equals("per Night")) {
+			if (extra.getResourcePriceType().equals("per Room")) {
 				ret = numNights;
 			}
 			else ret = numNights * this.nrGuests; 			//per Person - per Item non può esistere
 		}
-		else if (extra.getTimePriceType() == "per Week") {
-			if (extra.getResourcePriceType() == "per Room") {
+		else if (extra.getTimePriceType().equals("per Week")) {
+			if (extra.getResourcePriceType().equals("per Room")) {
 				ret = numNights/7 + 1;						//assumendo l'extra per week come indivisibile
 			}
 			else ret = (numNights/7 + 1) * this.nrGuests;	//per Person - per Item non può esistere
 		}else {												//per Booking
-			if (extra.getResourcePriceType() == "per Room") {
+			if (extra.getResourcePriceType().equals("per Room")) {
 				ret = 1;									//un Booking per ora è associato ad una sola Room!
 			}
-			else if (extra.getResourcePriceType() == "per Person") {
+			else if (extra.getResourcePriceType().equals("per Person")) {
 				ret = this.nrGuests;
 			}
 			else ret = 1; //per Item
