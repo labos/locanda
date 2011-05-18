@@ -81,7 +81,7 @@ public class ConventionAction extends ActionSupport implements SessionAware{
 			//Si tratta di una aggiunta
 			this.getConvention().setId(structure.nextKey());
 			structure.addConvention(this.getConvention());
-			this.buildRoomPriceListFromConvention();
+			this.buildPriceListsFromConvention();
 			this.getMessage().setResult(Message.SUCCESS);
 			this.getMessage().setDescription("Convention added successfully");
 			
@@ -121,7 +121,7 @@ public class ConventionAction extends ActionSupport implements SessionAware{
 		}
 	}
 	
-	public void buildRoomPriceListFromConvention(){
+	public void buildPriceListsFromConvention(){
 		User user = null;
 		Structure structure = null;
 		RoomPriceList newRoomPriceList = null;
