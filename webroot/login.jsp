@@ -17,7 +17,7 @@
                 <input type="text" class="required email" name="email" id="email" size="20"  aria-required="true"/>
               </div>
               <div class="type-text">
-                <label for="password">Password <sup title="This field is mandatory.">*</sup></label>
+                <label for="password"><s:text name="global.password" /> <sup title="This field is mandatory.">*</sup></label>
                 <input type="password" class="required" name="password" id="password" size="20"  aria-required="true"/>
               </div>
             </fieldset>

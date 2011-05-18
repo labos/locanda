@@ -28,6 +28,7 @@
 <script type='text/javascript' src='js/lib/jquery-ui-1.8.9.custom.min.js'></script>
 <script type='text/javascript' src='js/jquery.fileupload.js'></script>
 <script type='text/javascript' src='js/jquery.fileupload-ui.js'></script>
+<script type='text/javascript' src="js/jquery.i18n.properties-min.js"></script>
       <script>
       $(document).ready(function() {
       <%

@@ -15,6 +15,7 @@
 <script type="text/javascript" src="js/jstree/jquery.jstree.js"></script>
 <script type='text/javascript' src='js/jquery.fileupload.js'></script>
 <script type='text/javascript' src='js/jquery.fileupload-ui.js'></script>
+<script type='text/javascript' src="js/jquery.i18n.properties-min.js"></script>
 <script>
       $(document).ready(function() {
       
@@ -40,7 +41,15 @@
 	<link href="css/patches/patch_sliding_door.css" rel="stylesheet" type="text/css" />
   <![endif]-->
 </head>
-
+<s:url id="localeFR" namespace="/" action="locale" >
+   <s:param name="request_locale" >fr</s:param>
+</s:url>
+<s:url id="localeEN" namespace="/" action="locale" >
+   <s:param name="request_locale" >en</s:param>
+</s:url>
+<s:url id="localeIT" namespace="/" action="locale" >
+   <s:param name="request_locale" >it</s:param>
+</s:url>
 <body>
   <!-- skip link navigation -->
 
@@ -53,7 +62,11 @@
     <div class="page">
       <div id="header" role="banner">
         <div id="topnav" role="contentinfo">
-          <span><a class="login-top" href="login.jsp">Login/Signup</a></span>
+        <span><a class="login-top" href="login.jsp">Login/Signup</a></span>
+        <span>
+        <s:a href="%{localeIT}" cssClass="flag_it"></s:a>
+        <s:a href="%{localeEN}" cssClass="flag_en"></s:a>
+                </span>
         </div>
         <h1>
         <span>&nbsp;</span><em>&nbsp;</em></h1><span>&nbsp;</span>

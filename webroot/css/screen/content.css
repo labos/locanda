@@ -713,6 +713,24 @@ height: 32px;
 color:#fff;
 background:url("../images/key-icon.png") no-repeat scroll 5px 5px #88A4D6;
 
+}
+
+#topnav a.flag_it{
+display: block;
+background:url("../images/flags/it.png") no-repeat scroll;
+width: 16px;
+height: 16px;
+float:left;
+margin-right:3px;
+}
+
+#topnav a.flag_en{
+display: block;
+background:url("../images/flags/en.png") no-repeat scroll;
+width: 16px;
+height: 16px;
+float: left;
+margin-right:3px;
 
 }
 

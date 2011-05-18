@@ -25,6 +25,7 @@
         "http://struts.apache.org/dtds/struts-2.0.dtd">
 
 <struts>    
+	<constant name="struts.custom.i18n.resources" value="global" />
     <package name="default" extends="struts-default,json-default" namespace="/">
     </package>
 </struts>

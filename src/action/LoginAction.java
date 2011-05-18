@@ -47,7 +47,7 @@ public class LoginAction extends ActionSupport implements SessionAware{
 	
 	@Actions(value={
 			@Action(value="/login", results={
-					@Result(name="input",location="/WEB-INF/jsp/login.jsp"),
+					@Result(name="input",location="/login.jsp"),
 					@Result(name="loginSuccess", location="/homeLogged.jsp"),	
 					@Result(name="loginError", location="/login.jsp")
 			})	
