@@ -310,8 +310,7 @@
           
                  <div class="beautify">
                   <div class="subcolumns">
-                  <a name="bottom_anchor" />
-        			<ul class="thumbs_facility">
+                        <ul class="thumbs_facility">
         					<s:iterator value="structure.structureFacilities" var="eachFacility" >
         					<li>
         					<h4><s:property value="#eachFacility.name" /></h4>
@@ -323,6 +322,7 @@
 							</li>
        						 </s:iterator>
 							<li style="display: none">
+							<h4>NEW</h4>
 								<a title="Title #1" href="#drop" class="thumb" rel="history">
 									<img alt="Title #1" src="images/struct_facilities/" />
 								</a>
@@ -356,8 +356,7 @@
           </div>
                  <div class="beautify">
                   <div class="subcolumns">
-                  <a name="bottom_anchor" />
-        <ul class="thumbs">
+                       <ul class="thumbs">
         <s:iterator value="structure.imageLists" var="eachImage" >
         					<li>
         					<h4><s:property value="#eachImage.name" /></h4>
@@ -369,6 +368,7 @@
 							</li>
         </s:iterator>
 							<li style="display: none">
+							<h4>NEW</h4>
 								<a title="Title #1" href="#drop" class="thumb" rel="history">
 									<img alt="Title #1" src="images/structure/" />
 								</a>

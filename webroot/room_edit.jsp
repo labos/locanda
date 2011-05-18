@@ -42,7 +42,6 @@
 		   	  </div>
 		   	</div>
 		   	<div class="subcolumns">
-                  <a name="bottom_anchor" />
         <ul class="thumbs">
         <s:iterator value="room.imageLists" var="eachImage" >
         					<li>
@@ -55,6 +54,7 @@
 							</li>
         </s:iterator>
 							<li style="display: none">
+							<h4>NEW</h4>
 								<a title="Title #1" href="#drop" class="thumb" rel="history">
 									<img alt="Title #1" src="images/room_images/" />
 								</a>

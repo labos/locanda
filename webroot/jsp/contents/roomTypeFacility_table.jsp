@@ -7,23 +7,20 @@
 						<s:iterator value="roomFacilities" var="each">
                		  <div class="facility">
 						<img width="24" height="24" src="images/room_facilities/<s:property value="#each.fileName"/>" alt="facility"/>
-						<s:checkbox id="%{#each.name}_fac" name="roomFacilitiesIds" value="roomFacilitiesIds.contains(#each.id)" fieldValue="%{#each.id}"/>
-						<label for="<s:property value="name"/>_fac"><s:property value="#each.name"/></label>
-					  </div>
+						<s:checkbox id="%{#each.name}_fac" name="roomFacilitiesIds" value="roomFacilitiesIds.contains(#each.id)" fieldValue="%{#each.id}" label="%{#each.name}"/>
+						 </div>
 					</s:iterator>
 				   <s:iterator value="room.roomType.roomTypeFacilities" var="each">
                		  <div class="facility">
 						<img width="24" height="24" src="images/roomtype_facilities/<s:property value="#each.fileName"/>" alt="facility"/>
-						<s:checkbox id="%{#each.name}_fac" name="roomFacilitiesIds" value="roomFacilitiesIds.contains(#each.id)" fieldValue="%{#each.id}"/>
-						<label for="<s:property value="name"/>_fac"><s:property value="#each.name"/></label>
+						<s:checkbox id="%{#each.name}_fac" name="roomFacilitiesIds" value="roomFacilitiesIds.contains(#each.id)" fieldValue="%{#each.id}" label="%{#each.name}"/>
 					  </div>
 					</s:iterator>
 					<s:if test="room.id == null">
 					<s:iterator value="roomTypeFacility" var="each">
                		  <div class="facility">
 						<img width="24" height="24" src="images/roomtype_facilities/<s:property value="#each.fileName"/>" alt="facility"/>
-						<s:checkbox id="%{#each.name}_fac" name="roomFacilitiesIds" value="roomFacilitiesIds.contains(#each.id)" fieldValue="%{#each.id}"/>
-						<label for="<s:property value="name"/>_fac"><s:property value="#each.name"/></label>
+						<s:checkbox id="%{#each.name}_fac" name="roomFacilitiesIds" value="roomFacilitiesIds.contains(#each.id)" fieldValue="%{#each.id}" label="%{#each.name}"/>
 					  </div>
 					</s:iterator>	
 					</s:if>	
