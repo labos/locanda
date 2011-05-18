@@ -85,7 +85,6 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware{
 		}
 		
 		checkedExtras = structure.findExtrasByIds(this.getBookingExtraIds());
-
 		this.getBooking().setExtras(checkedExtras);
 		this.getBooking().buildExtraItemsFromExtras(structure, checkedExtras);
 		

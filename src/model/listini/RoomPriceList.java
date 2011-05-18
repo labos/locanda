@@ -61,23 +61,18 @@ public class RoomPriceList {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	
 	public RoomType getRoomType() {
 		return roomType;
 	}
-
 	public void setRoomType(RoomType roomType) {
 		this.roomType = roomType;
 	}
-
 	public Convention getConvention() {
 		return convention;
 	}
-
 	public void setConvention(Convention convention) {
 		this.convention = convention;
 	}
-
 	public Season getSeason() {
 		return season;
 	}
@@ -90,6 +85,5 @@ public class RoomPriceList {
 	public void setItems(List<RoomPriceListItem> items) {
 		this.items = items;
 	}
-	
 	
 }

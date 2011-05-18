@@ -41,9 +41,6 @@
           		  <th>Guests number</th><th>Monday</th><th>Tuesday</th><th>Wednesday</th><th>Thursday</th><th>Friday</th><th>Saturday</th><th>Sunday</th>
           		</tr>
           	  </thead>
-         <input type="hidden" name="redirect_form" value="goFindAllRoomPriceLists.action?sect=settings" />
-		<input type="hidden" name="priceList.id" value="<s:property value="priceList.id"/>"/>
-		
           	  <tbody>
           	  <!-- here an AJAX call puts the table rows-->
           	 </tbody>

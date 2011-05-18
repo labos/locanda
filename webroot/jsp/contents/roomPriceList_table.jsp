@@ -4,10 +4,12 @@
 <%@ taglib uri="/struts-tags" prefix="s" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 		
+		<input type="hidden" name="redirect_form" value="goFindAllRoomPriceLists.action?sect=settings" />
+		<input type="hidden" name="priceList.id" value="<s:property value="priceList.id"/>"/>
+		
 		<s:iterator value="priceList.items" var="eachPriceListItem" status="itemStatus">
           	  <tr>
-          	  	<td> <input type="hidden" name="priceList.items[<s:property value="#itemStatus.index"/>].id" value="<s:property value="#eachPriceListItem.id"/>"/>
-          	  	<s:property value="#eachPriceListItem.numGuests"/></td>
+          	  	<td> <input type="hidden" name="priceList.items[<s:property value="#itemStatus.index"/>].id" value="<s:property value="#eachPriceListItem.id"/>"/>          	  		<s:property value="#eachPriceListItem.numGuests"/></td>
           	  	<td><input type="text" name="priceList.items[<s:property value="#itemStatus.index"/>].prices[0]" id="prices[0]" value="<s:property value="#eachPriceListItem.prices[0]"/>" class="required number noBorder static_small_input" readonly="readonly"/></td>
           	  	<td><input type="text" name="priceList.items[<s:property value="#itemStatus.index"/>].prices[1]" id="prices[1]" value="<s:property value="#eachPriceListItem.prices[1]"/>" class="required number noBorder static_small_input" readonly="readonly"/></td>
           	  	<td><input type="text" name="priceList.items[<s:property value="#itemStatus.index"/>].prices[2]" id="prices[2]" value="<s:property value="#eachPriceListItem.prices[2]"/>" class="required number noBorder static_small_input" readonly="readonly"/></td>
