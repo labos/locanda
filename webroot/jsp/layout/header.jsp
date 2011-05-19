@@ -15,7 +15,7 @@
 <script type="text/javascript" src="js/jstree/jquery.jstree.js"></script>
 <script type='text/javascript' src='js/jquery.fileupload.js'></script>
 <script type='text/javascript' src='js/jquery.fileupload-ui.js'></script>
-<script type='text/javascript' src="js/jquery.i18n.properties-min.js"></script>
+<script type='text/javascript' src="js/jquery.i18n.js"></script>
 <script>
       $(document).ready(function() {
       
@@ -62,7 +62,7 @@
     <div class="page">
       <div id="header" role="banner">
         <div id="topnav" role="contentinfo">
-        <span><a class="login-top" href="login.jsp">Login/Signup</a></span>
+        <span><a class="login-top" href="login.jsp"><s:text name="loginSignup" /></a></span>
         <span>
        	 <s:a href="%{localeIT}" cssClass="flag_it"></s:a>
          <s:a href="%{localeEN}" cssClass="flag_en"></s:a>

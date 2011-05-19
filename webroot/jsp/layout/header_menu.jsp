@@ -24,28 +24,26 @@
 <script type='text/javascript' src='js/jquery.fileupload.js'></script>
 <script type='text/javascript' src='js/jquery.fileupload-ui.js'></script>
 <script type='text/javascript' src="js/jquery.fileupload-uix.js"></script>
-<script type='text/javascript' src="js/jquery.i18n.properties-min.js"></script>
+<script type='text/javascript' src="js/jquery.i18n.js"></script>
+<script type='text/javascript' src='lang/jquery.<s:property value="#request.locale" />.json'></script>
 <script>
-      $(document).ready(function() {
-      <%
-      	//code for menu tabs activation
-      	String dPageDefault = "planner";
- 		String dPage = request.getParameter("sect");
- 		dPage = (dPage == null)? dPageDefault  : dPage ;
-		out.println("\n var section= \'" + dPage + "\';") ;
-      %>
-      var text_tab = $("#"+section).children("a").hide().text();
-      $("#"+section).addClass("active").prepend("<strong>" + text_tab + "</strong>");
-      I18NSettings = {};
-      I18NSettings.datePattern = '<s:property value="#session.datePattern"/>'.toLowerCase();
-      I18NSettings.ita = "ita";
-      //to avoid undefined on pre-login phase..
-      if (typeof I18NSettings.datePattern === 'undefined')
-    	  {
-    	  I18NSettings.datePattern ="dd/mm/yy";
-    	  }
-
-      });
+$(document).ready(function () { <%
+    //code for menu tabs activation
+    String dPageDefault = "planner";
+    String dPage = request.getParameter("sect");
+    dPage = (dPage == null) ? dPageDefault : dPage;
+    out.println("\n var section= \'" + dPage + "\';"); %>
+    var text_tab = $("#" + section).children("a").hide().text();
+    $("#" + section).addClass("active").prepend("<strong>" + text_tab + "</strong>");
+    I18NSettings = {};
+    I18NSettings.datePattern = '<s:property value="#session.datePattern"/>'.toLowerCase();
+    I18NSettings.ita = "ita";
+    //to avoid undefined on pre-login phase..
+    if (typeof I18NSettings.datePattern === 'undefined') {
+        I18NSettings.datePattern = "dd/mm/yy";
+    }
+    $._.setLocale('<s:property value="#request.locale" />');
+});
 </script>
 <script type='text/javascript' src='js/jquery.weekcalendar.js'></script>
 <script type='text/javascript' src='js/jquery.validate.min.js'></script>

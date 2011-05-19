@@ -2,8 +2,8 @@ $(document).ready(function () {
 	overlay = $('<div id="fancybox-overlay"></div>');
 	var Option = function (lang, patternDate) {
 			this.datePattern = patternDate;
-			this.alertOK = "Congratulazioni";
-			this.alertKO = "Attenzione!";
+			this.alertOK = $.i18n("congratulation");
+			this.alertKO = $.i18n("warning");
 			var ONE_DAY = 1000 * 60 * 60 * 24;
 			this.init = function () {
 				$(".yform").validate();
@@ -59,7 +59,7 @@ $(document).ready(function () {
 							success: function (data_action) {
 								var title_notification = null;
 								if (data_action.result == "success") {
-									$().notify("Congratulazioni", data_action.description);
+									$().notify($.i18n("congratulation"), data_action.description);
 									//UPDATE BOOKING STATUS HIDDEN FIELD
 									$("input:hidden[name='booking.status']").val("checkin");
 									//ADD CHECKOUT LISTENER
@@ -82,7 +82,7 @@ $(document).ready(function () {
 											success: function (data_action) {
 												var title_notification = null;
 												if (data_action.result == "success") {
-													$().notify("Congratulazioni", data_action.description);
+													$().notify($.i18n("congratulation"), data_action.description);
 													// UPDATE BUTTON CHECKING
 													$this.button({
 														disabled: true,
@@ -92,7 +92,7 @@ $(document).ready(function () {
 													//UPDATE BOOKING STATUS HIDDEN FIELD
 													$("input:hidden[name='booking.status']").val("checkout");
 												} else if (data_action.result == "error") {
-													$().notify("Attenzione", data_action.description);
+													$().notify($.i18n("warning"), data_action.description);
 												} else {
 													$(".validationErrors").html(data_action);
 												}
@@ -104,7 +104,7 @@ $(document).ready(function () {
 									});
 									//END ADDING CHECKOUT LISTENER
 								} else if (data_action.result == "error") {
-									$().notify("Attenzione", data_action.description);
+									$().notify($.i18n("warning"), data_action.description);
 								} else {
 									$(".validationErrors").html(data_action);
 								}
@@ -133,14 +133,14 @@ $(document).ready(function () {
 						success: function (data_action) {
 							var title_notification = null;
 							if (data_action.result == "success") {
-								$().notify("Congratulazioni", data_action.description);
+								$().notify($.i18n("congratulation"), data_action.description);
 								$this.button({
 									disabled: true,
 									label: "CHECKED"
 								});
 								$("input:hidden[name='booking.status']").val("checkout");
 							} else if (data_action.result == "error") {
-								$().notify("Attenzione", data_action.description);
+								$().notify($.i18n("warning"), data_action.description);
 							} else {
 								$(".validationErrors").html(data_action);
 							}
@@ -364,7 +364,7 @@ $(document).ready(function () {
 				$('#sel_rooms_list, #booking_duration, input:text[name="booking.dateIn"], input:text[name="booking.dateOut"], input:checkbox[name="bookingExtraIds"], #nr_guests, #convention').change(function () {
 					// check in room was selected
 					if (!(parseInt($('#sel_rooms_list').val()) > 0)) {
-						$().notify("Attenzione", "Devi selezionare una room");
+						$().notify($.i18n("warning"), "Devi selezionare una room");
 						return;
 					}
 					var formInput = $(this).parents().find(".yform.json").serialize();
@@ -422,7 +422,7 @@ $(document).ready(function () {
 									//  updateSubtotal();
 									//$().notify("Congratulazioni", data_action.message.description, _redirectAction);
 								} else if (data_action.message.result == "error") {
-									$().notify("Attenzione", data_action.message.description);
+									$().notify($.i18n("warning"), data_action.message.description);
 								} else {
 									$(".validationErrors").html(data_action);
 								}
@@ -685,9 +685,9 @@ $(document).ready(function () {
 				success: function (data_action) {
 					var title_notification = null;
 					if (data_action.result == "success") {
-						$().notify("Congratulazioni", data_action.description, _redirectAction);
+						$().notify($.i18n("congratulation"), data_action.description, _redirectAction);
 					} else if (data_action.result == "error") {
-						$().notify("Attenzione", data_action.description);
+						$().notify($.i18n("warning"), data_action.description);
 					} else {
 						$(".validationErrors").html(data_action);
 					}
@@ -778,7 +778,7 @@ $(document).ready(function () {
 			},
 			error: function () {
 				//if you cannot retrieve the list of rooms then...
-				$().notify("Attenzione", "Problema restituzione lista camere...");
+				$().notify($.i18n("warning"), "Problema restituzione lista camere...");
 			}
 		});
 		$(".type_rooms").hide();
@@ -1067,12 +1067,12 @@ $(document).ready(function () {
 								});
 								*/
 								} else {
-									$().notify("Attenzione", "Problema restituzione dettagli guest...");
+									$().notify($.i18n("warning"), "Problema restituzione dettagli guest...");
 								}
 							},
 							error: function () {
 								//if you cannot retrieve the list of rooms then...
-								$().notify("Attenzione", "Problema  nel contattare il server per dettagli guest...");
+								$().notify($.i18n("warning"), "Problema  nel contattare il server per dettagli guest...");
 							}
 						});
 					} //END ELSE tODO
@@ -1559,10 +1559,10 @@ $(document).ready(function () {
 					success: function (data_action) {
 						var title_notification = null;
 						if (data_action.result == "success") {
-							$().notify("Congratulazioni", data_action.description);
+							$().notify($.i18n("congratulation"), data_action.description);
 							$this.parents("li").remove();
 						} else if (data_action.result == "error") {
-							$().notify("Attenzione", data_action.description);
+							$().notify($.i18n("warning"), data_action.description);
 						} else {
 							$(".validationErrors").html(data_action);
 						}
@@ -1760,7 +1760,7 @@ $(document).ready(function () {
 					$(".wrapper-facility").append(data);
 				},
 				error: function (request, state, errors) {
-					$().notify("Attenzione", "Problema restituzione lista Facility delle room types...");
+					$().notify($.i18n("warning"), "Problema restituzione lista Facility delle room types...");
 				}
 			});
 		}
@@ -1798,7 +1798,7 @@ $(document).ready(function () {
 					$(".priceList_table > tbody").html(data);
 				},
 				error: function (request, state, errors) {
-					$().notify("Attenzione", "Problema restituzione lista...");
+					$().notify($.i18n("warning"), "Problema restituzione lista...");
 				}
 			});
 			$("#priceList_buttons").hide();

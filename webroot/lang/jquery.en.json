@@ -1,0 +1,8 @@
+$.i18n.en = {
+    numeralBase: 2406,
+    numeralPrefix: "u0",
+};
+$.i18n.en.strings = {
+    congratulation: "Congratulation",
+    warning: "Warning"
+};

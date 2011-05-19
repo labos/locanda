@@ -11,7 +11,7 @@
       	
       	<form method="post" action="<s:property value="url"/>" class="yform" role="application">
             <fieldset>
-              <legend>Log In data</legend>
+              <legend><s:text name="loginData" /></legend>
               <div class="type-text">
                 <label for="email">E-Mail <sup title="This field is mandatory.">*</sup></label>
                 <input type="text" class="required email" name="email" id="email" size="20"  aria-required="true"/>
