@@ -15,7 +15,7 @@
       <div id="col3_content" class="clearfix">
       <form action="findAllGuestsFiltered.action">
         <div class="header_section">
-          <span class="name_section">Manage Guests</span>   
+          <span class="name_section"><s:text name="manageGuests" /></span>   
           <div class="right type-text">
             <input type="text" name="term" class="txt_guest_search" /><button class="btn_g_search">SEARCH</button>      
             <div class="search_links">
@@ -25,7 +25,7 @@
         </div>
           </form>
         <div>
-          <button class="btn_add_form">ADD NEW</button>
+          <button class="btn_add_form"><s:text name="addNew" /></button>
         </div>
         <div class="yform hideform">
        	  <jsp:include page="jsp/contents/guest_form.jsp" />

@@ -64,9 +64,9 @@
         <div id="topnav" role="contentinfo">
         <span><a class="login-top" href="login.jsp">Login/Signup</a></span>
         <span>
-        <s:a href="%{localeIT}" cssClass="flag_it"></s:a>
-        <s:a href="%{localeEN}" cssClass="flag_en"></s:a>
-                </span>
+       	 <s:a href="%{localeIT}" cssClass="flag_it"></s:a>
+         <s:a href="%{localeEN}" cssClass="flag_en"></s:a>
+        </span>
         </div>
         <h1>
         <span>&nbsp;</span><em>&nbsp;</em></h1><span>&nbsp;</span>

@@ -627,6 +627,7 @@ padding:0.5em;
 }
 #topnav a.logout {
 display: block;
+float: right;
 background:url('../../images/logout.png') no-repeat scroll 0 0 transparent;
 height: 32px;
 width: 32px;

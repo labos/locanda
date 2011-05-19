@@ -14,11 +14,11 @@
     <div id="col3" role="main">
       <div id="col3_content" class="clearfix">
         <div class="header_section yform">
-          <span class="name_section">Manage Room Types</span>    
+          <span class="name_section"><s:text name="manageRoomTypes" /></span>    
         </div>
           
         <div>
-          <button class="btn_add_form">ADD NEW</button>
+          <button class="btn_add_form"><s:text name="addNew" /></button>
         </div>
         <div class="yform hideform">
        	  <jsp:include page="jsp/contents/roomType_form.jsp" />

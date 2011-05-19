@@ -15,7 +15,7 @@
       <div id="col3_content" class="clearfix">
           
         <div>
-          <button class="btn_add_form">ADD NEW</button>
+          <button class="btn_add_form"><s:text name="addNew" /></button>
         </div>
         <div class="yform hideform">
        	  <jsp:include page="jsp/contents/convention_form.jsp" />

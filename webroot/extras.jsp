@@ -15,11 +15,11 @@
         <div id="col3" role="main">
           <div id="col3_content" class="clearfix">
           	<div class="header_section">
-          	  <span class="name_section">Manage Extras</span>
+          	  <span class="name_section"><s:text name="manageExtras" /></span>
       	 	</div>
       	
       	    <div>
-              <button class="btn_add_form btn_addExtra">ADD NEW</button>
+              <button class="btn_add_form btn_addExtra"><s:text name="addNew" /></button>
             </div>
             <div class="yform hideform">
           	  <jsp:include page="jsp/contents/extra_form.jsp" />
