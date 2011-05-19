@@ -37,7 +37,6 @@ public class BookedExtraItem {
 		return this.unitaryPrice * this.quantity;
 	}
 	
-	
 	public Integer getId() {
 		return id;
 	}

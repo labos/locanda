@@ -369,38 +369,31 @@ display: none;
                       <div class="type-select guests-select">
                       	<label for="nr_guests">Guests: <sup title="This field is mandatory.">*</sup></label> 
                       	<select name="booking.nrGuests" id="nr_guests" class="required">
-                    	 <% 
-                    	 if ( request.getAttribute("booking.room.roomType.maxGuests") != null)
-                    	 {
-                    		 
-                    	 
- 						int max_guests= (Integer) request.getAttribute("booking.room.roomType.maxGuests");
-						int nr_guests = (Integer) request.getAttribute("booking.nrGuests");
-						   for(int i = 1; i <= max_guests; i++) {
+                    	<% 
+                    	if (request.getAttribute("booking.room.roomType.maxGuests") != null){
+                    		int max_guests= (Integer) request.getAttribute("booking.room.roomType.maxGuests");
+							int nr_guests = (Integer) request.getAttribute("booking.nrGuests");
+						   	for(int i = 1; i <= max_guests; i++) {
 							   %>
 							    <option value="<% out.print(i) ; %>" <% if(nr_guests == i ) {out.print("selected=\"selected\"");}%>><% out.print(i) ; %></option>
 							   <% 
-						   }
-						   }
-						   else
-						   {
-						   %>
-                       	 
-                    	  <option value="1">1</option>
-                    	  <option value="2">2</option>
-                    	  <option value="3">3</option>
-                    	  <option value="4">4</option>
-   
-   							<% 
-	   
-						   }
-						   %>
+						   	}	
+						}else
+						  	{
+						  	%>
+                    	  	<option value="1">1</option>
+                    	  	<option value="2">2</option>
+                    	  	<option value="3">3</option>
+                    	  	<option value="4">4</option>
+   							<%
+   							}
+						%>
                  		</select>
-                 	<div style="margin-top:3px;">
-                 	 <div class="c60l">
+                 		<div style="margin-top:3px;">
+                 	  	  <div class="c60l">
              			 	<a href="#bottom_anchor" class="add_guest" title="add guest"><img src="images/add-icon.png" alt="Add Guest" />Add New Guest Data</a>
+              		  	  </div>
               			</div>
-              		</div>
                  	  </div>
 
               		<s:iterator value="booking.guests" var="eachGuest" status="guestStatus" >
@@ -430,8 +423,50 @@ display: none;
                       </div>                  
                     </s:iterator>
                   </div>
+                  
+                  <!--<s:iterator value="booking.extraItems" var="eachExtraItem" status="itemStatus">
+              		  <div>
+              		  	<input type="hidden" class="idExtraItem" name="booking.extraItems[<s:property value="#itemStatus.index"/>].id" value="<s:property value="#eachExtraItem.id"/>"/>
+              		  	<div class="c40l">
+              		  	  <div class="type-select">
+              		  	  	<label for="convention">Quantity: </label>
+              		  	  	<select name="booking.extraItems[<s:property value="#itemStatus.index"/>].quantity" class="required">
+              		  	  	
+              		  	  	<% 
+                    	if (request.getAttribute("booking.room.roomType.maxGuests") != null){
+                    		int quantity= (Integer) request.getAttribute("booking.room.roomType.maxGuests");
+						   	for(int i = 1; i <= quantity; i++) {
+							   %>
+							    <option value="<% out.print(i) ; %>" <% if(quantity == i ) {out.print("selected=\"selected\"");}%>><% out.print(i) ; %></option>
+							   <% 
+						   	}	
+						}else
+						  	{
+						  	%>
+                    	  	<option value="1">1</option>
+                    	  	<option value="2">2</option>
+                    	  	<option value="3">3</option>
+                    	  	<option value="4">4</option>
+                    	  	<option value="5">5</option>
+                    	  	<option value="6">6</option>
+                    	  	<option value="7">7</option>
+                    	  	<option value="8">8</option>
+                    	  	<option value="9">9</option>
+                    	  	<option value="10">10</option>
+   							<%
+   							}
+						%>
+              		  	  	
+              		  	  	</select>
+              		  	  </div>
+              		  	</div>
+                  	  	<div class="c33l">
+                  	  	  <div class="subcl type-text"><span>&euro;: </span><s:property value="#eachExtraItem.unitaryPrice" /></div>
+                  	  	</div>
+                  	  </div>
+              		</s:iterator>
                    
-                  <div class="type-select">
+                  --><div class="type-select">
                   	<label for="convention">Convention: </label> 
                     <select name="booking.convention.id" id="convention" class="required">
                     <s:iterator value="conventions" var="eachConvention">
@@ -454,29 +489,23 @@ display: none;
                   	<div class="type-text"><span>Extras: </span><div class="c33r"><span id="extras_room" ><s:property value="booking.extraSubtotal"/></span> &euro; </div></div>
                   	<div class="type-text"><hr/></div>
                   	<div class="type-text"><span class="green">&nbsp;Adjustments: </span>
-                  	 <div class="c50r">
-             			 <a href="#bottom_anchor" class="add_adjustment" title="add adjustment"><img src="images/add-icon.png" alt="Add Adjustment" />Add New Adjustment</a>
-              		</div>
+                  	  <div class="c50r">
+             			<a href="#bottom_anchor" class="add_adjustment" title="add adjustment"><img src="images/add-icon.png" alt="Add Adjustment" />Add New Adjustment</a>
+              		  </div>
               		</div>
               		<s:iterator value="booking.adjustments" var="eachAdjust" status="adjustStatus">
-              		 <div  class="subcolumns adjustment_row">
-              		 <input type="hidden" class="idAdjustment" name="booking.adjustments[<s:property value="#adjustStatus.index"/>].id" value="<s:property value="#eachAdjust.id"/>"/>
-              		  <div class="c40l"><div class="subcl type-text"><span>Name:</span><input type="text" name="booking.adjustments[<s:property value="#adjustStatus.index"/>].description" value="<s:property value="#eachAdjust.description" />" class="require" style="width: 90%;" /></div></div>
-                  	  	<div class="c33l"><div class="subcl type-text"><span>Amount(&euro;):</span><input type="text" name="booking.adjustments[<s:property value="#adjustStatus.index"/>].amount"  value="<s:property value="#eachAdjust.amount" />" class="extra_value_adjustment required"/></div></div>
-                  	  	 <div class="c25r"><label>&nbsp;</label><a href="#" class="erase_adjustment" title="erase"><img src="images/delete.png" alt="Delete Adjustment" />Delete Adjustment</a>
-              			</div>
+              		  <div  class="subcolumns adjustment_row">
+              		  	<input type="hidden" class="idAdjustment" name="booking.adjustments[<s:property value="#adjustStatus.index"/>].id" value="<s:property value="#eachAdjust.id"/>"/>
+              		  	<div class="c40l">
+              		  	  <div class="subcl type-text"><span>Name:</span><input type="text" name="booking.adjustments[<s:property value="#adjustStatus.index"/>].description" value="<s:property value="#eachAdjust.description" />" class="require" style="width: 90%;" /></div>
+              		  	</div>
+                  	  	<div class="c33l">
+                  	  	  <div class="subcl type-text"><span>Amount(&euro;):</span><input type="text" name="booking.adjustments[<s:property value="#adjustStatus.index"/>].amount"  value="<s:property value="#eachAdjust.amount" />" class="extra_value_adjustment required"/></div>
+                  	  	</div>
+                  	  	<div class="c25r"><label>&nbsp;</label><a href="#" class="erase_adjustment" title="erase"><img src="images/delete.png" alt="Delete Adjustment" />Delete Adjustment</a></div>
                   	  </div>
-              		</s:iterator><!--
-              		<s:if test="booking.adjustments.size() == 0"> 
-              	         <div  class="subcolumns adjustment_row">
-                  	     <div class="c40l"><div class="subcl type-text"><span>Name:</span><input type="text" name="booking.adjustments[0].description" class="require" style="width: 90%;" /></div></div>
-                  	  	<div class="c33l"><div class="subcl type-text"><span>Amount(&euro;):</span><input type="text" name="booking.adjustments[0].amount"  class="extra_value_adjustment required"/></div></div>
-                  	  	 <div class="c25r"><label>&nbsp;</label><a href="#bottom_anchor" class="erase_adjustment" title="erase"><img src="images/delete.png" alt="Delete Adjustment" />Delete Adjustment</a>
-              			</div>
-                  	  </div>	
-              		</s:if>
-
-                   --><a name="bottom_anchor"></a> 
+              		</s:iterator>
+              		<a name="bottom_anchor"></a> 
                  	<div class="type-text">
                  	  <span>Subtotal: </span><div class="c33r"><span class="subtotal_room" ><s:property value="%{ booking.roomSubtotal + booking.extraSubtotal + adjustmentsSubtotal}"/>
                  	  </span> &euro;<input type="hidden" id="subtotal_room" name="booking.subtotal" value="<s:property value="%{ booking.roomSubtotal + booking.extraSubtotal + adjustmentsSubtotal}"/>" /></div>

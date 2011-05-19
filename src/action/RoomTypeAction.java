@@ -3,12 +3,20 @@ package action;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import model.Extra;
 import model.Image;
 import model.RoomFacility;
 import model.RoomType;
 import model.Structure;
 import model.User;
 import model.internal.Message;
+import model.listini.Convention;
+import model.listini.ExtraPriceList;
+import model.listini.ExtraPriceListItem;
+import model.listini.RoomPriceList;
+import model.listini.RoomPriceListItem;
+import model.listini.Season;
 
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Actions;
@@ -44,10 +52,6 @@ public class RoomTypeAction extends ActionSupport implements SessionAware{
 		return SUCCESS;
 	}
 	
-
-	
-	
-	
 	@Actions({
 		@Action(value="/goUpdateRoomType",results = {
 				@Result(name="success",location="/roomType_edit.jsp")
@@ -74,7 +78,6 @@ public class RoomTypeAction extends ActionSupport implements SessionAware{
 						"root","message"
 				})
 		})
-		
 	})
 	public String saveUpdateRoomType(){
 		User user = null;
@@ -91,6 +94,7 @@ public class RoomTypeAction extends ActionSupport implements SessionAware{
 			this.getRoomType().setId(structure.nextKey());
 			this.getRoomType().setRoomTypeFacilities(checkedFacilities);
 			structure.addRoomType(this.getRoomType());
+			structure.refreshPriceLists();
 			this.getMessage().setResult(Message.SUCCESS);
 			this.getMessage().setDescription("Room Type added successfully");
 			
@@ -164,65 +168,50 @@ public class RoomTypeAction extends ActionSupport implements SessionAware{
 			this.getMessage().setDescription("Non e' stato possibile cancellare la foto");
 			return "error";
 		}		
-	}	
+	}
 	
 	public Map<String, Object> getSession() {
 		return session;
 	}
-
 	@Override
 	public void setSession(Map<String, Object> session) {
-		this.session = session;
-		
-	}
-	
+		this.session = session;		
+	}	
 	public Message getMessage() {
 		return message;
 	}
-
 	public void setMessage(Message message) {
 		this.message = message;
 	}
-
 	public List<RoomType> getRoomTypes() {
 		return roomTypes;
 	}
-
 	public void setRoomTypes(List<RoomType> roomTypes) {
 		this.roomTypes = roomTypes;
 	}
-
 	public RoomType getRoomType() {
 		return roomType;
 	}
-
 	public void setRoomType(RoomType roomType) {
 		this.roomType = roomType;
 	}
-
 	public Image getImage() {
 		return image;
 	}
-
 	public void setImage(Image image) {
 		this.image = image;
 	}
-
 	public List<Integer> getRoomTypeFacilitiesIds() {
 		return roomTypeFacilitiesIds;
 	}
-
 	public void setRoomTypeFacilitiesIds(List<Integer> roomFacilitiesIds) {
 		this.roomTypeFacilitiesIds = roomFacilitiesIds;
-	}
-	
+	}	
 	public List<RoomFacility> getRoomTypeFacilities() {
 		return roomTypeFacilities;
 	}
-
 	public void setRoomTypeFacilities(List<RoomFacility> roomTypeFacilities) {
 		this.roomTypeFacilities = roomTypeFacilities;
-	}
-	
+	}	
 	
 }

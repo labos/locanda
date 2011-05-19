@@ -14,7 +14,9 @@ import org.apache.commons.lang.time.DateUtils;
 
 import model.listini.Convention;
 import model.listini.ExtraPriceList;
+import model.listini.ExtraPriceListItem;
 import model.listini.RoomPriceList;
+import model.listini.RoomPriceListItem;
 import model.listini.Season;
 
 public class Structure {
@@ -69,6 +71,57 @@ public class Structure {
 		ret = ret + 1;
 		this.getKeys().add(ret);
 		return ret;
+	}
+	
+	public void refreshPriceLists(){
+		RoomPriceList newRoomPriceList = null;
+		ExtraPriceList newExtraPriceList = null;
+		RoomPriceListItem newRoomPriceListItem = null;
+		ExtraPriceListItem newExtraPriceListItem = null;
+		Double[] prices = null;
+		Double price = 0.0;
+		
+		for (Season eachSeason : this.getSeasons()) {
+			for (RoomType eachRoomType : this.getRoomTypes()) {
+				for (Convention eachConvention : this.getConventions()) {
+					newRoomPriceList = new RoomPriceList();
+					newRoomPriceList.setId(this.nextKey());
+					newRoomPriceList.setSeason(eachSeason);
+					newRoomPriceList.setRoomType(eachRoomType);
+					newRoomPriceList.setConvention(eachConvention);
+					List<RoomPriceListItem> roomItems = new ArrayList<RoomPriceListItem>();
+					for (int i=1; i<=eachRoomType.getMaxGuests(); i++) {
+						newRoomPriceListItem = new RoomPriceListItem();
+						newRoomPriceListItem.setId(this.nextKey());
+						newRoomPriceListItem.setNumGuests(i);
+						prices = new Double[7];
+						for (int y=0; y<7; y++) {
+							prices[y] = 0.0;
+						}
+						newRoomPriceListItem.setPrices(prices);
+						roomItems.add(newRoomPriceListItem);
+					}
+					newRoomPriceList.setItems(roomItems);
+					this.addRoomPriceList(newRoomPriceList);
+					
+					newExtraPriceList = new ExtraPriceList();
+					newExtraPriceList.setId(this.nextKey());
+					newExtraPriceList.setSeason(eachSeason);
+					newExtraPriceList.setRoomType(eachRoomType);
+					newExtraPriceList.setConvention(eachConvention);
+					List<ExtraPriceListItem> extraItems = new ArrayList<ExtraPriceListItem>();
+					for (Extra eachExtra : this.getExtras()) {
+						newExtraPriceListItem = new ExtraPriceListItem();
+						newExtraPriceListItem.setId(this.nextKey());
+						newExtraPriceListItem.setExtra(eachExtra);
+						newExtraPriceListItem.setPrice(price);
+						extraItems.add(newExtraPriceListItem);
+					}
+					newExtraPriceList.setItems(extraItems);
+					this.addExtraPriceList(newExtraPriceList);
+				}
+			}
+		}
 	}
 	
 	//Room

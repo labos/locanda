@@ -83,16 +83,14 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware{
 			this.getBooking().setNrGuests(theBookedRoom.getRoomType().getMaxGuests());
 		}
 		
-		checkedExtras = structure.findExtrasByIds(this.getBookingExtraIds());
-		this.getBooking().setExtras(checkedExtras);
-		this.getBooking().buildExtraItemsFromExtras(structure, checkedExtras);
-		
 		numNights = this.getBooking().calculateNumNights();
 		this.setNumNights(numNights);
-		
 		roomSubtotal = structure.calculateRoomSubtotalForBooking(this.getBooking());		
 		this.getBooking().setRoomSubtotal(roomSubtotal);
 		
+		checkedExtras = structure.findExtrasByIds(this.getBookingExtraIds());
+		this.getBooking().setExtras(checkedExtras);
+		this.getBooking().buildExtraItemsFromExtras(structure, checkedExtras);
 		extraSubtotal = structure.calculateExtraSubtotalForBooking(this.getBooking());
 		this.getBooking().setExtraSubtotal(extraSubtotal);	
 		
@@ -105,7 +103,6 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware{
 		@Action(value="/goFindAllRoomPriceLists",results = {
 				@Result(name="success",location="/roomPriceLists.jsp")
 		}) 
-		
 	})
 	public String goFindAllRoomPriceLists() {
 		return SUCCESS;
