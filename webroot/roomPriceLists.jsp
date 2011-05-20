@@ -3,13 +3,8 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="/struts-tags" prefix="s" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<link rel='stylesheet' type='text/css' href='css/screen/basemod_2col_left_tree.css' />
-
 <jsp:include page="jsp/layout/header_menu.jsp" />
-
 <link rel='stylesheet' type='text/css' href='css/screen/basemod_2col_left_tree.css' />
-
   <div id="main">
       
     <div id="col2" role="complementary">

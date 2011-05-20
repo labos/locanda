@@ -13,6 +13,7 @@ import model.RoomType;
 import model.Structure;
 import model.User;
 import model.internal.Message;
+import model.internal.TreeNode;
 
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Actions;
@@ -32,8 +33,10 @@ public class RoomAction extends ActionSupport implements SessionAware{
 	private List<Room> rooms = null;
 	private Integer roomId;
 	private Image image = null;
+	private Integer roomTypeId = null;
 	private List<RoomType> roomTypes = null;
 	private List<RoomFacility> roomTypeFacility = null;
+	private List<TreeNode> treeNodes = new ArrayList<TreeNode>();
 	
 	
 	@Actions({
@@ -57,8 +60,43 @@ public class RoomAction extends ActionSupport implements SessionAware{
 		this.setRoomTypes(structure.getRoomTypes());
 		this.setRoomFacilities(structure.getRoomFacilities());
 		this.setRoomTypeFacility(structure.getRoomTypeFacilities());
+		
+		if (this.getRoomTypeId() != null){
+			
+			this.setRooms(structure.findRoomsByRoomTypeId(this.getRoomTypeId()));
+		}
+
 		return SUCCESS;
 	}
+	
+	@Actions({
+		@Action(value="/findAllTreeRoomsJson",results = {
+				@Result(type ="json",name="success", params={
+						"root","treeNodes"
+				})}) 
+		
+	})
+	public String findAllTreeRooms() {
+		User user = null;
+		Structure structure = null;
+		
+		user = (User)this.getSession().get("user");
+		//Controllare che sia diverso da null in un interceptor
+		structure = user.getStructure();
+		this.setRooms(structure.getRooms());
+		this.setRoomTypes(structure.getRoomTypes());
+		this.setRoomFacilities(structure.getRoomFacilities());
+		this.setRoomTypeFacility(structure.getRoomTypeFacilities());
+		//Setting tree node for rooms folding
+		for (RoomType eachRoomType : this.getRoomTypes()) {							//costruisco i nodi di primo livello - gli anni
+			this.treeNodes.add(TreeNode.buildNode(eachRoomType.getName().toString(), "?roomTypeId=" + eachRoomType.getId()));
+		}
+		
+		return SUCCESS;
+	}
+	
+	
+	
 	
 	@Actions({
 		@Action(value="/findRoomTypesForRoom",results = {
@@ -334,6 +372,14 @@ public class RoomAction extends ActionSupport implements SessionAware{
 		this.roomFacilities = roomFacilities;
 	}
 
+	public Integer getRoomTypeId() {
+		return roomTypeId;
+	}
+
+	public void setRoomTypeId(Integer id) {
+		this.roomTypeId = id;
+	}
+
 	public List<Room> getRooms() {
 		return rooms;
 	}
@@ -386,6 +432,14 @@ public class RoomAction extends ActionSupport implements SessionAware{
 
 	public void setRoomTypeFacility(List<RoomFacility> roomTypeFacility) {
 		this.roomTypeFacility = roomTypeFacility;
+	}
+
+	public List<TreeNode> getTreeNodes() {
+		return treeNodes;
+	}
+
+	public void setTreeNodes(List<TreeNode> treeNodes) {
+		this.treeNodes = treeNodes;
 	}
 	
 }

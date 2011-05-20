@@ -5,11 +5,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <jsp:include page="jsp/layout/header_menu.jsp" />
-
+<link rel='stylesheet' type='text/css' href='css/screen/basemod_2col_left_tree.css' />
   <div id="main">
     <!-- begin: #col1 - first float column -->
     <div id="col1" role="complementary">
-      <div id="col1_content" class="clearfix"></div>
+      <div id="col1_content" class="clearfix">
+      <h6 class="vlist"><s:text name="roomType" /></h6>
+          <div class="treeContainer">
+      	  <div class="accomodation_tree"></div>
+      	</div>
+      </div>
     </div><!-- end: #col1 -->
     <!-- begin: #col3 static column -->
     <div id="col3" role="main">

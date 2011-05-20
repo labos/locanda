@@ -1765,6 +1765,25 @@ $(document).ready(function () {
 			});
 		}
 	});
+	
+	$(".accomodation_tree").jstree({
+		"core": {
+			"initially_open": ["root"]
+		},
+		"json_data": {
+			"ajax": {
+				"url": "findAllTreeRoomsJson.action"
+			}
+		},
+		"themes": {
+			"theme": "default",
+			"dots": true,
+			"icons": true
+		},
+		"plugins": ["themes", "json_data"]
+	});
+	
+	
 	//---  END ACCOMODATION SECTION CODE   
 	//---  ONLINE BOOKINGS SECTION CODE
 	$("#customizewidget").click(function () {

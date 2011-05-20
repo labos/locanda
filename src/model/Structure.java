@@ -148,6 +148,19 @@ public class Structure {
 		return ret;
 	}
 	
+	
+	public List<Room> findRoomsByRoomTypeId(Integer id){
+		List <Room> ret = new ArrayList<Room>();
+	
+		for(Room each: this.getRooms()){
+			if(each.getRoomType().getId().equals(id)){
+				ret.add(each);
+			}
+		}
+		ret.removeAll(Collections.singletonList(null));
+		return ret;
+	}
+	
 	public Room findRoomById(Integer id){
 		Room ret = null;
 		
