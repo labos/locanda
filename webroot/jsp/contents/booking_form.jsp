@@ -418,24 +418,26 @@ display: none;
                  	  
                   <div class="type-select"><label for="">Extras:</label>
                     <s:iterator value="extras" var="eachExtra" >
+                    
                       <div class="type-check">
                     	<s:checkbox id="%{#eachExtra.id}_idExtra" name="bookingExtraIds"  value="bookingExtraIds.contains(#eachExtra.id)" fieldValue="%{#eachExtra.id}" label="%{#eachExtra.name}" />
-                      </div>                  
-                    </s:iterator>
-                  </div>
-                  
-                  <!--<s:iterator value="booking.extraItems" var="eachExtraItem" status="itemStatus">
-              		  <div>
-              		  	<input type="hidden" class="idExtraItem" name="booking.extraItems[<s:property value="#itemStatus.index"/>].id" value="<s:property value="#eachExtraItem.id"/>"/>
-              		  	<div class="c40l">
-              		  	  <div class="type-select">
-              		  	  	<label for="convention">Quantity: </label>
-              		  	  	<select name="booking.extraItems[<s:property value="#itemStatus.index"/>].quantity" class="required">
+                      </div> 
+                      
+                      <s:iterator value="booking.extraItems" var="eachExtraItem" status="itemStatus">
+                                    
+                      	<s:if test="#eachExtraItem.extra == #eachExtra">	
+              		  	<div class="type-select">
+              		  	  <input type="hidden" class="idExtraItem" name="booking.extraItems[<s:property value="#itemStatus.index"/>].id" value="<s:property value="#eachExtraItem.id"/>"/>
+              		  	  <div class="c40l">
+              		  	  	<label for="quantity">Quantity: </label>
+              		  	  	<select name="booking.extraItems[<s:property value="#itemStatus.index"/>].quantity"  id="quantity" class="required">
+              		  	  	<s:set var="test" value='%{"<s:property value="#itemStatus.index"/>"}' />
               		  	  	
-              		  	  	<% 
-                    	if (request.getAttribute("booking.room.roomType.maxGuests") != null){
-                    		int quantity= (Integer) request.getAttribute("booking.room.roomType.maxGuests");
-						   	for(int i = 1; i <= quantity; i++) {
+              		  	  	<%
+              		  	  	Integer index = (Integer) pageContext.findAttribute("itemStatus.index");
+                    		if (request.getAttribute("booking.extraItems[" + index + "].quantity") != null){
+                    			int quantity= (Integer) request.getAttribute("booking.extraItems[" + index + "].quantity");
+						   		for(int i = 1; i <= quantity; i++) {
 							   %>
 							    <option value="<% out.print(i) ; %>" <% if(quantity == i ) {out.print("selected=\"selected\"");}%>><% out.print(i) ; %></option>
 							   <% 
@@ -456,17 +458,19 @@ display: none;
    							<%
    							}
 						%>
-              		  	  	
-              		  	  	</select>
-              		  	  </div>
+              		  	  	</select>  
               		  	</div>
                   	  	<div class="c33l">
                   	  	  <div class="subcl type-text"><span>&euro;: </span><s:property value="#eachExtraItem.unitaryPrice" /></div>
                   	  	</div>
                   	  </div>
+                  	  </s:if>             	  
+                  	  
+              		  </s:iterator>
               		</s:iterator>
+                  </div>
                    
-                  --><div class="type-select">
+                  <div class="type-select">
                   	<label for="convention">Convention: </label> 
                     <select name="booking.convention.id" id="convention" class="required">
                     <s:iterator value="conventions" var="eachConvention">
