@@ -30,7 +30,25 @@ public class HomeAction extends ActionSupport implements SessionAware{
 		return ret;
 	}
 	
+	
+	
+	@Actions(value={
+			@Action(value="/goLogin", results={
+					@Result(name="logged",location="/homeLogged.jsp"),
+					@Result(name="notLogged",location="/login.jsp")				
+			})
+			
+	})
+	public String goLogin(){
+
+		String ret = "notLogged";
 		
+		if(this.getSession().get("user")!=null){
+			ret = "logged";
+		}
+		return ret;
+	}
+	
 	public Map<String, Object> getSession() {
 		return session;
 	}

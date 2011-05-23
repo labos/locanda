@@ -50,6 +50,8 @@
 <s:url id="localeIT" namespace="/" action="locale" >
    <s:param name="request_locale" >it</s:param>
 </s:url>
+
+<s:url action="goLogin" var="url_login"></s:url>
 <body>
   <!-- skip link navigation -->
 
@@ -62,7 +64,7 @@
     <div class="page">
       <div id="header" role="banner">
         <div id="topnav" role="contentinfo">
-        <span><a class="login-top" href="login.jsp"><s:text name="loginSignup" /></a></span>
+        <span><a class="login-top" href="<s:property value="url_login"/>"><s:text name="loginSignup" /></a></span>
         <span>
        	 <s:a href="%{localeIT}" cssClass="flag_it"></s:a>
          <s:a href="%{localeEN}" cssClass="flag_en"></s:a>
