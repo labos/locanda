@@ -88,7 +88,8 @@ public class RoomAction extends ActionSupport implements SessionAware{
 		this.setRoomFacilities(structure.getRoomFacilities());
 		this.setRoomTypeFacility(structure.getRoomTypeFacilities());
 		//Setting tree node for rooms folding
-		for (RoomType eachRoomType : this.getRoomTypes()) {							//costruisco i nodi di primo livello - gli anni
+		for (RoomType eachRoomType : this.getRoomTypes()) {							
+			//build first level nodes - room types
 			this.treeNodes.add(TreeNode.buildNode(eachRoomType.getName().toString(), "?roomTypeId=" + eachRoomType.getId()));
 		}
 		

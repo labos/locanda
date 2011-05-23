@@ -75,5 +75,5 @@
 		</s:iterator>
 		
       </div>
-      
+      </div>
 <jsp:include page="jsp/layout/footer.jsp" />     
