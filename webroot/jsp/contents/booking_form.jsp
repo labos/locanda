@@ -425,40 +425,38 @@ display: none;
                       
                       <s:iterator value="booking.extraItems" var="eachExtraItem" status="itemStatus">
                                     
-                      	<s:if test="#eachExtraItem.extra == #eachExtra">	
+                      	<s:if test="#eachExtraItem.extra = #eachExtra">	
               		  	<div class="type-select">
               		  	  <input type="hidden" class="idExtraItem" name="booking.extraItems[<s:property value="#itemStatus.index"/>].id" value="<s:property value="#eachExtraItem.id"/>"/>
               		  	  <div class="c40l">
               		  	  	<label for="quantity">Quantity: </label>
               		  	  	<select name="booking.extraItems[<s:property value="#itemStatus.index"/>].quantity"  id="quantity" class="required">
-              		  	  	<s:set var="test" value='%{"<s:property value="#itemStatus.index"/>"}' />
               		  	  	
-              		  	  	<%
-              		  	  	Integer index = (Integer) pageContext.findAttribute("itemStatus.index");
-                    		if (request.getAttribute("booking.extraItems[" + index + "].quantity") != null){
-                    			int quantity= (Integer) request.getAttribute("booking.extraItems[" + index + "].quantity");
-						   		for(int i = 1; i <= quantity; i++) {
-							   %>
-							    <option value="<% out.print(i) ; %>" <% if(quantity == i ) {out.print("selected=\"selected\"");}%>><% out.print(i) ; %></option>
-							   <% 
-						   	}	
-						}else
-						  	{
-						  	%>
-                    	  	<option value="1">1</option>
-                    	  	<option value="2">2</option>
-                    	  	<option value="3">3</option>
-                    	  	<option value="4">4</option>
-                    	  	<option value="5">5</option>
-                    	  	<option value="6">6</option>
-                    	  	<option value="7">7</option>
-                    	  	<option value="8">8</option>
-                    	  	<option value="9">9</option>
-                    	  	<option value="10">10</option>
-   							<%
-   							}
-						%>
+              		  	  	<s:if test="#eachExtraItem.quantity != null">
+              		  	  	  <s:bean name="org.apache.struts2.util.Counter" var="counter">
+								<s:param name="last" value="#eachExtraItem.quantity"/>
+							  </s:bean>
+							  <s:iterator value="#counter">
+								<option value="<s:property value="#itemStatus.index"/>"
+								  <s:if test="#eachExtraItem.quantity == #counter">selected=selected</s:if> >						
+								</option>
+							  </s:iterator>
+              		  	  	</s:if>
+              		  	  	<s:else>
+              		  	  	  <option value="1">1</option>
+                    	  	  <option value="2">2</option>
+                    	  	  <option value="3">3</option>
+                    	  	  <option value="4">4</option>
+                    	  	  <option value="5">5</option>
+                    	  	  <option value="6">6</option>
+                    	  	  <option value="7">7</option>
+                    	  	  <option value="8">8</option>
+                    	  	  <option value="9">9</option>
+                    	  	  <option value="10">10</option>
+              		  	  	</s:else>
+              		  	 
               		  	  	</select>  
+              		  	  	
               		  	</div>
                   	  	<div class="c33l">
                   	  	  <div class="subcl type-text"><span>&euro;: </span><s:property value="#eachExtraItem.unitaryPrice" /></div>

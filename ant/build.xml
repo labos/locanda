@@ -27,6 +27,7 @@
 		<copy todir="${build.path}">
 			<fileset dir="${src.path}">
 				<include name="**/*.xml"/>
+				<include name="**/*.properties"/>
 			</fileset>
 		</copy>		
 	</target>
