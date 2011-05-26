@@ -150,40 +150,7 @@ $(document).ready(function () {
 						}
 					});
 				}); /* extras adding */
-/*
-	  	   $('input[name="bookingExtraIds"]').click(function(){
-	  		   var amount_target_dom = $("#extras_room");
-	  		   var amount = 0;
-	  		   $('input:checked[name="bookingExtraIds"]').each (function(key, value){
-	  			   extra_price = $(value).siblings('input:hidden[name="extra_price"]').val();
-	  			  amount += isNaN(parseInt(extra_price)) ? 0 : parseInt(extra_price);
-	  			   
-	  		   });
-	  		   
-	  		 amount_target_dom.text(amount);
-			   //update subtotal
-			   updateSubtotal();
-	  		 
-	  		   
-	  		   
-	  		   
-	  	   });
-	  	   */
-				/* room price changing*/
-/*
-	  	   $('input[name="per_value"]').keyup( function(){
-	  		  
-	  		  //typeof o === 'number' && isFinite(o); 
-	  		   if($(this).valid()){
-	  			   
-	  			   $("#price_room").html( $(this).val());
-	  			   //update subtotal
-	  			   updateSubtotal();
-	  		   }
-	  		   
-	  		   
-	  	   });
-	  	   */
+
 				/* adjustment and payments*/
 				$.fn.getSelector = function () {
 					var selector = "";
@@ -243,7 +210,7 @@ $(document).ready(function () {
 							$(this).val('');
 							updateSubtotal();
 						}
-						//--- $(this).unbind('keyup');
+
 					});
 				});
 				$('input[name="pay_value_adjustment[]"]').keyup(function () {
@@ -271,43 +238,14 @@ $(document).ready(function () {
 							}
 						});
 						// show new subtotal value
-						//-- $(".subtotal_room").html(new_subtotal);
 						updateSubtotal(); /* end code for subtotal calculation */
 					} else {
-/*				   new_subtotal = parseInt($("#balance_room").val()); 
-			       code for calcute new subtotal 
-				  $("." + current_class_selector).each( function(key, value) {
-					   
-					  if( $(value).valid() )
-					   {
-				   new_subtotal = new_subtotal - parseInt ( $(value).val() );
-					   }
-			  		   });   
-			     $(".balance_room").html(new_subtotal);*/
-						/* end code for subtotal calculation */
+
 						updateBalance();
 					}
-					//--- $(this).unbind('keyup');
+					
 				});
-/*
-			$("#change_rate").toggle(function(){
-				$(".type_rooms").show();
-				$(this).html("done");
-				},function(){
-				$(".type_rooms").hide();
-				
-				_first = $('input:radio[name="per_room_person"]:checked');
-				 _first = (_first.val() !== "")? _first.siblings("label").html() : "error";
-				_second = $('input:radio[name="per_night_week"]:checked');
-				_second = (_second.val() !== "")? _second.siblings("label").html() : "error";
-				_amount = $('input[name="per_value"]');
-				_amount = (_amount.val() !== "")? _amount.val() : "error";
-				
-				if($("#rate").changeRate(_amount, _first, _second) !== false);
-				$(this).html("change rate for this booking");
-				});
-			
-			*/
+
 				//---  ADD ROOMS SECTION CODE   
 				$(".btn_save").button({
 					icons: {
@@ -747,429 +685,11 @@ $(document).ready(function () {
 				//nothing for now -- problema nei selettori
 			}
 		};
-	var $calendar = $('#calendar');
-	var id = 10;
-	//create a Room javascript object
+	
 
-	function Room(room_id, room_name) {
-		this.id = room_id;
-		this.name = room_name;
-	} /* setting rooms_list array */
-	// var list_rooms=new Array(1, 4, 23, 35,36,37,38,39,40,41,42,43,44,45,49,52,53,54,55);
-	//listing sample rooms to display in the planner
-	//  var list_rooms=new Array(new Room(100,"bella vista"), new Room(104,"lato piazza"),new Room(123,"suite"),new Room(135,"al terrazzo"),new Room(136,"vista mare"));
-	var list_rooms = []; /* setting number of rooms */
-	var num_rooms = list_rooms.length;
-	if ($calendar.length > 0) {
-		//get real rooms list
-		$.ajax({
-			url: "findAllRoomsJson.action",
-			context: document.body,
-			success: function (data) {
-				//iterate over the list
-				$(data).each(function (i, val) {
-					//add current room to room list 
-					list_rooms.push(new Room(val.id, val.name));
-				});
-				//calculates the new lenght of the list
-				num_rooms = list_rooms.length;
-				//now load calendar 
-				$calendar.LoadCalendar();
-			},
-			error: function () {
-				//if you cannot retrieve the list of rooms then...
-				$().notify($.i18n("warning"), "Problema restituzione lista camere...");
-			}
-		});
-		$(".type_rooms").hide();
-		$.fn.LoadCalendar = function () {
-			$(this).weekCalendar({
-				timeslotsPerHour: 1,
-				use24Hour: true,
-				newEventText: "Room",
-				timeslotHeight: 30,
-				defaultEventLength: 1,
-				allowCalEventOverlap: false,
-				overlapEventsSeparate: false,
-				firstDayOfWeek: 1,
-				businessHours: {
-					start: 0,
-					end: num_rooms,
-					limitDisplay: true
-				},
-				daysToShow: 10,
-				//added by Alberto
-				listRooms: list_rooms,
-				buttonText: {
-					today: "today",
-					lastWeek: "Prev",
-					nextWeek: "Next"
-				},
-				height: function ($calendar) {
-					return $(window).height() - $("h1").outerHeight() - 1;
-				},
-				eventRender: function (calEvent, $event) {
-					if (calEvent.end.getTime() < new Date().getTime()) {
-						$event.css("backgroundColor", "#aaa");
-						$event.find(".wc-time").css({
-							"backgroundColor": "#999",
-							"border": "1px solid #888"
-						});
-					}
-				},
-				draggable: function (calEvent, $event) {
-					return calEvent.readOnly != true;
-				},
-				resizable: function (calEvent, $event) {
-					return calEvent.readOnly != true;
-				},
-				//metodo per la creazione di una nuova casella
-				eventNew: function (calEvent, $event) {
-					var $dialogContent = $("#event_edit_container");
-/*
-         resetForm($dialogContent);
-         $dialogContent.find("#date_booking").html(calEvent.start + ' - ' + calEvent.end);
-         //set hidden input for date start and date end
-         
-         var duration = days_between(new Date(calEvent.end), new Date(calEvent.start)) + 1;
-         var remainings = days_between_signed(new Date(calEvent.start), new Date());
-         
-         if (remainings < -1)
-        	 {
-        	 	$(".btn_check_in").button("disable");
-        	 }
-         $dialogContent.find("#duration").html(' ( ' + duration + ' days )');
-         
-         */
-					var startField = calEvent.start;
-					var endField = calEvent.end;
-					var id_booked = calEvent.id_booked;
-					var id_room = calEvent.id;
-					var room_name = getRoomNameById(id_booked);
-/*        $dialogContent.find('#sel_rooms_list').val(id_booked);  
- * var titleField = $dialogContent.find("input[name='fullname']");
-         var bodyField = $dialogContent.find("textarea[name='body']");
-         var confirmField = $dialogContent.find("select[name='confirm']");
-         */
-					getCustomers("input[name='fullname']");
-					$dialogContent.load("goAddBookingFromPlanner.action", {
-						'booking.room.id': id_booked,
-						'booking.dateIn': startField,
-						'booking.dateOut': endField
-					}, function () {
-						optionsLoc.init();
-						$(".btn_save").hide();
-					}).dialog({
-						open: function (event, ui) {
-							$(".btn_save").hide();
-						},
-						modal: true,
-						width: 650,
-						hide: "explode",
-						show: "blind",
-						title: "New Booking for room: " + room_name,
-						close: function () {
-							$dialogContent.dialog("destroy");
-							$dialogContent.hide();
-							$('#calendar').weekCalendar("removeUnsavedEvents");
-						},
-						buttons: {
-							save: function () {
-								if (!$dialogContent.find(".yform.json").valid()) {
-									$("#accordion").accordion("option", "active", 0);
-								}
-								$dialogContent.find(".yform.json").submitForm();
-								// $dialogContent.dialog("close");
-							},
-							cancel: function () {
-								$dialogContent.dialog("close");
-								$calendar.weekCalendar("removeEvent", calEvent.id);
-							}
-						}
-					}).show();
-/* $dialogContent.find(".date_holder").text($calendar.weekCalendar("formatDate", calEvent.start));               <input type="hidden" name="season.periods[<s:property value="#periodStatus.index"/>].id" value="<s:property value="#eachPeriod.id"/>"/>
 
-         */
-					//--  setupStartAndEndTimeFields(startField, endField, calEvent, $calendar.weekCalendar("getTimeslotTimes", calEvent.start));
-				},
-				eventDrop: function (calEvent, $event) {},
-				eventResize: function (calEvent, $event) {},
-				//metodo che viene richiamato quando clicco su una casella
-				eventClick: function (calEvent, $event) {
-					if (calEvent.readOnly) {
-						return;
-					}
-					var $dialogContent = $("#event_edit_container");
-/*
-         resetForm($dialogContent);
-         $dialogContent.find("#date_booking").html(calEvent.start + ' - ' + calEvent.end);
-         */
-					//calEvent è un tipo di dato data, che è un oggetto con degli attributi start end e title
-					//per cui, se clicco in una casella che ha già un data calEvent, allora setterò con 
-					//questi valori i campi di testo nella finestra di dialogo.
-					var startField = calEvent.start;
-					var endField = calEvent.end;
-					var id_booked = calEvent.bookId;
-					var id_room = calEvent.id;
-					var room_name = getRoomNameById(id_room);
-/*
-         $dialogContent.find('#room_name_dialog').text(room_name);
-         var titleField = $dialogContent.find("input[name='fullname']");
-         var bodyField = $dialogContent.find("textarea[name='body']");
-         bodyField.val(calEvent.body);
-          	*/
-					$dialogContent.addClass("loaderback").load("goUpdateBookingFromPlanner.action", {
-						id: id_booked
-					}, function () {
-						$(this).removeClass("loaderback");
-						optionsLoc.init();
-						$(".btn_save").hide();
-					}).dialog({
-						open: function (event, ui) {
-							//optionsLoc.init();
-						},
-						modal: true,
-						width: 650,
-						title: "Modify Booking - " + room_name,
-						close: function () {
-							$dialogContent.dialog("destroy");
-							$dialogContent.hide();
-							// $('#calendar').weekCalendar("removeUnsavedEvents");
-						},
-						buttons: {
-							save: function () {
-								if (!$dialogContent.find(".yform.json").valid()) {
-									$("#accordion").accordion("option", "active", 0);
-								}
-								$dialogContent.find(".yform.json").submitForm();
-								// $dialogContent.dialog("close");
-							},
-							"delete": function () {
-								if (confirm("Do you REALLY want to delete it?")) {
-									$dialogContent.find(".yform.json").submitForm("deleteBooking.action");
-									//$calendar.weekCalendar("removeEvent", calEvent.id);
-									$dialogContent.dialog("close");
-								}
-							},
-							cancel: function () {
-								//--  $calendar.weekCalendar("removeEvent", calEvent.id);
-								$dialogContent.dialog("close");
-							}
-						}
-					}).show();
-/*var startField = $dialogContent.find("select[name='start']").val(calEvent.start);
-         var endField = $dialogContent.find("select[name='end']").val(calEvent.end);
-         $dialogContent.find(".date_holder").text($calendar.weekCalendar("formatDate", calEvent.start));
-         setupStartAndEndTimeFields(startField, endField, calEvent, $calendar.weekCalendar("getTimeslotTimes", calEvent.start));
-         */
-					$(window).resize().resize(); //fixes a bug in modal overlay size ??
-				},
-				eventMouseover: function (calEvent, $event) {},
-				eventMouseout: function (calEvent, $event) {},
-				noEvents: function () {},
-/*
-      data : function(start, end, callback) {
-         callback(getEventData());
-      }
-      */
-				data: "findAllBookingsJson.action"
-			});
-		};
-	}
-	// END WEEKCALENDAR FUNCTION
 
-	function resetForm($dialogContent) {
-		$dialogContent.find("input:text").val("");
-		$dialogContent.find("textarea").val("");
-	}
 
-	function days_between(date1, date2) {
-		// The number of milliseconds in one day
-		var ONE_DAY = 1000 * 60 * 60 * 24;
-		// Convert both dates to milliseconds
-		var date1_ms = date1.getTime();
-		var date2_ms = date2.getTime();
-		// Calculate the difference in milliseconds
-		var difference_ms = Math.abs(date1_ms - date2_ms);
-		// Convert back to days and return
-		return Math.round(difference_ms / ONE_DAY);
-	}
-
-	function days_between_signed(date1, date2) {
-		// The number of milliseconds in one day
-		var ONE_DAY = 1000 * 60 * 60 * 24;
-		// Convert both dates to milliseconds
-		var date1_ms = date1.getTime();
-		var date2_ms = date2.getTime();
-		// Calculate the difference in milliseconds
-		var difference_ms = date1_ms - date2_ms;
-		// Convert back to days and return
-		return Math.round(difference_ms / ONE_DAY);
-	}
-
-	function getCustomers(selector, onselectToDo) {
-		var cache = {},
-			lastXhr;
-		var toDo = onselectToDo || null;
-		$(selector).autocomplete({
-			minLength: 2,
-			source: function (request, response) {
-				var term = request.term;
-				if (term in cache) {
-					response(cache[term]);
-					return;
-				}
-				lastXhr = $.getJSON("findAllGuestsJson.action", request, function (data, status, xhr) {
-					//--cache[ term ] = data;
-					var result = new Array();
-					try {
-						$.each(data, function (key, value) {
-							result.push({
-								"id": value.id,
-								"label": value.lastName,
-								"value": value.firstName + value.lastName
-							});
-						});
-					} catch (e) {
-						//nothing. result is empty
-					}
-					cache[term] = result;
-					if (xhr === lastXhr) {
-						response(result);
-					}
-				});
-			},
-			select: function (event, ui) {
-				if (ui.item) {
-					if (toDo == "findAllGuests") {
-						var name = ui.item.value;
-						window.location.href = "findAllGuestsByName.action?term=" + name;
-					} else {
-						$('input[name="booking.booker.id"]').val(ui.item.id);
-						//send an ajax call to guest details retrieving
-						$.ajax({
-							url: "findGuestById.action",
-							dataType: 'json',
-							data: {
-								id: $('input[name="booking.booker.id"]').val()
-							},
-							success: function (response) {
-								if (response.message.result == "success") {
-									$("#phone").val(response.guest.phone);
-									$("#address").val(response.guest.address);
-									$("#country").val(response.guest.country);
-									$("#zipCode").val(response.guest.zipCode);
-									$("#email").val(response.guest.email);
-									$("#fname").val(response.guest.firstName);
-									$("#notes").val(response.guest.notes);
-/*$.each( { name: "John", lang: "JS" }, function(i, n){
-								    alert( "Name: " + i + ", Value: " + n );
-								});
-								*/
-								} else {
-									$().notify($.i18n("warning"), "Problema restituzione dettagli guest...");
-								}
-							},
-							error: function () {
-								//if you cannot retrieve the list of rooms then...
-								$().notify($.i18n("warning"), "Problema  nel contattare il server per dettagli guest...");
-							}
-						});
-					} //END ELSE tODO
-				}
-			}
-		});
-	}
-
-	function getRoomNameById(id) {
-		var input_room_id = $('input[name="id_room"]').filter(function () {
-			return ($(this).val() == id);
-		});
-		var name = $(input_room_id).siblings();
-		if (name.text() != undefined) return name.text();
-		else return '******';
-	}
-
-	function getEventData() {
-		var year = new Date().getFullYear();
-		var month = new Date().getMonth();
-		var day = new Date().getDate();
-		return {
-			events: [{
-				"id": 100,
-				"start": new Date(year, month, day, 12),
-				"end": new Date(year, month, day + 1, 13, 30),
-				"title": "Giovanni Stara"
-			}, {
-				"id": 104,
-				"start": new Date(year, month, day, 14),
-				"end": new Date(year, month, day, 14, 45),
-				"title": "Marc Devois"
-			}, {
-				"id": 123,
-				"start": new Date(year, month, day + 1, 17),
-				"end": new Date(year, month, day + 5, 17, 45),
-				"title": "Laura Molinari"
-			},
-
-				            {
-				"id": 100,
-				"start": new Date(year, month, day + 2, 14),
-				"end": new Date(year, month, day + 2, 15),
-				"title": "Michele Gors"
-			}
-
-				            ]
-		};
-	}
-/*
-    * Sets up the start and end time fields in the calendar event
-    * form for editing based on the calendar event being edited
-    */
-
-	function setupStartAndEndTimeFields($startTimeField, $endTimeField, calEvent, timeslotTimes) {
-		for (var i = 0; i < timeslotTimes.length; i++) {
-			var startTime = timeslotTimes[i].start;
-			var endTime = timeslotTimes[i].end;
-			var startSelected = "";
-			if (startTime.getTime() === calEvent.start.getTime()) {
-				startSelected = "selected=\"selected\"";
-			}
-			var endSelected = "";
-			if (endTime.getTime() === calEvent.end.getTime()) {
-				endSelected = "selected=\"selected\"";
-			}
-			$startTimeField.append("<option value=\"" + startTime + "\" " + startSelected + ">" + timeslotTimes[i].startFormatted + "</option>");
-			$endTimeField.append("<option value=\"" + endTime + "\" " + endSelected + ">" + timeslotTimes[i].endFormatted + "</option>");
-		}
-		$endTimeOptions = $endTimeField.find("option");
-		$startTimeField.trigger("change");
-	}
-	var $endTimeField = $("select[name='end']");
-	var $endTimeOptions = $endTimeField.find("option");
-	//reduces the end time options to be only after the start time options.
-	$("select[name='start']").change(function () {
-		var startTime = $(this).find(":selected").val();
-		var currentEndTime = $endTimeField.find("option:selected").val();
-		$endTimeField.html(
-		$endTimeOptions.filter(function () {
-			return startTime < $(this).val();
-		}));
-		var endTimeSelected = false;
-		$endTimeField.find("option").each(function () {
-			if ($(this).val() === currentEndTime) {
-				$(this).attr("selected", "selected");
-				endTimeSelected = true;
-				return false;
-			}
-		});
-		if (!endTimeSelected) {
-			//automatically select an end date 2 slots away.
-			$endTimeField.find("option:eq(1)").attr("selected", "selected");
-		}
-	});
-	var $about = $("#about");
-	//---  END PLANNER SECTION CODE   
 	//---  LOGIN SECTION CODE   
 	$(".btn_submit").button({
 		icons: {
@@ -1397,57 +917,10 @@ $(document).ready(function () {
 	});
 	$(".erase_period").click(function () {
 		$(this).closest(".subcolumns").remove();
-/*		 var formParent =	$(this).parents(".yform");
-					var season_id = formParent.find('input:hidden[name="season.id"]').val();
-					var period_id_delete = $(this).prev('input.idPeriod') ? $(this).prev('input.idPeriod').val() : null;
-					if ( !period_id_delete ||  !parseInt (period_id_delete)  &&   parseInt (period_id_delete)!=0)
-						{
-							
-							return;
-						}
-						
-					var _redirectAction	= "goUpdateSeason.action?sect=settings&id=" + season_id;
-						$.ajax({
-							  url: "deletePeriodFromSeason.action",
-							  data: { 'season.id': season_id, idPeriod: period_id_delete },
-							  type: "POST",
-							  dataType: 'json',
-							  success: function(data_action){
-						        	if(typeof data_action !== "undefined" &&  data_action.result=="success")
-					        		{
-						        	$(this).closest(".subcolumns").remove();
-					        		$().notify(optionsLoc.alertOK, data_action.description, _redirectAction);
-					        		}
-					        	
-					        	else if(typeof data_action !== "undefined" && data_action.result=="error")
-					        		{
-					        			$().notify(optionsLoc.alertKO, data_action.description);
-					        		}
-					        		
-						        	else{
-						   		   		$(".validationErrors").html(data_action);
-						   		   		}
-						   		    	
-						   		   },
-						   		   
-						   		   error: function (){
-						   			   
-						   			$().notify("Errore Grave", "Problema nella risorsa interrogata nel server");
-						   		   }
-								  
-							  
-							});
-			
-					*/
 	});
 	//---  END SEASONS SECTION CODE  
 	//---  GUESTS SECTION CODE   
-	getCustomers(".txt_guest_search", "findAllGuests");
-	$(".btn_g_search").button({
-		icons: {
-			secondary: "ui-icon-arrowreturnthick-1-e"
-		}
-	});
+
 	$(".btn_add_form").button({
 		icons: {
 			primary: "ui-icon-circle-plus"
@@ -1459,93 +932,8 @@ $(document).ready(function () {
 		$(this).hide();
 		return false;
 	});
-	$(".btn_save_guest").button({
-		icons: {
-			primary: "ui-icon-circle-plus"
-		}
-	});
-	$(".btn_edit_guest").button({
-		icons: {
-			primary: "ui-icon-check"
-		}
-	});
-	$(".btn_delete_guest").click(function (event) {
-		event.preventDefault();
-		$(this).parents(".yform").submitForm("deleteGuest.action");
-	});
-	//---  END GUESTS SECTION CODE  
-	//---  EXTRAS SECTION CODE   
-	var values = [];
-	$(".btn_addExtra").show();
-	$(".btn_addExtra").button({
-		icons: {
-			primary: "ui-icon-circle-plus"
-		}
-	});
-	$(".btn_saveExtra").button({
-		icons: {
-			primary: "ui-icon-check"
-		}
-	});
-	$(".btn_cancel").button({
-		icons: {
-			primary: "ui-icon-cancel"
-		}
-	});
-	$(".btn_addExtra").click(function () {
-		$(this).hide();
-		$("#newExtraForm").show();
-	});
-	$(".btn_delete_extra").click(function (event) {
-		event.preventDefault();
-		$(this).parents("#extraForm").submitForm("deleteExtra.action");
-	});
-	$(".renameExtra").click(function () { //gestisco il rename facendo comparire il form relativo
-		$(this).hide();
-		$(this).siblings(".extraName").hide();
-		$(this).siblings(".renameExtraForm").show();
-		$(this).siblings(".renameExtraForm").select();
-	});
-	$(".renameExtraForm").blur(function () { //gestisco il blur per salvare la rinomina dell'extra
-		//var extraName = added.find(".extraName").text();
-		//var index = values.indexOf(extraName); 					//memorizzo l'indice del div corrente usando il nome dell'extra
-		var newName = $(this).val(); //memorizzo il nome dell'extra modificato
-		//values.splice(index,1, newName);
-		$(this).hide();
-		$(".renameExtra").show(); //mostro il link di rinomina
-		$(this).siblings(".extraName").text(newName); //setto il nome dell'extra modificato
-		$(".extraName").show(); //mostro il nome dell'extra modificato
-		// $("#extraForm").valid();
-	});
-/*$(".btn_cancel").click(function() {	
-	  	  $("#newExtraForm").hide();
-	  	  $(".btn_addExtra").show();
-	    })
-	    */
-	$(".btn_saveExtra").click(function () {
-		$("#extraForm").hide();
-		$(".btn_addExtra").show();
-	});
-/*values.push($("#extraFormName").val());
-		  /var added = $("#newExtra").clone().insertAfter("#newExtra").attr("id", function(){ //clono il div e appendo all'id un progressivo
-		  	return this.id + "_" + values.length;
-		  	}); 
-		  added.find("input").attr("name", function(){ //appendo al name dei radio button un progressivo
-		  	return this.name + "_" + values.length;
-		  	});
-		  //added.find(".renameExtra").before('<span class="extraName">' + values[values.length-1] + '</span>'); //inserisco prima del link il nome dell'extra
-		  added.find(".renameExtraForm").val(function(){ //assegno al value dell'input text il nome dell'extra
-		  	//return values[values.length-1];
-			return $(".extraList").find(".extraName");
-		  	});*/
-/*added.find(".deleteExtra").click(function(){
-		    var extraName = added.find(".extraName").text();
-		  //var index = added.attr("id").substr((added.attr("id").lastIndexOf("_")+1)); memorizzo l'indice del div corrente - errato perche gli indici non si aggiornano man mano che elimino elementi 
-			var index = values.indexOf(extraName); //memorizzo l'indice del div corrente usando il nome dell'extra
-			values.splice(index,1); //elimino l'elemento corrispondente dall'array
-			$(this).closest(".newExtra").remove(); //elimino il div al click del link "delete" 
-			});	*/
-	//---  END EXTRAS SECTION CODE  
+
+
 	//---  DETAILS SECTION CODE   
 	var addEventDeleteImage = function (event) {
 			event.preventDefault();
@@ -1608,18 +996,7 @@ $(document).ready(function () {
 		},
 		cache: false
 	});
-/*	
-			$("#booking_duration").change(function(){
-				
-				var duration = $(this).children(':selected').val();
-				
-				$('input[name="dateIn"]').val()
-				
 
-				
-				
-			});
-				*/
 	var cache = {},
 		lastXhr;
 	$('input[name="fullname"]').autocomplete({
@@ -1637,28 +1014,7 @@ $(document).ready(function () {
 				}
 			});
 		}
-	}); /* extras and pay adjustment */
-/*
-			   $('input[name="extra_value_adjustment"], input[name="pay_value_adjustment"]').keyup(function() {
-				   var current_parent=$(this).parents(".type-text");
-				   var copy_parent = current_parent.clone(true);
-				   copy_parent.find(".green").remove();
-				   copy_parent.find("input").val("");
-				   //copy_parent.find($(this)).bind('keyup',cloneEvent);
-				   copy_parent.insertAfter(current_parent);
-				   $(this).unbind('keyup');
-				   
-				 });
-				 
-				 */
-	//--- $(".type_rooms").hide();
-/*
-				$("#change_rate").toggle(function(){
-				$(".type_rooms").show();	
-				},function(){
-				$(".type_rooms").hide();	
-				});
-				*/
+	}); 
 	//---  END BOOK SECTION CODE  
 	//---  EMAIL SECTION CODE   
 	/* Hide/Show usable parameters */
@@ -1669,9 +1025,7 @@ $(document).ready(function () {
 	});
 	//---  END EMAIL SECTION CODE  
 	//---  ACCOMODATION SECTION CODE    
-	//submit management for add room form
-	//--	  $(".btn_update_room").click(function(){submitForm("findAllRooms.action?section=accomodation", null);});
-	//--	  $(".btn_delete_room").click(function(){submitForm("findAllRooms.action?section=accomodation", "deleteRoom.action");});
+	
 	$(".btn_add_facility_room").button({
 		icons: {
 			primary: "ui-icon-circle-plus"
@@ -1694,10 +1048,6 @@ $(document).ready(function () {
 					modal: true,
 					buttons: {
 						"Save": function () {
-							//var event = new $.Event('click');
-							// event.preventDefault();
-							//$(this).find(".yform.json").find("input:submit").trigger(event);
-							// $(this).find(".yform.json").trigger(event);
 							$(this).find(".yform.json").submitForm();
 							$(this).dialog("close");
 						},
@@ -1714,7 +1064,7 @@ $(document).ready(function () {
 		return false;
 	});
 	$(".btn_delete_room").click(function (event) {
-		//-- event.preventDefault();
+
 		$(this).parents(".yform").attr("action", "deleteRoom.action");
 	});
 	//button click handler for delete all rooms

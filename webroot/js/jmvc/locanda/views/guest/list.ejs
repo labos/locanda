@@ -1,0 +1,5 @@
+<%for(var i = 0; i < guests.length ; i++){%>
+	<tr <%= guests[i]%>>
+		<%= $.View('//locanda/views/guest/show',guests[i])%>
+	</tr>
+<%}%>

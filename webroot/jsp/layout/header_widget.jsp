@@ -28,7 +28,7 @@
 <script type='text/javascript' src='js/lib/jquery-ui-1.8.9.custom.min.js'></script>
 <script type='text/javascript' src='js/jquery.fileupload.js'></script>
 <script type='text/javascript' src='js/jquery.fileupload-ui.js'></script>
-<script type='text/javascript' src="js/jquery.i18n.properties-min.js"></script>
+<script type='text/javascript' src="js/jquery.i18n.js"></script>
       <script>
       $(document).ready(function() {
       <%
@@ -55,7 +55,6 @@
 <script type='text/javascript' src='js/jquery.validate.min.js'></script>
 <script type='text/javascript' src='js/jquery.weekcalendar.js'></script>
 <script type="text/javascript" src="js/jstree/jquery.jstree.js"></script>
-<script type='text/javascript' src='js/main.js'></script>
 <script type='text/javascript' src='js/jquery.jgrowl_minimized.js'></script>
 <script type='text/javascript' src='js/jquery.form.js'></script>
 	<link rel="stylesheet" href="css/jquery.mobile-1.0a4.1.css" />

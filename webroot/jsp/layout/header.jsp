@@ -5,13 +5,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-
 <link type='text/css' href='css/south-street/jquery-ui-1.8.9.custom.css' rel='stylesheet' />
 <link type="text/css" href="css/layout_sliding_door.css" rel="stylesheet"  />
-  
 <script type='text/javascript' src='js/lib/jquery.min.js'></script>
 <!--<script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js'></script>-->
 <script type='text/javascript' src='js/lib/jquery-ui-1.8.9.custom.min.js'></script>
+<script type='text/javascript' src="js/jquerymx-1.0.custom.js"></script>
 <script type="text/javascript" src="js/jstree/jquery.jstree.js"></script>
 <script type='text/javascript' src='js/jquery.fileupload.js'></script>
 <script type='text/javascript' src='js/jquery.fileupload-ui.js'></script>
@@ -32,7 +31,7 @@
 </script>
 <script type='text/javascript' src='js/jquery.weekcalendar.js'></script>
 <script type='text/javascript' src='js/jquery.validate.min.js'></script>
-<script type='text/javascript' src='js/main.js'></script>
+<script type='text/javascript' src="js/steal/steal.js?controllers/loader.js"></script>
 <script type='text/javascript' src='js/jquery.jgrowl_minimized.js'></script>
 
   <title>LOCANDA - Open Source Booking Tool</title><!-- (en) Add your meta data here -->

@@ -18,6 +18,7 @@
 <script type='text/javascript' src='js/lib/jquery.min.js'></script>
 <!--<script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js'></script>-->
 <script type='text/javascript' src='js/lib/jquery-ui-1.8.9.custom.min.js'></script>
+<script type='text/javascript' src="js/jquerymx-1.0.custom.js"></script>
 <script type='text/javascript' src='js/ftod.js'></script>
 <script type="text/javascript" src="js/jstree/jquery.jstree.js"></script>
 <script type='text/javascript' src='js/jquery.form.js'></script>
@@ -38,16 +39,19 @@ $(document).ready(function () { <%
     I18NSettings = {};
     I18NSettings.datePattern = '<s:property value="#session.datePattern"/>'.toLowerCase();
     I18NSettings.ita = "ita";
-    //to avoid undefined on pre-login phase..
+    //to avoid undefined warning on pre-login phase...
     if (typeof I18NSettings.datePattern === 'undefined') {
         I18NSettings.datePattern = "dd/mm/yy";
     }
     $._.setLocale('<s:property value="#request.locale" />');
+    
+   
+  
 });
 </script>
 <script type='text/javascript' src='js/jquery.weekcalendar.js'></script>
 <script type='text/javascript' src='js/jquery.validate.min.js'></script>
-<script type='text/javascript' src='js/main.js'></script>
+<script type='text/javascript' src="js/steal/steal.js?controllers/loader.js"></script>
 <script type='text/javascript' src='js/jquery.jgrowl_minimized.js'></script>
   
   <title>LOCANDA - Open Source Booking Tool</title><!-- (en) Add your meta data here -->
