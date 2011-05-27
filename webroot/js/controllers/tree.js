@@ -1,6 +1,8 @@
 $(function() {
 	
 //---  PRICE LISTS SECTION CODE
+    $.Class.extend('Tree', /* @static */ {	
+    	init: function () {
 	$(".room_tree, .extra_tree").bind("loaded.jstree", function (event, data) {
 		$(".jstree-leaf").click(function (event) {
 			event.preventDefault();
@@ -78,6 +80,10 @@ $(function() {
 		},
 		"plugins": ["themes", "json_data"]
 	});
+	
+    	}},	{});
+	
+	
 	//---  END PRICE LISTS SECTION CODE 
 	
 });

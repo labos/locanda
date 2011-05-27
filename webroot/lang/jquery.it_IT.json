@@ -1,0 +1,10 @@
+$.i18n.it_IT = {
+    numeralBase: 2406,
+    numeralPrefix: "u0",
+};
+$.i18n.it_IT.strings = {
+    congratulation: "Congratulazioni",
+    warning: "Attenzione",
+    alertDelete: "Sei sicuro di voler cancellare?"
+};
+   

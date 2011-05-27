@@ -1,5 +1,6 @@
 $(function() {
-
+    $.Class.extend('Calendar', /* @static */ {
+    	init: function () {
 
 var $calendar = $('#calendar');
 	var id = 10;
@@ -166,7 +167,7 @@ var $calendar = $('#calendar');
 								// $dialogContent.dialog("close");
 							},
 							"delete": function () {
-								if (confirm("Do you REALLY want to delete it?")) {
+								if (confirm($.i18n("alertDelete"))) {
 									$dialogContent.find(".yform.json").submitForm("deleteBooking.action");
 									//$calendar.weekCalendar("removeEvent", calEvent.id);
 									$dialogContent.dialog("close");
@@ -329,7 +330,7 @@ var $calendar = $('#calendar');
 		};
 		
 		
-		
+    	}},/* @prototype */ {});
 		
 		
 });

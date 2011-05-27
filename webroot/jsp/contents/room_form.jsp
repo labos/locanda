@@ -10,7 +10,6 @@
               <div class="c50l">
               	<input type="hidden" name="redirect_form" value="findAllRooms.action?sect=accomodation" />
               	<input type="hidden" name="room.id" value="<s:property value="room.id"/>"/>
-           	 	<div class="c50l">
            	 	  <div class="type-text">
                   	<label for="roomName">Room name: <sup title="This field is mandatory.">*</sup></label>
                   	<input class="required" type="text" name="room.name" id="roomName" value="<s:property value="room.name"/>" size="20" />
@@ -38,9 +37,7 @@
                   <div class="type-button">
             		<button class="btn_save">SAVE</button>
            		 	<button class="btn_reset btn_cancel_form">CANCEL</button>
-           		  </div>
-              
-      		    </div>		    
+           		  </div>	    
               </div>
               
               <div class="c50l">

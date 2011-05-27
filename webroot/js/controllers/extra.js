@@ -1,6 +1,8 @@
 $(function() {
 	
 //---  EXTRAS SECTION CODE   
+    $.Class.extend('Extra', /* @static */ {	
+    	init: function () {
 	var values = [];
 	$(".btn_addExtra").show();
 	$(".btn_addExtra").button({
@@ -50,7 +52,6 @@ $(function() {
 	//---  END EXTRAS SECTION CODE  
 	
 	
-	
-
+    	}}, {});
 	
 });

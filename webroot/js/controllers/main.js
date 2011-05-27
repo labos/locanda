@@ -74,7 +74,7 @@ $(document).ready(function () {
                 }
             }).click(function (event) {
                 event.preventDefault();
-                if (confirm("Do you REALLY want to delete it?")) {
+                if (confirm($.i18n("alertDelete"))) {
                     $(this).parents(".yform").submitForm();
                 }
             });
@@ -131,6 +131,7 @@ $(document).ready(function () {
             position: "center",
             speed: 1000,
             life: 1000,
+            closeDuration: "fast",
             header: title,
             close: function () {
                 $(".ui-widget-overlay").hide();

@@ -1,5 +1,6 @@
 $(function() {
-
+    $.Class.extend('Guest', /* @static */ {	
+    	init: function () {
 	$.fn.getCustomers = function (selector, onselectToDo) {
 		var cache = {},
 			lastXhr;
@@ -109,7 +110,7 @@ $(function() {
 	
 	
 	
-	
+    	}},	{});
 	
 	
 	

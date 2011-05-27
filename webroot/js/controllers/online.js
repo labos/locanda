@@ -1,5 +1,6 @@
 $(function() {
-	
+    $.Class.extend('Online', /* @static */ {	
+    	init: function () {
 //---  EMAIL SECTION CODE   
     /* Hide/Show usable parameters */
     $("#show_usable").toggle(function () {
@@ -26,4 +27,5 @@ $(function() {
     });
     //---  END ONLINE BOOKINGS SECTION CODE
     
+    	}},	{});
 });

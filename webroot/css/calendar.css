@@ -39,7 +39,7 @@ event_edit_container
 }
 
 .wc-header td {
-	background: url(images/header-bg.png) repeat-x;
+	/* background: url(images/header-bg.png) repeat-x;*/
 }
 
 label {

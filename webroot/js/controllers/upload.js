@@ -1,5 +1,7 @@
 $(function() {
-	
+
+    $.Class.extend('Upload', /* @static */ {	
+    	init: function () {
 	$.fn.addImageObject = function (responseObject, actionName) {
 		if (responseObject && typeof actionName !== "undefined" && actionName && typeof actionName === "string") {
 			if (responseObject.roomFacility && actionName.indexOf("uploadFacility") >= 0) {
@@ -289,7 +291,7 @@ $.fn.deprecatedBrowser = function () {
 			var $this = $(event.currentTarget);
 			//--  $(this).closest("." + "guest" + "_row").remove();
 			var urlAction = $this.attr("href");
-			if (confirm("Do you REALLY want to delete it?")) {
+			if (confirm($.i18n("alertDelete"))) {
 				$.ajax({
 					type: 'POST',
 					url: urlAction,
@@ -311,4 +313,6 @@ $.fn.deprecatedBrowser = function () {
 			}
 		};
 		
+		
+    	}},	{});
 });

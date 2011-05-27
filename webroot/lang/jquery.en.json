@@ -4,5 +4,6 @@ $.i18n.en = {
 };
 $.i18n.en.strings = {
     congratulation: "Congratulation",
-    warning: "Warning"
+    warning: "Warning",
+    alertDelete: "Do you REALLY want to delete it?"
 };

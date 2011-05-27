@@ -69,7 +69,7 @@ $(document).ready(function () { <%
    <s:param name="request_locale" >en</s:param>
 </s:url>
 <s:url id="localeIT" namespace="/" action="locale" >
-   <s:param name="request_locale" >it</s:param>
+   <s:param name="request_locale" >it_IT</s:param>
 </s:url>
 <body>
   <!-- skip link navigation -->

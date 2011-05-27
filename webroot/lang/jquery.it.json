@@ -1,9 +1,0 @@
-$.i18n.it = {
-    numeralBase: 2406,
-    numeralPrefix: "u0",
-};
-$.i18n.it.strings = {
-    congratulation: "Congratulazioni",
-    warning: "Attenzione"
-};
-   

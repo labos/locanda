@@ -56,7 +56,7 @@
                 </div>
              </div>           
              <div class="type-button">
-             	<button class="btn_delete">DELETE</button>
+             	<button class="btn_delete"><s:text name="delete" /></button>
              </div>
                </fieldset>
  </form>

@@ -20,7 +20,8 @@
           <span class="name_section">Guest Details</span>
           <div class="right type-text">
           <input type="text" name="guest_search" class="txt_guest_search" /><button class="btn_g_search">SEARCH</button>
-            <div class="search_links"><span>Or browse:&nbsp;</span><a href="#">staying this week</a><span>,&nbsp;</span><a href="#">staying next week</a>,&nbsp;<a href="#">staying this month</a>,&nbsp;<a href="#">staying last month</a>,&nbsp;<a href="#">all</a></div>
+        
+            <div class="search_links"><!--<span>Or browse:&nbsp;</span><a href="#">staying this week</a><span>,&nbsp;</span><a href="#">staying next week</a>,&nbsp;<a href="#">staying this month</a>,&nbsp;<a href="#">staying last month</a>,&nbsp;<a href="#">all</a>--></div>
             </div>
           </div>
           <div>
@@ -53,8 +54,8 @@
               	  <div class="c20l"><b>Subtotal:</b> <p>&euro; <% out.print(adjPluspay) ; %></p></div>
               	</div>
               	<div class="book_guest">                    
-              	  <div class="c20l"><a href="goUpdateBooking.action?sect=planner&id=<s:property value="#eachBooking.id"/>"><span class="link">Details</span></a></div>
-              	  <div class="c20l"><a href="goAddNewBooking.action?sect=planner"><span class="link">New Booking</span></a></div><div class="c20l"><span></span></div><div class="c20l"><span></span></div>
+              	  <div class="c20l"><a href="goUpdateBooking.action?sect=planner&id=<s:property value="#eachBooking.id"/>"><span class="link"><s:text name="details" /></span></a></div>
+              	  <div class="c20l"><a href="goAddNewBooking.action?sect=planner"><span class="link"><s:text name="newBooking" /></span></a></div><div class="c20l"><span></span></div><div class="c20l"><span></span></div>
               	</div>
               </div>
               

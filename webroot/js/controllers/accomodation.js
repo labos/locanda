@@ -1,7 +1,9 @@
 $(function() {
 	
+	
 //---  ACCOMODATION SECTION CODE    
-	  
+    $.Class.extend('Accomodation', /* @static */ {	
+    	init: function () {
 	//select room types
 	$("#roomtype_id").autocomplete({
 		minLength: 2,
@@ -134,7 +136,11 @@ $(function() {
 		"plugins": ["themes", "json_data"]
 	});
 	
-	
+    	}},
+    {}
+    
+    );
+    
 	//---  END ACCOMODATION SECTION CODE 
 	
 });

@@ -18,9 +18,9 @@
           <span class="name_section"><s:text name="manageGuests" /></span>   
           <div class="right type-text">
             <input type="text" name="term" class="txt_guest_search" /><button class="btn_g_search">SEARCH</button>      
-            <div class="search_links">
-              <span>Or browse:&nbsp;</span><a href="#">staying this week</a><span>,&nbsp;</span><a href="#">staying next week</a>,&nbsp;<a href="#">staying this month</a>,&nbsp;<a href="#">staying last month</a>,&nbsp;<a href="#">all</a>
-            </div>
+              <div class="search_links">
+              <!--<span>Or browse:&nbsp;</span><a href="#">staying this week</a><span>,&nbsp;</span><a href="#">staying next week</a>,&nbsp;<a href="#">staying this month</a>,&nbsp;<a href="#">staying last month</a>,&nbsp;<a href="#">all</a>
+            --></div>
           </div>  
         </div>
           </form>
@@ -54,7 +54,7 @@
                   </div>
                 </div>
              	<div class="type-button">
-             	  <button class="btn_delete">DELETE</button>
+             	  <button class="btn_delete"><s:text name="delete" /></button>
                 </div>
            	  </fieldset>
             </form>        
