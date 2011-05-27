@@ -39,24 +39,6 @@ public class StructureAction extends ActionSupport implements SessionAware {
 	private Image image = null;
 	
 
-	public Map<String, Object> getSession() {
-		return session;
-	}
-	
-	@Override
-	public void setSession(Map<String, Object> session) {
-		this.session = session;
-	}
-
-	public Message getMessage() {
-		return message;
-	}
-
-	public void setMessage(Message message) {
-		this.message = message;
-	}
-	
-
 	@Actions({
 		@Action(value="/goUpdateDetails",results = {
 				@Result(name="success",location="/details_edit.jsp")
@@ -175,6 +157,22 @@ public class StructureAction extends ActionSupport implements SessionAware {
 		structure.setNotes(this.structure.getNotes());
 	}
 
+	public Map<String, Object> getSession() {
+		return session;
+	}
+	
+	@Override
+	public void setSession(Map<String, Object> session) {
+		this.session = session;
+	}
+
+	public Message getMessage() {
+		return message;
+	}
+
+	public void setMessage(Message message) {
+		this.message = message;
+	}
 	public Structure getStructure() {
 		return structure;
 	}

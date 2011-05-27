@@ -20,6 +20,7 @@ import model.listini.RoomPriceListItem;
 import model.listini.Season;
 
 public class Structure {
+	private Integer id;
 	private String name;
 	private String email;
 	private String url;
@@ -513,14 +514,16 @@ public class Structure {
 	
 	
 	//Season
-	public Boolean addSeason(Season aSeason){
+	/*public Boolean addSeason(Season aSeason){
 		return this.getSeasons().add(aSeason);
-	}
+	}*/
 	
+	/*
 	public Boolean removeSeason(Season aSeason){
 		return this.getSeasons().remove(aSeason);		
-	}
+	}*/
 	
+	/*
 	public Season findSeasonById(Integer id){
 		Season ret = null;
 		
@@ -531,7 +534,8 @@ public class Structure {
 		}
 		return ret;
 	}
-	
+	*/
+	/*
 	public List<Season> findSeasonsByYear(Integer year){
 		List<Season> ret = new ArrayList<Season>();
 		
@@ -541,8 +545,9 @@ public class Structure {
 			}
 		}
 		return ret;
-	}
+	}*/
 	
+	/*
 	public Boolean updateSeason(Season aSeason){
 		Season oldSeason = this.findSeasonById(aSeason.getId());
 		
@@ -553,8 +558,9 @@ public class Structure {
 		oldSeason.setYear(aSeason.getYear());
 		oldSeason.setPeriods(aSeason.getPeriods());
 		return true;
-	}
+	}*/
 	
+	/*
 	public Season findSeasonByName(String name){
 		Season ret = null;
 		
@@ -564,7 +570,7 @@ public class Structure {
 			}
 		}
 		return ret;
-	}
+	}*/
 	
 	public Season findSeasonByDate(Date date){
 		Season ret = null;
@@ -965,5 +971,14 @@ public class Structure {
 	public void setRoomTypeFacilities(List<RoomFacility> roomTypeFacilities) {
 		this.roomTypeFacilities = roomTypeFacilities;
 	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	
 	
 }

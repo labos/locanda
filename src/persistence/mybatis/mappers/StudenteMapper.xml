@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="persistence.mybatis.mappers.SeasonMapper">
+
+   <!-- 
+  <cache />
+   -->
+
+  
+  <select id="findAll"  resultMap="studenteWithEsamiUsingJoin">
+   <include refid="selectStudenteWithEsamiUsingJoin"/> 
+  </select> 
+ 
+ <!--
+  <select id="findAll"  resultMap="studenteWithEsamiUsingSubselect">
+   <include refid="selectStudente"/> 
+   
+  </select>
+  -->
+  <!-- 
+  <select id="findByMatricola" parameterType="int" resultMap="studenteWithEsamiUsingJoin">
+  	<include refid="selectStudenteWithEsamiUsingJoin"/>  where s.matricola = #{matricola}
+  </select>
+   
+  
+  
+  <select id="findByMatricola" parameterType="int" resultMap="studenteWithEsamiUsingSubselect">
+  	<include refid="selectStudente"/>  where s.matricola = #{matricola}  	
+  </select>
+  
+  <select id="findByMatricolaNome" parameterType="studente" resultMap="studenteWithEsamiUsingSubselect">
+  	<include refid="selectStudente"/>  
+  		<if test="studente.matricola != 0">
+  			
+  		</if>  	
+  </select>
+  -->
+  <sql id="selectStudenteWithEsamiUsingJoin">  
+  	SELECT 
+    	s.id as studente_id ,s.nome as studente_nome ,s.matricola as studente_matricola,
+    	e.id as esame_id,e.nome as  esame_nome,e.docente as  esame_docente,e.voto as  esame_voto,e.data as  esame_data,e.id_studente as  esame_id_studente 
+    	FROM studente s left outer join esame e on s.id = e.id_studente
+  </sql>
+  <!-- 
+   <sql id="selectStudente">  
+  	SELECT 
+    	s.id as studente_id ,s.nome as studente_nome ,s.matricola as studente_matricola	FROM studente s
+  </sql>
+   -->
+   
+  <resultMap id="studenteWithEsamiUsingJoin" type="model.Studente"  >
+  	<id property="id" column="studente_id" />
+  	<result property="nome" column="studente_nome"/>
+  	<result property="matricola" column="studente_matricola"/> 
+  	<collection  property="esami"  resultMap="esame"/>
+  </resultMap>
+  
+  <!--  
+  <resultMap id="studenteWithEsamiUsingSubselect" type="studente"  >
+  	<id property="id" column="studente_id" />
+  	<result property="nome" column="studente_nome"/>
+  	<result property="matricola" column="studente_matricola"/> 
+  	<collection property="esami" column="studente_id" select="subselectEsami"/>
+  </resultMap>
+  
+  <select id="subselectEsami"  parameterType="int" resultMap="esame">  
+  	SELECT 
+  		e.id as esame_id,e.nome as  esame_nome,e.docente as  esame_docente,e.voto as  esame_voto,e.data as  esame_data,e.id_studente as  esame_id_studente 
+    	FROM esame e where e.id_studente = #{id_studente}
+  </select>
+-->
+  <resultMap id="esame" type="model.Esame" >
+  	<id property="id" column="esame_id"/>
+  	<result property="nome" column="esame_nome"/>
+  	<result property="docente" column="esame_docente"/>
+  	<result property="voto" column="esame_voto"/>
+  	<result property="data" column="esame_data"/>
+  	<result property="id_studente" column="esame_id_studente"/>  	
+  </resultMap>  
+  
+  <!--  
+  <insert id="insert" keyProperty="id" useGeneratedKeys="true" parameterType="studente"  >
+  	insert into studente(nome,matricola) values(#{nome},#{matricola})
+  </insert>
+  
+  <update id="update" parameterType="studente" >
+  	update studente set nome = #{nome}, matricola = #{matricola} where id = #{id}
+  </update>
+  -->
+  
+</mapper>

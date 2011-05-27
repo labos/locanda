@@ -1,14 +1,16 @@
 package model.listini;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class Season {
+public class Season implements Serializable{
 	private Integer id;
 	private String name;
 	private Integer year;	
 	private List<Period> periods;
+	private Integer id_structure;
 	
 	public Season(){
 		this.setPeriods(new ArrayList<Period>());
@@ -84,6 +86,16 @@ public class Season {
 
 	public void setName(String name) {
 		this.name = name;
-	}	
+	}
+
+	public Integer getId_structure() {
+		return id_structure;
+	}
+
+	public void setId_structure(Integer id_structure) {
+		this.id_structure = id_structure;
+	}
+	
+	
 
 }

@@ -1,0 +1,141 @@
+package service;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import persistence.mybatis.mappers.SeasonMapper;
+
+import model.listini.Period;
+import model.listini.Season;
+
+@Service
+public class SeasonServiceImpl implements SeasonService{
+	@Autowired
+	private SeasonMapper seasonMapper = null;
+	
+	public List<Season> findSeasonsByStructureId(Integer structureId) {
+		
+		return this.getSeasonMapper().findSeasonsByStructureId(structureId);
+	}
+	
+	public Season findSeasonById(Integer seasonId) {
+		
+		return this.getSeasonMapper().findSeasonById(seasonId);
+	}
+	
+	
+	
+	
+	public Season findSeasonByName(Integer structureId,String name) {
+		Map params = new HashMap();
+		params.put("structureId", structureId);
+		params.put("name", name);
+		
+		return this.getSeasonMapper().findSeasonByName(params);
+	}
+	
+	public List<Season> findSeasonsByYear(Integer structureId,Integer year) {
+		Map params = new HashMap();
+		params.put("structureId", structureId);
+		params.put("year", year);
+		return this.getSeasonMapper().findSeasonsByYear(params);
+	}
+	
+	public Season findSeasonByDate(Integer structureId, Date date){
+		Season ret = null;
+		
+		for(Season each: this.getSeasonMapper().findSeasonsByStructureId(structureId)){
+			if(each.includesDate(date)){
+				return each;
+			}
+		}
+		return ret;
+	}
+	
+	
+
+	public Integer insertSeason(Season season) {
+		Integer ret = 0;
+		
+		ret = this.getSeasonMapper().insertSeason(season);
+		if(ret > 0){
+			for(Period each: season.getPeriods()){
+				each.setId_season(season.getId());
+				this.getSeasonMapper().insertPeriod(each);
+			}
+		}		
+		return ret;
+	}
+	
+	public Integer updateSeason(Season season) {
+		Integer ret = null;
+		List<Integer> oldPeriodIds = null;
+		Season oldSeason = null;
+		
+		oldPeriodIds = new ArrayList<Integer>();
+		oldSeason = this.getSeasonMapper().findSeasonById(season.getId());
+		for(Period each: oldSeason.getPeriods()){
+			oldPeriodIds.add(each.getId());
+		}
+		
+		ret = this.getSeasonMapper().updateSeason(season);
+		if(ret>0){
+			for(Period each: season.getPeriods()){
+				if(each.getId()==null){
+					//Si tratta di un nuovo period quindi devo fare un insert
+					each.setId_season(season.getId());
+					this.getSeasonMapper().insertPeriod(each);
+				}else{
+					//Si tratta di un period esistente quindi devo fare un update
+					
+					oldPeriodIds.remove(each.getId());
+					each.setId_season(season.getId());
+					this.getSeasonMapper().updatePeriod(each);
+				}				
+			}
+			//La collezione oldPeriodIds in questo punto contiene gli Id dei periodi che
+			//devono essere rimossi
+			for(Integer oldPeriodId: oldPeriodIds){
+				this.getSeasonMapper().deletePeriod(oldPeriodId);
+			}
+		}
+		return ret;
+	}
+
+	
+	public Integer deleteSeason(Integer seasonId) {
+		Integer ret = 0;
+		
+		this.getSeasonMapper().deletePeriodsFromSeason(seasonId);
+		ret = this.getSeasonMapper().deleteSeason(seasonId);
+		return ret;
+	}
+	
+	
+
+	
+	
+
+	public Integer deletePeriod(Integer periodId) {
+		Integer ret = 0;
+		
+		ret = this.getSeasonMapper().deletePeriod(periodId);
+		return ret;
+	}
+
+	public SeasonMapper getSeasonMapper() {
+		return seasonMapper;
+	}
+
+	public void setSeasonMapper(SeasonMapper seasonMapper) {
+		this.seasonMapper = seasonMapper;
+	}
+
+
+}

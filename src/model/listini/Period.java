@@ -1,5 +1,6 @@
 package model.listini;
 
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -8,10 +9,11 @@ import org.apache.commons.lang.time.DateUtils;
 
 
 
-public class Period {
-	private Integer id;
+public class Period implements Serializable{
+	private Integer id = null;
 	private Date startDate;
 	private Date endDate;
+	private Integer id_season;
 	
 	
 	public Boolean includesDate(Date date){
@@ -41,6 +43,16 @@ public class Period {
 	}
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
-	}	
+	}
 
+
+	public Integer getId_season() {
+		return id_season;
+	}
+
+
+	public void setId_season(Integer id_season) {
+		this.id_season = id_season;
+	}	
+	
 }

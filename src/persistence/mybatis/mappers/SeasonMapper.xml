@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="persistence.mybatis.mappers.SeasonMapper">
+
+ 
+  <cache />
+    
+
+  
+  <select id="findSeasonsByStructureId" parameterType="int" resultMap="seasonWithPeriodsUsingJoin">
+   <include refid="selectSeasonWithPeriodsUsingJoin"/> where s.id_structure = #{id_structure}
+  </select> 
+  
+  <select id="findSeasonById" parameterType="int" resultMap="seasonWithPeriodsUsingJoin">
+   <include refid="selectSeasonWithPeriodsUsingJoin"/> where s.id = #{id}
+  </select> 
+  
+  <select id="findSeasonByName" parameterType="map" resultMap="seasonWithPeriodsUsingJoin">
+   <include refid="selectSeasonWithPeriodsUsingJoin"/> where s.name = #{name} and s.id_structure = #{structureId}
+  </select> 
+ 
+ <select id="findSeasonsByYear" parameterType="map" resultMap="seasonWithPeriodsUsingJoin">
+   <include refid="selectSeasonWithPeriodsUsingJoin"/> where s.year = #{year} and s.id_structure = #{structureId}
+  </select> 
+  
+  <sql id="selectSeasonWithPeriodsUsingJoin">  
+  	  	select s.id as season_id, s.name as season_name, s.year as season_year, s.id_structure as season_id_structure, 
+  	  	p.id as period_id, p.startDate as period_startDate, p.endDate as period_endDate, p.id_season as period_id_season 
+  	  	from season s left outer join period p on s.id = p.id_season 
+  	  	
+  </sql>
+ 
+   
+  <resultMap id="seasonWithPeriodsUsingJoin" type="model.listini.Season"  >
+  	<id property="id" column="season_id" />
+  	<result property="name" column="season_name"/>
+  	<result property="year" column="season_year"/> 
+   	<result property="id_structure" column="season_id_structure"/> 
+  	<collection  property="periods"  resultMap="period"/>
+  </resultMap>
+  
+  
+  <resultMap id="period" type="model.listini.Period" >
+  	<id property="id" column="period_id"/>
+  	<result property="startDate" column="period_startDate"/>
+  	<result property="endDate" column="period_endDate"/>
+  	<result property="id_season" column="period_id_season"/>  	
+  </resultMap>  
+  
+  <insert id="insertSeason" parameterType="model.listini.Season" useGeneratedKeys="true" keyProperty="id">
+  	insert into season(name,year,id_structure) values (#{name},#{year},#{id_structure}) 
+  </insert> 
+  
+  <insert id="insertPeriod" parameterType="model.listini.Period" useGeneratedKeys="true" keyProperty="id">
+  	insert into period(startDate,endDate,id_season) values(#{startDate},#{endDate},#{id_season})	  
+  </insert>
+  
+  <update id="updateSeason" parameterType="model.listini.Season">
+    update season set name = #{name}, year = #{year}, id_structure = #{id_structure} where id = #{id}  
+  </update>
+  
+  <update id="updatePeriod" parameterType="model.listini.Period">
+    update period set startDate = #{startDate}, endDate = #{endDate}, id_season = #{id_season} where id = #{id}  
+  </update>
+  
+  <delete id="deleteSeason" parameterType="int">
+    delete from season where id = #{id}  
+  </delete>
+  
+  <delete id="deletePeriodsFromSeason" parameterType="int">
+    delete from period where id_season = #{id_season}  
+  </delete>
+  
+   <delete id="deletePeriod" parameterType="int">
+    delete from period where id = #{id}  
+  </delete>
+    
+</mapper>

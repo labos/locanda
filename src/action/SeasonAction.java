@@ -2,6 +2,7 @@ package action;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -10,6 +11,9 @@ import org.apache.struts2.convention.annotation.Actions;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.interceptor.SessionAware;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import service.SeasonService;
 
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -25,12 +29,13 @@ public class SeasonAction extends ActionSupport implements SessionAware {
 	private Map<String, Object> session = null;
 	private List<Season> seasons = null;
 	private Season season = null;
-	private String startDate = null;
-	private String endDate = null;
 	private Integer idPeriod = null;
 	private List<Period> periods = new ArrayList<Period>();
 	private Message message = new Message();
-
+	
+	@Autowired
+	private SeasonService seasonService = null;
+	
 	@Actions({ 
 		@Action(value = "/findAllSeasons", 
 				results = { @Result(name = "success", location = "/seasons.jsp") })
@@ -40,33 +45,14 @@ public class SeasonAction extends ActionSupport implements SessionAware {
 		Structure structure = null;
 		
 		user = (User) session.get("user");
-		structure = user.getStructure();
-		this.setSeasons(structure.getSeasons());
-		return SUCCESS;
-	}
-
-	@Actions({ 
-		@Action(value = "/findSeasonById", 
-				results = { @Result(name = "success", location = "/seasons.jsp") })
-	})
-	public String findSeasonById() {
-		//in working....
-		return SUCCESS;
-	}
-
-	@Actions({ @Action(value = "/findSeasonByPeriod", results = {
-			@Result(type = "json", name = "success", params = { "root", "message" }),
-			@Result(type = "json", name = "error", params = { "root", "message" }) })
-	})
-	public String findSeasonByPeriod() {
-		User user = null;
-		Structure structure = null;
+		structure = user.getStructure();	
 		
-		user = (User) session.get("user");
-		structure = user.getStructure();
-		//in progress....
+		this.setSeasons(this.getSeasonService().findSeasonsByStructureId(structure.getId()));
+		//Rimuovere questa istruzione quando tutto sarà  sul DB
+		structure.setSeasons(this.getSeasons());
 		return SUCCESS;
 	}
+
 	
 	@Actions({ 
 		@Action(value = "/goUpdateSeason", 
@@ -79,12 +65,15 @@ public class SeasonAction extends ActionSupport implements SessionAware {
 		
 		user = (User) session.get("user");
 		structure = user.getStructure();
-		theSeason = structure.findSeasonById(this.getId());
+		
+		theSeason = this.getSeasonService().findSeasonById(this.getId());
+		//theSeason = structure.findSeasonById(this.getId());
 		this.setSeason(theSeason);
 		return SUCCESS;
 	}
 	
-
+	
+	
 	@Actions({ @Action(value = "/saveUpdateSeason", results = {
 			@Result(type = "json", name = "success", params = { "root",
 					"message" 
@@ -97,43 +86,52 @@ public class SeasonAction extends ActionSupport implements SessionAware {
 		User user = null;
 		Structure structure = null;
 		Season oldSeason = null;
+		List <Period> periodsWithoutNulls = null; 
+		
 		
 		user = (User) session.get("user");
 		structure = user.getStructure();
-		this.setSeasons(structure.getSeasons());
-		saveUpdatePeriods(structure);
-		oldSeason = structure.findSeasonById(this.getSeason().getId());
-		int currentYear = Calendar.getInstance().get(Calendar.YEAR);		//voglio settare l'anno della stagione con l'anno corrente
-		if (oldSeason == null) {
-			// Si tratta di una nuova season
-			this.getSeason().setId(structure.nextKey());
-			this.getSeason().setYear(currentYear);
-			structure.addSeason(this.getSeason());
-			structure.refreshPriceLists();
-		} else {
-			// Si tratta di un update di un booking esistente
-			structure.updateSeason(this.getSeason());
-		}
-		this.getMessage().setResult(Message.SUCCESS);
-		this.getMessage().setDescription("Season Added successfully");
-		return SUCCESS;
-	}
-
-	private Boolean saveUpdatePeriods(Structure structure) {
-		List <Period> periodsWithoutNulls = new ArrayList<Period>();
 		
+		periodsWithoutNulls = new ArrayList<Period>();
 		for (Period currPeriod : this.periods) {
 			if ((currPeriod != null )){
-				periodsWithoutNulls.add(currPeriod);
-				if  (currPeriod.getId() == null) {
-					currPeriod.setId(structure.nextKey());
-				}
+				periodsWithoutNulls.add(currPeriod);				
 			}
-		}
+			
+		}		
 		this.getSeason().setPeriods(periodsWithoutNulls);
-		return true;
+		
+		this.getSeason().setId_structure(structure.getId());
+		
+		//oldSeason = structure.findSeasonById(this.getSeason().getId());
+		oldSeason = this.getSeasonService().findSeasonById(this.getSeason().getId());
+		
+		if (oldSeason == null) {
+			// Si tratta di una nuova season
+			//Voglio settare l'anno della stagione con l'anno corrente
+			int currentYear = Calendar.getInstance().get(Calendar.YEAR);		
+			this.getSeason().setYear(currentYear);			
+			this.getSeasonService().insertSeason(this.getSeason());			
+			this.getMessage().setDescription("Season Added successfully");
+			
+			
+			
+			structure.refreshPriceLists();		
+			
+			
+		} else {
+			// Si tratta di un update di una season esistente
+			//workaround aspettando che la form di edit della season abbia anche il campo year
+			int currentYear = Calendar.getInstance().get(Calendar.YEAR);		
+			this.getSeason().setYear(currentYear);	
+			this.getSeasonService().updateSeason(this.getSeason());			
+			this.getMessage().setDescription("Season Updated successfully");			
+		}
+		this.getMessage().setResult(Message.SUCCESS);
+		return SUCCESS;
 	}
-
+	
+	
 	@Actions({ @Action(value = "/deleteSeason", results = {
 			@Result(type = "json", name = "success", params = { "root", "message" }),
 			@Result(type = "json", name = "error", params = { "root", "message" }) 
@@ -141,66 +139,20 @@ public class SeasonAction extends ActionSupport implements SessionAware {
 
 	})
 	public String deleteSeason() {
-		User user = null;
-		Structure structure = null;
-		Season currentSeason = null; 
-		
-		user = (User) session.get("user");
-		structure = user.getStructure();
-		currentSeason = structure.findSeasonById(this.season.getId());
-		if(structure.removeSeason(currentSeason)){
+		try{
+			this.getSeasonService().deleteSeason(this.season.getId());
 			this.getMessage().setResult(Message.SUCCESS);
 			this.getMessage().setDescription("Season removed successfully");
 			return SUCCESS;
-		}else{
+		}catch (Exception e) {
 			this.getMessage().setResult(Message.ERROR);
 			this.getMessage().setDescription("Error removing Season");
 			return ERROR;
 		}
+		
+		
 	}
 	
-	@Actions({ @Action(value = "/deletePeriodFromSeason", results = {
-			@Result(type = "json", name = "success", params = { "root", "message" }),
-			@Result(type = "json", name = "error", params = { "root", "message" }) 
-			})
-	})
-	public String deletePeriodFromSeason() {
-		User user = null;
-		Structure structure = null;
-		Season currentSeason = null;
-		
-		user = (User) session.get("user");
-		structure = user.getStructure();
-		currentSeason = structure.findSeasonById(this.season.getId());
-		try {
-			if (currentSeason.getPeriods().remove(
-					this.getPeriodById(this.idPeriod, currentSeason))) {
-				this.getMessage().setResult(Message.SUCCESS);
-				this.getMessage().setDescription("Period removed successfully");
-				return SUCCESS;
-			} else {
-				this.getMessage().setResult(Message.ERROR);
-				this.getMessage().setDescription("Error in removing the selected period");
-				return ERROR;
-			}
-		} catch (Exception e) {
-			this.getMessage().setResult(Message.ERROR);
-			this.getMessage().setDescription("Exception removing period");
-			return ERROR;
-		}
-	}
-
-	private Period getPeriodById(Integer id, Season season) {
-		Period aPeriod = null;
-
-		for (Period currPeriod : season.getPeriods()) {
-			if (currPeriod.getId() == id) {
-				aPeriod = currPeriod;
-			}
-		}
-		return aPeriod;
-	}
-
 	public Message getMessage() {
 		return message;
 	}
@@ -232,18 +184,7 @@ public class SeasonAction extends ActionSupport implements SessionAware {
 	public void setSeasons(List<Season> seasons) {
 		this.seasons = seasons;
 	}
-	public String getStartDate() {
-		return startDate;
-	}
-	public void setStartDate(String startDate) {
-		this.startDate = startDate;
-	}
-	public String getEndDate() {
-		return endDate;
-	}
-	public void setEndDate(String endDate) {
-		this.endDate = endDate;
-	}
+	
 	public List<Period> getPeriods() {
 		return periods;
 	}
@@ -256,5 +197,17 @@ public class SeasonAction extends ActionSupport implements SessionAware {
 	public void setId(Integer id) {
 		this.id = id;
 	}
+
+
+	public SeasonService getSeasonService() {
+		return seasonService;
+	}
+
+
+	public void setSeasonService(SeasonService seasonService) {
+		this.seasonService = seasonService;
+	}
+	
+	
 	
 }
