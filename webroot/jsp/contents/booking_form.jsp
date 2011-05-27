@@ -425,20 +425,21 @@ display: none;
                       
                       <s:iterator value="booking.extraItems" var="eachExtraItem" status="itemStatus">
                                     
-                      	<s:if test="#eachExtraItem.extra = #eachExtra">	
+                      	<s:if test="#eachExtraItem.extra == #eachExtra">	
               		  	<div class="type-select">
               		  	  <input type="hidden" class="idExtraItem" name="booking.extraItems[<s:property value="#itemStatus.index"/>].id" value="<s:property value="#eachExtraItem.id"/>"/>
               		  	  <div class="c40l">
               		  	  	<label for="quantity">Quantity: </label>
-              		  	  	<select name="booking.extraItems[<s:property value="#itemStatus.index"/>].quantity"  id="quantity" class="required">
+              		  	  	<select name="booking.extraItems[<s:property value="#itemStatus.index"/>].quantity" id="quantity" class="required">
               		  	  	
               		  	  	<s:if test="#eachExtraItem.quantity != null">
               		  	  	  <s:bean name="org.apache.struts2.util.Counter" var="counter">
 								<s:param name="last" value="#eachExtraItem.quantity"/>
 							  </s:bean>
-							  <s:iterator value="#counter">
-								<option value="<s:property value="#itemStatus.index"/>"
-								  <s:if test="#eachExtraItem.quantity == #counter">selected=selected</s:if> >						
+							  <s:iterator value="#counter" var="index">
+								<option value="<s:property value="#index"/>"
+								  <s:if test="#eachExtraItem.quantity == #index">selected=selected</s:if> >
+								  <s:property value="#index"/>					
 								</option>
 							  </s:iterator>
               		  	  	</s:if>
@@ -453,10 +454,8 @@ display: none;
                     	  	  <option value="8">8</option>
                     	  	  <option value="9">9</option>
                     	  	  <option value="10">10</option>
-              		  	  	</s:else>
-              		  	 
-              		  	  	</select>  
-              		  	  	
+              		  	  	</s:else> 
+              		  	  	</select>   	
               		  	</div>
                   	  	<div class="c33l">
                   	  	  <div class="subcl type-text"><span>&euro;: </span><s:property value="#eachExtraItem.unitaryPrice" /></div>

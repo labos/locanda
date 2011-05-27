@@ -349,7 +349,7 @@ $(function () {
                     $(this).closest("." + selector + "_row").remove();
                 });
             }); /*ADD LISTENER FOR CHANGE ROOM OR DATEIN OR DATEOUT OR NUMNIGHTS FROM BOOKING*/
-            $('#sel_rooms_list, #booking_duration, input:text[name="booking.dateIn"], input:text[name="booking.dateOut"], input:checkbox[name="bookingExtraIds"], #nr_guests, #convention').change(function () {
+            $('#sel_rooms_list, #booking_duration, input:text[name="booking.dateIn"], input:text[name="booking.dateOut"], input:checkbox[name="bookingExtraIds"], #nr_guests, #convention, #quantity').change(function () {
                 // check in room was selected
                 if (!(parseInt($('#sel_rooms_list').val()) > 0)) {
                     $().notify($.i18n("warning"), "Devi selezionare una room");
