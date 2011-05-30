@@ -6,7 +6,7 @@ $.i18n.en.strings = {
     congratulation: "Congratulation",
     warning: "Warning",
     alertDelete: "Do you REALLY want to delete it?",
-    seriousError: "Serious Error",
+    seriousError: "Error",
     seriousErrorDescr: "there was a problem in the resource server call",
     dateInVsdateOut: "Attenzione, la data di inizio non può essere uguale a quella di fine",
     nrGuestVsMaxGuest: "Attenzione, stai aggiungendo un numero di ospiti maggiore della capacità della stanza",
