@@ -121,20 +121,22 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		
 		oldBooking = structure.findBookingById(this.getId());
 		this.setBooking(oldBooking);
-		this.setRooms(structure.getRooms());
-		this.setExtras(structure.getExtras());		
-		this.setBookingExtraIds(this.calculateBookingExtraIds());
-		this.setConventions(structure.getConventions());
-
-		//Update subtotals for any price list changes
+		
 		roomSubtotal = structure.calculateRoomSubtotalForBooking(oldBooking);
 		this.getBooking().setRoomSubtotal(roomSubtotal);
-		checkedExtras = structure.findExtrasByIds(this.getBookingExtraIds());
-		this.getBooking().buildExtraItemsFromExtras(structure);
-		
 		
 		extraSubtotal = this.getBooking().calculateExtraSubtotalForBooking();
 		this.getBooking().setExtraSubtotal(extraSubtotal);
+		
+		/*
+		checkedExtras = structure.findExtrasByIds(this.getBookingExtraIds());
+		this.getBooking().buildExtraItemsFromExtras(structure);
+		*/
+		
+		this.setRooms(structure.getRooms());
+		this.setExtras(structure.getExtras());		
+		this.setBookingExtraIds(this.calculateBookingExtraIds());
+		this.setConventions(structure.getConventions());		
 		
 		numNights = this.getBooking().calculateNumNights();
 		this.setNumNights(numNights);
@@ -311,6 +313,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 				return ERROR;
 		}
 		this.getMessage().setResult(Message.SUCCESS);
+		
 		this.getMessage().setDescription("Booking Dates OK!");
 		return SUCCESS;
 	}	
