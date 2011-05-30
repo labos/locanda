@@ -86,7 +86,7 @@ var $calendar = $('#calendar');
 					var id_booked = calEvent.id_booked;
 					var id_room = calEvent.id;
 					var room_name = getRoomNameById(id_booked);
-					$().getCustomers("input[name='fullname']");
+					Guest.getCustomers("input[name='fullname']");
 					$dialogContent.load("goAddBookingFromPlanner.action", {
 						'booking.room.id': id_booked,
 						'booking.dateIn': startField,

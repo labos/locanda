@@ -85,10 +85,13 @@ $(function () {
                     $("#booking_duration").val(numNights);
                 }
             });
-            $().getCustomers("input[name='booking.booker.lastName']"); /* end booking section initialization */
+            
+            Guest.getCustomers("input[name='booking.booker.lastName']"); /* end booking section initialization */
+            
             $(".btn_checked").button({
                 disabled: true
             });
+            
             $(".btn_check_in").button({
                 icons: {
                     primary: "ui-icon-check"

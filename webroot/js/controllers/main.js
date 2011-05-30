@@ -107,69 +107,75 @@ $(document).ready(function () {
        	 	new Season(I18NSettings.lang, I18NSettings.datePattern);
        	 	
        	 	/* End Controllers initialization */
+       	 	
+       	 	
+       	 	
+       	    //Submit form function
+       	    $.fn.submitForm = function (action) {
+       	        //setting for input form fields
+       	        var formInput = $(this).serialize();
+       	        var hrefAction = action || $(this).attr("action");
+       	        var _redirectAction = $(this).find('input:hidden[name="redirect_form"]').val();
+       	        _redirectAction = (_redirectAction == null) ? "home.action" : _redirectAction;
+       	        //if form is valid
+       	        if ($(this).valid()) {
+       	            $.ajax({
+       	                type: "POST",
+       	                url: hrefAction,
+       	                data: formInput,
+       	                success: function (data_action) {
+       	                    var title_notification = null;
+       	                    if (data_action.result == "success") {
+       	                        $().notify($.i18n("congratulation"), data_action.description, _redirectAction);
+       	                    } else if (data_action.result == "error") {
+       	                        $().notify($.i18n("warning"), data_action.description);
+       	                    } else {
+       	                        $(".validationErrors").html(data_action);
+       	                    }
+       	                },
+       	                error: function () {
+       	                    $().notify("Errore Grave", "Problema nella risorsa interrogata nel server");
+       	                }
+       	            });
+       	        }
+       	        return false;
+       	    };
+       	    
+       	    
+
+       	    //Notifier for all jsp(s)
+       	    $.fn.notify = function (title, description, redirect) {
+       	        //get height of the body to cover all html page
+       	        var heightbody = $('body').height();
+       	        if (!$(".ui-widget-overlay").is(':visible')) {
+       	            $(".ui-widget-overlay").css("height", heightbody).show();
+       	        }
+       	        $.jGrowl(description, {
+       	            beforeClose: function (e, m) {
+       	                if (redirect) {
+       	                    window.location.href = redirect;
+       	                }
+       	            },
+       	            animateOpen: {
+       	                height: 'show'
+       	            },
+       	            position: "center",
+       	            speed: 1000,
+       	            life: 1000,
+       	            closeDuration: "fast",
+       	            header: title,
+       	            close: function () {
+       	                $(".ui-widget-overlay").hide();
+       	            }
+       	        });
+       	    };
+       	    
+       	    
+       	 	
+       	 	
         }
     }, /* @prototype */ {});
     
-   
-
-    //Notifier for all jsp(s)
-    $.fn.notify = function (title, description, redirect) {
-        //get height of the body to cover all html page
-        var heightbody = $('body').height();
-        if (!$(".ui-widget-overlay").is(':visible')) {
-            $(".ui-widget-overlay").css("height", heightbody).show();
-        }
-        $.jGrowl(description, {
-            beforeClose: function (e, m) {
-                if (redirect) {
-                    window.location.href = redirect;
-                }
-            },
-            animateOpen: {
-                height: 'show'
-            },
-            position: "center",
-            speed: 1000,
-            life: 1000,
-            closeDuration: "fast",
-            header: title,
-            close: function () {
-                $(".ui-widget-overlay").hide();
-            }
-        });
-    };
-    
-    //Submit form function
-    $.fn.submitForm = function (action) {
-        //setting for input form fields
-        var formInput = $(this).serialize();
-        var hrefAction = action || $(this).attr("action");
-        var _redirectAction = $(this).find('input:hidden[name="redirect_form"]').val();
-        _redirectAction = (_redirectAction == null) ? "home.action" : _redirectAction;
-        //if form is valid
-        if ($(this).valid()) {
-            $.ajax({
-                type: "POST",
-                url: hrefAction,
-                data: formInput,
-                success: function (data_action) {
-                    var title_notification = null;
-                    if (data_action.result == "success") {
-                        $().notify($.i18n("congratulation"), data_action.description, _redirectAction);
-                    } else if (data_action.result == "error") {
-                        $().notify($.i18n("warning"), data_action.description);
-                    } else {
-                        $(".validationErrors").html(data_action);
-                    }
-                },
-                error: function () {
-                    $().notify("Errore Grave", "Problema nella risorsa interrogata nel server");
-                }
-            });
-        }
-        return false;
-    };
-
 
 
 });
