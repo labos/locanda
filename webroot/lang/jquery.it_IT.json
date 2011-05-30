@@ -6,8 +6,8 @@ $.i18n.it_IT.strings = {
     congratulation: "Congratulazioni",
     warning: "Attenzione",
     alertDelete: "Sei sicuro di voler cancellare?",
-    seriousError: "Serious Error",
-    seriousErrorDescr: "there was a problem in the resource server call",
+    seriousError: "Errore",
+    seriousErrorDescr: "C'è stato un errore nella risorsa interrogata dal server",
     dateInVsdateOut: "Attenzione, la data di inizio non può essere uguale a quella di fine",
     nrGuestVsMaxGuest: "Attenzione, stai aggiungendo un numero di ospiti maggiore della capacità della stanza",
     roomRequired: "Devi selezionare una room",
@@ -15,7 +15,7 @@ $.i18n.it_IT.strings = {
     listGuestsRetrive: "Problema restituzione dettagli guest...",
     uploadStopped: "E'stato interrotto l'upload",
     facilityNameRequired: "Devi inserire il nome della facility",
-    bookingOverlapping: "Error checking booking overlappings in server"
+    bookingOverlapping: "Errore: booking sovrapposti"
     
     
 };

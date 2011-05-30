@@ -8,12 +8,12 @@ $.i18n.en.strings = {
     alertDelete: "Do you REALLY want to delete it?",
     seriousError: "Error",
     seriousErrorDescr: "there was a problem in the resource server call",
-    dateInVsdateOut: "Attenzione, la data di inizio non può essere uguale a quella di fine",
-    nrGuestVsMaxGuest: "Attenzione, stai aggiungendo un numero di ospiti maggiore della capacità della stanza",
-    roomRequired: "Devi selezionare una room",
-    listRoomsRetrieve: "Problema restituzione lista camere...",
+    dateInVsdateOut: "Please note, the start date can not be equal to that of the end",
+    nrGuestVsMaxGuest: "Be careful, you're adding a number of guests exceeds the capacity of the room",
+    roomRequired: "You must select a room",
+    listRoomsRetrieve: "Problem getting rooms list...",
     listGuestsRetrive: "Problema restituzione dettagli guest...",
-    uploadStopped: "E'stato interrotto l'upload",
-    facilityNameRequired: "Devi inserire il nome della facility",
+    uploadStopped: "The Upload was interrupted",
+    facilityNameRequired: "You must enter the name of the facility",
     bookingOverlapping: "Error checking booking overlappings in server"
 };
