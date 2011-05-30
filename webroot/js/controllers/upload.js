@@ -234,11 +234,11 @@ $.fn.deprecatedBrowser = function () {
 			} else if (typeof json !== "undefined" && typeof json.message !== "undefined" && json.message.result == "error") {
 				$().notify($.i18n("warning"), json.description);
 			} else {
-				$().notify($.i18n("warning"), "Errore nei dati restituiti");
+				$().notify($.i18n("warning"), $.i18n("seriousErrorDescr"));
 			}
 		},
 		onAbort: function (event, files, index, xhr, handler) {
-			$().notify($.i18n("warning"), "E'stato interrotto l'upload");
+			$().notify($.i18n("warning"), $.i18n("uploadStopped"));
 			handler.removeNode(handler.uploadRow);
 		},
 		onError: function (event, files, index, xhr, handler) {
@@ -271,7 +271,7 @@ $.fn.deprecatedBrowser = function () {
 				if (isNaN(readyState) || readyState < 2) {
 					handler.onAbort(event, files, index, xhr, handler);
 				}
-				$().notify($.i18n("warning"), "Devi inserire il nome della facility");
+				$().notify($.i18n("warning"), $.i18n("facilityNameRequired"));
 			}
 		},
 		previewSelector: ".image_preview",
@@ -307,7 +307,7 @@ $.fn.deprecatedBrowser = function () {
 						}
 					},
 					error: function () {
-						$().notify("Errore Grave", "Problema nella risorsa interrogata nel server");
+						$().notify($.i18n("seriousError"), $.i18n("seriousErrorDescription"));
 					}
 				});
 			}

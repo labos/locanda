@@ -101,12 +101,12 @@ $(function () {
                                         $("#notes").val(response.guest.notes);
                                     }
                                     else {
-                                        $().notify($.i18n("warning"), "Problema restituzione dettagli guest...");
+                                        $().notify($.i18n("warning"), $.i18n("listGuestsRetrive"));
                                     }
                                 },
                                 error: function () {
                                     //if you cannot retrieve the list of rooms then...
-                                    $().notify($.i18n("warning"), "Problema  nel contattare il server per dettagli guest...");
+                                    $().notify($.i18n("seriousError"), $.i18n("seriousErrorDescription"));
                                 }
                             });
                         } //END ELSE tODO

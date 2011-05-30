@@ -10,10 +10,12 @@ var $calendar = $('#calendar');
 		this.id = room_id;
 		this.name = room_name;
 	} /* setting rooms_list array */
+	//for samples usage:
 	// var list_rooms=new Array(1, 4, 23, 35,36,37,38,39,40,41,42,43,44,45,49,52,53,54,55);
 	//listing sample rooms to display in the planner
 	//  var list_rooms=new Array(new Room(100,"bella vista"), new Room(104,"lato piazza"),new Room(123,"suite"),new Room(135,"al terrazzo"),new Room(136,"vista mare"));
-	var list_rooms = []; /* setting number of rooms */
+	var list_rooms = []; 
+	/* setting number of rooms */
 	var num_rooms = list_rooms.length;
 	if ($calendar.length > 0) {
 		//get real rooms list
@@ -33,7 +35,7 @@ var $calendar = $('#calendar');
 			},
 			error: function () {
 				//if you cannot retrieve the list of rooms then...
-				$().notify($.i18n("warning"), "Problema restituzione lista camere...");
+				$().notify($.i18n("warning"),$.i18n("listRoomsRetrieve"));
 			}
 		});
 		$(".type_rooms").hide();
@@ -92,7 +94,8 @@ var $calendar = $('#calendar');
 						'booking.dateIn': startField,
 						'booking.dateOut': endField
 					}, function () {
-						Option.init(I18NSettings.lang, I18NSettings.datePattern);
+						new Option(I18NSettings.lang, I18NSettings.datePattern);
+						new Booking(I18NSettings.lang, I18NSettings.datePattern);
 						$(".btn_save").hide();
 					}).dialog({
 						open: function (event, ui) {
@@ -144,7 +147,8 @@ var $calendar = $('#calendar');
 						id: id_booked
 					}, function () {
 						$(this).removeClass("loaderback");
-						Option.init(I18NSettings.lang, I18NSettings.datePattern);
+						new Option(I18NSettings.lang, I18NSettings.datePattern);
+						new Booking(I18NSettings.lang, I18NSettings.datePattern);
 						$(".btn_save").hide();
 					}).dialog({
 						open: function (event, ui) {
@@ -291,9 +295,6 @@ var $calendar = $('#calendar');
 			}
 		});
 		var $about = $("#about");
-		//---  END PLANNER SECTION CODE   
-		
-		
 		
 
 		function getRoomNameById(id) {

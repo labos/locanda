@@ -73,4 +73,6 @@ $(function() {
 	 
 
 	//---  END SEASONS SECTION CODE 
+	 
+	 new Season(I18NSettings.lang, I18NSettings.datePattern);
 });

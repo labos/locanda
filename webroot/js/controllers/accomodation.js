@@ -45,7 +45,7 @@ $(function () {
                         });
                     },
                     error: function () {
-                        $().notify("Errore Grave", "Problema nella risorsa interrogata nel server");
+                        $().notify($.i18n("seriousError"), $.i18n("seriousErrorDescription"));
                     }
                 });
                 return false;
@@ -85,7 +85,7 @@ $(function () {
                             $(".wrapper-facility").append(data);
                         },
                         error: function (request, state, errors) {
-                            $().notify($.i18n("warning"), "Problema restituzione lista Facility delle room types...");
+                            $().notify($.i18n("seriousError"), $.i18n("seriousErrorDescription"));
                         }
                     });
                 }

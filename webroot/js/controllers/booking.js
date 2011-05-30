@@ -80,7 +80,7 @@ $(function () {
                     var selectedData = $(this).datepicker("getDate");
                     if (selectedData && otherData) {
                         numNights = Booking.days_between_signed(otherData, selectedData);
-                        if (numNights == 0) $().notify(this.alertKO, "Attenzione, la data di inizio non può essere uguale a quella di fine");
+                        if (numNights == 0) $().notify(this.alertKO, $.i18n("dateInVsdateOut"));
                     }
                     $("#booking_duration").val(numNights);
                 }
@@ -152,7 +152,7 @@ $(function () {
                                             }
                                         },
                                         error: function () {
-                                            $().notify("Errore Grave", "Problema nella risorsa interrogata nel server");
+                                            $().notify($.i18n("seriousError"), $.i18n("seriousErrorDescription"));
                                         }
                                     });
                                 });
@@ -166,7 +166,7 @@ $(function () {
                             }
                         },
                         error: function () {
-                            $().notify("Errore Grave", "Problema nella risorsa interrogata nel server");
+                            $().notify($.i18n("seriousError"), $.i18n("seriousErrorDescription"));
                         }
                     });
                 }
@@ -204,7 +204,7 @@ $(function () {
                         }
                     },
                     error: function () {
-                        $().notify("Errore Grave", "Problema nella risorsa interrogata nel server");
+                        $().notify($.i18n("seriousError"), $.i18n("seriousErrorDescription"));
                     }
                 });
             }); /* extras adding */
@@ -257,8 +257,10 @@ $(function () {
                     Booking.updateSubtotal();
                     $(this).closest("." + selector + "_row").remove();
                 });
-                added.find(".extra_value_" + selector + "").keyup(function () { /* prepare selector string for class whit whitespaces */
-                    var current_class_selector = $(this).attr("class").replace(new RegExp(" ", "g"), "."); /* adjust subtotal ... */
+                added.find(".extra_value_" + selector + "").keyup(function () { 
+                	/* prepare selector string for class whit whitespaces */
+                    var current_class_selector = $(this).attr("class").replace(new RegExp(" ", "g"), ".");
+                    /* adjust subtotal ... */
                     var new_subtotal = null;
                     if ($(this).valid()) {
                         if ( $(this).getSelector() == "adjustment") {
@@ -275,7 +277,8 @@ $(function () {
                 });
             });
             $('input[name="pay_value_adjustment[]"]').keyup(function () {
-                var current_parent = $(this).parents(".type-text"); /* prepare selector string for class whit whitespaces */
+                var current_parent = $(this).parents(".type-text"); 
+                /* prepare selector string for class whit whitespaces */
                 var current_class_selector = $(this).attr("class").replace(new RegExp(" ", "g"), "."); /* check if current was cloned */
                 var next_sibling = current_parent.next().find(".extra_value_adjustment");
                 var prova = next_sibling.size();
@@ -343,7 +346,7 @@ $(function () {
                 // get last subcolumns
                 var dd = $formParent.siblings("." + selector + "_row:last").length ? $formParent.siblings("." + selector + "_row:last") : $formParent;
                 // setup of cloned row to add
-                if (num_of_items >= numbermaxGuests) $().notify(this.alertKO, "Attenzione, stai aggiungendo un numero di ospiti maggiore della capacità della stanza");
+                if (num_of_items >= numbermaxGuests) $().notify(this.alertKO,$.i18n("seriousError"), $.i18n("nrGuestVsMaxGuest") );
                 var added = $("#to_add_" + selector + "").clone().insertAfter(dd).removeAttr("id").show();
                 added.html(added.html().replace(/__PVALUE__/ig, num_of_items));
                 // attach listener to cloned row
@@ -355,7 +358,7 @@ $(function () {
             $('#sel_rooms_list, #booking_duration, input:text[name="booking.dateIn"], input:text[name="booking.dateOut"], input:checkbox[name="bookingExtraIds"], #nr_guests, #convention, #quantity').change(function () {
                 // check in room was selected
                 if (!(parseInt($('#sel_rooms_list').val()) > 0)) {
-                    $().notify($.i18n("warning"), "Devi selezionare una room");
+                    $().notify($.i18n("warning"), $.i18n("roomRequired"));
                     return;
                 }
                 var formInput = $(this).parents().find(".yform.json").serialize();
@@ -426,7 +429,7 @@ $(function () {
                         }
                     },
                     error: function () {
-                        $().notify("Errore Grave", "Problema nella risorsa interrogata nel server");
+                        $().notify($.i18n("seriousError"), $.i18n("seriousErrorDescription"));
                     }
                 });
             });
@@ -460,4 +463,6 @@ $(function () {
         }
         //---  END BOOK SECTION CODE  
     });
+    
+    new Booking(I18NSettings.lang, I18NSettings.datePattern);
 });

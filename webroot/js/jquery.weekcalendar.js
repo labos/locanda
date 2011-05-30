@@ -861,7 +861,7 @@ $.ajax({
 	    
 	     else if (data_action.result == "error")
 	    	 {
-	    	 	alert("Attenzione: " + data_action.description);
+	    	 	alert($.i18n("warning") + data_action.description);
 	    	 	self.element.weekCalendar("removeUnsavedEvents");
 	    	 }
 	   	else{
@@ -869,7 +869,7 @@ $.ajax({
 	   		}  
 	  },
 	  error: function() {
-		  alert ("Error checking booking overlappings in server");
+		  alert ($.i18n("bookingOverlapping"));
 		  self.refresh();
 	  },
 	  dataType: 'json'

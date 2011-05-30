@@ -25,9 +25,6 @@ $(function () {
             $(".room_tree, .extra_tree").bind("loaded.jstree", function (event, data) {
                 $(".jstree-leaf").click(function (event) {
                     event.preventDefault();
-                    //$(".room_tree").jstree("refresh");
-                    //$(".room_tree").jstree("refresh", $(".jstree-clicked"));
-                    //$(this).refresh();
                     var url_table = $("a", this).attr("href");
                     $.ajax({
                         url: url_table,
