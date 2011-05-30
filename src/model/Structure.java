@@ -723,7 +723,7 @@ public class Structure {
 		Integer dayOfWeek = 0;
 		Calendar calendar;
 		
-		bookingDates = this.calculateBookingDates(booking.getDateIn(), booking.getDateOut());
+		bookingDates = booking.calculateBookingDates();
 		for(Date aBookingDate: bookingDates){
 			season = this.findSeasonByDate(aBookingDate);
 			listinoCameraDelGiorno = this.findRoomPriceListBySeasonAndRoomTypeAndConvention(season, booking.getRoom().getRoomType(), booking.getConvention());
@@ -735,6 +735,7 @@ public class Structure {
 		return ret;
 	}
 	
+	/*
 	public Double calculateExtraSubtotalForBooking(Booking booking){
 		Double ret = 0.0;
 		
@@ -742,7 +743,7 @@ public class Structure {
 				ret = ret + eachItem.getSubtotal();
 			  }
 		return ret;
-	}
+	}*/
 	
 //	public Double calculateExtraSubtotalForBooking(Booking booking){
 //		Double ret = 0.0;
@@ -766,6 +767,7 @@ public class Structure {
 //		return ret;
 //	}
 	
+	/*
 	private List<Date> calculateBookingDates(Date dateIn, Date dateOut){	//crea un array di date, che corrispondono alla permanenza
 		List<Date> bookingDates = null; 
 		Date current = null;
@@ -783,7 +785,7 @@ public class Structure {
 		
 		return bookingDates;
 	}
-	
+	*/
 	
 	//Structure Images	
 	public Boolean addStructureImage(Image structureImage){

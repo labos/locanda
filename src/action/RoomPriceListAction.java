@@ -53,10 +53,10 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware{
 	@Actions({
 		@Action(value="/calculatePrices",results = {
 				@Result(type ="json",name="success", params={
-						"excludeProperties","session"
+						"excludeProperties","session,seasonService"
 				}),
 				@Result(type ="json",name="error", params={
-						"excludeProperties","session"
+						"excludeProperties","session,seasonService"
 				}),
 				@Result(name="input", location = "/validationError.jsp")
 		})
@@ -73,14 +73,14 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware{
 		user = (User)this.getSession().get("user");
 		structure = user.getStructure();
 		
-		if ( (this.getBooking().getDateOut() != null) && (this.getBooking().getDateIn() != null) ) {
-			if(DateUtils.truncatedCompareTo(this.getBooking().getDateOut(), this.getBooking().getDateIn(), Calendar.DAY_OF_MONTH)<=0){
-				this.getMessage().setResult(Message.ERROR);
-				this.getMessage().setDescription("DateOut deve essere maggiore di DateIn!");
-				return "error";
-			}				
-		}
-		
+			if ( (this.getBooking().getDateOut() != null) && (this.getBooking().getDateIn() != null) ) {
+				if(DateUtils.truncatedCompareTo(this.getBooking().getDateOut(), this.getBooking().getDateIn(), Calendar.DAY_OF_MONTH)<=0){
+					this.getMessage().setResult(Message.ERROR);
+					this.getMessage().setDescription("DateOut deve essere maggiore di DateIn!");
+					return "error";
+				}				
+			}
+			
 		theBookedRoom = structure.findRoomById(this.getBooking().getRoom().getId());
 		this.getBooking().setRoom(theBookedRoom);
 		
@@ -88,20 +88,25 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware{
 			this.getBooking().setNrGuests(theBookedRoom.getRoomType().getMaxGuests());
 		}
 		
+		
 		numNights = this.getBooking().calculateNumNights();
 		this.setNumNights(numNights);
 		roomSubtotal = structure.calculateRoomSubtotalForBooking(this.getBooking());		
 		this.getBooking().setRoomSubtotal(roomSubtotal);
 		
+		
 		checkedExtras = structure.findExtrasByIds(this.getBookingExtraIds());
 		this.getBooking().setExtras(checkedExtras);
 		this.getBooking().buildExtraItemsFromExtras(structure);
-		extraSubtotal = structure.calculateExtraSubtotalForBooking(this.getBooking());
+		extraSubtotal = this.getBooking().calculateExtraSubtotalForBooking();
 		this.getBooking().setExtraSubtotal(extraSubtotal);	
+			
+			
 		
 		this.getMessage().setResult(Message.SUCCESS);
 		this.getMessage().setDescription("Prezzo Calcolato con Successo");
-		return "success";				
+		return "success";	
+					
 	}
 	
 	@Actions({

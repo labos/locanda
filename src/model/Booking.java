@@ -1,8 +1,14 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
+import org.apache.commons.lang.time.DateUtils;
+
+import service.StructureService;
+
 import model.listini.Convention;
 import model.listini.ExtraPriceList;
 import model.listini.Season;
@@ -135,31 +141,8 @@ public class Booking {
 		return ret;
 	}
 
-	/*public Double calculateExtraItemUnitaryPrice(Structure structure, BookedExtraItem extraItem) {
-		Double ret = 0.0;
-		ExtraPriceList priceList = null;
-		ExtraPriceList otherPriceList = null;
-		Season season = null;
-		Season otherSeason = null;
-		Double price = 0.0;
-		Double otherPrice = 0.0;
-		
-		season = structure.findSeasonByDate(this.getDateIn());
-		priceList = structure.findExtraPriceListBySeasonAndRoomTypeAndConvention(season, this.getRoom().getRoomType(), this.getConvention());
-		price = priceList.findExtraPrice(extraItem.getExtra());
-		ret = price;
-		
-		if (!this.getDateIn().equals(this.getDateOut())) {	//se ho un booking a cavallo di due stagioni, prendo il prezzo più basso
-			otherSeason = structure.findSeasonByDate(this.getDateOut());
-			otherPriceList = structure.findExtraPriceListBySeasonAndRoomTypeAndConvention(otherSeason, this.getRoom().getRoomType(), this.getConvention());				price = priceList.findExtraPrice(extraItem.getExtra());
-			otherPrice = otherPriceList.findExtraPrice(extraItem.getExtra());
-			if (price > otherPrice) {
-				ret = otherPrice;
-			}
-		}
-		return ret;
-	}*/
 	
+	/*
 	public Double calculateExtraItemUnitaryPrice(Structure structure, Extra extra) {
 		Double ret = 0.0;
 		ExtraPriceList priceList = null;
@@ -172,21 +155,56 @@ public class Booking {
 		season = structure.findSeasonByDate(this.getDateIn());
 		priceList = structure.findExtraPriceListBySeasonAndRoomTypeAndConvention(season, this.getRoom().getRoomType(), this.getConvention());
 		price = priceList.findExtraPrice(extra);
-		ret = price;
 		
-		if (!this.getDateIn().equals(this.getDateOut())) {	//se ho un booking a cavallo di due stagioni, prendo il prezzo più basso
-			otherSeason = structure.findSeasonByDate(this.getDateOut());
-			otherPriceList = structure.findExtraPriceListBySeasonAndRoomTypeAndConvention(otherSeason, this.getRoom().getRoomType(), this.getConvention());	
-			price = priceList.findExtraPrice(extra);
-			otherPrice = otherPriceList.findExtraPrice(extra);
-			if (price > otherPrice) {
-				ret = otherPrice;
-			}
-		}
+		//se ho un booking a cavallo di due stagioni, prendo il prezzo più basso
+		otherSeason = structure.findSeasonByDate(this.getDateOut());
+		otherPriceList = structure.findExtraPriceListBySeasonAndRoomTypeAndConvention(otherSeason, this.getRoom().getRoomType(), this.getConvention());	
+		price = priceList.findExtraPrice(extra);
+		otherPrice = otherPriceList.findExtraPrice(extra);
+		
+		ret = Math.min(price,otherPrice);
+		
+		return ret;
+	}*/
+	
+	
+	public Double calculateExtraItemUnitaryPrice(Structure structure, Extra extra) {
+		Double ret = 0.0;
+		StructureService structureService = null;
+		
+		structureService = new StructureService();
+		ret = structureService.calculateExtraItemUnitaryPrice(structure, this.getDateIn(), this.getDateOut(), this.getRoom().getRoomType(), this.getConvention(), extra);
+		
 		return ret;
 	}
 	
-
+	public List<Date> calculateBookingDates(){	//crea un array di date, che corrispondono alla permanenza
+		List<Date> bookingDates = null; 
+		Date current = null;
+		Integer i = 0;
+		
+		bookingDates = new ArrayList<Date>();
+		if(this.getDateIn()!=null && this.getDateOut()!=null){
+			current  = DateUtils.addDays(this.getDateIn(), i );		
+			while(DateUtils.truncatedCompareTo(current, this.getDateOut(),Calendar.DAY_OF_MONTH ) < 0){
+				bookingDates.add(current);
+				i = i + 1;
+				current  = DateUtils.addDays(this.getDateIn(), i );
+			}	
+		}
+		
+		return bookingDates;
+	}
+	
+	public Double calculateExtraSubtotalForBooking(){
+		Double ret = 0.0;
+		
+		for (BookedExtraItem eachItem : this.getExtraItems()) {
+				ret = ret + eachItem.getSubtotal();
+			  }
+		return ret;
+	}
+	
 	public Boolean addExtra(Extra anExtra){
 		return this.getExtras().add(anExtra);
 	}

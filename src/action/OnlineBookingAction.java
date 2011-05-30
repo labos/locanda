@@ -172,7 +172,7 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 		checkedExtras = structure.findExtrasByIds(this.getBookingExtrasId());	
 		this.getBooking().setExtras(checkedExtras);	
 		
-		extraSubtotal = structure.calculateExtraSubtotalForBooking(this.getBooking());
+		extraSubtotal = this.getBooking().calculateExtraSubtotalForBooking();
 		this.getBooking().setExtraSubtotal(extraSubtotal);
 		
 		}
