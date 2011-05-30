@@ -259,6 +259,11 @@ public class BookingAction extends ActionSupport implements SessionAware{
 			}
 		}		
 		this.filterGuests();
+		for(Guest each: this.getBooking().getGuests()){
+			if(each.getId()== null){
+				each.setId(structure.nextKey());
+			}
+		}	
 		
 		roomSubtotal = structure.calculateRoomSubtotalForBooking(this.getBooking());
 		this.getBooking().setRoomSubtotal(roomSubtotal);
