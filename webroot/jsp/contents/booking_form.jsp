@@ -428,6 +428,7 @@ display: none;
                       	<s:if test="#eachExtraItem.extra == #eachExtra">	
               		  	<div class="type-select">
               		  	  <input type="hidden" class="idExtraItem" name="booking.extraItems[<s:property value="#itemStatus.index"/>].id" value="<s:property value="#eachExtraItem.id"/>"/>
+              		  	  <input type="hidden" class="idExtraItem" name="booking.extraItems[<s:property value="#itemStatus.index"/>].extra.id" value="<s:property value="#eachExtraItem.extra.id"/>"/>
               		  	  <div class="c40l">
               		  	  	<label for="quantity">Quantity: </label>
               		  	  	<select name="booking.extraItems[<s:property value="#itemStatus.index"/>].quantity" id="quantity" class="required">

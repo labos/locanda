@@ -1,10 +1,12 @@
 package action;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
 import model.Adjustment;
+import model.BookedExtraItem;
 import model.Booking;
 import model.Extra;
 import model.Guest;
@@ -15,6 +17,7 @@ import model.User;
 import model.internal.Message;
 import model.listini.Convention;
 
+import org.apache.commons.lang.time.DateUtils;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Actions;
 import org.apache.struts2.convention.annotation.ParentPackage;
@@ -39,6 +42,92 @@ public class BookingAction extends ActionSupport implements SessionAware{
 	private List<Integer> bookingExtraIds = new ArrayList<Integer>();
 	private Double adjustmentsSubtotal = 0.0;
 	private Double paymentsSubtotal = 0.0;
+	
+	
+	@Actions({
+		@Action(value="/calculatePrices",results = {
+				@Result(type ="json",name="success", params={
+						"excludeProperties","session"
+				}),
+				@Result(type ="json",name="error", params={
+						"excludeProperties","session"
+				}),
+				@Result(name="input", location = "/validationError.jsp")
+		})
+	})	
+	public String calculatePrices() {
+		User user = null; 
+		Double roomSubtotal = 0.0;
+		Double extraSubtotal = 0.0;
+		Structure structure = null; 
+		Room theBookedRoom = null;
+		List<Extra> checkedExtras = null;
+		Integer numNights;
+						
+		user = (User)this.getSession().get("user");
+		structure = user.getStructure();
+		
+			if ( (this.getBooking().getDateOut() != null) && (this.getBooking().getDateIn() != null) ) {
+				if(DateUtils.truncatedCompareTo(this.getBooking().getDateOut(), this.getBooking().getDateIn(), Calendar.DAY_OF_MONTH)<=0){
+					this.getMessage().setResult(Message.ERROR);
+					this.getMessage().setDescription("DateOut deve essere maggiore di DateIn!");
+					return "error";
+				}				
+			}
+			
+		theBookedRoom = structure.findRoomById(this.getBooking().getRoom().getId());
+		this.getBooking().setRoom(theBookedRoom);
+		
+		if (this.getBooking().getNrGuests() > theBookedRoom.getRoomType().getMaxGuests()) {	//nel caso cambiassi la room con preselezionato un nrGuests superiore al maxGuests della room stessa
+			this.getBooking().setNrGuests(theBookedRoom.getRoomType().getMaxGuests());
+		}
+		
+		
+		numNights = this.getBooking().calculateNumNights();
+		this.setNumNights(numNights);
+		roomSubtotal = structure.calculateRoomSubtotalForBooking(this.getBooking());		
+		this.getBooking().setRoomSubtotal(roomSubtotal);
+		
+		
+		checkedExtras = structure.findExtrasByIds(this.getBookingExtraIds());
+		this.getBooking().setExtras(checkedExtras);
+		
+		//this.getBooking().getExtraItems();
+		BookedExtraItem bookedExtraItem = null;
+		List<BookedExtraItem> bookedExtraItems = new ArrayList<BookedExtraItem>();
+		for(Extra each: this.getBooking().getExtras()){
+			bookedExtraItem = this.getBooking().findExtraItem(each);
+			if(bookedExtraItem==null){
+				bookedExtraItem = new BookedExtraItem();
+				bookedExtraItem.setExtra(each);
+				bookedExtraItem.setQuantity(this.getBooking().calculateExtraItemQuantity(each));
+				bookedExtraItem.setUnitaryPrice(this.getBooking().calculateExtraItemUnitaryPrice(structure, each));				
+			}else{
+				bookedExtraItem.setUnitaryPrice(this.getBooking().calculateExtraItemUnitaryPrice(structure, each));	
+				bookedExtraItems.add(bookedExtraItem);
+			}
+			
+		}
+		this.getBooking().setExtraItems(bookedExtraItems);
+		
+		/*
+		this.getBooking().buildExtraItemsFromExtras(structure);
+		*/
+				
+				
+		extraSubtotal = this.getBooking().calculateExtraSubtotalForBooking();
+		this.getBooking().setExtraSubtotal(extraSubtotal);	
+		
+			
+		
+		this.getMessage().setResult(Message.SUCCESS);
+		this.getMessage().setDescription("Prezzo Calcolato con Successo");
+		return "success";	
+					
+	}
+	
+	
+	
 	
 	@Actions({
 		@Action(value="/goAddBookingFromPlanner",results = {

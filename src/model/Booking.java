@@ -86,6 +86,20 @@ public class Booking {
 		}
 	}
 	
+	public BookedExtraItem findExtraItem(Extra extra){
+		BookedExtraItem ret = null;
+		
+		for(BookedExtraItem each: this.getExtraItems()){
+			if(each.getExtra().getId().equals(extra.getId())){
+				each.setExtra(extra);
+				return each;
+			}
+		}
+		
+		return ret;
+		
+	}
+	
 	/*public Integer calculateExtraItemQuantity(BookedExtraItem extraItem) {
 		Integer ret = 0;
 		Integer numNights = this.calculateNumNights();

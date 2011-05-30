@@ -50,7 +50,7 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware{
 	@Autowired
 	private SeasonService seasonService = null;
 	
-	@Actions({
+	/*@Actions({
 		@Action(value="/calculatePrices",results = {
 				@Result(type ="json",name="success", params={
 						"excludeProperties","session,seasonService"
@@ -107,7 +107,7 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware{
 		this.getMessage().setDescription("Prezzo Calcolato con Successo");
 		return "success";	
 					
-	}
+	}*/
 	
 	@Actions({
 		@Action(value="/goFindAllRoomPriceLists",results = {
