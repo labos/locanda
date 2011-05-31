@@ -102,10 +102,10 @@ var $calendar = $('#calendar');
 							$(".btn_save").hide();
 						},
 						modal: true,
-						width: 650,
+						width: 790,
 						hide: "explode",
 						show: "blind",
-						title: "New Booking for room: " + room_name,
+						title: $.i18n("newBookingForRoom")+": " + room_name,
 						close: function () {
 							$dialogContent.dialog("destroy");
 							$dialogContent.hide();
@@ -158,8 +158,9 @@ var $calendar = $('#calendar');
 							//optionsLoc.init();
 						},
 						modal: true,
-						width: 650,
-						title: "Modify Booking - " + room_name,
+						width: 790,
+						position: 'top',
+						title: $.i18n("modifyBooking") + " - " + room_name,
 						close: function () {
 							$dialogContent.dialog("destroy");
 							$dialogContent.hide();
@@ -217,39 +218,6 @@ var $calendar = $('#calendar');
 		return Math.round(difference_ms / ONE_DAY);
 	}
 
-	
-	function getEventData() {
-		var year = new Date().getFullYear();
-		var month = new Date().getMonth();
-		var day = new Date().getDate();
-		return {
-			events: [{
-				"id": 100,
-				"start": new Date(year, month, day, 12),
-				"end": new Date(year, month, day + 1, 13, 30),
-				"title": "Giovanni Stara"
-			}, {
-				"id": 104,
-				"start": new Date(year, month, day, 14),
-				"end": new Date(year, month, day, 14, 45),
-				"title": "Marc Devois"
-			}, {
-				"id": 123,
-				"start": new Date(year, month, day + 1, 17),
-				"end": new Date(year, month, day + 5, 17, 45),
-				"title": "Laura Molinari"
-			},
-
-				            {
-				"id": 100,
-				"start": new Date(year, month, day + 2, 14),
-				"end": new Date(year, month, day + 2, 15),
-				"title": "Michele Gors"
-			}
-
-				            ]
-		};
-	}
 	
 	
 

@@ -35,8 +35,8 @@
                   </div>
          	 	
                   <div class="type-button">
-            		<button class="btn_save">SAVE</button>
-           		 	<button class="btn_reset btn_cancel_form">CANCEL</button>
+            		<button class="btn_save"><s:text name="save" /></button>
+           		 	<button class="btn_reset btn_cancel_form"><s:text name="delete" /></button>
            		  </div>	    
               </div>
               
@@ -65,7 +65,7 @@
           
           <div class="beauty">
      	  	<div class="subcolumns">
-           	  <div class="c33l">
+           	  <div class="c50l">
     			<label for="name_facility">Facility Name:</label>&nbsp;<input type="text" name="facility_name" value="" id="name_facility" class="require"/>
  			  </div>
  			  <div class="c20l">
