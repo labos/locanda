@@ -41,6 +41,7 @@ public class GuestAction extends ActionSupport implements SessionAware{
 		
 		user = (User)session.get("user");
 		structure = user.getStructure();
+		
 		this.setGuests(structure.getGuests());
 		return SUCCESS;		
 	}
@@ -79,10 +80,7 @@ public class GuestAction extends ActionSupport implements SessionAware{
 		      }
 		      
 		    }
-		   this.setGuests(returnedGuests);
-		
-		
-		
+		   this.setGuests(returnedGuests);		
 		return SUCCESS;		
 	}
 	
@@ -93,45 +91,31 @@ public class GuestAction extends ActionSupport implements SessionAware{
 		}) 
 		
 	})
-	public String findAllGuestsByName(){
+	public String findAllGuestsByName() {
 		User user = null;
 		Structure structure = null;
-		List <Guest> allGuests = null;
-		List <Guest> returnedGuests = new ArrayList<Guest>();
-		user = (User)session.get("user");
+		List<Guest> allGuests = null;
+		List<Guest> returnedGuests = null;
+
+		user = (User) session.get("user");
 		structure = user.getStructure();
 		
-		
-		   if (this.getTerm()!= null && this.getTerm().length() > 1)
-		    {
-			   allGuests = structure.getGuests();
-		      
-		      for (Guest guest: allGuests)
-		      {
-		    	 String allName =  guest.getFirstName().toLowerCase() + guest.getLastName().toLowerCase();
-		        if ( allName.equals(this.getTerm().toLowerCase() ))
-		        {
-		        	returnedGuests.add(guest);
-		        }
-		      }
-		      
-		    }
-		   this.setGuests(returnedGuests);
-		
-		
-		
-		return SUCCESS;		
+		returnedGuests = new ArrayList<Guest>();
+		if (this.getTerm() != null && this.getTerm().length() > 1) {
+			allGuests = structure.getGuests();
+			for (Guest guest : allGuests) {
+				String allName = guest.getFirstName().toLowerCase()
+						+ guest.getLastName().toLowerCase();
+				if (allName.equals(this.getTerm().toLowerCase())) {
+					returnedGuests.add(guest);
+				}
+			}
+		}
+		this.setGuests(returnedGuests);
+		return SUCCESS;
 	}
 	
 	
-	public String getTerm() {
-		return term;
-	}
-
-	public void setTerm(String term) {
-		this.term = term;
-	}
-
 	@Actions({
 		@Action(value="/findGuestById",results = {
 				@Result(type ="json",name="success", params={
@@ -149,6 +133,7 @@ public class GuestAction extends ActionSupport implements SessionAware{
 		
 		user = (User)session.get("user");
 		structure = user.getStructure();
+		
 		aGuest = structure.findGuestById(this.getId());
 		if(aGuest != null){
 			this.setGuest(aGuest);
@@ -172,6 +157,7 @@ public class GuestAction extends ActionSupport implements SessionAware{
 		
 		user = (User)session.get("user");
 		structure = user.getStructure();
+		
 		this.setGuest(structure.findGuestById(this.getId())); 
 		this.setBookings(structure.findBookingsByGuestId(this.getId()));
 		return SUCCESS;
@@ -230,6 +216,7 @@ public class GuestAction extends ActionSupport implements SessionAware{
 		user = (User)session.get("user");
 		structure = user.getStructure();
 		currentGuest = structure.findGuestById(this.getId());
+		
 		if(structure.deleteGuest(currentGuest)){
 			this.getMessage().setResult(Message.SUCCESS);
 			this.getMessage().setDescription("Guest removed successfully");
@@ -292,7 +279,13 @@ public class GuestAction extends ActionSupport implements SessionAware{
 	public void setBookings(List<Booking> bookings) {
 		this.bookings = bookings;
 	}
-	
+	public String getTerm() {
+		return term;
+	}
+
+	public void setTerm(String term) {
+		this.term = term;
+	}
 	
 
 }

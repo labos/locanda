@@ -295,13 +295,13 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		user = (User)this.getSession().get("user");
 		structure = user.getStructure();
 		
-		
+		this.setBooking(new Booking());		
+		defaultConvention = structure.getConventions().get(0);
+		this.getBooking().setConvention(defaultConvention);		
 		this.setRooms(structure.getRooms());
 		this.setExtras(structure.getExtras());
-		this.setConventions(structure.getConventions());
-		this.setBooking(new Booking());
-		defaultConvention = structure.getConventions().get(0);
-		this.getBooking().setConvention(defaultConvention);
+		this.setConventions(structure.getConventions());		
+			
 		return SUCCESS;
 	}
 	
@@ -383,37 +383,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		return SUCCESS;		
 	}	
 	
-	/*
-	@Actions({
-		@Action(value="/findBookingById",results = {
-				@Result(type ="json",name="success", params={
-						"excludeProperties","session,bookings,id"
-				}) ,
-				@Result(type ="json",name="error", params={
-						"root","message"
-				})
-		})
-	})
-	public String findBookingById(){
-		User user = null;
-		Structure structure = null;
-		Booking aBooking = null;
 		
-		user = (User)session.get("user");
-		structure = user.getStructure();
-		aBooking = structure.findBookingById(this.getId());
-		if(aBooking!=null){
-			this.setBooking(aBooking);
-			this.getMessage().setResult(Message.SUCCESS);
-			return SUCCESS;
-		}
-		this.getMessage().setResult(Message.ERROR);
-		this.getMessage().setDescription("Booking not found!");
-		return ERROR;
-	}*/
-	
-	
-	
 	@Actions({
 		@Action(value="/checkBookingDates",results = {
 				@Result(type ="json",name="success", params={
@@ -529,6 +499,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		
 		user = (User)session.get("user");
 		structure = user.getStructure();
+		
 		aBooking = structure.findBookingById(this.getId());
 		if(aBooking!=null){
 			aBooking.setStatus("checkin");
@@ -559,6 +530,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		
 		user = (User)session.get("user");
 		structure = user.getStructure();
+		
 		aBooking = structure.findBookingById(this.getId());
 		if(aBooking!=null){
 			aBooking.setStatus("checkout");

@@ -75,6 +75,7 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 		structure = user.getStructure();
 		
 		List <Room> rooms = new ArrayList<Room>();
+		
 		rooms = structure.getRooms();
 		this.setRooms(new ArrayList<Room>());
 		//remove not completed booking from the memory

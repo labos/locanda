@@ -37,13 +37,15 @@ public class ExtraAction extends ActionSupport implements SessionAware{
 		
 		user = (User)this.getSession().get("user");
 		structure = user.getStructure();
+		
 		this.setExtras(structure.getExtras());
 		
+		/*
 		anEmptyExtra = new Extra();
 		anEmptyExtra.setTimePriceType("per Night");
 		anEmptyExtra.setResourcePriceType("per Room");
 		this.setExtra(anEmptyExtra);		
-		
+		*/
 		return SUCCESS;
 	}
 	
@@ -59,8 +61,10 @@ public class ExtraAction extends ActionSupport implements SessionAware{
 		
 		user = (User)this.getSession().get("user");
 		structure = user.getStructure();
+		
 		extra = structure.findExtraById(this.getExtra().getId());
 		this.setExtra(extra);
+		
 		return SUCCESS;
 	}
 		
@@ -81,6 +85,7 @@ public class ExtraAction extends ActionSupport implements SessionAware{
 		
 		user = (User)this.getSession().get("user");
 		structure = user.getStructure();
+		
 		oldExtra = structure.findExtraById(this.getExtra().getId());
 		if(oldExtra == null){
 			//Si tratta di un add
