@@ -15,8 +15,8 @@ $.i18n.it_IT.strings = {
     listGuestsRetrive: "Problema restituzione dettagli guest...",
     uploadStopped: "E'stato interrotto l'upload",
     facilityNameRequired: "Devi inserire il nome della facility",
-    bookingOverlapping: "Errore: booking sovrapposti"
-    
+    bookingOverlapping: "Errore: booking sovrapposti",
+    validPriceAlert: "Attenzione, devi inserire un prezzo valido"
     
 };
    

@@ -20,7 +20,7 @@ $(function () {
                 // now update permanently subtotal
                 $(".subtotal_room").text(subtotal);
                 //---  $("#subtotal_room").val(subtotal);
-                updateBalance();
+                Booking.updateBalance();
             }
             catch (e) {
                 //nothing for now -- problema nei selettori
@@ -86,7 +86,9 @@ $(function () {
                 }
             });
             
-            Guest.getCustomers("input[name='booking.booker.lastName']"); /* end booking section initialization */
+            Guest.getCustomers("input[name='booking.booker.lastName']"); 
+            
+            
             
             $(".btn_checked").button({
                 disabled: true
@@ -216,6 +218,13 @@ $(function () {
                 return selector;
             };
             
+            jQuery.validator.addMethod("validPrice", function(value, element) { 
+            	  return this.optional(element) || /^[-+]?[0-9]+[.]?[0-9]*([eE][-+]?[0-9]+)?$/.test(value); 
+            	  
+            	}, $.i18n("validPriceAlert"));
+            
+
+         
             $(".extra_value_adjustment, .extra_value_payment").keyup(function () { /* prepare selector string for class whit whitespaces */
                 //-- var current_class_selector = $(this).attr("class").replace( new RegExp(" ","g"), ".");
                 /* adjust subtotal ... */
@@ -229,11 +238,12 @@ $(function () {
                     }
                 }
                 else {
-                    $(this).val('');
+                    //$(this).val('');
                     Booking.updateSubtotal();
                 }
                 //--- $(this).unbind('keyup');
             });
+            
             $(".erase_adjustment, .erase_payment").click(function () {
                 var selector = $(this).getSelector();
                 $(this).parents("." + selector + "_row").find(".extra_value_" + selector + "").val(0);
@@ -271,15 +281,18 @@ $(function () {
                         }
                     }
                     else {
-                        $(this).val('');
+                       // $(this).val('');
                         Booking.updateSubtotal();
                     }
                 });
             });
+            
+            /*
             $('input[name="pay_value_adjustment[]"]').keyup(function () {
                 var current_parent = $(this).parents(".type-text"); 
-                /* prepare selector string for class whit whitespaces */
-                var current_class_selector = $(this).attr("class").replace(new RegExp(" ", "g"), "."); /* check if current was cloned */
+                // prepare selector string for class whit whitespaces 
+                var current_class_selector = $(this).attr("class").replace(new RegExp(" ", "g"), "."); 
+                // check if current was cloned 
                 var next_sibling = current_parent.next().find(".extra_value_adjustment");
                 var prova = next_sibling.size();
                 if (next_sibling && !next_sibling.size() > 0) {
@@ -291,23 +304,29 @@ $(function () {
                     //copy_parent.find($(this)).bind('keyup',cloneEvent);
                     copy_parent.insertAfter(current_parent);
                     // $(this).unbind('keyup');
-                } /* adjust subtotal ... */
+                } 
+                // adjust subtotal ... 
                 var new_subtotal = null;
                 if (current_class_selector.indexOf("extra_value_adjustment") >= 0) {
                     new_subtotal = parseInt($("#subtotal_room").val());
-                    new_balance = parseInt($("#balance_room").val()); /* code for calcute new subtotal */
+                    new_balance = parseInt($("#balance_room").val());
+                     // code for calcute new subtotal
                     $("." + current_class_selector).each(function (key, value) {
                         if ($(value).valid()) {
                             new_subtotal = new_subtotal + parseInt($(value).val());
                         }
                     });
                     // show new subtotal value
-                    Booking.updateSubtotal(); /* end code for subtotal calculation */
+                    Booking.updateSubtotal(); 
+                    // end code for subtotal calculation
                 }
                 else {
                     Booking.updateBalance();
                 }
             });
+            
+            
+            */
             //update of dateOut changing num of nights.
             $("select[name='numNights']").change(function () {
                 $('input[name="booking.dateIn"]').rules("add", {

@@ -502,7 +502,7 @@ display: none;
               		  	  <div class="subcl type-text"><span>Name:</span><input type="text" name="booking.adjustments[<s:property value="#adjustStatus.index"/>].description" value="<s:property value="#eachAdjust.description" />" class="require" style="width: 90%;" /></div>
               		  	</div>
                   	  	<div class="c33l">
-                  	  	  <div class="subcl type-text"><span>Amount(&euro;):</span><input type="text" name="booking.adjustments[<s:property value="#adjustStatus.index"/>].amount"  value="<s:property value="#eachAdjust.amount" />" class="extra_value_adjustment required"/></div>
+                  	  	  <div class="subcl type-text"><span>Amount(&euro;):</span><input type="text" name="booking.adjustments[<s:property value="#adjustStatus.index"/>].amount"  value="<s:property value="#eachAdjust.amount" />" class="extra_value_adjustment validPrice"/></div>
                   	  	</div>
                   	  	<div class="c25r"><label>&nbsp;</label><a href="#" class="erase_adjustment" title="erase"><img src="images/delete.png" alt="Delete Adjustment" />Delete Adjustment</a></div>
                   	  </div>
@@ -528,7 +528,7 @@ display: none;
               		     <div  class="subcolumns payment_row">
               		     <input type="hidden" class="idPayment" name="booking.payments[<s:property value="#paymentStatus.index"/>].id" value="<s:property value="#eachPayment.id"/>"/>
               		    <div class="c40l"><div class="subcl type-text"><span>Name:</span><input type="text" name="booking.payments[<s:property value="#paymentStatus.index"/>].description" value="<s:property value="#eachPayment.description" />" class="require" style="width: 90%;" /></div></div>
-                  	  	<div class="c33l"><div class="subcl type-text"><span>Amount(&euro;):</span><input type="text" name="booking.payments[<s:property value="#paymentStatus.index"/>].amount"  value="<s:property value="#eachPayment.amount" />" class="extra_value_payment required"/></div></div>
+                  	  	<div class="c33l"><div class="subcl type-text"><span>Amount(&euro;):</span><input type="text" name="booking.payments[<s:property value="#paymentStatus.index"/>].amount"  value="<s:property value="#eachPayment.amount" />" class="extra_value_payment required validPrice"/></div></div>
                   	  	 <div class="c25r"><label>&nbsp;</label><a href="#bottom_anchor_payment" class="erase_payment" title="erase"><img src="images/delete.png" alt="Delete Payment" />Delete Payment</a>
               			</div>
                   	  </div>
@@ -566,14 +566,14 @@ display: none;
            
                     <div  class="subcolumns adjustment_row" id="to_add_adjustment" style="display: none;">
                   	     <div class="c40l"><div class="subcl type-text"><span>Name:</span><input type="text" name="booking.adjustments[__PVALUE__].description" class="require" style="width: 90%;" /></div></div>
-                  	  	<div class="c33l"><div class="subcl type-text"><span>Amount(&euro;):</span><input type="text" name="booking.adjustments[__PVALUE__].amount"  class="extra_value_adjustment required"/></div></div>
+                  	  	<div class="c33l"><div class="subcl type-text"><span>Amount(&euro;):</span><input type="text" name="booking.adjustments[__PVALUE__].amount"  class="extra_value_adjustment validPrice"/></div></div>
                   	  	 <div class="c25r"><label>&nbsp;</label><a href="#bottom_anchor" class="erase_adjustment" title="erase"><img src="images/delete.png" alt="Delete Adjustment" />Delete Adjustment</a>
               			</div>
                   	  </div>
                   	  
                   	  <div  class="subcolumns payment_row" id="to_add_payment" style="display: none;" >
                   	     <div class="c40l"><div class="subcl type-text"><span>Name:</span><input type="text" name="booking.payments[__PVALUE__].description" class="require" style="width: 90%;" /></div></div>
-                  	  	<div class="c33l"><div class="subcl type-text"><span>Amount(&euro;):</span><input type="text" name="booking.payments[__PVALUE__].amount"  class="extra_value_payment required"/></div></div>
+                  	  	<div class="c33l"><div class="subcl type-text"><span>Amount(&euro;):</span><input type="text" name="booking.payments[__PVALUE__].amount"  class="extra_value_payment validPrice"/></div></div>
                   	  	 <div class="c25r"><label>&nbsp;</label><a href="#bottom_anchor_payment" class="erase_payment" title="erase"><img src="images/delete.png" alt="Delete Payment" />Delete Payment</a>
               			</div>
                   	  </div>

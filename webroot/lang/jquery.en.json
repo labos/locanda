@@ -15,5 +15,6 @@ $.i18n.en.strings = {
     listGuestsRetrive: "Problema restituzione dettagli guest...",
     uploadStopped: "The Upload was interrupted",
     facilityNameRequired: "You must enter the name of the facility",
-    bookingOverlapping: "Error checking booking overlappings in server"
+    bookingOverlapping: "Error checking booking overlappings in server",
+    validPriceAlert: "Please enter a valid price value"
 };
