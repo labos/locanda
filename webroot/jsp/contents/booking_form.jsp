@@ -426,14 +426,13 @@ display: none;
                       <s:iterator value="booking.extraItems" var="eachExtraItem" status="itemStatus">
                                     
                       	<s:if test="#eachExtraItem.extra == #eachExtra">	
-              		  	<div class="type-select">
+              		  	<div class="type-select extraQuantity">
               		  	  <input type="hidden" class="idExtraItem" name="booking.extraItems[<s:property value="#itemStatus.index"/>].id" value="<s:property value="#eachExtraItem.id"/>"/>
-              		  	  <input type="hidden" class="idExtraItem" name="booking.extraItems[<s:property value="#itemStatus.index"/>].extra.id" value="<s:property value="#eachExtraItem.extra.id"/>"/>
+              		  	  <input type="hidden" class="idExtra" name="booking.extraItems[<s:property value="#itemStatus.index"/>].extra.id" value="<s:property value="#eachExtraItem.extra.id"/>"/>
               		  	  <div class="c40l">
               		  	  	<label for="quantity">Quantity: </label>
-              		  	  	<select name="booking.extraItems[<s:property value="#itemStatus.index"/>].quantity" id="quantity" class="required">
+              		  	  	<select name="booking.extraItems[<s:property value="#itemStatus.index"/>].quantity" id='<s:property value="#eachExtra.id"/>' class="quantity required">
               		  	  	
-              		  	  	<s:if test="#eachExtraItem.quantity != null">
               		  	  	  <s:bean name="org.apache.struts2.util.Counter" var="counter">
 								<s:param name="last" value="#eachExtraItem.quantity"/>
 							  </s:bean>
@@ -443,19 +442,7 @@ display: none;
 								  <s:property value="#index"/>					
 								</option>
 							  </s:iterator>
-              		  	  	</s:if>
-              		  	  	<s:else>
-              		  	  	  <option value="1">1</option>
-                    	  	  <option value="2">2</option>
-                    	  	  <option value="3">3</option>
-                    	  	  <option value="4">4</option>
-                    	  	  <option value="5">5</option>
-                    	  	  <option value="6">6</option>
-                    	  	  <option value="7">7</option>
-                    	  	  <option value="8">8</option>
-                    	  	  <option value="9">9</option>
-                    	  	  <option value="10">10</option>
-              		  	  	</s:else> 
+              		  	  	
               		  	  	</select>   	
               		  	</div>
                   	  	<div class="c33l">

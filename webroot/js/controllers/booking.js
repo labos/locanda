@@ -243,7 +243,6 @@ $(function () {
                 }
                 //--- $(this).unbind('keyup');
             });
-            
             $(".erase_adjustment, .erase_payment").click(function () {
                 var selector = $(this).getSelector();
                 $(this).parents("." + selector + "_row").find(".extra_value_" + selector + "").val(0);
@@ -324,8 +323,7 @@ $(function () {
                     Booking.updateBalance();
                 }
             });
-            
-            
+
             */
             //update of dateOut changing num of nights.
             $("select[name='numNights']").change(function () {
@@ -377,7 +375,7 @@ $(function () {
                     $(this).closest("." + selector + "_row").remove();
                 });
             }); /*ADD LISTENER FOR CHANGE ROOM OR DATEIN OR DATEOUT OR NUMNIGHTS FROM BOOKING*/
-            $('#sel_rooms_list, #booking_duration, input:text[name="booking.dateIn"], input:text[name="booking.dateOut"], input:checkbox[name="bookingExtraIds"], #nr_guests, #convention, #quantity').change(function () {
+            $('#sel_rooms_list, #booking_duration, input:text[name="booking.dateIn"], input:text[name="booking.dateOut"], input:checkbox[name="bookingExtraIds"], #nr_guests, #convention, .quantity').change(function () {
                 // check in room was selected
                 if (!(parseInt($('#sel_rooms_list').val()) > 0)) {
                     $().notify($.i18n("warning"), $.i18n("roomRequired"));
@@ -406,6 +404,17 @@ $(function () {
                                     for (var i = 1; i <= numbermaxGuests; i++) {
                                         $("#nr_guests").append('<option value="' + i + '">' + i + '</option');
                                     }
+                                }
+								if ($clicked.is('input:checkbox[name="bookingExtraIds"]')) {
+                                    if($clicked.is(":checked")) {
+										var extraID = $('input:checkbox[name="bookingExtraIds"]').attr("value");
+										if (extraID == $('.quantity').attr("id")) {
+											$("#"+extraID).show(); //il figlio di extraQuantity con id selezionato
+										}
+									}
+									else {
+										$("#"+extraID).hide();
+									}
                                 }
                                 if (maxGuests !== null && parseInt(maxGuests) > 0 && ($clicked.is("select#sel_rooms_list") || $clicked.is("select#nr_guests"))) {
                                     var numbermaxGuests = parseInt(maxGuests);

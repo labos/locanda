@@ -11,6 +11,7 @@ import service.StructureService;
 
 import model.internal.Message;
 import model.listini.Convention;
+
 import model.listini.ExtraPriceList;
 import model.listini.ExtraPriceListItem;
 import model.listini.Season;
@@ -84,9 +85,6 @@ public class Booking {
 		return ret;
 	}
 	
-	
-	
-	
 	public void buildExtraItemsFromExtras(Structure structure) {
 		BookedExtraItem extraItem = null;
 		List<BookedExtraItem> extraItemList = new ArrayList<BookedExtraItem>();
@@ -95,7 +93,7 @@ public class Booking {
 			extraItem = new BookedExtraItem();
 			extraItem.setId(structure.nextKey());
 			extraItem.setExtra(eachExtra);
-			extraItem.setQuantity(this.calculateExtraItemQuantity(eachExtra));
+			extraItem.setQuantity(this.calculateExtraItemMaxQuantity(eachExtra));
 			extraItem.setUnitaryPrice(this.calculateExtraItemUnitaryPrice(structure, eachExtra));
 			extraItemList.add(extraItem);
 			this.setExtraItems(extraItemList);
@@ -111,14 +109,11 @@ public class Booking {
 				return each;
 			}
 		}
-		
 		return ret;
 		
 	}
 	
-	
-	
-	public Integer calculateExtraItemQuantity(Extra extra) {
+	public Integer calculateExtraItemMaxQuantity(Extra extra) {
 		Integer ret = 0;
 		Integer numNights = this.calculateNumNights();
 				
@@ -144,9 +139,7 @@ public class Booking {
 		}
 		return ret;
 	}
-
 	
-		
 	public Double calculateExtraItemUnitaryPrice(Structure structure, Extra extra) {
 		Double ret = 0.0;
 		StructureService structureService = null;
