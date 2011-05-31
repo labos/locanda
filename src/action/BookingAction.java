@@ -98,9 +98,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		
 			
 		extraSubtotal = this.getBooking().calculateExtraSubtotalForBooking();
-		this.getBooking().setExtraSubtotal(extraSubtotal);	
-		
-			
+		this.getBooking().setExtraSubtotal(extraSubtotal);				
 		
 		this.getMessage().setResult(Message.SUCCESS);
 		this.getMessage().setDescription("Prezzo Calcolato con Successo");

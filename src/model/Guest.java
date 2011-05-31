@@ -12,6 +12,7 @@ public class Guest {
 	private String country;
 	private String zipCode;
 	private String notes;
+	private String idNumber;
 	
 	
 	
@@ -92,6 +93,12 @@ public class Guest {
 	}
 	public void setNotes(String notes) {
 		this.notes = notes;
+	}
+	public String getIdNumber() {
+		return idNumber;
+	}
+	public void setIdNumber(String idNumber) {
+		this.idNumber = idNumber;
 	}
 	
 	
