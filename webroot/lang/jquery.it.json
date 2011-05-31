@@ -17,7 +17,11 @@ $.i18n.it.strings = {
     facilityNameRequired: "Devi inserire il nome della facility",
     bookingOverlapping: "Errore: booking sovrapposti",
     validPriceAlert: "Attenzione, devi inserire un prezzo valido",
-    alertCancel: "Attenzione le modifiche che hai effettuato non verranno salvate. Vuoi chiudere ugualmente?"
+    alertCancel: "Attenzione le modifiche che hai effettuato non verranno salvate. Vuoi chiudere ugualmente?",
+    today: "Oggi",
+    prev: "Precedente",
+    next: "Dopo",
+    rooms: "Camere"
     
 };
    

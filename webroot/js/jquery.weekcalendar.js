@@ -438,7 +438,7 @@ $(function() {
          }
 
          //render calendar header
-         calendarHeaderHtml = "<table class=\"wc-header\"><tbody><tr><td class=\"wc-time-column-header\" width=\"70px\">&nbsp;Rooms</td>";
+         calendarHeaderHtml = "<table class=\"wc-header\"><tbody><tr><td class=\"wc-time-column-header\" width=\"70px\">&nbsp;"+ $.i18n("rooms")+ "</td>";
          for (var i = 1; i <= options.daysToShow; i++) {
          //crea l'header del giorno come colonna.
             calendarHeaderHtml += "<td class=\"wc-day-column-header wc-day-" + i + "\"></td>";

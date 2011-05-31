@@ -58,9 +58,9 @@ var $calendar = $('#calendar');
 				//added by Alberto
 				listRooms: list_rooms,
 				buttonText: {
-					today: "today",
-					lastWeek: "Prev",
-					nextWeek: "Next"
+					today: $.i18n("today"),
+					lastWeek: $.i18n("prev"),
+					nextWeek: $.i18n("next")
 				},
 				height: function ($calendar) {
 					return $(window).height() - $("h1").outerHeight() - 1;
