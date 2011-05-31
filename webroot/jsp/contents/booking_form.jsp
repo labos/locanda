@@ -35,7 +35,7 @@ display: none;
             				<div class="c20l">
             				<div class="subcl type-text">
             				<label for="datepicker">Date In: <sup title="This field is mandatory.">*</sup> </label>
-							<input type="text" name="booking.dateIn" class="datepicker"  value="<s:date name="booking.dateIn" format="%{#session.datePattern}" />" style="display: inline;"/>
+							<input type="text" name="booking.dateIn" class="datepicker required"  value="<s:date name="booking.dateIn" format="%{#session.datePattern}" />" style="display: inline;"/>
 							</div>
 							</div>
 							<div class="c20l">
@@ -73,7 +73,7 @@ display: none;
                             <div class="c20l">
             				<div class="subcl type-text">
             				<label for="datepicker">Date Out: <sup title="This field is mandatory.">*</sup> </label>
-							<input type="text" name="booking.dateOut" class="date datepicker"  value="<s:date name="booking.dateOut" format="%{#session.datePattern}" />" style="display: inline;"/>
+							<input type="text" name="booking.dateOut" class="datepicker required"  value="<s:date name="booking.dateOut" format="%{#session.datePattern}" />" style="display: inline;"/>
 							</div>
 							</div>
 							<div class="c20l">
