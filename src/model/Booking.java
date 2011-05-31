@@ -9,6 +9,7 @@ import org.apache.commons.lang.time.DateUtils;
 
 import service.StructureService;
 
+import model.internal.Message;
 import model.listini.Convention;
 import model.listini.ExtraPriceList;
 import model.listini.ExtraPriceListItem;
@@ -52,6 +53,17 @@ public class Booking {
 			days = (int) (millis/(1000*3600*24));
 		}		
 		return days;
+	}
+	
+	public Boolean checkDates(){
+		Boolean ret = true;
+		
+		if ( (this.getDateOut() != null) && (this.getDateIn() != null) ) {
+			if(DateUtils.truncatedCompareTo(this.getDateOut(), this.getDateIn(), Calendar.DAY_OF_MONTH)<=0){
+				return false;
+			}				
+		}
+		return ret;
 	}
 	
 	public Double calculateAdjustmentsSubtotal(){
@@ -104,33 +116,7 @@ public class Booking {
 		
 	}
 	
-	/*public Integer calculateExtraItemQuantity(BookedExtraItem extraItem) {
-		Integer ret = 0;
-		Integer numNights = this.calculateNumNights();
-		Extra extra = extraItem.getExtra();
-		
-		if (extra.getTimePriceType().equals("per Night")) {
-			if (extra.getResourcePriceType().equals("per Room")) {
-				ret = numNights;
-			}
-			else ret = numNights * this.nrGuests; 			//per Person - per Item non può esistere
-		}
-		else if (extra.getTimePriceType().equals("per Week")) {
-			if (extra.getResourcePriceType().equals("per Room")) {
-				ret = numNights/7 + 1;						//assumendo l'extra per week come indivisibile
-			}
-			else ret = (numNights/7 + 1) * this.nrGuests;	//per Person - per Item non può esistere
-		}else {												//per Booking
-			if (extra.getResourcePriceType().equals("per Room")) {
-				ret = 1;									//un Booking per ora è associato ad una sola Room!
-			}
-			else if (extra.getResourcePriceType().equals("per Person")) {
-				ret = this.nrGuests;
-			}
-			else ret = 1; //per Item
-		}
-		return ret;
-	}*/
+	
 	
 	public Integer calculateExtraItemQuantity(Extra extra) {
 		Integer ret = 0;
@@ -160,32 +146,7 @@ public class Booking {
 	}
 
 	
-	/*
-	public Double calculateExtraItemUnitaryPrice(Structure structure, Extra extra) {
-		Double ret = 0.0;
-		ExtraPriceList priceList = null;
-		ExtraPriceList otherPriceList = null;
-		Season season = null;
-		Season otherSeason = null;
-		Double price = 0.0;
-		Double otherPrice = 0.0;
 		
-		season = structure.findSeasonByDate(this.getDateIn());
-		priceList = structure.findExtraPriceListBySeasonAndRoomTypeAndConvention(season, this.getRoom().getRoomType(), this.getConvention());
-		price = priceList.findExtraPrice(extra);
-		
-		//se ho un booking a cavallo di due stagioni, prendo il prezzo più basso
-		otherSeason = structure.findSeasonByDate(this.getDateOut());
-		otherPriceList = structure.findExtraPriceListBySeasonAndRoomTypeAndConvention(otherSeason, this.getRoom().getRoomType(), this.getConvention());	
-		price = priceList.findExtraPrice(extra);
-		otherPrice = otherPriceList.findExtraPrice(extra);
-		
-		ret = Math.min(price,otherPrice);
-		
-		return ret;
-	}*/
-	
-	
 	public Double calculateExtraItemUnitaryPrice(Structure structure, Extra extra) {
 		Double ret = 0.0;
 		StructureService structureService = null;

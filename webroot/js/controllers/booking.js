@@ -387,7 +387,7 @@ $(function () {
                 var $clicked = $(this);
                 $.ajax({
                     type: "POST",
-                    url: "calculatePrices.action",
+                    url: "updateBookingInMemory.action",
                     data: formInput,
                     success: function (data_action) {
                         var title_notification = null;
