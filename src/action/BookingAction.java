@@ -1,7 +1,6 @@
 package action;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
@@ -17,7 +16,6 @@ import model.User;
 import model.internal.Message;
 import model.listini.Convention;
 
-import org.apache.commons.lang.time.DateUtils;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Actions;
 import org.apache.struts2.convention.annotation.ParentPackage;
@@ -238,7 +236,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 			if(bookedExtraItem==null){
 				bookedExtraItem = new BookedExtraItem();
 				bookedExtraItem.setExtra(each);
-				bookedExtraItem.setQuantity(booking.calculateExtraItemQuantity(each));
+				bookedExtraItem.setQuantity(booking.calculateExtraItemMaxQuantity(each));
 				bookedExtraItem.setUnitaryPrice(booking.calculateExtraItemUnitaryPrice(structure, each));				
 			}else{
 				bookedExtraItem.setUnitaryPrice(booking.calculateExtraItemUnitaryPrice(structure, each));	
@@ -319,7 +317,6 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		User user = null;
 		Structure structure = null;
 		Booking oldBooking = null;
-		List<Extra>  checkedExtras = null;
 		Integer numNights = 0;
 		Double roomSubtotal = 0.0;
 		Double extraSubtotal = 0.0;

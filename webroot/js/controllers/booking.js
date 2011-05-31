@@ -409,11 +409,11 @@ $(function () {
                                     if($clicked.is(":checked")) {
 										var extraID = $('input:checkbox[name="bookingExtraIds"]').attr("value");
 										if (extraID == $('.quantity').attr("id")) {
-											$("#"+extraID).show(); //il figlio di extraQuantity con id selezionato
+											$('.extraQuantity #' + extraID).show();
 										}
 									}
 									else {
-										$("#"+extraID).hide();
+										$('.extraQuantity #' + extraID).hide();
 									}
                                 }
                                 if (maxGuests !== null && parseInt(maxGuests) > 0 && ($clicked.is("select#sel_rooms_list") || $clicked.is("select#nr_guests"))) {
