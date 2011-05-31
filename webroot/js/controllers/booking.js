@@ -365,7 +365,7 @@ $(function () {
                 // setup of cloned row to add
                 if (num_of_items >= numbermaxGuests){
                 	
-                	$().notify($.i18n("seriousError"), $.i18n("nrGuestVsMaxGuest") );
+                	$().notify($.i18n("warning"), $.i18n("nrGuestVsMaxGuest") );
                 }
                 var added = $("#to_add_" + selector + "").clone().insertAfter(dd).removeAttr("id").show();
                 added.html(added.html().replace(/__PVALUE__/ig, num_of_items));

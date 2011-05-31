@@ -120,9 +120,12 @@ var $calendar = $('#calendar');
 								// $dialogContent.dialog("close");
 							},
 							cancel: function () {
+								if (confirm($.i18n("alertCancel"))) {
 								$dialogContent.dialog("close");
 								$calendar.weekCalendar("removeEvent", calEvent.id);
+								}
 							}
+							
 						}
 					}).show();
 
@@ -179,7 +182,9 @@ var $calendar = $('#calendar');
 							},
 							cancel: function () {
 								//--  $calendar.weekCalendar("removeEvent", calEvent.id);
+								if (confirm($.i18n("alertCancel"))) {
 								$dialogContent.dialog("close");
+								}
 							}
 						}
 					}).show();

@@ -2,6 +2,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="/struts-tags" prefix="s" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<%@ page import="java.util.Locale" %>
+<%@ page import = "com.opensymphony.xwork2.ActionContext;"%> 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -26,14 +28,24 @@
 <script type='text/javascript' src='js/jquery.fileupload-ui.js'></script>
 <script type='text/javascript' src="js/jquery.fileupload-uix.js"></script>
 <script type='text/javascript' src="js/jquery.i18n.js"></script>
-<script type='text/javascript' src='lang/jquery.<s:property value="#request.locale" />.json'></script>
+<%
+//Locale locale = (locale)request.getSession().getAttribute(Globals.LOCALE_KEY);
+String lang ="en";
+Locale locale = ActionContext.getContext().getLocale();
+if (locale != null){
+	
+	lang = locale.getLanguage();
+}
+%>
+<script type='text/javascript' src='lang/jquery.<% out.print(lang); %>.json'></script>
 <script>
 $(document).ready(function () { <%
     //code for menu tabs activation
     String dPageDefault = "planner";
     String dPage = request.getParameter("sect");
     dPage = (dPage == null) ? dPageDefault : dPage;
-    out.println("\n var section= \'" + dPage + "\';"); %>
+    out.println("\n var section= \'" + dPage + "\';"); 
+    %>
     var text_tab = $("#" + section).children("a").hide().text();
     $("#" + section).addClass("active").prepend("<strong>" + text_tab + "</strong>");
     I18NSettings = {};
@@ -43,8 +55,8 @@ $(document).ready(function () { <%
     if (typeof I18NSettings.datePattern === 'undefined') {
         I18NSettings.datePattern = "dd/mm/yy";
     }
-    $._.setLocale('<s:property value="#request.locale" />');
-    
+    //$._.setLocale('<s:property value="#request.locale" />');
+    $._.setLocale('<% out.print(lang); %>');
    
   
 });
