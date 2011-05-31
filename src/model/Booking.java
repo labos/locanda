@@ -11,6 +11,7 @@ import service.StructureService;
 
 import model.listini.Convention;
 import model.listini.ExtraPriceList;
+import model.listini.ExtraPriceListItem;
 import model.listini.Season;
 
 public class Booking {
@@ -70,6 +71,9 @@ public class Booking {
 		}
 		return ret;
 	}
+	
+	
+	
 	
 	public void buildExtraItemsFromExtras(Structure structure) {
 		BookedExtraItem extraItem = null;

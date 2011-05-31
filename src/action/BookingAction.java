@@ -63,17 +63,18 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		Room theBookedRoom = null;
 		List<Extra> checkedExtras = null;
 		Integer numNights;
+		List<BookedExtraItem> bookedExtraItems = null;
 						
 		user = (User)this.getSession().get("user");
 		structure = user.getStructure();
 		
-			if ( (this.getBooking().getDateOut() != null) && (this.getBooking().getDateIn() != null) ) {
-				if(DateUtils.truncatedCompareTo(this.getBooking().getDateOut(), this.getBooking().getDateIn(), Calendar.DAY_OF_MONTH)<=0){
-					this.getMessage().setResult(Message.ERROR);
-					this.getMessage().setDescription("DateOut deve essere maggiore di DateIn!");
-					return "error";
-				}				
-			}
+		if ( (this.getBooking().getDateOut() != null) && (this.getBooking().getDateIn() != null) ) {
+			if(DateUtils.truncatedCompareTo(this.getBooking().getDateOut(), this.getBooking().getDateIn(), Calendar.DAY_OF_MONTH)<=0){
+				this.getMessage().setResult(Message.ERROR);
+				this.getMessage().setDescription("DateOut deve essere maggiore di DateIn!");
+				return "error";
+			}				
+		}
 			
 		theBookedRoom = structure.findRoomById(this.getBooking().getRoom().getId());
 		this.getBooking().setRoom(theBookedRoom);
@@ -85,36 +86,17 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		
 		numNights = this.getBooking().calculateNumNights();
 		this.setNumNights(numNights);
+		
 		roomSubtotal = structure.calculateRoomSubtotalForBooking(this.getBooking());		
 		this.getBooking().setRoomSubtotal(roomSubtotal);
 		
-		
 		checkedExtras = structure.findExtrasByIds(this.getBookingExtraIds());
-		this.getBooking().setExtras(checkedExtras);
+		this.getBooking().setExtras(checkedExtras);		
 		
-		//this.getBooking().getExtraItems();
-		BookedExtraItem bookedExtraItem = null;
-		List<BookedExtraItem> bookedExtraItems = new ArrayList<BookedExtraItem>();
-		for(Extra each: this.getBooking().getExtras()){
-			bookedExtraItem = this.getBooking().findExtraItem(each);
-			if(bookedExtraItem==null){
-				bookedExtraItem = new BookedExtraItem();
-				bookedExtraItem.setExtra(each);
-				bookedExtraItem.setQuantity(this.getBooking().calculateExtraItemQuantity(each));
-				bookedExtraItem.setUnitaryPrice(this.getBooking().calculateExtraItemUnitaryPrice(structure, each));				
-			}else{
-				bookedExtraItem.setUnitaryPrice(this.getBooking().calculateExtraItemUnitaryPrice(structure, each));	
-				bookedExtraItems.add(bookedExtraItem);
-			}
-			
-		}
+		bookedExtraItems = this.calculateBookedExtraItems(structure, this.getBooking());
 		this.getBooking().setExtraItems(bookedExtraItems);
 		
-		/*
-		this.getBooking().buildExtraItemsFromExtras(structure);
-		*/
-				
-				
+			
 		extraSubtotal = this.getBooking().calculateExtraSubtotalForBooking();
 		this.getBooking().setExtraSubtotal(extraSubtotal);	
 		
@@ -127,7 +109,129 @@ public class BookingAction extends ActionSupport implements SessionAware{
 	}
 	
 	
+	@Actions({
+		@Action(value="/saveUpdateBooking",results = {
+				@Result(type ="json",name="success", params={
+						"root","message"
+				}),
+				@Result(name="input", location="/validationError.jsp"),
+				@Result(type ="json",name="error", params={
+						"root","message"
+				})
+		})
+	})
+	public String saveUpdateBooking(){
+		User user = null;
+		Structure structure = null;
+		Booking oldBooking = null;
+		Room theBookedRoom = null;
+		Guest guest = null;
+		Guest oldGuest = null;
+		List<Extra>  checkedExtras = null;
+		Double roomSubtotal = 0.0;
+		Double extraSubtotal = 0.0;
+		List<BookedExtraItem> bookedExtraItems = null;
+		
+		user = (User)session.get("user");
+		structure = user.getStructure();
+		
+		if ( (this.getBooking().getDateOut() != null) && (this.getBooking().getDateIn() != null) ) {
+			if(DateUtils.truncatedCompareTo(this.getBooking().getDateOut(), this.getBooking().getDateIn(), Calendar.DAY_OF_MONTH)<=0){
+				this.getMessage().setResult(Message.ERROR);
+				this.getMessage().setDescription("DateOut deve essere maggiore di DateIn!");
+				return "error";
+			}				
+		}
+		
+		if(!structure.hasRoomFreeForBooking(this.getBooking())){
+			this.getMessage().setResult(Message.ERROR);
+			this.getMessage().setDescription("Booking sovrapposti!");
+			return ERROR;
+		}
+		
+		theBookedRoom = structure.findRoomById(this.getBooking().getRoom().getId());
+		this.getBooking().setRoom(theBookedRoom);
+		
+		if (this.getBooking().getNrGuests() > theBookedRoom.getRoomType().getMaxGuests()) {	//nel caso cambiassi la room con preselezionato un nrGuests superiore al maxGuests della room stessa
+			this.getBooking().setNrGuests(theBookedRoom.getRoomType().getMaxGuests());
+		}
+		
+		roomSubtotal = structure.calculateRoomSubtotalForBooking(this.getBooking());		
+		this.getBooking().setRoomSubtotal(roomSubtotal);
+		
+		checkedExtras = structure.findExtrasByIds(this.getBookingExtraIds());
+		this.getBooking().setExtras(checkedExtras);		
+		
+		bookedExtraItems = this.calculateBookedExtraItems(structure, this.getBooking());
+		this.getBooking().setExtraItems(bookedExtraItems);
+		
+			
+		extraSubtotal = this.getBooking().calculateExtraSubtotalForBooking();
+		this.getBooking().setExtraSubtotal(extraSubtotal);			
+
+		this.filterAdjustments();
+		for(Adjustment each: this.getBooking().getAdjustments()){
+			if(each.getId()==null){
+				each.setId(structure.nextKey());
+			}
+		}
+		this.filterPayments();
+		for(Payment each: this.getBooking().getPayments()){
+			if(each.getId()== null){
+				each.setId(structure.nextKey());
+			}
+		}		
+		this.filterGuests();
+		for(Guest each: this.getBooking().getGuests()){
+			if(each.getId()== null){
+				each.setId(structure.nextKey());
+			}
+		}	
+		
+		guest = this.getBooking().getBooker();
+		oldGuest = structure.findGuestById(guest.getId());		
+		if(oldGuest == null){
+			//Si tratta di un nuovo guest e devo aggiungerlo
+			guest.setId(structure.nextKey());
+			structure.addGuest(guest);			
+		}else{
+			//Si tratta di un guest esistente e devo fare l'update
+			structure.updateGuest(guest);			
+		}	
+		oldBooking = structure.findBookingById(this.getBooking().getId());
+		if(oldBooking==null){
+			//Si tratta di un nuovo booking
+			this.getBooking().setId(structure.nextKey());
+			structure.addBooking(this.getBooking());
+		}else{
+			//Si tratta di un update di un booking esistente			
+			structure.updateBooking(this.getBooking());		
+		}		
+		this.getMessage().setResult(Message.SUCCESS);
+		this.getMessage().setDescription("Booking added/modified successfully");
+		return SUCCESS;
+	}
 	
+	
+	private List<BookedExtraItem> calculateBookedExtraItems(Structure structure, Booking booking){
+		BookedExtraItem bookedExtraItem = null;
+		List<BookedExtraItem> bookedExtraItems = null;
+		
+		bookedExtraItems = new ArrayList<BookedExtraItem>();
+		for(Extra each: booking.getExtras()){
+			bookedExtraItem = booking.findExtraItem(each);
+			if(bookedExtraItem==null){
+				bookedExtraItem = new BookedExtraItem();
+				bookedExtraItem.setExtra(each);
+				bookedExtraItem.setQuantity(booking.calculateExtraItemQuantity(each));
+				bookedExtraItem.setUnitaryPrice(booking.calculateExtraItemUnitaryPrice(structure, each));				
+			}else{
+				bookedExtraItem.setUnitaryPrice(booking.calculateExtraItemUnitaryPrice(structure, each));	
+			}
+			bookedExtraItems.add(bookedExtraItem);
+		}
+		return bookedExtraItems;
+	}
 	
 	@Actions({
 		@Action(value="/goAddBookingFromPlanner",results = {
@@ -297,92 +401,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		return ERROR;
 	}
 	
-	@Actions({
-		@Action(value="/saveUpdateBooking",results = {
-				@Result(type ="json",name="success", params={
-						"root","message"
-				}),
-				@Result(name="input", location="/validationError.jsp"),
-				@Result(type ="json",name="error", params={
-						"root","message"
-				})
-		})
-	})
-	public String saveUpdateBooking(){
-		User user = null;
-		Structure structure = null;
-		Booking oldBooking = null;
-		Room theBookedRoom = null;
-		Guest guest = null;
-		Guest oldGuest = null;
-		List<Extra>  checkedExtras = null;
-		Double roomSubtotal = 0.0;
-		Double extraSubtotal = 0.0;
-		
-		user = (User)session.get("user");
-		structure = user.getStructure();
-		
-		if(!structure.hasRoomFreeForBooking(this.getBooking())){
-			this.getMessage().setResult(Message.ERROR);
-			this.getMessage().setDescription("Booking sovrapposti!");
-			return ERROR;
-		}
-		
-		theBookedRoom = structure.findRoomById(this.getBooking().getRoom().getId());
-		this.getBooking().setRoom(theBookedRoom);
-		
-		checkedExtras = structure.findExtrasByIds(this.getBookingExtraIds());
-		this.getBooking().setExtras(checkedExtras);
-		this.getBooking().buildExtraItemsFromExtras(structure);
-
-		this.filterAdjustments();
-		for(Adjustment each: this.getBooking().getAdjustments()){
-			if(each.getId()==null){
-				each.setId(structure.nextKey());
-			}
-		}
-		this.filterPayments();
-		for(Payment each: this.getBooking().getPayments()){
-			if(each.getId()== null){
-				each.setId(structure.nextKey());
-			}
-		}		
-		this.filterGuests();
-		for(Guest each: this.getBooking().getGuests()){
-			if(each.getId()== null){
-				each.setId(structure.nextKey());
-			}
-		}	
-		
-		roomSubtotal = structure.calculateRoomSubtotalForBooking(this.getBooking());
-		this.getBooking().setRoomSubtotal(roomSubtotal);
-		
-		extraSubtotal = this.getBooking().calculateExtraSubtotalForBooking();
-		this.getBooking().setExtraSubtotal(extraSubtotal);
-		
-		guest = this.getBooking().getBooker();
-		oldGuest = structure.findGuestById(guest.getId());		
-		if(oldGuest == null){
-			//Si tratta di un nuovo guest e devo aggiungerlo
-			guest.setId(structure.nextKey());
-			structure.addGuest(guest);			
-		}else{
-			//Si tratta di un guest esistente e devo fare l'update
-			structure.updateGuest(guest);			
-		}	
-		oldBooking = structure.findBookingById(this.getBooking().getId());
-		if(oldBooking==null){
-			//Si tratta di un nuovo booking
-			this.getBooking().setId(structure.nextKey());
-			structure.addBooking(this.getBooking());
-		}else{
-			//Si tratta di un update di un booking esistente			
-			structure.updateBooking(this.getBooking());		
-		}		
-		this.getMessage().setResult(Message.SUCCESS);
-		this.getMessage().setDescription("Booking added/modified successfully");
-		return SUCCESS;
-	}
+	
 	
 	@Actions({
 		@Action(value="/checkBookingDates",results = {
