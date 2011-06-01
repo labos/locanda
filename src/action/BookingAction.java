@@ -24,6 +24,7 @@ import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import service.ExtraService;
+import service.GuestService;
 
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -45,15 +46,17 @@ public class BookingAction extends ActionSupport implements SessionAware{
 	private Double paymentsSubtotal = 0.0;
 	@Autowired
 	private ExtraService extraService = null;
+	@Autowired
+	private GuestService guestService = null;
 	
 	
 	@Actions({
 		@Action(value="/updateBookingInMemory",results = {
 				@Result(type ="json",name="success", params={
-						"excludeProperties","session,extraService"
+						"excludeProperties","session,extraService,guestService"
 				}),
 				@Result(type ="json",name="error", params={
-						"excludeProperties","session,extraService"
+						"excludeProperties","session,extraService,guestService"
 				}),
 				@Result(name="input", location = "/validationError.jsp")
 		})
@@ -201,14 +204,18 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		}	
 		
 		guest = this.getBooking().getBooker();
-		oldGuest = structure.findGuestById(guest.getId());		
+		guest.setId_structure(structure.getId());
+		//oldGuest = structure.findGuestById(guest.getId());
+		oldGuest = this.getGuestService().findGuestById(guest.getId());
 		if(oldGuest == null){
 			//Si tratta di un nuovo guest e devo aggiungerlo
-			guest.setId(structure.nextKey());
-			structure.addGuest(guest);			
+			//guest.setId(structure.nextKey());
+			//structure.addGuest(guest);
+			this.getGuestService().insertGuest(guest);
 		}else{
 			//Si tratta di un guest esistente e devo fare l'update
-			structure.updateGuest(guest);			
+			//structure.updateGuest(guest);		
+			this.getGuestService().updateGuest(guest);
 		}
 		
 		for(Guest each: this.getBooking().getGuests()){
@@ -665,6 +672,16 @@ public class BookingAction extends ActionSupport implements SessionAware{
 
 	public void setExtraService(ExtraService extraService) {
 		this.extraService = extraService;
+	}
+
+
+	public GuestService getGuestService() {
+		return guestService;
+	}
+
+
+	public void setGuestService(GuestService guestService) {
+		this.guestService = guestService;
 	}
 	
 	

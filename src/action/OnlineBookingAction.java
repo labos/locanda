@@ -24,6 +24,7 @@ import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import service.ExtraService;
+import service.GuestService;
 
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -43,6 +44,8 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 	private Integer roomId;
 	@Autowired
 	private ExtraService extraService = null;
+	@Autowired
+	private GuestService guestService = null;
 	
 	
 	@Actions({
@@ -208,11 +211,14 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 		try {
 			
 			
-			oldGuest = structure.findGuestById(this.getGuest().getId());		
+			//oldGuest = structure.findGuestById(this.getGuest().getId());
+			oldGuest = this.getGuestService().findGuestById(this.getGuest().getId());
+			this.getGuest().setId_structure(structure.getId());
 			if(oldGuest == null){
 				//Si tratta di un nuovo guest e devo aggiungerlo
-				this.getGuest().setId(structure.nextKey());
-				structure.addGuest(guest);			
+				//this.getGuest().setId(structure.nextKey());
+				//structure.addGuest(guest);	
+				this.getGuestService().insertGuest(this.getGuest());
 			}	
 			
 			
@@ -427,6 +433,16 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 
 	public void setExtraService(ExtraService extraService) {
 		this.extraService = extraService;
+	}
+
+
+	public GuestService getGuestService() {
+		return guestService;
+	}
+
+
+	public void setGuestService(GuestService guestService) {
+		this.guestService = guestService;
 	}
 	
 	

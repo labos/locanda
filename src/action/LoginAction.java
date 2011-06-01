@@ -39,6 +39,7 @@ import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import service.ExtraService;
+import service.GuestService;
 import service.SeasonService;
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -50,7 +51,11 @@ public class LoginAction extends ActionSupport implements SessionAware{
 	private String password;
 	@Autowired
 	private SeasonService seasonService = null;
-	@Autowired ExtraService extraService = null;
+	@Autowired 
+	private ExtraService extraService = null;
+	@Autowired 
+	private GuestService guestService = null;
+	
 	
 	@Actions(value={
 			@Action(value="/login", results={
@@ -219,6 +224,7 @@ public class LoginAction extends ActionSupport implements SessionAware{
 	}
 	
 	private void buildGuests(Structure structure){
+		/*
 		Guest aGuest = null;
 		
 		aGuest = new Guest();
@@ -231,7 +237,13 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		aGuest.setPhone("06-6789458");
 		aGuest.setZipCode("09123");
 		aGuest.setNotes("Note su Paolo Rossi");
-		structure.addGuest(aGuest);
+		aGuest.setId_structure(structure.getId());
+		this.getGuestService().insertGuest(aGuest);*/
+		//structure.addGuest(aGuest);
+		structure.setGuests(
+				this.getGuestService().findGuestsByIdStructure(
+						structure.getId()));
+	
 	}
 	
 	private void buildBookings(Structure structure){
@@ -247,7 +259,9 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		
 		aBooking = new Booking();
 		aRoom = structure.findRoomByName("101");
-		aGuest = structure.getGuests().get(0);
+		
+		//aGuest = structure.getGuests().get(0);
+		aGuest = this.getGuestService().findGuestsByIdStructure(structure.getId()).get(0);
 		extras = new ArrayList<Extra>();
 		extras.add(this.getExtraService().findExtrasByIdStructure(structure.getId()).get(0));
 		extras.add(this.getExtraService().findExtrasByIdStructure(structure.getId()).get(1));
@@ -635,6 +649,18 @@ public class LoginAction extends ActionSupport implements SessionAware{
 	}
 	public void setExtraService(ExtraService extraService) {
 		this.extraService = extraService;
+	}
+
+
+
+	public GuestService getGuestService() {
+		return guestService;
+	}
+
+
+
+	public void setGuestService(GuestService guestService) {
+		this.guestService = guestService;
 	}
 	
 	

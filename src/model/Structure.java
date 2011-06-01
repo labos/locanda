@@ -387,11 +387,13 @@ public class Structure {
 	}
 	
 	
-	//Guest	
+	//Guest
+	/*
 	public boolean addGuest(Guest aGuest) {
 		return this.getGuests().add(aGuest);
-	}
+	}*/
 	
+	/*
 	public Boolean updateGuest(Guest guest){
 		
 		Guest oldGuest = this.findGuestById(guest.getId());
@@ -407,12 +409,13 @@ public class Structure {
 		oldGuest.setPhone(guest.getPhone());
 		oldGuest.setZipCode(guest.getZipCode());
 		return true;
-	}	
+	}*/	
 	
+	/*
 	public boolean deleteGuest(Guest aGuest) {
 		return this.getGuests().remove(aGuest);
-	}
-	
+	}*/
+	/*
 	public Guest findGuestById(Integer id){
 		Guest ret = null;
 		
@@ -423,7 +426,7 @@ public class Structure {
 		}
 		return ret;
 	}
-	
+	*/
 	
 	//Extra
 	/*
@@ -912,6 +915,7 @@ public class Structure {
 	public void setKeys(TreeSet<Integer> keys) {
 		this.keys = keys;
 	}
+	
 	public List<Guest> getGuests() {
 		return guests;
 	}
@@ -931,6 +935,7 @@ public class Structure {
 	public void setExtras(List<Extra> extras) {
 		this.extras = extras;
 	}
+	
 	public List<Season> getSeasons() {
 		return seasons;
 	}

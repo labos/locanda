@@ -1,6 +1,8 @@
 package model;
 
-public class Guest {
+import java.io.Serializable;
+
+public class Guest implements Serializable{
 	
 	private Integer id;
 	
@@ -12,10 +14,8 @@ public class Guest {
 	private String country;
 	private String zipCode;
 	private String notes;
-	private String idNumber;
-	
-	
-	
+	private String idNumber;	
+	private Integer id_structure;
 	
 	@Override
 	public int hashCode() {
@@ -99,6 +99,12 @@ public class Guest {
 	}
 	public void setIdNumber(String idNumber) {
 		this.idNumber = idNumber;
+	}
+	public Integer getId_structure() {
+		return id_structure;
+	}
+	public void setId_structure(Integer id_Structure) {
+		this.id_structure = id_Structure;
 	}
 	
 	
