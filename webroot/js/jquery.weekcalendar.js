@@ -665,7 +665,7 @@ var $newEventHor2 = $("<div class=\"wc-cal-event wc-new-cal-event wc-new-cal-eve
 							var lunghezza = number_slots;
 							var array = self.day_booked;
 							var clicco = clickX;
-							console.log("Problem at remove event moving the mouse back " + self.day_booked);
+							//--console.log("Problem at remove event moving the mouse back " + self.day_booked);
 						}
 						
 
@@ -825,7 +825,7 @@ else {
 	}
 	catch(e){
 		//gestisci eccezzioni
-			console.log ("problem at startDate settings...");
+			//--console.log ("problem at startDate settings...");
 		}
 	
 }

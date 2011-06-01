@@ -460,7 +460,7 @@ $(function () {
                         }
                     },
                     error: function () {
-                        $().notify($.i18n("seriousError"), $.i18n("seriousErrorDescription"));
+                        $().notify($.i18n("seriousError"), $.i18n("seriousErrorDescr"));
                     }
                 });
             });
