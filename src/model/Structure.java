@@ -426,10 +426,12 @@ public class Structure {
 	
 	
 	//Extra
+	/*
 	public boolean addExtra(Extra anExtra) {
 		return this.getExtras().add(anExtra);
-	}
+	}*/
 	
+	/*
 	public Boolean updateExtra(Extra extra){
 		Extra oldExtra = this.findExtraById(extra.getId());
 		
@@ -441,12 +443,15 @@ public class Structure {
 		oldExtra.setResourcePriceType(extra.getResourcePriceType());
 		oldExtra.setDescription(extra.getDescription());
 		return true;
-	}
+	}*/
 	
+	/*
 	public boolean deleteExtra(Extra anExtra) {
 		return this.getExtras().remove(anExtra);
 	}
+	*/
 	
+	/*
 	public Extra findExtraById(Integer id){
 		Extra ret = null;
 		
@@ -466,7 +471,7 @@ public class Structure {
 			ret.add(anExtra);
 		}
 		return ret;
-	}
+	}*/
 	
 	
 	//RoomType
@@ -919,6 +924,7 @@ public class Structure {
 	public void setBookings(List<Booking> bookings) {
 		this.bookings = bookings;
 	}
+	
 	public List<Extra> getExtras() {
 		return extras;
 	}

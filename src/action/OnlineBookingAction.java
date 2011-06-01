@@ -21,6 +21,9 @@ import org.apache.struts2.convention.annotation.Actions;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.interceptor.SessionAware;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import service.ExtraService;
 
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -38,6 +41,8 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 	private List<Integer> bookingExtrasId = null;
 	private Guest guest;
 	private Integer roomId;
+	@Autowired
+	private ExtraService extraService = null;
 	
 	
 	@Actions({
@@ -147,7 +152,7 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 		
 		//this.setRooms(structure.getRooms());
 		this.setRoomFacilities(structure.getRoomFacilities());
-		this.setExtras(structure.getExtras());
+		this.setExtras(this.getExtraService().findExtrasByIdStructure(structure.getId()));
 		return SUCCESS;
 	}
 	
@@ -170,7 +175,8 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 		this.setBooking(structure.findBookingById(this.getBooking().getId()));
 		if (this.getBookingExtrasId() != null){
 			
-		checkedExtras = structure.findExtrasByIds(this.getBookingExtrasId());	
+		//checkedExtras = structure.findExtrasByIds(this.getBookingExtrasId());	
+		checkedExtras = this.getExtraService().findExtrasByIds(this.getBookingExtrasId());
 		this.getBooking().setExtras(checkedExtras);	
 		
 		extraSubtotal = this.getBooking().calculateExtraSubtotalForBooking();
@@ -411,6 +417,16 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 
 	public void setRoomId(Integer roomId) {
 		this.roomId = roomId;
+	}
+
+
+	public ExtraService getExtraService() {
+		return extraService;
+	}
+
+
+	public void setExtraService(ExtraService extraService) {
+		this.extraService = extraService;
 	}
 	
 	

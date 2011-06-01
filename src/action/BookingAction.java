@@ -21,6 +21,9 @@ import org.apache.struts2.convention.annotation.Actions;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.interceptor.SessionAware;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import service.ExtraService;
 
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -40,15 +43,17 @@ public class BookingAction extends ActionSupport implements SessionAware{
 	private List<Integer> bookingExtraIds = new ArrayList<Integer>();
 	private Double adjustmentsSubtotal = 0.0;
 	private Double paymentsSubtotal = 0.0;
+	@Autowired
+	private ExtraService extraService = null;
 	
 	
 	@Actions({
 		@Action(value="/updateBookingInMemory",results = {
 				@Result(type ="json",name="success", params={
-						"excludeProperties","session"
+						"excludeProperties","session,extraService"
 				}),
 				@Result(type ="json",name="error", params={
-						"excludeProperties","session"
+						"excludeProperties","session,extraService"
 				}),
 				@Result(name="input", location = "/validationError.jsp")
 		})
@@ -94,7 +99,8 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		roomSubtotal = structure.calculateRoomSubtotalForBooking(this.getBooking());		
 		this.getBooking().setRoomSubtotal(roomSubtotal);
 		
-		checkedExtras = structure.findExtrasByIds(this.getBookingExtraIds());
+		//checkedExtras = structure.findExtrasByIds(this.getBookingExtraIds());
+		checkedExtras = this.getExtraService().findExtrasByIds(this.getBookingExtraIds());
 		this.getBooking().setExtras(checkedExtras);		
 		
 		bookedExtraItems = this.calculateBookedExtraItems(structure, this.getBooking());
@@ -168,7 +174,8 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		roomSubtotal = structure.calculateRoomSubtotalForBooking(this.getBooking());		
 		this.getBooking().setRoomSubtotal(roomSubtotal);
 		
-		checkedExtras = structure.findExtrasByIds(this.getBookingExtraIds());
+		//checkedExtras = structure.findExtrasByIds(this.getBookingExtraIds());
+		checkedExtras = this.getExtraService().findExtrasByIds(this.getBookingExtraIds());
 		this.getBooking().setExtras(checkedExtras);		
 		
 		bookedExtraItems = this.calculateBookedExtraItems(structure, this.getBooking());
@@ -272,7 +279,8 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		defaultConvention = structure.getConventions().get(0);
 		this.getBooking().setConvention(defaultConvention);
 		this.setRooms(structure.getRooms());
-		this.setExtras(structure.getExtras());
+		//this.setExtras(structure.getExtras());
+		this.setExtras(this.getExtraService().findExtrasByIdStructure(structure.getId()));
 		this.setConventions(structure.getConventions());
 		
 		roomSubtotal = structure.calculateRoomSubtotalForBooking(this.getBooking());
@@ -301,7 +309,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		defaultConvention = structure.getConventions().get(0);
 		this.getBooking().setConvention(defaultConvention);		
 		this.setRooms(structure.getRooms());
-		this.setExtras(structure.getExtras());
+		this.setExtras(this.getExtraService().findExtrasByIdStructure(structure.getId()));
 		this.setConventions(structure.getConventions());		
 			
 		return SUCCESS;
@@ -339,7 +347,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		
 				
 		this.setRooms(structure.getRooms());
-		this.setExtras(structure.getExtras());		
+		this.setExtras(this.getExtraService().findExtrasByIdStructure(structure.getId()));		
 		this.setBookingExtraIds(this.calculateBookingExtraIds());
 		this.setConventions(structure.getConventions());		
 		
@@ -642,5 +650,16 @@ public class BookingAction extends ActionSupport implements SessionAware{
 	public void setConventions(List<Convention> conventions) {
 		this.conventions = conventions;
 	}
+
+
+	public ExtraService getExtraService() {
+		return extraService;
+	}
+
+
+	public void setExtraService(ExtraService extraService) {
+		this.extraService = extraService;
+	}
+	
 	
 }

@@ -64,7 +64,8 @@ public class ExtraAction extends ActionSupport implements SessionAware{
 		user = (User)this.getSession().get("user");
 		structure = user.getStructure();
 		
-		extra = structure.findExtraById(this.getExtra().getId());
+		//extra = structure.findExtraById(this.getExtra().getId());
+		extra = this.getExtraService().findExtraById(this.getExtra().getId());
 		this.setExtra(extra);
 		
 		return SUCCESS;
@@ -88,18 +89,21 @@ public class ExtraAction extends ActionSupport implements SessionAware{
 		user = (User)this.getSession().get("user");
 		structure = user.getStructure();
 		
-		oldExtra = structure.findExtraById(this.getExtra().getId());
+		//oldExtra = structure.findExtraById(this.getExtra().getId());
+		oldExtra = this.getExtraService().findExtraById(this.getExtra().getId());
+		this.getExtra().setId_structure(structure.getId());
 		if(oldExtra == null){
-			//Si tratta di un add
-			this.getExtra().setId(structure.nextKey());
-			structure.addExtra(this.getExtra());
+			//Si tratta di un add			
+			this.getExtraService().insertExtra(this.getExtra());
+			
 			this.buildExtraPriceListFromExtra();
+			
 			this.getMessage().setResult(Message.SUCCESS);
 			this.getMessage().setDescription("Extra Added successfully");
 			return SUCCESS;
 		}else{
 			//Si tratta di un update
-			structure.updateExtra(this.getExtra());
+			this.getExtraService().updateExtra(this.getExtra());
 			this.getMessage().setResult(Message.SUCCESS);
 			this.getMessage().setDescription("Extra updated successfully");
 			return SUCCESS;			
@@ -118,21 +122,24 @@ public class ExtraAction extends ActionSupport implements SessionAware{
 	})
 	public String deleteExtra() {
 		User user = null;
-		Structure structure = null;
-		Extra currentExtra = null;
+		Structure structure = null;		
 		
 		user = (User)this.getSession().get("user");
 		structure = user.getStructure();
-		currentExtra = structure.findExtraById(this.getExtra().getId());
-		if(structure.deleteExtra(currentExtra)){
+		
+		try{
+			this.getExtraService().deleteExtra(this.getExtra().getId());
 			this.getMessage().setResult(Message.SUCCESS);
 			this.getMessage().setDescription("Extra deleted successfully");
 			return "success";
-		}else{
+		}catch (Exception e) {
 			this.getMessage().setResult(Message.ERROR);
 			this.getMessage().setDescription("Error deleting extra");
 			return "error";
-		}		
+		}
+		
+		
+		
 	}
 	
 	public void buildExtraPriceListFromExtra() {

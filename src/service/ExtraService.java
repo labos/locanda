@@ -9,5 +9,9 @@ import model.Extra;
 public interface ExtraService {
 	public List<Extra> findExtrasByIdStructure(Integer structureId);
 	public Integer insertExtra(Extra extra);
+	public Extra findExtraById(Integer id);
+	public Integer updateExtra(Extra extra);
+	public Integer deleteExtra(Integer id);
+	public List<Extra> findExtrasByIds(List<Integer> ids);
 	
 }

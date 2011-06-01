@@ -8,12 +8,28 @@
   <cache />
   
   <select id="findExtrasByIdStructure" parameterType="int" resultType="model.Extra">
-	  SELECT id,name,timePriceType,resourcePriceType,id_structure FROM extra where id_structure = #{id};
-  </select>  
-
+	 <include refid="selectExtra"/> FROM extra where id_structure = #{id}
+  </select> 
+  
+  <select id="findExtraById" parameterType="int" resultType="model.Extra">
+	 <include refid="selectExtra"/> FROM extra where id = #{id}
+  </select> 
+  
+   <sql id="selectExtra">
+  	SELECT id,name,timePriceType,resourcePriceType,description,id_structure 
+  </sql>
+  
+  <update id="updateExtra" parameterType="model.Extra">
+  		UPDATE extra set name=#{name},timePriceType=#{timePriceType},resourcePriceType=#{resourcePriceType},description=#{description},id_structure=#{id_structure} where id = #{id}
+  </update>
+  
   <insert id="insertExtra" keyProperty="id" useGeneratedKeys="true" parameterType="model.Extra">
-  	INSERT into extra(name,timePriceType,resourcePriceType,id_structure) values(#{name},#{timePriceType},#{resourcePriceType},#{id_structure});
+  	INSERT into extra(name,timePriceType,resourcePriceType,description,id_structure) values(#{name},#{timePriceType},#{resourcePriceType},#{description},#{id_structure})
   </insert>
+  
+  <delete id="deleteExtra" parameterType="int" >
+  	DELETE from extra where id = #{id}
+  </delete>
   
     
 </mapper>
