@@ -229,6 +229,12 @@ public class BookingAction extends ActionSupport implements SessionAware{
 			}
 		}
 		
+		for (BookedExtraItem each : this.getBooking().getExtraItems()) {
+			if (each.getId() == null) {
+				each.setId(structure.nextKey());
+			}
+		}
+		
 		this.getMessage().setResult(Message.SUCCESS);
 		this.getMessage().setDescription("Booking added/modified successfully");
 		return SUCCESS;

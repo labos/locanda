@@ -110,7 +110,6 @@ public class Booking {
 			}
 		}
 		return ret;
-		
 	}
 	
 	public Integer calculateExtraItemMaxQuantity(Extra extra) {
