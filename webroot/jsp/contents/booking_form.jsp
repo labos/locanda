@@ -422,7 +422,7 @@ display: none;
                     <s:iterator value="extras" var="eachExtra" >
                     
                       <div class="type-check">
-                    	<s:checkbox id="%{#eachExtra.id}_idExtra" name="bookingExtraIds"  value="bookingExtraIds.contains(#eachExtra.id)" fieldValue="%{#eachExtra.id}" label="%{#eachExtra.name}" />
+                    	<s:checkbox id="%{#eachExtra.id}_extraCheckBox" name="bookingExtraIds"  value="bookingExtraIds.contains(#eachExtra.id)" fieldValue="%{#eachExtra.id}" label="%{#eachExtra.name}" />
                       </div> 
                       
                       <s:iterator value="booking.extraItems" var="eachExtraItem" status="itemStatus">
@@ -433,7 +433,7 @@ display: none;
               		  	  <input type="hidden" class="idExtra" name="booking.extraItems[<s:property value="#itemStatus.index"/>].extra.id" value="<s:property value="#eachExtraItem.extra.id"/>"/>
               		  	  <div class="c40l">
               		  	  	<label for="quantity"><s:text name="quantity" />: </label>
-              		  	  	<select name="booking.extraItems[<s:property value="#itemStatus.index"/>].quantity" id='<s:property value="#eachExtra.id"/>' class="quantity required">
+              		  	  	<select name="booking.extraItems[<s:property value="#itemStatus.index"/>].quantity" id='<s:property value="#eachExtra.id"/>_quantity' class="quantity required">
               		  	  	
               		  	  	  <s:bean name="org.apache.struts2.util.Counter" var="counter">
 								<s:param name="last" value="#eachExtraItem.quantity"/>
@@ -445,10 +445,10 @@ display: none;
 								</option>
 							  </s:iterator>
               		  	  	
-              		  	  	</select>   	
+              		  	  	</select>
               		  	</div>
                   	  	<div class="c33l">
-                  	  	  <div class="subcl type-text"><span>&euro;: </span><s:property value="#eachExtraItem.unitaryPrice" /></div>
+                  	  	  <div class="subcl type-text <s:property value="#eachExtra.id"/>_price"><span>&euro;: </span><s:property value="#eachExtraItem.unitaryPrice" /></div>
                   	  	</div>
                   	  </div>
                   	  </s:if>             	  

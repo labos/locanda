@@ -405,17 +405,24 @@ $(function () {
                                         $("#nr_guests").append('<option value="' + i + '">' + i + '</option');
                                     }
                                 }
-								if ($clicked.is('input:checkbox[name="bookingExtraIds"]')) {
-                                    if($clicked.is(":checked")) {
-										var extraID = $('input:checkbox[name="bookingExtraIds"]').attr("value");
-										if (extraID == $('.quantity').attr("id")) {
-											$('.extraQuantity #' + extraID).show();
-										}
+								var extraCheckBoxNumber = $('input:checkbox[name="bookingExtraIds"]').length;
+								//alert(extraCheckBoxNumber);
+								for (var extraID = 1; extraID <= extraCheckBoxNumber; extraID++) {
+									if ($clicked.is('#' + extraID + '_extraCheckBox')) {
+										//var extraCheckBoxID = parseInt($('input:checkbox[name="bookingExtraIds"]').attr("id"));
+										//var extraQuantityID = parseInt($('.quantity').attr("id"));
+										//if (extraQuantityID == extraCheckBoxID) {	
+											if ($clicked.is(":checked")) {
+												$('#' + extraID + '_quantity', '.' + extraID + '_price').show();
+											}
+											
+											else {
+											
+												$('#' + extraID + '_quantity', '.' + extraID + '_price').hide();
+											}
+											//}
 									}
-									else {
-										$('.extraQuantity #' + extraID).hide();
-									}
-                                }
+								}
                                 if (maxGuests !== null && parseInt(maxGuests) > 0 && ($clicked.is("select#sel_rooms_list") || $clicked.is("select#nr_guests"))) {
                                     var numbermaxGuests = parseInt(maxGuests);
                                     //update number of rows to add guests
