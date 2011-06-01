@@ -94,7 +94,7 @@ $(function() {
 
          var self = this;
          self._computeOptions();
-         self._setupEventDelegation();
+        // self._setupEventDelegation();
 
          self._renderCalendar();
 
@@ -544,19 +544,7 @@ _setupEventCreationForRoom : function($weekDay) {
             var number_slots=0;
 				self.day_booked = new Array();
 		
-                //se il target del click  ha la classe wc-cal-event, allora 
-                if ($target.hasClass("wc-time") || $target.hasClass("wc-title")) {
-                	
-                	var id_book_room= $target.find('input[name="id_booked_room"]').val();	
-                //options.eventClick({start: self.formatDate(new Date($target.parent().parent().data("startDate")), "M/d/Y"  ), end: self.formatDate(new Date($target.parent().parent().data("startDate")),"M/d/Y" ), id_booked:id_book_room}, $target, event);
-              
-                options.eventClick($target.parent().data("calEvent"), $target.parent(), event);
 
-                	return;
-                 }
-                
- 
-               
 				
             if ($target.hasClass("wc-day-column-inner")) {
             	
@@ -701,16 +689,33 @@ var $newEventHor2 = $("<div class=\"wc-cal-event wc-new-cal-event wc-new-cal-eve
 
                });
             }
+            
+            //END CODE FOR NEW BOOKING MOUSEDOWN
 
          }).mouseup(function(event) {
         	 
+
+             var $target = $(event.target);
         	 var $weekDay;
         	 var $renderCalEvent;
+        	 
+             //se il target del click  ha la classe wc-cal-event, allora 
+             if ($target.hasClass("wc-time") || $target.hasClass("wc-title")) {
+             	
+             //var id_book_room= $target.find('input[name="id_booked_room"]').val();	
+             //options.eventClick({start: self.formatDate(new Date($target.parent().parent().data("startDate")), "M/d/Y"  ), end: self.formatDate(new Date($target.parent().parent().data("startDate")),"M/d/Y" ), id_booked:id_book_room}, $target, event);
+           
+             options.eventClick($target.parent().data("calEvent"), $target.parent(), event);
+
+             	return;
+              }
+        	 
+        	 
          //ora controllo il rilascio del pulsante del mouse nel caso in cui io ho cliccato ma non mosso il mouse.
         	 if($.isArray(self.day_booked)  && self.day_booked.length === 0)
         		 {
         		 
-        		           var $target = $(event.target);
+        		     
 				//ora vado al parent dell'elemento cliccato
             $weekDay = $target.closest(".wc-day-column-inner");
             //ora che sono arrivato al parent, cerco il div dell'evento in via di creazione
@@ -861,7 +866,7 @@ $.ajax({
 	    
 	     else if (data_action.result == "error")
 	    	 {
-	    	 	alert($.i18n("warning") + data_action.description);
+	    	 	alert($.i18n("warning") + ' ' +  data_action.description);
 	    	 	self.element.weekCalendar("removeUnsavedEvents");
 	    	 }
 	   	else{
@@ -1163,6 +1168,9 @@ $.ajax({
          //---   self._addDraggableToCalEvent(calEvent, $calEvent);
          }
 
+         
+         
+         
          options.eventAfterRender(calEvent, $calEvent);
 
          return $calEvent;

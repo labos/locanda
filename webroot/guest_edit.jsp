@@ -14,8 +14,8 @@
         <!-- begin: #col3 static column -->
         <div id="col3" role="main">
           <div id="col3_content" class="clearfix">
-          <div class="header_section yform">
-                     <p class="navigation"> <a class="home" href="<s:property value="url_findallguest"/>?sect=guests">Manage Guests</a><b>»</b> 
+          <div class="header_section">
+                     <p class="navigation"> <a class="home" href="<s:property value="url_findallguest"/>?sect=guests">&nbsp;</a><b>»</b> 
 			<span>&nbsp;</span></p>
           <span class="name_section">Guest Details</span>
           <div class="right type-text">

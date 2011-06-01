@@ -114,7 +114,7 @@ var $calendar = $('#calendar');
 						buttons: {
 							save: function () {
 								if (!$dialogContent.find(".yform.json").valid()) {
-									$("#accordion").accordion("option", "active", 0);
+									$("#accordion,#accordion2").accordion("option", "active", 0);
 								}
 								$dialogContent.find(".yform.json").submitForm();
 								// $dialogContent.dialog("close");
@@ -169,7 +169,7 @@ var $calendar = $('#calendar');
 						buttons: {
 							save: function () {
 								if (!$dialogContent.find(".yform.json").valid()) {
-									$("#accordion").accordion("option", "active", 0);
+									$("#accordion,#accordion2").accordion("option", "active", 0);
 								}
 								$dialogContent.find(".yform.json").submitForm();
 								// $dialogContent.dialog("close");
