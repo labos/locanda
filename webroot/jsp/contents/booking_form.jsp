@@ -366,8 +366,12 @@ display: none;
                     </div>
                     </div>
                   <!--  END ACCORDION  -->
+                  <!-- START SECOND ACCORDION -->
+                  <div id="accordion2">
+                  <h2><a href="#top_accordion"><s:text name="guests" /></a></h2>
+                  <div>
                       <div class="type-select guests-select">
-                      	<label for="nr_guests"><s:text name="guest" />: <sup title="This field is mandatory.">*</sup></label> 
+                      	<label for="nr_guests"><s:text name="guests" />: <sup title="This field is mandatory.">*</sup></label> 
                       	<select name="booking.nrGuests" id="nr_guests" class="required">
                     	<% 
                     	if (request.getAttribute("booking.room.roomType.maxGuests") != null){
@@ -399,23 +403,27 @@ display: none;
               		<s:iterator value="booking.guests" var="eachGuest" status="guestStatus" >
               		 <div  class="subcolumns guest_row">
               		  <input type="hidden" class="idGuest" name="booking.guests[<s:property value="#guestStatus.index"/>].id" value="<s:property value="#eachGuest.id"/>"/>
-              		    <div class="c25l"><div class="subcl type-text"><span><s:text name="firstName" />:</span><input type="text" name="booking.guests[<s:property value="#guestStatus.index"/>].firstName" value="<s:property value="#eachGuest.firstName" />" class="required" /></div></div>
-                  	  	<div class="c20l"><div class="subcl type-text"><span><s:text name="lastName" />:</span><input type="text" name="booking.guests[<s:property value="#guestStatus.index"/>].lastName"  value="<s:property value="#eachGuest.lastName" />" class="required" style="width: 90%;"/></div></div>
+              		    <div class="c20l"><div class="subcl type-text"><span><s:text name="firstName" />:</span><input type="text" name="booking.guests[<s:property value="#guestStatus.index"/>].firstName" value="<s:property value="#eachGuest.firstName" />" class="required" /></div></div>
+                  	  	<div class="c25l"><div class="subcl type-text"><span><s:text name="lastName" />:</span><input type="text" name="booking.guests[<s:property value="#guestStatus.index"/>].lastName"  value="<s:property value="#eachGuest.lastName" />" class="required" style="width: 90%;"/></div></div>
                   	  	 <div class="c33l"><div class="subcl type-text"><span><s:text name="idNumber" />:</span><input type="text" name="booking.guests[<s:property value="#guestStatus.index"/>].idNumber" value="<s:property value="#eachGuest.idNumber" />" class="required" style="width: 90%;"/></div></div>
                   	  	 <div class="c20r"><label>&nbsp;</label><a href="#" class="erase_guest" title="erase"><img src="images/delete.png" alt="Delete Guest" /><s:text name="deleteGuest" /></a>
               			</div>
                   	  </div>
                   	  </s:iterator>
+                  	  <!-- ADD ONE GUEST TEXT FIELDS AS DEFAULT 
                   	  	<s:if test="booking.guests.size() == 0"> 
                   	  <div  class="subcolumns guest_row">
-              		  <div class="c25l"><div class="subcl type-text"><span><s:text name="firstName" />:</span><input type="text" name="booking.guests[0].firstName" value="" class="require" /></div></div>
-                  	  	<div class="c20l"><div class="subcl type-text"><span><s:text name="lastName" />:</span><input type="text" name="booking.guests[0].lastName"  value="" class="required" style="width: 90%;"/></div></div>
+              		  <div class="c20l"><div class="subcl type-text"><span><s:text name="firstName" />:</span><input type="text" name="booking.guests[0].firstName" value="" class="require" /></div></div>
+                  	  	<div class="c25l"><div class="subcl type-text"><span><s:text name="lastName" />:</span><input type="text" name="booking.guests[0].lastName"  value="" class="required" style="width: 90%;"/></div></div>
                   	  	 <div class="c33l"><div class="subcl type-text"><span><s:text name="idNumber" />:</span><input type="text" name="booking.guests[0].idNumber" value="" class="required" style="width: 90%;"/></div></div>
                   	  	 <div class="c20r"><label>&nbsp;</label><a href="#" class="erase_guest" title="erase"><img src="images/delete.png" alt="Delete Guest" /><s:text name="deleteGuest" /></a>
               			</div>
                   	  </div>
                   	  </s:if>
-                  	  
+                  	  -->
+                  	  </div>
+                  	  </div>
+                  	  <!--  END SECOND ACCORDION -->
                   	  <div class="type-text"><hr/></div>
                  	  
                   <div class="type-select"><label for="">Extras:</label>
@@ -568,8 +576,8 @@ display: none;
                   	  </div>
                   	  
                   	  <div  class="subcolumns guest_row" id="to_add_guest" style="display: none;">
-              		  <div class="c25l"><div class="subcl type-text"><span><s:text name="firstName" />:</span><input type="text" name="booking.guests[__PVALUE__].firstName" value="" class="required" /></div></div>
-                  	  	<div class="c20l"><div class="subcl type-text"><span><s:text name="lastName" />:</span><input type="text" name="booking.guests[__PVALUE__].lastName"  value="" class="required" style="width: 90%;"/></div></div>
+              		  <div class="c20l"><div class="subcl type-text"><span><s:text name="firstName" />:</span><input type="text" name="booking.guests[__PVALUE__].firstName" value="" class="required" /></div></div>
+                  	  	<div class="c25l"><div class="subcl type-text"><span><s:text name="lastName" />:</span><input type="text" name="booking.guests[__PVALUE__].lastName"  value="" class="required" style="width: 90%;"/></div></div>
                   	  	<div class="c33l"><div class="subcl type-text"><span><s:text name="idNumber" />:</span><input type="text" name="booking.guests[__PVALUE__].idNumber" value="" class="required" /></div></div> 
                   	  	 <div class="c20r"><label>&nbsp;</label><a href="#" class="erase_guest" title="erase"><img src="images/delete.png" alt="Delete Guest" /><s:text name="deleteGuest" /></a>
               			</div>

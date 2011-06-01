@@ -84,7 +84,7 @@ $(document).ready(function () {
             });
             
             /* Add shared UI components */
-            $("#accordion").accordion({
+            $("#accordion,#accordion2").accordion({
                 collapsible: true,
                 active: false,
                 animated: 'bounceslide',
