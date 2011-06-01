@@ -406,21 +406,14 @@ $(function () {
                                     }
                                 }
 								var extraCheckBoxNumber = $('input:checkbox[name="bookingExtraIds"]').length;
-								//alert(extraCheckBoxNumber);
 								for (var extraID = 1; extraID <= extraCheckBoxNumber; extraID++) {
 									if ($clicked.is('#' + extraID + '_extraCheckBox')) {
-										//var extraCheckBoxID = parseInt($('input:checkbox[name="bookingExtraIds"]').attr("id"));
-										//var extraQuantityID = parseInt($('.quantity').attr("id"));
-										//if (extraQuantityID == extraCheckBoxID) {	
 											if ($clicked.is(":checked")) {
-												$('#' + extraID + '_quantity', '.' + extraID + '_price').show();
+												$('#' + extraID + '_extraQuantity').show();
 											}
-											
 											else {
-											
-												$('#' + extraID + '_quantity', '.' + extraID + '_price').hide();
+												$('#' + extraID + '_extraQuantity').hide();
 											}
-											//}
 									}
 								}
                                 if (maxGuests !== null && parseInt(maxGuests) > 0 && ($clicked.is("select#sel_rooms_list") || $clicked.is("select#nr_guests"))) {

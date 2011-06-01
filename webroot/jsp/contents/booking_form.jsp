@@ -428,7 +428,7 @@ display: none;
                       <s:iterator value="booking.extraItems" var="eachExtraItem" status="itemStatus">
                                     
                       	<s:if test="#eachExtraItem.extra == #eachExtra">	
-              		  	<div class="type-select extraQuantity">
+              		  	<div id="<s:property value="#eachExtra.id"/>_extraQuantity" class="type-select ">
               		  	  <input type="hidden" class="idExtraItem" name="booking.extraItems[<s:property value="#itemStatus.index"/>].id" value="<s:property value="#eachExtraItem.id"/>"/>
               		  	  <input type="hidden" class="idExtra" name="booking.extraItems[<s:property value="#itemStatus.index"/>].extra.id" value="<s:property value="#eachExtraItem.extra.id"/>"/>
               		  	  <div class="c40l">
@@ -448,7 +448,7 @@ display: none;
               		  	  	</select>
               		  	</div>
                   	  	<div class="c33l">
-                  	  	  <div class="subcl type-text <s:property value="#eachExtra.id"/>_price"><span>&euro;: </span><s:property value="#eachExtraItem.unitaryPrice" /></div>
+                  	  	  <div class="subcl type-text"><span>&euro;: </span><s:property value="#eachExtraItem.unitaryPrice" /></div>
                   	  	</div>
                   	  </div>
                   	  </s:if>             	  
