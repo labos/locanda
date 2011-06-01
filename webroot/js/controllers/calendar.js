@@ -185,6 +185,7 @@ var $calendar = $('#calendar');
 								//--  $calendar.weekCalendar("removeEvent", calEvent.id);
 								if (confirm($.i18n("alertCancel"))) {
 								$dialogContent.dialog("close");
+								$calendar.weekCalendar("refresh");
 								}
 							}
 						}

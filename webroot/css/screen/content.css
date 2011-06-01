@@ -248,7 +248,14 @@ background-position:0 0;
 
 }
 
-div.header_section a.btn_right {
+div.header_section a.btn_right_ {
+float:right;
+background:url('../../images/locanda_add.png') no-repeat scroll 0 0 transparent;
+width: 191px;
+height: 44px;
+
+}
+div.header_section a.btn_right_en {
 float:right;
 background:url('../../images/locanda_add.png') no-repeat scroll 0 0 transparent;
 width: 191px;
@@ -256,7 +263,22 @@ height: 44px;
 
 }
 
-div.header_section a.btn_right:hover {
+
+div.header_section a.btn_right_it {
+float:right;
+background:url('../../images/locanda_add.png') no-repeat scroll 0px -90px transparent;
+width: 191px;
+height: 44px;
+
+}
+
+div.header_section a.btn_right_it:hover {
+
+background-position:0 -137px;
+
+}
+
+div.header_section a.btn_right_en:hover {
 
 background-position:0 -44px;
 
@@ -586,12 +608,10 @@ background:url('../../images/go-back-icon.png') no-repeat scroll 0 0 transparent
 		  }
 
 a.home {
-display:inline;
-height:13px;
+height:32px;
 line-height:50px;
 margin:5px 5px 0 0;
-overflow:hidden;
-width:15px;
+width:32px;
 background:url('../../images/home_small.png') no-repeat scroll 0 0 transparent;
 }
 

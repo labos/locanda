@@ -20,7 +20,7 @@
           <s:url action="goAddNewBooking.action?sect=planner" var="urlGoAddNewBooking"></s:url>
           
           <span class="name_section"><s:text name="planner" /></span>
-               <a class="btn_right" href="<s:property value="urlGoAddNewBooking"/>" title="Add new booking" /></a>
+               <a class="btn_right_<s:property value="#request.locale.getLanguage()" />" href="<s:property value="urlGoAddNewBooking"/>" title="Add new booking" /></a>
                </div>
             <div id='calendar'></div>
 

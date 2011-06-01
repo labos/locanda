@@ -17,7 +17,7 @@
           	<div class="header_section yform">
               <p class="navigation"> <a class="home" href="<s:property value="url_findallconventions"/>?sect=settings">Manage Conventions</a><b>»</b> 
 			  <span>&nbsp;</span></p>
-              <span class="name_section">Convention Details</span>
+              <span class="name_section"><s:text name="conventionDetails" /></span>
             </div>
           
             <div>

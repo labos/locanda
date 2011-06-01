@@ -15,9 +15,9 @@
         <div id="col3" role="main">
           <div id="col3_content" class="clearfix">
           	<div class="header_section yform">
-              <p class="navigation"> <a class="home" href="<s:property value="url_findallextra"/>?sect=extras">Manage Extras</a><b>»</b> 
+              <p class="navigation"> <a class="home" href="<s:property value="url_findallextra"/>?sect=extras">&nbsp;</a><b>»</b> 
 			  <span>&nbsp;</span></p>
-              <span class="name_section">Extra Details</span>
+              <span class="name_section"><s:text name="extraDetails" /></span>
             </div>
           
             <div>

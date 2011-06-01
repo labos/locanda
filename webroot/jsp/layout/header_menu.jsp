@@ -37,7 +37,7 @@ if (locale != null){
 	lang = locale.getLanguage();
 }
 %>
-<script type='text/javascript' src='lang/jquery.<% out.print(lang); %>.json'></script>
+<script type='text/javascript' src='lang/jquery.<s:property value="#request.locale.getLanguage()" />.json'></script>
 <script>
 $(document).ready(function () { <%
     //code for menu tabs activation
@@ -56,7 +56,7 @@ $(document).ready(function () { <%
         I18NSettings.datePattern = "dd/mm/yy";
     }
     //$._.setLocale('<s:property value="#request.locale" />');
-    $._.setLocale('<% out.print(lang); %>');
+    $._.setLocale('<s:property value="#request.locale.getLanguage()" />');
    
   
 });

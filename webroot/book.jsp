@@ -15,9 +15,9 @@
         <div id="col3" role="main">
           <div id="col3_content" class="clearfix">
           <div class="header_section">
-         	<p class="navigation"> <a class="home" href="<s:property value="url_home"/>?sect=planner">Home</a><b>»</b> 
+         	<p class="navigation"> <a class="home" href="<s:property value="url_home"/>?sect=planner">&nbsp;</a><b>»</b> 
 			<span>&nbsp;</span></p>
-    		<span class="name_section">Booking</span>
+    		<span class="name_section"><s:text name="booking" /></span>
           </div>
 <div>
 <jsp:include page="jsp/contents/booking_form.jsp" />
