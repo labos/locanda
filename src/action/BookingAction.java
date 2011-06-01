@@ -76,7 +76,9 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		theBookedRoom = structure.findRoomById(this.getBooking().getRoom().getId());
 		this.getBooking().setRoom(theBookedRoom);
 		
-		if(!structure.hasRoomFreeForBooking(this.getBooking())){
+		if(this.getBooking().getDateIn()!=null &&
+				this.getBooking().getDateOut()!=null &&
+				!structure.hasRoomFreeForBooking(this.getBooking())){
 			this.getMessage().setResult(Message.ERROR);
 			this.getMessage().setDescription("Booking sovrapposti!");
 			return ERROR;
