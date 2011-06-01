@@ -102,7 +102,7 @@ display: none;
                  </fieldset>         
               </div>
               <div class="subcolumns_oldgecko">
-               <div class="c45l">
+               <div class="c50l">
               <fieldset>
     <legend><s:text name="bookingDetails" />:</legend>
                 <input type="hidden" name="booking.booker.id" value="<s:property value="booking.booker.id"/>"/>
@@ -369,7 +369,7 @@ display: none;
                   <!-- START SECOND ACCORDION -->
                   <div id="accordion2">
                   <h2><a href="#top_accordion"><s:text name="guests" /></a></h2>
-                  <div>
+                  <div style="padding: 0;">
                       <div class="type-select guests-select">
                       	<label for="nr_guests"><s:text name="guests" />: <sup title="This field is mandatory.">*</sup></label> 
                       	<select name="booking.nrGuests" id="nr_guests" class="required">
@@ -403,10 +403,10 @@ display: none;
               		<s:iterator value="booking.guests" var="eachGuest" status="guestStatus" >
               		 <div  class="subcolumns guest_row">
               		  <input type="hidden" class="idGuest" name="booking.guests[<s:property value="#guestStatus.index"/>].id" value="<s:property value="#eachGuest.id"/>"/>
-              		    <div class="c20l"><div class="subcl type-text"><span><s:text name="firstName" />:</span><input type="text" name="booking.guests[<s:property value="#guestStatus.index"/>].firstName" value="<s:property value="#eachGuest.firstName" />" class="required" /></div></div>
+              		    <div class="c25l"><div class="subcl type-text"><span><s:text name="firstName" />:</span><input type="text" name="booking.guests[<s:property value="#guestStatus.index"/>].firstName" value="<s:property value="#eachGuest.firstName" />" class="required" /></div></div>
                   	  	<div class="c25l"><div class="subcl type-text"><span><s:text name="lastName" />:</span><input type="text" name="booking.guests[<s:property value="#guestStatus.index"/>].lastName"  value="<s:property value="#eachGuest.lastName" />" class="required" style="width: 90%;"/></div></div>
                   	  	 <div class="c33l"><div class="subcl type-text"><span><s:text name="idNumber" />:</span><input type="text" name="booking.guests[<s:property value="#guestStatus.index"/>].idNumber" value="<s:property value="#eachGuest.idNumber" />" class="required" style="width: 90%;"/></div></div>
-                  	  	 <div class="c20r"><label>&nbsp;</label><a href="#" class="erase_guest" title="erase"><img src="images/delete.png" alt="Delete Guest" /><s:text name="deleteGuest" /></a>
+                  	  	 <div class="c10r"><label>&nbsp;</label><a href="#" class="erase_guest" title="erase"><img src="images/delete.png" alt="Delete Guest" /><s:text name="deleteGuest" /></a>
               			</div>
                   	  </div>
                   	  </s:iterator>
@@ -479,7 +479,7 @@ display: none;
                 <div class="c5l">
                 &nbsp;
                 </div>
-                <div class="book_details c50l">
+                <div class="book_details c45l">
                   <fieldset><legend><s:text name="price" /></legend>
                   	<div class="type-text"><span><s:text name="room" />: </span><div class="c33r"><span id="price_room" ><s:property value="booking.roomSubtotal"/></span> &euro; </div></div>
                   	<div class="type-text"><span><s:text name="extras" />: </span><div class="c33r"><span id="extras_room" ><s:property value="booking.extraSubtotal"/></span> &euro; </div></div>
@@ -573,9 +573,9 @@ display: none;
                   	  </div>
                   	  
                   	  <div  class="subcolumns guest_row" id="to_add_guest" style="display: none;">
-              		  <div class="c20l"><div class="subcl type-text"><span><s:text name="firstName" />:</span><input type="text" name="booking.guests[__PVALUE__].firstName" value="" class="required" /></div></div>
+              		  <div class="c25l"><div class="subcl type-text"><span><s:text name="firstName" />:</span><input type="text" name="booking.guests[__PVALUE__].firstName" value="" class="required" /></div></div>
                   	  	<div class="c25l"><div class="subcl type-text"><span><s:text name="lastName" />:</span><input type="text" name="booking.guests[__PVALUE__].lastName"  value="" class="required" style="width: 90%;"/></div></div>
                   	  	<div class="c33l"><div class="subcl type-text"><span><s:text name="idNumber" />:</span><input type="text" name="booking.guests[__PVALUE__].idNumber" value="" class="required" /></div></div> 
-                  	  	 <div class="c20r"><label>&nbsp;</label><a href="#" class="erase_guest" title="erase"><img src="images/delete.png" alt="Delete Guest" /><s:text name="deleteGuest" /></a>
+                  	  	 <div class="c10r"><label>&nbsp;</label><a href="#" class="erase_guest" title="erase"><img src="images/delete.png" alt="Delete Guest" /><s:text name="deleteGuest" /></a>
               			</div>
                   	  </div>

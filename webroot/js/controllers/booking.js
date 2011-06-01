@@ -93,6 +93,11 @@ $(function () {
             $(".btn_checked").button({
                 disabled: true
             });
+            $(".canc_booking").button({
+                icons: {
+                    primary: "ui-icon-trash"
+                }
+            });
             
             $(".btn_check_in").button({
                 icons: {
