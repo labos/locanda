@@ -28,6 +28,7 @@
   <mappers>
     <mapper resource="persistence/mybatis/mappers/StudenteMapper.xml"/>
     <mapper resource="persistence/mybatis/mappers/SeasonMapper.xml"/>
+     <mapper resource="persistence/mybatis/mappers/ExtraMapper.xml"/>
   </mappers>
 
 </configuration>

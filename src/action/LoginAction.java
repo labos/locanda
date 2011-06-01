@@ -38,6 +38,7 @@ import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import service.ExtraService;
 import service.SeasonService;
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -49,6 +50,7 @@ public class LoginAction extends ActionSupport implements SessionAware{
 	private String password;
 	@Autowired
 	private SeasonService seasonService = null;
+	@Autowired ExtraService extraService = null;
 	
 	@Actions(value={
 			@Action(value="/login", results={
@@ -283,6 +285,7 @@ public class LoginAction extends ActionSupport implements SessionAware{
 	}
 	
 	private void buildExtras(Structure structure){
+		/*
 		Extra anExtra = null;
 		
 		anExtra = new Extra();
@@ -290,14 +293,21 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		anExtra.setName("Breakfast");
 		anExtra.setResourcePriceType("per Room");
 		anExtra.setTimePriceType("per Night");
-		structure.addExtra(anExtra);
+		anExtra.setId_structure(structure.getId());
+		this.getExtraService().insertExtra(anExtra);
 		
 		anExtra = new Extra();
 		anExtra.setId(structure.nextKey());
 		anExtra.setName("Parking");
 		anExtra.setResourcePriceType("per Room");
 		anExtra.setTimePriceType("per Night");
-		structure.addExtra(anExtra);
+		anExtra.setId_structure(structure.getId());
+		this.getExtraService().insertExtra(anExtra);
+		*/
+		structure.setExtras(
+				this.getExtraService().findExtrasByIdStructure(
+						structure.getId()));
+		
 	}
 	
 	
@@ -617,11 +627,14 @@ public class LoginAction extends ActionSupport implements SessionAware{
 	public SeasonService getSeasonService() {
 		return seasonService;
 	}
-
-
-
 	public void setSeasonService(SeasonService seasonService) {
 		this.seasonService = seasonService;
+	}
+	public ExtraService getExtraService() {
+		return extraService;
+	}
+	public void setExtraService(ExtraService extraService) {
+		this.extraService = extraService;
 	}
 	
 	

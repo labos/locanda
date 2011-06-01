@@ -1,12 +1,15 @@
 package model;
 
-public class Extra {
+import java.io.Serializable;
+
+public class Extra implements Serializable{
 	
 	private Integer id;
 	private String name;
 	private String timePriceType;
 	private String resourcePriceType;
 	private String description;
+	private Integer id_structure;
 	
 	
 	@Override
@@ -61,6 +64,12 @@ public class Extra {
 	}
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	public Integer getId_structure() {
+		return id_structure;
+	}
+	public void setId_structure(Integer id_structure) {
+		this.id_structure = id_structure;
 	}
 	
 	

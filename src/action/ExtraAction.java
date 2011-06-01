@@ -15,6 +15,9 @@ import org.apache.struts2.convention.annotation.Actions;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.interceptor.SessionAware;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import service.ExtraService;
 
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -24,6 +27,8 @@ public class ExtraAction extends ActionSupport implements SessionAware{
 	private Message message = new Message();
 	private List<Extra> extras = null;
 	private Extra extra = null;
+	@Autowired
+	private ExtraService extraService = null;
 	
 	@Actions({
 		@Action(value="/findAllExtras",results = {
@@ -33,19 +38,16 @@ public class ExtraAction extends ActionSupport implements SessionAware{
 	public String findAllExtras() {
 		User user = null;
 		Structure structure = null;
-		Extra anEmptyExtra = null;
+		List<Extra> extras = null;
+		
 		
 		user = (User)this.getSession().get("user");
 		structure = user.getStructure();
 		
-		this.setExtras(structure.getExtras());
+		//this.setExtras(structure.getExtras());
+		extras = this.getExtraService().findExtrasByIdStructure(structure.getId());
+		this.setExtras(extras);
 		
-		/*
-		anEmptyExtra = new Extra();
-		anEmptyExtra.setTimePriceType("per Night");
-		anEmptyExtra.setResourcePriceType("per Room");
-		this.setExtra(anEmptyExtra);		
-		*/
 		return SUCCESS;
 	}
 	
@@ -174,5 +176,15 @@ public class ExtraAction extends ActionSupport implements SessionAware{
 	public void setExtra(Extra extra) {
 		this.extra = extra;
 	}
+
+	public ExtraService getExtraService() {
+		return extraService;
+	}
+
+	public void setExtraService(ExtraService extraService) {
+		this.extraService = extraService;
+	}
+	
+	
 	
 }

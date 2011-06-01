@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="persistence.mybatis.mappers.ExtraMapper">
+
+ 
+  <cache />
+  
+  <select id="findExtrasByIdStructure" parameterType="int" resultType="model.Extra">
+	  SELECT id,name,timePriceType,resourcePriceType,id_structure FROM extra where id_structure = #{id};
+  </select>  
+
+  <insert id="insertExtra" keyProperty="id" useGeneratedKeys="true" parameterType="model.Extra">
+  	INSERT into extra(name,timePriceType,resourcePriceType,id_structure) values(#{name},#{timePriceType},#{resourcePriceType},#{id_structure});
+  </insert>
+  
+    
+</mapper>

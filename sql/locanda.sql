@@ -67,8 +67,35 @@ CREATE TABLE `period` (
 
 LOCK TABLES `period` WRITE;
 /*!40000 ALTER TABLE `period` DISABLE KEYS */;
-INSERT INTO `period` VALUES (67,'2011-01-01','2011-04-30',46),(68,'2011-09-01','2011-12-31',46),(69,'2011-05-01','2011-08-31',47);
+INSERT INTO `period` VALUES (68,'2011-09-01','2011-12-31',46),(69,'2011-05-01','2011-08-31',47);
 /*!40000 ALTER TABLE `period` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `extra`
+--
+
+DROP TABLE IF EXISTS `extra`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `extra` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `timePriceType` varchar(255) DEFAULT NULL,
+  `resourcePriceType` varchar(255) DEFAULT NULL,
+  `id_structure` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `extra`
+--
+
+LOCK TABLES `extra` WRITE;
+/*!40000 ALTER TABLE `extra` DISABLE KEYS */;
+INSERT INTO `extra` VALUES (1,'Breakfast','per Night','per Room',2),(2,'Parking','per Night','per Room',2);
+/*!40000 ALTER TABLE `extra` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -80,4 +107,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2011-05-27 15:37:08
+-- Dump completed on 2011-06-01 10:02:41
