@@ -408,12 +408,17 @@ $(function () {
 								var extraCheckBoxNumber = $('input:checkbox[name="bookingExtraIds"]').length;
 								for (var extraID = 1; extraID <= extraCheckBoxNumber; extraID++) {
 									if ($clicked.is('#' + extraID + '_extraCheckBox')) {
+										if ($('#' + extraID + '_extraQuantity').length != 0) {
 											if ($clicked.is(":checked")) {
 												$('#' + extraID + '_extraQuantity').show();
 											}
 											else {
 												$('#' + extraID + '_extraQuantity').hide();
 											}
+									}
+									else {
+										
+									}
 									}
 								}
                                 if (maxGuests !== null && parseInt(maxGuests) > 0 && ($clicked.is("select#sel_rooms_list") || $clicked.is("select#nr_guests"))) {
