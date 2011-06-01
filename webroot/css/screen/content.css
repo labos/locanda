@@ -756,6 +756,11 @@ margin-right:3px;
 
 }
 
+div.langMenu {
+float:left;
+height: 17px;
+}
+
 /*.validationErrors{
 	border: 1px dotted red;
 }*/

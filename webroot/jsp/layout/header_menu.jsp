@@ -107,12 +107,12 @@ $(document).ready(function () { <%
   <div class="page_margins">
     <div class="page">
       <div id="header" role="banner">
-        <div id="topnav" role="contentinfo">
+        <div id="topnav" role="contentinfo" >
           <span><a title="logout" class="logout" href="<s:property value="url_logout"/>"></a></span>
-         <span>
+         <div class="langMenu">
         <s:a href="%{localeIT}" cssClass="flag_it"></s:a>
         <s:a href="%{localeEN}" cssClass="flag_en"></s:a>
-          </span>
+          </div>
         </div>
 
         <h1>
