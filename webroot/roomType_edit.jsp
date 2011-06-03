@@ -15,7 +15,7 @@
         <div id="col3" role="main">
           <div id="col3_content" class="clearfix">
           	<div class="header_section yform">
-              <p class="navigation"> <a class="home" href="<s:property value="url_findallroomtypes"/>?sect=accomodation">Manage Room Types</a><b>»</b> 
+              <p class="navigation"> <a class="home" href="<s:property value="url_findallroomtypes"/>?sect=accomodation"></a><b>»</b> 
 			  <span>&nbsp;</span></p>
               <span class="name_section">Room Type Details</span>
             </div>

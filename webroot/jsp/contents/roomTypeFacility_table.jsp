@@ -20,7 +20,7 @@
 					<s:iterator value="roomTypeFacility" var="each">
                		  <div class="facility">
 						<img width="24" height="24" src="images/roomtype_facilities/<s:property value="#each.fileName"/>" alt="facility"/>
-						<s:checkbox id="%{#each.name}_fac" name="roomFacilitiesIds" value="roomFacilitiesIds.contains(#each.id)" fieldValue="%{#each.id}" label="%{#each.name}"/>
+						<s:checkbox id="%{#each.name}_fac" name="roomFacilitiesIds" value="true" fieldValue="%{#each.id}" label="%{#each.name}"/>
 					  </div>
 					</s:iterator>	
 					</s:if>	
