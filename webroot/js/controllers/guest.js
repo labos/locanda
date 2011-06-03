@@ -61,7 +61,7 @@ $(function () {
                             $.each(data, function (key, value) {
                                 result.push({
                                     "id": value.id,
-                                    "label": value.lastName,
+                                    "label": value.firstName + ' ' +  value.lastName,
                                     "value": value.firstName + value.lastName
                                 });
                             });
@@ -98,6 +98,7 @@ $(function () {
                                         $("#zipCode").val(response.guest.zipCode);
                                         $("#email").val(response.guest.email);
                                         $("#fname").val(response.guest.firstName);
+                                        $("#lname").val(response.guest.lastName);
                                         $("#notes").val(response.guest.notes);
                                     }
                                     else {

@@ -97,6 +97,7 @@ var $calendar = $('#calendar');
 						new Option(I18NSettings.lang, I18NSettings.datePattern);
 						new Booking(I18NSettings.lang, I18NSettings.datePattern);
 						$(".btn_save").hide();
+						$(".btn_check_in").hide();
 					}).dialog({
 						open: function (event, ui) {
 							$(".btn_save").hide();
