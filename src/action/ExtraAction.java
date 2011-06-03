@@ -190,8 +190,5 @@ public class ExtraAction extends ActionSupport implements SessionAware{
 
 	public void setExtraService(ExtraService extraService) {
 		this.extraService = extraService;
-	}
-	
-	
-	
+	}	
 }

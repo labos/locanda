@@ -54,11 +54,17 @@ public class UploadAction extends ActionSupport implements SessionAware{
 	})
 
 	public String uploadFacility() throws IOException {
-		User user = (User)this.getSession().get("user");
-		ServletContext context = ServletActionContext.getServletContext();
-		String imgPath = context.getRealPath("/")+ "images/room_facilities/";
+		User user = null; 
+		ServletContext context = null; 
+		String imgPath = null; 
 		//Controllare che sia diverso da null in un interceptor
-		Structure structure = user.getStructure();
+		Structure structure = null; 
+		
+		user = (User)this.getSession().get("user");
+		context =  ServletActionContext.getServletContext();
+		imgPath = context.getRealPath("/")+ "images/room_facilities/";
+		structure = user.getStructure();
+		
 		if (structure.hasRoomFacilityNamed(this.getName())) {
 			message.setResult(Message.ERROR);
 			message.setDescription("Esiste già una facility con lo stesso nome");
@@ -66,15 +72,14 @@ public class UploadAction extends ActionSupport implements SessionAware{
 		};
 		
 		File target = new File(imgPath + this.getUploadFileName());
-		FileUtils.copyFile(this.upload, target);
-		
-		
+		FileUtils.copyFile(this.upload, target);		
 		
 		this.roomFacility = new RoomFacility();
 		this.roomFacility.setName(this.name);
 		this.roomFacility.setFileName(this.uploadFileName);
-		this.roomFacility.setId(structure.nextKey());
+		//this.roomFacility.setId(structure.nextKey());
 		structure.addRoomFacility(roomFacility);
+		
 		message.setResult(Message.SUCCESS);
 		message.setDescription("Facility inserita correttamente!");
 		return SUCCESS;
@@ -213,7 +218,7 @@ public class UploadAction extends ActionSupport implements SessionAware{
 		
 		try {
 			
-			aRoom.addRoomImage(this.getImage());
+			aRoom.addImage(this.getImage());
 			structure.updateRoom(aRoom);
 			
 		}
@@ -272,8 +277,7 @@ public class UploadAction extends ActionSupport implements SessionAware{
 		this.image.setName(this.name);
 		this.image.setFileName(this.uploadFileName);
 		aRoomType = structure.findRoomTypeById(this.getRoomType().getId());
-		if (aRoomType == null){
-			
+		if (aRoomType == null){			
 			message.setResult(Message.ERROR);
 			message.setDescription("Non esiste la RoomType per l'aggiunta della foto");
 			return ERROR;
@@ -331,16 +335,15 @@ public class UploadAction extends ActionSupport implements SessionAware{
 			message.setResult(Message.ERROR);
 			message.setDescription("Esiste già una facility con lo stesso nome");
 			return ERROR;
-		};
+		}
 		
 		File target = new File(imgPath + this.getUploadFileName());
-		FileUtils.copyFile(this.upload, target);
-		
+		FileUtils.copyFile(this.upload, target);		
 		
 		this.roomFacility = new RoomFacility();
 		this.roomFacility.setName(this.name);
 		this.roomFacility.setFileName(this.uploadFileName);
-		this.roomFacility.setId(structure.nextKey());
+		//this.roomFacility.setId(structure.nextKey());
 		
 		structure.addRoomTypeFacility(this.roomFacility);
 		message.setResult(Message.SUCCESS);

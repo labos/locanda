@@ -48,7 +48,5 @@ public class Image {
 			return false;
 		return true;
 	}
-	
-	
 
 }

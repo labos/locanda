@@ -118,6 +118,7 @@ public class RoomAction extends ActionSupport implements SessionAware{
 		User user = null;
 		Structure structure = null;
 		List <RoomFacility> selectedFacility = null;
+		
 		user = (User)this.getSession().get("user");
 		structure = user.getStructure();
 		this.setRoomFacilities(structure.getRoomFacilities());

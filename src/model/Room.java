@@ -10,12 +10,12 @@ public class Room {
 	private String notes;
 	private RoomType roomType;
 	private List<RoomFacility> facilities;
-	private List<Image> imageLists;
+	private List<Image> images;
 	
 	
 	public Room(){
 		this.facilities = new ArrayList<RoomFacility>();
-		this.imageLists = new ArrayList<Image>();
+		this.images = new ArrayList<Image>();
 	}
 	
 	public Boolean addRoomFacility(RoomFacility roomFacility){
@@ -28,12 +28,12 @@ public class Room {
 	}
 	
 	//Room Image Adding	
-	public Boolean addRoomImage(Image roomImage){
-		return this.getImageLists().add(roomImage);
+	public Boolean addImage(Image anImage){
+		return this.getImages().add(anImage);
 	}
 	
-	public boolean deleteImage(Image aImage) {
-		return this.getImageLists().remove(aImage);
+	public boolean deleteImage(Image anImage) {
+		return this.getImages().remove(anImage);
 	}
 	
 	@Override
@@ -97,11 +97,11 @@ public class Room {
 	public void setRoomType(RoomType roomType) {
 		this.roomType = roomType;
 	}
-	public List<Image> getImageLists() {
-		return imageLists;
+	public List<Image> getImages() {
+		return images;
 	}
-	public void setImageLists(List<Image> imageLists) {
-		this.imageLists = imageLists;
+	public void setImages(List<Image> imageLists) {
+		this.images = imageLists;
 	}	
 
 }

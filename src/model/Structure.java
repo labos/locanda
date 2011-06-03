@@ -269,7 +269,8 @@ public class Structure {
 	//RoomTypeFacility	
 	public Boolean addRoomTypeFacility(RoomFacility roomFacility){
 		roomFacility.setId(this.nextKey());
-		return this.getRoomTypeFacilities().add(roomFacility);
+		//return this.getRoomTypeFacilities().add(roomFacility);
+		return this.getRoomFacilities().add(roomFacility);
 	}	
 	
 	public boolean hasRoomTypeFacilityNamed(String roomFacilityName){
