@@ -123,7 +123,10 @@ public class RoomAction extends ActionSupport implements SessionAware{
 		structure = user.getStructure();
 		this.setRoomFacilities(structure.getRoomFacilities());
 		selectedFacility = structure.findRoomTypeById(this.getRoom().getRoomType().getId() ).getRoomTypeFacilities();
-		this.setRoomTypeFacility(selectedFacility);
+		for(RoomFacility each: selectedFacility){			
+			this.getRoomFacilitiesIds().add(each.getId());		//popolo l'array roomFacilitiesIds con gli id delle Facilities già presenti nella Room da editare
+		}
+		
 		return SUCCESS;
 	}
 	

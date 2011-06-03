@@ -38,7 +38,7 @@
 					</s:iterator>
 				    <!-- div facility for javascript purpose-->
 				  	<div class="facility" style="display: none; border-color: red;">
-					  <img  width="24" height="24" src="images/roomtype_facilities/" alt="facility"/>
+					  <img  width="24" height="24" src="images/room_facilities/" alt="facility"/>
 					  <input type="checkbox" id="" name="" checked="checked"/>
 					  <label for=""></label>
 				  	</div>
