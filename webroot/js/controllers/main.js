@@ -91,7 +91,7 @@ $(document).ready(function () {
                 collapsible: true,
                 active: false,
                 animated: 'bounceslide',
-                autoHeight: true
+                autoHeight: false
             });
              
             $(".btn_save").button({
