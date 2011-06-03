@@ -328,7 +328,7 @@ public class UploadAction extends ActionSupport implements SessionAware{
 		RoomType aRoomType = null;
 		User user = (User)this.getSession().get("user");
 		ServletContext context = ServletActionContext.getServletContext();
-		String imgPath = context.getRealPath("/")+ "images/roomtype_facilities/";
+		String imgPath = context.getRealPath("/")+ "images/room_facilities/";
 		//Controllare che sia diverso da null in un interceptor
 		Structure structure = user.getStructure();
 		if (structure.hasRoomTypeFacilityNamed(this.getName())) {

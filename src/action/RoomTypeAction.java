@@ -49,7 +49,7 @@ public class RoomTypeAction extends ActionSupport implements SessionAware{
 		structure = user.getStructure();
 		
 		this.setRoomTypes(structure.getRoomTypes());
-		this.setRoomTypeFacilities(structure.getRoomTypeFacilities());
+		this.setRoomTypeFacilities(structure.getRoomFacilities());
 		return SUCCESS;
 	}
 	
@@ -66,7 +66,7 @@ public class RoomTypeAction extends ActionSupport implements SessionAware{
 		structure = user.getStructure();
 		this.setRoomType(structure.findRoomTypeById(this.getRoomType().getId()));
 		
-		this.setRoomTypeFacilities(structure.getRoomTypeFacilities());
+		this.setRoomTypeFacilities(structure.getRoomFacilities());
 		for(RoomFacility each: this.getRoomType().getRoomTypeFacilities()){			
 			this.getRoomTypeFacilitiesIds().add(each.getId());		//popolo l'array roomFacilitiesIds con gli id delle Facilities già presenti nella Room da editare
 		}
@@ -88,7 +88,7 @@ public class RoomTypeAction extends ActionSupport implements SessionAware{
 		user = (User)session.get("user");
 		structure = user.getStructure();
 		
-		checkedFacilities = structure.findRoomTypeFacilitiesByIds(this.getRoomTypeFacilitiesIds());
+		checkedFacilities = structure.findRoomFacilitiesByIds(this.getRoomTypeFacilitiesIds());
 		oldRoomtype = structure.findRoomTypeById(this.getRoomType().getId());
 		if(oldRoomtype == null){
 			//Si tratta di una aggiunta
