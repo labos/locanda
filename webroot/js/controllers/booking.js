@@ -167,7 +167,7 @@ $(function () {
                                     });
                                 });
                                 
-                                setTimeout( window.location.reload(), 1000);
+                                setTimeout( "window.location.reload()", 1000);
                                 //END ADDING CHECKOUT LISTENER
                             }
                             else if (data_action.result == "error") {
@@ -207,7 +207,7 @@ $(function () {
                                 label: "CHECKED"
                             });
                             $("input:hidden[name='booking.status']").val("checkout");
-                            setTimeout( window.location.reload(), 1000);
+                            setTimeout( "window.location.reload()", 1000);
                         }
                         else if (data_action.result == "error") {
                             $().notify($.i18n("warning"), data_action.description);
