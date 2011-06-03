@@ -51,6 +51,8 @@ $(function () {
                 //nothing for now -- problema nei selettori
             }
         },
+                
+        
         days_between_signed: function (date1, date2) {
             // The number of milliseconds in one day
             var ONE_DAY = 1000 * 60 * 60 * 24;
@@ -64,6 +66,7 @@ $(function () {
         }
     }, /* @prototype */ {
         init: function (lang, patternDate) {
+        	var self = this;
             this.alertOK = $.i18n("congratulation");
             this.alertKO = $.i18n("warning");
             var ONE_DAY = 1000 * 60 * 60 * 24; /* booking section initialization */
@@ -386,93 +389,7 @@ $(function () {
                     $().notify($.i18n("warning"), $.i18n("roomRequired"));
                     return;
                 }
-                var formInput = $(this).parents().find(".yform.json").serialize();
-                var $clicked = $(this);
-                $.ajax({
-                    type: "POST",
-                    url: "updateBookingInMemory.action",
-                    data: formInput,
-                    success: function (data_action) {
-                        var title_notification = null;
-                        try {
-                            if (data_action.message.result == "success") {
-                                //update dom values here
-                                var roomSubTotal = data_action.booking.roomSubtotal;
-                                var extraSubTotal = data_action.booking.extraSubtotal;
-                                var numNights = data_action.numNights;
-                                var priceRoom = 0;
-                                var subTotal = roomSubTotal + extraSubTotal;
-                                var maxGuests = data_action.booking.room.roomType.maxGuests;
-                                if (maxGuests !== null && parseInt(maxGuests) > 0 && $clicked.is("select#sel_rooms_list")) {
-                                    var numbermaxGuests = parseInt(maxGuests);
-                                    $("#nr_guests").empty();
-                                    for (var i = 1; i <= numbermaxGuests; i++) {
-                                        $("#nr_guests").append('<option value="' + i + '">' + i + '</option');
-                                    }
-                                }
-								var extraCheckBoxNumber = $('input:checkbox[name="bookingExtraIds"]').length;
-								for (var extraID = 1; extraID <= extraCheckBoxNumber; extraID++) {
-									if ($clicked.is('#' + extraID + '_extraCheckBox')) {
-										if ($('#' + extraID + '_extraQuantity').length != 0) {
-											if ($clicked.is(":checked")) {
-												$('#' + extraID + '_extraQuantity').show();
-											}
-											else {
-												$('#' + extraID + '_extraQuantity').hide();
-											}
-									}
-									else {
-										
-									}
-									}
-								}
-                                if (maxGuests !== null && parseInt(maxGuests) > 0 && ($clicked.is("select#sel_rooms_list") || $clicked.is("select#nr_guests"))) {
-                                    var numbermaxGuests = parseInt(maxGuests);
-                                    //update number of rows to add guests
-                                    var selector = "guest";
-                                    //count the number of guests already added
-                                    var formParent = $(".guests-select");
-                                    var num_of_items = formParent.siblings(".guest_row").size();
-                                    // get last subcolumns
-                                    var dd = formParent.siblings("." + selector + "_row:last").length ? formParent.siblings("." + selector + "_row:last") : formParent;
-                                    // setup of cloned row to add
-                                    for (var i = num_of_items; i < numbermaxGuests; i++) {
-                                        var added = $("#to_add_" + selector + "").clone().insertAfter(dd).removeAttr("id").show();
-                                        added.html(added.html().replace(/__PVALUE__/ig, num_of_items));
-                                        // attach listener to cloned row
-                                        // attach erase click
-                                        added.find(".erase_" + selector + "").click(function () {
-                                            $(this).closest("." + selector + "_row").remove();
-                                        });
-                                    }
-                                }
-                                $("#price_room").html(roomSubTotal);
-                                $("#extras_room").html(extraSubTotal);
-                                $('input:hidden[name="booking.subtotal"]').val(subTotal);
-                                $("span.subtotal_room").text(subTotal);
-                                $("span.balance_room").text(subTotal);
-                                $("#booking_duration").val(numNights);
-                                Booking.updateSubtotal();
-                                //update subtotal
-                                //  updateSubtotal();
-                                //$().notify("Congratulazioni", data_action.message.description, _redirectAction);
-                            }
-                            else if (data_action.message.result == "error") {
-                                $().notify($.i18n("warning"), data_action.message.description);
-                            }
-                            else {
-                                $(".validationErrors").html(data_action);
-                            }
-                        }
-                        catch (e) {
-                            //an error in data returned...
-                            $(".validationErrors").html(data_action);
-                        }
-                    },
-                    error: function () {
-                        $().notify($.i18n("seriousError"), $.i18n("seriousErrorDescr"));
-                    }
-                });
+                	self.calculatePrice(this);
             });
             //---  BOOK SECTION CODE   
             $.ajaxSetup({
@@ -501,7 +418,103 @@ $(function () {
                     });
                 }
             });
-        }
+        },
+
+        /* calculate new prices for booking */
+        calculatePrice: function (clicked){
+        	
+            var formInput = $(clicked).parents().find(".yform.json").serialize();
+            var $clicked = $(clicked);
+            $.ajax({
+                type: "POST",
+                url: "updateBookingInMemory.action",
+                data: formInput,
+                success: function (data_action) {
+                    var title_notification = null;
+                    try {
+                        if (data_action.message.result == "success") {
+                            //update dom values here
+                            var roomSubTotal = data_action.booking.roomSubtotal;
+                            var extraSubTotal = data_action.booking.extraSubtotal;
+                            var numNights = data_action.numNights;
+                            var priceRoom = 0;
+                            var subTotal = roomSubTotal + extraSubTotal;
+                            var maxGuests = data_action.booking.room.roomType.maxGuests;
+                            if (maxGuests !== null && parseInt(maxGuests) > 0 && $clicked.is("select#sel_rooms_list")) {
+                                var numbermaxGuests = parseInt(maxGuests);
+                                $("#nr_guests").empty();
+                                for (var i = 1; i <= numbermaxGuests; i++) {
+                                    $("#nr_guests").append('<option value="' + i + '">' + i + '</option');
+                                }
+                            }
+							var extraCheckBoxNumber = $('input:checkbox[name="bookingExtraIds"]').length;
+							for (var extraID = 1; extraID <= extraCheckBoxNumber; extraID++) {
+								if ($clicked.is('#' + extraID + '_extraCheckBox')) {
+									if ($('#' + extraID + '_extraQuantity').length != 0) {
+										if ($clicked.is(":checked")) {
+											$('#' + extraID + '_extraQuantity').show();
+										}
+										else {
+											$('#' + extraID + '_extraQuantity').hide();
+										}
+								}
+								else {
+									
+								}
+								}
+							}
+                            if (maxGuests !== null && parseInt(maxGuests) > 0 && ($clicked.is("select#sel_rooms_list") || $clicked.is("select#nr_guests"))) {
+                                var numbermaxGuests = parseInt(maxGuests);
+                                //update number of rows to add guests
+                                var selector = "guest";
+                                //count the number of guests already added
+                                var formParent = $(".guests-select");
+                                var num_of_items = formParent.siblings(".guest_row").size();
+                                // get last subcolumns
+                                var dd = formParent.siblings("." + selector + "_row:last").length ? formParent.siblings("." + selector + "_row:last") : formParent;
+                                // setup of cloned row to add
+                                for (var i = num_of_items; i < numbermaxGuests; i++) {
+                                    var added = $("#to_add_" + selector + "").clone().insertAfter(dd).removeAttr("id").show();
+                                    added.html(added.html().replace(/__PVALUE__/ig, num_of_items));
+                                    // attach listener to cloned row
+                                    // attach erase click
+                                    added.find(".erase_" + selector + "").click(function () {
+                                        $(this).closest("." + selector + "_row").remove();
+                                    });
+                                }
+                            }
+                            $("#price_room").html(roomSubTotal);
+                            $("#extras_room").html(extraSubTotal);
+                            $('input:hidden[name="booking.subtotal"]').val(subTotal);
+                            $("span.subtotal_room").text(subTotal);
+                            $("span.balance_room").text(subTotal);
+                            $("#booking_duration").val(numNights);
+                            Booking.updateSubtotal();
+                            //update subtotal
+                            //  updateSubtotal();
+                            //$().notify("Congratulazioni", data_action.message.description, _redirectAction);
+                        }
+                        else if (data_action.message.result == "error") {
+                            $().notify($.i18n("warning"), data_action.message.description);
+                        }
+                        else {
+                            $(".validationErrors").html(data_action);
+                        }
+                    }
+                    catch (e) {
+                        //an error in data returned...
+                        $(".validationErrors").html(data_action);
+                    }
+                },
+                error: function () {
+                    $().notify($.i18n("seriousError"), $.i18n("seriousErrorDescr"));
+                }
+            });
+        	
+        },
+    
+    
+    
         //---  END BOOK SECTION CODE  
     });
     

@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import model.BookedExtraItem;
 import model.Booking;
 import model.Extra;
 import model.Guest;
@@ -172,6 +173,7 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 		Structure structure = null;
 		List<Extra>  checkedExtras = null;
 		Double extraSubtotal = 0.0;
+		List<BookedExtraItem> bookedExtraItems = null;
 		user = (User)this.getSession().get("user");
 		structure = user.getStructure();
 		//this.setRooms(structure.getRooms());
@@ -180,7 +182,10 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 			
 		//checkedExtras = structure.findExtrasByIds(this.getBookingExtrasId());	
 		checkedExtras = this.getExtraService().findExtrasByIds(this.getBookingExtrasId());
-		this.getBooking().setExtras(checkedExtras);	
+		this.getBooking().setExtras(checkedExtras);
+		 
+		bookedExtraItems = this.calculateBookedExtraItems(structure, this.getBooking());
+		this.getBooking().setExtraItems(bookedExtraItems);
 		
 		extraSubtotal = this.getBooking().calculateExtraSubtotalForBooking();
 		this.getBooking().setExtraSubtotal(extraSubtotal);
@@ -286,6 +291,26 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 		subTotal = structure.calculateRoomSubtotalForBooking(aBooking);
 		return subTotal;
 		
+	}
+	
+	private List<BookedExtraItem> calculateBookedExtraItems(Structure structure, Booking booking){
+		BookedExtraItem bookedExtraItem = null;
+		List<BookedExtraItem> bookedExtraItems = null;
+		
+		bookedExtraItems = new ArrayList<BookedExtraItem>();
+		for(Extra each: booking.getExtras()){
+			bookedExtraItem = booking.findExtraItem(each);
+			if(bookedExtraItem==null){
+				bookedExtraItem = new BookedExtraItem();
+				bookedExtraItem.setExtra(each);
+				bookedExtraItem.setQuantity(booking.calculateExtraItemMaxQuantity(each));
+				bookedExtraItem.setUnitaryPrice(booking.calculateExtraItemUnitaryPrice(structure, each));				
+			}else{
+				bookedExtraItem.setUnitaryPrice(booking.calculateExtraItemUnitaryPrice(structure, each));	
+			}
+			bookedExtraItems.add(bookedExtraItem);
+		}
+		return bookedExtraItems;
 	}
 	
 	private Boolean checkBookingIsValid (Booking booking){

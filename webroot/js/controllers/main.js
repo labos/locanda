@@ -32,6 +32,9 @@ $(document).ready(function () {
        	                }
        	            });
        	        }
+       	        else{
+       	        	$("#accordion,#accordion2").accordion("option", "active", 0);
+       	        }
        	        return false;
        	    };
        	    

@@ -27,7 +27,7 @@
                     <s:iterator value="extras" var="eachExtra"  status="extraStatus">
                   <legend></legend>
 		<input type="checkbox" name="bookingExtrasId" id="checkbox-<s:property value="#extraStatus.index"/>" class="custom" value="<s:property value="#eachExtra.id"/>" />
-		<label for="checkbox-<s:property value="#extraStatus.index"/>"><s:property value="#eachExtra.name"/> (&euro; <s:property value="#eachExtra.price"/> / <s:property value="#eachExtra.resourcePriceType"/> / <s:property value="eachExtra.timePriceType"/>)</label>
+		<label for="checkbox-<s:property value="#extraStatus.index"/>"><s:property value="#eachExtra.name"/> (<s:property value=""/> / <s:property value="#eachExtra.resourcePriceType"/> / <s:property value="eachExtra.timePriceType"/>)</label>
           </s:iterator>
     </fieldset>
 
