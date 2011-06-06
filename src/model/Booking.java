@@ -56,13 +56,13 @@ public class Booking {
 		return days;
 	}
 	
-	public Boolean checkDates(){
+	public Boolean checkDates() {
 		Boolean ret = true;
-		
-		if ( (this.getDateOut() != null) && (this.getDateIn() != null) ) {
-			if(DateUtils.truncatedCompareTo(this.getDateOut(), this.getDateIn(), Calendar.DAY_OF_MONTH)<=0){
-				return false;
-			}				
+
+		if (DateUtils.truncatedCompareTo(this.getDateOut(), this.getDateIn(),
+				Calendar.DAY_OF_MONTH) <= 0) {
+			return false;
+
 		}
 		return ret;
 	}

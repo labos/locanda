@@ -186,7 +186,7 @@ public class Structure {
 		originalRoom.setNotes(room.getNotes());
 		originalRoom.setRoomType(room.getRoomType());
 		originalRoom.setFacilities(room.getFacilities());
-		//la lista delle immagini gli viene aggiornata solo in occasione ogni upload
+		//la lista delle immagini gli viene aggiornata solo in occasione di ogni upload
 		//originalRoom.setImageLists(room.getImageLists());
 		return true;
 	}
@@ -252,7 +252,7 @@ public class Structure {
 	
 	//RoomFacility	
 	public Boolean addRoomFacility(RoomFacility roomFacility){
-		roomFacility.setId(this.nextKey());
+		
 		return this.getRoomFacilities().add(roomFacility);
 	}	
 	
@@ -268,8 +268,7 @@ public class Structure {
 	
 	//RoomTypeFacility	
 	public Boolean addRoomTypeFacility(RoomFacility roomFacility){
-		roomFacility.setId(this.nextKey());
-		//return this.getRoomTypeFacilities().add(roomFacility);
+		
 		return this.getRoomFacilities().add(roomFacility);
 	}	
 	
@@ -358,6 +357,8 @@ public class Structure {
 		oldBooking.setGuests(booking.getGuests());
 		oldBooking.setStatus(booking.getStatus());
 		oldBooking.setConvention(booking.getConvention());
+		//System.out.println(booking.getConvention().getId());
+		//System.out.println(booking.getConvention().getName());Scrive null
 		return true;
 	}
 	
@@ -798,14 +799,14 @@ public class Structure {
 	
 	//Structure Images	
 	public Boolean addStructureImage(Image structureImage){
-		structureImage.setId(this.nextKey());
+		
 		return this.getImageLists().add(structureImage);
 		
 	}
 	
 	//Facility structure Images	
 	public Boolean addStructureFacility(StructureFacility structureFacility){
-		structureFacility.setId(this.nextKey());
+		
 		return this.getStructureFacilities().add(structureFacility);
 		
 	}

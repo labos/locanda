@@ -63,52 +63,48 @@ public class BookingAction extends ActionSupport implements SessionAware{
 	})	
 	public String updateBookingInMemory() {
 		User user = null; 
+		Structure structure = null;
+		
+		user = (User)this.getSession().get("user");
+		structure = user.getStructure();		
+		//Update Booking in memory			
+		if(!this.checkBookingDates(structure)){
+			return ERROR;
+		}		
+		this.updateBookingInMemory(structure);
+		this.getMessage().setResult(Message.SUCCESS);
+		this.getMessage().setDescription("Prezzo Calcolato con Successo");
+		return "success";	
+					
+	}
+	
+	public void updateBookingInMemory(Structure structure) {
 		Double roomSubtotal = 0.0;
 		Double extraSubtotal = 0.0;
-		Structure structure = null; 
-		Room theBookedRoom = null;
 		List<Extra> checkedExtras = null;
 		Integer numNights;
 		List<BookedExtraItem> bookedExtraItems = null;
+		Room theBookedRoom = null;
 						
-		user = (User)this.getSession().get("user");
-		structure = user.getStructure();
-		
-		//Update Booking in memory
-		if(!this.getBooking().checkDates()){
-			this.getMessage().setResult(Message.ERROR);
-			this.getMessage().setDescription("DateOut deve essere maggiore di DateIn!");
-			return "error";
-		}
-		
+		//Update Booking in memory		
 		theBookedRoom = structure.findRoomById(this.getBooking().getRoom().getId());
 		this.getBooking().setRoom(theBookedRoom);
-		
-		if(this.getBooking().getDateIn()!=null &&
-				this.getBooking().getDateOut()!=null &&
-				!structure.hasRoomFreeForBooking(this.getBooking())){
-			this.getMessage().setResult(Message.ERROR);
-			this.getMessage().setDescription("Booking sovrapposti!");
-			return ERROR;
-		}	
 		
 		numNights = this.getBooking().calculateNumNights();
 		this.setNumNights(numNights);
 		
-		if (this.getBooking().getNrGuests() > theBookedRoom.getRoomType().getMaxGuests()) {	//nel caso cambiassi la room con preselezionato un nrGuests superiore al maxGuests della room stessa
-			this.getBooking().setNrGuests(theBookedRoom.getRoomType().getMaxGuests());
+		if (this.getBooking().getNrGuests() > this.getBooking().getRoom().getRoomType().getMaxGuests()) {	//nel caso cambiassi la room con preselezionato un nrGuests superiore al maxGuests della room stessa
+			this.getBooking().setNrGuests(this.getBooking().getRoom().getRoomType().getMaxGuests());
 		}
 		
 		roomSubtotal = structure.calculateRoomSubtotalForBooking(this.getBooking());		
 		this.getBooking().setRoomSubtotal(roomSubtotal);
 		
-		//checkedExtras = structure.findExtrasByIds(this.getBookingExtraIds());
 		checkedExtras = this.getExtraService().findExtrasByIds(this.getBookingExtraIds());
 		this.getBooking().setExtras(checkedExtras);		
 		
 		bookedExtraItems = this.calculateBookedExtraItems(structure, this.getBooking());
-		this.getBooking().setExtraItems(bookedExtraItems);
-		
+		this.getBooking().setExtraItems(bookedExtraItems);		
 			
 		extraSubtotal = this.getBooking().calculateExtraSubtotalForBooking();
 		this.getBooking().setExtraSubtotal(extraSubtotal);			
@@ -116,11 +112,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		this.filterAdjustments();
 		this.filterPayments();
 		this.filterGuests();
-			
 		
-		this.getMessage().setResult(Message.SUCCESS);
-		this.getMessage().setDescription("Prezzo Calcolato con Successo");
-		return "success";	
 					
 	}
 	
@@ -140,57 +132,16 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		User user = null;
 		Structure structure = null;
 		Booking oldBooking = null;
-		Room theBookedRoom = null;
 		Guest guest = null;
 		Guest oldGuest = null;
-		List<Extra>  checkedExtras = null;
-		Double roomSubtotal = 0.0;
-		Double extraSubtotal = 0.0;
-		List<BookedExtraItem> bookedExtraItems = null;
-		
+				
 		user = (User)session.get("user");
-		structure = user.getStructure();
-		
-		//Update Booking in memory
-		if(!this.getBooking().checkDates()){
-			this.getMessage().setResult(Message.ERROR);
-			this.getMessage().setDescription("DateOut deve essere maggiore di DateIn!");
-			return "error";
-		}
-		
-		theBookedRoom = structure.findRoomById(this.getBooking().getRoom().getId());
-		this.getBooking().setRoom(theBookedRoom);
-		
-		if(!structure.hasRoomFreeForBooking(this.getBooking())){
-			this.getMessage().setResult(Message.ERROR);
-			this.getMessage().setDescription("Booking sovrapposti!");
+		structure = user.getStructure();		
+		//Update Booking in memory				
+		if(!this.checkBookingDates(structure)){
 			return ERROR;
-		}	
-		
-		numNights = this.getBooking().calculateNumNights();
-		this.setNumNights(numNights);
-		
-		if (this.getBooking().getNrGuests() > theBookedRoom.getRoomType().getMaxGuests()) {	//nel caso cambiassi la room con preselezionato un nrGuests superiore al maxGuests della room stessa
-			this.getBooking().setNrGuests(theBookedRoom.getRoomType().getMaxGuests());
-		}
-		
-		roomSubtotal = structure.calculateRoomSubtotalForBooking(this.getBooking());		
-		this.getBooking().setRoomSubtotal(roomSubtotal);
-		
-		//checkedExtras = structure.findExtrasByIds(this.getBookingExtraIds());
-		checkedExtras = this.getExtraService().findExtrasByIds(this.getBookingExtraIds());
-		this.getBooking().setExtras(checkedExtras);		
-		
-		bookedExtraItems = this.calculateBookedExtraItems(structure, this.getBooking());
-		this.getBooking().setExtraItems(bookedExtraItems);
-		
-			
-		extraSubtotal = this.getBooking().calculateExtraSubtotalForBooking();
-		this.getBooking().setExtraSubtotal(extraSubtotal);			
-
-		this.filterAdjustments();
-		this.filterPayments();
-		this.filterGuests();
+		}		
+		this.updateBookingInMemory(structure);
 		
 		//Persist the Booking
 		oldBooking = structure.findBookingById(this.getBooking().getId());
@@ -242,6 +193,8 @@ public class BookingAction extends ActionSupport implements SessionAware{
 			}
 		}
 		
+		//Salvare anche la convenzione
+		
 		this.getMessage().setResult(Message.SUCCESS);
 		this.getMessage().setDescription("Booking added/modified successfully");
 		return SUCCESS;
@@ -291,6 +244,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		
 		defaultConvention = structure.getConventions().get(0);
 		this.getBooking().setConvention(defaultConvention);
+		
 		this.setRooms(structure.getRooms());
 		//this.setExtras(structure.getExtras());
 		this.setExtras(this.getExtraService().findExtrasByIdStructure(structure.getId()));
@@ -319,8 +273,10 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		structure = user.getStructure();
 		
 		this.setBooking(new Booking());		
+		
 		defaultConvention = structure.getConventions().get(0);
-		this.getBooking().setConvention(defaultConvention);		
+		this.getBooking().setConvention(defaultConvention);	
+		
 		this.setRooms(structure.getRooms());
 		this.setExtras(this.getExtraService().findExtrasByIdStructure(structure.getId()));
 		this.setConventions(structure.getConventions());		
@@ -352,12 +308,13 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		oldBooking = structure.findBookingById(this.getId());
 		this.setBooking(oldBooking);
 		
+		/* 
 		roomSubtotal = structure.calculateRoomSubtotalForBooking(oldBooking);
 		this.getBooking().setRoomSubtotal(roomSubtotal);
 		
 		extraSubtotal = this.getBooking().calculateExtraSubtotalForBooking();
 		this.getBooking().setExtraSubtotal(extraSubtotal);
-		
+		*/
 				
 		this.setRooms(structure.getRooms());
 		this.setExtras(this.getExtraService().findExtrasByIdStructure(structure.getId()));		
@@ -405,8 +362,8 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		this.setBookings(structure.getBookings());
 		return SUCCESS;		
 	}	
+
 	
-		
 	@Actions({
 		@Action(value="/checkBookingDates",results = {
 				@Result(type ="json",name="success", params={
@@ -424,16 +381,31 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		
 		user = (User)session.get("user");
 		structure = user.getStructure();		
-		if(!structure.hasRoomFreeForBooking(this.getBooking())){
+		
+		if(!this.checkBookingDates(structure)){
+			return ERROR;
+		}
+		return SUCCESS;
+				
+	}
+	
+	private Boolean checkBookingDates(Structure structure) {
+		if(this.getBooking().getDateIn()!=null && this.getBooking().getDateOut()!=null){
+			if(!this.getBooking().checkDates()){
+				this.getMessage().setResult(Message.ERROR);
+				this.getMessage().setDescription("DateOut deve essere maggiore di DateIn!");
+				return false;
+			}
+			if ((this.getBooking().getRoom().getId()!=null) && (!structure.hasRoomFreeForBooking(this.getBooking()))) {
 				this.getMessage().setResult(Message.ERROR);
 				this.getMessage().setDescription("Booking sovrapposti!");
-				return ERROR;
-		}
-		this.getMessage().setResult(Message.SUCCESS);
-		
+				return false;
+			}			
+		}		
 		this.getMessage().setDescription("Booking Dates OK!");
-		return SUCCESS;
-	}	
+		this.getMessage().setResult(Message.SUCCESS);
+		return true;
+	}
 	
 	private void filterAdjustments(){
 		List<Adjustment> adjustmentsWithoutNulls = null;

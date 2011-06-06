@@ -57,12 +57,10 @@ public class UploadAction extends ActionSupport implements SessionAware{
 		User user = null; 
 		ServletContext context = null; 
 		String imgPath = null; 
-		//Controllare che sia diverso da null in un interceptor
 		Structure structure = null; 
+		File target = null;
 		
 		user = (User)this.getSession().get("user");
-		context =  ServletActionContext.getServletContext();
-		imgPath = context.getRealPath("/")+ "images/room_facilities/";
 		structure = user.getStructure();
 		
 		if (structure.hasRoomFacilityNamed(this.getName())) {
@@ -71,14 +69,18 @@ public class UploadAction extends ActionSupport implements SessionAware{
 			return ERROR;
 		};
 		
-		File target = new File(imgPath + this.getUploadFileName());
-		FileUtils.copyFile(this.upload, target);		
+		context =  ServletActionContext.getServletContext();
+		imgPath = context.getRealPath("/")+ "images/room_facilities/";	
 		
-		this.roomFacility = new RoomFacility();
-		this.roomFacility.setName(this.name);
-		this.roomFacility.setFileName(this.uploadFileName);
-		//this.roomFacility.setId(structure.nextKey());
-		structure.addRoomFacility(roomFacility);
+		target = new File(imgPath + this.getUploadFileName());
+		FileUtils.copyFile(this.getUpload(), target);		
+		
+		this.setRoomFacility(new RoomFacility());
+		this.getRoomFacility().setName(this.getName());
+		this.getRoomFacility().setFileName(this.getUploadFileName());
+		
+		this.getRoomFacility().setId(structure.nextKey());
+		structure.addRoomFacility(this.getRoomFacility());
 		
 		message.setResult(Message.SUCCESS);
 		message.setDescription("Facility inserita correttamente!");
@@ -103,25 +105,32 @@ public class UploadAction extends ActionSupport implements SessionAware{
 	})
 
 	public String uploadStructureImage() throws IOException {
-		User user = (User)this.getSession().get("user");
-		ServletContext context = ServletActionContext.getServletContext();
-		String imgPath = context.getRealPath("/")+ "images/structure/";
-		//Controllare che sia diverso da null in un interceptor
-		Structure structure = user.getStructure();
+		User user = null; 
+		ServletContext context = null; 
+		String imgPath = null; 
+		Structure structure = null;
+		File target = null;
+		
+		user = (User)this.getSession().get("user");
+		structure =  user.getStructure();
+		
 		if (structure.hasRoomFacilityNamed(this.getName())) {
 			message.setResult(Message.ERROR);
 			message.setDescription("Esiste già una foto con lo stesso nome");
 			return ERROR;
-		};
+		}
 		
-		File target = new File(imgPath + this.getUploadFileName());
-		FileUtils.copyFile(this.upload, target);
+		context = ServletActionContext.getServletContext();
+		imgPath =  context.getRealPath("/")+ "images/structure/";
+		target = new File(imgPath + this.getUploadFileName());
+		FileUtils.copyFile(this.getUpload(), target);
 		
+		this.setImage(new Image());
+		this.getImage().setName(this.getName());
+		this.getImage().setFileName(this.getUploadFileName());
 		
-		this.image = new Image();
-		this.image.setName(this.name);
-		this.image.setFileName(this.uploadFileName);
-		structure.addStructureImage(this.image);
+		this.getImage().setId(structure.nextKey());
+		structure.addStructureImage(this.getImage());
 		
 		message.setResult(Message.SUCCESS);
 		message.setDescription("Foto inserita correttamente!");
@@ -145,29 +154,37 @@ public class UploadAction extends ActionSupport implements SessionAware{
 	})
 
 	public String uploadStructureFacility() throws IOException {
-		User user = (User)this.getSession().get("user");
-		ServletContext context = ServletActionContext.getServletContext();
-		String imgPath = context.getRealPath("/")+ "images/struct_facilities/";
-		//Controllare che sia diverso da null in un interceptor
-		Structure structure = user.getStructure();
+		User user = null;
+		ServletContext context = null;
+		String imgPath = null; 
+		Structure structure = null; 
+		File target = null;
+		
+		user = (User)this.getSession().get("user");
+		structure =user.getStructure();		
+		
 		if (structure.hasRoomFacilityNamed(this.getName())) {
 			message.setResult(Message.ERROR);
 			message.setDescription("Esiste già una facility con lo stesso nome");
 			return ERROR;
-		};
+		}
 		
-		File target = new File(imgPath + this.getUploadFileName());
+		context =ServletActionContext.getServletContext();
+		imgPath = context.getRealPath("/")+ "images/struct_facilities/";
+		target = new File(imgPath + this.getUploadFileName());
 		FileUtils.copyFile(this.upload, target);
 		
 		
-		this.structureFacility = new StructureFacility();
-		this.structureFacility.setName(this.name);
-		this.structureFacility.setFileName(this.uploadFileName);
-		structure.addStructureFacility(this.structureFacility);
+		this.setStructureFacility(new StructureFacility());
+		this.getStructureFacility().setName(this.getName());
+		this.getStructureFacility().setFileName(this.getUploadFileName());
+		
+		this.getStructureFacility().setId(structure.nextKey());
+		structure.addStructureFacility(this.getStructureFacility());
+		
 		message.setResult(Message.SUCCESS);
 		message.setDescription("Facility inserita correttamente!");
-		return SUCCESS;
-		
+		return SUCCESS;		
 	
 	}
 	
@@ -189,49 +206,41 @@ public class UploadAction extends ActionSupport implements SessionAware{
 
 	public String uploadRoomImage() throws IOException {
 		Room aRoom = null;
-		User user = (User)this.getSession().get("user");
-		ServletContext context = ServletActionContext.getServletContext();
-		String imgPath = context.getRealPath("/")+ "images/room_images/";
-		//Controllare che sia diverso da null in un interceptor
-		Structure structure = user.getStructure();
+		User user = null; 
+		ServletContext context = null; 
+		String imgPath = null; 
+		Structure structure = null; 
+		File target = null;
+		
+		user = (User)this.getSession().get("user");
+		structure = user.getStructure();
+				
 		if (structure.hasRoomPhotoNamed(this.getName())) {
 			message.setResult(Message.ERROR);
 			message.setDescription("Esiste già una foto con lo stesso nome");
 			return ERROR;
 		};
 		
-		File target = new File(imgPath + this.getUploadFileName());
-		FileUtils.copyFile(this.upload, target);
-		
-		
-		this.image = new Image();
-		this.image.setId(structure.nextKey());
-		this.image.setName(this.name);
-		this.image.setFileName(this.uploadFileName);
 		aRoom = structure.findRoomById(this.getRoom().getId());
-		if (aRoom == null){
-			
+		if (aRoom == null){			
 			message.setResult(Message.ERROR);
 			message.setDescription("Non esiste la Room per l'aggiunta della foto");
 			return ERROR;
 		}
 		
-		try {
-			
-			aRoom.addImage(this.getImage());
-			structure.updateRoom(aRoom);
-			
-		}
-		catch(Exception e){
-			
-			message.setResult(Message.ERROR);
-			message.setDescription("Problema nell'aggiunta della foto");
-			return ERROR;
-			
-		}
-
+		context = ServletActionContext.getServletContext();
+		imgPath = context.getRealPath("/")+ "images/room_images/";		
+		target = new File(imgPath + this.getUploadFileName());
+		FileUtils.copyFile(this.getUpload(), target);		
 		
+		this.setImage(new Image());
+		this.getImage().setName(this.getName());
+		this.getImage().setFileName(this.getUploadFileName());
 		
+		this.getImage().setId(structure.nextKey());
+		aRoom.addImage(this.getImage());
+		//structure.updateRoom(aRoom);		
+				
 		message.setResult(Message.SUCCESS);
 		message.setDescription("Foto inserita correttamente!");
 		return SUCCESS;
@@ -257,25 +266,21 @@ public class UploadAction extends ActionSupport implements SessionAware{
 
 	public String uploadRoomTypeImage() throws IOException {
 		RoomType aRoomType = null;
-		User user = (User)this.getSession().get("user");
-		ServletContext context = ServletActionContext.getServletContext();
-		String imgPath = context.getRealPath("/")+ "images/roomtype/";
+		User user = null; 
+		ServletContext context = null; 
+		String imgPath = null; 
 		//Controllare che sia diverso da null in un interceptor
-		Structure structure = user.getStructure();
+		Structure structure = null; 
+		File target = null;
+		
+		user = (User)this.getSession().get("user");
+		structure = user.getStructure();		
+		
 		if (structure.hasRoomPhotoNamed(this.getName())) {
 			message.setResult(Message.ERROR);
 			message.setDescription("Esiste già una foto con lo stesso nome");
 			return ERROR;
 		};
-		
-		File target = new File(imgPath + this.getUploadFileName());
-		FileUtils.copyFile(this.upload, target);
-		
-		
-		this.image = new Image();
-		this.image.setId(structure.nextKey());
-		this.image.setName(this.name);
-		this.image.setFileName(this.uploadFileName);
 		aRoomType = structure.findRoomTypeById(this.getRoomType().getId());
 		if (aRoomType == null){			
 			message.setResult(Message.ERROR);
@@ -283,23 +288,19 @@ public class UploadAction extends ActionSupport implements SessionAware{
 			return ERROR;
 		}
 		
-		try {
-			
-			aRoomType.addRoomTypeImage(this.getImage());
-			structure.updateRoomType(aRoomType);
-			
-			
-		}
-		catch(Exception e){
-			
-			message.setResult(Message.ERROR);
-			message.setDescription("Problema nell'aggiunta della foto");
-			return ERROR;
-			
-		}
-
+		context = ServletActionContext.getServletContext();
+		imgPath = context.getRealPath("/")+ "images/roomtype/";
+		target = new File(imgPath + this.getUploadFileName());
+		FileUtils.copyFile(this.getUpload(), target);	
 		
+		this.setImage(new Image());
+		this.getImage().setName(this.getName());
+		this.getImage().setFileName(this.getUploadFileName());
 		
+		this.getImage().setId(structure.nextKey());
+		aRoomType.addRoomTypeImage(this.getImage());
+		//structure.updateRoomType(aRoomType);			
+				
 		message.setResult(Message.SUCCESS);
 		message.setDescription("Foto inserita correttamente!");
 		return SUCCESS;
@@ -326,26 +327,33 @@ public class UploadAction extends ActionSupport implements SessionAware{
 
 	public String uploadRoomTypeFacility() throws IOException {
 		RoomType aRoomType = null;
-		User user = (User)this.getSession().get("user");
-		ServletContext context = ServletActionContext.getServletContext();
-		String imgPath = context.getRealPath("/")+ "images/room_facilities/";
-		//Controllare che sia diverso da null in un interceptor
-		Structure structure = user.getStructure();
+		User user = null; 
+		ServletContext context = null; 
+		String imgPath = null; 
+		Structure structure = null; 
+		File target = null;
+		
+		user = (User)this.getSession().get("user");
+		structure = user.getStructure();
+				
 		if (structure.hasRoomTypeFacilityNamed(this.getName())) {
 			message.setResult(Message.ERROR);
 			message.setDescription("Esiste già una facility con lo stesso nome");
 			return ERROR;
 		}
 		
-		File target = new File(imgPath + this.getUploadFileName());
-		FileUtils.copyFile(this.upload, target);		
+		context = ServletActionContext.getServletContext();
+		imgPath =  context.getRealPath("/")+ "images/room_facilities/";
+		target = new File(imgPath + this.getUploadFileName());
+		FileUtils.copyFile(this.getUpload(), target);		
 		
-		this.roomFacility = new RoomFacility();
-		this.roomFacility.setName(this.name);
-		this.roomFacility.setFileName(this.uploadFileName);
-		//this.roomFacility.setId(structure.nextKey());
+		this.setRoomFacility(new RoomFacility());
+		this.getRoomFacility().setName(this.getName());
+		this.getRoomFacility().setFileName(this.getUploadFileName());
 		
-		structure.addRoomTypeFacility(this.roomFacility);
+		this.getRoomFacility().setId(structure.nextKey());
+		structure.addRoomTypeFacility(this.getRoomFacility());
+		
 		message.setResult(Message.SUCCESS);
 		message.setDescription("Logo inserito correttamente!");
 		return SUCCESS;
@@ -476,9 +484,5 @@ public class UploadAction extends ActionSupport implements SessionAware{
 	public void setRoomType(RoomType roomType) {
 		this.roomType = roomType;
 	}
-	
-	
-	
-	
 
 }
