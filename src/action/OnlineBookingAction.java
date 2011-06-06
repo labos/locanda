@@ -26,6 +26,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import service.ExtraService;
 import service.GuestService;
+import service.StructureService;
+import service.StructureServiceImpl;
 
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -47,6 +49,8 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 	private ExtraService extraService = null;
 	@Autowired
 	private GuestService guestService = null;
+	@Autowired
+	private StructureService structureService = null;
 	
 	
 	@Actions({
@@ -297,16 +301,20 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 		BookedExtraItem bookedExtraItem = null;
 		List<BookedExtraItem> bookedExtraItems = null;
 		
+		
 		bookedExtraItems = new ArrayList<BookedExtraItem>();
+		structureService = new StructureServiceImpl();
 		for(Extra each: booking.getExtras()){
 			bookedExtraItem = booking.findExtraItem(each);
 			if(bookedExtraItem==null){
 				bookedExtraItem = new BookedExtraItem();
 				bookedExtraItem.setExtra(each);
 				bookedExtraItem.setQuantity(booking.calculateExtraItemMaxQuantity(each));
-				bookedExtraItem.setUnitaryPrice(booking.calculateExtraItemUnitaryPrice(structure, each));				
+				bookedExtraItem.setUnitaryPrice(
+						this.getStructureService().calculateExtraItemUnitaryPrice(structure, booking.getDateIn(), booking.getDateOut(),booking.getRoom().getRoomType(), booking.getConvention(), each));				
 			}else{
-				bookedExtraItem.setUnitaryPrice(booking.calculateExtraItemUnitaryPrice(structure, each));	
+				bookedExtraItem.setUnitaryPrice(
+						this.getStructureService().calculateExtraItemUnitaryPrice(structure, booking.getDateIn(), booking.getDateOut(),booking.getRoom().getRoomType(), booking.getConvention(), each));	
 			}
 			bookedExtraItems.add(bookedExtraItem);
 		}
@@ -468,6 +476,16 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 
 	public void setGuestService(GuestService guestService) {
 		this.guestService = guestService;
+	}
+
+
+	public StructureService getStructureService() {
+		return structureService;
+	}
+
+
+	public void setStructureService(StructureService structureService) {
+		this.structureService = structureService;
 	}
 	
 	

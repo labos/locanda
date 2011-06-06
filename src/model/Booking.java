@@ -7,7 +7,7 @@ import java.util.List;
 
 import org.apache.commons.lang.time.DateUtils;
 
-import service.StructureService;
+import service.StructureServiceImpl;
 
 import model.internal.Message;
 import model.listini.Convention;
@@ -85,6 +85,7 @@ public class Booking {
 		return ret;
 	}
 	
+	/*
 	public void buildExtraItemsFromExtras(Structure structure) {
 		BookedExtraItem extraItem = null;
 		List<BookedExtraItem> extraItemList = new ArrayList<BookedExtraItem>();
@@ -98,7 +99,7 @@ public class Booking {
 			extraItemList.add(extraItem);
 			this.setExtraItems(extraItemList);
 		}
-	}
+	}*/
 	
 	public BookedExtraItem findExtraItem(Extra extra){
 		BookedExtraItem ret = null;
@@ -139,15 +140,16 @@ public class Booking {
 		return ret;
 	}
 	
+	/*
 	public Double calculateExtraItemUnitaryPrice(Structure structure, Extra extra) {
 		Double ret = 0.0;
-		StructureService structureService = null;
+		StructureServiceImpl structureService = null;
 		
-		structureService = new StructureService();
+		structureService = new StructureServiceImpl();
 		ret = structureService.calculateExtraItemUnitaryPrice(structure, this.getDateIn(), this.getDateOut(), this.getRoom().getRoomType(), this.getConvention(), extra);
 		
 		return ret;
-	}
+	}*/
 	
 	public List<Date> calculateBookingDates(){	//crea un array di date, che corrispondono alla permanenza
 		List<Date> bookingDates = null; 

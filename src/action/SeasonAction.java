@@ -14,6 +14,8 @@ import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import service.SeasonService;
+import service.StructureService;
+import service.StructureServiceImpl;
 
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -32,6 +34,10 @@ public class SeasonAction extends ActionSupport implements SessionAware {
 	private Integer idPeriod = null;
 	private List<Period> periods = new ArrayList<Period>();
 	private Message message = new Message();
+	@Autowired
+	private StructureService structureService = null;
+	
+	
 	
 	@Autowired
 	private SeasonService seasonService = null;
@@ -44,12 +50,15 @@ public class SeasonAction extends ActionSupport implements SessionAware {
 		User user = null;
 		Structure structure = null;
 		
+		
 		user = (User) session.get("user");
 		structure = user.getStructure();	
+		
 		
 		this.setSeasons(this.getSeasonService().findSeasonsByStructureId(structure.getId()));
 		//Rimuovere questa istruzione quando tutto sarà  sul DB
 		structure.setSeasons(this.getSeasons());
+		this.getStructureService().refreshPriceLists(structure);	
 		return SUCCESS;
 	}
 
@@ -116,7 +125,7 @@ public class SeasonAction extends ActionSupport implements SessionAware {
 			
 			
 			
-			structure.refreshPriceLists();		
+				
 			
 			
 		} else {
@@ -206,6 +215,16 @@ public class SeasonAction extends ActionSupport implements SessionAware {
 
 	public void setSeasonService(SeasonService seasonService) {
 		this.seasonService = seasonService;
+	}
+
+
+	public StructureService getStructureService() {
+		return structureService;
+	}
+
+
+	public void setStructureService(StructureService structureService) {
+		this.structureService = structureService;
 	}
 	
 	

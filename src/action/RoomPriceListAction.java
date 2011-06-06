@@ -103,6 +103,7 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware{
 						perRoomTypeConventions = structure.findConventionsBySeasonAndRoomType(
 								this.getSeasonService().findSeasonByName(structure.getId(),eachNode2.getData().getTitle()),
 								structure.findRoomTypeByName(eachNode3.getData().getTitle()));
+						System.out.println(eachNode2.getData().getTitle() + "------>" + perRoomTypeConventions);
 						for (Convention eachRoomTypeConvention : perRoomTypeConventions) {
 							/*String href = webappPath + "/findRoomPriceListItems" +
 							"?seasonId=" + structure.findSeasonByName(eachNode2.getData().getTitle()).getId() + 

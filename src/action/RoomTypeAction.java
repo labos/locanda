@@ -23,6 +23,10 @@ import org.apache.struts2.convention.annotation.Actions;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.interceptor.SessionAware;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import service.StructureService;
+import service.StructureServiceImpl;
 
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -35,6 +39,8 @@ public class RoomTypeAction extends ActionSupport implements SessionAware{
 	private Image image = null;
 	private List<RoomFacility> roomTypeFacilities = null;
 	private List<Integer> roomTypeFacilitiesIds = new ArrayList<Integer>();
+	@Autowired
+	private StructureService structureService = null;
 	
 	@Actions({
 		@Action(value="/findAllRoomTypes",results = {
@@ -85,8 +91,11 @@ public class RoomTypeAction extends ActionSupport implements SessionAware{
 		Structure structure = null;
 		RoomType oldRoomtype = null;
 		List<RoomFacility> checkedFacilities = null;
+		
+		
 		user = (User)session.get("user");
 		structure = user.getStructure();
+		
 		
 		checkedFacilities = structure.findRoomFacilitiesByIds(this.getRoomTypeFacilitiesIds());
 		oldRoomtype = structure.findRoomTypeById(this.getRoomType().getId());
@@ -95,7 +104,7 @@ public class RoomTypeAction extends ActionSupport implements SessionAware{
 			this.getRoomType().setId(structure.nextKey());
 			this.getRoomType().setRoomTypeFacilities(checkedFacilities);
 			structure.addRoomType(this.getRoomType());
-			structure.refreshPriceLists();
+			this.getStructureService().refreshPriceLists(structure);
 			this.getMessage().setResult(Message.SUCCESS);
 			this.getMessage().setDescription("Room Type added successfully");
 			
@@ -213,6 +222,15 @@ public class RoomTypeAction extends ActionSupport implements SessionAware{
 	}
 	public void setRoomTypeFacilities(List<RoomFacility> roomTypeFacilities) {
 		this.roomTypeFacilities = roomTypeFacilities;
-	}	
+	}
+
+	public StructureService getStructureService() {
+		return structureService;
+	}
+
+	public void setStructureService(StructureService structureService) {
+		this.structureService = structureService;
+	}
+	
 	
 }

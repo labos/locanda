@@ -11,6 +11,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import model.Adjustment;
+import model.BookedExtraItem;
 import model.Booking;
 import model.Extra;
 import model.Guest;
@@ -41,6 +42,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import service.ExtraService;
 import service.GuestService;
 import service.SeasonService;
+import service.StructureService;
+import service.StructureServiceImpl;
 
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -55,6 +58,8 @@ public class LoginAction extends ActionSupport implements SessionAware{
 	private ExtraService extraService = null;
 	@Autowired 
 	private GuestService guestService = null;
+	@Autowired
+	private StructureService structureService = null;
 	
 	
 	@Actions(value={
@@ -258,6 +263,7 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		Double roomSubtotal = 0.0;
 		Adjustment anAdjustment = null;
 		Payment aPayment = null;
+		List<BookedExtraItem> bookedExtraItems = null;
 		
 		aBooking = new Booking();
 		aRoom = structure.findRoomByName("101");
@@ -281,8 +287,9 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		aBooking.setConvention(structure.getConventions().get(0));
 		roomSubtotal = structure.calculateRoomSubtotalForBooking(aBooking);
 		aBooking.setRoomSubtotal(roomSubtotal);
-		aBooking.buildExtraItemsFromExtras(structure);
-		
+		bookedExtraItems = this.calculateBookedExtraItems(structure, aBooking);
+		aBooking.setExtraItems(bookedExtraItems);	
+				
 		anAdjustment = new Adjustment();
 		anAdjustment.setId(structure.nextKey());
 		anAdjustment.setDate(DateUtils.truncate(new Date(),Calendar.DAY_OF_MONTH));
@@ -298,6 +305,32 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		aBooking.addPayment(aPayment);
 		aBooking.setStatus("checkedout");
 		structure.addBooking(aBooking);		
+	}
+	
+	private List<BookedExtraItem> calculateBookedExtraItems(Structure structure, Booking booking){
+		BookedExtraItem bookedExtraItem = null;
+		List<BookedExtraItem> bookedExtraItems = null;
+			
+		
+		
+		structureService = new StructureServiceImpl();
+		bookedExtraItems = new ArrayList<BookedExtraItem>();
+		for(Extra each: booking.getExtras()){
+			bookedExtraItem = booking.findExtraItem(each);
+			if(bookedExtraItem==null){
+				bookedExtraItem = new BookedExtraItem();
+				bookedExtraItem.setExtra(each);
+				bookedExtraItem.setQuantity(booking.calculateExtraItemMaxQuantity(each));
+				bookedExtraItem.setUnitaryPrice(
+						this.getStructureService().calculateExtraItemUnitaryPrice(structure, booking.getDateIn(), booking.getDateOut(), booking.getRoom().getRoomType(), booking.getConvention(), each));
+				
+			}else{
+				bookedExtraItem.setUnitaryPrice(
+						this.getStructureService().calculateExtraItemUnitaryPrice(structure, booking.getDateIn(), booking.getDateOut(), booking.getRoom().getRoomType(), booking.getConvention(), each));	
+			}
+			bookedExtraItems.add(bookedExtraItem);
+		}
+		return bookedExtraItems;
 	}
 	
 	private void buildExtras(Structure structure){
@@ -664,6 +697,19 @@ public class LoginAction extends ActionSupport implements SessionAware{
 	public void setGuestService(GuestService guestService) {
 		this.guestService = guestService;
 	}
+
+
+
+	public StructureService getStructureService() {
+		return structureService;
+	}
+
+
+
+	public void setStructureService(StructureService structureService) {
+		this.structureService = structureService;
+	}
+	
 	
 	
 }

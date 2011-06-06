@@ -12,6 +12,10 @@ import org.apache.struts2.convention.annotation.Actions;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.interceptor.SessionAware;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import service.StructureService;
+import service.StructureServiceImpl;
 
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -21,6 +25,9 @@ public class ConventionAction extends ActionSupport implements SessionAware{
 	private Message message = new Message();
 	private List<Convention> conventions = null;
 	private Convention convention = null;
+	@Autowired 
+	private StructureService structureService = null;
+	
 	
 	@Actions({
 		@Action(value="/findAllConventions",results = {
@@ -63,16 +70,17 @@ public class ConventionAction extends ActionSupport implements SessionAware{
 		User user = null;
 		Structure structure = null;
 		Convention oldConvention = null;
-		
+				
 		user = (User)session.get("user");
 		structure = user.getStructure();
+		
 		
 		oldConvention = structure.findConventionById(this.getConvention().getId());
 		if(oldConvention == null){
 			//Si tratta di una aggiunta
 			this.getConvention().setId(structure.nextKey());
 			structure.addConvention(this.getConvention());
-			structure.refreshPriceLists();
+			this.getStructureService().refreshPriceLists(structure);
 			this.getMessage().setResult(Message.SUCCESS);
 			this.getMessage().setDescription("Convention added successfully");
 			
@@ -137,5 +145,14 @@ public class ConventionAction extends ActionSupport implements SessionAware{
 	public void setMessage(Message message) {
 		this.message = message;
 	}
+
+	public StructureService getStructureService() {
+		return structureService;
+	}
+
+	public void setStructureService(StructureService structureService) {
+		this.structureService = structureService;
+	}
+	
 	
 }

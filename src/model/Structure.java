@@ -74,6 +74,7 @@ public class Structure {
 		return ret;
 	}
 	
+	/*
 	public void refreshPriceLists(){
 		RoomPriceList newRoomPriceList = null;
 		ExtraPriceList newExtraPriceList = null;
@@ -123,7 +124,7 @@ public class Structure {
 				}
 			}
 		}
-	}
+	}*/
 	
 	//Room
 	/*
