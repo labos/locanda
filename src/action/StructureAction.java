@@ -37,6 +37,8 @@ public class StructureAction extends ActionSupport implements SessionAware {
 	
 	private Structure structure = null;
 	private Image image = null;
+	private User user = new User();
+	private String reTyped;
 	
 
 	@Actions({
@@ -49,6 +51,7 @@ public class StructureAction extends ActionSupport implements SessionAware {
 		User user = (User)this.getSession().get("user");
 		//Controllare che sia diverso da null in un interceptor
 		this.setStructure(user.getStructure());
+		this.setUser(user);
 		return SUCCESS;
 	}
 
@@ -72,6 +75,37 @@ public class StructureAction extends ActionSupport implements SessionAware {
 		this.getMessage().setResult(Message.SUCCESS);
 		this.getMessage().setDescription("Structure details modified succesfully");
 		return SUCCESS;
+		
+	}
+	
+	@Actions({
+		@Action(value="/updateAccount",results = {
+				@Result(type ="json",name="success", params={
+						"root","message"
+				} ),
+				@Result(type ="json",name="error", params={
+						"root","message"
+				} )
+		})
+		
+	})
+	
+	public String updateAccount() {
+		User user = (User)this.getSession().get("user");
+		//check password requirements
+		String newPassword = this.getUser().getPassword();
+		if (newPassword .length() >5  &&  (  newPassword.equals(this.getReTyped()) )){
+			user.setPassword(this.getUser().getPassword());
+			this.getMessage().setResult(Message.SUCCESS);
+			this.getMessage().setDescription("Password modified succesfully");
+			return SUCCESS;	
+		}
+		else{
+			this.getMessage().setResult(Message.ERROR);
+			this.getMessage().setDescription("Your password must be at least 5 characters and/or the two passwords are different");
+			return SUCCESS;	
+		}
+	
 		
 	}
 	
@@ -187,6 +221,22 @@ public class StructureAction extends ActionSupport implements SessionAware {
 
 	public void setImage(Image image) {
 		this.image = image;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public String getReTyped() {
+		return reTyped;
+	}
+
+	public void setReTyped(String reTyped) {
+		this.reTyped = reTyped;
 	}
 	
 	

@@ -26,7 +26,7 @@
                	 	<label for="zipCode">Zip Code</label>
                   	<input type="text" name="structure.zipCode" id="zipCode" value="<s:property value="structure.zipCode"/>" aria-required="true" />
               	  </div>
-              	  <div class="type-select">
+              	  <div class="type-seleupdateDetails.actionct">
                 	<label for="country">Country</label>
                 	<select name="structure.country" id="country" aria-required="true" >
 					  <option selected="selected" value="<s:property value="structure.country"/>"><s:property value="structure.country"/></option>
@@ -97,7 +97,7 @@
 						<option value="Ethiopia">Ethiopia</option>
 						<option value="Falkland Islands">Falkland Islands</option>
 						<option value="Faroe Islands">Faroe Islands</option>
-						<option value="Federated States of Micronesia">Federated States of Micronesia</option>
+						<option value="updateDetails.actionFederated States of Micronesia">Federated States of Micronesia</option>
 						<option value="Fiji">Fiji</option>
 						<option value="Finland">Finland</option>
 						<option value="France">France</option>
@@ -289,6 +289,26 @@
             </div>
           </fieldset>  
         </form>
+        <!-- CHANGING PASSWORD -->
+        		<form method="post" action="updateAccount.action" class="yform json full" role="application">
+          <fieldset>
+          	<legend>Account Details</legend>
+          	<div class="c50l">
+                    <div class="type-text">
+                  	<label for="password"><s:text name="password"></s:text> <sup title="This field is mandatory.">*</sup></label>
+                  	<input type="password" class="required" name="user.password" id="password" value="<s:property value="user.password"/>" aria-required="true"  />
+                  </div>
+                    <div class="type-text">
+                  	<label for="retyped"><s:text name="reTypePassword"></s:text> <sup title="This field is mandatory.">*</sup></label>
+                  	<input type="password" class="required" name="reTyped" id="retyped" value="<s:property value="user.password"/>" aria-required="true"  />
+                  </div>
+                    <div class="type-button">
+                  	<button class="btn_save">SAVE</button>
+                    <button class="btn_reset btn_cancel_form">CANCEL</button>
+              	  </div>
+                  </div>
+                  </fieldset>
+                  </form>
         <!-- STRUCTURE FACILITY UPLOADING -->
           <div class="beauty">
      	  	<div class="subcolumns">

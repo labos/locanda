@@ -85,6 +85,7 @@ public class LoginAction extends ActionSupport implements SessionAware{
 			user.setEmail(this.getEmail());
 			structure = this.buildStructure();
 			user.setStructure(structure);
+			user.setPassword("locanda");
 			this.getSession().put("user", user);
 			locale = this.getLocale();
 			sdf = (SimpleDateFormat) DateFormat.getDateInstance(DateFormat.SHORT,locale);
