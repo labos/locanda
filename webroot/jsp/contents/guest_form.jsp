@@ -268,6 +268,10 @@
                   	<label for="zipCode">ZipCode:<sup title="This field is mandatory.">*</sup></label>
                   	<input type="text" name="guest.zipCode" id="zipCode" class="required" value="<s:property value="guest.zipCode"/>" />
                   </div>
+                 <div class="type-text">
+                  	<label for="idNum"><s:text name="idNumber"/>:<sup title="This field is mandatory.">*</sup></label>
+                  	<input type="text" name="guest.idNumber" id="idNum" class="required"  value="<s:property value="guest.idNumber"/>"/>
+                  </div>
                   <div class="type-text">
                   	<label for="notes">Notes:</label> 
                   	<textarea name="guest.notes" id="notes"><s:property value="guest.notes"/></textarea>

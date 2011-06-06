@@ -3,6 +3,10 @@ $(function () {
     $.Class.extend('Tree', /* @static */ {
         init: function () {
         	
+            $("#priceList_buttons").hide();
+            $("#priceList_buttons").html('<button class="btn_save">SAVE</button>' + '<button class="btn_reset">CANCEL</button>');
+
+        	
             $(".btn_save").button({
                 icons: {
                     primary: "ui-icon-check"
@@ -18,8 +22,6 @@ $(function () {
                 validator.resetForm();
             });
         	
-            $("#priceList_buttons").hide();
-            $("#priceList_buttons").html('<button class="btn_save">SAVE</button>' + '<button class="btn_reset">CANCEL</button>');
 
             
             $(".room_tree, .extra_tree").bind("loaded.jstree", function (event, data) {
