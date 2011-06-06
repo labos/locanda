@@ -31,7 +31,7 @@ public class Booking {
 	private List<Extra> extras;
 	private List<Adjustment> adjustments;
 	private List<Payment> payments = null;
-	private String status = "provisional";
+	private String status = "confirmed";
 	private List<Guest> guests = null;
 	private Convention convention = null;
 	private List<BookedExtraItem> extraItems;

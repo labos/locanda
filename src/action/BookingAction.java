@@ -497,7 +497,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		
 		aBooking = structure.findBookingById(this.getId());
 		if(aBooking!=null){
-			aBooking.setStatus("checkin");
+			aBooking.setStatus("checkedin");
 			structure.updateBooking(aBooking);		
 			this.getMessage().setResult(Message.SUCCESS);
 			this.getMessage().setDescription("Booking checked In successfully");
@@ -528,7 +528,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		
 		aBooking = structure.findBookingById(this.getId());
 		if(aBooking!=null){
-			aBooking.setStatus("checkout");
+			aBooking.setStatus("checkedout");
 			structure.updateBooking(aBooking);		
 			this.getMessage().setResult(Message.SUCCESS);
 			this.getMessage().setDescription("Booking checked Out successfully");

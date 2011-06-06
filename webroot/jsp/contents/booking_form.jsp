@@ -80,24 +80,28 @@ display: none;
                              
                              <div class="subcl type-select">
                               <s:if test="booking.status == \"provisional\"">
-                              <input type="hidden" name="booking.status" value="provisional" />
+                              <!--  <input type="hidden" name="booking.status" value="provisional" />-->
                               <button class="btn_check_in">CHECK IN</button>
                               </s:if>
-                              <s:if test="booking.status == \"checkin\"">
-                              <input type="hidden" name="booking.status" value="checkin" />
+                              <s:if test="booking.status == \"online\"">
+                              <button class="btn_check_in">CHECK IN</button>
+                              </s:if>
+                              <s:if test="booking.status == \"checkedin\"">
                               <button class="btn_check_out">CHECK OUT</button>
                               </s:if>
-                               <s:if test="booking.status == \"checkout\"">
-                               <input type="hidden" name="booking.status" value="checkout" />
+                               <s:if test="booking.status == \"checkedout\"">
                               <button class="btn_checked">CHECKED</button>
                               </s:if>           
-                             <!--
-                             <label for="confirm">Confirmed?</label>
-                             <select name="confirm" class="confirm" id="confirm">
-                             <option value="1">Confirmed</option>
-                             <option value="0">Provisional</option>
+                             <hr/>
+                             <label for="confirm"><s:text name="status" /></label>
+                             <select name="booking.status" class="confirm" id="confirm">
+                             <option selected="selected" value="<s:property value="booking.status" default="confirmed"/>"><s:text name="%{booking.status}"/></option>
+                             <option value="confirmed"><s:text name="confirmed" /></option>
+                             <option value="provisional"><s:text name="provisional" /></option>
+                             <option value="checkedin"><s:text name="checkedin" /></option>
+                             <option value="checkedout"><s:text name="checkedout" /></option>
                              </select>
-                             --></div>
+                             </div>
                              </div>
                  </fieldset>         
               </div>

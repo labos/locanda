@@ -228,7 +228,7 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 			
 			
 			this.getBooking().setBooker(this.getGuest());
-			this.getBooking().setStatus("provisional");
+			this.getBooking().setStatus("online");
 			//check if current booking is valid to save
 			if (checkBookingIsValid (this.getBooking())){
 				

@@ -123,7 +123,7 @@ $(function () {
                             if (data_action.result == "success") {
                                 $().notify($.i18n("congratulation"), data_action.description);
                                 //UPDATE BOOKING STATUS HIDDEN FIELD
-                                $("input:hidden[name='booking.status']").val("checkin");
+                                $("input:hidden[name='booking.status']").val("checkedin");
                                 //ADD CHECKOUT LISTENER
                                 $this.attr("class", "btn_check_out").button("destroy").button({
                                     label: "CHECK OUT",
@@ -152,7 +152,7 @@ $(function () {
                                                 });
                                                 // END UPDATE BUTTON CHECKING
                                                 //UPDATE BOOKING STATUS HIDDEN FIELD
-                                                $("input:hidden[name='booking.status']").val("checkout");
+                                                $("input:hidden[name='booking.status']").val("checkedout");
                                             }
                                             else if (data_action.result == "error") {
                                                 $().notify($.i18n("warning"), data_action.description);
@@ -206,7 +206,7 @@ $(function () {
                                 disabled: true,
                                 label: "CHECKED"
                             });
-                            $("input:hidden[name='booking.status']").val("checkout");
+                            $("input:hidden[name='booking.status']").val("checkedout");
                             setTimeout( "window.location.reload()", 1000);
                         }
                         else if (data_action.result == "error") {

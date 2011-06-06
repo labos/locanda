@@ -1193,12 +1193,20 @@ $.ajax({
           var id_booking = (typeof calEvent.bookId === 'undefined' ) ? -1 : calEvent.bookId;
           
           
-	     if((typeof calEvent.confirmed !== 'undefined' ) && calEvent.confirmed== "provisional"){
+	     if((typeof calEvent.confirmed !== 'undefined' )) {
 	    	 
-	    	 $calEvent.find(".wc-time").css({"background-color": "#FE9A2E"});
-	    	 $calEvent.find(".wc-time").html("provisional");
+	    	 if(calEvent.confirmed== "provisional") {
+	    		 $calEvent.find(".wc-time").css({"background-color": "#FE9A2E"});
+	    		 $calEvent.find(".wc-time").html("provisional");
 	    	 
-	    	 }
+	    	 	}
+	    	 else if(calEvent.confirmed== "online") {
+	    		 $calEvent.find(".wc-time").css({"background-color": "#D692A3"});
+	    		 $calEvent.find(".wc-time").html("online");
+	    	 
+	    	 	}
+	    	 
+	     }
 	        	 
            $calEvent.find(".wc-time").append('<input type="hidden" name="id_booked_room"  value="' +  id_room  + '" />'+
         		   '<input type="hidden" name="id_booking"  value="' +  id_booking  + '" />');
