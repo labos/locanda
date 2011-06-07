@@ -210,6 +210,14 @@ public class RoomAction extends ActionSupport implements SessionAware{
 			for(Room each: rooms){
 				each.setId(structure.nextKey());				
 				each.setFacilities(checkedFacilities);
+
+				if(this.getRoom().getRoomType().getId() < 0){
+					this.getMessage().setResult(Message.ERROR);
+					
+					String text = (structure.getRoomTypes().size() > 0)? getText("roomTypeNotSelectedAction") : getText("roomTypeAbsentAction") ;
+					this.getMessage().setDescription(text);
+					return "error";	
+				}
 				theRoomType = structure.findRoomTypeById(this.getRoom().getRoomType().getId());
 				each.setRoomType(theRoomType);
 				structure.addRoom(each);

@@ -82,13 +82,13 @@ public class ConventionAction extends ActionSupport implements SessionAware{
 			structure.addConvention(this.getConvention());
 			this.getStructureService().refreshPriceLists(structure);
 			this.getMessage().setResult(Message.SUCCESS);
-			this.getMessage().setDescription("Convention added successfully");
+			this.getMessage().setDescription(getText("conventionSuccessAddedAction"));
 			
 		}else{
 			//Si tratta di un update
 			structure.updateConvention(this.getConvention());
 			this.getMessage().setResult(Message.SUCCESS);
-			this.getMessage().setDescription("Convention updated successfully");
+			this.getMessage().setDescription(getText("conventionUpdatedSuccessAction"));
 		}
 		return SUCCESS;		
 	}
@@ -111,11 +111,11 @@ public class ConventionAction extends ActionSupport implements SessionAware{
 		currentConvention = structure.findConventionById(this.getConvention().getId());
 		if(structure.removeConvention(currentConvention)){
 			this.getMessage().setResult(Message.SUCCESS);
-			this.getMessage().setDescription("Convention removed successfully");
+			this.getMessage().setDescription(getText("conventionRemoveSuccessAction"));
 			return SUCCESS;
 		}else{
 			this.getMessage().setResult(Message.ERROR);
-			this.getMessage().setDescription("Error deleting convention");
+			this.getMessage().setDescription(getText("conventionRemoveErrorAction"));
 			return ERROR;
 		}
 	}

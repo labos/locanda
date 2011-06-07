@@ -46,6 +46,7 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 	private List<Integer> bookingExtrasId = null;
 	private Guest guest;
 	private Integer roomId;
+	private Integer idStructure;
 	@Autowired
 	private ExtraService extraService = null;
 	@Autowired
@@ -459,6 +460,16 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 
 	public void setRoomId(Integer roomId) {
 		this.roomId = roomId;
+	}
+
+
+	public Integer getIdStructure() {
+		return idStructure;
+	}
+
+
+	public void setIdStructure(Integer idStructure) {
+		this.idStructure = idStructure;
 	}
 
 

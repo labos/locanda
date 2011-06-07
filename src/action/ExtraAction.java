@@ -99,13 +99,13 @@ public class ExtraAction extends ActionSupport implements SessionAware{
 			this.buildExtraPriceListFromExtra();
 			
 			this.getMessage().setResult(Message.SUCCESS);
-			this.getMessage().setDescription("Extra Added successfully");
+			this.getMessage().setDescription(getText("extraAddSuccessAction"));
 			return SUCCESS;
 		}else{
 			//Si tratta di un update
 			this.getExtraService().updateExtra(this.getExtra());
 			this.getMessage().setResult(Message.SUCCESS);
-			this.getMessage().setDescription("Extra updated successfully");
+			this.getMessage().setDescription(getText("extraUpdateSuccessAction"));
 			return SUCCESS;			
 		}		
 	}
@@ -130,11 +130,11 @@ public class ExtraAction extends ActionSupport implements SessionAware{
 		try{
 			this.getExtraService().deleteExtra(this.getExtra().getId());
 			this.getMessage().setResult(Message.SUCCESS);
-			this.getMessage().setDescription("Extra deleted successfully");
+			this.getMessage().setDescription(getText("extraDeleteSuccessAction"));
 			return "success";
 		}catch (Exception e) {
 			this.getMessage().setResult(Message.ERROR);
-			this.getMessage().setDescription("Error deleting extra");
+			this.getMessage().setDescription(getText("extraDeleteSuccessAction"));
 			return "error";
 		}
 		

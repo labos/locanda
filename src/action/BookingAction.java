@@ -47,6 +47,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 	private List<Integer> bookingExtraIds = new ArrayList<Integer>();
 	private Double adjustmentsSubtotal = 0.0;
 	private Double paymentsSubtotal = 0.0;
+	private Integer idStructure;
 	@Autowired
 	private ExtraService extraService = null;
 	@Autowired
@@ -80,7 +81,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		}		
 		this.updateBookingInMemory(structure);
 		this.getMessage().setResult(Message.SUCCESS);
-		this.getMessage().setDescription("Prezzo Calcolato con Successo");
+		this.getMessage().setDescription(getText("calculatedPriceAction"));
 		return "success";	
 					
 	}
@@ -204,7 +205,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		//Salvare anche la convenzione
 		
 		this.getMessage().setResult(Message.SUCCESS);
-		this.getMessage().setDescription("Booking added/modified successfully");
+		this.getMessage().setDescription(getText("bookingModifiedAction"));
 		return SUCCESS;
 	}
 	
@@ -405,12 +406,12 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		if(this.getBooking().getDateIn()!=null && this.getBooking().getDateOut()!=null){
 			if(!this.getBooking().checkDates()){
 				this.getMessage().setResult(Message.ERROR);
-				this.getMessage().setDescription("DateOut deve essere maggiore di DateIn!");
+				this.getMessage().setDescription(getText("dateOutMoreDateInAction"));
 				return false;
 			}
 			if ((this.getBooking().getRoom().getId()!=null) && (!structure.hasRoomFreeForBooking(this.getBooking()))) {
 				this.getMessage().setResult(Message.ERROR);
-				this.getMessage().setDescription("Booking sovrapposti!");
+				this.getMessage().setDescription(getText("bookingOverlappedAction"));
 				return false;
 			}			
 		}		
@@ -480,11 +481,11 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		
 		if(structure.deleteBooking(this.getBooking())){
 			this.getMessage().setResult(Message.SUCCESS);
-			this.getMessage().setDescription("Booking deleted successfully");
+			this.getMessage().setDescription(getText("bookingDeletedAction"));
 			return "success";
 		}else{
 			this.getMessage().setResult(Message.ERROR);
-			this.getMessage().setDescription("Error: booking not deleted");
+			this.getMessage().setDescription(getText("bookingDeletedErrorAction"));
 			return "error";
 		}		
 	}	
@@ -512,11 +513,11 @@ public class BookingAction extends ActionSupport implements SessionAware{
 			aBooking.setStatus("checkedin");
 			structure.updateBooking(aBooking);		
 			this.getMessage().setResult(Message.SUCCESS);
-			this.getMessage().setDescription("Booking checked In successfully");
+			this.getMessage().setDescription(getText("bookingCheckInSuccessAction"));
 			return SUCCESS;
 		}
 		this.getMessage().setResult(Message.ERROR);
-		this.getMessage().setDescription("Booking not found!");
+		this.getMessage().setDescription(getText("bookingNotFoundAction"));
 		return ERROR;	
 	}
 	
@@ -543,11 +544,11 @@ public class BookingAction extends ActionSupport implements SessionAware{
 			aBooking.setStatus("checkedout");
 			structure.updateBooking(aBooking);		
 			this.getMessage().setResult(Message.SUCCESS);
-			this.getMessage().setDescription("Booking checked Out successfully");
+			this.getMessage().setDescription(getText("bookingCheckOutSuccessAction"));
 			return SUCCESS;
 		}
 		this.getMessage().setResult(Message.ERROR);
-		this.getMessage().setDescription("Booking not found!");
+		this.getMessage().setDescription(getText("bookingNotFoundAction"));
 		return ERROR;	
 	}
 	
@@ -557,6 +558,12 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		}) 	
 	})
 	public String goOnlineBookings(){
+		User user = null;
+		Structure structure = null;
+		
+		user = (User)session.get("user");
+		structure = user.getStructure();
+		this.setIdStructure(structure.getId());
 		return SUCCESS;		
 	}
 
@@ -648,6 +655,14 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		this.conventions = conventions;
 	}
 
+
+	public Integer getIdStructure() {
+		return idStructure;
+	}
+
+	public void setIdStructure(Integer idStructure) {
+		this.idStructure = idStructure;
+	}
 
 	public ExtraService getExtraService() {
 		return extraService;
