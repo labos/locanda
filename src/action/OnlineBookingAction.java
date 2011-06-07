@@ -24,6 +24,7 @@ import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import service.BookingService;
 import service.ExtraService;
 import service.GuestService;
 import service.StructureService;
@@ -51,6 +52,8 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 	private GuestService guestService = null;
 	@Autowired
 	private StructureService structureService = null;
+	@Autowired
+	private BookingService bookingService = null;
 	
 	
 	@Actions({
@@ -152,9 +155,9 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 		this.getBooking().setNrGuests(this.getNumGuests());
 		defaultConvention = structure.getConventions().get(0);
 		this.getBooking().setConvention(defaultConvention);
-		roomSubtotal = structure.calculateRoomSubtotalForBooking(this.getBooking());
+		//roomSubtotal = structure.calculateRoomSubtotalForBooking(this.getBooking());
+		roomSubtotal = this.getBookingService().calculateRoomSubtotalForBooking(structure,this.getBooking());
 		this.getBooking().setRoomSubtotal(roomSubtotal);
-		
 		
 		structure.addBooking(this.getBooking());
 		
@@ -292,7 +295,8 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 		aBooking.setNrGuests(this.getNumGuests());
 		defaultConvention = structure.getConventions().get(0);
 		aBooking.setConvention(defaultConvention);
-		subTotal = structure.calculateRoomSubtotalForBooking(aBooking);
+		//subTotal = structure.calculateRoomSubtotalForBooking(aBooking);
+		subTotal = this.getBookingService().calculateRoomSubtotalForBooking(structure,aBooking);
 		return subTotal;
 		
 	}
@@ -303,7 +307,6 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 		
 		
 		bookedExtraItems = new ArrayList<BookedExtraItem>();
-		structureService = new StructureServiceImpl();
 		for(Extra each: booking.getExtras()){
 			bookedExtraItem = booking.findExtraItem(each);
 			if(bookedExtraItem==null){
@@ -486,6 +489,16 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 
 	public void setStructureService(StructureService structureService) {
 		this.structureService = structureService;
+	}
+
+
+	public BookingService getBookingService() {
+		return bookingService;
+	}
+
+
+	public void setBookingService(BookingService bookingService) {
+		this.bookingService = bookingService;
 	}
 	
 	

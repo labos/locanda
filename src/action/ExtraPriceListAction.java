@@ -65,7 +65,7 @@ public class ExtraPriceListAction extends ActionSupport implements SessionAware{
 						"root","treeNodes"
 				} ),
 				@Result(type ="json",name="error", params={
-						"excludeProperties","session"
+						"excludeProperties","session,seasonService"
 				} ),
 				@Result(name="input", location = "/validationError.jsp" )
 		})

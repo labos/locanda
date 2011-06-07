@@ -30,6 +30,7 @@ import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import service.RoomPriceListService;
 import service.SeasonService;
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -49,6 +50,8 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware{
 	private Integer conventionId = null;
 	@Autowired
 	private SeasonService seasonService = null;
+	@Autowired
+	private RoomPriceListService roomPriceListService = null;
 	
 		
 	@Actions({
@@ -146,7 +149,8 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware{
 		roomType = structure.findRoomTypeById(this.getRoomTypeId());
 		convention = structure.findConventionById(this.getConventionId());
 		
-		this.setPriceList(structure.findRoomPriceListBySeasonAndRoomTypeAndConvention(season, roomType, convention));
+		//this.setPriceList(structure.findRoomPriceListBySeasonAndRoomTypeAndConvention(season, roomType, convention));
+		this.setPriceList(this.getRoomPriceListService().findRoomPriceListByStructureAndSeasonAndRoomTypeAndConvention(structure, season, roomType, convention));
 		return SUCCESS;
 	}
 	
@@ -243,6 +247,14 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware{
 
 	public void setSeasonService(SeasonService seasonService) {
 		this.seasonService = seasonService;
+	}
+
+	public RoomPriceListService getRoomPriceListService() {
+		return roomPriceListService;
+	}
+
+	public void setRoomPriceListService(RoomPriceListService roomPriceListService) {
+		this.roomPriceListService = roomPriceListService;
 	}
 	
 	

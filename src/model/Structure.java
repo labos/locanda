@@ -74,71 +74,10 @@ public class Structure {
 		return ret;
 	}
 	
-	/*
-	public void refreshPriceLists(){
-		RoomPriceList newRoomPriceList = null;
-		ExtraPriceList newExtraPriceList = null;
-		RoomPriceListItem newRoomPriceListItem = null;
-		ExtraPriceListItem newExtraPriceListItem = null;
-		Double[] prices = null;
-		Double price = 0.0;
-		
-		for (Season eachSeason : this.getSeasons()) {
-			for (RoomType eachRoomType : this.getRoomTypes()) {
-				for (Convention eachConvention : this.getConventions()) {
-					newRoomPriceList = new RoomPriceList();
-					newRoomPriceList.setId(this.nextKey());
-					newRoomPriceList.setSeason(eachSeason);
-					newRoomPriceList.setRoomType(eachRoomType);
-					newRoomPriceList.setConvention(eachConvention);
-					List<RoomPriceListItem> roomItems = new ArrayList<RoomPriceListItem>();
-					for (int i=1; i<=eachRoomType.getMaxGuests(); i++) {
-						newRoomPriceListItem = new RoomPriceListItem();
-						newRoomPriceListItem.setId(this.nextKey());
-						newRoomPriceListItem.setNumGuests(i);
-						prices = new Double[7];
-						for (int y=0; y<7; y++) {
-							prices[y] = 0.0;
-						}
-						newRoomPriceListItem.setPrices(prices);
-						roomItems.add(newRoomPriceListItem);
-					}
-					newRoomPriceList.setItems(roomItems);
-					this.addRoomPriceList(newRoomPriceList);
-					
-					newExtraPriceList = new ExtraPriceList();
-					newExtraPriceList.setId(this.nextKey());
-					newExtraPriceList.setSeason(eachSeason);
-					newExtraPriceList.setRoomType(eachRoomType);
-					newExtraPriceList.setConvention(eachConvention);
-					List<ExtraPriceListItem> extraItems = new ArrayList<ExtraPriceListItem>();
-					for (Extra eachExtra : this.getExtras()) {
-						newExtraPriceListItem = new ExtraPriceListItem();
-						newExtraPriceListItem.setId(this.nextKey());
-						newExtraPriceListItem.setExtra(eachExtra);
-						newExtraPriceListItem.setPrice(price);
-						extraItems.add(newExtraPriceListItem);
-					}
-					newExtraPriceList.setItems(extraItems);
-					this.addExtraPriceList(newExtraPriceList);
-				}
-			}
-		}
-	}*/
+	
 	
 	//Room
-	/*
-	public Boolean hasRoomNamed(String name){
-		Boolean ret = false;
 		
-		for(Room each: this.getRooms()){
-			if(each.getName().equals(name)){
-				return true;
-			}
-		}
-		return ret;
-	}*/
-	
 	public Room findRoomByName(String name){
 		Room ret = null;
 		
@@ -525,64 +464,8 @@ public class Structure {
 	
 	
 	//Season
-	/*public Boolean addSeason(Season aSeason){
-		return this.getSeasons().add(aSeason);
-	}*/
 	
 	/*
-	public Boolean removeSeason(Season aSeason){
-		return this.getSeasons().remove(aSeason);		
-	}*/
-	
-	/*
-	public Season findSeasonById(Integer id){
-		Season ret = null;
-		
-		for(Season each: this.getSeasons()){
-			if(each.getId().equals(id)){
-				return each;
-			}
-		}
-		return ret;
-	}
-	*/
-	/*
-	public List<Season> findSeasonsByYear(Integer year){
-		List<Season> ret = new ArrayList<Season>();
-		
-		for(Season each: this.getSeasons()){
-			if(each.getYear().equals(year)){
-				ret.add(each);
-			}
-		}
-		return ret;
-	}*/
-	
-	/*
-	public Boolean updateSeason(Season aSeason){
-		Season oldSeason = this.findSeasonById(aSeason.getId());
-		
-		if(oldSeason == null){
-			return false;
-		}
-		oldSeason.setName(aSeason.getName());
-		oldSeason.setYear(aSeason.getYear());
-		oldSeason.setPeriods(aSeason.getPeriods());
-		return true;
-	}*/
-	
-	/*
-	public Season findSeasonByName(String name){
-		Season ret = null;
-		
-		for(Season each: this.getSeasons()){
-			if(each.getName().equalsIgnoreCase(name)){
-				return each;
-			}
-		}
-		return ret;
-	}*/
-	
 	public Season findSeasonByDate(Date date){
 		Season ret = null;
 		
@@ -593,7 +476,7 @@ public class Structure {
 		}
 		return ret;
 	}
-	
+	*/
 	
 	//Room Price List
 	public Boolean addRoomPriceList(RoomPriceList aPriceList){
@@ -726,77 +609,7 @@ public class Structure {
 	
 	
 	// Prezzi
-	public Double calculateRoomSubtotalForBooking(Booking booking){
-		Double ret = 0.0;
-		List<Date> bookingDates = null;
-		RoomPriceList listinoCameraDelGiorno;
-		Season season = null;
-		Integer dayOfWeek = 0;
-		Calendar calendar;
-		
-		bookingDates = booking.calculateBookingDates();
-		for(Date aBookingDate: bookingDates){
-			season = this.findSeasonByDate(aBookingDate);
-			listinoCameraDelGiorno = this.findRoomPriceListBySeasonAndRoomTypeAndConvention(season, booking.getRoom().getRoomType(), booking.getConvention());
-			calendar = Calendar.getInstance();
-			calendar.setTime(aBookingDate);
-			dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
-			ret = ret + listinoCameraDelGiorno.findRoomPrice(booking.getNrGuests(), dayOfWeek);
-		}			
-		return ret;
-	}
 	
-	/*
-	public Double calculateExtraSubtotalForBooking(Booking booking){
-		Double ret = 0.0;
-		
-		for (BookedExtraItem eachItem : booking.getExtraItems()) {
-				ret = ret + eachItem.getSubtotal();
-			  }
-		return ret;
-	}*/
-	
-//	public Double calculateExtraSubtotalForBooking(Booking booking){
-//		Double ret = 0.0;
-//		List<Date> bookingDates = null;
-//		ExtraPriceList extraPriceList = null;
-//		Season season = null;
-//		Integer dayOfWeek = 0;
-//		Calendar calendar;
-//		
-//		bookingDates = this.calculateBookingDates(booking.getDateIn(), booking.getDateOut());
-//		for (Extra eachExtra : booking.getExtras()) {
-//		  for(Date aBookingDate: bookingDates){
-//			season = this.findSeasonByDate(aBookingDate);
-//			extraPriceList = this.findExtraPriceListBySeasonAndRoomTypeAndConvention(season, booking.getRoom().getRoomType(), booking.getConvention());
-//			calendar = Calendar.getInstance();
-//			calendar.setTime(aBookingDate);
-//			dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
-//			ret = ret + extraPriceList.findExtraPrice(eachExtra, dayOfWeek);
-//		  }
-//		}
-//		return ret;
-//	}
-	
-	/*
-	private List<Date> calculateBookingDates(Date dateIn, Date dateOut){	//crea un array di date, che corrispondono alla permanenza
-		List<Date> bookingDates = null; 
-		Date current = null;
-		Integer i = 0;
-		
-		bookingDates = new ArrayList<Date>();
-		if(dateIn!=null && dateOut!=null){
-			current  = DateUtils.addDays(dateIn, i );		
-			while(DateUtils.truncatedCompareTo(current, dateOut,Calendar.DAY_OF_MONTH ) < 0){
-				bookingDates.add(current);
-				i = i + 1;
-				current  = DateUtils.addDays(dateIn, i );
-			}	
-		}
-		
-		return bookingDates;
-	}
-	*/
 	
 	//Structure Images	
 	public Boolean addStructureImage(Image structureImage){

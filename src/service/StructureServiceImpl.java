@@ -32,12 +32,12 @@ public class StructureServiceImpl implements StructureService{
 		Double price = 0.0;
 		Double otherPrice = 0.0;
 		
-		season = structure.findSeasonByDate(dateIn);
+		season = this.getSeasonService().findSeasonByDate(structure.getId(),dateIn );
 		priceList = structure.findExtraPriceListBySeasonAndRoomTypeAndConvention(season, roomType,convention);
 		price = priceList.findExtraPrice(extra);
 		
 		//se ho un booking a cavallo di due stagioni, prendo il prezzo più basso
-		otherSeason = structure.findSeasonByDate(dateOut);
+		otherSeason = this.getSeasonService().findSeasonByDate(structure.getId(),dateOut );
 		otherPriceList = structure.findExtraPriceListBySeasonAndRoomTypeAndConvention(otherSeason, roomType, convention);	
 		price = priceList.findExtraPrice(extra);
 		otherPrice = otherPriceList.findExtraPrice(extra);

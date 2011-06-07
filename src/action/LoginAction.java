@@ -39,6 +39,7 @@ import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import service.BookingService;
 import service.ExtraService;
 import service.GuestService;
 import service.SeasonService;
@@ -60,6 +61,8 @@ public class LoginAction extends ActionSupport implements SessionAware{
 	private GuestService guestService = null;
 	@Autowired
 	private StructureService structureService = null;
+	@Autowired
+	private BookingService bookingService  = null;
 	
 	
 	@Actions(value={
@@ -286,7 +289,9 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		aBooking.setId(structure.nextKey());
 		aBooking.setNrGuests(1);
 		aBooking.setConvention(structure.getConventions().get(0));
-		roomSubtotal = structure.calculateRoomSubtotalForBooking(aBooking);
+		//roomSubtotal = structure.calculateRoomSubtotalForBooking(aBooking);
+		roomSubtotal = this.getBookingService().calculateRoomSubtotalForBooking(structure,aBooking);
+	
 		aBooking.setRoomSubtotal(roomSubtotal);
 		bookedExtraItems = this.calculateBookedExtraItems(structure, aBooking);
 		aBooking.setExtraItems(bookedExtraItems);	
@@ -311,10 +316,7 @@ public class LoginAction extends ActionSupport implements SessionAware{
 	private List<BookedExtraItem> calculateBookedExtraItems(Structure structure, Booking booking){
 		BookedExtraItem bookedExtraItem = null;
 		List<BookedExtraItem> bookedExtraItems = null;
-			
-		
-		
-		structureService = new StructureServiceImpl();
+				
 		bookedExtraItems = new ArrayList<BookedExtraItem>();
 		for(Extra each: booking.getExtras()){
 			bookedExtraItem = booking.findExtraItem(each);
@@ -709,6 +711,18 @@ public class LoginAction extends ActionSupport implements SessionAware{
 
 	public void setStructureService(StructureService structureService) {
 		this.structureService = structureService;
+	}
+
+
+
+	public BookingService getBookingService() {
+		return bookingService;
+	}
+
+
+
+	public void setBookingService(BookingService bookingService) {
+		this.bookingService = bookingService;
 	}
 	
 	

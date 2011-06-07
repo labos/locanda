@@ -23,6 +23,7 @@ import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import service.BookingService;
 import service.ExtraService;
 import service.GuestService;
 import service.StructureService;
@@ -52,15 +53,17 @@ public class BookingAction extends ActionSupport implements SessionAware{
 	private GuestService guestService = null;
 	@Autowired
 	private StructureService structureService = null;
+	@Autowired
+	private BookingService bookingService = null;
 	
 	
 	@Actions({
 		@Action(value="/updateBookingInMemory",results = {
 				@Result(type ="json",name="success", params={
-						"excludeProperties","session,extraService,guestService"
+						"excludeProperties","session,extraService,guestService,structureService,bookingService"
 				}),
 				@Result(type ="json",name="error", params={
-						"excludeProperties","session,extraService,guestService"
+						"excludeProperties","session,extraService,guestService,structureService,bookingService"
 				}),
 				@Result(name="input", location = "/validationError.jsp")
 		})
@@ -101,7 +104,8 @@ public class BookingAction extends ActionSupport implements SessionAware{
 			this.getBooking().setNrGuests(this.getBooking().getRoom().getRoomType().getMaxGuests());
 		}
 		
-		roomSubtotal = structure.calculateRoomSubtotalForBooking(this.getBooking());		
+		//roomSubtotal = structure.calculateRoomSubtotalForBooking(this.getBooking());
+		roomSubtotal = this.getBookingService().calculateRoomSubtotalForBooking(structure,this.getBooking());
 		this.getBooking().setRoomSubtotal(roomSubtotal);
 		
 		checkedExtras = this.getExtraService().findExtrasByIds(this.getBookingExtraIds());
@@ -209,7 +213,6 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		BookedExtraItem bookedExtraItem = null;
 		List<BookedExtraItem> bookedExtraItems = null;
 				
-		structureService = new StructureServiceImpl();
 		bookedExtraItems = new ArrayList<BookedExtraItem>();
 		for(Extra each: booking.getExtras()){
 			bookedExtraItem = booking.findExtraItem(each);
@@ -258,7 +261,8 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		this.setExtras(this.getExtraService().findExtrasByIdStructure(structure.getId()));
 		this.setConventions(structure.getConventions());
 		
-		roomSubtotal = structure.calculateRoomSubtotalForBooking(this.getBooking());
+		//roomSubtotal = structure.calculateRoomSubtotalForBooking(this.getBooking());
+		roomSubtotal = this.getBookingService().calculateRoomSubtotalForBooking(structure,this.getBooking());
 		this.getBooking().setRoomSubtotal(roomSubtotal);
 		
 		numNights = this.getBooking().calculateNumNights();
@@ -670,6 +674,14 @@ public class BookingAction extends ActionSupport implements SessionAware{
 
 	public void setStructureService(StructureService structureService) {
 		this.structureService = structureService;
+	}
+
+	public BookingService getBookingService() {
+		return bookingService;
+	}
+
+	public void setBookingService(BookingService bookingService) {
+		this.bookingService = bookingService;
 	}
 	
 	
