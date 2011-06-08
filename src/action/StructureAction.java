@@ -48,8 +48,9 @@ public class StructureAction extends ActionSupport implements SessionAware {
 		
 	})
 	public String goUpdateDetails() {
-		User user = (User)this.getSession().get("user");
-		//Controllare che sia diverso da null in un interceptor
+		User user = null; 
+				
+		user = (User)this.getSession().get("user");
 		this.setStructure(user.getStructure());
 		this.setUser(user);
 		return SUCCESS;

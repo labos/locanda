@@ -27,6 +27,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import service.BookingService;
 import service.ExtraService;
 import service.GuestService;
+import service.RoomService;
 import service.StructureService;
 import service.StructureServiceImpl;
 
@@ -55,6 +56,8 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 	private StructureService structureService = null;
 	@Autowired
 	private BookingService bookingService = null;
+	@Autowired
+	private RoomService roomService = null;
 	
 	
 	@Actions({
@@ -111,7 +114,8 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 		
 		for(Room each : rooms){
 			
-			if ( (each.getRoomType().getMaxGuests() >= this.getNumGuests() ) && structure.hasRoomFreeInPeriod(each.getId(), this.getDateArrival(), this.calculateDateOut()) ) 
+			//if ( (each.getRoomType().getMaxGuests() >= this.getNumGuests() ) && structure.hasRoomFreeInPeriod(each.getId(), this.getDateArrival(), this.calculateDateOut()) )
+			if ( (each.getRoomType().getMaxGuests() >= this.getNumGuests() ) && this.getStructureService().hasRoomFreeInPeriod(structure,each.getId(), this.getDateArrival(), this.calculateDateOut()) ) 
 			{
 				each.setPrice( calculateTotalForBooking(each));
 				this.getRooms().add(each);
@@ -145,7 +149,8 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 		Convention defaultConvention = null;
 		user = (User)this.getSession().get("user");
 		structure = user.getStructure();
-		theBookedRoom = structure.findRoomById(this.getRoomId());
+		//theBookedRoom = structure.findRoomById(this.getRoomId());
+		theBookedRoom = this.getRoomService().findRoomById(structure,this.getRoomId());
 		this.setBooking(new Booking());
 		this.getBooking().setRoom(theBookedRoom);	
 		this.setBooking(new Booking());
@@ -160,7 +165,8 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 		roomSubtotal = this.getBookingService().calculateRoomSubtotalForBooking(structure,this.getBooking());
 		this.getBooking().setRoomSubtotal(roomSubtotal);
 		
-		structure.addBooking(this.getBooking());
+		this.getBookingService().insertBooking(structure, this.getBooking());
+		//structure.addBooking(this.getBooking());
 		
 		//this.setRooms(structure.getRooms());
 		this.setRoomFacilities(structure.getRoomFacilities());
@@ -185,7 +191,8 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 		user = (User)this.getSession().get("user");
 		structure = user.getStructure();
 		//this.setRooms(structure.getRooms());
-		this.setBooking(structure.findBookingById(this.getBooking().getId()));
+		//this.setBooking(structure.findBookingById(this.getBooking().getId()));
+		this.setBooking(this.getBookingService().findBookingById(structure,this.getBooking().getId()));
 		if (this.getBookingExtrasId() != null){
 			
 		//checkedExtras = structure.findExtrasByIds(this.getBookingExtrasId());	
@@ -200,7 +207,8 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 		
 		}
 
-		structure.updateBooking(this.getBooking());
+		//structure.updateBooking(this.getBooking());
+		this.getBookingService().updateBooking(structure, this.getBooking());
 		this.setRoomFacilities(structure.getRoomFacilities());
 		return SUCCESS;
 	}
@@ -220,7 +228,9 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 		Guest oldGuest = null;
 		user = (User)this.getSession().get("user");
 		structure = user.getStructure();
-		this.setBooking(structure.findBookingById(this.getBooking().getId()));
+		//this.setBooking(structure.findBookingById(this.getBooking().getId()));
+		this.setBooking(this.getBookingService().findBookingById(structure,this.getBooking().getId()));
+		
 		try {
 			
 			
@@ -238,23 +248,21 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 			this.getBooking().setBooker(this.getGuest());
 			this.getBooking().setStatus("online");
 			//check if current booking is valid to save
-			if (checkBookingIsValid (this.getBooking())){
-				
-				structure.updateBooking(this.getBooking());
+			if (checkBookingIsValid (this.getBooking())){				
+				//structure.updateBooking(this.getBooking());
+				this.getBookingService().updateBooking(structure, this.getBooking());			
 			}
-			else {
-				
-				structure.deleteBooking(this.getBooking());
+			else {				
+				//structure.deleteBooking(this.getBooking());
+				this.getBookingService().deleteBooking(structure, this.getBooking());
 				addActionError("This booking cannot be saved");
-				return ERROR;
-				
-				
+				return ERROR;				
 			}
 			
 		}
-		 catch(NullPointerException e) {
-			 
-				structure.deleteBooking(this.getBooking());
+		 catch(NullPointerException e) {			 
+				//structure.deleteBooking(this.getBooking());
+				this.getBookingService().deleteBooking(structure, this.getBooking());
 				addActionError("This booking cannot be saved");
 				return ERROR;
 
@@ -510,6 +518,16 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 
 	public void setBookingService(BookingService bookingService) {
 		this.bookingService = bookingService;
+	}
+
+
+	public RoomService getRoomService() {
+		return roomService;
+	}
+
+
+	public void setRoomService(RoomService roomService) {
+		this.roomService = roomService;
 	}
 	
 	

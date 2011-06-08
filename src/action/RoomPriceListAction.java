@@ -30,7 +30,9 @@ import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import service.ConventionService;
 import service.RoomPriceListService;
+import service.RoomTypeService;
 import service.SeasonService;
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -52,7 +54,10 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware{
 	private SeasonService seasonService = null;
 	@Autowired
 	private RoomPriceListService roomPriceListService = null;
-	
+	@Autowired
+	private RoomTypeService roomTypeService = null;
+	@Autowired
+	private ConventionService conventionService = null;
 		
 	@Actions({
 		@Action(value="/goFindAllRoomPriceLists",results = {
@@ -103,9 +108,11 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware{
 					for (TreeNode eachNode3 : eachNode2.getChildren()) {//per ogni roomType costruisco i nodi di quarto livello - le convenzioni
 						Set<Convention> perRoomTypeConventions = new HashSet<Convention>();	//tutte le convenzioni associate a quel roomType in un certo listino
 						//perRoomTypeConventions = structure.findConventionsBySeasonAndRoomType(structure.findSeasonByName(eachNode2.getData().getTitle()), structure.findRoomTypeByName(eachNode3.getData().getTitle()));
-						perRoomTypeConventions = structure.findConventionsBySeasonAndRoomType(
+						//perRoomTypeConventions = structure.findConventionsBySeasonAndRoomType(
+						perRoomTypeConventions = this.getConventionService().findConventionsByStructureAndSeasonAndRoomType(structure,
 								this.getSeasonService().findSeasonByName(structure.getId(),eachNode2.getData().getTitle()),
-								structure.findRoomTypeByName(eachNode3.getData().getTitle()));
+								this.getRoomTypeService().findRoomTypeByName(structure,eachNode3.getData().getTitle()));
+								//structure.findRoomTypeByName(eachNode3.getData().getTitle()));
 						System.out.println(eachNode2.getData().getTitle() + "------>" + perRoomTypeConventions);
 						for (Convention eachRoomTypeConvention : perRoomTypeConventions) {
 							/*String href = webappPath + "/findRoomPriceListItems" +
@@ -114,7 +121,8 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware{
 							"&conventionId=" + eachRoomTypeConvention.getId();*/
 							String href = webappPath + "/findRoomPriceListItems" +
 							"?seasonId=" + this.getSeasonService().findSeasonByName(structure.getId(),eachNode2.getData().getTitle()).getId() + 
-							"&roomTypeId=" + structure.findRoomTypeByName(eachNode3.getData().getTitle()).getId() +
+							//"&roomTypeId=" + structure.findRoomTypeByName(eachNode3.getData().getTitle()).getId() +
+							"&roomTypeId=" + this.getRoomTypeService().findRoomTypeByName(structure,eachNode3.getData().getTitle()).getId() +
 							"&conventionId=" + eachRoomTypeConvention.getId();
 							eachNode3.buildChild(eachRoomTypeConvention.getName(), href);
 						}
@@ -146,8 +154,11 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware{
 		
 		//season = structure.findSeasonById(this.getSeasonId());
 		season = this.getSeasonService().findSeasonById(this.getSeasonId());
-		roomType = structure.findRoomTypeById(this.getRoomTypeId());
-		convention = structure.findConventionById(this.getConventionId());
+		//roomType = structure.findRoomTypeById(this.getRoomTypeId());
+		roomType = this.getRoomTypeService().findRoomTypeById(structure,this.getRoomTypeId());
+		
+		//convention = structure.findConventionById(this.getConventionId());
+		convention = this.getConventionService().findConventionById(structure,this.getConventionId());
 		
 		//this.setPriceList(structure.findRoomPriceListBySeasonAndRoomTypeAndConvention(season, roomType, convention));
 		this.setPriceList(this.getRoomPriceListService().findRoomPriceListByStructureAndSeasonAndRoomTypeAndConvention(structure, season, roomType, convention));
@@ -255,6 +266,22 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware{
 
 	public void setRoomPriceListService(RoomPriceListService roomPriceListService) {
 		this.roomPriceListService = roomPriceListService;
+	}
+
+	public RoomTypeService getRoomTypeService() {
+		return roomTypeService;
+	}
+
+	public void setRoomTypeService(RoomTypeService roomTypeService) {
+		this.roomTypeService = roomTypeService;
+	}
+
+	public ConventionService getConventionService() {
+		return conventionService;
+	}
+
+	public void setConventionService(ConventionService conventionService) {
+		this.conventionService = conventionService;
 	}
 	
 	

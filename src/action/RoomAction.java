@@ -20,6 +20,11 @@ import org.apache.struts2.convention.annotation.Actions;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.interceptor.SessionAware;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import service.RoomService;
+import service.RoomTypeService;
+import service.StructureService;
 
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -37,6 +42,12 @@ public class RoomAction extends ActionSupport implements SessionAware{
 	private List<RoomType> roomTypes = null;
 	private List<RoomFacility> roomTypeFacility = null;
 	private List<TreeNode> treeNodes = new ArrayList<TreeNode>();
+	@Autowired
+	private StructureService structureService = null;
+	@Autowired
+	private RoomTypeService roomTypeService = null;
+	@Autowired
+	private RoomService roomService = null;
 	
 	
 	@Actions({
@@ -62,9 +73,10 @@ public class RoomAction extends ActionSupport implements SessionAware{
 		this.setRoomFacilities(structure.getRoomFacilities());
 		this.setRoomTypeFacility(structure.getRoomTypeFacilities());
 		
-		if (this.getRoomTypeId() != null){
+		if (this.getRoomTypeId() != null){			
+			//this.setRooms(structure.findRoomsByRoomTypeId(this.getRoomTypeId()));
+			this.setRooms(this.getRoomService().findRoomsByRoomTypeId(structure,this.getRoomTypeId()));
 			
-			this.setRooms(structure.findRoomsByRoomTypeId(this.getRoomTypeId()));
 		}
 
 		return SUCCESS;
@@ -117,13 +129,14 @@ public class RoomAction extends ActionSupport implements SessionAware{
 	public String findAllRoomTypesForRoom() {
 		User user = null;
 		Structure structure = null;
-		List <RoomFacility> selectedFacility = null;
+		List <RoomFacility> selectedFacilities = null;
 		
 		user = (User)this.getSession().get("user");
 		structure = user.getStructure();
 		this.setRoomFacilities(structure.getRoomFacilities());
-		selectedFacility = structure.findRoomTypeById(this.getRoom().getRoomType().getId() ).getRoomTypeFacilities();
-		for(RoomFacility each: selectedFacility){			
+		//selectedFacilities = structure.findRoomTypeById(this.getRoom().getRoomType().getId() ).getRoomTypeFacilities();
+		selectedFacilities = this.getRoomTypeService().findRoomTypeById(structure,this.getRoom().getRoomType().getId()).getRoomTypeFacilities();
+		for(RoomFacility each: selectedFacilities){			
 			this.getRoomFacilitiesIds().add(each.getId());		//popolo l'array roomFacilitiesIds con gli id delle Facilities già presenti nella Room da editare
 		}
 		
@@ -144,7 +157,8 @@ public class RoomAction extends ActionSupport implements SessionAware{
 		
 		user = (User)this.getSession().get("user");
 		structure = user.getStructure();
-		oldRoom = structure.findRoomById(this.getRoom().getId());
+		//oldRoom = structure.findRoomById(this.getRoom().getId());
+		oldRoom = this.getRoomService().findRoomById(structure,this.getRoom().getId());
 		this.setRoom(oldRoom);
 		this.setRoomTypes(structure.getRoomTypes());
 		this.setRoomFacilities(structure.getRoomFacilities());
@@ -174,8 +188,8 @@ public class RoomAction extends ActionSupport implements SessionAware{
 				
 		user = (User)this.getSession().get("user");
 		structure = user.getStructure();
-		oldRoom = structure.findRoomById(this.getRoom().getId());	
-		
+		//oldRoom = structure.findRoomById(this.getRoom().getId());	
+		oldRoom = this.getRoomService().findRoomById(structure,this.getRoom().getId());			
 		if(oldRoom == null){
 			//Si tratta di un add			
 			return this.saveRoom(structure);			
@@ -194,7 +208,8 @@ public class RoomAction extends ActionSupport implements SessionAware{
 		
 		rooms = this.splitRooms();					
 		for(Room each: rooms){
-			if(structure.findRoomByName(each.getName()) != null){
+			//if(structure.findRoomByName(each.getName()) != null){
+			if(this.getRoomService().findRoomByName(structure,each.getName()) != null){
 				names = names + "," + each.getName();
 			}
 		}
@@ -206,7 +221,9 @@ public class RoomAction extends ActionSupport implements SessionAware{
 			return "error";			
 		}	
 		else{	
-			checkedFacilities = structure.findAllRoomFacilitiesByIds(this.getRoomFacilitiesIds());
+			//checkedFacilities = structure.findRoomFacilitiesByIds(this.getRoomFacilitiesIds());
+			checkedFacilities = this.getStructureService().findRoomFacilitiesByIds(structure,this.getRoomFacilitiesIds());
+			
 			for(Room each: rooms){
 				each.setId(structure.nextKey());				
 				each.setFacilities(checkedFacilities);
@@ -218,9 +235,11 @@ public class RoomAction extends ActionSupport implements SessionAware{
 					this.getMessage().setDescription(text);
 					return "error";	
 				}
-				theRoomType = structure.findRoomTypeById(this.getRoom().getRoomType().getId());
+				//theRoomType = structure.findRoomTypeById(this.getRoom().getRoomType().getId());
+				theRoomType = this.getRoomTypeService().findRoomTypeById(structure,this.getRoom().getRoomType().getId());
 				each.setRoomType(theRoomType);
-				structure.addRoom(each);
+				//structure.addRoom(each);
+				this.getRoomService().insertRoom(structure, each);
 			}
 			this.getMessage().setResult(Message.SUCCESS);
 			String text = "Le stanze sono state inserite con successo";
@@ -258,19 +277,23 @@ public class RoomAction extends ActionSupport implements SessionAware{
 			return "error";
 		}				
 		if(!newName.equals(oldRoom.getName())){
-			if(structure.findRoomByName(newName) != null){
+			//if(structure.findRoomByName(newName) != null){
+			if(this.getRoomService().findRoomByName(structure,newName) != null){
 				this.getMessage().setResult(Message.ERROR);
 				this.getMessage().setDescription("Stai usando un nome gia' esistente");
 				return "error";
 			}
 		}
-		checkedFacilities = structure.findAllRoomFacilitiesByIds(this.getRoomFacilitiesIds());
+		//checkedFacilities = structure.findRoomFacilitiesByIds(this.getRoomFacilitiesIds());
+		checkedFacilities = this.getStructureService().findRoomFacilitiesByIds(structure,this.getRoomFacilitiesIds());
 		this.getRoom().setFacilities(checkedFacilities);
 		
-		theRoomType = structure.findRoomTypeById(this.getRoom().getRoomType().getId());
+		//theRoomType = structure.findRoomTypeById(this.getRoom().getRoomType().getId());
+		theRoomType = this.getRoomTypeService().findRoomTypeById(structure,this.getRoom().getRoomType().getId());
 		this.getRoom().setRoomType(theRoomType);
 		
-		structure.updateRoom(this.getRoom());
+		//structure.updateRoom(this.getRoom());
+		this.getRoomService().updateRoom(structure, this.getRoom());
 		this.getMessage().setResult(Message.SUCCESS);
 		this.getMessage().setDescription("La stanza e' stata modificata con successo");
 		return "success";
@@ -298,7 +321,8 @@ public class RoomAction extends ActionSupport implements SessionAware{
 		//Controllare che sia diverso da null in un interceptor
 		structure = user.getStructure();
 		
-		if(structure.deleteRoom(this.getRoom())){
+		//if(structure.deleteRoom(this.getRoom())){
+		if(this.getRoomService().deleteRoom(structure,this.getRoom())>0){
 			this.getMessage().setResult(Message.SUCCESS);
 			this.getMessage().setDescription("La stanza e' stata cancellata con successo");
 			return "success";
@@ -329,7 +353,8 @@ public class RoomAction extends ActionSupport implements SessionAware{
 		//Controllare che sia diverso da null in un interceptor
 		structure = user.getStructure();
 		
-		aRoom = structure.findRoomById(this.getRoom().getId());
+		//aRoom = structure.findRoomById(this.getRoom().getId());
+		aRoom = this.getRoomService().findRoomById(structure,this.getRoom().getId());
 		
 		if(aRoom.deleteImage(this.getImage())){
 			this.getMessage().setResult(Message.SUCCESS);
@@ -455,5 +480,31 @@ public class RoomAction extends ActionSupport implements SessionAware{
 	public void setTreeNodes(List<TreeNode> treeNodes) {
 		this.treeNodes = treeNodes;
 	}
+
+	public StructureService getStructureService() {
+		return structureService;
+	}
+
+	public void setStructureService(StructureService structureService) {
+		this.structureService = structureService;
+	}
+
+	public RoomTypeService getRoomTypeService() {
+		return roomTypeService;
+	}
+
+	public void setRoomTypeService(RoomTypeService roomTypeService) {
+		this.roomTypeService = roomTypeService;
+	}
+
+	public RoomService getRoomService() {
+		return roomService;
+	}
+
+	public void setRoomService(RoomService roomService) {
+		this.roomService = roomService;
+	}
+	
+	
 	
 }

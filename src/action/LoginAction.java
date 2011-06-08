@@ -40,8 +40,11 @@ import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import service.BookingService;
+import service.ConventionService;
 import service.ExtraService;
 import service.GuestService;
+import service.RoomService;
+import service.RoomTypeService;
 import service.SeasonService;
 import service.StructureService;
 import service.StructureServiceImpl;
@@ -63,6 +66,12 @@ public class LoginAction extends ActionSupport implements SessionAware{
 	private StructureService structureService = null;
 	@Autowired
 	private BookingService bookingService  = null;
+	@Autowired
+	private RoomTypeService roomTypeService = null;
+	@Autowired
+	private RoomService roomService = null;
+	@Autowired
+	private ConventionService conventionService = null;
 	
 	
 	@Actions(value={
@@ -145,14 +154,16 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		aRoom.addRoomFacility(structure.getRoomFacilities().get(0));
 		aRoom.addRoomFacility(structure.getRoomFacilities().get(2));
 		aRoom.setRoomType(structure.getRoomTypes().get(0));
-		structure.addRoom(aRoom);
+		//structure.addRoom(aRoom);
+		this.getRoomService().insertRoom(structure, aRoom);
 		
 		aRoom = new Room();
 		aRoom.setId(structure.nextKey());
 		aRoom.setName("201");
 		aRoom.addRoomFacility(structure.getRoomFacilities().get(1));
 		aRoom.setRoomType(structure.getRoomTypes().get(1));
-		structure.addRoom(aRoom);
+		//structure.addRoom(aRoom);
+		this.getRoomService().insertRoom(structure, aRoom);
 	}
 	
 	private void buildRoomTypes(Structure structure){
@@ -173,7 +184,8 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		
 		aRoomType.addRoomTypeFacility(roomTypeFacility);
 		//structure.addRoomTypeFacility(roomTypeFacility);
-		structure.addRoomFacility(roomTypeFacility);
+		//structure.addRoomFacility(roomTypeFacility);
+		this.getStructureService().addRoomFacility(structure, roomTypeFacility);
 		
 		roomTypeFacility = new RoomFacility();
 		roomTypeFacility.setId(structure.nextKey());
@@ -181,11 +193,13 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		roomTypeFacility.setFileName("air_conditioned.png");
 		aRoomType.addRoomTypeFacility(roomTypeFacility);
 		//structure.addRoomTypeFacility(roomTypeFacility);
-		structure.addRoomFacility(roomTypeFacility);
+		//structure.addRoomFacility(roomTypeFacility);
+		this.getStructureService().addRoomFacility(structure, roomTypeFacility);
 		
 		aRoomType.addRoomTypeImage(image);
 		
-		structure.addRoomType(aRoomType);
+		//structure.addRoomType(aRoomType);
+		this.getRoomTypeService().insertRoomType(structure, aRoomType);
 		
 		image = new Image();
 		image.setId(structure.nextKey());
@@ -196,7 +210,8 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		aRoomType.setName("doppia");
 		aRoomType.setMaxGuests(2);
 		aRoomType.addRoomTypeImage(image);
-		structure.addRoomType(aRoomType);
+		//structure.addRoomType(aRoomType);
+		this.getRoomTypeService().insertRoomType(structure, aRoomType);
 	}
 	
 	private void buildRoomFacilities(Structure structure){
@@ -206,31 +221,36 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		aRoomFacility.setId(structure.nextKey());
 		aRoomFacility.setName("AAD");
 		aRoomFacility.setFileName("AAD.gif");
-		structure.addRoomFacility(aRoomFacility);
+		//structure.addRoomFacility(aRoomFacility);
+		this.getStructureService().addRoomFacility(structure, aRoomFacility);
 		
 		aRoomFacility = new RoomFacility();
 		aRoomFacility.setId(structure.nextKey());
 		aRoomFacility.setName("BAR");
 		aRoomFacility.setFileName("BAR.gif");
-		structure.addRoomFacility(aRoomFacility);
+		//structure.addRoomFacility(aRoomFacility);
+		this.getStructureService().addRoomFacility(structure, aRoomFacility);
 		
 		aRoomFacility = new RoomFacility();
 		aRoomFacility.setId(structure.nextKey());
 		aRoomFacility.setName("PHO");
 		aRoomFacility.setFileName("PHO.gif");
-		structure.addRoomFacility(aRoomFacility);
+		//structure.addRoomFacility(aRoomFacility);
+		this.getStructureService().addRoomFacility(structure, aRoomFacility);
 		
 		aRoomFacility = new RoomFacility();
 		aRoomFacility.setId(structure.nextKey());
 		aRoomFacility.setName("RAD");
 		aRoomFacility.setFileName("RAD.gif");
-		structure.addRoomFacility(aRoomFacility);
+		//structure.addRoomFacility(aRoomFacility);
+		this.getStructureService().addRoomFacility(structure, aRoomFacility);
 		
 		aRoomFacility = new RoomFacility();
 		aRoomFacility.setId(structure.nextKey());
 		aRoomFacility.setName("TEL");
 		aRoomFacility.setFileName("TEL.gif");
-		structure.addRoomFacility(aRoomFacility);
+		//structure.addRoomFacility(aRoomFacility);
+		this.getStructureService().addRoomFacility(structure, aRoomFacility);
 		
 	}
 	
@@ -270,7 +290,8 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		List<BookedExtraItem> bookedExtraItems = null;
 		
 		aBooking = new Booking();
-		aRoom = structure.findRoomByName("101");
+		//aRoom = structure.findRoomByName("101");
+		aRoom = this.getRoomService().findRoomByName(structure,"101");
 		
 		//aGuest = structure.getGuests().get(0);
 		aGuest = this.getGuestService().findGuestsByIdStructure(structure.getId()).get(0);
@@ -310,7 +331,8 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		aPayment.setAmount(new Double("60.0"));
 		aBooking.addPayment(aPayment);
 		aBooking.setStatus("checkedout");
-		structure.addBooking(aBooking);		
+		//structure.addBooking(aBooking);	
+		this.getBookingService().insertBooking(structure, aBooking);
 	}
 	
 	private List<BookedExtraItem> calculateBookedExtraItems(Structure structure, Booking booking){
@@ -435,7 +457,9 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		convention.setDescription("Default convention");
 		convention.setActivationCode("XXX");
 		
-		structure.addConvention(convention);
+		//structure.addConvention(convention);
+		this.getConventionService().insertConvention(structure, convention);
+		
 	}
 	
 	private void buildExtraPriceLists(Structure structure){
@@ -723,6 +747,42 @@ public class LoginAction extends ActionSupport implements SessionAware{
 
 	public void setBookingService(BookingService bookingService) {
 		this.bookingService = bookingService;
+	}
+
+
+
+	public RoomTypeService getRoomTypeService() {
+		return roomTypeService;
+	}
+
+
+
+	public void setRoomTypeService(RoomTypeService roomTypeService) {
+		this.roomTypeService = roomTypeService;
+	}
+
+
+
+	public RoomService getRoomService() {
+		return roomService;
+	}
+
+
+
+	public void setRoomService(RoomService roomService) {
+		this.roomService = roomService;
+	}
+
+
+
+	public ConventionService getConventionService() {
+		return conventionService;
+	}
+
+
+
+	public void setConventionService(ConventionService conventionService) {
+		this.conventionService = conventionService;
 	}
 	
 	

@@ -18,6 +18,7 @@ import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import service.BookingService;
 import service.GuestService;
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -33,6 +34,8 @@ public class GuestAction extends ActionSupport implements SessionAware{
 	private String term;
 	@Autowired
 	private GuestService guestService = null;
+	@Autowired
+	private BookingService bookingService = null;
 	
 	@Actions({
 		@Action(value="/findAllGuests",results = {
@@ -169,7 +172,9 @@ public class GuestAction extends ActionSupport implements SessionAware{
 		
 		//this.setGuest(structure.findGuestById(this.getId())); 
 		this.setGuest(this.getGuestService().findGuestById(this.getId())); 
-		this.setBookings(structure.findBookingsByGuestId(this.getId()));
+		//this.setBookings(structure.findBookingsByGuestId(this.getId()));
+		this.setBookings(this.getBookingService().findBookingsByGuestId(structure,this.getId()));
+		
 		return SUCCESS;
 	}
 	
@@ -320,6 +325,16 @@ public class GuestAction extends ActionSupport implements SessionAware{
 
 	public void setGuestService(GuestService guestService) {
 		this.guestService = guestService;
+	}
+
+
+	public BookingService getBookingService() {
+		return bookingService;
+	}
+
+
+	public void setBookingService(BookingService bookingService) {
+		this.bookingService = bookingService;
 	}
 	
 

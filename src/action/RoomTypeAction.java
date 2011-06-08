@@ -25,6 +25,7 @@ import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import service.RoomTypeService;
 import service.StructureService;
 import service.StructureServiceImpl;
 
@@ -41,6 +42,8 @@ public class RoomTypeAction extends ActionSupport implements SessionAware{
 	private List<Integer> roomTypeFacilitiesIds = new ArrayList<Integer>();
 	@Autowired
 	private StructureService structureService = null;
+	@Autowired
+	private RoomTypeService roomTypeService;
 	
 	@Actions({
 		@Action(value="/findAllRoomTypes",results = {
@@ -70,8 +73,8 @@ public class RoomTypeAction extends ActionSupport implements SessionAware{
 		
 		user = (User)this.getSession().get("user");
 		structure = user.getStructure();
-		this.setRoomType(structure.findRoomTypeById(this.getRoomType().getId()));
-		
+		//this.setRoomType(structure.findRoomTypeById(this.getRoomType().getId()));
+		this.setRoomType(this.getRoomTypeService().findRoomTypeById(structure,this.getRoomType().getId()));
 		this.setRoomTypeFacilities(structure.getRoomFacilities());
 		for(RoomFacility each: this.getRoomType().getRoomTypeFacilities()){			
 			this.getRoomTypeFacilitiesIds().add(each.getId());		//popolo l'array roomFacilitiesIds con gli id delle Facilities già presenti nella Room da editare
@@ -97,13 +100,16 @@ public class RoomTypeAction extends ActionSupport implements SessionAware{
 		structure = user.getStructure();
 		
 		
-		checkedFacilities = structure.findRoomFacilitiesByIds(this.getRoomTypeFacilitiesIds());
-		oldRoomtype = structure.findRoomTypeById(this.getRoomType().getId());
+		//checkedFacilities = structure.findRoomFacilitiesByIds(this.getRoomTypeFacilitiesIds());
+		checkedFacilities = this.getStructureService().findRoomFacilitiesByIds(structure,this.getRoomTypeFacilitiesIds());
+		//oldRoomtype = structure.findRoomTypeById(this.getRoomType().getId());
+		oldRoomtype = this.getRoomTypeService().findRoomTypeById(structure,this.getRoomType().getId());
 		if(oldRoomtype == null){
 			//Si tratta di una aggiunta
 			this.getRoomType().setId(structure.nextKey());
 			this.getRoomType().setRoomTypeFacilities(checkedFacilities);
-			structure.addRoomType(this.getRoomType());
+			//structure.addRoomType(this.getRoomType());
+			this.getRoomTypeService().insertRoomType(structure, this.getRoomType());
 			this.getStructureService().refreshPriceLists(structure);
 			this.getMessage().setResult(Message.SUCCESS);
 			this.getMessage().setDescription("Room Type added successfully");
@@ -111,7 +117,8 @@ public class RoomTypeAction extends ActionSupport implements SessionAware{
 		}else{
 			//Si tratta di un update
 			this.getRoomType().setRoomTypeFacilities(checkedFacilities);
-			structure.updateRoomType(this.getRoomType());
+			//structure.updateRoomType(this.getRoomType());
+			this.getRoomTypeService().updateRoomType(structure, this.getRoomType());
 			this.getMessage().setResult(Message.SUCCESS);
 			this.getMessage().setDescription("Room Type updated successfully");
 		}
@@ -135,8 +142,10 @@ public class RoomTypeAction extends ActionSupport implements SessionAware{
 		
 		user = (User)this.getSession().get("user");
 		structure = user.getStructure();
-		currentRoomType = structure.findRoomTypeById(this.getRoomType().getId());
-		if(structure.removeRoomType(currentRoomType)){
+		//currentRoomType = structure.findRoomTypeById(this.getRoomType().getId());
+		currentRoomType = this.getRoomTypeService().findRoomTypeById(structure,this.getRoomType().getId());
+		//if(structure.removeRoomType(currentRoomType)){
+		if(this.getRoomTypeService().removeRoomType(structure, currentRoomType) >0){
 			this.getMessage().setResult(Message.SUCCESS);
 			this.getMessage().setDescription("Room Type removed successfully");
 			return SUCCESS;
@@ -167,7 +176,8 @@ public class RoomTypeAction extends ActionSupport implements SessionAware{
 		//Controllare che sia diverso da null in un interceptor
 		structure = user.getStructure();
 		
-		aRoomType = structure.findRoomTypeById(this.getRoomType().getId());
+		//aRoomType = structure.findRoomTypeById(this.getRoomType().getId());
+		aRoomType = this.getRoomTypeService().findRoomTypeById(structure,this.getRoomType().getId());
 		
 		if(aRoomType.deleteImage(this.getImage())){
 			this.getMessage().setResult(Message.SUCCESS);
@@ -230,6 +240,14 @@ public class RoomTypeAction extends ActionSupport implements SessionAware{
 
 	public void setStructureService(StructureService structureService) {
 		this.structureService = structureService;
+	}
+
+	public RoomTypeService getRoomTypeService() {
+		return roomTypeService;
+	}
+
+	public void setRoomTypeService(RoomTypeService roomTypeService) {
+		this.roomTypeService = roomTypeService;
 	}
 	
 	

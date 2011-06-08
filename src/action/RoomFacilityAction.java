@@ -15,6 +15,10 @@ import org.apache.struts2.convention.annotation.Actions;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.interceptor.SessionAware;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import service.RoomService;
+import service.StructureService;
 
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -26,6 +30,10 @@ public class RoomFacilityAction extends ActionSupport implements SessionAware{
 	private Integer idRoom;
 	private Room room = null;
 	private Message message = new Message();
+	@Autowired
+	private StructureService structureService = null;
+	@Autowired
+	private RoomService roomService = null;
 	
 	
 	
@@ -42,7 +50,8 @@ public class RoomFacilityAction extends ActionSupport implements SessionAware{
 		user = (User)this.getSession().get("user");
 		structure = user.getStructure();
 		this.setRoomFacilities(structure.getRoomFacilities());		
-		for(RoomFacility each: structure.findRoomById(this.idRoom).getFacilities()){			
+		//for(RoomFacility each: structure.findRoomById(this.idRoom).getFacilities()){	
+		for(RoomFacility each: this.getRoomService().findRoomById(structure,this.idRoom).getFacilities()){	
 			this.roomFacilitiesIds.add(each.getId());			
 		}
 		return SUCCESS;
@@ -64,8 +73,10 @@ public class RoomFacilityAction extends ActionSupport implements SessionAware{
 		
 		user = (User)this.getSession().get("user");
 		structure = user.getStructure();
-		this.setRoom(structure.findRoomById(this.getIdRoom()));		
-		checkedFacilities = structure.findRoomFacilitiesByIds(this.getRoomFacilitiesIds());			
+		//this.setRoom(structure.findRoomById(this.getIdRoom()));		
+		this.setRoom(this.getRoomService().findRoomById(structure,this.getIdRoom()));		
+		//checkedFacilities = structure.findRoomFacilitiesByIds(this.getRoomFacilitiesIds());		
+		checkedFacilities = this.getStructureService().findRoomFacilitiesByIds(structure,this.getRoomFacilitiesIds());		
 		this.room.updateRoomFacilities(checkedFacilities);
 		this.getMessage().setResult(Message.SUCCESS);
 		String text = "Facilities updated successfully";
@@ -122,8 +133,23 @@ public class RoomFacilityAction extends ActionSupport implements SessionAware{
 
 	public void setRoomFacilitiesIds(List<Integer> roomFacilitiesIds) {
 		this.roomFacilitiesIds = roomFacilitiesIds;
-	}	
-	
-	
+	}
 
+	public StructureService getStructureService() {
+		return structureService;
+	}
+
+	public void setStructureService(StructureService structureService) {
+		this.structureService = structureService;
+	}
+
+	public RoomService getRoomService() {
+		return roomService;
+	}
+
+	public void setRoomService(RoomService roomService) {
+		this.roomService = roomService;
+	}
+	
+	
 }
