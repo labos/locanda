@@ -50,7 +50,6 @@ public class RoomFacilityAction extends ActionSupport implements SessionAware{
 		user = (User)this.getSession().get("user");
 		structure = user.getStructure();
 		this.setRoomFacilities(this.getStructureService().findRoomFacilitiesByIdStructure(structure));		
-		//for(RoomFacility each: structure.findRoomById(this.idRoom).getFacilities()){	
 		for(RoomFacility each: this.getRoomService().findRoomById(structure,this.idRoom).getFacilities()){	
 			this.roomFacilitiesIds.add(each.getId());			
 		}
@@ -70,16 +69,15 @@ public class RoomFacilityAction extends ActionSupport implements SessionAware{
 		User user = null;
 		Structure structure = null;
 		List<RoomFacility>  checkedFacilities = null;
+		String text =  null;
 		
 		user = (User)this.getSession().get("user");
 		structure = user.getStructure();
-		//this.setRoom(structure.findRoomById(this.getIdRoom()));		
 		this.setRoom(this.getRoomService().findRoomById(structure,this.getIdRoom()));		
-		//checkedFacilities = structure.findRoomFacilitiesByIds(this.getRoomFacilitiesIds());		
 		checkedFacilities = this.getStructureService().findRoomFacilitiesByIds(structure,this.getRoomFacilitiesIds());		
 		this.room.updateRoomFacilities(checkedFacilities);
 		this.getMessage().setResult(Message.SUCCESS);
-		String text = "Facilities updated successfully";
+		text = "Facilities updated successfully";
 		this.getMessage().setDescription(text);
 		return SUCCESS;
 	}

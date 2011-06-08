@@ -67,7 +67,6 @@ public class ExtraAction extends ActionSupport implements SessionAware{
 		user = (User)this.getSession().get("user");
 		structure = user.getStructure();
 		
-		//extra = structure.findExtraById(this.getExtra().getId());
 		extra = this.getExtraService().findExtraById(this.getExtra().getId());
 		this.setExtra(extra);
 		
@@ -92,7 +91,6 @@ public class ExtraAction extends ActionSupport implements SessionAware{
 		user = (User)this.getSession().get("user");
 		structure = user.getStructure();
 		
-		//oldExtra = structure.findExtraById(this.getExtra().getId());
 		oldExtra = this.getExtraService().findExtraById(this.getExtra().getId());
 		this.getExtra().setId_structure(structure.getId());
 		if(oldExtra == null){
@@ -152,6 +150,7 @@ public class ExtraAction extends ActionSupport implements SessionAware{
 		
 		user = (User)this.getSession().get("user");
 		structure = user.getStructure();
+		
 		for (ExtraPriceList eachPriceList : this.getExtraPriceListService().findExtraPriceListsByIdStructure(structure)) {
 			newExtraPriceListItem = new ExtraPriceListItem();
 			newExtraPriceListItem.setId(structure.nextKey());

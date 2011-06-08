@@ -74,43 +74,22 @@ public class Structure {
 		return ret;
 	}	
 	
-	//Room
-		
-	//RoomFacility	//RoomTypeFacility	
-	
-	
-
 	public boolean hasRoomPhotoNamed(String roomPhotoName){
-				/*	IN PROGRESS...	*/
+		/*	IN PROGRESS...	*/
 		return false;
 	}
-	
-	
-	//Booking	
-		
-	//Guest	
-	
-	//Extra
-	
-	//RoomType
-		
-	//Season
-	
-		
+	//Room		
+	//RoomFacility	//RoomTypeFacility		
+	//Booking			
+	//Guest		
+	//Extra	
+	//RoomType		
+	//Season	
 	//Room Price List
-	
-	
-	
-	//Extra Price List
-		
-	
-	//Convention
-	
-	// Prezzi
-	
-	
-	//Structure Images	
-	
+	//Extra Price List	
+	//Convention	
+	// Prezzi	
+	//Structure Images
 	
 	public String getName() {
 		return name;

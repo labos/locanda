@@ -56,7 +56,7 @@ public class StructureAction extends ActionSupport implements SessionAware {
 		User user = null; 
 				
 		user = (User)this.getSession().get("user");
-		this.setStructure(user.getStructure());
+		this.setStructure(user.getStructure());		
 		this.setUser(user);
 		return SUCCESS;
 	}
@@ -74,10 +74,10 @@ public class StructureAction extends ActionSupport implements SessionAware {
 	})
 	
 	public String updateDetails() {
-		User user = (User)this.getSession().get("user");
-		//Controllare che sia diverso da null in un interceptor
-		this.updateStructure(user.getStructure());
+		User user = null;
 		
+		user = (User)this.getSession().get("user");
+		this.updateStructure(user.getStructure());		
 		this.getMessage().setResult(Message.SUCCESS);
 		this.getMessage().setDescription("Structure details modified succesfully");
 		return SUCCESS;
@@ -97,9 +97,13 @@ public class StructureAction extends ActionSupport implements SessionAware {
 	})
 	
 	public String updateAccount() {
-		User user = (User)this.getSession().get("user");
+		User user = null;
+		
+		user = (User)this.getSession().get("user");
+		String newPassword =  null;
+		
 		//check password requirements
-		String newPassword = this.getUser().getPassword();
+		newPassword = this.getUser().getPassword();
 		if (newPassword .length() >5  &&  (  newPassword.equals(this.getReTyped()) )){
 			user.setPassword(this.getUser().getPassword());
 			this.getMessage().setResult(Message.SUCCESS);
@@ -127,18 +131,16 @@ public class StructureAction extends ActionSupport implements SessionAware {
 		
 	})
 	public String deleteImageStructure() {
-		User user = (User)this.getSession().get("user");
-		//Controllare che sia diverso da null in un interceptor
-		this.setStructure(user.getStructure());
+		User user = null;
 		Image anImage = null;
-		//anImage = structure.findImageById(this.image.getId());
+		
+		user = (User)this.getSession().get("user");
+		this.setStructure(user.getStructure());
 		anImage = this.getStructureService().findImageById(structure,this.getImage().getId());
 		
-		//if (structure.deleteImage(aImage)) {
 		if (this.getStructureService().deleteImage(structure,anImage) > 0) {
 			this.getMessage().setResult(Message.SUCCESS);
-			this.getMessage().setDescription("Structure image deleted modified succesfully");
-			
+			this.getMessage().setDescription("Structure image deleted modified succesfully");			
 			return SUCCESS;
 		}
 		else{
@@ -162,19 +164,16 @@ public class StructureAction extends ActionSupport implements SessionAware {
 		
 	})
 	public String deleteStructureFacility() {
-		User user = (User)this.getSession().get("user");
-		//Controllare che sia diverso da null in un interceptor
-		this.setStructure(user.getStructure());
+		User user = null;
 		StructureFacility aStructureFacility = null;
-
-		//aStructureFacility = structure.findStructureFacilityById(this.image.getId());
-		aStructureFacility = this.getStructureService().findStructureFacilityById(structure,this.getImage().getId());
 		
-		//if ( structure.deleteStructureFacility( aStructureFacility )) {
+		user = (User)this.getSession().get("user");
+		this.setStructure(user.getStructure());
+		
+		aStructureFacility = this.getStructureService().findStructureFacilityById(structure,this.getImage().getId());
 		if ( this.getStructureService().deleteStructureFacility(structure, aStructureFacility )>0) {
 			this.getMessage().setResult(Message.SUCCESS);
-			this.getMessage().setDescription("Structure Facility deleted succesfully");
-			
+			this.getMessage().setDescription("Structure Facility deleted succesfully");			
 			return SUCCESS;
 		}
 		else{

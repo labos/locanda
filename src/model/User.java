@@ -4,6 +4,7 @@ public class User {
 	private String email;
 	private Structure structure = null;
 	private String password;
+	
 	public String getPassword() {
 		return password;
 	}

@@ -49,8 +49,6 @@ public class GuestAction extends ActionSupport implements SessionAware{
 		
 		user = (User)session.get("user");
 		structure = user.getStructure();
-		
-		//this.setGuests(structure.getGuests());
 		this.setGuests(
 				this.getGuestService().findGuestsByIdStructure(
 						structure.getId()));
@@ -69,30 +67,29 @@ public class GuestAction extends ActionSupport implements SessionAware{
 				})
 		
 	})
-	public String findAllGuestsFiltered(){
+	public String findAllGuestsFiltered() {
 		User user = null;
 		Structure structure = null;
-		List <Guest> allGuests = null;
-		List <Guest> returnedGuests = new ArrayList<Guest>();
-		user = (User)session.get("user");
+		List<Guest> allGuests = null;
+		List<Guest> returnedGuests = new ArrayList<Guest>();
+
+		user = (User) session.get("user");
 		structure = user.getStructure();
-		
-		
-		   if (this.getTerm()!= null && this.getTerm().length() > 1)
-		    {
-			   allGuests = this.getGuestService().findGuestsByIdStructure(structure.getId());
-		      
-		      for (Guest guest: allGuests)
-		      {
-		        if ( guest.getLastName().toLowerCase().contains(this.getTerm().toLowerCase()))
-		        {
-		        	returnedGuests.add(guest);
-		        }
-		      }
-		      
-		    }
-		   this.setGuests(returnedGuests);		
-		return SUCCESS;		
+
+		if (this.getTerm() != null && this.getTerm().length() > 1) {
+			allGuests = this.getGuestService().findGuestsByIdStructure(
+					structure.getId());
+
+			for (Guest guest : allGuests) {
+				if (guest.getLastName().toLowerCase()
+						.contains(this.getTerm().toLowerCase())) {
+					returnedGuests.add(guest);
+				}
+			}
+
+		}
+		this.setGuests(returnedGuests);
+		return SUCCESS;
 	}
 	
 	
@@ -145,7 +142,6 @@ public class GuestAction extends ActionSupport implements SessionAware{
 		user = (User)session.get("user");
 		structure = user.getStructure();
 		
-		//aGuest = structure.findGuestById(this.getId());
 		aGuest = this.getGuestService().findGuestById(this.getId());
 		if(aGuest != null){
 			this.setGuest(aGuest);
@@ -170,9 +166,7 @@ public class GuestAction extends ActionSupport implements SessionAware{
 		user = (User)session.get("user");
 		structure = user.getStructure();
 		
-		//this.setGuest(structure.findGuestById(this.getId())); 
 		this.setGuest(this.getGuestService().findGuestById(this.getId())); 
-		//this.setBookings(structure.findBookingsByGuestId(this.getId()));
 		this.setBookings(this.getBookingService().findBookingsByGuestId(structure,this.getId()));
 		
 		return SUCCESS;
@@ -195,20 +189,16 @@ public class GuestAction extends ActionSupport implements SessionAware{
 		user = (User)session.get("user");
 		structure = user.getStructure();
 		
-		//oldGuest = structure.findGuestById(this.getGuest().getId());
 		oldGuest = this.getGuestService().findGuestById(this.getGuest().getId());
 		this.getGuest().setId_structure(structure.getId());
 		if(oldGuest == null){
 			//Si tratta di una aggiunta
-			//this.getGuest().setId(structure.nextKey());
-			//structure.addGuest(this.getGuest());
 			this.getGuestService().insertGuest(this.getGuest());
 			this.getMessage().setResult(Message.SUCCESS);
 			this.getMessage().setDescription("Guest added successfully");
 			
 		}else{
 			//Si tratta di un update
-			//structure.updateGuest(this.getGuest());
 			this.getGuestService().updateGuest(this.getGuest());
 			this.getMessage().setResult(Message.SUCCESS);
 			this.getMessage().setDescription("Guest updated successfully");
@@ -245,17 +235,7 @@ public class GuestAction extends ActionSupport implements SessionAware{
 			this.getMessage().setDescription("Error deleting guest");
 			return ERROR;
 		}
-		/*
-		currentGuest = structure.findGuestById(this.getId());
-		if(structure.deleteGuest(currentGuest)){
-			this.getMessage().setResult(Message.SUCCESS);
-			this.getMessage().setDescription("Guest removed successfully");
-			return SUCCESS;
-		}else{
-			this.getMessage().setResult(Message.ERROR);
-			this.getMessage().setDescription("Error deleting guest");
-			return ERROR;
-		}*/
+		
 	}
 	
 	

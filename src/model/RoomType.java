@@ -18,7 +18,7 @@ public class RoomType {
 		this.roomTypeFacilities = new ArrayList<RoomFacility>();
 	}
 	
-	//RoomType Photo Adding	
+	
 	public Boolean addRoomTypeImage(Image roomTypeImage){
 		
 		return this.getImageLists().add(roomTypeImage);
@@ -30,7 +30,7 @@ public class RoomType {
 	}
 	
 	
-	//RoomType facility Adding	
+	
 	public Boolean addRoomTypeFacility(RoomFacility roomTypeFacility){
 		
 		return this.getRoomTypeFacilities().add(roomTypeFacility);

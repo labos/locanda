@@ -92,15 +92,15 @@ public class ExtraPriceListAction extends ActionSupport implements SessionAware{
 		webappPath = context.getContextPath();
 		user = (User)this.getSession().get("user");
 		structure = user.getStructure();
+		
 		for (Season eachSeason : this.getSeasonService().findSeasonsByStructureId(structure.getId())) {			//costruisco il set con tutti gli anni
 			years.add(eachSeason.getYear());
 		}
 		for (Integer eachYear : years) {							//costruisco i nodi di primo livello - gli anni
-			this.treeNodes.add(TreeNode.buildNode(eachYear.toString()));
+			this.getTreeNodes().add(TreeNode.buildNode(eachYear.toString()));
 		}
 		
 		for (TreeNode eachNode1 : this.treeNodes) {						//per ogni anno costruisco i nodi di secondo livello - le stagioni
-			//List<Season> perYearSeasons = structure.findSeasonsByYear(Integer.parseInt(eachNode1.getData().getTitle()));	//tutte le stagioni di quell'anno
 			List<Season> perYearSeasons = this.getSeasonService().findSeasonsByYear(structure.getId(),Integer.parseInt(eachNode1.getData().getTitle()));	//tutte le stagioni di quell'anno
 			for (Season eachYearSeason : perYearSeasons) {
 				eachNode1.buildChild(eachYearSeason.getName());
@@ -144,15 +144,9 @@ public class ExtraPriceListAction extends ActionSupport implements SessionAware{
 		user = (User)this.getSession().get("user");
 		structure = user.getStructure();
 		
-		//season = structure.findSeasonById(this.getSeasonId());
 		season = this.getSeasonService().findSeasonById(this.getSeasonId());
-		//roomType = structure.findRoomTypeById(this.getRoomTypeId());
 		roomType = this.getRoomTypeService().findRoomTypeById(structure,this.getRoomTypeId());
-		//convention = structure.findConventionById(this.getConventionId());
 		convention = this.getConventionService().findConventionById(structure,this.getConventionId());
-		
-		
-		//this.setPriceList(structure.findExtraPriceListBySeasonAndRoomTypeAndConvention(season, roomType, convention));
 		this.setPriceList(this.getExtraPriceListService().findExtraPriceListByStructureAndSeasonAndRoomTypeAndConvention(structure,season, roomType, convention));
 		return SUCCESS;
 	}
@@ -171,7 +165,6 @@ public class ExtraPriceListAction extends ActionSupport implements SessionAware{
 		
 		user = (User)this.getSession().get("user");
 		structure = user.getStructure();
-		//oldExtraPriceList = structure.findExtraPriceListById(this.getPriceList().getId());
 		oldExtraPriceList = this.getExtraPriceListService().findExtraPriceListById(structure,this.getPriceList().getId());
 		
 		for (int i = 0; i < oldExtraPriceList.getItems().size(); i++) {

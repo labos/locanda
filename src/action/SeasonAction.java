@@ -35,10 +35,7 @@ public class SeasonAction extends ActionSupport implements SessionAware {
 	private List<Period> periods = new ArrayList<Period>();
 	private Message message = new Message();
 	@Autowired
-	private StructureService structureService = null;
-	
-	
-	
+	private StructureService structureService = null;	
 	@Autowired
 	private SeasonService seasonService = null;
 	
@@ -50,10 +47,8 @@ public class SeasonAction extends ActionSupport implements SessionAware {
 		User user = null;
 		Structure structure = null;
 		
-		
 		user = (User) session.get("user");
-		structure = user.getStructure();	
-		
+		structure = user.getStructure();		
 		
 		this.setSeasons(this.getSeasonService().findSeasonsByStructureId(structure.getId()));
 		//Rimuovere questa istruzione quando tutto sarà  sul DB
@@ -76,7 +71,6 @@ public class SeasonAction extends ActionSupport implements SessionAware {
 		structure = user.getStructure();
 		
 		theSeason = this.getSeasonService().findSeasonById(this.getId());
-		//theSeason = structure.findSeasonById(this.getId());
 		this.setSeason(theSeason);
 		return SUCCESS;
 	}
@@ -112,7 +106,6 @@ public class SeasonAction extends ActionSupport implements SessionAware {
 		
 		this.getSeason().setId_structure(structure.getId());
 		
-		//oldSeason = structure.findSeasonById(this.getSeason().getId());
 		oldSeason = this.getSeasonService().findSeasonById(this.getSeason().getId());
 		
 		if (oldSeason == null) {
@@ -121,13 +114,7 @@ public class SeasonAction extends ActionSupport implements SessionAware {
 			int currentYear = Calendar.getInstance().get(Calendar.YEAR);		
 			this.getSeason().setYear(currentYear);			
 			this.getSeasonService().insertSeason(this.getSeason());			
-			this.getMessage().setDescription("Season Added successfully");
-			
-			
-			
-				
-			
-			
+			this.getMessage().setDescription("Season Added successfully");			
 		} else {
 			// Si tratta di un update di una season esistente
 			//workaround aspettando che la form di edit della season abbia anche il campo year

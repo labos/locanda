@@ -74,7 +74,6 @@ public class UploadAction extends ActionSupport implements SessionAware{
 		user = (User)this.getSession().get("user");
 		structure = user.getStructure();
 		
-		//if (structure.hasRoomFacilityNamed(this.getName())) {
 		if (this.getStructureService().findRoomFacilityByName(structure, this.getName()) != null){
 			message.setResult(Message.ERROR);
 			message.setDescription("Esiste già una facility con lo stesso nome");
@@ -128,7 +127,6 @@ public class UploadAction extends ActionSupport implements SessionAware{
 		user = (User)this.getSession().get("user");
 		structure =  user.getStructure();
 		
-		//if (structure.hasRoomFacilityNamed(this.getName())) {
 		if (this.getStructureService().findRoomFacilityByName(structure, this.getName()) != null){
 			message.setResult(Message.ERROR);
 			message.setDescription("Esiste già una foto con lo stesso nome");
@@ -145,7 +143,6 @@ public class UploadAction extends ActionSupport implements SessionAware{
 		this.getImage().setFileName(this.getUploadFileName());
 		
 		this.getImage().setId(structure.nextKey());
-		//structure.addStructureImage(this.getImage());
 		this.getStructureService().insertImage(structure, this.getImage());
 		
 		message.setResult(Message.SUCCESS);
@@ -178,8 +175,6 @@ public class UploadAction extends ActionSupport implements SessionAware{
 		
 		user = (User)this.getSession().get("user");
 		structure =user.getStructure();		
-		
-		//if (structure.hasRoomFacilityNamed(this.getName())) {
 		if (this.getStructureService().findRoomFacilityByName(structure, this.getName()) != null){
 			message.setResult(Message.ERROR);
 			message.setDescription("Esiste già una facility con lo stesso nome");
@@ -197,7 +192,6 @@ public class UploadAction extends ActionSupport implements SessionAware{
 		this.getStructureFacility().setFileName(this.getUploadFileName());
 		
 		this.getStructureFacility().setId(structure.nextKey());
-		//structure.addStructureFacility(this.getStructureFacility());
 		this.getStructureService().insertStructureFacility(structure, this.getStructureFacility());
 		
 		message.setResult(Message.SUCCESS);
@@ -239,7 +233,6 @@ public class UploadAction extends ActionSupport implements SessionAware{
 			return ERROR;
 		};
 		
-		//aRoom = structure.findRoomById(this.getRoom().getId());
 		aRoom = this.getRoomService().findRoomById(structure,this.getRoom().getId());
 		if (aRoom == null){			
 			message.setResult(Message.ERROR);
@@ -258,8 +251,7 @@ public class UploadAction extends ActionSupport implements SessionAware{
 		
 		this.getImage().setId(structure.nextKey());
 		aRoom.addImage(this.getImage());
-		//structure.updateRoom(aRoom);		
-				
+					
 		message.setResult(Message.SUCCESS);
 		message.setDescription("Foto inserita correttamente!");
 		return SUCCESS;
@@ -288,7 +280,6 @@ public class UploadAction extends ActionSupport implements SessionAware{
 		User user = null; 
 		ServletContext context = null; 
 		String imgPath = null; 
-		//Controllare che sia diverso da null in un interceptor
 		Structure structure = null; 
 		File target = null;
 		
@@ -300,7 +291,6 @@ public class UploadAction extends ActionSupport implements SessionAware{
 			message.setDescription("Esiste già una foto con lo stesso nome");
 			return ERROR;
 		};
-		//aRoomType = structure.findRoomTypeById(this.getRoomType().getId());
 		aRoomType = this.getRoomTypeService().findRoomTypeById(structure, this.getRoomType().getId());
 		if (aRoomType == null){			
 			message.setResult(Message.ERROR);
@@ -319,7 +309,6 @@ public class UploadAction extends ActionSupport implements SessionAware{
 		
 		this.getImage().setId(structure.nextKey());
 		aRoomType.addRoomTypeImage(this.getImage());
-		//structure.updateRoomType(aRoomType);			
 				
 		message.setResult(Message.SUCCESS);
 		message.setDescription("Foto inserita correttamente!");
@@ -356,7 +345,6 @@ public class UploadAction extends ActionSupport implements SessionAware{
 		user = (User)this.getSession().get("user");
 		structure = user.getStructure();
 				
-		//if (structure.hasRoomFacilityNamed(this.getName())) {
 		if (this.getStructureService().findRoomFacilityByName(structure, this.getName()) != null){
 			message.setResult(Message.ERROR);
 			message.setDescription("Esiste già una facility con lo stesso nome");
@@ -373,7 +361,6 @@ public class UploadAction extends ActionSupport implements SessionAware{
 		this.getRoomFacility().setFileName(this.getUploadFileName());
 		
 		this.getRoomFacility().setId(structure.nextKey());
-		//structure.addRoomFacility(this.getRoomFacility());
 		this.getStructureService().addRoomFacility(structure, this.getRoomFacility());
 		
 		message.setResult(Message.SUCCESS);

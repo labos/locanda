@@ -82,12 +82,17 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware{
 	public String findAllRoomPriceLists() {
 		User user = null;
 		Structure structure = null;
-		Set<Integer> years = new HashSet<Integer>();
-		ServletContext context = ServletActionContext.getServletContext();
-		String webappPath = context.getContextPath();
+		Set<Integer> years = null; 
+		ServletContext context = null;
+		String webappPath = null;
+		
 		
 		user = (User)this.getSession().get("user");
 		structure = user.getStructure();
+		years = new HashSet<Integer>();
+		context = ServletActionContext.getServletContext();
+		webappPath = context.getContextPath();
+		
 		for (Season eachSeason : this.getSeasonService().findSeasonsByStructureId(structure.getId())) {			//costruisco il set con tutti gli anni
 			years.add(eachSeason.getYear());
 		}
@@ -140,15 +145,9 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware{
 		user = (User)this.getSession().get("user");
 		structure = user.getStructure();
 		
-		//season = structure.findSeasonById(this.getSeasonId());
 		season = this.getSeasonService().findSeasonById(this.getSeasonId());
-		//roomType = structure.findRoomTypeById(this.getRoomTypeId());
 		roomType = this.getRoomTypeService().findRoomTypeById(structure,this.getRoomTypeId());
-		
-		//convention = structure.findConventionById(this.getConventionId());
 		convention = this.getConventionService().findConventionById(structure,this.getConventionId());
-		
-		//this.setPriceList(structure.findRoomPriceListBySeasonAndRoomTypeAndConvention(season, roomType, convention));
 		this.setPriceList(this.getRoomPriceListService().findRoomPriceListByStructureAndSeasonAndRoomTypeAndConvention(structure, season, roomType, convention));
 		return SUCCESS;
 	}
@@ -167,7 +166,6 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware{
 		
 		user = (User)this.getSession().get("user");
 		structure = user.getStructure();
-		//oldRoomPriceList = structure.findRoomPriceListById(this.getPriceList().getId());
 		oldRoomPriceList = this.getRoomPriceListService().findRoomPriceListById(structure,this.getPriceList().getId());
 		
 		for (int i = 0; i < oldRoomPriceList.getItems().size(); i++) {
