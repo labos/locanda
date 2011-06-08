@@ -92,11 +92,11 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware{
 			years.add(eachSeason.getYear());
 		}
 		for (Integer eachYear : years) {							//costruisco i nodi di primo livello - gli anni
-			this.treeNodes.add(TreeNode.buildNode(eachYear.toString()));
+			this.getTreeNodes().add(TreeNode.buildNode(eachYear.toString()));
 		}
 		
-		for (TreeNode eachNode1 : this.treeNodes) {						//per ogni anno costruisco i nodi di secondo livello - le stagioni
-			//List<Season> perYearSeasons = structure.findSeasonsByYear(Integer.parseInt(eachNode1.getData().getTitle()));	//tutte le stagioni di quell'anno
+		for (TreeNode eachNode1 : this.getTreeNodes()) {						//per ogni anno costruisco i nodi di secondo livello - le stagioni
+			
 			List<Season> perYearSeasons = this.getSeasonService().findSeasonsByYear(structure.getId(),Integer.parseInt(eachNode1.getData().getTitle()));	//tutte le stagioni di quell'anno
 			for (Season eachYearSeason : perYearSeasons) {
 				eachNode1.buildChild(eachYearSeason.getName());
@@ -106,22 +106,10 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware{
 					eachNode2.buildChild(eachRoomType.getName());
 				}
 					for (TreeNode eachNode3 : eachNode2.getChildren()) {//per ogni roomType costruisco i nodi di quarto livello - le convenzioni
-						Set<Convention> perRoomTypeConventions = new HashSet<Convention>();	//tutte le convenzioni associate a quel roomType in un certo listino
-						//perRoomTypeConventions = structure.findConventionsBySeasonAndRoomType(structure.findSeasonByName(eachNode2.getData().getTitle()), structure.findRoomTypeByName(eachNode3.getData().getTitle()));
-						//perRoomTypeConventions = structure.findConventionsBySeasonAndRoomType(
-						perRoomTypeConventions = this.getConventionService().findConventionsByStructureAndSeasonAndRoomType(structure,
-								this.getSeasonService().findSeasonByName(structure.getId(),eachNode2.getData().getTitle()),
-								this.getRoomTypeService().findRoomTypeByName(structure,eachNode3.getData().getTitle()));
-								//structure.findRoomTypeByName(eachNode3.getData().getTitle()));
-						System.out.println(eachNode2.getData().getTitle() + "------>" + perRoomTypeConventions);
-						for (Convention eachRoomTypeConvention : perRoomTypeConventions) {
-							/*String href = webappPath + "/findRoomPriceListItems" +
-							"?seasonId=" + structure.findSeasonByName(eachNode2.getData().getTitle()).getId() + 
-							"&roomTypeId=" + structure.findRoomTypeByName(eachNode3.getData().getTitle()).getId() +
-							"&conventionId=" + eachRoomTypeConvention.getId();*/
+						for (Convention eachRoomTypeConvention : structure.getConventions()) {
+							
 							String href = webappPath + "/findRoomPriceListItems" +
 							"?seasonId=" + this.getSeasonService().findSeasonByName(structure.getId(),eachNode2.getData().getTitle()).getId() + 
-							//"&roomTypeId=" + structure.findRoomTypeByName(eachNode3.getData().getTitle()).getId() +
 							"&roomTypeId=" + this.getRoomTypeService().findRoomTypeByName(structure,eachNode3.getData().getTitle()).getId() +
 							"&conventionId=" + eachRoomTypeConvention.getId();
 							eachNode3.buildChild(eachRoomTypeConvention.getName(), href);

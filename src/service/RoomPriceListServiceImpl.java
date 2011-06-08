@@ -1,5 +1,8 @@
 package service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import model.RoomType;
@@ -23,5 +26,21 @@ public class RoomPriceListServiceImpl implements RoomPriceListService{
 		}
 		return ret;
 	}
+
+	@Override
+	public List<RoomPriceList> findRoomPriceListsBySeason(Structure structure,Season season) {
+		List<RoomPriceList> ret = null;
+		
+		ret = new ArrayList<RoomPriceList>();
+		
+		for(RoomPriceList each: structure.getRoomPriceLists()){
+			if (each.getSeason().equals(season)) {
+				ret.add(each);
+			}
+		}
+		return ret;
+	}
+	
+	
 
 }

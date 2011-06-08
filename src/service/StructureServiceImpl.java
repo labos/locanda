@@ -9,9 +9,11 @@ import org.springframework.stereotype.Service;
 
 import model.Booking;
 import model.Extra;
+import model.Image;
 import model.RoomFacility;
 import model.RoomType;
 import model.Structure;
+import model.StructureFacility;
 import model.listini.Convention;
 import model.listini.ExtraPriceList;
 import model.listini.ExtraPriceListItem;
@@ -161,6 +163,57 @@ public class StructureServiceImpl implements StructureService{
 		}
 		return true;
 		
+	}
+
+	
+
+	@Override
+	public Image findImageById(Structure structure, Integer id) {
+		for(Image each: structure.getImageLists()){
+			if(each.getId().equals(id)){
+				return each;
+			}
+		}
+		return null;
+	}
+
+
+	@Override
+	public Integer insertImage(Structure structure, Image structureImage) {
+		structure.getImageLists().add(structureImage);
+		return 1;
+	}
+
+
+	@Override
+	public Integer deleteImage(Structure structure, Image structureImage) {
+		structure.getImageLists().remove(structureImage);
+		return 1;
+	}
+
+
+	@Override
+	public StructureFacility findStructureFacilityById(Structure structure,Integer id) {
+		for(StructureFacility each: structure.getStructureFacilities() ){
+			if(each.getId().equals(id)){
+				return each;
+			}
+		}
+		return null;
+	}
+
+
+	@Override
+	public Integer insertStructureFacility(Structure structure,	StructureFacility structureFacility) {
+		structure.getStructureFacilities().add(structureFacility);
+		return 1;
+	}
+
+
+	@Override
+	public Integer deleteStructureFacility(Structure structure,StructureFacility structureFacility) {
+		structure.getStructureFacilities().remove(structureFacility);
+		return 1;
 	}
 
 

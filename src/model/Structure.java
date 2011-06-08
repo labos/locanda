@@ -117,23 +117,13 @@ public class Structure {
 		return ret;
 	}
 	
+	
 	public List<RoomPriceList> findRoomPriceListsBySeason(Season season){
 		List<RoomPriceList> ret = new ArrayList<RoomPriceList>();
 		
 		for(RoomPriceList each: this.getRoomPriceLists()){
 			if (each.getSeason().equals(season)) {
 				ret.add(each);
-			}
-		}
-		return ret;
-	}
-	
-	public RoomPriceList findRoomPriceListBySeasonAndRoomTypeAndConvention(Season season, RoomType roomType, Convention convention) {
-		RoomPriceList ret = null;
-		
-		for(RoomPriceList each: this.getRoomPriceLists()) {
-			if (each.getSeason().equals(season) && each.getRoomType().equals(roomType) && each.getConvention().equals(convention)) {
-				return each;
 			}
 		}
 		return ret;
@@ -189,46 +179,7 @@ public class Structure {
 	
 	
 	//Structure Images	
-	public Boolean addStructureImage(Image structureImage){
-		
-		return this.getImageLists().add(structureImage);
-		
-	}
 	
-	//Facility structure Images	
-	public Boolean addStructureFacility(StructureFacility structureFacility){
-		
-		return this.getStructureFacilities().add(structureFacility);
-		
-	}
-	
-	public boolean deleteImage(Image aImage) {
-		return this.getImageLists().remove(aImage);
-	}
-	
-	public Image findImageById(Integer id){
-		for(Image each: this.getImageLists()){
-			if(each.getId().equals(id)){
-				return each;
-			}
-		}
-		return null;
-	}
-	
-	
-	//Structure Facility
-	public StructureFacility findStructureFacilityById(Integer id){
-		for(StructureFacility each: this.getStructureFacilities() ){
-			if(each.getId().equals(id)){
-				return each;
-			}
-		}
-		return null;
-	}
-	
-	public boolean deleteStructureFacility(StructureFacility aStructFacility) {
-		return this.getStructureFacilities().remove(aStructFacility);
-	}
 	
 	public String getName() {
 		return name;

@@ -666,7 +666,8 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		img.setId(structure.nextKey());
 		img.setName("Facciata");
 		img.setFileName("facciata.jpg");
-		structure.addStructureImage(img);
+		//structure.addStructureImage(img);
+		this.getStructureService().insertImage(structure, img);
 	}
 	
 	private void buildStructureFacilities(Structure structure){
@@ -675,7 +676,8 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		structFacility.setId(structure.nextKey());
 		structFacility.setName("Restaurant");
 		structFacility.setFileName("restaurant.png");
-		structure.addStructureFacility(structFacility);
+		//structure.addStructureFacility(structFacility);
+		this.getStructureService().insertStructureFacility(structure, structFacility);
 	}
 	
 	public Map<String, Object> getSession() {

@@ -25,6 +25,9 @@ import org.apache.struts2.convention.annotation.Actions;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.interceptor.SessionAware;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import service.StructureService;
 
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -39,6 +42,8 @@ public class StructureAction extends ActionSupport implements SessionAware {
 	private Image image = null;
 	private User user = new User();
 	private String reTyped;
+	@Autowired
+	private StructureService structureService = null;
 	
 
 	@Actions({
@@ -125,10 +130,12 @@ public class StructureAction extends ActionSupport implements SessionAware {
 		User user = (User)this.getSession().get("user");
 		//Controllare che sia diverso da null in un interceptor
 		this.setStructure(user.getStructure());
-		Image aImage = null;
-		aImage = structure.findImageById(this.image.getId());
+		Image anImage = null;
+		//anImage = structure.findImageById(this.image.getId());
+		anImage = this.getStructureService().findImageById(structure,this.getImage().getId());
 		
-		if (structure.deleteImage(aImage)) {
+		//if (structure.deleteImage(aImage)) {
+		if (this.getStructureService().deleteImage(structure,anImage) > 0) {
 			this.getMessage().setResult(Message.SUCCESS);
 			this.getMessage().setDescription("Structure image deleted modified succesfully");
 			
@@ -158,11 +165,13 @@ public class StructureAction extends ActionSupport implements SessionAware {
 		User user = (User)this.getSession().get("user");
 		//Controllare che sia diverso da null in un interceptor
 		this.setStructure(user.getStructure());
-		StructureFacility aStructFacility = null;
+		StructureFacility aStructureFacility = null;
 
-		aStructFacility = structure.findStructureFacilityById(this.image.getId());
+		//aStructureFacility = structure.findStructureFacilityById(this.image.getId());
+		aStructureFacility = this.getStructureService().findStructureFacilityById(structure,this.getImage().getId());
 		
-		if ( structure.deleteStructureFacility( aStructFacility )) {
+		//if ( structure.deleteStructureFacility( aStructureFacility )) {
+		if ( this.getStructureService().deleteStructureFacility(structure, aStructureFacility )>0) {
 			this.getMessage().setResult(Message.SUCCESS);
 			this.getMessage().setDescription("Structure Facility deleted succesfully");
 			
@@ -238,6 +247,14 @@ public class StructureAction extends ActionSupport implements SessionAware {
 
 	public void setReTyped(String reTyped) {
 		this.reTyped = reTyped;
+	}
+
+	public StructureService getStructureService() {
+		return structureService;
+	}
+
+	public void setStructureService(StructureService structureService) {
+		this.structureService = structureService;
 	}
 	
 	

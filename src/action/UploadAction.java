@@ -145,7 +145,8 @@ public class UploadAction extends ActionSupport implements SessionAware{
 		this.getImage().setFileName(this.getUploadFileName());
 		
 		this.getImage().setId(structure.nextKey());
-		structure.addStructureImage(this.getImage());
+		//structure.addStructureImage(this.getImage());
+		this.getStructureService().insertImage(structure, this.getImage());
 		
 		message.setResult(Message.SUCCESS);
 		message.setDescription("Foto inserita correttamente!");
@@ -196,7 +197,8 @@ public class UploadAction extends ActionSupport implements SessionAware{
 		this.getStructureFacility().setFileName(this.getUploadFileName());
 		
 		this.getStructureFacility().setId(structure.nextKey());
-		structure.addStructureFacility(this.getStructureFacility());
+		//structure.addStructureFacility(this.getStructureFacility());
+		this.getStructureService().insertStructureFacility(structure, this.getStructureFacility());
 		
 		message.setResult(Message.SUCCESS);
 		message.setDescription("Facility inserita correttamente!");

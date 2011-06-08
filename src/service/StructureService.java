@@ -7,9 +7,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import model.Booking;
 import model.Extra;
+import model.Image;
 import model.RoomFacility;
 import model.RoomType;
 import model.Structure;
+import model.StructureFacility;
 import model.listini.Convention;
 
 @Transactional
@@ -22,5 +24,11 @@ public interface StructureService {
 	public List<RoomFacility> findRoomFacilitiesByIds(Structure structure, List<Integer> ids);
 	public Boolean hasRoomFreeInPeriod(Structure structure,Integer roomId, Date dateIn, Date dateOut);
 	public Boolean hasRoomFreeForBooking(Structure structure,Booking booking);
+	public Image findImageById(Structure structure,Integer id);
+	public Integer insertImage(Structure structure,Image structureImage);
+	public Integer deleteImage(Structure structure,Image structureImage);
+	public StructureFacility findStructureFacilityById(Structure structure,Integer id);
+	public Integer insertStructureFacility(Structure structure,StructureFacility structureFacility);
+	public Integer deleteStructureFacility(Structure structure,StructureFacility structureFacility);
 
 }
