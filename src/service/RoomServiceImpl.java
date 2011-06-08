@@ -14,8 +14,8 @@ public class RoomServiceImpl implements RoomService{
 
 	@Override
 	public List<Room> findRoomsByIdStructure(Structure structure) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return structure.getRooms();
 	}
 
 	@Override
