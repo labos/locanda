@@ -40,14 +40,18 @@
 	<link href="css/patches/patch_sliding_door.css" rel="stylesheet" type="text/css" />
   <![endif]-->
 </head>
+<!--<s:url var="redirectLang" includeParams="get" escapeAmp="false"/>-->
+<s:set var="redirectLang" value="#context['struts.actionMapping'].name" />
 <s:url id="localeFR" namespace="/" action="locale" >
    <s:param name="request_locale" >fr</s:param>
 </s:url>
 <s:url id="localeEN" namespace="/" action="locale" >
    <s:param name="request_locale" >en</s:param>
+   <s:param name="redirect" ><s:property value="#redirectLang"/>.action</s:param>
 </s:url>
 <s:url id="localeIT" namespace="/" action="locale" >
    <s:param name="request_locale" >it</s:param>
+     <s:param name="redirect" ><s:property value="#redirectLang"/>.action</s:param>
 </s:url>
 
 <s:url action="goLogin" var="url_login"></s:url>

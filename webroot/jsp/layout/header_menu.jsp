@@ -74,14 +74,18 @@ $(document).ready(function () { <%
 	<link href="css/patches/patch_sliding_door.css" rel="stylesheet" type="text/css" />
   <![endif]-->
 </head>
+<!--<s:url var="currentUrl" includeParams="get" escapeAmp="false"/>
+--><s:set var="redirectLang" value="#context['struts.actionMapping'].name" />
 <s:url id="localeFR" namespace="/" action="locale" >
    <s:param name="request_locale" >fr</s:param>
 </s:url>
 <s:url id="localeEN" namespace="/" action="locale" >
    <s:param name="request_locale" >en</s:param>
+   <s:param name="redirect" ><s:property value="#redirectLang"/>.action</s:param>
 </s:url>
 <s:url id="localeIT" namespace="/" action="locale" >
    <s:param name="request_locale" >it_IT</s:param>
+  <s:param name="redirect" ><s:property value="#redirectLang"/>.action</s:param>
 </s:url>
 <body>
   <!-- skip link navigation -->

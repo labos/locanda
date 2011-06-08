@@ -29,9 +29,7 @@
       
   	<package name="default" extends="struts-default,json-default" namespace="/">
     	<action name="locale" class="action.LocaleAction">
-			<result name="SUCCESS" type="redirectAction">
-				<param name="actionName">home</param>
-			</result>
+			<result name="SUCCESS" type="redirect">${redirect}</result>	
 		</action>	
     </package>
 </struts>
