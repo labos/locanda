@@ -29,8 +29,6 @@ import service.ExtraService;
 import service.GuestService;
 import service.RoomService;
 import service.StructureService;
-import service.StructureServiceImpl;
-
 import com.opensymphony.xwork2.ActionSupport;
 
 @ParentPackage(value="default")
@@ -88,8 +86,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		this.updateBookingInMemory(structure);
 		this.getMessage().setResult(Message.SUCCESS);
 		this.getMessage().setDescription(getText("calculatedPriceAction"));
-		return "success";	
-					
+		return "success";			
 	}
 	
 	public void updateBookingInMemory(Structure structure) {
@@ -126,11 +123,37 @@ public class BookingAction extends ActionSupport implements SessionAware{
 
 		this.filterAdjustments();
 		this.filterPayments();
-		this.filterGuests();
-		
-					
+		this.filterGuests();		
 	}
 	
+	@Actions({
+		@Action(value="/displayQuantitySelect",results = {
+				@Result(name="success",location="/jsp/contents/extraQuantity_select.jsp")
+				})
+	})
+	public String displayQuantitySelect() {
+		User user = null;
+		Structure structure = null;
+		List<Extra> checkedExtras = null;
+		List<BookedExtraItem> bookedExtraItems = null;
+		Room theBookedRoom = null;
+		
+		user = (User)this.getSession().get("user");
+		structure = user.getStructure();
+						
+		//Update Booking in memory		
+		theBookedRoom = this.getRoomService().findRoomById(structure,this.getBooking().getRoom().getId());
+		this.getBooking().setRoom(theBookedRoom);
+		this.setExtras(this.getExtraService().findExtrasByIdStructure(structure.getId()));
+		checkedExtras = this.getExtraService().findExtrasByIds(this.getBookingExtraIds());
+		this.getBooking().setExtras(checkedExtras);
+		bookedExtraItems = this.calculateBookedExtraItems(structure, this.getBooking());
+		this.getBooking().setExtraItems(bookedExtraItems);		
+			
+		this.getMessage().setResult(Message.SUCCESS);
+		this.getMessage().setDescription("Price List Items updated successfully");
+		return SUCCESS;		
+	}
 	
 	@Actions({
 		@Action(value="/saveUpdateBooking",results = {

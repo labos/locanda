@@ -2,7 +2,6 @@ package action;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -15,8 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import service.SeasonService;
 import service.StructureService;
-import service.StructureServiceImpl;
-
 import com.opensymphony.xwork2.ActionSupport;
 
 import model.Structure;
@@ -57,7 +54,6 @@ public class SeasonAction extends ActionSupport implements SessionAware {
 		return SUCCESS;
 	}
 
-	
 	@Actions({ 
 		@Action(value = "/goUpdateSeason", 
 				results = { @Result(name = "success", location = "/season_edit.jsp") })
@@ -74,8 +70,6 @@ public class SeasonAction extends ActionSupport implements SessionAware {
 		this.setSeason(theSeason);
 		return SUCCESS;
 	}
-	
-	
 	
 	@Actions({ @Action(value = "/saveUpdateSeason", results = {
 			@Result(type = "json", name = "success", params = { "root",
@@ -114,7 +108,7 @@ public class SeasonAction extends ActionSupport implements SessionAware {
 			int currentYear = Calendar.getInstance().get(Calendar.YEAR);		
 			this.getSeason().setYear(currentYear);			
 			this.getSeasonService().insertSeason(this.getSeason());			
-			this.getMessage().setDescription("Season Added successfully");			
+			this.getMessage().setDescription("Season Added successfully");		
 		} else {
 			// Si tratta di un update di una season esistente
 			//workaround aspettando che la form di edit della season abbia anche il campo year
@@ -126,7 +120,6 @@ public class SeasonAction extends ActionSupport implements SessionAware {
 		this.getMessage().setResult(Message.SUCCESS);
 		return SUCCESS;
 	}
-	
 	
 	@Actions({ @Action(value = "/deleteSeason", results = {
 			@Result(type = "json", name = "success", params = { "root", "message" }),
@@ -145,8 +138,6 @@ public class SeasonAction extends ActionSupport implements SessionAware {
 			this.getMessage().setDescription("Error removing Season");
 			return ERROR;
 		}
-		
-		
 	}
 	
 	public Message getMessage() {
@@ -180,7 +171,6 @@ public class SeasonAction extends ActionSupport implements SessionAware {
 	public void setSeasons(List<Season> seasons) {
 		this.seasons = seasons;
 	}
-	
 	public List<Period> getPeriods() {
 		return periods;
 	}
@@ -193,27 +183,17 @@ public class SeasonAction extends ActionSupport implements SessionAware {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
-
 	public SeasonService getSeasonService() {
 		return seasonService;
 	}
-
-
 	public void setSeasonService(SeasonService seasonService) {
 		this.seasonService = seasonService;
 	}
-
-
 	public StructureService getStructureService() {
 		return structureService;
 	}
-
-
 	public void setStructureService(StructureService structureService) {
 		this.structureService = structureService;
 	}
-	
-	
 	
 }

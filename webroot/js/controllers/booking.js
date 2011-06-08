@@ -91,7 +91,10 @@ $(function () {
             
             Guest.getCustomers("input[name='booking.booker.lastName']"); 
             
-            
+//			//controllo se i checkbox degli extra sono ceccati al caricamento della finestra modale
+//            if ($('input:checkbox[name="bookingExtraIds"]:checked')) {
+//  				self.displayQuantitySelect($('input:checkbox[name="bookingExtraIds"]:checked'));
+//			}
             
             $(".btn_checked").button({
                 disabled: true
@@ -386,14 +389,16 @@ $(function () {
                     $(this).closest("." + selector + "_row").remove();
                 });
             }); /*ADD LISTENER FOR CHANGE ROOM OR DATEIN OR DATEOUT OR NUMNIGHTS FROM BOOKING*/
-            $('#sel_rooms_list, #booking_duration, input:text[name="booking.dateIn"], input:text[name="booking.dateOut"], input:checkbox[name="bookingExtraIds"], #nr_guests, #convention, .quantity').change(function () {
+            $('#sel_rooms_list, #booking_duration, input:text[name="booking.dateIn"], input:text[name="booking.dateOut"], #nr_guests, input:checkbox[name="bookingExtraIds"], #convention, .quantity').change(function () {
                 // check in room was selected
                 if (!(parseInt($('#sel_rooms_list').val()) > 0)) {
                     $().notify($.i18n("warning"), $.i18n("roomRequired"));
                     return;
                 }
-                	self.calculatePrice(this);
+         			self.calculatePrice(this);
             });
+			
+			
             //---  BOOK SECTION CODE   
             $.ajaxSetup({
                 beforeSend: function (xhr) {
@@ -425,7 +430,7 @@ $(function () {
 
         /* calculate new prices for booking */
         calculatePrice: function (clicked){
-        	
+        	var self = this;
             var formInput = $(clicked).parents().find(".yform.json").serialize();
             var $clicked = $(clicked);
             $.ajax({
@@ -462,7 +467,7 @@ $(function () {
 										}
 								}
 								else {
-									
+									self.displayQuantitySelect($('input:checkbox[name="bookingExtraIds"]'));
 								}
 								}
 							}
@@ -508,6 +513,30 @@ $(function () {
                         //an error in data returned...
                         $(".validationErrors").html(data_action);
                     }
+                },
+                error: function () {
+                    $().notify($.i18n("seriousError"), $.i18n("seriousErrorDescr"));
+                }
+            });
+        	
+        },
+		
+		 displayQuantitySelect: function (clicked){
+        	
+            var formInput = $(clicked).parents().find(".yform.json").serialize();
+            var $clicked = $(clicked);
+			var self = this;
+            $.ajax({
+                url: "displayQuantitySelect.action",
+				type: "POST",
+				context: document.body,
+                dataType: "html",
+                data: formInput,
+                success: function (data_action) {
+                    $("div.select_container").html(data_action);
+					$('.quantity').change(function () {
+         				self.calculatePrice(this);
+           			 });
                 },
                 error: function () {
                     $().notify($.i18n("seriousError"), $.i18n("seriousErrorDescr"));
