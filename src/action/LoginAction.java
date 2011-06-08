@@ -41,8 +41,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import service.BookingService;
 import service.ConventionService;
+import service.ExtraPriceListService;
 import service.ExtraService;
 import service.GuestService;
+import service.RoomPriceListService;
 import service.RoomService;
 import service.RoomTypeService;
 import service.SeasonService;
@@ -72,6 +74,10 @@ public class LoginAction extends ActionSupport implements SessionAware{
 	private RoomService roomService = null;
 	@Autowired
 	private ConventionService conventionService = null;
+	@Autowired
+	private RoomPriceListService roomPriceListService = null;
+	@Autowired
+	private ExtraPriceListService extraPriceListService = null;
 	
 	
 	@Actions(value={
@@ -151,9 +157,9 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		aRoom = new Room();
 		aRoom.setId(structure.nextKey());
 		aRoom.setName("101");
-		aRoom.addRoomFacility(structure.getRoomFacilities().get(0));
-		aRoom.addRoomFacility(structure.getRoomFacilities().get(2));
-		aRoom.setRoomType(structure.getRoomTypes().get(0));
+		aRoom.addRoomFacility(this.getStructureService().findRoomFacilitiesByIdStructure(structure).get(0));
+		aRoom.addRoomFacility(this.getStructureService().findRoomFacilitiesByIdStructure(structure).get(2));
+		aRoom.setRoomType(this.getRoomTypeService().findRoomTypesByIdStructure(structure).get(0));
 		//structure.addRoom(aRoom);
 		this.getRoomService().insertRoom(structure, aRoom);
 		
@@ -161,7 +167,7 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		aRoom.setId(structure.nextKey());
 		aRoom.setName("201");
 		aRoom.addRoomFacility(structure.getRoomFacilities().get(1));
-		aRoom.setRoomType(structure.getRoomTypes().get(1));
+		aRoom.setRoomType(this.getRoomTypeService().findRoomTypesByIdStructure(structure).get(1));
 		//structure.addRoom(aRoom);
 		this.getRoomService().insertRoom(structure, aRoom);
 	}
@@ -309,7 +315,7 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		aBooking.setDateOut(dateOut);
 		aBooking.setId(structure.nextKey());
 		aBooking.setNrGuests(1);
-		aBooking.setConvention(structure.getConventions().get(0));
+		aBooking.setConvention(this.getConventionService().findConventionsByIdStructure(structure).get(0));
 		//roomSubtotal = structure.calculateRoomSubtotalForBooking(aBooking);
 		roomSubtotal = this.getBookingService().calculateRoomSubtotalForBooking(structure,aBooking);
 	
@@ -470,10 +476,10 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		//Listino Extra per Camera Singola Bassa Stagione
 		extraPriceList = new ExtraPriceList();
 		extraPriceList.setId(structure.nextKey());
-		extraPriceList.setRoomType(structure.getRoomTypes().get(0));
+		extraPriceList.setRoomType(this.getRoomTypeService().findRoomTypesByIdStructure(structure).get(0));
 		//extraPriceList.setSeason(structure.findSeasonByName("Bassa Stagione"));
 		extraPriceList.setSeason(this.getSeasonService().findSeasonByName(structure.getId(),"Bassa Stagione"));
-		extraPriceList.setConvention(structure.getConventions().get(0));
+		extraPriceList.setConvention(this.getConventionService().findConventionsByIdStructure(structure).get(0));
 		for (Extra eachExtra : this.getExtraService().findExtrasByIdStructure(structure.getId())) {
 			extraPriceListItem = new ExtraPriceListItem();
 			extraPriceListItem.setId(structure.nextKey());
@@ -482,15 +488,16 @@ public class LoginAction extends ActionSupport implements SessionAware{
 			extraPriceListItem.setPrice(price);
 			extraPriceList.addItem(extraPriceListItem);
 		}
-		structure.addExtraPriceList(extraPriceList);
+		//structure.addExtraPriceList(extraPriceList);
+		this.getExtraPriceListService().insertExtraPriceList(structure, extraPriceList);
 		
 		//Listino Extra per Camera Singola Alta Stagione
 		extraPriceList = new ExtraPriceList();
 		extraPriceList.setId(structure.nextKey());
-		extraPriceList.setRoomType(structure.getRoomTypes().get(0));
+		extraPriceList.setRoomType(this.getRoomTypeService().findRoomTypesByIdStructure(structure).get(0));
 		//extraPriceList.setSeason(structure.findSeasonByName("Alta Stagione"));
 		extraPriceList.setSeason(this.getSeasonService().findSeasonByName(structure.getId(),"Alta Stagione"));
-		extraPriceList.setConvention(structure.getConventions().get(0));
+		extraPriceList.setConvention(this.getConventionService().findConventionsByIdStructure(structure).get(0));
 		for (Extra eachExtra : this.getExtraService().findExtrasByIdStructure(structure.getId())) {
 			extraPriceListItem = new ExtraPriceListItem();
 			extraPriceListItem.setId(structure.nextKey());
@@ -499,8 +506,8 @@ public class LoginAction extends ActionSupport implements SessionAware{
 			extraPriceListItem.setPrice(price);
 			extraPriceList.addItem(extraPriceListItem);
 		}
-		structure.addExtraPriceList(extraPriceList);
-		
+		//structure.addExtraPriceList(extraPriceList);
+		this.getExtraPriceListService().insertExtraPriceList(structure, extraPriceList);
 		//Listino Extra per Camera Doppia Bassa Stagione
 		extraPriceList = new ExtraPriceList();
 		extraPriceList.setId(structure.nextKey());
@@ -516,7 +523,8 @@ public class LoginAction extends ActionSupport implements SessionAware{
 			extraPriceListItem.setPrice(price);
 			extraPriceList.addItem(extraPriceListItem);
 		}
-		structure.addExtraPriceList(extraPriceList);
+		//structure.addExtraPriceList(extraPriceList);
+		this.getExtraPriceListService().insertExtraPriceList(structure, extraPriceList);
 		
 		//Listino Extra per Camera Doppia Alta Stagione
 		extraPriceList = new ExtraPriceList();
@@ -533,7 +541,8 @@ public class LoginAction extends ActionSupport implements SessionAware{
 			extraPriceListItem.setPrice(price);
 			extraPriceList.addItem(extraPriceListItem);
 		}
-		structure.addExtraPriceList(extraPriceList);			
+		//structure.addExtraPriceList(extraPriceList);	
+		this.getExtraPriceListService().insertExtraPriceList(structure, extraPriceList);
 	}
 	
 	private void buildRoomPriceLists(Structure structure){
@@ -544,10 +553,10 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		//Listino Room per Camera Singola Bassa Stagione
 		roomPriceList =	new RoomPriceList();
 		roomPriceList.setId(structure.nextKey());
-		roomPriceList.setRoomType(structure.getRoomTypes().get(0));
+		roomPriceList.setRoomType(this.getRoomTypeService().findRoomTypesByIdStructure(structure).get(0));
 		//roomPriceList.setSeason(structure.findSeasonByName("Bassa Stagione"));
 		roomPriceList.setSeason(this.getSeasonService().findSeasonByName(structure.getId(),"Bassa Stagione"));
-		roomPriceList.setConvention(structure.getConventions().get(0));
+		roomPriceList.setConvention(this.getConventionService().findConventionsByIdStructure(structure).get(0));
 		roomPriceListItem = new RoomPriceListItem();
 		roomPriceListItem.setId(structure.nextKey());
 		roomPriceListItem.setNumGuests(1);
@@ -561,15 +570,17 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		prices[6] = 50.0;//dom
 		roomPriceListItem.setPrices(prices);
 		roomPriceList.addItem(roomPriceListItem);
-		structure.addRoomPriceList(roomPriceList);
+		//structure.addRoomPriceList(roomPriceList);
+		this.getRoomPriceListService().insertRoomPriceList(structure, roomPriceList);
+		
 		
 		//Listino Room per Camera Singola Alta Stagione
 		roomPriceList =	new RoomPriceList();
 		roomPriceList.setId(structure.nextKey());
-		roomPriceList.setRoomType(structure.getRoomTypes().get(0));
+		roomPriceList.setRoomType(this.getRoomTypeService().findRoomTypesByIdStructure(structure).get(0));
 		//roomPriceList.setSeason(structure.findSeasonByName("Alta Stagione"));
 		roomPriceList.setSeason(this.getSeasonService().findSeasonByName(structure.getId(),"Alta Stagione"));
-		roomPriceList.setConvention(structure.getConventions().get(0));
+		roomPriceList.setConvention(this.getConventionService().findConventionsByIdStructure(structure).get(0));
 		roomPriceListItem = new RoomPriceListItem();
 		roomPriceListItem.setId(structure.nextKey());
 		roomPriceListItem.setNumGuests(1);
@@ -583,12 +594,13 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		prices[6] = 80.0;//dom
 		roomPriceListItem.setPrices(prices);
 		roomPriceList.addItem(roomPriceListItem);
-		structure.addRoomPriceList(roomPriceList);
+		//structure.addRoomPriceList(roomPriceList);
+		this.getRoomPriceListService().insertRoomPriceList(structure, roomPriceList);
 		
 		//Listino Room per Camera Doppia Bassa Stagione
 		roomPriceList =	new RoomPriceList();
 		roomPriceList.setId(structure.nextKey());
-		roomPriceList.setRoomType(structure.getRoomTypes().get(1));
+		roomPriceList.setRoomType(this.getRoomTypeService().findRoomTypesByIdStructure(structure).get(1));
 		//roomPriceList.setSeason(structure.findSeasonByName("Bassa Stagione"));
 		roomPriceList.setSeason(this.getSeasonService().findSeasonByName(structure.getId(),"Bassa Stagione"));
 		roomPriceList.setConvention(structure.getConventions().get(0));
@@ -620,7 +632,8 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		roomPriceListItem.setPrices(prices);
 		roomPriceList.addItem(roomPriceListItem);
 		
-		structure.addRoomPriceList(roomPriceList);
+		//structure.addRoomPriceList(roomPriceList);
+		this.getRoomPriceListService().insertRoomPriceList(structure, roomPriceList);
 		
 		//Listino Room per Camera Doppia Alta Stagione
 		roomPriceList =	new RoomPriceList();
@@ -657,7 +670,8 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		roomPriceListItem.setPrices(prices);
 		roomPriceList.addItem(roomPriceListItem);	
 		
-		structure.addRoomPriceList(roomPriceList);				
+		//structure.addRoomPriceList(roomPriceList);	
+		this.getRoomPriceListService().insertRoomPriceList(structure, roomPriceList);
 	}
 	
 	private void buildImages(Structure structure){
@@ -785,6 +799,30 @@ public class LoginAction extends ActionSupport implements SessionAware{
 
 	public void setConventionService(ConventionService conventionService) {
 		this.conventionService = conventionService;
+	}
+
+
+
+	public RoomPriceListService getRoomPriceListService() {
+		return roomPriceListService;
+	}
+
+
+
+	public void setRoomPriceListService(RoomPriceListService roomPriceListService) {
+		this.roomPriceListService = roomPriceListService;
+	}
+
+
+
+	public ExtraPriceListService getExtraPriceListService() {
+		return extraPriceListService;
+	}
+
+
+
+	public void setExtraPriceListService(ExtraPriceListService extraPriceListService) {
+		this.extraPriceListService = extraPriceListService;
 	}
 	
 	

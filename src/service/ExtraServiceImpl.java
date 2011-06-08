@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import persistence.mybatis.mappers.ExtraMapper;
 
 import model.Extra;
+import model.Structure;
 @Service
 public class ExtraServiceImpl implements ExtraService {
 	@Autowired
@@ -23,6 +24,8 @@ public class ExtraServiceImpl implements ExtraService {
 		ret = this.getExtraMapper().findExtrasByIdStructure(idStructure);
 		return ret;
 	}	
+	
+	
 
 	@Override
 	public Integer insertExtra(Extra extra) {

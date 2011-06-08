@@ -1,5 +1,7 @@
 package service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import model.RoomType;
@@ -7,6 +9,13 @@ import model.Structure;
 
 @Service
 public class RoomTypeServiceImpl implements RoomTypeService{
+
+	
+	@Override
+	public List<RoomType> findRoomTypesByIdStructure(Structure structure) {
+		
+		return structure.getRoomTypes();
+	}
 
 	@Override
 	public Integer insertRoomType(Structure structure, RoomType roomType) {

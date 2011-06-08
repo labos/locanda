@@ -40,6 +40,34 @@ public class RoomPriceListServiceImpl implements RoomPriceListService{
 		}
 		return ret;
 	}
+
+	
+	public RoomPriceList findRoomPriceListById(Structure structure, Integer id) {
+		RoomPriceList ret = null;
+		
+		for(RoomPriceList each: structure.getRoomPriceLists()){
+			if(each.getId().equals(id)){
+				return each;
+			}
+		}
+		return ret;
+	}
+
+	
+	public Integer insertRoomPriceList(Structure structure,	RoomPriceList aPriceList) {
+		structure.getRoomPriceLists().add(aPriceList);
+		return 1;
+	}
+
+	
+	public Integer deleteRoomPriceList(Structure structure,RoomPriceList aPriceList) {
+		structure.getRoomPriceLists().remove(aPriceList);
+		return 1;
+	}
+	
+	
+	
+	
 	
 	
 

@@ -130,7 +130,7 @@ public class GuestAction extends ActionSupport implements SessionAware{
 	@Actions({
 		@Action(value="/findGuestById",results = {
 				@Result(type ="json",name="success", params={
-						"excludeProperties","session,guests,id,guestService"
+						"excludeProperties","session,guests,id,guestService,bookingService"
 				}) ,
 				@Result(type ="json",name="error", params={
 						"root","message"

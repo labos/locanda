@@ -49,7 +49,7 @@ public class RoomFacilityAction extends ActionSupport implements SessionAware{
 		
 		user = (User)this.getSession().get("user");
 		structure = user.getStructure();
-		this.setRoomFacilities(structure.getRoomFacilities());		
+		this.setRoomFacilities(this.getStructureService().findRoomFacilitiesByIdStructure(structure));		
 		//for(RoomFacility each: structure.findRoomById(this.idRoom).getFacilities()){	
 		for(RoomFacility each: this.getRoomService().findRoomById(structure,this.idRoom).getFacilities()){	
 			this.roomFacilitiesIds.add(each.getId());			

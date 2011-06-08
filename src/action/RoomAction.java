@@ -50,6 +50,8 @@ public class RoomAction extends ActionSupport implements SessionAware{
 	private RoomService roomService = null;
 	
 	
+	
+	
 	@Actions({
 		@Action(value="/findAllRooms",results = {
 				@Result(name="success",location="/accomodation.jsp")
@@ -68,10 +70,10 @@ public class RoomAction extends ActionSupport implements SessionAware{
 		//Controllare che sia diverso da null in un interceptor
 		structure = user.getStructure();
 		
-		this.setRooms(structure.getRooms());
-		this.setRoomTypes(structure.getRoomTypes());
-		this.setRoomFacilities(structure.getRoomFacilities());
-		this.setRoomTypeFacility(structure.getRoomTypeFacilities());
+		this.setRooms(this.getRoomService().findRoomsByIdStructure(structure));
+		this.setRoomTypes(this.getRoomTypeService().findRoomTypesByIdStructure(structure));
+		this.setRoomFacilities(this.getStructureService().findRoomFacilitiesByIdStructure(structure));
+		//this.setRoomTypeFacility(structure.getRoomTypeFacilities());
 		
 		if (this.getRoomTypeId() != null){			
 			//this.setRooms(structure.findRoomsByRoomTypeId(this.getRoomTypeId()));
@@ -96,10 +98,12 @@ public class RoomAction extends ActionSupport implements SessionAware{
 		user = (User)this.getSession().get("user");
 		//Controllare che sia diverso da null in un interceptor
 		structure = user.getStructure();
-		this.setRooms(structure.getRooms());
-		this.setRoomTypes(structure.getRoomTypes());
-		this.setRoomFacilities(structure.getRoomFacilities());
-		this.setRoomTypeFacility(structure.getRoomTypeFacilities());
+		this.setRooms(this.getRoomService().findRoomsByIdStructure(structure));
+		this.setRoomTypes(this.getRoomTypeService().findRoomTypesByIdStructure(structure));
+		this.setRoomFacilities(this.getStructureService().findRoomFacilitiesByIdStructure(structure));
+		//this.setRoomTypeFacility(structure.getRoomTypeFacilities());
+		//this.setRoomTypeFacility(structure.getRoomTypeFacilities());
+		
 		//Setting tree node for rooms folding
 		for (RoomType eachRoomType : this.getRoomTypes()) {							
 			//build first level nodes - room types
@@ -133,7 +137,7 @@ public class RoomAction extends ActionSupport implements SessionAware{
 		
 		user = (User)this.getSession().get("user");
 		structure = user.getStructure();
-		this.setRoomFacilities(structure.getRoomFacilities());
+		this.setRoomFacilities(this.getStructureService().findRoomFacilitiesByIdStructure(structure));
 		//selectedFacilities = structure.findRoomTypeById(this.getRoom().getRoomType().getId() ).getRoomTypeFacilities();
 		selectedFacilities = this.getRoomTypeService().findRoomTypeById(structure,this.getRoom().getRoomType().getId()).getRoomTypeFacilities();
 		for(RoomFacility each: selectedFacilities){			
@@ -160,8 +164,8 @@ public class RoomAction extends ActionSupport implements SessionAware{
 		//oldRoom = structure.findRoomById(this.getRoom().getId());
 		oldRoom = this.getRoomService().findRoomById(structure,this.getRoom().getId());
 		this.setRoom(oldRoom);
-		this.setRoomTypes(structure.getRoomTypes());
-		this.setRoomFacilities(structure.getRoomFacilities());
+		this.setRoomTypes(this.getRoomTypeService().findRoomTypesByIdStructure(structure));
+		this.setRoomFacilities(this.getStructureService().findRoomFacilitiesByIdStructure(structure));
 		for(RoomFacility each: this.getRoom().getFacilities()){			
 			this.getRoomFacilitiesIds().add(each.getId());		//popolo l'array roomFacilitiesIds con gli id delle Facilities già presenti nella Room da editare
 		}
@@ -231,7 +235,7 @@ public class RoomAction extends ActionSupport implements SessionAware{
 				if(this.getRoom().getRoomType().getId() < 0){
 					this.getMessage().setResult(Message.ERROR);
 					
-					String text = (structure.getRoomTypes().size() > 0)? getText("roomTypeNotSelectedAction") : getText("roomTypeAbsentAction") ;
+					String text = (this.getRoomTypeService().findRoomTypesByIdStructure(structure).size() > 0)? getText("roomTypeNotSelectedAction") : getText("roomTypeAbsentAction") ;
 					this.getMessage().setDescription(text);
 					return "error";	
 				}

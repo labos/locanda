@@ -25,6 +25,7 @@ import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import service.BookingService;
+import service.ConventionService;
 import service.ExtraService;
 import service.GuestService;
 import service.RoomService;
@@ -58,6 +59,8 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 	private BookingService bookingService = null;
 	@Autowired
 	private RoomService roomService = null;
+	@Autowired
+	private ConventionService conventionService = null;
 	
 	
 	@Actions({
@@ -96,11 +99,11 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 		
 		List <Room> rooms = new ArrayList<Room>();
 		
-		rooms = structure.getRooms();
+		rooms = this.getRoomService().findRoomsByIdStructure(structure);
 		this.setRooms(new ArrayList<Room>());
 		//remove not completed booking from the memory
 		
-		for (Booking abooking : structure.getBookings()){
+		for (Booking abooking : this.getBookingService().findBookingsByIdStructure(structure)){
 			
 			if (! checkBookingIsValid(abooking) ){
 			
@@ -110,8 +113,8 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 		}
 			}
 		
-		structure.getBookings().removeAll(toRemoveBookings);
-		
+		//structure.getBookings().removeAll(toRemoveBookings);
+		this.getBookingService().findBookingsByIdStructure(structure);
 		for(Room each : rooms){
 			
 			//if ( (each.getRoomType().getMaxGuests() >= this.getNumGuests() ) && structure.hasRoomFreeInPeriod(each.getId(), this.getDateArrival(), this.calculateDateOut()) )
@@ -129,7 +132,7 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 			return ERROR;
 	}*/
 		//-- this.setRooms(structure.getRooms());
-		this.setRoomFacilities(structure.getRoomFacilities());
+		this.setRoomFacilities(this.getStructureService().findRoomFacilitiesByIdStructure(structure));
 		return SUCCESS;
 	}
 	
@@ -159,7 +162,7 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 		this.getBooking().setDateIn(this.getDateArrival());
 		this.getBooking().setDateOut(this.calculateDateOut());
 		this.getBooking().setNrGuests(this.getNumGuests());
-		defaultConvention = structure.getConventions().get(0);
+		defaultConvention = this.getConventionService().findConventionsByIdStructure(structure).get(0);
 		this.getBooking().setConvention(defaultConvention);
 		//roomSubtotal = structure.calculateRoomSubtotalForBooking(this.getBooking());
 		roomSubtotal = this.getBookingService().calculateRoomSubtotalForBooking(structure,this.getBooking());
@@ -169,7 +172,7 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 		//structure.addBooking(this.getBooking());
 		
 		//this.setRooms(structure.getRooms());
-		this.setRoomFacilities(structure.getRoomFacilities());
+		this.setRoomFacilities(this.getStructureService().findRoomFacilitiesByIdStructure(structure));
 		this.setExtras(this.getExtraService().findExtrasByIdStructure(structure.getId()));
 		return SUCCESS;
 	}
@@ -209,7 +212,7 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 
 		//structure.updateBooking(this.getBooking());
 		this.getBookingService().updateBooking(structure, this.getBooking());
-		this.setRoomFacilities(structure.getRoomFacilities());
+		this.setRoomFacilities(this.getStructureService().findRoomFacilitiesByIdStructure(structure));
 		return SUCCESS;
 	}
 	
@@ -269,7 +272,7 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 		 }
 		
 		
-		this.setRoomFacilities(structure.getRoomFacilities());
+		this.setRoomFacilities(this.getStructureService().findRoomFacilitiesByIdStructure(structure));
 		return SUCCESS;
 	}
 
@@ -302,7 +305,7 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 		aBooking.setDateIn(this.getDateArrival());
 		aBooking.setDateOut(this.calculateDateOut());
 		aBooking.setNrGuests(this.getNumGuests());
-		defaultConvention = structure.getConventions().get(0);
+		defaultConvention = this.getConventionService().findConventionsByIdStructure(structure).get(0);
 		aBooking.setConvention(defaultConvention);
 		//subTotal = structure.calculateRoomSubtotalForBooking(aBooking);
 		subTotal = this.getBookingService().calculateRoomSubtotalForBooking(structure,aBooking);
@@ -528,6 +531,16 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 
 	public void setRoomService(RoomService roomService) {
 		this.roomService = roomService;
+	}
+
+
+	public ConventionService getConventionService() {
+		return conventionService;
+	}
+
+
+	public void setConventionService(ConventionService conventionService) {
+		this.conventionService = conventionService;
 	}
 	
 	

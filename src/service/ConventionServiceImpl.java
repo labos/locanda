@@ -1,6 +1,7 @@
 package service;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.stereotype.Service;
@@ -41,6 +42,13 @@ public class ConventionServiceImpl implements ConventionService{
 	}
 
 	
+	@Override
+	public List<Convention> findConventionsByIdStructure(Structure structure) {
+		
+		return structure.getConventions();
+	}
+
+
 	public Convention findConventionById(Structure structure, Integer id) {
 		Convention ret = null;
 		
@@ -53,15 +61,4 @@ public class ConventionServiceImpl implements ConventionService{
 	}
 
 	
-	public Set<Convention> findConventionsByStructureAndSeasonAndRoomType(Structure structure, Season season, RoomType roomType) {
-		Set<Convention> ret = new HashSet<Convention>();
-		
-		for (RoomPriceList roomPriceListBySeason : structure.findRoomPriceListsBySeason(season)) {
-			if (roomPriceListBySeason.getRoomType().equals(roomType)) {
-				ret.add(roomPriceListBySeason.getConvention());
-			}
-		}
-		return ret;
-	}
-
 }

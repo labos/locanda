@@ -21,6 +21,14 @@ public class BookingServiceImpl implements BookingService {
 	private SeasonService seasonService = null;
 
 	
+	@Override
+	public List<Booking> findBookingsByIdStructure(Structure structure) {
+		
+		return structure.getBookings();
+	}
+
+
+
 	public Double calculateRoomSubtotalForBooking(Structure structure, Booking booking) {
 		Double ret = 0.0;
 		List<Date> bookingDates = null;

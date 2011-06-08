@@ -14,5 +14,8 @@ import model.listini.Season;
 public interface RoomPriceListService {
 	public RoomPriceList findRoomPriceListByStructureAndSeasonAndRoomTypeAndConvention(Structure structure, Season season, RoomType roomType, Convention convention);
 	public List<RoomPriceList> findRoomPriceListsBySeason(Structure structure,Season season);
+	public RoomPriceList findRoomPriceListById(Structure structure,Integer id);
+	public Integer insertRoomPriceList(Structure structure,RoomPriceList aPriceList);
+	public Integer deleteRoomPriceList(Structure structure,RoomPriceList aPriceList);
 
 }

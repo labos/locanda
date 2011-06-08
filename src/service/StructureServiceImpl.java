@@ -25,7 +25,27 @@ import model.listini.Season;
 public class StructureServiceImpl implements StructureService{
 	@Autowired
 	private SeasonService seasonService = null;
+	@Autowired
+	private RoomPriceListService roomPriceListService = null;
+	@Autowired
+	private ExtraPriceListService extraPriceListService = null;
+	@Autowired
+	private RoomTypeService roomTypeService = null;
+	@Autowired
+	private BookingService bookingService = null;
+	@Autowired
+	private ExtraService extraService = null;
+	@Autowired
+	private ConventionService conventionService = null;
 	
+	
+	@Override
+	public List<RoomFacility> findRoomFacilitiesByIdStructure(Structure structure) {
+		
+		return structure.getRoomFacilities();
+	}
+
+
 	public Double calculateExtraItemUnitaryPrice(Structure structure, Date dateIn, Date dateOut, RoomType roomType, Convention convention, Extra extra) {
 		Double ret = 0.0;
 		ExtraPriceList priceList = null;
@@ -36,12 +56,15 @@ public class StructureServiceImpl implements StructureService{
 		Double otherPrice = 0.0;
 		
 		season = this.getSeasonService().findSeasonByDate(structure.getId(),dateIn );
-		priceList = structure.findExtraPriceListBySeasonAndRoomTypeAndConvention(season, roomType,convention);
+		//priceList = structure.findExtraPriceListBySeasonAndRoomTypeAndConvention(season, roomType,convention);
+		priceList = this.getExtraPriceListService().findExtraPriceListByStructureAndSeasonAndRoomTypeAndConvention(structure,season, roomType,convention);
+		
 		price = priceList.findExtraPrice(extra);
 		
 		//se ho un booking a cavallo di due stagioni, prendo il prezzo più basso
 		otherSeason = this.getSeasonService().findSeasonByDate(structure.getId(),dateOut );
-		otherPriceList = structure.findExtraPriceListBySeasonAndRoomTypeAndConvention(otherSeason, roomType, convention);	
+		//otherPriceList = structure.findExtraPriceListBySeasonAndRoomTypeAndConvention(otherSeason, roomType, convention);	
+		otherPriceList = this.getExtraPriceListService().findExtraPriceListByStructureAndSeasonAndRoomTypeAndConvention(structure,season, roomType,convention);
 		price = priceList.findExtraPrice(extra);
 		otherPrice = otherPriceList.findExtraPrice(extra);
 		
@@ -61,8 +84,8 @@ public class StructureServiceImpl implements StructureService{
 		
 		//for (Season eachSeason : structure.getSeasons()) {
 		for (Season eachSeason : this.getSeasonService().findSeasonsByStructureId(structure.getId())) {
-			for (RoomType eachRoomType : structure.getRoomTypes()) {
-				for (Convention eachConvention : structure.getConventions()) {
+			for (RoomType eachRoomType : this.getRoomTypeService().findRoomTypesByIdStructure(structure)) {
+				for (Convention eachConvention : this.getConventionService().findConventionsByIdStructure(structure)) {
 					newRoomPriceList = new RoomPriceList();
 					newRoomPriceList.setId(structure.nextKey());
 					newRoomPriceList.setSeason(eachSeason);
@@ -81,15 +104,15 @@ public class StructureServiceImpl implements StructureService{
 						roomItems.add(newRoomPriceListItem);
 					}
 					newRoomPriceList.setItems(roomItems);
-					structure.addRoomPriceList(newRoomPriceList);
-					
+					//structure.addRoomPriceList(newRoomPriceList);
+					this.getRoomPriceListService().insertRoomPriceList(structure, newRoomPriceList);
 					newExtraPriceList = new ExtraPriceList();
 					newExtraPriceList.setId(structure.nextKey());
 					newExtraPriceList.setSeason(eachSeason);
 					newExtraPriceList.setRoomType(eachRoomType);
 					newExtraPriceList.setConvention(eachConvention);
 					List<ExtraPriceListItem> extraItems = new ArrayList<ExtraPriceListItem>();
-					for (Extra eachExtra : structure.getExtras()) {
+					for (Extra eachExtra : this.getExtraService().findExtrasByIdStructure(structure.getId())) {
 						newExtraPriceListItem = new ExtraPriceListItem();
 						newExtraPriceListItem.setId(structure.nextKey());
 						newExtraPriceListItem.setExtra(eachExtra);
@@ -97,7 +120,8 @@ public class StructureServiceImpl implements StructureService{
 						extraItems.add(newExtraPriceListItem);
 					}
 					newExtraPriceList.setItems(extraItems);
-					structure.addExtraPriceList(newExtraPriceList);
+					//structure.addExtraPriceList(newExtraPriceList);
+					this.getExtraPriceListService().insertExtraPriceList(structure, newExtraPriceList);
 				}
 			}
 		}
@@ -110,7 +134,7 @@ public class StructureServiceImpl implements StructureService{
 		//Estraggo i Booking della camera con roomId dato
 		List<Booking> roomBookings = new ArrayList<Booking>();
 		
-		for(Booking each: structure.getBookings()){
+		for(Booking each: this.getBookingService().findBookingsByIdStructure(structure)){
 			if(each.getRoom().getId().equals(roomId)){
 				roomBookings.add(each);
 			}
@@ -144,7 +168,7 @@ public class StructureServiceImpl implements StructureService{
 		//Estraggo i Booking della camera con roomId dato
 		List<Booking> roomBookings = new ArrayList<Booking>();
 		
-		for(Booking each: structure.getBookings()){
+		for(Booking each: this.getBookingService().findBookingsByIdStructure(structure)){
 			if( each.getRoom().getId().equals(booking.getRoom().getId()) && !each.equals(booking)    ){
 				roomBookings.add(each);
 			}
@@ -266,6 +290,66 @@ public class StructureServiceImpl implements StructureService{
 			ret.add(aRoomFacility);
 		}
 		return ret;
+	}
+
+
+	public RoomPriceListService getRoomPriceListService() {
+		return roomPriceListService;
+	}
+
+
+	public void setRoomPriceListService(RoomPriceListService roomPriceListService) {
+		this.roomPriceListService = roomPriceListService;
+	}
+
+
+	public ExtraPriceListService getExtraPriceListService() {
+		return extraPriceListService;
+	}
+
+
+	public void setExtraPriceListService(ExtraPriceListService extraPriceListService) {
+		this.extraPriceListService = extraPriceListService;
+	}
+
+
+	public RoomTypeService getRoomTypeService() {
+		return roomTypeService;
+	}
+
+
+	public void setRoomTypeService(RoomTypeService roomTypeService) {
+		this.roomTypeService = roomTypeService;
+	}
+
+
+	public BookingService getBookingService() {
+		return bookingService;
+	}
+
+
+	public void setBookingService(BookingService bookingService) {
+		this.bookingService = bookingService;
+	}
+
+
+	public ExtraService getExtraService() {
+		return extraService;
+	}
+
+
+	public void setExtraService(ExtraService extraService) {
+		this.extraService = extraService;
+	}
+
+
+	public ConventionService getConventionService() {
+		return conventionService;
+	}
+
+
+	public void setConventionService(ConventionService conventionService) {
+		this.conventionService = conventionService;
 	}
 	
 	

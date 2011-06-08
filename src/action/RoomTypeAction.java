@@ -57,8 +57,8 @@ public class RoomTypeAction extends ActionSupport implements SessionAware{
 		user = (User)this.getSession().get("user");
 		structure = user.getStructure();
 		
-		this.setRoomTypes(structure.getRoomTypes());
-		this.setRoomTypeFacilities(structure.getRoomFacilities());
+		this.setRoomTypes(this.getRoomTypeService().findRoomTypesByIdStructure(structure));
+		this.setRoomTypeFacilities(this.getStructureService().findRoomFacilitiesByIdStructure(structure));
 		return SUCCESS;
 	}
 	
@@ -75,7 +75,7 @@ public class RoomTypeAction extends ActionSupport implements SessionAware{
 		structure = user.getStructure();
 		//this.setRoomType(structure.findRoomTypeById(this.getRoomType().getId()));
 		this.setRoomType(this.getRoomTypeService().findRoomTypeById(structure,this.getRoomType().getId()));
-		this.setRoomTypeFacilities(structure.getRoomFacilities());
+		this.setRoomTypeFacilities(this.getStructureService().findRoomFacilitiesByIdStructure(structure));
 		for(RoomFacility each: this.getRoomType().getRoomTypeFacilities()){			
 			this.getRoomTypeFacilitiesIds().add(each.getId());		//popolo l'array roomFacilitiesIds con gli id delle Facilities già presenti nella Room da editare
 		}

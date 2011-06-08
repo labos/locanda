@@ -24,6 +24,7 @@ import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import service.BookingService;
+import service.ConventionService;
 import service.ExtraService;
 import service.GuestService;
 import service.RoomService;
@@ -59,15 +60,17 @@ public class BookingAction extends ActionSupport implements SessionAware{
 	private BookingService bookingService = null;
 	@Autowired
 	private RoomService roomService = null;
+	@Autowired
+	private ConventionService conventionService = null;
 	
 	
 	@Actions({
 		@Action(value="/updateBookingInMemory",results = {
 				@Result(type ="json",name="success", params={
-						"excludeProperties","session,extraService,guestService,structureService,bookingService,roomService"
+						"excludeProperties","session,extraService,guestService,structureService,bookingService,roomService,conventionService"
 				}),
 				@Result(type ="json",name="error", params={
-						"excludeProperties","session,extraService,guestService,structureService,bookingService,roomService"
+						"excludeProperties","session,extraService,guestService,structureService,bookingService,roomService,conventionService"
 				}),
 				@Result(name="input", location = "/validationError.jsp")
 		})
@@ -263,13 +266,13 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		theBookedRoom = this.getRoomService().findRoomById(structure,this.getBooking().getRoom().getId());
 		this.getBooking().setRoom(theBookedRoom);
 		
-		defaultConvention = structure.getConventions().get(0);
+		defaultConvention = this.getConventionService().findConventionsByIdStructure(structure).get(0);
 		this.getBooking().setConvention(defaultConvention);
 		
-		this.setRooms(structure.getRooms());
+		this.setRooms(this.getRoomService().findRoomsByIdStructure(structure));
 		//this.setExtras(structure.getExtras());
 		this.setExtras(this.getExtraService().findExtrasByIdStructure(structure.getId()));
-		this.setConventions(structure.getConventions());
+		this.setConventions(this.getConventionService().findConventionsByIdStructure(structure));
 		
 		//roomSubtotal = structure.calculateRoomSubtotalForBooking(this.getBooking());
 		roomSubtotal = this.getBookingService().calculateRoomSubtotalForBooking(structure,this.getBooking());
@@ -296,12 +299,12 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		
 		this.setBooking(new Booking());		
 		
-		defaultConvention = structure.getConventions().get(0);
+		defaultConvention = this.getConventionService().findConventionsByIdStructure(structure).get(0);
 		this.getBooking().setConvention(defaultConvention);	
 		
-		this.setRooms(structure.getRooms());
+		this.setRooms(this.getRoomService().findRoomsByIdStructure(structure));
 		this.setExtras(this.getExtraService().findExtrasByIdStructure(structure.getId()));
-		this.setConventions(structure.getConventions());		
+		this.setConventions(this.getConventionService().findConventionsByIdStructure(structure));		
 			
 		return SUCCESS;
 	}
@@ -339,10 +342,10 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		this.getBooking().setExtraSubtotal(extraSubtotal);
 		*/
 				
-		this.setRooms(structure.getRooms());
+		this.setRooms(this.getRoomService().findRoomsByIdStructure(structure));
 		this.setExtras(this.getExtraService().findExtrasByIdStructure(structure.getId()));		
 		this.setBookingExtraIds(this.calculateBookingExtraIds());
-		this.setConventions(structure.getConventions());		
+		this.setConventions(this.getConventionService().findConventionsByIdStructure(structure));		
 		
 		numNights = this.getBooking().calculateNumNights();
 		this.setNumNights(numNights);
@@ -382,7 +385,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		
 		user = (User)session.get("user");
 		structure = user.getStructure();
-		this.setBookings(structure.getBookings());
+		this.setBookings(this.getBookingService().findBookingsByIdStructure(structure));
 		return SUCCESS;		
 	}	
 
@@ -721,6 +724,14 @@ public class BookingAction extends ActionSupport implements SessionAware{
 
 	public void setRoomService(RoomService roomService) {
 		this.roomService = roomService;
+	}
+
+	public ConventionService getConventionService() {
+		return conventionService;
+	}
+
+	public void setConventionService(ConventionService conventionService) {
+		this.conventionService = conventionService;
 	}
 	
 	
