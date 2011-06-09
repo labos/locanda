@@ -611,12 +611,16 @@ public class StructureServiceImpl implements StructureService{
 				bookedExtraItem.setExtra(each);
 				bookedExtraItem.setQuantity(booking
 						.calculateExtraItemMaxQuantity(each));
+				bookedExtraItem.setMaxQuantity(booking
+						.calculateExtraItemMaxQuantity(each));
 				bookedExtraItem.setUnitaryPrice(this.calculateExtraItemUnitaryPrice(structure,
 								booking.getDateIn(), booking.getDateOut(),
 								booking.getRoom().getRoomType(),
 								booking.getConvention(), each));
 
 			} else {
+				bookedExtraItem.setMaxQuantity(booking
+						.calculateExtraItemMaxQuantity(each));
 				bookedExtraItem.setUnitaryPrice(this.calculateExtraItemUnitaryPrice(structure,
 								booking.getDateIn(), booking.getDateOut(),
 								booking.getRoom().getRoomType(),
