@@ -10,13 +10,13 @@
 
 	<div data-role="header">
 		<h1>Confirm Details</h1>
-		<a href="goOnlineBookingCalendar.action" class="ui-btn-right"  rel="external" data-icon="home" data-iconpos="notext" 
+		<a href="goOnlineBookingCalendar.action?idStructure=<s:property value="idStructure"/>" class="ui-btn-right"  rel="external" data-icon="home" data-iconpos="notext" 
            data-direction="reverse">Home</a> 
 	</div><!-- /header -->
 
 	<div data-role="content">
 	<div class="alert"></div>	
-	<strong>Congratulation, <s:property value="booking.guest.firstName"/>  <s:property value="booking.guest.lastName"/>,<br/> your booking request has been sent</strong>
+	<strong>Congratulation, <s:property value="booking.booker.firstName"/>  <s:property value="booking.booker.lastName"/>,<br/> your booking request has been sent</strong>
 	<div data-role="fieldcontain">
 	<p class="resume_booking">
 	 <b>Date Arrival: </b><s:property value="dateArrival"/><br/>
@@ -26,17 +26,17 @@
 	</p>	
 	
 	<p>
-	Call <s:property value="#session.user.structure.name"/> by Phone: <a href="tel:<s:property value="#session.user.structure.phone"/>"><s:property value="#session.user.structure.phone"/></a><br/>
+	Call <s:property value="structure.name"/> by Phone: <a href="tel:<s:property value="structure.phone"/>"><s:property value="structure.phone"/></a><br/>
 	</p>
 		<p>
-	Send email to <s:property value="#session.user.structure.name"/>: <a href="mailto:<s:property value="#session.user.structure.email"/>?subject=Info Booking (<s:property value="#session.user.structure.name"/>)"><s:property value="#session.user.structure.email"/></a><br/>
+	Send email to <s:property value="structure.name"/>: <a href="mailto:<s:property value="structure.email"/>?subject=Info Booking (<s:property value="structure.name"/>)"><s:property value="structure.email"/></a><br/>
 	</p>
 		<p>
-	<img src="http://maps.google.com/maps/api/staticmap?center=<s:property value="#session.user.structure.city"/>, <s:property value="#session.user.structure.country"/>&zoom=15&size=200x200&maptype=roadmap
+	<img src="http://maps.google.com/maps/api/staticmap?center=<s:property value="structure.city"/>, <s:property value="structure.country"/>&zoom=15&size=200x200&maptype=roadmap
 &sensor=false" />
 	</p>
 	
-	<a href="goOnlineBookingCalendar.action"  rel="external" data-role="button" data-icon="check" data-theme="b">FINISH</a>
+	<a href="goOnlineBookingCalendar.action?idStructure=<s:property value="idStructure"/>"  rel="external" data-role="button" data-icon="check" data-theme="b">FINISH</a>
 </div>
 	</div><!-- /content -->
 

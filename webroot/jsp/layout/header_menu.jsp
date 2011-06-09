@@ -63,7 +63,7 @@ $(document).ready(function () { <%
 </script>
 <script type='text/javascript' src='js/jquery.weekcalendar.js'></script>
 <script type='text/javascript' src='js/jquery.validate.min.js'></script>
-<script type='text/javascript' src="js/steal/steal.js?controllers/loader.js"></script>
+<script type='text/javascript' src="js/steal/steal.js?loader.js"></script>
 <script type='text/javascript' src='js/jquery.jgrowl_minimized.js'></script>
   
   <title>LOCANDA - Open Source Booking Tool</title><!-- (en) Add your meta data here -->

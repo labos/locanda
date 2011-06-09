@@ -94,7 +94,7 @@ var $calendar = $('#calendar');
 						'booking.dateIn': startField,
 						'booking.dateOut': endField
 					}, function () {
-						new Option(I18NSettings.lang, I18NSettings.datePattern);
+						new Main(I18NSettings.lang, I18NSettings.datePattern);
 						new Booking(I18NSettings.lang, I18NSettings.datePattern);
 						$(".btn_save").hide();
 						$(".btn_check_in").hide();
@@ -151,7 +151,7 @@ var $calendar = $('#calendar');
 						id: id_booked
 					}, function () {
 						$(this).removeClass("loaderback");
-						new Option(I18NSettings.lang, I18NSettings.datePattern);
+						new Main(I18NSettings.lang, I18NSettings.datePattern);
 						new Booking(I18NSettings.lang, I18NSettings.datePattern);
 						$(".btn_save").hide();
 					}).dialog({

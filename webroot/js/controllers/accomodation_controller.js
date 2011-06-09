@@ -75,6 +75,8 @@ $(function () {
             $("#roomType").change(function () {
                 var selectedId = $(this).find(":selected").val();
                 if (typeof parseInt(selectedId) == "number" && parseInt(selectedId) > 0) {
+                	
+                	 Models.RoomFacility.findAll({'room.roomType.id': selectedId}, this.callback('list'));
                     var url_table = "findRoomTypesForRoom.action?room.roomType.id=" + selectedId;
                     $.ajax({
                         url: url_table,

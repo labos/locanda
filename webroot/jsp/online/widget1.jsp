@@ -10,7 +10,7 @@
 
 	<div data-role="header">
 		<h1>Select your arrival date</h1>
-		<a href="goOnlineBookingCalendar.action" class="ui-btn-right" data-icon="home" data-iconpos="notext" 
+		<a href="goOnlineBookingCalendar.action?idStructure=<s:property value="idStructure"/>" class="ui-btn-right" data-icon="home" data-iconpos="notext" 
            data-direction="reverse">Home</a> 
 	</div><!-- /header -->
 

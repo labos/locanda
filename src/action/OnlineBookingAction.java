@@ -49,6 +49,7 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 	private Guest guest;
 	private Integer roomId;
 	private Integer idStructure;
+	private Structure structure;
 	@Autowired
 	private ExtraService extraService = null;
 	@Autowired
@@ -73,6 +74,7 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 	
 	public String goOnlineBookingCalendar(){
 		
+		this.getSession().put("idStructure", this.getIdStructure());
 		return SUCCESS;
 	}
 	
@@ -90,10 +92,10 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 		List <Booking> toRemoveBookings =  null; 
 		List <Room> rooms = null;
 		toRemoveBookings = new ArrayList<Booking>();
-		
+		this.setIdStructure((Integer) this.getSession().get("idStructure"));
 		structure = this.getStructureService().findStructureById(this.getIdStructure());
 		this.getStructureService().buildStructure(structure);
-		this.getSession().put("idStructure", this.getIdStructure());
+		
 		
 		rooms = this.getRoomService().findRoomsByIdStructure(structure);
 		this.setRooms(new ArrayList<Room>());
@@ -213,7 +215,7 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 		this.setIdStructure((Integer) this.getSession().get("idStructure"));
 		structure = this.getStructureService().findStructureById(this.getIdStructure());
 		this.getStructureService().buildStructure(structure);
-		
+		this.setStructure(structure);
 		this.setBooking((Booking) this.getSession().get("workingBooking"));
 		
 		try {			
@@ -512,6 +514,16 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 
 	public void setConventionService(ConventionService conventionService) {
 		this.conventionService = conventionService;
+	}
+
+
+	public Structure getStructure() {
+		return structure;
+	}
+
+
+	public void setStructure(Structure structure) {
+		this.structure = structure;
 	}
 	
 	

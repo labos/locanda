@@ -10,7 +10,7 @@
 
 	<div data-role="header">
 		<h1>Select extras (optional)</h1>
-				<a href="goOnlineBookingCalendar.action" class="ui-btn-right" rel="external" data-icon="home" data-iconpos="notext" 
+				<a href="goOnlineBookingCalendar.action?idStructure=<s:property value="idStructure"/>" class="ui-btn-right" rel="external" data-icon="home" data-iconpos="notext" 
            data-direction="reverse">Home</a> 
 	</div><!-- /header -->
 

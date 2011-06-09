@@ -1,7 +1,7 @@
 $(document).ready(function () {
 
 	
-    $.Class.extend('Option', /* @static */ {
+    $.Class.extend('Main', /* @static */ {
         init: function () {
        	 	 	 	       	 	
        	    //Submit form function
@@ -140,6 +140,8 @@ $(document).ready(function () {
                 }, 1000);
                 $(".btn_add_form").show();
             });
+            
+            //Binds all event handler methods
             $(".btn_delete").button({
                 icons: {
                     primary: "ui-icon-trash"
@@ -179,7 +181,7 @@ $(document).ready(function () {
     	
     });
     
-    new Option(I18NSettings.lang, I18NSettings.datePattern);
+    new Main(I18NSettings.lang, I18NSettings.datePattern);
     
 
 
