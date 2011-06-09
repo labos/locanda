@@ -7,6 +7,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import persistence.mybatis.mappers.StructureMapper;
+
 import model.Booking;
 import model.Extra;
 import model.Image;
@@ -37,8 +39,18 @@ public class StructureServiceImpl implements StructureService{
 	private ExtraService extraService = null;
 	@Autowired
 	private ConventionService conventionService = null;
+	@Autowired
+	private StructureMapper structureMapper = null;
 	
 	
+	
+	@Override
+	public Structure findStructureByIdUser(Integer id_user) {
+		
+		return this.getStructureMapper().findStructureByIdUser(id_user);
+	}
+
+
 	@Override
 	public List<RoomFacility> findRoomFacilitiesByIdStructure(Structure structure) {
 		
@@ -351,6 +363,18 @@ public class StructureServiceImpl implements StructureService{
 	public void setConventionService(ConventionService conventionService) {
 		this.conventionService = conventionService;
 	}
+
+
+	public StructureMapper getStructureMapper() {
+		return structureMapper;
+	}
+
+
+	public void setStructureMapper(StructureMapper structureMapper) {
+		this.structureMapper = structureMapper;
+	}
+
+
 	
 	
 

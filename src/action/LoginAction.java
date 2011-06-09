@@ -50,6 +50,7 @@ import service.RoomTypeService;
 import service.SeasonService;
 import service.StructureService;
 import service.StructureServiceImpl;
+import service.UserService;
 
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -78,6 +79,8 @@ public class LoginAction extends ActionSupport implements SessionAware{
 	private RoomPriceListService roomPriceListService = null;
 	@Autowired
 	private ExtraPriceListService extraPriceListService = null;
+	@Autowired
+	private UserService userService = null;
 	
 	
 	@Actions(value={
@@ -88,67 +91,55 @@ public class LoginAction extends ActionSupport implements SessionAware{
 			})	
 	})	
 	
-	public String execute(){
-		String ret = null;	
+	public String execute() {
+		String ret = null;
 		User user = null;
 		Structure structure = null;
 		Locale locale = null;
 		SimpleDateFormat sdf = null;
 		String datePattern = null;
-		
-		if(this.getEmail().trim().equals("locanda@locanda.it") &&
-				this.getPassword().trim().equals("locanda")){
-			user = new User();
+
+		user = this.getUserService().findUserByEmail(this.getEmail().trim());
+		if(user.getPassword().equals(this.getPassword().trim())){
 			
-			user.setEmail(this.getEmail());
-			structure = this.buildStructure();
+			structure = this.getStructureService().findStructureByIdUser(user.getId());
+			this.buildStructure(structure);
 			user.setStructure(structure);
-			user.setPassword("locanda");
 			this.getSession().put("user", user);
 			locale = this.getLocale();
-			sdf = (SimpleDateFormat) DateFormat.getDateInstance(DateFormat.SHORT,locale);
+			sdf = (SimpleDateFormat) DateFormat.getDateInstance(
+					DateFormat.SHORT, locale);
 			datePattern = sdf.toPattern();
 			this.getSession().put("datePattern", datePattern);
-			ret = "loginSuccess";
-		}else{
+			ret = "loginSuccess";			
+		}else {
 			this.getSession().put("user", null);
 			ret = "loginError";
-		}		
+		}
+		if (this.getEmail().trim().equals("locanda@locanda.it")
+				&& this.getPassword().trim().equals("locanda")) {
+			
+		} 
 		return ret;
 	}
 	
 
 	
-	private Structure buildStructure(){
-		Structure ret = null;
+	private void buildStructure(Structure structure){
 			
-		
-		ret = new Structure();
-		ret.setId(ret.nextKey());
-		ret.setName("Polaris");
-		ret.setEmail("polaris@locanda.it");
-		ret.setPhone("+39 070123456");
-		ret.setAddress("Località Piscinamanna");
-		ret.setCountry("Italy");
-		ret.setZipCode("09135");
-		ret.setUrl("http://www.sardegnaricerche.it");
-		ret.setNotes("struttura ricettiva alberghiera a 5 stelle");
-		ret.setFax("+39 0705678383");
-		ret.setCity("Pula");
-		
-		this.buildRoomFacilities(ret);
-		this.buildRoomTypes(ret);
-		this.buildRooms(ret);
-		this.buildGuests(ret);
-		this.buildSeasons(ret);
-		this.buildConventions(ret);
-		this.buildRoomPriceLists(ret);
-		this.buildExtras(ret);
-		this.buildExtraPriceLists(ret);
-		this.buildBookings(ret);
-		this.buildImages(ret);
-		this.buildStructureFacilities(ret);
-		return ret;		
+		this.buildRoomFacilities(structure);
+		this.buildRoomTypes(structure);
+		this.buildRooms(structure);
+		this.buildGuests(structure);
+		this.buildSeasons(structure);
+		this.buildConventions(structure);
+		this.buildRoomPriceLists(structure);
+		this.buildExtras(structure);
+		this.buildExtraPriceLists(structure);
+		this.buildBookings(structure);
+		this.buildImages(structure);
+		this.buildStructureFacilities(structure);
+			
 	}
 	
 	private void buildRooms(Structure structure){
@@ -160,7 +151,6 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		aRoom.addRoomFacility(this.getStructureService().findRoomFacilitiesByIdStructure(structure).get(0));
 		aRoom.addRoomFacility(this.getStructureService().findRoomFacilitiesByIdStructure(structure).get(2));
 		aRoom.setRoomType(this.getRoomTypeService().findRoomTypesByIdStructure(structure).get(0));
-		//structure.addRoom(aRoom);
 		this.getRoomService().insertRoom(structure, aRoom);
 		
 		aRoom = new Room();
@@ -168,7 +158,6 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		aRoom.setName("201");
 		aRoom.addRoomFacility(this.getStructureService().findRoomFacilitiesByIdStructure(structure).get(1));
 		aRoom.setRoomType(this.getRoomTypeService().findRoomTypesByIdStructure(structure).get(1));
-		//structure.addRoom(aRoom);
 		this.getRoomService().insertRoom(structure, aRoom);
 	}
 	
@@ -189,8 +178,6 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		aRoomType.setMaxGuests(1);
 		
 		aRoomType.addRoomTypeFacility(roomTypeFacility);
-		//structure.addRoomTypeFacility(roomTypeFacility);
-		//structure.addRoomFacility(roomTypeFacility);
 		this.getStructureService().addRoomFacility(structure, roomTypeFacility);
 		
 		roomTypeFacility = new RoomFacility();
@@ -198,13 +185,10 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		roomTypeFacility.setName("air conditioned");
 		roomTypeFacility.setFileName("air_conditioned.png");
 		aRoomType.addRoomTypeFacility(roomTypeFacility);
-		//structure.addRoomTypeFacility(roomTypeFacility);
-		//structure.addRoomFacility(roomTypeFacility);
 		this.getStructureService().addRoomFacility(structure, roomTypeFacility);
 		
 		aRoomType.addRoomTypeImage(image);
 		
-		//structure.addRoomType(aRoomType);
 		this.getRoomTypeService().insertRoomType(structure, aRoomType);
 		
 		image = new Image();
@@ -216,7 +200,6 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		aRoomType.setName("doppia");
 		aRoomType.setMaxGuests(2);
 		aRoomType.addRoomTypeImage(image);
-		//structure.addRoomType(aRoomType);
 		this.getRoomTypeService().insertRoomType(structure, aRoomType);
 	}
 	
@@ -227,35 +210,30 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		aRoomFacility.setId(structure.nextKey());
 		aRoomFacility.setName("AAD");
 		aRoomFacility.setFileName("AAD.gif");
-		//structure.addRoomFacility(aRoomFacility);
 		this.getStructureService().addRoomFacility(structure, aRoomFacility);
 		
 		aRoomFacility = new RoomFacility();
 		aRoomFacility.setId(structure.nextKey());
 		aRoomFacility.setName("BAR");
 		aRoomFacility.setFileName("BAR.gif");
-		//structure.addRoomFacility(aRoomFacility);
 		this.getStructureService().addRoomFacility(structure, aRoomFacility);
 		
 		aRoomFacility = new RoomFacility();
 		aRoomFacility.setId(structure.nextKey());
 		aRoomFacility.setName("PHO");
 		aRoomFacility.setFileName("PHO.gif");
-		//structure.addRoomFacility(aRoomFacility);
 		this.getStructureService().addRoomFacility(structure, aRoomFacility);
 		
 		aRoomFacility = new RoomFacility();
 		aRoomFacility.setId(structure.nextKey());
 		aRoomFacility.setName("RAD");
 		aRoomFacility.setFileName("RAD.gif");
-		//structure.addRoomFacility(aRoomFacility);
 		this.getStructureService().addRoomFacility(structure, aRoomFacility);
 		
 		aRoomFacility = new RoomFacility();
 		aRoomFacility.setId(structure.nextKey());
 		aRoomFacility.setName("TEL");
 		aRoomFacility.setFileName("TEL.gif");
-		//structure.addRoomFacility(aRoomFacility);
 		this.getStructureService().addRoomFacility(structure, aRoomFacility);
 		
 	}
@@ -387,7 +365,6 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		extraPriceList = new ExtraPriceList();
 		extraPriceList.setId(structure.nextKey());
 		extraPriceList.setRoomType(this.getRoomTypeService().findRoomTypesByIdStructure(structure).get(0));
-		//extraPriceList.setSeason(structure.findSeasonByName("Bassa Stagione"));
 		extraPriceList.setSeason(this.getSeasonService().findSeasonByName(structure.getId(),"Bassa Stagione"));
 		extraPriceList.setConvention(this.getConventionService().findConventionsByIdStructure(structure).get(0));
 		for (Extra eachExtra : this.getExtraService().findExtrasByIdStructure(structure.getId())) {
@@ -457,7 +434,6 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		roomPriceList =	new RoomPriceList();
 		roomPriceList.setId(structure.nextKey());
 		roomPriceList.setRoomType(this.getRoomTypeService().findRoomTypesByIdStructure(structure).get(0));
-		//roomPriceList.setSeason(structure.findSeasonByName("Bassa Stagione"));
 		roomPriceList.setSeason(this.getSeasonService().findSeasonByName(structure.getId(),"Bassa Stagione"));
 		roomPriceList.setConvention(this.getConventionService().findConventionsByIdStructure(structure).get(0));
 		roomPriceListItem = new RoomPriceListItem();
@@ -473,7 +449,6 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		prices[6] = 50.0;//dom
 		roomPriceListItem.setPrices(prices);
 		roomPriceList.addItem(roomPriceListItem);
-		//structure.addRoomPriceList(roomPriceList);
 		this.getRoomPriceListService().insertRoomPriceList(structure, roomPriceList);
 		
 		
@@ -481,7 +456,6 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		roomPriceList =	new RoomPriceList();
 		roomPriceList.setId(structure.nextKey());
 		roomPriceList.setRoomType(this.getRoomTypeService().findRoomTypesByIdStructure(structure).get(0));
-		//roomPriceList.setSeason(structure.findSeasonByName("Alta Stagione"));
 		roomPriceList.setSeason(this.getSeasonService().findSeasonByName(structure.getId(),"Alta Stagione"));
 		roomPriceList.setConvention(this.getConventionService().findConventionsByIdStructure(structure).get(0));
 		roomPriceListItem = new RoomPriceListItem();
@@ -497,14 +471,12 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		prices[6] = 80.0;//dom
 		roomPriceListItem.setPrices(prices);
 		roomPriceList.addItem(roomPriceListItem);
-		//structure.addRoomPriceList(roomPriceList);
 		this.getRoomPriceListService().insertRoomPriceList(structure, roomPriceList);
 		
 		//Listino Room per Camera Doppia Bassa Stagione
 		roomPriceList =	new RoomPriceList();
 		roomPriceList.setId(structure.nextKey());
 		roomPriceList.setRoomType(this.getRoomTypeService().findRoomTypesByIdStructure(structure).get(1));
-		//roomPriceList.setSeason(structure.findSeasonByName("Bassa Stagione"));
 		roomPriceList.setSeason(this.getSeasonService().findSeasonByName(structure.getId(),"Bassa Stagione"));
 		roomPriceList.setConvention(this.getConventionService().findConventionsByIdStructure(structure).get(0));
 		roomPriceListItem = new RoomPriceListItem();
@@ -572,7 +544,6 @@ public class LoginAction extends ActionSupport implements SessionAware{
 		roomPriceListItem.setPrices(prices);
 		roomPriceList.addItem(roomPriceListItem);	
 		
-		//structure.addRoomPriceList(roomPriceList);	
 		this.getRoomPriceListService().insertRoomPriceList(structure, roomPriceList);
 	}
 	
@@ -727,6 +698,18 @@ public class LoginAction extends ActionSupport implements SessionAware{
 
 	public void setExtraPriceListService(ExtraPriceListService extraPriceListService) {
 		this.extraPriceListService = extraPriceListService;
+	}
+
+
+
+	public UserService getUserService() {
+		return userService;
+	}
+
+
+
+	public void setUserService(UserService userService) {
+		this.userService = userService;
 	}
 	
 	

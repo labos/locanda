@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="persistence.mybatis.mappers.StructureMapper">
+
+ 
+  <cache />
+  
+  <select id="findStructureByIdUser" parameterType="int" resultType="model.Structure">
+	 <include refid="selectStructure"/> where id_user = #{id_user}
+  </select> 
+  
+ 
+  
+   <sql id="selectStructure">
+  	SELECT id,name,email,url,phone,fax,address,city,country,zipCode,notes,id_user FROM structure
+  </sql>
+  
+    
+</mapper>

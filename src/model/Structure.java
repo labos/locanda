@@ -1,25 +1,17 @@
 package model;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.TreeSet;
-
-import org.apache.commons.lang.time.DateUtils;
 
 import model.listini.Convention;
 import model.listini.ExtraPriceList;
-import model.listini.ExtraPriceListItem;
 import model.listini.RoomPriceList;
-import model.listini.RoomPriceListItem;
 import model.listini.Season;
 
-public class Structure {
+public class Structure implements Serializable {
 	private Integer id;
 	private String name;
 	private String email;
@@ -45,6 +37,8 @@ public class Structure {
 	private List<ExtraPriceList> extraPriceLists;
 	private List<Image> imageLists;
 	private List<Convention> conventions;
+	
+	private Integer id_user;
 
 	
 	
@@ -240,6 +234,14 @@ public class Structure {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public Integer getId_user() {
+		return id_user;
+	}
+
+	public void setId_user(Integer id_user) {
+		this.id_user = id_user;
 	}
 	
 	

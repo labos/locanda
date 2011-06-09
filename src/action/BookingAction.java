@@ -29,6 +29,8 @@ import service.ExtraService;
 import service.GuestService;
 import service.RoomService;
 import service.StructureService;
+import service.StructureServiceImpl;
+
 import com.opensymphony.xwork2.ActionSupport;
 
 @ParentPackage(value="default")
@@ -86,7 +88,8 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		this.updateBookingInMemory(structure);
 		this.getMessage().setResult(Message.SUCCESS);
 		this.getMessage().setDescription(getText("calculatedPriceAction"));
-		return "success";			
+		return "success";	
+					
 	}
 	
 	public void updateBookingInMemory(Structure structure) {
@@ -108,7 +111,6 @@ public class BookingAction extends ActionSupport implements SessionAware{
 			this.getBooking().setNrGuests(this.getBooking().getRoom().getRoomType().getMaxGuests());
 		}
 		
-		//roomSubtotal = structure.calculateRoomSubtotalForBooking(this.getBooking());
 		roomSubtotal = this.getBookingService().calculateRoomSubtotalForBooking(structure,this.getBooking());
 		this.getBooking().setRoomSubtotal(roomSubtotal);
 		
@@ -155,6 +157,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		return SUCCESS;		
 	}
 	
+	
 	@Actions({
 		@Action(value="/saveUpdateBooking",results = {
 				@Result(type ="json",name="success", params={
@@ -182,7 +185,6 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		this.updateBookingInMemory(structure);
 		
 		//Persist the Booking
-		//oldBooking = structure.findBookingById(this.getBooking().getId());
 		oldBooking = this.getBookingService().findBookingById(structure, this.getBooking().getId());
 	
 		if(oldBooking==null){
