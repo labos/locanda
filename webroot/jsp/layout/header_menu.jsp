@@ -74,19 +74,6 @@ $(document).ready(function () { <%
 	<link href="css/patches/patch_sliding_door.css" rel="stylesheet" type="text/css" />
   <![endif]-->
 </head>
-<!--<s:url var="currentUrl" includeParams="get" escapeAmp="false"/>
---><s:set var="redirectLang" value="#context['struts.actionMapping'].name" />
-<s:url id="localeFR" namespace="/" action="locale" >
-   <s:param name="request_locale" >fr</s:param>
-</s:url>
-<s:url id="localeEN" namespace="/" action="locale" >
-   <s:param name="request_locale" >en</s:param>
-   <s:param name="redirect" ><s:property value="#redirectLang"/>.action</s:param>
-</s:url>
-<s:url id="localeIT" namespace="/" action="locale" >
-   <s:param name="request_locale" >it_IT</s:param>
-  <s:param name="redirect" ><s:property value="#redirectLang"/>.action</s:param>
-</s:url>
 <body>
   <!-- skip link navigation -->
 
@@ -114,8 +101,6 @@ $(document).ready(function () { <%
         <div id="topnav" role="contentinfo" >
           <span><a title="logout" class="logout" href="<s:property value="url_logout"/>"></a></span>
          <div class="langMenu">
-        <s:a href="%{localeIT}" cssClass="flag_it"></s:a>
-        <s:a href="%{localeEN}" cssClass="flag_en"></s:a>
           </div>
         </div>
 
