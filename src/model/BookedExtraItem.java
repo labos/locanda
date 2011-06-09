@@ -6,6 +6,7 @@ public class BookedExtraItem {
 	
 	private Extra extra;
 	private Integer quantity = 0;
+	private Integer maxQuantity = 0;
 	private Double unitaryPrice = 0.0;
 	
 	
@@ -61,5 +62,11 @@ public class BookedExtraItem {
 	public void setUnitaryPrice(Double unitaryPrice) {
 		this.unitaryPrice = unitaryPrice;
 	}
-
+	public Integer getMaxQuantity() {
+		return maxQuantity;
+	}
+	public void setMaxQuantity(Integer maxQuantity) {
+		this.maxQuantity = maxQuantity;
+	}
+	
 }

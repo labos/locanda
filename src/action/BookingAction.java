@@ -29,8 +29,6 @@ import service.ExtraService;
 import service.GuestService;
 import service.RoomService;
 import service.StructureService;
-import service.StructureServiceImpl;
-
 import com.opensymphony.xwork2.ActionSupport;
 
 @ParentPackage(value="default")
@@ -250,10 +248,13 @@ public class BookingAction extends ActionSupport implements SessionAware{
 				bookedExtraItem = new BookedExtraItem();
 				bookedExtraItem.setExtra(each);
 				bookedExtraItem.setQuantity(booking.calculateExtraItemMaxQuantity(each));
+				bookedExtraItem.setMaxQuantity(booking.calculateExtraItemMaxQuantity(each));
 				bookedExtraItem.setUnitaryPrice(
 						this.getStructureService().calculateExtraItemUnitaryPrice(structure, booking.getDateIn(), booking.getDateOut(), booking.getRoom().getRoomType(), booking.getConvention(), each));
 				
 			}else{
+				bookedExtraItem.setMaxQuantity(booking
+						.calculateExtraItemMaxQuantity(each));
 				bookedExtraItem.setUnitaryPrice(
 						this.getStructureService().calculateExtraItemUnitaryPrice(structure, booking.getDateIn(), booking.getDateOut(), booking.getRoom().getRoomType(), booking.getConvention(), each));	
 			}

@@ -1,7 +1,6 @@
 package action;
 
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -49,7 +48,6 @@ import service.RoomService;
 import service.RoomTypeService;
 import service.SeasonService;
 import service.StructureService;
-import service.StructureServiceImpl;
 import service.UserService;
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -129,7 +127,6 @@ public class LoginAction extends ActionSupport implements SessionAware {
 		this.buildBookings(structure);
 		this.buildImages(structure);
 		this.buildStructureFacilities(structure);
-
 	}
 
 	private void buildRooms(Structure structure) {
@@ -230,13 +227,11 @@ public class LoginAction extends ActionSupport implements SessionAware {
 		aRoomFacility.setName("TEL");
 		aRoomFacility.setFileName("TEL.gif");
 		this.getStructureService().addRoomFacility(structure, aRoomFacility);
-
 	}
 
 	private void buildGuests(Structure structure) {
 		structure.setGuests(this.getGuestService().findGuestsByIdStructure(
 				structure.getId()));
-
 	}
 
 	private void buildBookings(Structure structure) {
@@ -310,7 +305,8 @@ public class LoginAction extends ActionSupport implements SessionAware {
 			if (bookedExtraItem == null) {
 				bookedExtraItem = new BookedExtraItem();
 				bookedExtraItem.setExtra(each);
-				bookedExtraItem.setQuantity(booking
+				bookedExtraItem.setQuantity(booking.calculateExtraItemMaxQuantity(each));
+				bookedExtraItem.setMaxQuantity(booking
 						.calculateExtraItemMaxQuantity(each));
 				bookedExtraItem.setUnitaryPrice(this.getStructureService()
 						.calculateExtraItemUnitaryPrice(structure,
@@ -319,6 +315,8 @@ public class LoginAction extends ActionSupport implements SessionAware {
 								booking.getConvention(), each));
 
 			} else {
+				bookedExtraItem.setMaxQuantity(booking
+						.calculateExtraItemMaxQuantity(each));
 				bookedExtraItem.setUnitaryPrice(this.getStructureService()
 						.calculateExtraItemUnitaryPrice(structure,
 								booking.getDateIn(), booking.getDateOut(),

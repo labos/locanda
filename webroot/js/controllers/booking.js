@@ -534,7 +534,7 @@ $(function () {
                 data: formInput,
                 success: function (data_action) {
                     $(".type-select.extraCheckList").html(data_action);
-					$('.quantity').change(function () {
+					$('input:checkbox[name="bookingExtraIds"], .quantity').change(function () {
          				self.calculatePrice(this);
            			 });
                 },
