@@ -172,10 +172,7 @@ $(document).ready(function () {
             $('body').append($('<div class="ui-widget-overlay"></div>'));
             $.jGrowl.defaults.position = 'center';
             
-            
-            /* Controllers initialization */
 
-       	 	/* End Controllers initialization */
     		
     		
     	}

@@ -33,5 +33,6 @@ public interface StructureService {
 	public Integer deleteStructureFacility(Structure structure,StructureFacility structureFacility);
 	
 	public Structure findStructureByIdUser(Integer id_user);
+	public Structure findStructureById(Integer id);
 
 }

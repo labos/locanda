@@ -52,6 +52,13 @@ public class StructureServiceImpl implements StructureService{
 
 
 	@Override
+	public Structure findStructureById(Integer id) {
+		
+		return this.getStructureMapper().findStructureById(id);
+	}
+
+
+	@Override
 	public List<RoomFacility> findRoomFacilitiesByIdStructure(Structure structure) {
 		
 		return structure.getRoomFacilities();

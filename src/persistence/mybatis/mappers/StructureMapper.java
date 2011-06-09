@@ -4,5 +4,6 @@ import model.Structure;
 
 public interface StructureMapper {
 	public Structure findStructureByIdUser(Integer id_user);
+	public Structure findStructureById(Integer id);
 
 }

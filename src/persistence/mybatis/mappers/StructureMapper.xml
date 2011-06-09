@@ -10,7 +10,9 @@
   <select id="findStructureByIdUser" parameterType="int" resultType="model.Structure">
 	 <include refid="selectStructure"/> where id_user = #{id_user}
   </select> 
-  
+    <select id="findStructureById" parameterType="int" resultType="model.Structure">
+	 <include refid="selectStructure"/> where id = #{id}
+  </select> 
  
   
    <sql id="selectStructure">
