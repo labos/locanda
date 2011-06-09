@@ -9,6 +9,7 @@
           	<legend>Structure Details</legend>
           	<div class="c50l">
               <input type="hidden" name="redirect_form" value="goUpdateDetails.action?sect=settings" />
+              <input type="hidden" name="structure.id" value="<s:property value="structure.id"/>" />
                 <div class="c50l">
             	  <div class="type-text">
                   	<label for="name">Name <sup title="This field is mandatory.">*</sup></label>
