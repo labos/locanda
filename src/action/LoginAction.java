@@ -97,7 +97,7 @@ public class LoginAction extends ActionSupport implements SessionAware {
 		user = this.getUserService().findUserByEmail(this.getEmail().trim());
 		if (user.getPassword().equals(this.getPassword().trim())) {
 			structure = this.getStructureService().findStructureByIdUser(user.getId());
-			this.buildStructure(structure);
+			this.getStructureService().buildStructure(structure);
 			user.setStructure(structure);
 			this.getSession().put("user", user);
 			
@@ -115,7 +115,7 @@ public class LoginAction extends ActionSupport implements SessionAware {
 		return ret;
 	}
 
-	private void buildStructure(Structure structure) {
+	/*private void buildStructure(Structure structure) {
 
 		this.buildRoomFacilities(structure);
 		this.buildRoomTypes(structure);
@@ -606,7 +606,7 @@ public class LoginAction extends ActionSupport implements SessionAware {
 		structFacility.setFileName("restaurant.png");
 		this.getStructureService().insertStructureFacility(structure,
 				structFacility);
-	}
+	}*/
 
 	public Map<String, Object> getSession() {
 		return session;

@@ -92,6 +92,7 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 		toRemoveBookings = new ArrayList<Booking>();
 		
 		structure = this.getStructureService().findStructureById(this.getIdStructure());
+		this.getStructureService().buildStructure(structure);
 		
 		rooms = this.getRoomService().findRoomsByIdStructure(structure);
 		this.setRooms(new ArrayList<Room>());
@@ -133,6 +134,9 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 		Convention defaultConvention = null;
 		
 		structure = this.getStructureService().findStructureById(this.getIdStructure());
+		this.getStructureService().buildStructure(structure);
+		
+		
 		theBookedRoom = this.getRoomService().findRoomById(structure,this.getRoomId());
 		this.setBooking(new Booking());
 		this.getBooking().setRoom(theBookedRoom);	
@@ -165,7 +169,10 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 		List<Extra> checkedExtras = null;
 		Double extraSubtotal = 0.0;
 		List<BookedExtraItem> bookedExtraItems = null;
+		
 		structure = this.getStructureService().findStructureById(this.getIdStructure());
+		this.getStructureService().buildStructure(structure);
+		
 		this.setBooking((Booking) this.getSession().get("workingBooking"));
 		if (this.getBookingExtrasId() != null) {
 			checkedExtras = this.getExtraService().findExtrasByIds(
@@ -201,6 +208,8 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 		Guest oldGuest = null;
 		
 		structure = this.getStructureService().findStructureById(this.getIdStructure());
+		this.getStructureService().buildStructure(structure);
+		
 		this.setBooking((Booking) this.getSession().get("workingBooking"));
 		
 		try {			
@@ -257,6 +266,8 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 		Convention defaultConvention = null;
 		
 		structure = this.getStructureService().findStructureById(this.getIdStructure());
+		this.getStructureService().buildStructure(structure);
+		
 		aBooking.setId(structure.nextKey());
 		aBooking.setRoom(aRoom);
 		aBooking.setDateIn(this.getDateArrival());
