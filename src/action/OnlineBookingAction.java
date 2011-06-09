@@ -93,6 +93,7 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 		
 		structure = this.getStructureService().findStructureById(this.getIdStructure());
 		this.getStructureService().buildStructure(structure);
+		this.getSession().put("idStructure", this.getIdStructure());
 		
 		rooms = this.getRoomService().findRoomsByIdStructure(structure);
 		this.setRooms(new ArrayList<Room>());
@@ -133,6 +134,7 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 		Double roomSubtotal = 0.0;
 		Convention defaultConvention = null;
 		
+		this.setIdStructure((Integer) this.getSession().get("idStructure"));
 		structure = this.getStructureService().findStructureById(this.getIdStructure());
 		this.getStructureService().buildStructure(structure);
 		
@@ -170,6 +172,7 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 		Double extraSubtotal = 0.0;
 		List<BookedExtraItem> bookedExtraItems = null;
 		
+		this.setIdStructure((Integer) this.getSession().get("idStructure"));
 		structure = this.getStructureService().findStructureById(this.getIdStructure());
 		this.getStructureService().buildStructure(structure);
 		
@@ -207,6 +210,7 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 		Structure structure = null;
 		Guest oldGuest = null;
 		
+		this.setIdStructure((Integer) this.getSession().get("idStructure"));
 		structure = this.getStructureService().findStructureById(this.getIdStructure());
 		this.getStructureService().buildStructure(structure);
 		
