@@ -1,21 +1,3 @@
-/*
-steal(
-		 "controllers/guest",
-		 "controllers/booking",
-	 	 "controllers/season",
-		 "controllers/main",
- 		"controllers/calendar",
- 		"controllers/extra",
- 		"controllers/upload",
- 		"controllers/tree",
- 		"controllers/accomodation",
- 		"controllers/online"
- 		 		).then(function(){           //called when all prior files have completed
-   //loads myapp/myapp.less
- 	    })
-;  */
- 
-
 steal.plugins(	
 		'controllers',			// a widget factory
 		'models'	// subscribe to OpenAjax.hub

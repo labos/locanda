@@ -1,7 +1,9 @@
 $(function () {
     //---  ACCOMODATION SECTION CODE    
-    $.Class.extend('Accomodation', /* @static */ {
-        init: function () { /* Buttons rendering and event handler attachments */
+    $.Class.extend('Accomodation', /* @prototype */ {
+        init: function () { 
+        	var self = this;
+        	/* Buttons rendering and event handler attachments */
             $(".btn_add_new").button({
                 icons: {
                     primary: "ui-icon-circle-plus"
@@ -76,20 +78,7 @@ $(function () {
                 var selectedId = $(this).find(":selected").val();
                 if (typeof parseInt(selectedId) == "number" && parseInt(selectedId) > 0) {
                 	
-                	 Models.RoomFacility.findAll({'room.roomType.id': selectedId}, this.callback('list'));
-                    var url_table = "findRoomTypesForRoom.action?room.roomType.id=" + selectedId;
-                    $.ajax({
-                        url: url_table,
-                        context: document.body,
-                        dataType: "html",
-                        success: function (data) {
-                            $(".wrapper-facility").empty();
-                            $(".wrapper-facility").append(data);
-                        },
-                        error: function (request, state, errors) {
-                            $().notify($.i18n("seriousError"), $.i18n("seriousErrorDescription"));
-                        }
-                    });
+                	 Models.RoomFacility.findAll({'room.roomType.id': selectedId}, self.callback('listRoomFacilities'),self.callback('listRoomFacilitiesError'));
                 }
             });
             //add notify functionality as tooltip for input text
@@ -117,7 +106,32 @@ $(function () {
                 },
                 "plugins": ["themes", "json_data"]
             });
-        }
-    }, {});
+        },
+        
+        /**
+         * Displays a list of RoomFacilities.
+         * @param String.
+         */
+         listRoomFacilities: function( roomFacilitiesHtml ){
+             $(".wrapper-facility").empty();
+             $(".wrapper-facility").append(roomFacilitiesHtml);
+         },
+         
+         /**
+          * Display error advice for RoomFacilities.
+          * @param {null}.
+          */
+          listRoomFacilitiesError: function(  ){
+        	  $().notify($.i18n("seriousError"), $.i18n("seriousErrorDescription"));
+          }
+    
+    
+    
+    
+    
+    });
     //---  END ACCOMODATION SECTION CODE 
+    
+    
+    new Accomodation();
 });

@@ -17,11 +17,11 @@ $.Model.extend('Models.RoomFacility',
  	 */
 	findAll: function( params, success, error ){
 		$.ajax({
-			url: '/findRoomTypesForRoom.action',
+			url: 'findRoomTypesForRoom.action',
 			type: 'POST',
 			dataType: 'html',
 			data: params,
-			success: this.callback(['wrapMany',success]),
+			success: success,
 			error: error
 		});
 	},
