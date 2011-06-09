@@ -533,7 +533,7 @@ $(function () {
                 dataType: "html",
                 data: formInput,
                 success: function (data_action) {
-                    $("div.select_container").html(data_action);
+                    $(".type-select.extraCheckList").html(data_action);
 					$('.quantity').change(function () {
          				self.calculatePrice(this);
            			 });

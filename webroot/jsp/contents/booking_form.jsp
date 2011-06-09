@@ -414,6 +414,7 @@ display: none;
               			</div>
                   	  </div>
                   	  </s:iterator>
+                  	  
                   	  <!-- ADD ONE GUEST TEXT FIELDS AS DEFAULT 
                   	  	<s:if test="booking.guests.size() == 0"> 
                   	  <div  class="subcolumns guest_row">
@@ -428,21 +429,12 @@ display: none;
                   	  </div>
                   	  </div>
                   	  <!--  END SECOND ACCORDION -->
-                  	  <div class="type-text"><hr/></div>
-                 	  
-                  <div class="type-select"><label for="">Extras:</label>
-                    <s:iterator value="extras" var="eachExtra" >
-                    
-                      <div class="type-check extraCheckList">
-                    	<s:checkbox id="%{#eachExtra.id}_extraCheckBox" name="bookingExtraIds"  value="bookingExtraIds.contains(#eachExtra.id)" fieldValue="%{#eachExtra.id}" label="%{#eachExtra.name}" />
-                      </div> 
-                      	
-                      </s:iterator>
+                  	  
+                  <div class="type-text"><hr/></div>	  
+                  <div class="type-select extraCheckList"><label for="">Extras:</label>
+                      	<jsp:include page="extraQuantity_select.jsp" />     	  
                   </div>
-                  <div class="select_container">
-                      	<jsp:include page="extraQuantity_select.jsp" />
-                  </div>
-                   
+                  
                   <div class="type-select">
                   	<label for="convention"><s:text name="convention" />: </label> 
                     <select name="booking.convention.id" id="convention" class="required">
