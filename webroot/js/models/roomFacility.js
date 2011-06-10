@@ -10,7 +10,7 @@ $.Model.extend('Models.RoomFacility',
 /* @Static */
 {
 	/**
- 	 * Retrieves check_ins data from your backend services.
+ 	 * Retrieves roomtypes data from your backend services.
  	 * @param {Object} params params that might refine your results.
  	 * @param {Function} success a callback function that returns wrapped check_in objects.
  	 * @param {Function} error a callback function for an error in the ajax request.

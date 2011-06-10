@@ -4,7 +4,7 @@ steal.plugins(
 					// client side templates
 		)				
 
-		.models('roomFacility')						// loads files in models folder 
+		.models("roomFacility","accomodation","roomType")						// loads files in models folder 
 
 		.controllers(
 				 "guest",

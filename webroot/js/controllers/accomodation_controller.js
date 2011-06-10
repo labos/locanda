@@ -1,6 +1,6 @@
 $(function () {
     //---  ACCOMODATION SECTION CODE    
-    $.Class.extend('Accomodation', /* @prototype */ {
+    $.Class.extend('Controllers.Accomodation', /* @prototype */ {
         init: function () { 
         	var self = this;
         	/* Buttons rendering and event handler attachments */
@@ -14,43 +14,6 @@ $(function () {
             });
             $(".btn_delete_room").click(function (event) {
                 $(this).parents(".yform").attr("action", "deleteRoom.action");
-            });
-            $(".btn_add_facility_room").button({
-                icons: {
-                    primary: "ui-icon-circle-plus"
-                }
-            }).click(function (event) {
-                //-- event.preventDefault();
-                var url_action_facility = "goRoomFacilities_edit";
-                var id_room = $(this).parents(".yform").find('input:hidden[name="room.id"]').val();
-                var name_room = $(this).parents(".yform").find('input:text[name="room.name"]').val();
-                $.ajax({
-                    type: 'POST',
-                    url: url_action_facility,
-                    data: {
-                        idRoom: id_room
-                    },
-                    success: function (data) {
-                        $("#facility_edit_dialog").html(data);
-                        $("#facility_edit_dialog").dialog({
-                            title: "Add Facility for room: " + name_room,
-                            modal: true,
-                            buttons: {
-                                "Save": function () {
-                                    $(this).find(".yform.json").submitForm();
-                                    $(this).dialog("close");
-                                },
-                                cancel: function () {
-                                    $(this).dialog("close");
-                                }
-                            }
-                        });
-                    },
-                    error: function () {
-                        $().notify($.i18n("seriousError"), $.i18n("seriousErrorDescription"));
-                    }
-                });
-                return false;
             });
             //button click handler for delete all rooms
             $(".btn_save_all_rooms").click(function (event) {
@@ -77,8 +40,13 @@ $(function () {
             $("#roomType").change(function () {
                 var selectedId = $(this).find(":selected").val();
                 if (typeof parseInt(selectedId) == "number" && parseInt(selectedId) > 0) {
+                	//create an Accomodation instance 
+                	var accomodationObj = new Models.Accomodation();
+                	//set some attributes of the model.
+                	accomodationObj.attr("roomType",new Models.RoomType());
+                	//get all roomtypefacilities and pass the results to callback, calling a service of the model.
+                	accomodationObj.getRoomTypeFacilities( selectedId, self.callback('listRoomFacilities'), self.callback('listRoomFacilitiesError'));
                 	
-                	 Models.RoomFacility.findAll({'room.roomType.id': selectedId}, self.callback('listRoomFacilities'),self.callback('listRoomFacilitiesError'));
                 }
             });
             //add notify functionality as tooltip for input text
@@ -133,5 +101,5 @@ $(function () {
     //---  END ACCOMODATION SECTION CODE 
     
     
-    new Accomodation();
+    new Controllers.Accomodation();
 });
