@@ -72,7 +72,6 @@ public class RoomPriceListItem {
 		return ret;
 	}
 	
-
 	public Integer getId() {
 		return id;
 	}
