@@ -56,7 +56,7 @@ public class UploadAction extends ActionSupport implements SessionAware{
 		}),
 		@Action(value="/uploadFacility",results = {
 				@Result(type ="json",name="success", params={
-						"excludeProperties", "session,upload,uploadFileName,uploadContentType,name"
+						"excludeProperties", "session,upload,uploadFileName,uploadContentType,name,structureService,roomTypeService,roomService"
 						} ),
 				@Result(type ="json",name="error", params={
 						"root","message"
@@ -109,7 +109,7 @@ public class UploadAction extends ActionSupport implements SessionAware{
 		}),
 		@Action(value="/uploadStructureImage",results = {
 				@Result(type ="json",name="success", params={
-						"excludeProperties", "session,upload,uploadFileName,uploadContentType,name"
+						"excludeProperties", "session,upload,uploadFileName,uploadContentType,name,structureService,roomTypeService,roomService"
 						} ),
 				@Result(type ="json",name="error", params={
 						"root","message"
@@ -158,7 +158,7 @@ public class UploadAction extends ActionSupport implements SessionAware{
 		}),
 		@Action(value="/uploadStructureFacility",results = {
 				@Result(type ="json",name="success", params={
-						"excludeProperties", "session,upload,uploadFileName,uploadContentType,name,roomFacility,image"
+						"excludeProperties", "session,upload,uploadFileName,uploadContentType,name,structureService,roomTypeService,roomService"
 						} ),
 				@Result(type ="json",name="error", params={
 						"root","message"
@@ -208,7 +208,7 @@ public class UploadAction extends ActionSupport implements SessionAware{
 		}),
 		@Action(value="/uploadRoomImage",results = {
 				@Result(type ="json",name="success", params={
-						"excludeProperties", "session,upload,uploadFileName,uploadContentType,name"
+						"excludeProperties", "session,upload,uploadFileName,uploadContentType,name,structureService,roomTypeService,roomService"
 						} ),
 				@Result(type ="json",name="error", params={
 						"root","message"
@@ -267,7 +267,7 @@ public class UploadAction extends ActionSupport implements SessionAware{
 		}),
 		@Action(value="/uploadRoomTypeImage",results = {
 				@Result(type ="json",name="success", params={
-						"excludeProperties", "session,upload,uploadFileName,uploadContentType,name"
+						"excludeProperties", "session,upload,uploadFileName,uploadContentType,name,structureService,roomTypeService,roomService"
 						} ),
 				@Result(type ="json",name="error", params={
 						"root","message"
@@ -326,7 +326,7 @@ public class UploadAction extends ActionSupport implements SessionAware{
 		}),
 		@Action(value="/uploadRoomTypeFacility",results = {
 				@Result(type ="json",name="success", params={
-						"excludeProperties", "session,upload,uploadFileName,uploadContentType,name"
+						"excludeProperties", "session,upload,uploadFileName,uploadContentType,name,structureService,roomTypeService,roomService"
 						} ),
 				@Result(type ="json",name="error", params={
 						"root","message"
