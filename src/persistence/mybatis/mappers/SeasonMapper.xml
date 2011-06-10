@@ -32,7 +32,7 @@
   	  	
   </sql>
  
-   
+  
   <resultMap id="seasonWithPeriodsUsingJoin" type="model.listini.Season"  >
   	<id property="id" column="season_id" />
   	<result property="name" column="season_name"/>

@@ -28,6 +28,7 @@ import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import service.StructureService;
+import service.UserService;
 
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -36,16 +37,16 @@ import com.opensymphony.xwork2.ActionSupport;
 public class StructureAction extends ActionSupport implements SessionAware {
 	
 	private Map<String, Object> session = null;
-	private Message message = new Message();
-	
+	private Message message = new Message();	
 	private Structure structure = null;
 	private Image image = null;
-	private User user = new User();
+	private String password;
 	private String reTyped;
 	@Autowired
 	private StructureService structureService = null;
+	@Autowired
+	private UserService userService = null;
 	
-
 	@Actions({
 		@Action(value="/goUpdateDetails",results = {
 				@Result(name="success",location="/details_edit.jsp")
@@ -53,11 +54,12 @@ public class StructureAction extends ActionSupport implements SessionAware {
 		
 	})
 	public String goUpdateDetails() {
-		User user = null; 
-				
+		User user = null;
+		
 		user = (User)this.getSession().get("user");
-		this.setStructure(user.getStructure());		
-		this.setUser(user);
+		
+		this.setStructure(
+				this.getStructureService().findStructureByIdUser(user.getId()));			
 		return SUCCESS;
 	}
 
@@ -77,12 +79,15 @@ public class StructureAction extends ActionSupport implements SessionAware {
 		User user = null;
 		
 		user = (User)this.getSession().get("user");
-		this.updateStructure(user.getStructure());		
+		
+		this.getStructure().setId_user(user.getId());
+		this.getStructureService().updateStructure(this.getStructure());
+		
 		this.getMessage().setResult(Message.SUCCESS);
 		this.getMessage().setDescription("Structure details modified succesfully");
-		return SUCCESS;
-		
+		return SUCCESS;		
 	}
+	
 	
 	@Actions({
 		@Action(value="/updateAccount",results = {
@@ -99,24 +104,23 @@ public class StructureAction extends ActionSupport implements SessionAware {
 	public String updateAccount() {
 		User user = null;
 		
-		user = (User)this.getSession().get("user");
-		String newPassword =  null;
-		
-		//check password requirements
-		newPassword = this.getUser().getPassword();
-		if (newPassword .length() >5  &&  (  newPassword.equals(this.getReTyped()) )){
-			user.setPassword(this.getUser().getPassword());
-			this.getMessage().setResult(Message.SUCCESS);
-			this.getMessage().setDescription("Password modified succesfully");
-			return SUCCESS;	
-		}
-		else{
+		user = (User)this.getSession().get("user");		
+		if ((this.getPassword().length() <= 5) && (this.getReTyped().length() <= 5) ){
 			this.getMessage().setResult(Message.ERROR);
-			this.getMessage().setDescription("Your password must be at least 5 characters and/or the two passwords are different");
-			return SUCCESS;	
+			this.getMessage().setDescription("Your password must be at least 5 characters");
+			return ERROR;	
 		}
-	
+		if (!this.getPassword().equals(this.getReTyped()) ){			
+			this.getMessage().setResult(Message.ERROR);
+			this.getMessage().setDescription("Passwords are different");
+			return ERROR;				
+		}
+		user.setPassword(this.getPassword());
+		this.getUserService().updateUser(user);
 		
+		this.getMessage().setResult(Message.SUCCESS);
+		this.getMessage().setDescription("Password modified succesfully");
+		return SUCCESS;	
 	}
 	
 	@Actions({
@@ -182,23 +186,7 @@ public class StructureAction extends ActionSupport implements SessionAware {
 			return ERROR;
 		}
 		
-	}
-	
-	
-	
-	
-	private void updateStructure(Structure structure) {
-		structure.setName(this.structure.getName());
-		structure.setEmail(this.structure.getEmail());
-		structure.setPhone(this.structure.getPhone());
-		structure.setAddress(this.structure.getAddress());
-		structure.setCity(this.structure.getCity());
-		structure.setCountry(this.structure.getCountry());
-		structure.setZipCode(this.structure.getZipCode());
-		structure.setUrl(this.structure.getUrl());
-		structure.setFax(this.structure.getFax());
-		structure.setNotes(this.structure.getNotes());
-	}
+	}	
 
 	public Map<String, Object> getSession() {
 		return session;
@@ -232,16 +220,16 @@ public class StructureAction extends ActionSupport implements SessionAware {
 		this.image = image;
 	}
 
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
 	public String getReTyped() {
 		return reTyped;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	public void setReTyped(String reTyped) {
@@ -254,6 +242,14 @@ public class StructureAction extends ActionSupport implements SessionAware {
 
 	public void setStructureService(StructureService structureService) {
 		this.structureService = structureService;
+	}
+
+	public UserService getUserService() {
+		return userService;
+	}
+
+	public void setUserService(UserService userService) {
+		this.userService = userService;
 	}
 	
 	

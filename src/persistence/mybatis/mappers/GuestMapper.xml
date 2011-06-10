@@ -5,6 +5,7 @@
 <mapper namespace="persistence.mybatis.mappers.GuestMapper">
   <cache />
   
+  
   <select id="findGuestsByIdStructure" parameterType="int" resultType="model.Guest" >
    <include refid="selectGuests"/>  where id_structure = #{id_structure}  
   </select>

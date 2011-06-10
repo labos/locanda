@@ -297,11 +297,11 @@
           	<div class="c50l">
                     <div class="type-text">
                   	<label for="password"><s:text name="password"></s:text> <sup title="This field is mandatory.">*</sup></label>
-                  	<input type="password" class="required" name="user.password" id="password" value="<s:property value="user.password"/>" aria-required="true"  />
+                  	<input type="password" class="required" name="password" id="password" aria-required="true"  />
                   </div>
                     <div class="type-text">
                   	<label for="retyped"><s:text name="reTypePassword"></s:text> <sup title="This field is mandatory.">*</sup></label>
-                  	<input type="password" class="required" name="reTyped" id="retyped" value="<s:property value="user.password"/>" aria-required="true"  />
+                  	<input type="password" class="required" name="reTyped" id="retyped"  aria-required="true"  />
                   </div>
                     <div class="type-button">
                   	<button class="btn_save">SAVE</button>

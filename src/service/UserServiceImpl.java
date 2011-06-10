@@ -16,6 +16,10 @@ public class UserServiceImpl implements UserService {
 	public User findUserByEmail(String email) {
 		
 		return this.getUserMapper().findUserByEmail(email);
+	}	
+	
+	public Integer updateUser(User user) {
+		return this.getUserMapper().updateUser(user);
 	}
 
 	public UserMapper getUserMapper() {
@@ -24,8 +28,6 @@ public class UserServiceImpl implements UserService {
 
 	public void setUserMapper(UserMapper userMapper) {
 		this.userMapper = userMapper;
-	}
-	
-	
+	}	
 
 }

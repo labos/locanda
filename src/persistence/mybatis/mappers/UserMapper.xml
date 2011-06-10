@@ -10,12 +10,12 @@
   <select id="findUserByEmail" parameterType="string" resultType="model.User">
 	 <include refid="selectUser"/> where email = #{email}
   </select> 
-  
- 
-  
+    
    <sql id="selectUser">
   	SELECT id,email,password from user
   </sql>
   
-    
+  <update id="updateUser" parameterType="model.User" >
+  	UPDATE user SET email = #{email},password = #{password}  where id = #{id}
+  </update>    
 </mapper>

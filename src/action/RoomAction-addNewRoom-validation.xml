@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE validators PUBLIC
-  		"-//OpenSymphony Group//XWork Validator 1.0//EN" 
+<!DOCTYPE validators PUBLIC	"-//OpenSymphony Group//XWork Validator 1.0//EN" 
   		"http://www.opensymphony.com/xwork/xwork-validator-1.0.2.dtd">
   		
-<!-- START SNIPPET: fieldValidatorsExample -->  		
   		
 <validators>
 	<field name="room.name">
@@ -26,6 +24,4 @@
 		</field-validator>
 	</field>
 </validators>
-
-<!-- END SNIPPET: fieldValidatorsExample -->
 

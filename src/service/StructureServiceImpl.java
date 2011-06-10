@@ -58,15 +58,13 @@ public class StructureServiceImpl implements StructureService{
 	
 	
 	@Override
-	public Structure findStructureByIdUser(Integer id_user) {
-		
+	public Structure findStructureByIdUser(Integer id_user) {		
 		return this.getStructureMapper().findStructureByIdUser(id_user);
 	}
 
 
 	@Override
-	public Structure findStructureById(Integer id) {
-		
+	public Structure findStructureById(Integer id) {		
 		return this.getStructureMapper().findStructureById(id);
 	}
 
@@ -75,6 +73,14 @@ public class StructureServiceImpl implements StructureService{
 	public List<RoomFacility> findRoomFacilitiesByIdStructure(Structure structure) {
 		
 		return structure.getRoomFacilities();
+	}
+
+	
+	
+	@Override
+	public Integer updateStructure(Structure structure) {
+		
+		return this.getStructureMapper().updateStructure(structure);
 	}
 
 
@@ -907,14 +913,6 @@ public class StructureServiceImpl implements StructureService{
 		structFacility.setFileName("restaurant.png");
 		this.insertStructureFacility(structure,
 				structFacility);
-	}
-	
-	
-	
-	
-	
-	
-	
-	
+	}	
 
 }
