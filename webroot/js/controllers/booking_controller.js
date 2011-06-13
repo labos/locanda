@@ -70,8 +70,8 @@ $(function () {
         	this.guest = new Controller.Guest();
             this.alertOK = $.i18n("congratulation");
             this.alertKO = $.i18n("warning");
-            
-            var ONE_DAY = 1000 * 60 * 60 * 24; /* booking section initialization */
+            var ONE_DAY = 1000 * 60 * 60 * 24;            
+ /* booking section initialization */
             $(".datepicker").datepicker({
                 showOn: "button",
                 buttonImage: "images/calendar.gif",
@@ -90,8 +90,6 @@ $(function () {
                     $("#booking_duration").val(numNights);
                 }
             });
-            
-            
             
             this.guest.getCustomers("input[name='booking.booker.lastName']"); 
             
@@ -493,8 +491,13 @@ $(function () {
                                     added.find(".erase_" + selector + "").click(function () {
                                         $(this).closest("." + selector + "_row").remove();
                                     });
-                                }
+                                }                                
                             }
+                            if (($clicked.is("select#booking_duration") || $clicked.is("select#nr_guests"))) {
+                               
+                                self.displayQuantitySelect($('input:checkbox[name="bookingExtraIds"]'));
+                            }
+                            
                             $("#price_room").html(roomSubTotal);
                             $("#extras_room").html(extraSubTotal);
                             $('input:hidden[name="booking.subtotal"]').val(subTotal);
