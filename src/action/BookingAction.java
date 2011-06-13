@@ -149,9 +149,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		this.getBooking().setExtras(checkedExtras);
 		bookedExtraItems = this.calculateBookedExtraItems(structure, this.getBooking());
 		this.getBooking().setExtraItems(bookedExtraItems);		
-			
-		this.getMessage().setResult(Message.SUCCESS);
-		this.getMessage().setDescription("Price List Items updated successfully");
+		
 		return SUCCESS;		
 	}
 	
@@ -253,8 +251,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 						this.getStructureService().calculateExtraItemUnitaryPrice(structure, booking.getDateIn(), booking.getDateOut(), booking.getRoom().getRoomType(), booking.getConvention(), each));
 				
 			}else{
-				bookedExtraItem.setMaxQuantity(booking
-						.calculateExtraItemMaxQuantity(each));
+				bookedExtraItem.setMaxQuantity(booking.calculateExtraItemMaxQuantity(each));
 				bookedExtraItem.setUnitaryPrice(
 						this.getStructureService().calculateExtraItemUnitaryPrice(structure, booking.getDateIn(), booking.getDateOut(), booking.getRoom().getRoomType(), booking.getConvention(), each));	
 			}
@@ -433,7 +430,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 				return false;
 			}			
 		}		
-		this.getMessage().setDescription("Booking Dates OK!");
+		this.getMessage().setDescription(getText("bookingDatesOK"));
 		this.getMessage().setResult(Message.SUCCESS);
 		return true;
 	}

@@ -122,6 +122,8 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware{
 					}			
 			}
 		}
+		this.getMessage().setResult(Message.SUCCESS);
+		this.getMessage().setDescription(getText("priceListTreeSuccessAction"));
 		return SUCCESS;
 	}
 	
@@ -172,7 +174,7 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware{
 			oldRoomPriceList.updateItem(this.getPriceList().getItems().get(i));
 		}
 		this.getMessage().setResult(Message.SUCCESS);
-		this.getMessage().setDescription("Price List Items updated successfully");
+		this.getMessage().setDescription(getText("priceListUpdateSuccessAction"));
 		return SUCCESS;		
 	}
 	

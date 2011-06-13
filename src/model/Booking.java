@@ -7,14 +7,7 @@ import java.util.List;
 
 import org.apache.commons.lang.time.DateUtils;
 
-import service.StructureServiceImpl;
-
-import model.internal.Message;
 import model.listini.Convention;
-
-import model.listini.ExtraPriceList;
-import model.listini.ExtraPriceListItem;
-import model.listini.Season;
 
 public class Booking {
 	
