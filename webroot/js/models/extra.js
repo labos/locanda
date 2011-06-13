@@ -6,7 +6,7 @@
  * [Locanda.Models.Extra.static.destroy destroying], and
  * [Locanda.Models.Extra.static.create creating] extras.
  */
-$.Model.extend('Locanda.Models.Extra',
+$.Model.extend('Models.Extra',
 /* @Static */
 {
 	/**

@@ -1,0 +1,26 @@
+<h2>seasons</h2>
+<table cellspacing='0px'>
+	<thead>
+	<tr>
+		<% for(var attr in Locanda.Models.Season.attributes){%>
+			<% if(attr == 'id') continue;%>
+			<th><%= attr%> </th>	 
+		<%}%>
+		<th>Options</th>
+	</tr>
+	</thead>
+	<tbody>
+		<%= $.View('//locanda/views/season/list',{seasons: seasons})%>
+	</tbody>
+</table>
+<h2>New season</h2>
+<form>
+	<% for(var attr in Locanda.Models.Season.attributes){ %>
+		<% if(attr == 'id') continue;%>
+		<div>
+			<label><%= attr %> </label><br />
+			<input type="text" value="" name="<%= attr %>"/>
+		</div>
+	<%}%>
+	<input type='submit' value='Create'/>
+</form>

@@ -22,17 +22,9 @@ $(function() {
 							$(this).siblings('input[name="season.name"]').focus().css("border", "1px solid").removeAttr("readonly");
 						}, function () {
 							$('input[name="season.name"]').css("border", "none").attr("readonly", "true");
-						}); /* Add period management */
-						
-/*					$(".datepicker").datepicker({
-							showOn: "button",
-							buttonImage: "images/calendar.gif",
-							buttonImageOnly: true,
-							dateFormat: I18NSettings.datePattern
-						});*/
-					
-						
-						
+						}); 
+						/* Add period management */
+														
 						$(".add_period").click(function () {
 							//count the number of periods already added
 							var formParent = $(this).parents(".subcolumns");
@@ -42,6 +34,7 @@ $(function() {
 							// setup of cloned row to add
 							var added = $("#to_add_period").clone().insertAfter(dd).removeAttr("id").show();
 							added.html(added.html().replace(/__PVALUE__/ig, num_of_periods));
+
 							// attach listener to cloned row
 							// attach erase click
 							added.find(".erase_period").click(function () {

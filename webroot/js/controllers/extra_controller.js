@@ -39,18 +39,9 @@ $(function () {
             $(".renameExtra").click(function () { //gestisco il rename facendo comparire il form relativo
                 $(this).hide();
                 $(this).siblings(".extraName").hide();
-                $(this).siblings(".renameExtraForm").show();
-                $(this).siblings(".renameExtraForm").select();
+
             });
             
-            $(".renameExtraForm").blur(function () { //gestisco il blur per salvare la rinomina dell'extra
-					//memorizzo l'indice del div corrente usando il nome dell'extra
-                var newName = $(this).val(); //memorizzo il nome dell'extra modificato
-                $(this).hide();
-                $(".renameExtra").show(); //mostro il link di rinomina
-                $(this).siblings(".extraName").text(newName); //setto il nome dell'extra modificato
-                $(".extraName").show(); //mostro il nome dell'extra modificato
-            });
             
             //---  END EXTRAS SECTION CODE  
         }

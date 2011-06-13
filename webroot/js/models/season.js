@@ -1,94 +1,80 @@
 /**
  * @tag models, home
- * Wraps backend guest services.  Enables 
- * [Locanda.Models.Guest.static.findAll retrieving],
- * [Locanda.Models.Guest.static.update updating],
- * [Locanda.Models.Guest.static.destroy destroying], and
- * [Locanda.Models.Guest.static.create creating] guests.
+ * Wraps backend season services.  Enables 
+ * [Locanda.Models.Season.static.findAll retrieving],
+ * [Locanda.Models.Season.static.update updating],
+ * [Locanda.Models.Season.static.destroy destroying], and
+ * [Locanda.Models.Season.static.create creating] seasons.
  */
-$.Model.extend('Models.Guest',
+$.Model.extend('Models.Season',
 /* @Static */
 {
 	/**
- 	 * Retrieves guests data from your backend services.
+ 	 * Retrieves seasons data from your backend services.
  	 * @param {Object} params params that might refine your results.
- 	 * @param {Function} success a callback function that returns wrapped guest objects.
+ 	 * @param {Function} success a callback function that returns wrapped season objects.
  	 * @param {Function} error a callback function for an error in the ajax request.
  	 */
 	findAll: function( params, success, error ){
 		$.ajax({
-			url: 'findAllGuestsJson.action',
+			url: '/season',
 			type: 'get',
 			dataType: 'json',
 			data: params,
 			success: this.callback(['wrapMany',success]),
-			error: error
+			error: error,
+			fixture: "//locanda/fixtures/seasons.json.get" //calculates the fixture path from the url and type.
 		});
 	},
-	  findOne : function(params, success, error){
-		  
-		  
-			$.ajax({
-				url: 'findGuestById.action',
-				type: 'get',
-				dataType: 'json',
-				data: params,
-				success: success,
-				error: error
-			});
-		    
-		    
-		  },
-
 	/**
-	 * Updates a guest's data.
-	 * @param {String} id A unique id representing your guest.
-	 * @param {Object} attrs Data to update your guest with.
+	 * Updates a season's data.
+	 * @param {String} id A unique id representing your season.
+	 * @param {Object} attrs Data to update your season with.
 	 * @param {Function} success a callback function that indicates a successful update.
  	 * @param {Function} error a callback that should be called with an object of errors.
      */
 	update: function( id, attrs, success, error ){
 		$.ajax({
-			url: 'saveUpdateGuest.action/'+id,
+			url: '/seasons/'+id,
 			type: 'put',
 			dataType: 'json',
 			data: attrs,
 			success: success,
-			error: error
-			//,	fixture: "-restUpdate" //uses $.fixture.restUpdate for response.
+			error: error,
+			fixture: "-restUpdate" //uses $.fixture.restUpdate for response.
 		});
 	},
 	/**
- 	 * Destroys a guest's data.
- 	 * @param {String} id A unique id representing your guest.
+ 	 * Destroys a season's data.
+ 	 * @param {String} id A unique id representing your season.
 	 * @param {Function} success a callback function that indicates a successful destroy.
  	 * @param {Function} error a callback that should be called with an object of errors.
 	 */
 	destroy: function( id, success, error ){
 		$.ajax({
-			url: 'deleteGuest.action/'+id,
+			url: '/seasons/'+id,
 			type: 'delete',
 			dataType: 'json',
 			success: success,
-			error: error
-			//,	fixture: "-restDestroy" // uses $.fixture.restDestroy for response.
+			error: error,
+			fixture: "-restDestroy" // uses $.fixture.restDestroy for response.
 		});
 	},
 	/**
-	 * Creates a guest.
-	 * @param {Object} attrs A guest's attributes.
+	 * Creates a season.
+	 * @param {Object} attrs A season's attributes.
 	 * @param {Function} success a callback function that indicates a successful create.  The data that comes back must have an ID property.
 	 * @param {Function} error a callback that should be called with an object of errors.
 	 */
 	create: function( attrs, success, error ){
 		$.ajax({
-			url: 'saveUpdateGuest.action',
+			url: '/seasons',
 			type: 'post',
 			dataType: 'json',
 			success: success,
 			error: error,
-			data: attrs
-			//,fixture: "-restCreate" //uses $.fixture.restCreate for response.
+			data: attrs,
+			fixture: "-restCreate" //uses $.fixture.restCreate for response.
 		});
 	}
 },

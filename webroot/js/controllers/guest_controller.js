@@ -1,7 +1,7 @@
 $(function () {
     $.Class.extend('Controller.Guest', /* @prototype */ {
         init: function () {
-            
+            self = this;
         	/* Buttons rendering and event handler attachments */
             $(".btn_g_search").button({
                 icons: {
@@ -37,9 +37,8 @@ $(function () {
             });
             
             /* Add autocomplete functionality to input text for search */
-           // this.callback('getCustomers', ".txt_guest_search", "findAllGuests");
-            this.getCustomers(".txt_guest_search", "findAllGuests" );
-           // Guest.getCustomers(".txt_guest_search", "findAllGuests");
+           this.getCustomers(".txt_guest_search", "findAllGuests" );
+          
             
         },
         
@@ -85,37 +84,39 @@ $(function () {
                         else {
                             $('input[name="booking.booker.id"]').val(ui.item.id);
                             //send an ajax call to guest details retrieving
-                            $.ajax({
-                                url: "findGuestById.action",
-                                dataType: 'json',
-                                data: {
-                                    id: $('input[name="booking.booker.id"]').val()
-                                },
-                                success: function (response) {
-                                    if (response.message.result == "success") {
-                                        $("#phone").val(response.guest.phone);
-                                        $("#address").val(response.guest.address);
-                                        $("#country").val(response.guest.country);
-                                        $("#zipCode").val(response.guest.zipCode);
-                                        $("#email").val(response.guest.email);
-                                        $("#fname").val(response.guest.firstName);
-                                        $("#lname").val(response.guest.lastName);
-                                        $("#notes").val(response.guest.notes);
-                                    }
-                                    else {
-                                        $().notify($.i18n("warning"), $.i18n("listGuestsRetrive"));
-                                    }
-                                },
-                                error: function () {
-                                    //if you cannot retrieve the list of rooms then...
-                                    $().notify($.i18n("seriousError"), $.i18n("seriousErrorDescription"));
-                                }
-                            });
+                            Models.Guest.findOne({id: $('input[name="booking.booker.id"]').val()}, self.callback('findGuestByIdSuccess'),self.callback('findGuestByIdError'));
+
                         } //END ELSE tODO
                     }
                 }
             });
+            
+            //end autocomplete
+            
+        },
+        
+        findGuestByIdSuccess: function(response){
+            if (response.message.result == "success") {
+                $("#phone").val(response.guest.phone);
+                $("#address").val(response.guest.address);
+                $("#country").val(response.guest.country);
+                $("#zipCode").val(response.guest.zipCode);
+                $("#email").val(response.guest.email);
+                $("#fname").val(response.guest.firstName);
+                $("#lname").val(response.guest.lastName);
+                $("#notes").val(response.guest.notes);
+            }
+            else {
+                $().notify($.i18n("warning"), $.i18n("listGuestsRetrive"));
+            }
+        	
+        	
+        },
+        findGuestByIdError: function(data){
+            //if you cannot retrieve the list of rooms then...
+            $().notify($.i18n("seriousError"), $.i18n("seriousErrorDescription"));
         }
+        
         
         
     });
