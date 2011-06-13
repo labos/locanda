@@ -47,7 +47,7 @@
                 </div>
                 <div class="subcolumns">
                         <ul class="thumbs">
-        <s:iterator value="#eachRoomType.imageLists" var="eachImage" >
+        <s:iterator value="#eachRoomType.images" var="eachImage" >
         					<li>
 									<img width="45" height="45" alt="<s:property value="#eachImage.name" />" src="images/roomtype/<s:property value="#eachImage.fileName" />" />
 														

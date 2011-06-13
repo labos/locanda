@@ -8,25 +8,25 @@ public class RoomType {
 	private Integer id;
 	private String name;
 	private Integer maxGuests;
-	private List<Image> imageLists;
+	private List<Image> images;
 	private List<RoomFacility> roomTypeFacilities;
 	
 	
 	public RoomType(){
 		
-		this.imageLists = new ArrayList<Image>();
+		this.images = new ArrayList<Image>();
 		this.roomTypeFacilities = new ArrayList<RoomFacility>();
 	}
 	
 	
 	public Boolean addRoomTypeImage(Image roomTypeImage){
 		
-		return this.getImageLists().add(roomTypeImage);
+		return this.getImages().add(roomTypeImage);
 		
 	}
 	
 	public boolean deleteImage(Image aImage) {
-		return this.getImageLists().remove(aImage);
+		return this.getImages().remove(aImage);
 	}
 	
 	
@@ -84,11 +84,11 @@ public class RoomType {
 	public void setMaxGuests(Integer maxGuests) {
 		this.maxGuests = maxGuests;
 	}
-	public List<Image> getImageLists() {
-		return imageLists;
+	public List<Image> getImages() {
+		return images;
 	}
-	public void setImageLists(List<Image> imageLists) {
-		this.imageLists = imageLists;
+	public void setImages(List<Image> images) {
+		this.images = images;
 	}
 
 	public List<RoomFacility> getRoomTypeFacilities() {

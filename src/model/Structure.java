@@ -25,8 +25,7 @@ public class Structure implements Serializable {
 	private String notes;
 	
 	private List<Room> rooms;
-	private List<RoomType> roomTypes;
-	private TreeSet<Integer> keys;
+	private List<RoomType> roomTypes;	
 	private List<RoomFacility> roomFacilities;
 	private List<StructureFacility> structureFacilities;
 	private List<Guest> guests;
@@ -35,9 +34,10 @@ public class Structure implements Serializable {
 	private List<Season> seasons;
 	private List<RoomPriceList> roomPriceLists;
 	private List<ExtraPriceList> extraPriceLists;
-	private List<Image> imageLists;
+	private List<Image> images;
 	private List<Convention> conventions;
 	
+	private TreeSet<Integer> keys;
 	private Integer id_user;
 
 	
@@ -53,7 +53,7 @@ public class Structure implements Serializable {
 		this.setSeasons(new ArrayList<Season>());
 		this.setRoomPriceLists(new ArrayList<RoomPriceList>());
 		this.setExtraPriceLists(new ArrayList<ExtraPriceList>());
-		this.setImageLists(new ArrayList<Image>());
+		this.setImages(new ArrayList<Image>());
 		this.setRoomTypes(new ArrayList<RoomType>());
 		this.setStructureFacilities(new ArrayList<StructureFacility>());
 		this.setConventions(new ArrayList<Convention>());
@@ -208,11 +208,11 @@ public class Structure implements Serializable {
 	public void setRoomFacilities(List<RoomFacility> roomFacilities) {
 		this.roomFacilities = roomFacilities;
 	}
-	public List<Image> getImageLists() {
-		return imageLists;
+	public List<Image> getImages() {
+		return images;
 	}
-	public void setImageLists(List<Image> imageLists) {
-		this.imageLists = imageLists;
+	public void setImages(List<Image> images) {
+		this.images = images;
 	}
 	public List<StructureFacility> getStructureFacilities() {
 		return structureFacilities;

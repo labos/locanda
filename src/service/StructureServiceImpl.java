@@ -231,7 +231,7 @@ public class StructureServiceImpl implements StructureService{
 
 	@Override
 	public Image findImageById(Structure structure, Integer id) {
-		for(Image each: structure.getImageLists()){
+		for(Image each: structure.getImages()){
 			if(each.getId().equals(id)){
 				return each;
 			}
@@ -242,14 +242,14 @@ public class StructureServiceImpl implements StructureService{
 
 	@Override
 	public Integer insertImage(Structure structure, Image structureImage) {
-		structure.getImageLists().add(structureImage);
+		structure.getImages().add(structureImage);
 		return 1;
 	}
 
 
 	@Override
 	public Integer deleteImage(Structure structure, Image structureImage) {
-		structure.getImageLists().remove(structureImage);
+		structure.getImages().remove(structureImage);
 		return 1;
 	}
 

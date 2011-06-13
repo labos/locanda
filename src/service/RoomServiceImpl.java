@@ -76,7 +76,7 @@ public class RoomServiceImpl implements RoomService{
 		originalRoom.setRoomType(room.getRoomType());
 		originalRoom.setFacilities(room.getFacilities());
 		//la lista delle immagini gli viene aggiornata solo in occasione di ogni upload
-		//originalRoom.setImageLists(room.getImageLists());
+		//originalRoom.setImages(room.getImages());
 		return 1;
 	}
 

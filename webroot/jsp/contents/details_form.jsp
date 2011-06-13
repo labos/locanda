@@ -378,7 +378,7 @@
                  <div class="beautify">
                   <div class="subcolumns">
                        <ul class="thumbs">
-        <s:iterator value="structure.imageLists" var="eachImage" >
+        <s:iterator value="structure.images" var="eachImage" >
         					<li>
         					<h4><s:property value="#eachImage.name" /></h4>
 								<a title="<s:property value="#eachImage.name" />" href="#drop" class="thumb" rel="history">

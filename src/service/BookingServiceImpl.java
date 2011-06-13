@@ -26,9 +26,7 @@ public class BookingServiceImpl implements BookingService {
 		
 		return structure.getBookings();
 	}
-
-
-
+	
 	public Double calculateRoomSubtotalForBooking(Structure structure, Booking booking) {
 		Double ret = 0.0;
 		List<Date> bookingDates = null;
@@ -112,8 +110,7 @@ public class BookingServiceImpl implements BookingService {
 				ret.add(each);
 			}
 		}
-		return ret;
-		
+		return ret;		
 	}
 
 	

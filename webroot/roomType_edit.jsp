@@ -42,7 +42,7 @@
 		   	</div>
 		   	<div class="subcolumns">
         <ul class="thumbs">
-        <s:iterator value="roomType.imageLists" var="eachImage" >
+        <s:iterator value="roomType.images" var="eachImage" >
         					<li>
         					<h4><s:property value="#eachImage.name" /></h4>
 								<a title="<s:property value="#eachImage.name" />" href="#drop" class="thumb" rel="history">

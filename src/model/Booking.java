@@ -7,7 +7,14 @@ import java.util.List;
 
 import org.apache.commons.lang.time.DateUtils;
 
+import service.StructureServiceImpl;
+
+import model.internal.Message;
 import model.listini.Convention;
+
+import model.listini.ExtraPriceList;
+import model.listini.ExtraPriceListItem;
+import model.listini.Season;
 
 public class Booking {
 	
@@ -55,7 +62,6 @@ public class Booking {
 		if (DateUtils.truncatedCompareTo(this.getDateOut(), this.getDateIn(),
 				Calendar.DAY_OF_MONTH) <= 0) {
 			return false;
-
 		}
 		return ret;
 	}
@@ -118,9 +124,7 @@ public class Booking {
 			else ret = 1; //per Item
 		}
 		return ret;
-	}
-	
-	
+	}	
 	
 	public List<Date> calculateBookingDates(){	//crea un array di date, che corrispondono alla permanenza
 		List<Date> bookingDates = null; 
@@ -135,8 +139,7 @@ public class Booking {
 				i = i + 1;
 				current  = DateUtils.addDays(this.getDateIn(), i );
 			}	
-		}
-		
+		}		
 		return bookingDates;
 	}
 	

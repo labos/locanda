@@ -97,8 +97,8 @@ public class Room {
 	public List<Image> getImages() {
 		return images;
 	}
-	public void setImages(List<Image> imageLists) {
-		this.images = imageLists;
+	public void setImages(List<Image> images) {
+		this.images = images;
 	}	
 
 }
