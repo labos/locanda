@@ -93,9 +93,7 @@ $(function () {
         	  $().notify($.i18n("seriousError"), $.i18n("seriousErrorDescription"));
           }
     
-    
-    
-    
+
     
     });
     //---  END ACCOMODATION SECTION CODE 

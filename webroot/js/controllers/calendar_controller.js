@@ -1,6 +1,8 @@
 $(function() {
-    $.Class.extend('Calendar', /* @static */ {
+    $.Class.extend('Controller.Calendar', /* @prototype */ {
     	init: function () {
+    		var self = this;
+    		this.booking = null;
 
 var $calendar = $('#calendar');
 	var id = 10;
@@ -55,7 +57,7 @@ var $calendar = $('#calendar');
 					limitDisplay: true
 				},
 				daysToShow: 10,
-				//added by Alberto
+				
 				listRooms: list_rooms,
 				buttonText: {
 					today: $.i18n("today"),
@@ -88,14 +90,15 @@ var $calendar = $('#calendar');
 					var id_booked = calEvent.id_booked;
 					var id_room = calEvent.id;
 					var room_name = getRoomNameById(id_booked);
-					Guest.getCustomers("input[name='fullname']");
+					
+
 					$dialogContent.load("goAddBookingFromPlanner.action", {
 						'booking.room.id': id_booked,
 						'booking.dateIn': startField,
 						'booking.dateOut': endField
 					}, function () {
 						new Main(I18NSettings.lang, I18NSettings.datePattern);
-						new Booking(I18NSettings.lang, I18NSettings.datePattern);
+						this.booking = new Booking(I18NSettings.lang, I18NSettings.datePattern);
 						$(".btn_save").hide();
 						$(".btn_check_in").hide();
 					}).dialog({
@@ -152,10 +155,11 @@ var $calendar = $('#calendar');
 					}, function () {
 						$(this).removeClass("loaderback");
 						new Main(I18NSettings.lang, I18NSettings.datePattern);
-						new Booking(I18NSettings.lang, I18NSettings.datePattern);
+						this.booking = new Booking(I18NSettings.lang, I18NSettings.datePattern);
 						$(".btn_save").hide();
 					}).dialog({
 						open: function (event, ui) {
+							
 							//optionsLoc.init();
 						},
 						modal: true,
@@ -306,7 +310,9 @@ var $calendar = $('#calendar');
 		};
 		
 		
-    	}},/* @prototype */ {});
+    	}});
+    
+    new Controller.Calendar();
 		
 		
 });

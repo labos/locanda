@@ -67,8 +67,10 @@ $(function () {
     }, /* @prototype */ {
         init: function (lang, patternDate) {
         	var self = this;
+        	this.guest = new Controller.Guest();
             this.alertOK = $.i18n("congratulation");
             this.alertKO = $.i18n("warning");
+            
             var ONE_DAY = 1000 * 60 * 60 * 24; /* booking section initialization */
             $(".datepicker").datepicker({
                 showOn: "button",
@@ -89,7 +91,9 @@ $(function () {
                 }
             });
             
-            Guest.getCustomers("input[name='booking.booker.lastName']"); 
+            
+            
+            this.guest.getCustomers("input[name='booking.booker.lastName']"); 
             
 //			//controllo se i checkbox degli extra sono ceccati al caricamento della finestra modale
 //            if ($('input:checkbox[name="bookingExtraIds"]:checked')) {

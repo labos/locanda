@@ -1,6 +1,6 @@
 $(function () {
     //---  EXTRAS SECTION CODE   
-    $.Class.extend('Extra', /* @static */ {
+    $.Class.extend('Controller.Extra', /* @prototype */ {
         init: function () {
              
         	/* Buttons rendering and event handler attachments */
@@ -54,5 +54,7 @@ $(function () {
             
             //---  END EXTRAS SECTION CODE  
         }
-    }, {});
+    });
+    
+    new Controller.Extra();
 });

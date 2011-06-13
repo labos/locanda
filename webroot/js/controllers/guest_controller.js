@@ -1,8 +1,8 @@
 $(function () {
-    $.Class.extend('Guest', /* @static */ {
+    $.Class.extend('Controller.Guest', /* @prototype */ {
         init: function () {
             
-            
+        	/* Buttons rendering and event handler attachments */
             $(".btn_g_search").button({
                 icons: {
                     secondary: "ui-icon-arrowreturnthick-1-e"
@@ -37,8 +37,9 @@ $(function () {
             });
             
             /* Add autocomplete functionality to input text for search */
-            
-            Guest.getCustomers(".txt_guest_search", "findAllGuests");
+           // this.callback('getCustomers', ".txt_guest_search", "findAllGuests");
+            this.getCustomers(".txt_guest_search", "findAllGuests" );
+           // Guest.getCustomers(".txt_guest_search", "findAllGuests");
             
         },
         
@@ -117,5 +118,7 @@ $(function () {
         }
         
         
-    }, {});
+    });
+    
+    new Controller.Guest();
 });
