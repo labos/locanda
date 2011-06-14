@@ -12,8 +12,6 @@ import model.Guest;
 import model.Room;
 import model.RoomFacility;
 import model.Structure;
-import model.User;
-import model.internal.Message;
 import model.listini.Convention;
 
 import org.apache.commons.lang.time.DateUtils;
@@ -30,8 +28,6 @@ import service.ExtraService;
 import service.GuestService;
 import service.RoomService;
 import service.StructureService;
-import service.StructureServiceImpl;
-
 import com.opensymphony.xwork2.ActionSupport;
 
 @ParentPackage(value="default")
@@ -63,7 +59,6 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 	@Autowired
 	private ConventionService conventionService = null;
 	
-	
 	@Actions({
 		@Action(value="/goOnlineBookingCalendar",results = {
 				@Result(name="success",location="/jsp/online/widget1.jsp"),
@@ -71,13 +66,11 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 				@Result(name="input", location="/jsp/online/validationError.jsp")
 		})
 	})
-	
 	public String goOnlineBookingCalendar(){
 		
 		this.getSession().put("idStructure", this.getIdStructure());
 		return SUCCESS;
 	}
-	
 	
 	@Actions({
 		@Action(value="/goOnlineBookingRooms",results = {
@@ -95,8 +88,7 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 		this.setIdStructure((Integer) this.getSession().get("idStructure"));
 		structure = this.getStructureService().findStructureById(this.getIdStructure());
 		this.getStructureService().buildStructure(structure);
-		
-		
+			
 		rooms = this.getRoomService().findRoomsByIdStructure(structure);
 		this.setRooms(new ArrayList<Room>());
 		//remove not completed booking from the memory
@@ -114,10 +106,8 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 				each.setPrice( calculateTotalForBooking(each));
 				this.getRooms().add(each);
 			}
-			
 		}
 		
-
 		this.setRoomFacilities(this.getStructureService().findRoomFacilitiesByIdStructure(structure));
 		return SUCCESS;
 	}
@@ -129,7 +119,6 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 				@Result(name="input", location="/jsp/online/validationError.jsp")
 		})
 	})
-	
 	public String goOnlineBookingExtras(){
 		Structure structure = null;
 		Room theBookedRoom = null;
@@ -139,7 +128,6 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 		this.setIdStructure((Integer) this.getSession().get("idStructure"));
 		structure = this.getStructureService().findStructureById(this.getIdStructure());
 		this.getStructureService().buildStructure(structure);
-		
 		
 		theBookedRoom = this.getRoomService().findRoomById(structure,this.getRoomId());
 		this.setBooking(new Booking());
@@ -167,7 +155,6 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 				@Result(name="input", location="/jsp/online/validationError.jsp")
 		})
 	})
-	
 	public String goOnlineBookingGuest() {
 		Structure structure = null;
 		List<Extra> checkedExtras = null;
@@ -191,14 +178,12 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 			extraSubtotal = this.getBooking()
 					.calculateExtraSubtotalForBooking();
 			this.getBooking().setExtraSubtotal(extraSubtotal);
-
 		}
 		//this.getBookingService().updateBooking(structure, this.getBooking());
 		this.setRoomFacilities(this.getStructureService()
 				.findRoomFacilitiesByIdStructure(structure));
 		return SUCCESS;
 	}
-	
 	
 	@Actions({
 		@Action(value="/goOnlineBookingFinal",results = {
@@ -207,7 +192,6 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 				@Result(name="input", location="/jsp/online/validationError.jsp")
 		})
 	})
-	
 	public String goOnlineBookingFinal(){
 		Structure structure = null;
 		Guest oldGuest = null;
@@ -253,17 +237,13 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 	}
 
 	private Date calculateDateOut(){
-
 		Date dateOut = null;
 		
 		if(( this.getNumNight()!=null ) && ( this.getDateArrival()!=null )){
-
 			dateOut  = DateUtils.addDays(this.getDateArrival(), this.getNumNight() );	
-			
 		}		
 		return dateOut;
 	}
-	
 	
 	private Double calculateTotalForBooking(Room aRoom){
 		Structure structure = null;
@@ -283,13 +263,11 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 		aBooking.setConvention(defaultConvention);
 		subTotal = this.getBookingService().calculateRoomSubtotalForBooking(structure,aBooking);
 		return subTotal;
-		
 	}
 	
 	private List<BookedExtraItem> calculateBookedExtraItems(Structure structure, Booking booking){
 		BookedExtraItem bookedExtraItem = null;
 		List<BookedExtraItem> bookedExtraItems = null;
-		
 		
 		bookedExtraItems = new ArrayList<BookedExtraItem>();
 		for(Extra each: booking.getExtras()){
@@ -311,222 +289,133 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 	
 	private Boolean checkBookingIsValid (Booking booking){
 		
-	if(booking.getRoom() != null && booking.getId() != null && booking.getBooker() != null && booking.getDateIn() != null && booking.getDateOut() != null){
-		return true;
-	}
-		
-		return false;
+		if(booking.getRoom() != null && booking.getId() != null && booking.getBooker() != null 
+									 && booking.getDateIn() != null && booking.getDateOut() != null){
+			return true;
+		}
+			return false;
 	}
 	
 	public List<Extra> getExtras() {
 		return extras;
 	}
-
-
 	public void setExtras(List<Extra> extras) {
 		this.extras = extras;
 	}
-
-
 	public Guest getGuest() {
 		return guest;
 	}
-
-
 	public void setGuest(Guest guest) {
 		this.guest = guest;
 	}
-
-
 	public Date getDateArrival() {
 		return dateArrival;
 	}
-
-
 	public void setDateArrival(Date dateArrival) {
 		this.dateArrival = dateArrival;
 	}
-
-
-
-
-
 	public Integer getNumNight() {
 		return numNight;
 	}
-
-
-
-
 	public List<RoomFacility> getRoomFacilities() {
 		return roomFacilities;
 	}
-
-
 	public void setRoomFacilities(List<RoomFacility> roomFacilities) {
 		this.roomFacilities = roomFacilities;
 	}
-
-
 	public List<Room> getRooms() {
 		return rooms;
 	}
-
-
 	public void setRooms(List<Room> rooms) {
 		this.rooms = rooms;
 	}
-
-
-
 	public Map<String, Object> getSession() {
 		return session;
 	}
-
-
-
 	@Override
 	public void setSession(Map<String, Object> session) {
 		this.session = session;
-		
 	}
-
-
 	public Booking getBooking() {
 		return booking;
 	}
-
-
 	public void setBooking(Booking booking) {
 		this.booking = booking;
 	}
-
-
 	public Integer getId() {
 		return id;
 	}
-
-
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
-
 	public Integer getNumGuests() {
 		return numGuests;
 	}
-
-
 	public void setNumGuests(Integer numGuests) {
 		this.numGuests = numGuests;
 	}
-
-
 	public void setNumNight(Integer numNight) {
 		this.numNight = numNight;
 	}
-
-
 	public List<Integer> getBookingExtrasId() {
 		return bookingExtrasId;
 	}
-
-
 	public void setBookingExtrasId(List<Integer> bookingExtrasId) {
 		this.bookingExtrasId = bookingExtrasId;
 	}
-
-
 	public Integer getRoomId() {
 		return roomId;
 	}
-
-
 	public void setRoomId(Integer roomId) {
 		this.roomId = roomId;
 	}
-
-
 	public Integer getIdStructure() {
 		return idStructure;
 	}
-
-
 	public void setIdStructure(Integer idStructure) {
 		this.idStructure = idStructure;
 	}
-
-
 	public ExtraService getExtraService() {
 		return extraService;
 	}
-
-
 	public void setExtraService(ExtraService extraService) {
 		this.extraService = extraService;
 	}
-
-
 	public GuestService getGuestService() {
 		return guestService;
 	}
-
-
 	public void setGuestService(GuestService guestService) {
 		this.guestService = guestService;
 	}
-
-
 	public StructureService getStructureService() {
 		return structureService;
 	}
-
-
 	public void setStructureService(StructureService structureService) {
 		this.structureService = structureService;
 	}
-
-
 	public BookingService getBookingService() {
 		return bookingService;
 	}
-
-
 	public void setBookingService(BookingService bookingService) {
 		this.bookingService = bookingService;
 	}
-
-
 	public RoomService getRoomService() {
 		return roomService;
 	}
-
-
 	public void setRoomService(RoomService roomService) {
 		this.roomService = roomService;
 	}
-
-
 	public ConventionService getConventionService() {
 		return conventionService;
 	}
-
-
 	public void setConventionService(ConventionService conventionService) {
 		this.conventionService = conventionService;
 	}
-
-
 	public Structure getStructure() {
 		return structure;
 	}
-
-
 	public void setStructure(Structure structure) {
 		this.structure = structure;
 	}
 	
-	
-	
-
 }

@@ -4,20 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import model.Extra;
 import model.Image;
 import model.RoomFacility;
 import model.RoomType;
 import model.Structure;
 import model.User;
 import model.internal.Message;
-import model.listini.Convention;
-import model.listini.ExtraPriceList;
-import model.listini.ExtraPriceListItem;
-import model.listini.RoomPriceList;
-import model.listini.RoomPriceListItem;
-import model.listini.Season;
-
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Actions;
 import org.apache.struts2.convention.annotation.ParentPackage;
@@ -27,8 +19,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import service.RoomTypeService;
 import service.StructureService;
-import service.StructureServiceImpl;
-
 import com.opensymphony.xwork2.ActionSupport;
 
 @ParentPackage(value="default")
@@ -94,7 +84,6 @@ public class RoomTypeAction extends ActionSupport implements SessionAware{
 		RoomType oldRoomtype = null;
 		List<RoomFacility> checkedFacilities = null;
 		
-		
 		user = (User)session.get("user");
 		structure = user.getStructure();
 		
@@ -107,14 +96,14 @@ public class RoomTypeAction extends ActionSupport implements SessionAware{
 			this.getRoomTypeService().insertRoomType(structure, this.getRoomType());
 			this.getStructureService().refreshPriceLists(structure);
 			this.getMessage().setResult(Message.SUCCESS);
-			this.getMessage().setDescription("Room Type added successfully");
+			this.getMessage().setDescription(getText("roomTypeAddSuccessAction"));
 			
 		}else{
 			//Si tratta di un update
 			this.getRoomType().setRoomTypeFacilities(checkedFacilities);
 			this.getRoomTypeService().updateRoomType(structure, this.getRoomType());
 			this.getMessage().setResult(Message.SUCCESS);
-			this.getMessage().setDescription("Room Type updated successfully");
+			this.getMessage().setDescription(getText("roomTypeUpdateSuccessAction"));
 		}
 		return SUCCESS;		
 	}
@@ -139,26 +128,24 @@ public class RoomTypeAction extends ActionSupport implements SessionAware{
 		currentRoomType = this.getRoomTypeService().findRoomTypeById(structure,this.getRoomType().getId());
 		if(this.getRoomTypeService().removeRoomType(structure, currentRoomType) >0){
 			this.getMessage().setResult(Message.SUCCESS);
-			this.getMessage().setDescription("Room Type removed successfully");
+			this.getMessage().setDescription(getText("roomTypeDeleteSuccessAction"));
 			return SUCCESS;
 		}else{
 			this.getMessage().setResult(Message.ERROR);
-			this.getMessage().setDescription("Error deleting Room Type");
+			this.getMessage().setDescription(getText("roomTypeDeleteErrorAction"));
 			return ERROR;
 		}
 	}
-	
 	
 	@Actions({
 		@Action(value="/deletePhotoRoomType",results = {
 				@Result(type ="json",name="success", params={
 						"root","message"
-				} ),
+				}),
 				@Result(type ="json",name="error", params={
 						"root","message"
-				} )
+				})
 		})
-		
 	})
 	public String deletePhotoRoomType() {
 		User user = null; 
@@ -167,14 +154,15 @@ public class RoomTypeAction extends ActionSupport implements SessionAware{
 		
 		user = (User)this.getSession().get("user");
 		structure = user.getStructure();		
-		aRoomType = this.getRoomTypeService().findRoomTypeById(structure,this.getRoomType().getId());		
+		aRoomType = this.getRoomTypeService().findRoomTypeById(structure,this.getRoomType().getId());	
+		
 		if(aRoomType.deleteImage(this.getImage())){
 			this.getMessage().setResult(Message.SUCCESS);
-			this.getMessage().setDescription("La foto e' stata cancellata con successo");
+			this.getMessage().setDescription(getText("roomTypeImageDeleteSuccessAction"));
 			return "success";
 		}else{
 			this.getMessage().setResult(Message.ERROR);
-			this.getMessage().setDescription("Non e' stato possibile cancellare la foto");
+			this.getMessage().setDescription(getText("roomTypeImageDeleteErrorAction"));
 			return "error";
 		}		
 	}
@@ -222,22 +210,17 @@ public class RoomTypeAction extends ActionSupport implements SessionAware{
 	public void setRoomTypeFacilities(List<RoomFacility> roomTypeFacilities) {
 		this.roomTypeFacilities = roomTypeFacilities;
 	}
-
 	public StructureService getStructureService() {
 		return structureService;
 	}
-
 	public void setStructureService(StructureService structureService) {
 		this.structureService = structureService;
 	}
-
 	public RoomTypeService getRoomTypeService() {
 		return roomTypeService;
 	}
-
 	public void setRoomTypeService(RoomTypeService roomTypeService) {
 		this.roomTypeService = roomTypeService;
 	}
-	
 	
 }

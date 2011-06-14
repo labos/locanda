@@ -153,7 +153,6 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		return SUCCESS;		
 	}
 	
-	
 	@Actions({
 		@Action(value="/saveUpdateBooking",results = {
 				@Result(type ="json",name="success", params={
@@ -230,10 +229,9 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		//Salvare anche la convenzione
 		
 		this.getMessage().setResult(Message.SUCCESS);
-		this.getMessage().setDescription(getText("bookingModifiedAction"));
+		this.getMessage().setDescription(getText("bookingAddUpdateSuccessAction"));
 		return SUCCESS;
 	}
-	
 	
 	private List<BookedExtraItem> calculateBookedExtraItems(Structure structure, Booking booking){
 		BookedExtraItem bookedExtraItem = null;
@@ -391,7 +389,6 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		return SUCCESS;		
 	}	
 
-	
 	@Actions({
 		@Action(value="/checkBookingDates",results = {
 				@Result(type ="json",name="success", params={
@@ -446,7 +443,6 @@ public class BookingAction extends ActionSupport implements SessionAware{
 			}			
 		}
 		this.getBooking().setAdjustments(adjustmentsWithoutNulls);
-		
 	}
 	
 	private void filterPayments(){
@@ -495,11 +491,11 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		
 		if(this.getBookingService().deleteBooking(structure,this.getBooking())>0 ){
 			this.getMessage().setResult(Message.SUCCESS);
-			this.getMessage().setDescription(getText("bookingDeletedAction"));
+			this.getMessage().setDescription(getText("bookingDeleteSuccessAction"));
 			return "success";
 		}else{
 			this.getMessage().setResult(Message.ERROR);
-			this.getMessage().setDescription(getText("bookingDeletedErrorAction"));
+			this.getMessage().setDescription(getText("bookingDeleteErrorAction"));
 			return "error";
 		}		
 	}	
@@ -581,7 +577,6 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		return SUCCESS;		
 	}
 
-	
 	public Message getMessage() {
 		return message;
 	}
@@ -601,7 +596,6 @@ public class BookingAction extends ActionSupport implements SessionAware{
 	public void setSession(Map<String, Object> session) {
 		this.session = session;
 	}
-	
 	public Booking getBooking() {
 		return booking;
 	}
@@ -668,68 +662,47 @@ public class BookingAction extends ActionSupport implements SessionAware{
 	public void setConventions(List<Convention> conventions) {
 		this.conventions = conventions;
 	}
-
-
 	public Integer getIdStructure() {
 		return idStructure;
 	}
-
 	public void setIdStructure(Integer idStructure) {
 		this.idStructure = idStructure;
 	}
-
 	public ExtraService getExtraService() {
 		return extraService;
 	}
-
-
 	public void setExtraService(ExtraService extraService) {
 		this.extraService = extraService;
 	}
-
-
 	public GuestService getGuestService() {
 		return guestService;
 	}
-
-
 	public void setGuestService(GuestService guestService) {
 		this.guestService = guestService;
 	}
-
 	public StructureService getStructureService() {
 		return structureService;
 	}
-
 	public void setStructureService(StructureService structureService) {
 		this.structureService = structureService;
 	}
-
 	public BookingService getBookingService() {
 		return bookingService;
 	}
-
 	public void setBookingService(BookingService bookingService) {
 		this.bookingService = bookingService;
 	}
-
 	public RoomService getRoomService() {
 		return roomService;
 	}
-
 	public void setRoomService(RoomService roomService) {
 		this.roomService = roomService;
 	}
-
 	public ConventionService getConventionService() {
 		return conventionService;
 	}
-
 	public void setConventionService(ConventionService conventionService) {
 		this.conventionService = conventionService;
 	}
-	
-	
-	
 	
 }

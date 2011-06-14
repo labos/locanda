@@ -41,7 +41,6 @@ public class GuestAction extends ActionSupport implements SessionAware{
 		@Action(value="/findAllGuests",results = {
 				@Result(name="success",location="/guests.jsp")
 		}) 
-		
 	})
 	public String findAllGuests(){
 		User user = null;
@@ -54,7 +53,6 @@ public class GuestAction extends ActionSupport implements SessionAware{
 						structure.getId()));
 		return SUCCESS;		
 	}
-	
 	
 	@Actions({
 
@@ -86,12 +84,10 @@ public class GuestAction extends ActionSupport implements SessionAware{
 					returnedGuests.add(guest);
 				}
 			}
-
 		}
 		this.setGuests(returnedGuests);
 		return SUCCESS;
 	}
-	
 	
 	@Actions({
 		@Action(value="/findAllGuestsByName",results = {
@@ -123,7 +119,6 @@ public class GuestAction extends ActionSupport implements SessionAware{
 		return SUCCESS;
 	}
 	
-	
 	@Actions({
 		@Action(value="/findGuestById",results = {
 				@Result(type ="json",name="success", params={
@@ -136,11 +131,9 @@ public class GuestAction extends ActionSupport implements SessionAware{
 	})	
 	public String findGuestById(){
 		User user = null;
-		Structure structure = null;
 		Guest aGuest = null;
 		
 		user = (User)session.get("user");
-		structure = user.getStructure();
 		
 		aGuest = this.getGuestService().findGuestById(this.getId());
 		if(aGuest != null){
@@ -149,7 +142,7 @@ public class GuestAction extends ActionSupport implements SessionAware{
 			return SUCCESS;
 		}
 		this.getMessage().setResult(Message.ERROR);
-		this.getMessage().setDescription("Guest not found!");
+		this.getMessage().setDescription(getText("guestNotFoundError"));
 		return ERROR;
 	}
 	
@@ -172,14 +165,12 @@ public class GuestAction extends ActionSupport implements SessionAware{
 		return SUCCESS;
 	}
 	
-	
 	@Actions({
 		@Action(value="/saveUpdateGuest",results = {
 				@Result(type ="json",name="success", params={
 						"root","message"
-				} )
-		})
-		
+				})
+		})	
 	})
 	public String saveUpdateGuest(){
 		User user = null;
@@ -195,127 +186,95 @@ public class GuestAction extends ActionSupport implements SessionAware{
 			//Si tratta di una aggiunta
 			this.getGuestService().insertGuest(this.getGuest());
 			this.getMessage().setResult(Message.SUCCESS);
-			this.getMessage().setDescription("Guest added successfully");
+			this.getMessage().setDescription(getText("guestAddSuccessAction"));
 			
 		}else{
 			//Si tratta di un update
 			this.getGuestService().updateGuest(this.getGuest());
 			this.getMessage().setResult(Message.SUCCESS);
-			this.getMessage().setDescription("Guest updated successfully");
+			this.getMessage().setDescription(getText("guestUpdateSuccessAction"));
 		}
 		return SUCCESS;		
 	}
-	
-	
-	
 	
 	@Actions({
 		@Action(value="/deleteGuest",results = {
 				@Result(type ="json",name="success", params={
 						"root","message"
-				} )
+				})
 		})
-		
 	})
 	public String deleteGuest(){
 		User user = null;
-		Structure structure = null;
-		Guest currentGuest = null;
 		
 		user = (User)session.get("user");
-		structure = user.getStructure();
 		
 		try{
 			this.getGuestService().deleteGuest(this.getId());
 			this.getMessage().setResult(Message.SUCCESS);
-			this.getMessage().setDescription("Guest removed successfully");
+			this.getMessage().setDescription(getText("guestDeleteSuccessAction"));
 			return SUCCESS;
 		}catch (Exception e) {
 			this.getMessage().setResult(Message.ERROR);
-			this.getMessage().setDescription("Error deleting guest");
+			this.getMessage().setDescription(getText("guestDeleteErrorAction"));
 			return ERROR;
 		}
-		
 	}
-	
-	
 
 	public Message getMessage() {
 		return message;
 	}
-
 	public void setMessage(Message message) {
 		this.message = message;
 	}
-
 	public Integer getId() {
 		return id;
 	}
-
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
 	public Map<String, Object> getSession() {
 		return session;
 	}
-
 	@Override
 	public void setSession(Map<String, Object> session) {
 		this.session = session;
-		
 	}
-
 	public List<Guest> getGuests() {
 		return guests;
 	}
-
 	public void setGuests(List<Guest> guests) {
 		this.guests = guests;
 	}
-
 	public Guest getGuest() {
 		return guest;
 	}
-
 	public void setGuest(Guest guest) {
 		this.guest = guest;
 	}
-
 	public List<Booking> getBookings() {
 		return bookings;
 	}
-
 	public void setBookings(List<Booking> bookings) {
 		this.bookings = bookings;
 	}
 	public String getTerm() {
 		return term;
 	}
-
 	public void setTerm(String term) {
 		this.term = term;
 	}
-
-
 	public GuestService getGuestService() {
 		return guestService;
 	}
-
-
 	public void setGuestService(GuestService guestService) {
 		this.guestService = guestService;
 	}
-
-
 	public BookingService getBookingService() {
 		return bookingService;
 	}
-
-
 	public void setBookingService(BookingService bookingService) {
 		this.bookingService = bookingService;
 	}
 	
-
 }

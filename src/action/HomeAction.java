@@ -19,7 +19,6 @@ public class HomeAction extends ActionSupport implements SessionAware{
 					@Result(name="logged",location="/homeLogged.jsp"),
 					@Result(name="notLogged", location="/homeNotLogged.jsp")				
 			})
-			
 	})
 	public String execute(){
 		String ret = "notLogged";
@@ -29,15 +28,12 @@ public class HomeAction extends ActionSupport implements SessionAware{
 		}
 		return ret;
 	}
-	
-	
-	
+
 	@Actions(value={
 			@Action(value="/goLogin", results={
 					@Result(name="logged",location="/homeLogged.jsp"),
 					@Result(name="notLogged",location="/login.jsp")				
-			})
-			
+			})	
 	})
 	public String goLogin(){
 
@@ -52,11 +48,9 @@ public class HomeAction extends ActionSupport implements SessionAware{
 	public Map<String, Object> getSession() {
 		return session;
 	}
-
 	@Override
 	public void setSession(Map<String, Object> session) {
 		this.session = session;
-		
 	}
 
 }

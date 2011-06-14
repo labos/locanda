@@ -1,25 +1,13 @@
 package action;
 
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.io.File;
-import java.io.IOException;
 
-import javax.servlet.ServletContext;
-
-import org.apache.commons.io.*;
-
-import model.Extra;
 import model.Image;
-import model.Room;
-import model.RoomFacility;
 import model.Structure;
 import model.StructureFacility;
 import model.User;
 import model.internal.Message;
 
-import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Actions;
 import org.apache.struts2.convention.annotation.ParentPackage;
@@ -67,12 +55,11 @@ public class StructureAction extends ActionSupport implements SessionAware {
 		@Action(value="/updateDetails",results = {
 				@Result(type ="json",name="success", params={
 						"root","message"
-				} ),
+				}),
 				@Result(type ="json",name="error", params={
 						"root","message"
-				} )
+				})
 		})
-		
 	})
 	
 	public String updateDetails() {
@@ -84,21 +71,19 @@ public class StructureAction extends ActionSupport implements SessionAware {
 		this.getStructureService().updateStructure(this.getStructure());
 		
 		this.getMessage().setResult(Message.SUCCESS);
-		this.getMessage().setDescription("Structure details modified succesfully");
+		this.getMessage().setDescription(getText("structureDetailsUpdatedSuccessAction"));
 		return SUCCESS;		
 	}
-	
 	
 	@Actions({
 		@Action(value="/updateAccount",results = {
 				@Result(type ="json",name="success", params={
 						"root","message"
-				} ),
+				}),
 				@Result(type ="json",name="error", params={
 						"root","message"
-				} )
+				})
 		})
-		
 	})
 	
 	public String updateAccount() {
@@ -107,19 +92,19 @@ public class StructureAction extends ActionSupport implements SessionAware {
 		user = (User)this.getSession().get("user");		
 		if ((this.getPassword().length() <= 5) && (this.getReTyped().length() <= 5) ){
 			this.getMessage().setResult(Message.ERROR);
-			this.getMessage().setDescription("Your password must be at least 5 characters");
+			this.getMessage().setDescription(getText("passwordLengthError"));
 			return ERROR;	
 		}
 		if (!this.getPassword().equals(this.getReTyped()) ){			
 			this.getMessage().setResult(Message.ERROR);
-			this.getMessage().setDescription("Passwords are different");
+			this.getMessage().setDescription(getText("passwordConfirmError"));
 			return ERROR;				
 		}
 		user.setPassword(this.getPassword());
 		this.getUserService().updateUser(user);
 		
 		this.getMessage().setResult(Message.SUCCESS);
-		this.getMessage().setDescription("Password modified succesfully");
+		this.getMessage().setDescription(getText("passwordUpdateSuccessAction"));
 		return SUCCESS;	
 	}
 	
@@ -127,12 +112,11 @@ public class StructureAction extends ActionSupport implements SessionAware {
 		@Action(value="/deleteImageStructure",results = {
 				@Result(type ="json",name="success", params={
 						"root","message"
-				} ),
+				}),
 				@Result(type ="json",name="error", params={
 						"root","message"
-				} )
+				})
 		})
-		
 	})
 	public String deleteImageStructure() {
 		User user = null;
@@ -144,26 +128,24 @@ public class StructureAction extends ActionSupport implements SessionAware {
 		
 		if (this.getStructureService().deleteImage(structure,anImage) > 0) {
 			this.getMessage().setResult(Message.SUCCESS);
-			this.getMessage().setDescription("Structure image deleted modified succesfully");			
+			this.getMessage().setDescription(getText("structureImageDeleteSuccessAction"));			
 			return SUCCESS;
 		}
 		else{
 			this.getMessage().setResult(Message.ERROR);
-			this.getMessage().setDescription("Error removing Image");
+			this.getMessage().setDescription(getText("structureImageDeleteErrorAction"));
 			return ERROR;
 		}
-		
 	}
-	
 	
 	@Actions({
 		@Action(value="/deleteStructureFacility",results = {
 				@Result(type ="json",name="success", params={
 						"root","message"
-				} ),
+				}),
 				@Result(type ="json",name="error", params={
 						"root","message"
-				} )
+				})
 		})
 		
 	})
@@ -177,81 +159,64 @@ public class StructureAction extends ActionSupport implements SessionAware {
 		aStructureFacility = this.getStructureService().findStructureFacilityById(structure,this.getImage().getId());
 		if ( this.getStructureService().deleteStructureFacility(structure, aStructureFacility )>0) {
 			this.getMessage().setResult(Message.SUCCESS);
-			this.getMessage().setDescription("Structure Facility deleted succesfully");			
+			this.getMessage().setDescription(getText("structureFacilityDeleteSuccessAction"));			
 			return SUCCESS;
 		}
 		else{
 			this.getMessage().setResult(Message.ERROR);
-			this.getMessage().setDescription("Error removing Structure Facility");
+			this.getMessage().setDescription(getText("structureFacilityDeleteErrorAction"));
 			return ERROR;
 		}
-		
 	}	
 
 	public Map<String, Object> getSession() {
 		return session;
 	}
-	
 	@Override
 	public void setSession(Map<String, Object> session) {
 		this.session = session;
 	}
-
 	public Message getMessage() {
 		return message;
 	}
-
 	public void setMessage(Message message) {
 		this.message = message;
 	}
 	public Structure getStructure() {
 		return structure;
 	}
-
 	public void setStructure(Structure structure) {
 		this.structure = structure;
 	}
-
 	public Image getImage() {
 		return image;
 	}
-
 	public void setImage(Image image) {
 		this.image = image;
 	}
-
 	public String getReTyped() {
 		return reTyped;
 	}
-
 	public String getPassword() {
 		return password;
 	}
-
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
 	public void setReTyped(String reTyped) {
 		this.reTyped = reTyped;
 	}
-
 	public StructureService getStructureService() {
 		return structureService;
 	}
-
 	public void setStructureService(StructureService structureService) {
 		this.structureService = structureService;
 	}
-
 	public UserService getUserService() {
 		return userService;
 	}
-
 	public void setUserService(UserService userService) {
 		this.userService = userService;
 	}
 	
-	
-
 }

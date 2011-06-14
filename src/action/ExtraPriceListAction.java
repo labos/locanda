@@ -63,22 +63,19 @@ public class ExtraPriceListAction extends ActionSupport implements SessionAware{
 		
 	})
 	public String goFindAllExtraPriceLists() {
-		
 		return SUCCESS;
 	}
-	
 	
 	@Actions({
 		@Action(value="/findAllExtraPriceLists",results = {
 				@Result(type ="json",name="success", params={
 						"root","treeNodes"
-				} ),
+				}),
 				@Result(type ="json",name="error", params={
 						"excludeProperties","session,seasonService"
-				} ),
+				}),
 				@Result(name="input", location = "/validationError.jsp" )
 		})
-		
 	})
 	public String findAllExtraPriceLists() {
 		User user = null;
@@ -171,20 +168,16 @@ public class ExtraPriceListAction extends ActionSupport implements SessionAware{
 			oldExtraPriceList.updateItem(this.getPriceList().getItems().get(i));
 		}
 		this.getMessage().setResult(Message.SUCCESS);
-		this.getMessage().setDescription("Price List Items updated successfully");
+		this.getMessage().setDescription(getText("priceListUpdateSuccessAction"));
 		return SUCCESS;		
 	}
-	
-	
-	
+
 	public Map<String, Object> getSession() {
 		return session;
 	}
-	
 	@Override
 	public void setSession(Map<String, Object> session) {
-		this.session = session;
-		
+		this.session = session;	
 	}
 	public Message getMessage() {
 		return message;
@@ -198,102 +191,71 @@ public class ExtraPriceListAction extends ActionSupport implements SessionAware{
 	public void setBooking(Booking booking) {
 		this.booking = booking;
 	}
-
 	public List<Integer> getBookingExtraIds() {
 		return bookingExtraIds;
 	}
-
 	public void setBookingExtraIds(List<Integer> bookingExtraIds) {
 		this.bookingExtraIds = bookingExtraIds;
 	}
-
 	public Integer getNumNights() {
 		return numNights;
 	}
-
 	public void setNumNights(Integer numNights) {
 		this.numNights = numNights;
 	}
-
 	public List<TreeNode> getTreeNodes() {
 		return treeNodes;
 	}
-
 	public void setTreeNodes(List<TreeNode> treeNodes) {
 		this.treeNodes = treeNodes;
 	}
-
 	public ExtraPriceList getPriceList() {
 		return priceList;
 	}
-
 	public void setPriceList(ExtraPriceList priceList) {
 		this.priceList = priceList;
 	}
-
 	public Integer getSeasonId() {
 		return seasonId;
 	}
-
 	public void setSeasonId(Integer seasonId) {
 		this.seasonId = seasonId;
 	}
-
 	public Integer getRoomTypeId() {
 		return roomTypeId;
 	}
-
 	public void setRoomTypeId(Integer roomTypeId) {
 		this.roomTypeId = roomTypeId;
 	}
-
 	public Integer getConventionId() {
 		return conventionId;
 	}
-
 	public void setConventionId(Integer conventionId) {
 		this.conventionId = conventionId;
 	}
-
-
 	public SeasonService getSeasonService() {
 		return seasonService;
 	}
-
-
 	public void setSeasonService(SeasonService seasonService) {
 		this.seasonService = seasonService;
 	}
-
-
 	public RoomTypeService getRoomTypeService() {
 		return roomTypeService;
 	}
-
-
 	public void setRoomTypeService(RoomTypeService roomTypeService) {
 		this.roomTypeService = roomTypeService;
 	}
-
-
 	public ConventionService getConventionService() {
 		return conventionService;
 	}
-
-
 	public void setConventionService(ConventionService conventionService) {
 		this.conventionService = conventionService;
 	}
-
-
 	public ExtraPriceListService getExtraPriceListService() {
 		return extraPriceListService;
 	}
-
-
 	public void setExtraPriceListService(ExtraPriceListService extraPriceListService) {
 		this.extraPriceListService = extraPriceListService;
 	}
-	
 	
 }

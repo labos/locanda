@@ -138,9 +138,6 @@ public class ExtraAction extends ActionSupport implements SessionAware{
 			this.getMessage().setDescription(getText("extraDeleteSuccessAction"));
 			return "error";
 		}
-		
-		
-		
 	}
 	
 	public void buildExtraPriceListFromExtra() {
@@ -185,19 +182,15 @@ public class ExtraAction extends ActionSupport implements SessionAware{
 	public void setExtra(Extra extra) {
 		this.extra = extra;
 	}
-
 	public ExtraService getExtraService() {
 		return extraService;
 	}
-
 	public void setExtraService(ExtraService extraService) {
 		this.extraService = extraService;
 	}
-
 	public ExtraPriceListService getExtraPriceListService() {
 		return extraPriceListService;
 	}
-
 	public void setExtraPriceListService(ExtraPriceListService extraPriceListService) {
 		this.extraPriceListService = extraPriceListService;
 	}	

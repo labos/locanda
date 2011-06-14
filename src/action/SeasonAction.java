@@ -60,11 +60,9 @@ public class SeasonAction extends ActionSupport implements SessionAware {
 	})
 	public String goUpdateSeason() {
 		User user = null;
-		Structure structure = null;
 		Season theSeason = null;
 		
 		user = (User) session.get("user");
-		structure = user.getStructure();
 		
 		theSeason = this.getSeasonService().findSeasonById(this.getId());
 		this.setSeason(theSeason);
@@ -85,7 +83,6 @@ public class SeasonAction extends ActionSupport implements SessionAware {
 		Season oldSeason = null;
 		List <Period> periodsWithoutNulls = null; 
 		
-		
 		user = (User) session.get("user");
 		structure = user.getStructure();
 		
@@ -94,28 +91,25 @@ public class SeasonAction extends ActionSupport implements SessionAware {
 			if ((currPeriod != null )){
 				periodsWithoutNulls.add(currPeriod);				
 			}
-			
 		}		
 		this.getSeason().setPeriods(periodsWithoutNulls);
-		
 		this.getSeason().setId_structure(structure.getId());
 		
 		oldSeason = this.getSeasonService().findSeasonById(this.getSeason().getId());
-		
 		if (oldSeason == null) {
 			// Si tratta di una nuova season
 			//Voglio settare l'anno della stagione con l'anno corrente
 			int currentYear = Calendar.getInstance().get(Calendar.YEAR);		
 			this.getSeason().setYear(currentYear);			
 			this.getSeasonService().insertSeason(this.getSeason());			
-			this.getMessage().setDescription("Season Added successfully");		
+			this.getMessage().setDescription(getText("seasonAddSuccessAction"));		
 		} else {
 			// Si tratta di un update di una season esistente
 			//workaround aspettando che la form di edit della season abbia anche il campo year
 			int currentYear = Calendar.getInstance().get(Calendar.YEAR);		
 			this.getSeason().setYear(currentYear);	
 			this.getSeasonService().updateSeason(this.getSeason());			
-			this.getMessage().setDescription("Season Updated successfully");			
+			this.getMessage().setDescription(getText("seasonUpdateSuccessAction"));			
 		}
 		this.getMessage().setResult(Message.SUCCESS);
 		return SUCCESS;
@@ -131,11 +125,11 @@ public class SeasonAction extends ActionSupport implements SessionAware {
 		try{
 			this.getSeasonService().deleteSeason(this.season.getId());
 			this.getMessage().setResult(Message.SUCCESS);
-			this.getMessage().setDescription("Season removed successfully");
+			this.getMessage().setDescription(getText("seasonDeleteSuccessAction"));
 			return SUCCESS;
 		}catch (Exception e) {
 			this.getMessage().setResult(Message.ERROR);
-			this.getMessage().setDescription("Error removing Season");
+			this.getMessage().setDescription(getText("seasonDeleteErrorAction"));
 			return ERROR;
 		}
 	}

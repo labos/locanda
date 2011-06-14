@@ -35,14 +35,11 @@ public class RoomFacilityAction extends ActionSupport implements SessionAware{
 	@Autowired
 	private RoomService roomService = null;
 	
-	
-	
 	@Actions({
 		@Action(value="/goUpdateRoomFacilities",results = {
 				@Result(name="success",location="/roomFacilities_edit.jsp")
 		})
 	})
-	
 	public String goUpdateRoomFacilities() {
 		User user = null;
 		Structure structure = null;
@@ -63,13 +60,10 @@ public class RoomFacilityAction extends ActionSupport implements SessionAware{
 				})					
 			})
 	})
-	
-	
 	public String updateRoomFacilities() {
 		User user = null;
 		Structure structure = null;
 		List<RoomFacility>  checkedFacilities = null;
-		String text =  null;
 		
 		user = (User)this.getSession().get("user");
 		structure = user.getStructure();
@@ -77,77 +71,58 @@ public class RoomFacilityAction extends ActionSupport implements SessionAware{
 		checkedFacilities = this.getStructureService().findRoomFacilitiesByIds(structure,this.getRoomFacilitiesIds());		
 		this.room.updateRoomFacilities(checkedFacilities);
 		this.getMessage().setResult(Message.SUCCESS);
-		text = "Facilities updated successfully";
-		this.getMessage().setDescription(text);
+		this.getMessage().setDescription(getText("facilitiesUpdatedSuccessAction"));
 		return SUCCESS;
 	}
-	
 		
 	public Map<String, Object> getSession() {
 		return session;
 	}
-	
 	@Override
 	public void setSession(Map<String, Object> session) {
-		this.session = session;
-		
+		this.session = session;	
 	}
-
 	public List<RoomFacility> getRoomFacilities() {
 		return roomFacilities;
 	}
-
 	public void setRoomFacilities(List<RoomFacility> roomFacilities) {
 		this.roomFacilities = roomFacilities;
 	}
-
 	public Integer getIdRoom() {
 		return idRoom;
 	}
-
 	public void setIdRoom(Integer idRoom) {
 		this.idRoom = idRoom;
 	}
-
 	public Room getRoom() {
 		return room;
 	}
-
 	public void setRoom(Room room) {
 		this.room = room;
 	}
-
 	public Message getMessage() {
 		return message;
 	}
-
 	public void setMessage(Message message) {
 		this.message = message;
 	}
-
 	public List<Integer> getRoomFacilitiesIds() {
 		return roomFacilitiesIds;
 	}
-
 	public void setRoomFacilitiesIds(List<Integer> roomFacilitiesIds) {
 		this.roomFacilitiesIds = roomFacilitiesIds;
 	}
-
 	public StructureService getStructureService() {
 		return structureService;
 	}
-
 	public void setStructureService(StructureService structureService) {
 		this.structureService = structureService;
 	}
-
 	public RoomService getRoomService() {
 		return roomService;
 	}
-
 	public void setRoomService(RoomService roomService) {
 		this.roomService = roomService;
 	}
-	
-	
+		
 }

@@ -29,6 +29,7 @@ import service.RoomTypeService;
 import service.StructureService;
 
 import com.opensymphony.xwork2.ActionSupport;
+
 @ParentPackage(value="default")
 public class UploadAction extends ActionSupport implements SessionAware{
 	private Map<String, Object> session = null;
@@ -49,7 +50,6 @@ public class UploadAction extends ActionSupport implements SessionAware{
 	@Autowired
 	private RoomService roomService = null;
 	
-	
 	@Actions({
 		@Action(value="/uploadFacilityIF",results = {
 				@Result(name="success",location="/message_upload.jsp")
@@ -57,13 +57,12 @@ public class UploadAction extends ActionSupport implements SessionAware{
 		@Action(value="/uploadFacility",results = {
 				@Result(type ="json",name="success", params={
 						"excludeProperties", "session,upload,uploadFileName,uploadContentType,name,structureService,roomTypeService,roomService"
-						} ),
+						}),
 				@Result(type ="json",name="error", params={
 						"root","message"
-				} )
+				})
 		})
 	})
-
 	public String uploadFacility() throws IOException {
 		User user = null; 
 		ServletContext context = null; 
@@ -76,7 +75,7 @@ public class UploadAction extends ActionSupport implements SessionAware{
 		
 		if (this.getStructureService().findRoomFacilityByName(structure, this.getName()) != null){
 			message.setResult(Message.ERROR);
-			message.setDescription("Esiste già una facility con lo stesso nome");
+			message.setDescription(getText("facilityAlreadyPresentError"));
 			return ERROR;
 		};
 		
@@ -94,12 +93,9 @@ public class UploadAction extends ActionSupport implements SessionAware{
 		//structure.addRoomFacility(this.getRoomFacility());
 		this.getStructureService().addRoomFacility(structure, this.getRoomFacility());
 		
-		
 		message.setResult(Message.SUCCESS);
-		message.setDescription("Facility inserita correttamente!");
+		message.setDescription(getText("facilityAddSuccessAction"));
 		return SUCCESS;
-		
-	
 	}
 	
 	
@@ -110,13 +106,12 @@ public class UploadAction extends ActionSupport implements SessionAware{
 		@Action(value="/uploadStructureImage",results = {
 				@Result(type ="json",name="success", params={
 						"excludeProperties", "session,upload,uploadFileName,uploadContentType,name,structureService,roomTypeService,roomService"
-						} ),
+						}),
 				@Result(type ="json",name="error", params={
 						"root","message"
-				} )
+				})
 		})
 	})
-
 	public String uploadStructureImage() throws IOException {
 		User user = null; 
 		ServletContext context = null; 
@@ -129,7 +124,7 @@ public class UploadAction extends ActionSupport implements SessionAware{
 		
 		if (this.getStructureService().findRoomFacilityByName(structure, this.getName()) != null){
 			message.setResult(Message.ERROR);
-			message.setDescription("Esiste già una foto con lo stesso nome");
+			message.setDescription(getText("structureImageAlreadyPresentError"));
 			return ERROR;
 		}
 		
@@ -146,10 +141,8 @@ public class UploadAction extends ActionSupport implements SessionAware{
 		this.getStructureService().insertImage(structure, this.getImage());
 		
 		message.setResult(Message.SUCCESS);
-		message.setDescription("Foto inserita correttamente!");
+		message.setDescription(getText("structureImageAddSuccessAction"));
 		return SUCCESS;
-		
-	
 	}
 	
 	@Actions({
@@ -159,13 +152,12 @@ public class UploadAction extends ActionSupport implements SessionAware{
 		@Action(value="/uploadStructureFacility",results = {
 				@Result(type ="json",name="success", params={
 						"excludeProperties", "session,upload,uploadFileName,uploadContentType,name,structureService,roomTypeService,roomService"
-						} ),
+						}),
 				@Result(type ="json",name="error", params={
 						"root","message"
-				} )
+				})
 		})
 	})
-
 	public String uploadStructureFacility() throws IOException {
 		User user = null;
 		ServletContext context = null;
@@ -177,7 +169,7 @@ public class UploadAction extends ActionSupport implements SessionAware{
 		structure =user.getStructure();		
 		if (this.getStructureService().findRoomFacilityByName(structure, this.getName()) != null){
 			message.setResult(Message.ERROR);
-			message.setDescription("Esiste già una facility con lo stesso nome");
+			message.setDescription(getText("facilityAlreadyPresentError"));
 			return ERROR;
 		}
 		
@@ -185,7 +177,6 @@ public class UploadAction extends ActionSupport implements SessionAware{
 		imgPath = context.getRealPath("/")+ "images/struct_facilities/";
 		target = new File(imgPath + this.getUploadFileName());
 		FileUtils.copyFile(this.upload, target);
-		
 		
 		this.setStructureFacility(new StructureFacility());
 		this.getStructureFacility().setName(this.getName());
@@ -197,11 +188,8 @@ public class UploadAction extends ActionSupport implements SessionAware{
 		message.setResult(Message.SUCCESS);
 		message.setDescription("Facility inserita correttamente!");
 		return SUCCESS;		
-	
 	}
-	
-	
-	
+
 	@Actions({
 		@Action(value="/uploadRoomImageIF",results = {
 				@Result(name="success",location="/message_upload.jsp")
@@ -209,13 +197,12 @@ public class UploadAction extends ActionSupport implements SessionAware{
 		@Action(value="/uploadRoomImage",results = {
 				@Result(type ="json",name="success", params={
 						"excludeProperties", "session,upload,uploadFileName,uploadContentType,name,structureService,roomTypeService,roomService"
-						} ),
+						}),
 				@Result(type ="json",name="error", params={
 						"root","message"
-				} )
+				})
 		})
 	})
-
 	public String uploadRoomImage() throws IOException {
 		Room aRoom = null;
 		User user = null; 
@@ -229,14 +216,14 @@ public class UploadAction extends ActionSupport implements SessionAware{
 				
 		if (structure.hasRoomPhotoNamed(this.getName())) {
 			message.setResult(Message.ERROR);
-			message.setDescription("Esiste già una foto con lo stesso nome");
+			message.setDescription(getText("roomImageAlreadyPresentError"));
 			return ERROR;
 		};
 		
 		aRoom = this.getRoomService().findRoomById(structure,this.getRoom().getId());
 		if (aRoom == null){			
 			message.setResult(Message.ERROR);
-			message.setDescription("Non esiste la Room per l'aggiunta della foto");
+			message.setDescription(getText("roomImageNoRoomError"));
 			return ERROR;
 		}
 		
@@ -253,13 +240,9 @@ public class UploadAction extends ActionSupport implements SessionAware{
 		aRoom.addImage(this.getImage());
 					
 		message.setResult(Message.SUCCESS);
-		message.setDescription("Foto inserita correttamente!");
+		message.setDescription(getText("roomImageAddSuccessAction"));
 		return SUCCESS;
-		
-	
 	}
-	
-	
 	
 	@Actions({
 		@Action(value="/uploadRoomTypeImageIF",results = {
@@ -268,10 +251,10 @@ public class UploadAction extends ActionSupport implements SessionAware{
 		@Action(value="/uploadRoomTypeImage",results = {
 				@Result(type ="json",name="success", params={
 						"excludeProperties", "session,upload,uploadFileName,uploadContentType,name,structureService,roomTypeService,roomService"
-						} ),
+						}),
 				@Result(type ="json",name="error", params={
 						"root","message"
-				} )
+				})
 		})
 	})
 
@@ -288,13 +271,13 @@ public class UploadAction extends ActionSupport implements SessionAware{
 		
 		if (structure.hasRoomPhotoNamed(this.getName())) {
 			message.setResult(Message.ERROR);
-			message.setDescription("Esiste già una foto con lo stesso nome");
+			message.setDescription(getText("roomTypeImageAlreadyPresentError"));
 			return ERROR;
 		};
 		aRoomType = this.getRoomTypeService().findRoomTypeById(structure, this.getRoomType().getId());
 		if (aRoomType == null){			
 			message.setResult(Message.ERROR);
-			message.setDescription("Non esiste la RoomType per l'aggiunta della foto");
+			message.setDescription(getText("roomTypeImageNoRoomTypeError"));
 			return ERROR;
 		}
 		
@@ -313,12 +296,7 @@ public class UploadAction extends ActionSupport implements SessionAware{
 		message.setResult(Message.SUCCESS);
 		message.setDescription("Foto inserita correttamente!");
 		return SUCCESS;
-		
-	
 	}
-	
-	
-	
 	
 	@Actions({
 		@Action(value="/uploadRoomTypeFacilityIF",results = {
@@ -327,15 +305,13 @@ public class UploadAction extends ActionSupport implements SessionAware{
 		@Action(value="/uploadRoomTypeFacility",results = {
 				@Result(type ="json",name="success", params={
 						"excludeProperties", "session,upload,uploadFileName,uploadContentType,name,structureService,roomTypeService,roomService"
-						} ),
+						}),
 				@Result(type ="json",name="error", params={
 						"root","message"
-				} )
+				})
 		})
 	})
-
 	public String uploadRoomTypeFacility() throws IOException {
-		RoomType aRoomType = null;
 		User user = null; 
 		ServletContext context = null; 
 		String imgPath = null; 
@@ -347,7 +323,7 @@ public class UploadAction extends ActionSupport implements SessionAware{
 				
 		if (this.getStructureService().findRoomFacilityByName(structure, this.getName()) != null){
 			message.setResult(Message.ERROR);
-			message.setDescription("Esiste già una facility con lo stesso nome");
+			message.setDescription(getText("facilityAlreadyPresentError"));
 			return ERROR;
 		}
 		
@@ -364,165 +340,94 @@ public class UploadAction extends ActionSupport implements SessionAware{
 		this.getStructureService().addRoomFacility(structure, this.getRoomFacility());
 		
 		message.setResult(Message.SUCCESS);
-		message.setDescription("Logo inserito correttamente!");
+		message.setDescription(getText("logoAddSuccessAction"));
 		return SUCCESS;
-		
-	
 	}
 	
 	public Map<String, Object> getSession() {
 		return session;
 	}
-
-
-
 	@Override
 	public void setSession(Map<String, Object> session) {
 		this.session = session;
-		
 	}
-
-
-
 	public File getUpload() {
 		return upload;
 	}
-
-
-
 	public void setUpload(File upload) {
 		this.upload = upload;
 	}
-
-
-
 	public String getUploadFileName() {
 		return uploadFileName;
 	}
-
-
-
 	public void setUploadFileName(String uploadFileName) {
 		this.uploadFileName = uploadFileName;
 	}
-
-
-
 	public String getUploadContentType() {
 		return uploadContentType;
 	}
-
-
-
 	public void setUploadContentType(String uploadContentType) {
 		this.uploadContentType = uploadContentType;
 	}
-
-
-
 	public String getName() {
 		return name;
 	}
-
-
-
 	public void setName(String name) {
 		this.name = name;
 	}
-
-
-
 	public Message getMessage() {
 		return message;
 	}
-
-
-
 	public void setMessage(Message message) {
 		this.message = message;
 	}
-
-
-
 	public RoomFacility getRoomFacility() {
 		return roomFacility;
 	}
-
-
-
 	public void setRoomFacility(RoomFacility roomFacility) {
 		this.roomFacility = roomFacility;
 	}
-
-
 	public Image getImage() {
 		return image;
 	}
-
-
 	public void setImage(Image image) {
 		this.image = image;
 	}
-
-
 	public StructureFacility getStructureFacility() {
 		return structureFacility;
 	}
-
-
 	public void setStructureFacility(StructureFacility structureFacility) {
 		this.structureFacility = structureFacility;
 	}
-
-
 	public Room getRoom() {
 		return room;
 	}
-
-
 	public void setRoom(Room room) {
 		this.room = room;
 	}
-
-
 	public RoomType getRoomType() {
 		return roomType;
 	}
-
-
 	public void setRoomType(RoomType roomType) {
 		this.roomType = roomType;
 	}
-
-
 	public StructureService getStructureService() {
 		return structureService;
 	}
-
-
 	public void setStructureService(StructureService structureService) {
 		this.structureService = structureService;
 	}
-
-
 	public RoomTypeService getRoomTypeService() {
 		return roomTypeService;
 	}
-
-
 	public void setRoomTypeService(RoomTypeService roomTypeService) {
 		this.roomTypeService = roomTypeService;
 	}
-
-
 	public RoomService getRoomService() {
 		return roomService;
 	}
-
-
 	public void setRoomService(RoomService roomService) {
 		this.roomService = roomService;
 	}
-	
 
 }

@@ -16,8 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import service.ConventionService;
 import service.StructureService;
-import service.StructureServiceImpl;
-
 import com.opensymphony.xwork2.ActionSupport;
 
 @ParentPackage(value="default")
@@ -88,14 +86,14 @@ public class ConventionAction extends ActionSupport implements SessionAware{
 			this.getConventionService().insertConvention(structure, this.getConvention());
 			this.getStructureService().refreshPriceLists(structure);
 			this.getMessage().setResult(Message.SUCCESS);
-			this.getMessage().setDescription(getText("conventionSuccessAddedAction"));
+			this.getMessage().setDescription(getText("conventionAddSuccessAction"));
 			
 		}else{
 			//Si tratta di un update
 			//structure.updateConvention(this.getConvention());
 			this.getConventionService().updateConvention(structure, this.getConvention());
 			this.getMessage().setResult(Message.SUCCESS);
-			this.getMessage().setDescription(getText("conventionUpdatedSuccessAction"));
+			this.getMessage().setDescription(getText("conventionUpdateSuccessAction"));
 		}
 		return SUCCESS;		
 	}
@@ -119,11 +117,11 @@ public class ConventionAction extends ActionSupport implements SessionAware{
 		currentConvention = this.getConventionService().findConventionById(structure,this.getConvention().getId());
 		if(this.getConventionService().deleteConvention(structure,currentConvention)>0){
 			this.getMessage().setResult(Message.SUCCESS);
-			this.getMessage().setDescription(getText("conventionRemoveSuccessAction"));
+			this.getMessage().setDescription(getText("conventionDeleteSuccessAction"));
 			return SUCCESS;
 		}else{
 			this.getMessage().setResult(Message.ERROR);
-			this.getMessage().setDescription(getText("conventionRemoveErrorAction"));
+			this.getMessage().setDescription(getText("conventionDeleteErrorAction"));
 			return ERROR;
 		}
 	}
@@ -153,22 +151,17 @@ public class ConventionAction extends ActionSupport implements SessionAware{
 	public void setMessage(Message message) {
 		this.message = message;
 	}
-
 	public StructureService getStructureService() {
 		return structureService;
 	}
-
 	public void setStructureService(StructureService structureService) {
 		this.structureService = structureService;
 	}
-
 	public ConventionService getConventionService() {
 		return conventionService;
 	}
-
 	public void setConventionService(ConventionService conventionService) {
 		this.conventionService = conventionService;
 	}
-	
-	
+
 }

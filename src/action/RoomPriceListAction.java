@@ -1,7 +1,6 @@
 package action;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -10,8 +9,6 @@ import java.util.Set;
 import javax.servlet.ServletContext;
 
 import model.Booking;
-import model.Extra;
-import model.Room;
 import model.RoomType;
 import model.Structure;
 import model.User;
@@ -21,7 +18,6 @@ import model.listini.Convention;
 import model.listini.RoomPriceList;
 import model.listini.Season;
 
-import org.apache.commons.lang.time.DateUtils;
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Actions;
@@ -46,7 +42,6 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware{
 	private Integer numNights;
 	private List<TreeNode> treeNodes = new ArrayList<TreeNode>();
 	private RoomPriceList priceList = null;
-	
 	private Integer seasonId = null;
 	private Integer roomTypeId = null;
 	private Integer conventionId = null;
@@ -65,6 +60,7 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware{
 		}) 
 	})
 	public String goFindAllRoomPriceLists() {
+		
 		return SUCCESS;
 	}
 	
@@ -86,7 +82,6 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware{
 		ServletContext context = null;
 		String webappPath = null;
 		
-		
 		user = (User)this.getSession().get("user");
 		structure = user.getStructure();
 		years = new HashSet<Integer>();
@@ -99,9 +94,7 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware{
 		for (Integer eachYear : years) {							//costruisco i nodi di primo livello - gli anni
 			this.getTreeNodes().add(TreeNode.buildNode(eachYear.toString()));
 		}
-		
 		for (TreeNode eachNode1 : this.getTreeNodes()) {						//per ogni anno costruisco i nodi di secondo livello - le stagioni
-			
 			List<Season> perYearSeasons = this.getSeasonService().findSeasonsByYear(structure.getId(),Integer.parseInt(eachNode1.getData().getTitle()));	//tutte le stagioni di quell'anno
 			for (Season eachYearSeason : perYearSeasons) {
 				eachNode1.buildChild(eachYearSeason.getName());
@@ -112,7 +105,6 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware{
 				}
 					for (TreeNode eachNode3 : eachNode2.getChildren()) {//per ogni roomType costruisco i nodi di quarto livello - le convenzioni
 						for (Convention aConvention : this.getConventionService().findConventionsByIdStructure(structure)) {
-							
 							String href = webappPath + "/findRoomPriceListItems" +
 							"?seasonId=" + this.getSeasonService().findSeasonByName(structure.getId(),eachNode2.getData().getTitle()).getId() + 
 							"&roomTypeId=" + this.getRoomTypeService().findRoomTypeByName(structure,eachNode3.getData().getTitle()).getId() +
@@ -178,7 +170,6 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware{
 		return SUCCESS;		
 	}
 	
-	
 	public Map<String, Object> getSession() {
 		return session;
 	}
@@ -240,38 +231,29 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware{
 	public void setConventionId(Integer conventionId) {
 		this.conventionId = conventionId;
 	}
-
 	public SeasonService getSeasonService() {
 		return seasonService;
 	}
-
 	public void setSeasonService(SeasonService seasonService) {
 		this.seasonService = seasonService;
 	}
-
 	public RoomPriceListService getRoomPriceListService() {
 		return roomPriceListService;
 	}
-
 	public void setRoomPriceListService(RoomPriceListService roomPriceListService) {
 		this.roomPriceListService = roomPriceListService;
 	}
-
 	public RoomTypeService getRoomTypeService() {
 		return roomTypeService;
 	}
-
 	public void setRoomTypeService(RoomTypeService roomTypeService) {
 		this.roomTypeService = roomTypeService;
 	}
-
 	public ConventionService getConventionService() {
 		return conventionService;
 	}
-
 	public void setConventionService(ConventionService conventionService) {
 		this.conventionService = conventionService;
 	}
-	
 	
 }
