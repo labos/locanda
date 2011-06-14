@@ -1,6 +1,6 @@
 $(function () {
     //---  PRICE LISTS SECTION CODE
-    $.Class.extend('Tree', /* @static */ {
+    $.Class.extend('Controller.Tree', /* @prototype */ {
         init: function () {
         	
             $("#priceList_buttons").hide();
@@ -84,6 +84,8 @@ $(function () {
                 "plugins": ["themes", "json_data"]
             });
         }
-    }, {});
-    //---  END PRICE LISTS SECTION CODE 
+    });
+    
+    new Controller.Tree();
+    
 });

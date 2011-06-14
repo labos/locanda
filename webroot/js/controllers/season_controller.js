@@ -1,7 +1,7 @@
 $(function() {
 	
 	
-	 $.Class.extend('Season',
+	 $.Class.extend('Controller.Season',
 			 
 			 /* @static */
 				  {
@@ -67,5 +67,5 @@ $(function() {
 
 	//---  END SEASONS SECTION CODE 
 	 
-	 new Season(I18NSettings.lang, I18NSettings.datePattern);
+	 new Controller.Season(I18NSettings.lang, I18NSettings.datePattern);
 });

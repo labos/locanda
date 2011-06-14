@@ -1,5 +1,5 @@
 $(function () {
-    $.Class.extend('Online', /* @static */ {
+    $.Class.extend('Controller.Online', /* @prototype */ {
         init: function () {
         	
             /* Hide/Show usable parameters */
@@ -25,5 +25,7 @@ $(function () {
             });
             //---  END ONLINE BOOKINGS SECTION CODE
         }
-    }, {});
+    });
+    
+    new Controller.Online();
 });

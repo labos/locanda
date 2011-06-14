@@ -71,7 +71,7 @@ $(function () {
             this.alertOK = $.i18n("congratulation");
             this.alertKO = $.i18n("warning");
             var ONE_DAY = 1000 * 60 * 60 * 24;            
- /* booking section initialization */
+            /* booking section initialization */
             $(".datepicker").datepicker({
                 showOn: "button",
                 buttonImage: "images/calendar.gif",
@@ -550,7 +550,7 @@ $(function () {
                 }
             });
         	
-        },
+        }
     
     
     
