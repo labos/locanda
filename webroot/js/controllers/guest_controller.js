@@ -1,7 +1,7 @@
 $(function () {
     $.Class.extend('Controller.Guest', /* @prototype */ {
         init: function () {
-            self = this;
+            var self = this;
         	/* Buttons rendering and event handler attachments */
             $(".btn_g_search").button({
                 icons: {

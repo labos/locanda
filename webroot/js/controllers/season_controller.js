@@ -32,12 +32,14 @@ $(function() {
 							// get last subcolumns
 							var dd = formParent.siblings(".subcolumns:last");
 							// setup of cloned row to add
-							var added = $("#to_add_period").clone().insertAfter(dd).removeAttr("id").show();
-							added.html(added.html().replace(/__PVALUE__/ig, num_of_periods));
+							var added = new EJS({url: 'js/views/season/show.ejs'}).render({index: num_of_periods});
+							$added = $(added);
+							$added.insertAfter(dd);
 
+							
 							// attach listener to cloned row
 							// attach erase click
-							added.find(".erase_period").click(function () {
+							$added.find(".erase_period").click(function () {
 								$(this).closest(".subcolumns").remove();
 							});
 							$(".rename_season").toggle(function () {
@@ -46,8 +48,8 @@ $(function() {
 								$('input[name="season.name"]').css("border", "none").attr("readonly", "true");
 							});
 							// attack datepickers
-							added.find(".adddatepicker").removeClass('hasDatepicker').datepicker("destroy");
-							added.find(".adddatepicker").datepicker({
+							$added.find(".adddatepicker").removeClass('hasDatepicker').datepicker("destroy");
+							$added.find(".adddatepicker").datepicker({
 								showOn: "button",
 								buttonImage: "images/calendar.gif",
 								buttonImageOnly: true,

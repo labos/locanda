@@ -269,7 +269,7 @@ $(function () {
                 var selector = $(this).getSelector();
                 //count the number of periods already added
                 var formParent = $(this).parents(".type-text");
-                var num_of_items = formParent.siblings(".adjustment_row").size();
+                var num_of_items = (selector =='adjustment') ? formParent.siblings(".adjustment_row").size() : formParent.siblings(".payment_row").size();
                 // get last subcolumns
                 var dd = formParent.siblings("." + selector + "_row:last").length ? formParent.siblings("." + selector + "_row:last") : formParent;
                 // setup of cloned row to add
