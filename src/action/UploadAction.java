@@ -186,7 +186,7 @@ public class UploadAction extends ActionSupport implements SessionAware{
 		this.getStructureService().insertStructureFacility(structure, this.getStructureFacility());
 		
 		message.setResult(Message.SUCCESS);
-		message.setDescription("Facility inserita correttamente!");
+		message.setDescription(getText("facilityAddSuccessAction"));
 		return SUCCESS;		
 	}
 
@@ -294,7 +294,7 @@ public class UploadAction extends ActionSupport implements SessionAware{
 		aRoomType.addRoomTypeImage(this.getImage());
 				
 		message.setResult(Message.SUCCESS);
-		message.setDescription("Foto inserita correttamente!");
+		message.setDescription(getText("facilityImageAddSuccessAction"));
 		return SUCCESS;
 	}
 	
