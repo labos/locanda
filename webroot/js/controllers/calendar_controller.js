@@ -100,6 +100,7 @@ var $calendar = $('#calendar');
 						new Main(I18NSettings.lang, I18NSettings.datePattern);
 						this.booking = new Booking(I18NSettings.lang, I18NSettings.datePattern);
 						$(".btn_save").hide();
+						$(".canc_booking").hide();
 						$(".btn_check_in").hide();
 					}).dialog({
 						open: function (event, ui) {
@@ -157,6 +158,7 @@ var $calendar = $('#calendar');
 						new Main(I18NSettings.lang, I18NSettings.datePattern);
 						this.booking = new Booking(I18NSettings.lang, I18NSettings.datePattern);
 						$(".btn_save").hide();
+						$(".canc_booking").hide();
 					}).dialog({
 						open: function (event, ui) {
 							

@@ -87,9 +87,15 @@ $(document).ready(function () {
             });
             
             /* Add shared UI components */
-            $("#accordion,#accordion2").accordion({
+            $("#accordion").accordion({
                 collapsible: true,
                 active: false,
+                animated: 'bounceslide',
+                autoHeight: false
+            });
+            $("#accordion2").accordion({
+                collapsible: true,
+                active: 0,
                 animated: 'bounceslide',
                 autoHeight: false
             });

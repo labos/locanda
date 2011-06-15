@@ -731,7 +731,7 @@ var $newEventHor2 = $("<div class=\"wc-cal-event wc-new-cal-event wc-new-cal-eve
                var eventDuration = self._getEventDurationFromPositionedEventElement($weekDay, $newEvent, top);
 
                $newEvent.remove();
-               var newCalEvent = {start: eventDuration.start, end: eventDuration.end, title: options.newEventText, top:eventDuration.topY};
+               var newCalEvent = {readOnly: true, start: eventDuration.start, end: eventDuration.end, title: options.newEventText, top:eventDuration.topY};
               $renderedCalEvent = self._renderEvent(newCalEvent, $weekDay);
 
                if (!options.allowCalEventOverlap) {
@@ -768,7 +768,7 @@ $.each(self.day_booked, function(key,value){
                var eventDuration = self._getEventDetails($weekDay, $newEvent, top);
 
                $newEvent.remove();
-               var newCalEvent = {start: eventDuration.start, end: eventDuration.end, title: options.newEventText, top:eventDuration.topY};
+               var newCalEvent = {readOnly: true,start: eventDuration.start, end: eventDuration.end, title: options.newEventText, top:eventDuration.topY};
                $renderedCalEvent = self._renderEvent(newCalEvent, $weekDay);
 
                if (!options.allowCalEventOverlap) {

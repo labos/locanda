@@ -1,5 +1,5 @@
 $(function () {
-    $.Class.extend('Controller.Guest', /* @prototype */ {
+    $.Class.extend('Controllers.Guest', /* @prototype */ {
         init: function () {
             var self = this;
         	/* Buttons rendering and event handler attachments */
@@ -43,6 +43,7 @@ $(function () {
         },
         
         getCustomers : function (selector, onselectToDo) {
+        	var self = this;
             var cache = {},
                 lastXhr;
             var toDo = onselectToDo || null;
@@ -121,5 +122,5 @@ $(function () {
         
     });
     
-    new Controller.Guest();
+    new Controllers.Guest();
 });

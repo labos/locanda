@@ -79,20 +79,7 @@ display: none;
 							<div class="c20l">
                              
                              <div class="subcl type-select">
-                              <s:if test="booking.status == \"provisional\"">
-                              <!--  <input type="hidden" name="booking.status" value="provisional" />-->
-                              <button class="btn_check_in">CHECK IN</button>
-                              </s:if>
-                              <s:if test="booking.status == \"online\"">
-                              <button class="btn_check_in">CHECK IN</button>
-                              </s:if>
-                              <s:if test="booking.status == \"checkedin\"">
-                              <button class="btn_check_out">CHECK OUT</button>
-                              </s:if>
-                               <s:if test="booking.status == \"checkedout\"">
-                              <button class="btn_checked">CHECKED</button>
-                              </s:if>           
-                             <hr/>
+                             <!--
                              <label for="confirm"><s:text name="status" /></label>
                              <select name="booking.status" class="confirm" id="confirm">
                              <option selected="selected" value="<s:property value="booking.status" default="confirmed"/>"><s:text name="%{booking.status}"/></option>
@@ -101,7 +88,15 @@ display: none;
                              <option value="checkedin"><s:text name="checkedin" /></option>
                              <option value="checkedout"><s:text name="checkedout" /></option>
                              </select>
-                             </div>
+                               -->
+	                              <s:select label="%{getText('status')}"
+							        name="booking.status"
+							        list="#{'confirmed':getText('confirmed'), 'provisional':getText('provisional'), 'checkedin': getText('checkedin'), 'checkedout': getText('checkedout')}"
+									headerKey="booking.status"
+							        multiple="false"
+							        size="1"
+							        required="true"/>
+                                    </div>
                              </div>
                  </fieldset>         
               </div>
@@ -459,7 +454,8 @@ display: none;
                   	<div class="type-text"><hr/></div>
                   	<div class="type-text"><span class="green">&nbsp;<s:text name="adjustment" />: </span>
                   	  <div class="c50r">
-             			<a href="#bottom_anchor" class="add_adjustment" title="add adjustment"><img src="images/add-icon.png" alt="Add Adjustment" /><s:text name="addNewAdjustment" /></a>
+             			<a href="#adjustment_anchor" class="add_adjustment" title="add adjustment"><img src="images/add-icon.png" alt="Add Adjustment" /><s:text name="addNewAdjustment" /></a>
+              		  	<a name="adjustment_anchor"></a>
               		  </div>
               		</div>
               		<s:iterator value="booking.adjustments" var="eachAdjust" status="adjustStatus">
@@ -473,8 +469,7 @@ display: none;
                   	  	</div>
                   	  	<div class="c25r"><label>&nbsp;</label><a href="#" class="erase_adjustment" title="erase"><img src="images/delete.png" alt="Delete Adjustment" /><s:text name="deleteAdjustment" /></a></div>
                   	  </div>
-              		</s:iterator>
-              		<a name="bottom_anchor"></a> 
+              		</s:iterator> 
                  	<div class="type-text">
                  	  <span><s:text name="subtotal" />: </span><div class="c33r"><span class="subtotal_room" ><s:property value="%{ booking.roomSubtotal + booking.extraSubtotal + adjustmentsSubtotal}"/>
                  	  </span> &euro;<input type="hidden" id="subtotal_room" name="booking.subtotal" value="<s:property value="%{ booking.roomSubtotal + booking.extraSubtotal + adjustmentsSubtotal}"/>" /></div>
@@ -482,7 +477,8 @@ display: none;
                   	<div class="type-text"><hr/></div>
                     <div class="type-text"><span class="green">&nbsp;<s:text name="paymentReceived" />: </span>
                      	<div class="c50r">
-             			 	<a href="#bottom_anchor" class="add_payment" title="add payment"><img src="images/add-icon.png" alt="Add Payment" /><s:text name="addNewPayment" /></a>
+             			 	<a href="#payment_anchor" class="add_payment" title="add payment"><img src="images/add-icon.png" alt="Add Payment" /><s:text name="addNewPayment" /></a>
+              				<a name="payment_anchor"></a>
               			</div>
               		</div>
               		
@@ -526,6 +522,7 @@ display: none;
                   </fieldset>
               	  <div class="type-button">
                		<button class="btn_save"><s:text name="save" /></button>
+               		<a class="canc_booking" href="<s:property value="url_home"/>?sect=planner"><s:text name="cancel" /></a>
             	  </div>
                 </div>
               </div>

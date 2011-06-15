@@ -67,7 +67,7 @@
     <div class="page">
       <div id="header" role="banner">
         <div id="topnav" role="contentinfo" style="height: 25px; float: left;">
-        <span><a class="login-top" href="<s:property value="url_login"/>"><s:text name="loginSignup" /></a></span>
+        <div style="float: right;"><a class="login-top" href="<s:property value="url_login"/>"><s:text name="loginSignup" /></a></div>
         <div class="langMenu">
        	 <s:a href="%{localeIT}" cssClass="flag_it"></s:a>
          <s:a href="%{localeEN}" cssClass="flag_en"></s:a>
