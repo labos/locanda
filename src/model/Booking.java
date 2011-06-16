@@ -121,7 +121,7 @@ public class Booking {
 			else if (extra.getResourcePriceType().equals("per Person")) {
 				ret = this.getNrGuests();
 			}
-			else ret = 1; //per Item
+			else ret = 10; //per Item
 		}
 		return ret;
 	}	

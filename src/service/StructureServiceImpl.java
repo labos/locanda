@@ -207,24 +207,26 @@ public class StructureServiceImpl implements StructureService{
 		List<Booking> roomBookings = new ArrayList<Booking>();
 		
 		for(Booking each: this.getBookingService().findBookingsByIdStructure(structure)){
-			if( each.getRoom().getId().equals(booking.getRoom().getId()) && !each.equals(booking)    ){
+			if(each.getRoom().getId().equals(booking.getRoom().getId()) && !each.equals(booking)){
 				roomBookings.add(each);
 			}
 		}
-		//               dateIn |-------------------------| dateOut    
-		//       |------------------|    |---|     |---------------------------|    roomBookings
+		//              dateIn |--------------------------| dateOut    dateIn |--------| dateOut
+		//       |------------------|    |---|     |--------------------------------------|    roomBookings
 		//             aBooking         aBooking         aBooking
 		
 		for(Booking aBooking: roomBookings){
-			if(aBooking.getDateOut().after(booking.getDateIn()) && aBooking.getDateOut().before(booking.getDateOut())){
+			if(aBooking.getDateOut().after(booking.getDateIn()) && aBooking.getDateIn().before(booking.getDateOut())){
 				return false;
 			}
-			if(aBooking.getDateIn().after(booking.getDateIn()) && aBooking.getDateIn().before(booking.getDateOut())){
+			if(aBooking.getDateIn().before(booking.getDateOut()) && aBooking.getDateOut().after(booking.getDateIn())){
+				return false;
+			}
+			if (aBooking.getDateOut().after(booking.getDateOut()) && aBooking.getDateIn().before(booking.getDateIn())) {
 				return false;
 			}
 		}
-		return true;
-		
+		return true;	
 	}
 
 	
