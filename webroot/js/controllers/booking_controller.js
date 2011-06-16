@@ -422,7 +422,7 @@ $(function () {
         	var self = this;
             var formInput = $(clicked).parents().find(".yform.json").serialize();
             var $clicked = $(clicked);
-            var urlAction = urlValue || null;
+            var urlAction = urlValue || 'updateBookingInMemory';
             $.ajax({
                 type: "POST",
                 url: urlAction,
