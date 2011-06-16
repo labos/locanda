@@ -302,45 +302,6 @@ $(function () {
                 });
             });
             
-            /*
-            $('input[name="pay_value_adjustment[]"]').keyup(function () {
-                var current_parent = $(this).parents(".type-text"); 
-                // prepare selector string for class whit whitespaces 
-                var current_class_selector = $(this).attr("class").replace(new RegExp(" ", "g"), "."); 
-                // check if current was cloned 
-                var next_sibling = current_parent.next().find(".extra_value_adjustment");
-                var prova = next_sibling.size();
-                if (next_sibling && !next_sibling.size() > 0) {
-                    var copy_parent = current_parent.clone(true);
-                    var indexOfArray = $(this).attr("name");
-                    copy_parent.find(".green").remove();
-                    //copy_parent.find(this).val("0.0");
-                    copy_parent.find("input").val("");
-                    //copy_parent.find($(this)).bind('keyup',cloneEvent);
-                    copy_parent.insertAfter(current_parent);
-                    // $(this).unbind('keyup');
-                } 
-                // adjust subtotal ... 
-                var new_subtotal = null;
-                if (current_class_selector.indexOf("extra_value_adjustment") >= 0) {
-                    new_subtotal = parseInt($("#subtotal_room").val());
-                    new_balance = parseInt($("#balance_room").val());
-                     // code for calcute new subtotal
-                    $("." + current_class_selector).each(function (key, value) {
-                        if ($(value).valid()) {
-                            new_subtotal = new_subtotal + parseInt($(value).val());
-                        }
-                    });
-                    // show new subtotal value
-                    Booking.updateSubtotal(); 
-                    // end code for subtotal calculation
-                }
-                else {
-                    Booking.updateBalance();
-                }
-            });
-
-            */
             //update of dateOut changing num of nights.
             $("select[name='numNights']").change(function () {
                 $('input[name="booking.dateIn"]').rules("add", {
@@ -391,7 +352,7 @@ $(function () {
                     $(this).closest("." + selector + "_row").remove();
                 });
             }); /*ADD LISTENER FOR CHANGE ROOM OR DATEIN OR DATEOUT OR NUMNIGHTS FROM BOOKING*/
-            $('#sel_rooms_list, #booking_duration, input:text[name="booking.dateIn"], input:text[name="booking.dateOut"], #nr_guests, input:checkbox[name="bookingExtraIds"], #convention, .quantity').change(function () {
+            $('input:checkbox[name="bookingExtraIds"], #convention, .quantity').change(function () {
                 // check in room was selected
                 if (!(parseInt($('#sel_rooms_list').val()) > 0)) {
                     $().notify($.i18n("warning"), $.i18n("roomRequired"));
@@ -400,6 +361,32 @@ $(function () {
          			self.calculatePrice(this);
             });
 			
+            $('#sel_rooms_list').change(function () {
+                // check in room was selected
+                if (!(parseInt($('#sel_rooms_list').val()) > 0)) {
+                    $().notify($.i18n("warning"), $.i18n("roomRequired"));
+                    return;
+                }
+         			self.calculatePrice(this,'updateRoom.action');
+            });
+            
+            $('#booking_duration, input:text[name="booking.dateIn"], input:text[name="booking.dateOut"]').change(function () {
+                // check in room was selected
+                if (!(parseInt($('#sel_rooms_list').val()) > 0)) {
+                    $().notify($.i18n("warning"), $.i18n("roomRequired"));
+                    return;
+                }
+         			self.calculatePrice(this,'updateBookingDates.action');
+            });
+            
+            $('#nr_guests').change(function () {
+                // check in room was selected
+                if (!(parseInt($('#sel_rooms_list').val()) > 0)) {
+                    $().notify($.i18n("warning"), $.i18n("roomRequired"));
+                    return;
+                }
+         			self.calculatePrice(this,'updateNrGuests.action');
+            })
 			
             //---  BOOK SECTION CODE   
             $.ajaxSetup({
@@ -431,13 +418,14 @@ $(function () {
         },
 
         /* calculate new prices for booking */
-        calculatePrice: function (clicked){
+        calculatePrice: function (clicked, urlValue){
         	var self = this;
             var formInput = $(clicked).parents().find(".yform.json").serialize();
             var $clicked = $(clicked);
+            var urlAction = urlValue || null;
             $.ajax({
                 type: "POST",
-                url: "updateBookingInMemory.action",
+                url: urlAction,
                 data: formInput,
                 success: function (data_action) {
                     var title_notification = null;

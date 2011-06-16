@@ -80,7 +80,7 @@ $(function () {
                     if (ui.item) {
                         if (toDo == "findAllGuests") {
                             var name = ui.item.value;
-                            window.location.href = "findAllGuestsByName.action?term=" + name;
+                            window.location.href = "findAllGuestsByName.action?sect=guests&term=" + name;
                         }
                         else {
                             $('input[name="booking.booker.id"]').val(ui.item.id);
@@ -97,7 +97,7 @@ $(function () {
         },
         
         findGuestByIdSuccess: function(response){
-            if (response.message.result == "success") {
+            if (typeof response.message !== 'undefined' &&  response.message.result == "success") {
                 $("#phone").val(response.guest.phone);
                 $("#address").val(response.guest.address);
                 $("#country").val(response.guest.country);
