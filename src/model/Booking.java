@@ -152,6 +152,15 @@ public class Booking {
 		return ret;
 	}
 	
+	public void updateExtraSubtotal(){
+		Double extraSubtotal = 0.0;
+		
+		for (BookedExtraItem each : this.getExtraItems()) {
+			extraSubtotal = extraSubtotal + each.getSubtotal();
+			  }
+		this.setExtraSubtotal(extraSubtotal);
+	}
+	
 	public Boolean addExtra(Extra anExtra){
 		return this.getExtras().add(anExtra);
 	}
