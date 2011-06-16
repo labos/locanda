@@ -89,9 +89,21 @@ public class SeasonAction extends ActionSupport implements SessionAware {
 		periodsWithoutNulls = new ArrayList<Period>();
 		for (Period currPeriod : this.periods) {
 			if ((currPeriod != null )){
+				if (! currPeriod.checkDates()){
+					this.getMessage().setResult(Message.ERROR);
+					this.getMessage().setDescription(getText("dateOutMoreDateInAction"));
+					return ERROR;
+					
+				}
 				periodsWithoutNulls.add(currPeriod);				
 			}
-		}		
+		}
+		
+		if (!this.getStructureService().hasPeriodFreeForSeason(structure, periodsWithoutNulls)) {
+			this.getMessage().setResult(Message.ERROR);
+			this.getMessage().setDescription(getText("periodOverlappedAction"));
+			return ERROR;
+		}	
 		this.getSeason().setPeriods(periodsWithoutNulls);
 		this.getSeason().setId_structure(structure.getId());
 		

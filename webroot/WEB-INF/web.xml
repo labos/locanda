@@ -25,5 +25,9 @@
     <welcome-file-list>
         <welcome-file>home.jsp</welcome-file>
     </welcome-file-list>
+    
+	<session-config>
+    	<session-timeout>60</session-timeout>
+	</session-config>
 	
 </web-app>

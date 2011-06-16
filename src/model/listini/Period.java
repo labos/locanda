@@ -25,6 +25,15 @@ public class Period implements Serializable{
 		return false;
 	}	
 	
+	public Boolean checkDates() {
+		Boolean ret = true;
+
+		if (DateUtils.truncatedCompareTo(this.getEndDate(), this.getStartDate(),
+				Calendar.DAY_OF_MONTH) <= 0) {
+			return false;
+		}
+		return ret;
+	}
 	
 	public Integer getId() {
 		return id;

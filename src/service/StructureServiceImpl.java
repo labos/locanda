@@ -232,6 +232,41 @@ public class StructureServiceImpl implements StructureService{
 	
 
 	@Override
+	public Boolean hasPeriodFreeForSeason(Structure structure, List<Period> periods) {
+		//Estraggo i Booking della camera con roomId dato
+		List<Period> currentPeriods = new ArrayList<Period>();
+		
+		for(Season each: this.getSeasonService().findSeasonsByStructureId(structure.getId())){
+			
+			currentPeriods.addAll(each.getPeriods());
+
+		}
+		
+		for (Period period : periods) {
+			
+			for(Period aPeriod : currentPeriods){
+				if(aPeriod.getEndDate().after(period.getStartDate()) && aPeriod.getStartDate().before(period.getEndDate())){
+					return false;
+				}
+				if(aPeriod.getStartDate().before(period.getEndDate()) && aPeriod.getEndDate().after(period.getStartDate())){
+					return false;
+				}
+				if (aPeriod.getEndDate().after(period.getEndDate()) && aPeriod.getStartDate().before(period.getStartDate())) {
+					return false;
+				}
+			}
+			
+		}
+		//              dateIn |--------------------------| dateOut    dateIn |--------| dateOut
+		//       |------------------|    |---|     |--------------------------------------|    roomBookings
+		//             aBooking         aBooking         aBooking
+		
+		
+		return true;	
+	}
+	
+	
+	@Override
 	public Image findImageById(Structure structure, Integer id) {
 		for(Image each: structure.getImages()){
 			if(each.getId().equals(id)){
