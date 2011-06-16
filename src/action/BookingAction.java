@@ -821,8 +821,6 @@ public class BookingAction extends ActionSupport implements SessionAware{
 	}
 	
 	
-	
-	
 	//Evento updateRoom (cambia room)
 		//Se la categoria della camera cambia allora:
 			//-ricalcola prezzo room
@@ -884,8 +882,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 				booking.setNrGuests(numGuests);
 				//Se cambia il numero di guest devo aggiornare anche la quantità massima degli extra item
 				this.updateMaxQuantityInBookedExtraItems(structure, booking);
-			}
-			
+			}			
 			roomSubtotal = this.getBookingService().calculateRoomSubtotalForBooking(structure,booking);
 			booking.setRoomSubtotal(roomSubtotal);
 			
@@ -897,8 +894,6 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		
 		this.setBooking(booking);
 	}
-	
-	
 	
 	
 	//Evento updateNrGuests (cambia il numero di Guests)
@@ -960,7 +955,86 @@ public class BookingAction extends ActionSupport implements SessionAware{
 	//Evento changeExtraItemQuantity (viene cambiata la quantità di un extra già selezionato)
 		//cambia solo la quantità di un extra item e non cambia nient'altro
 		
+	@Actions({
+		@Action(value="/updateExtras",results = {
+				@Result(type ="json",name="success", params={
+						"excludeProperties","session,extraService,guestService,structureService,bookingService,roomService,conventionService"
+				}),
+				@Result(type ="json",name="error", params={
+						"excludeProperties","session,extraService,guestService,structureService,bookingService,roomService,conventionService"
+				}),
+				@Result(name="input", location = "/validationError.jsp")
+		})
+	})	
+	public String updateExtras() {
+		User user = null; 
+		Structure structure = null;
 		
+		user = (User)this.getSession().get("user");
+		structure = user.getStructure();		
+				
+		if(!this.checkBookingDates(structure)){
+			return ERROR;
+		}		
+		this.updateExtras(structure);
+		this.getMessage().setResult(Message.SUCCESS);
+		this.getMessage().setDescription(getText("calculatedPriceAction"));
+		return "success";						
+	}
+	
+	public void updateExtras(Structure structure) {
+		
+		Booking booking = null;			
+		BookedExtraItem bookedExtraItem = null;		
+		List<BookedExtraItem> bookedExtraItems = null;
+		List<Extra> oldExtras = null;
+		List<Extra> extras = null;
+		
+		booking  = (Booking) this.getSession().get("booking");				
+			
+		extras = this.getExtraService().findExtrasByIds(this.getBookingExtraIds());
+		booking.setExtras(extras);
+		
+		bookedExtraItems = new ArrayList<BookedExtraItem>();
+		
+		oldExtras = booking.getExtras();
+		for(Extra each: extras){			
+			if(oldExtras.contains(each)){
+				//each esiste già e devo aggiornare solo la quantità leggendola dalla request
+				bookedExtraItem = this.getBooking().findExtraItem(each);
+				if(bookedExtraItem!=null){
+					bookedExtraItems.add(bookedExtraItem);	
+				}else{
+					bookedExtraItem = new BookedExtraItem();
+					bookedExtraItem.setExtra(each);
+					bookedExtraItem.setQuantity(booking.calculateExtraItemMaxQuantity(each));
+					bookedExtraItem.setMaxQuantity(booking.calculateExtraItemMaxQuantity(each));
+					bookedExtraItem.setUnitaryPrice(
+							this.getStructureService().calculateExtraItemUnitaryPrice(structure, booking.getDateIn(), booking.getDateOut(), booking.getRoom().getRoomType(), booking.getConvention(), each));
+					bookedExtraItems.add(bookedExtraItem);
+				}
+							
+			}else{
+				//each è un nuovo extra quindi devo creare un nuovo extra item associato
+				bookedExtraItem = new BookedExtraItem();
+				bookedExtraItem.setExtra(each);
+				bookedExtraItem.setQuantity(booking.calculateExtraItemMaxQuantity(each));
+				bookedExtraItem.setMaxQuantity(booking.calculateExtraItemMaxQuantity(each));
+				bookedExtraItem.setUnitaryPrice(
+						this.getStructureService().calculateExtraItemUnitaryPrice(structure, booking.getDateIn(), booking.getDateOut(), booking.getRoom().getRoomType(), booking.getConvention(), each));
+				bookedExtraItems.add(bookedExtraItem);
+	
+			}
+		}		
+		
+		booking.setExtraItems(bookedExtraItems);			
+					
+		booking.updateExtraSubtotal();		
+			
+		this.setBooking(booking);
+	}	
+	
+	
 	private void updateRoomSubtotal(Structure structure, Booking booking){
 		Double roomSubtotal = 0.0;
 		

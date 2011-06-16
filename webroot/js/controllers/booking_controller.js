@@ -352,13 +352,13 @@ $(function () {
                     $(this).closest("." + selector + "_row").remove();
                 });
             }); /*ADD LISTENER FOR CHANGE ROOM OR DATEIN OR DATEOUT OR NUMNIGHTS FROM BOOKING*/
-            $('input:checkbox[name="bookingExtraIds"], #convention, .quantity').change(function () {
-                // check in room was selected
+            $('input:checkbox[name="bookingExtraIds"], .quantity').change(function () {
+                // check if room was selected
                 if (!(parseInt($('#sel_rooms_list').val()) > 0)) {
                     $().notify($.i18n("warning"), $.i18n("roomRequired"));
                     return;
                 }
-         			self.calculatePrice(this);
+         			self.calculatePrice(this, 'updateExtras.action');
             });
 			
             $('#sel_rooms_list').change(function () {
@@ -386,7 +386,16 @@ $(function () {
                     return;
                 }
          			self.calculatePrice(this,'updateNrGuests.action');
-            })
+            });
+            
+            $('#convention').change(function () {
+                // check in room was selected
+                if (!(parseInt($('#sel_rooms_list').val()) > 0)) {
+                    $().notify($.i18n("warning"), $.i18n("roomRequired"));
+                    return;
+                }
+         			self.calculatePrice(this);
+            });
 			
             //---  BOOK SECTION CODE   
             $.ajaxSetup({
@@ -535,7 +544,7 @@ $(function () {
                 success: function (data_action) {
                     $(".type-select.extraCheckList").html(data_action);
 					$('input:checkbox[name="bookingExtraIds"], .quantity').change(function () {
-         				self.calculatePrice(this);
+         				self.calculatePrice(this,'updateExtras.action');
            			 });
                 },
                 error: function () {

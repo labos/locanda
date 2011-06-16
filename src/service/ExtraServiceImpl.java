@@ -59,7 +59,8 @@ public class ExtraServiceImpl implements ExtraService {
 		
 		for(Integer each:ids){
 			Extra anExtra = this.getExtraMapper().findExtraById(each);
-			ret.add(anExtra);
+				ret.add(anExtra);
+					
 		}
 		return ret;
 	}

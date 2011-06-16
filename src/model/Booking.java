@@ -89,8 +89,8 @@ public class Booking {
 		BookedExtraItem ret = null;
 		
 		for(BookedExtraItem each: this.getExtraItems()){
-			if(each.getExtra().getId().equals(extra.getId())){
-				each.setExtra(extra);
+			if(each.getExtra().equals(extra)){
+				//each.setExtra(extra);
 				return each;
 			}
 		}
@@ -157,7 +157,7 @@ public class Booking {
 		
 		for (BookedExtraItem each : this.getExtraItems()) {
 			extraSubtotal = extraSubtotal + each.getSubtotal();
-			  }
+		}
 		this.setExtraSubtotal(extraSubtotal);
 	}
 	
