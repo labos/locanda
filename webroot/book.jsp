@@ -21,7 +21,6 @@
           </div>
 <div>
 <jsp:include page="jsp/contents/booking_form.jsp" />
-<a class="canc_booking" style="float: right;" href="<s:property value="url_home"/>?sect=planner"><s:text name="cancel" /></a>
             </div>     
           </div>
 <jsp:include page="jsp/layout/footer.jsp" />     

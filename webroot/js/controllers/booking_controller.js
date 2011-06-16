@@ -417,7 +417,12 @@ $(function () {
             });
         },
 
-        /* calculate new prices for booking */
+    	/**
+    	 * Get new prices for booking.
+    	 * @param {String} selector (an html class name or an id value ) .
+    	 * @param {String} action url to call for booking json retrieval.
+         */
+        
         calculatePrice: function (clicked, urlValue){
         	var self = this;
             var formInput = $(clicked).parents().find(".yform.json").serialize();

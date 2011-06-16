@@ -45,7 +45,7 @@ $(function () {
                 	//set some attributes of the model.
                 	accomodationObj.attr("roomType",new Models.RoomType());
                 	//get all roomtypefacilities and pass the results to callback, calling a service of the model.
-                	accomodationObj.getRoomTypeFacilities( selectedId, self.callback('listRoomFacilities'), self.callback('listRoomFacilitiesError'));
+                	accomodationObj.getRoomTypeFacilities( selectedId, self.callback('listRoomFacilitiesSuccess'), self.callback('listRoomFacilitiesError'));
                 	
                 }
             });
@@ -80,7 +80,7 @@ $(function () {
          * Displays a list of RoomFacilities.
          * @param String.
          */
-         listRoomFacilities: function( roomFacilitiesHtml ){
+         listRoomFacilitiesSuccess: function( roomFacilitiesHtml ){
              $(".wrapper-facility").empty();
              $(".wrapper-facility").append(roomFacilitiesHtml);
          },

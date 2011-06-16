@@ -17,13 +17,12 @@ $.Model.extend('Models.Room',
  	 */
 	findAll: function( params, success, error ){
 		$.ajax({
-			url: '/room',
+			url: 'findAllRoomsJson.action',
 			type: 'get',
 			dataType: 'json',
 			data: params,
-			success: this.callback(['wrapMany',success]),
-			error: error,
-			fixture: "//locanda/fixtures/rooms.json.get" //calculates the fixture path from the url and type.
+			success: success,
+			error: error
 		});
 	},
 	/**
