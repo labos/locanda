@@ -1002,6 +1002,8 @@ public class BookingAction extends ActionSupport implements SessionAware{
 				//each esiste già e devo aggiornare solo la quantità leggendola dalla request
 				if(extraItem.getExtra().equals(each)){
 					bookedExtraItem = extraItem;	
+					bookedExtraItem.setMaxQuantity(booking.calculateExtraItemMaxQuantity(each));
+					
 				}				
 			}
 			if(bookedExtraItem == null){
