@@ -622,6 +622,7 @@ public class StructureServiceImpl implements StructureService{
 		aBooking.setRoomSubtotal(roomSubtotal);
 		bookedExtraItems = this.calculateBookedExtraItems(structure, aBooking);
 		aBooking.setExtraItems(bookedExtraItems);
+		aBooking.updateExtraSubtotal();
 
 		anAdjustment = new Adjustment();
 		anAdjustment.setId(structure.nextKey());

@@ -987,34 +987,24 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		Booking booking = null;			
 		BookedExtraItem bookedExtraItem = null;		
 		List<BookedExtraItem> bookedExtraItems = null;
-		List<Extra> oldExtras = null;
 		List<Extra> extras = null;
 		
 		booking  = (Booking) this.getSession().get("booking");				
-			
+		
 		extras = this.getExtraService().findExtrasByIds(this.getBookingExtraIds());
 		booking.setExtras(extras);
 		
-		bookedExtraItems = new ArrayList<BookedExtraItem>();
+		bookedExtraItems = new ArrayList<BookedExtraItem>();		
 		
-		oldExtras = booking.getExtras();
-		for(Extra each: extras){			
-			if(oldExtras.contains(each)){
+		for(Extra each: extras){
+			bookedExtraItem = null;
+			for(BookedExtraItem extraItem: this.getBooking().getExtraItems()){
 				//each esiste già e devo aggiornare solo la quantità leggendola dalla request
-				bookedExtraItem = this.getBooking().findExtraItem(each);
-				if(bookedExtraItem!=null){
-					bookedExtraItems.add(bookedExtraItem);	
-				}else{
-					bookedExtraItem = new BookedExtraItem();
-					bookedExtraItem.setExtra(each);
-					bookedExtraItem.setQuantity(booking.calculateExtraItemMaxQuantity(each));
-					bookedExtraItem.setMaxQuantity(booking.calculateExtraItemMaxQuantity(each));
-					bookedExtraItem.setUnitaryPrice(
-							this.getStructureService().calculateExtraItemUnitaryPrice(structure, booking.getDateIn(), booking.getDateOut(), booking.getRoom().getRoomType(), booking.getConvention(), each));
-					bookedExtraItems.add(bookedExtraItem);
-				}
-							
-			}else{
+				if(extraItem.getExtra().equals(each)){
+					bookedExtraItem = extraItem;	
+				}				
+			}
+			if(bookedExtraItem == null){
 				//each è un nuovo extra quindi devo creare un nuovo extra item associato
 				bookedExtraItem = new BookedExtraItem();
 				bookedExtraItem.setExtra(each);
@@ -1022,12 +1012,11 @@ public class BookingAction extends ActionSupport implements SessionAware{
 				bookedExtraItem.setMaxQuantity(booking.calculateExtraItemMaxQuantity(each));
 				bookedExtraItem.setUnitaryPrice(
 						this.getStructureService().calculateExtraItemUnitaryPrice(structure, booking.getDateIn(), booking.getDateOut(), booking.getRoom().getRoomType(), booking.getConvention(), each));
-				bookedExtraItems.add(bookedExtraItem);
-	
 			}
-		}		
+			bookedExtraItems.add(bookedExtraItem);	
+		}	
 		
-		booking.setExtraItems(bookedExtraItems);			
+		booking.setExtraItems(bookedExtraItems);		
 					
 		booking.updateExtraSubtotal();		
 			

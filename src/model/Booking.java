@@ -90,7 +90,7 @@ public class Booking {
 		
 		for(BookedExtraItem each: this.getExtraItems()){
 			if(each.getExtra().equals(extra)){
-				//each.setExtra(extra);
+				each.setExtra(extra);
 				return each;
 			}
 		}
