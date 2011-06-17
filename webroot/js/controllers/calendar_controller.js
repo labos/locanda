@@ -1,7 +1,7 @@
 /**
  * Locanda - javascript code
  * @author  LabOpenSource
- * @license LGPL
+ * @license EUPL
  */
 $(function () {
     /*  
@@ -117,7 +117,7 @@ $(function () {
                         'booking.dateOut': endField
                     }, function () {
                         new Main(I18NSettings.lang, I18NSettings.datePattern);
-                        this.booking = new Booking(I18NSettings.lang, I18NSettings.datePattern);
+                        self.booking = new Booking(I18NSettings.lang, I18NSettings.datePattern);
                         $(".btn_save").hide();
                         $(".canc_booking").hide();
                         $(".btn_check_in").hide();
@@ -145,7 +145,7 @@ $(function () {
                             cancel: function () {
                                 if (confirm($.i18n("alertCancel"))) {
                                     $dialogContent.dialog("close");
-                                    this.$calendar.weekCalendar("removeEvent", calEvent.id);
+                                    self.$calendar.weekCalendar("removeEvent", calEvent.id);
                                 }
                             }
                         }
@@ -170,7 +170,7 @@ $(function () {
                     }, function () {
                         $(this).removeClass("loaderback");
                         new Main(I18NSettings.lang, I18NSettings.datePattern);
-                        this.booking = new Booking(I18NSettings.lang, I18NSettings.datePattern);
+                        self.booking = new Booking(I18NSettings.lang, I18NSettings.datePattern);
                         $(".btn_save").hide();
                         $(".canc_booking").hide();
                     }).dialog({
@@ -199,7 +199,7 @@ $(function () {
                             cancel: function () {
                                 if (confirm($.i18n("alertCancel"))) {
                                     $dialogContent.dialog("close");
-                                    this.$calendar.weekCalendar("refresh");
+                                    self.$calendar.weekCalendar("refresh");
                                 }
                             }
                         }
