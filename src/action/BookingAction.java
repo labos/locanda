@@ -176,7 +176,8 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		Booking oldBooking = null;
 		Guest guest = null;
 		Guest oldGuest = null;
-				
+		Booking booking = null;
+		
 		user = (User)session.get("user");
 		structure = user.getStructure();		
 		
@@ -184,18 +185,24 @@ public class BookingAction extends ActionSupport implements SessionAware{
 			return ERROR;
 		}		
 		
-		this.updateBookingInMemory(structure);
+		booking = (Booking) this.getSession().get("booking");
 		
-		//Persist the Booking
-		oldBooking = this.getBookingService().findBookingById(structure, this.getBooking().getId());
+		//Adjustments
+		this.filterAdjustments();
+		//Payments
+		this.filterPayments();
+		//Guests
+		this.filterGuests();	
+		
+		oldBooking = this.getBookingService().findBookingById(structure, booking.getId());
 	
 		if(oldBooking==null){
 			//Si tratta di un nuovo booking
-			this.getBooking().setId(structure.nextKey());
-			this.getBookingService().insertBooking(structure, this.getBooking());
+			booking.setId(structure.nextKey());
+			this.getBookingService().insertBooking(structure, booking);
 		}else{
 			//Si tratta di un update di un booking esistente			
-			this.getBookingService().updateBooking(structure, this.getBooking());
+			this.getBookingService().updateBooking(structure, booking);
 		}	
 		
 		guest = this.getBooking().getBooker();
@@ -209,7 +216,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 			this.getGuestService().updateGuest(guest);
 		}
 		
-		for(Guest each: this.getBooking().getGuests()){
+		for(Guest each: booking.getGuests()){
 			if(each.getId()== null){
 				each.setId(structure.nextKey());
 			}
@@ -234,7 +241,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		}
 		
 		//Salvare anche la convenzione
-		
+		this.getSession().put("booking", booking);
 		this.getMessage().setResult(Message.SUCCESS);
 		this.getMessage().setDescription(getText("bookingAddUpdateSuccessAction"));
 		return SUCCESS;
@@ -759,13 +766,6 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		this.conventionService = conventionService;
 	}
 	
-	
-	//Evento updateBookingDates (cambia dateIn || cambia dateOut || cambia numNights)
-		//-ricalcola prezzo room
-		//-ricalcola prezzo unitario extra 
-		//-ricalcola quantità massima extra items
-	
-	
 	@Actions({
 		@Action(value="/updateBookingDates",results = {
 				@Result(type ="json",name="success", params={
@@ -797,7 +797,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		Integer numNights;
 		Booking booking = null;
 		
-		booking  = (Booking) this.getSession().get("booking");
+		booking  = (Booking) this.getSession().get("booking");		
 		
 		booking.setDateIn(this.getBooking().getDateIn());
 		booking.setDateOut(this.getBooking().getDateOut());
@@ -805,27 +805,17 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		numNights = booking.calculateNumNights();
 		this.setNumNights(numNights);
 		
-		//roomSubtotal = this.getBookingService().calculateRoomSubtotalForBooking(structure,booking);
-		//booking.setRoomSubtotal(roomSubtotal);
-		this.updateRoomSubtotal(structure, booking);
-		
+		this.updateRoomSubtotal(structure, booking);		
 		this.updateUnitaryPriceInBookedExtraItems(structure, booking);
 		this.updateMaxQuantityInBookedExtraItems(structure, booking);
-		
-		//extra subtotal
-		//extraSubtotal = booking.calculateExtraSubtotalForBooking();
-		//booking.setExtraSubtotal(extraSubtotal);	
 		booking.updateExtraSubtotal();
-
+		
 		this.setBooking(booking);
+		
 	}
 	
 	
-	//Evento updateRoom (cambia room)
-		//Se la categoria della camera cambia allora:
-			//-ricalcola prezzo room
-			//-ricalcola prezzo unitario extra 	items
-	
+		
 	@Actions({
 		@Action(value="/updateRoom",results = {
 				@Result(type ="json",name="success", params={
@@ -854,28 +844,25 @@ public class BookingAction extends ActionSupport implements SessionAware{
 	}
 	
 	public void updateRoom(Structure structure) {
-		Double roomSubtotal = 0.0;
 		Integer numGuests;
-		Room theBookedRoom = null;
-		Booking booking = null;	
-		RoomType oldRoomType = null;
+		Booking booking = null;			
 		RoomType newRoomType = null;
-		
+		RoomType oldRoomType = null;
+				
 		booking  = (Booking) this.getSession().get("booking");
 		
 		if(booking.getRoom()!=null){
 			oldRoomType = booking.getRoom().getRoomType();
 		}
 		
-		theBookedRoom = this.getRoomService().findRoomById(structure,this.getBooking().getRoom().getId());
-		booking.setRoom(theBookedRoom);		
+		this.updateRoom(structure, booking);	
 		
-		if(theBookedRoom!=null){
-			newRoomType = theBookedRoom.getRoomType();
+		if(booking.getRoom()!=null){
+			newRoomType = booking.getRoom().getRoomType();
 		}
 		
 		//Se cambia la categoria allora devo aggiornare i prezzi
-		if((oldRoomType!= null) && (newRoomType!= null) && (!oldRoomType.equals(newRoomType) )){
+		if((oldRoomType!= null) && (newRoomType!= null) && !(oldRoomType.equals(newRoomType) )){
 			numGuests = booking.getNrGuests();
 			if (numGuests > newRoomType.getMaxGuests()) {	//nel caso cambiassi la room con preselezionato un nrGuests superiore al maxGuests della room stessa
 				numGuests = newRoomType.getMaxGuests();
@@ -883,22 +870,14 @@ public class BookingAction extends ActionSupport implements SessionAware{
 				//Se cambia il numero di guest devo aggiornare anche la quantità massima degli extra item
 				this.updateMaxQuantityInBookedExtraItems(structure, booking);
 			}			
-			roomSubtotal = this.getBookingService().calculateRoomSubtotalForBooking(structure,booking);
-			booking.setRoomSubtotal(roomSubtotal);
-			
+			this.updateRoomSubtotal(structure, booking);			
 			this.updateUnitaryPriceInBookedExtraItems(structure, booking);
-			
 			booking.updateExtraSubtotal();
-			
 		}
 		
 		this.setBooking(booking);
 	}
 	
-	
-	//Evento updateNrGuests (cambia il numero di Guests)
-		//-ricalcola prezzo room
-		//-ricalcola quantità massima degli extra items
 	
 	@Actions({
 		@Action(value="/updateNrGuests",results = {
@@ -928,33 +907,18 @@ public class BookingAction extends ActionSupport implements SessionAware{
 	}
 	
 	public void updateNrGuests(Structure structure) {
-		Double roomSubtotal = 0.0;
 		Booking booking = null;		
 		
 		booking  = (Booking) this.getSession().get("booking");			
 		
 		booking.setNrGuests(this.getBooking().getNrGuests());
-		
-		roomSubtotal = this.getBookingService().calculateRoomSubtotalForBooking(structure,booking);
-		booking.setRoomSubtotal(roomSubtotal);	
-		
+		this.updateRoomSubtotal(structure, booking);
 		this.updateMaxQuantityInBookedExtraItems(structure, booking);
-		
 		this.setBooking(booking);
+		
 	}
 	
 	
-	
-	//Evento addExtra (viene aggiunto un nuovo extra)
-		//aggiunge un nuovo extra item ma non tocca quelli esistenti 		
-	
-	
-	//Evento deleteExtra (viene rimosso un extra)
-		//rimuove l'extra ma non tocca gli altri
-	
-	//Evento changeExtraItemQuantity (viene cambiata la quantità di un extra già selezionato)
-		//cambia solo la quantità di un extra item e non cambia nient'altro
-		
 	@Actions({
 		@Action(value="/updateExtras",results = {
 				@Result(type ="json",name="success", params={
@@ -977,33 +941,53 @@ public class BookingAction extends ActionSupport implements SessionAware{
 			return ERROR;
 		}		
 		this.updateExtras(structure);
+		
 		this.getMessage().setResult(Message.SUCCESS);
 		this.getMessage().setDescription(getText("calculatedPriceAction"));
 		return "success";						
 	}
 	
-	public void updateExtras(Structure structure) {
-		
+	public void updateExtras(Structure structure) {	
 		Booking booking = null;			
-		BookedExtraItem bookedExtraItem = null;		
-		List<BookedExtraItem> bookedExtraItems = null;
-		List<Extra> extras = null;
+					
+		booking  = (Booking) this.getSession().get("booking");	
+			
+		this.updateExtras(booking);
+		this.updateExtraItems(structure, booking);					
+		booking.updateExtraSubtotal();	
 		
-		booking  = (Booking) this.getSession().get("booking");				
+		this.setBooking(booking);
+	}	
+	
+	
+	private void updateRoom(Structure structure,Booking booking){
+		Room newRoom = null; 
+		
+		newRoom = this.getRoomService().findRoomById(structure,this.getBooking().getRoom().getId());
+		booking.setRoom(newRoom);	
+	}
+	
+	
+	private void updateExtras(Booking booking){
+		List<Extra> extras = null;
 		
 		extras = this.getExtraService().findExtrasByIds(this.getBookingExtraIds());
 		booking.setExtras(extras);
+	}
+	
+	
+	private void updateExtraItems(Structure structure, Booking booking){
+		BookedExtraItem bookedExtraItem = null;		
+		List<BookedExtraItem> bookedExtraItems = null;
 		
-		bookedExtraItems = new ArrayList<BookedExtraItem>();		
-		
-		for(Extra each: extras){
+		bookedExtraItems = new ArrayList<BookedExtraItem>();	
+		for(Extra each: booking.getExtras()){
 			bookedExtraItem = null;
 			for(BookedExtraItem extraItem: this.getBooking().getExtraItems()){
 				//each esiste già e devo aggiornare solo la quantità leggendola dalla request
 				if(extraItem.getExtra().equals(each)){
 					bookedExtraItem = extraItem;	
-					bookedExtraItem.setMaxQuantity(booking.calculateExtraItemMaxQuantity(each));
-					
+					bookedExtraItem.setMaxQuantity(booking.calculateExtraItemMaxQuantity(each));					
 				}				
 			}
 			if(bookedExtraItem == null){
@@ -1017,20 +1001,15 @@ public class BookingAction extends ActionSupport implements SessionAware{
 			}
 			bookedExtraItems.add(bookedExtraItem);	
 		}	
-		
 		booking.setExtraItems(bookedExtraItems);		
-					
-		booking.updateExtraSubtotal();		
-			
-		this.setBooking(booking);
-	}	
+	}
 	
 	
 	private void updateRoomSubtotal(Structure structure, Booking booking){
 		Double roomSubtotal = 0.0;
 		
 		roomSubtotal = this.getBookingService().calculateRoomSubtotalForBooking(structure,booking);
-		booking.setRoomSubtotal(roomSubtotal);
+		booking.setRoomSubtotal(roomSubtotal);		
 	}
 	
 	
