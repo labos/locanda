@@ -92,7 +92,11 @@ public class BookingServiceImpl implements BookingService {
 		return 1;
 	}
 	
-	
+	public void saveOnlineBooking(Structure structure, Booking booking) {
+		booking.setId(structure.nextKey());
+		structure.getBookings().add(booking);
+		
+	}
 
 
 	@Override
