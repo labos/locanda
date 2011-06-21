@@ -201,6 +201,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		booker.setId_structure(structure.getId());
 		booking.setBooker(booker);
 		
+		booking.setStatus(this.getBooking().getStatus());
 		
 		oldBooking = this.getBookingService().findBookingById(structure, booking.getId());
 	
