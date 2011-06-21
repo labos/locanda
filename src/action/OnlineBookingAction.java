@@ -213,15 +213,12 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 			this.getBooking().setBooker(this.getGuest());
 			this.getBooking().setStatus("online");
 			//check if current booking is valid to save
-			if (true){				
-				this.getBookingService().saveOnlineBooking(structure, this.getBooking());			
-			}
-			else {				
-				//this.getBookingService().deleteBooking(structure, this.getBooking());
+			if (this.getBookingService().saveOnlineBooking(structure, this.getBooking()) < 1){				
 				this.getSession().put("workingBooking", null);
 				addActionError("This booking cannot be saved");
 				return ERROR;				
 			}
+		
 			
 		}catch(NullPointerException e) {			 
 				//this.getBookingService().deleteBooking(structure, this.getBooking());
