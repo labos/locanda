@@ -436,7 +436,8 @@ $(function () {
         	var self = this;
             var formInput = $(clicked).parents().find(".yform.json").serialize();
             var $clicked = $(clicked);
-            var urlAction = urlValue || 'updateBookingInMemory';
+            var urlAction = urlValue || null;
+            if ( urlAction ){
             $.ajax({
                 type: "POST",
                 url: urlAction,
@@ -527,6 +528,9 @@ $(function () {
                     $().notify($.i18n("seriousError"), $.i18n("seriousErrorDescr"));
                 }
             });
+            
+            
+        }//end ajax calling code
         	
         },
 		
