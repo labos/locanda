@@ -394,7 +394,7 @@ $(function () {
                     $().notify($.i18n("warning"), $.i18n("roomRequired"));
                     return;
                 }
-         			self.calculatePrice(this);
+         			self.calculatePrice(this,'updateConvention.action');
             });
 			
             //---  BOOK SECTION CODE   
