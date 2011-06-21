@@ -997,6 +997,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		Booking booking = null;			
 						
 		booking  = (Booking) this.getSession().get("booking");
+		booking.setConvention(this.getBooking().getConvention());
 				
 		//Se cambia la convenzione allora devo aggiornare i prezzi della room e degli extra
 		this.updateRoomSubtotal(structure, booking);			
