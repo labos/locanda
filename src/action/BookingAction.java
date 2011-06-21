@@ -966,6 +966,46 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		this.setBooking(booking);
 	}	
 	
+	@Actions({
+		@Action(value="/updateConvention",results = {
+				@Result(type ="json",name="success", params={
+						"excludeProperties","session,extraService,guestService,structureService,bookingService,roomService,conventionService"
+				}),
+				@Result(type ="json",name="error", params={
+						"excludeProperties","session,extraService,guestService,structureService,bookingService,roomService,conventionService"
+				}),
+				@Result(name="input", location = "/validationError.jsp")
+		})
+	})	
+	public String updateConvention() {
+		User user = null; 
+		Structure structure = null;
+		
+		user = (User)this.getSession().get("user");
+		structure = user.getStructure();		
+				
+		if(!this.checkBookingDates(structure)){
+			return ERROR;
+		}		
+		this.updateConvention(structure);
+		this.getMessage().setResult(Message.SUCCESS);
+		this.getMessage().setDescription(getText("calculatedPriceAction"));
+		return "success";						
+	}
+	
+	public void updateConvention(Structure structure) {
+		Booking booking = null;			
+						
+		booking  = (Booking) this.getSession().get("booking");
+				
+		//Se cambia la convenzione allora devo aggiornare i prezzi della room e degli extra
+		this.updateRoomSubtotal(structure, booking);			
+		this.updateUnitaryPriceInBookedExtraItems(structure, booking);
+		booking.updateExtraSubtotal();
+		
+		this.setBooking(booking);
+	}
+	
 	
 	private void updateRoom(Structure structure,Booking booking){
 		Room newRoom = null; 
