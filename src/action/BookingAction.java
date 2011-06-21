@@ -174,7 +174,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		User user = null;
 		Structure structure = null;
 		Booking oldBooking = null;
-		Guest guest = null;
+		Guest booker = null;
 		Guest oldGuest = null;
 		Booking booking = null;
 		
@@ -189,10 +189,18 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		
 		//Adjustments
 		this.filterAdjustments();
+		booking.setAdjustments(this.getBooking().getAdjustments());
 		//Payments
 		this.filterPayments();
+		booking.setPayments(this.getBooking().getPayments());
 		//Guests
 		this.filterGuests();	
+		booking.setGuests(this.getBooking().getGuests());
+		
+		booker = this.getBooking().getBooker();		
+		booker.setId_structure(structure.getId());
+		booking.setBooker(booker);
+		
 		
 		oldBooking = this.getBookingService().findBookingById(structure, booking.getId());
 	
@@ -203,17 +211,15 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		}else{
 			//Si tratta di un update di un booking esistente			
 			this.getBookingService().updateBooking(structure, booking);
-		}	
+		}		
 		
-		guest = this.getBooking().getBooker();
-		guest.setId_structure(structure.getId());
-		oldGuest = this.getGuestService().findGuestById(guest.getId());
+		oldGuest = this.getGuestService().findGuestById(booker.getId());
 		if(oldGuest == null){
 			//Si tratta di un nuovo guest e devo aggiungerlo
-			this.getGuestService().insertGuest(guest);
+			this.getGuestService().insertGuest(booker);
 		}else{
 			//Si tratta di un guest esistente e devo fare l'update
-			this.getGuestService().updateGuest(guest);
+			this.getGuestService().updateGuest(booker);
 		}
 		
 		for(Guest each: booking.getGuests()){
@@ -482,8 +488,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 				adjustmentsWithoutNulls.add(each);
 			}			
 		}
-		this.getBooking().setAdjustments(adjustmentsWithoutNulls);
-		
+		this.getBooking().setAdjustments(adjustmentsWithoutNulls);		
 	}
 	
 	private void filterPayments(){
@@ -914,6 +919,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		booking.setNrGuests(this.getBooking().getNrGuests());
 		this.updateRoomSubtotal(structure, booking);
 		this.updateMaxQuantityInBookedExtraItems(structure, booking);
+		
 		this.setBooking(booking);
 		
 	}

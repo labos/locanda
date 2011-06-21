@@ -62,15 +62,10 @@ public class BookingServiceImpl implements BookingService {
 		return ret;
 	}
 
-
-
 	public Integer insertBooking(Structure structure, Booking aBooking) {
 		structure.getBookings().add(aBooking);
 		return 1;
 	}	
-	
-	
-
 	
 	public Integer updateBooking(Structure structure, Booking booking) {
 		Booking oldBooking = this.findBookingById(structure,booking.getId());
