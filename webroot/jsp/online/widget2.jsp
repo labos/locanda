@@ -27,7 +27,7 @@
 	<form action="goOnlineBookingExtras.action" method="post">
 
 	<div class="ui-block-a">
-	<input type="hidden" name="roomId" value="<s:property value="#eachRoom.id"/>" />
+	<input type="hidden" name="booking.room.id" value="<s:property value="#eachRoom.id"/>" />
 		<img width="90" height="75" src="images/roomtype/<s:property value="#eachRoom.roomType.images[0].fileName"/>"  alt="room photo" /></div>
 	<div class="ui-block-b">	<p class="price_room_widget"><s:property value="#eachRoom.roomType.name"/></p>
 	<p class="price_room_widget">&euro; <s:property value="#eachRoom.price"/> <span>/room/nigth</span></p></div>  
