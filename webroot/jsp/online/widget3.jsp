@@ -19,10 +19,7 @@
 <p>Date Arrival: <strong><s:property value="dateArrival"/></strong>, <s:property value="numNight"/> nights, <s:property value="numGuests"/> peoples</p>	
 <p>Total Price: <strong><s:property value="booking.roomSubtotal"/></strong></p>
 </div>			<form action="goOnlineBookingGuest.action" method="post">
-			<input type="hidden" name="booking.id" value="<s:property value="booking.id"/>" />
-			<input type="hidden" name="dateArrival" value="<s:property value="dateArrival"/>" />
-			<input type="hidden" name="numGuests" value="<s:property value="numGuests"/>" />
-			<input type="hidden" name="numNight" value="<s:property value="numNight"/>" />
+
 <fieldset data-role="controlgroup">
                     <s:iterator value="extras" var="eachExtra"  status="extraStatus">
                   <legend></legend>

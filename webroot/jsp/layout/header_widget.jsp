@@ -142,7 +142,7 @@ $(function () {
         onSelect: function (dateText, inst) {
             var selectedData = $.datepicker.formatDate(I18NSettings.datePattern, $(this).datepicker("getDate"));
             if (selectedData) {
-                $('input:hidden[name="dateArrival"]').val(selectedData);
+                $('input:hidden[name="booking.dateIn"]').val(selectedData);
             }
         }
     });
@@ -154,7 +154,7 @@ $(function () {
     $("#btn_widg_next").click(function (event) {
         event.preventDefault();
         if ($(this).parents("form").valid()) {
-            if ($('input:hidden[name="dateArrival"]').val() == "") {
+            if ($('input:hidden[name="booking.dateIn"]').val() == "") {
                 $(".alert").html("Select a date from the calendar!").show();
                 return false;
             }
@@ -174,3 +174,16 @@ $(function () {
     });
 });
 	</script>
+	</head>
+	<s:set var="redirectLang" value="#context['struts.actionMapping'].name" />
+<s:url id="localeFR" namespace="/" action="locale" >
+   <s:param name="request_locale" >fr</s:param>
+</s:url>
+<s:url id="localeEN" namespace="/" action="locale" >
+   <s:param name="request_locale" >en</s:param>
+   <s:param name="redirect" ><s:property value="#redirectLang"/>.action</s:param>
+</s:url>
+<s:url id="localeIT" namespace="/" action="locale" >
+   <s:param name="request_locale" >it</s:param>
+     <s:param name="redirect" ><s:property value="#redirectLang"/>.action</s:param>
+</s:url>

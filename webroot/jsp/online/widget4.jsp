@@ -29,10 +29,6 @@
 			<p>Total Price: <strong><s:property value="booking.roomSubtotal + booking.extraSubtotal"/></strong></p>
 			</div>
 			<form action="goOnlineBookingFinal.action"  method="post">
-			<input type="hidden" name="booking.id" value="<s:property value="booking.id"/>" />
-			<input type="hidden" name="dateArrival" value="<s:property value="dateArrival"/>" />
-			<input type="hidden" name="numGuests" value="<s:property value="numGuests"/>" />
-			<input type="hidden" name="numNight" value="<s:property value="numNight"/>" />
 <div id="firstNameDiv" data-role="fieldcontain">
   <label for="firstNo">First Name*</label>
   <input id="firstNo" name="guest.firstName" type="text" class="required" />

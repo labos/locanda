@@ -16,7 +16,7 @@
 
 	<div data-role="content">
 	<div class="contentHeader">
-			<p><strong><s:property value="dateArrival"/></strong>, <s:property value="numNight"/> nights, <s:property value="numGuests"/> peoples</p>	
+			<p><strong><s:property value="dateArrival"/></strong>, <s:property value="numNight"/> nights, <s:property value="numGuests"/> Persons</p>	
 
   </div>
   <ul data-role="listview" data-theme="g">
@@ -28,16 +28,10 @@
 
 	<div class="ui-block-a">
 	<input type="hidden" name="roomId" value="<s:property value="#eachRoom.id"/>" />
-	<input type="hidden" name="dateArrival" value="<s:property value="dateArrival"/>" />
-			<input type="hidden" name="numGuests" value="<s:property value="numGuests"/>" />
-			<input type="hidden" name="numNight" value="<s:property value="numNight"/>" />
 		<img width="90" height="75" src="images/roomtype/<s:property value="#eachRoom.roomType.images[0].fileName"/>"  alt="room photo" /></div>
 	<div class="ui-block-b">	<p class="price_room_widget"><s:property value="#eachRoom.roomType.name"/></p>
 	<p class="price_room_widget">&euro; <s:property value="#eachRoom.price"/> <span>/room/nigth</span></p></div>  
 	<div class="ui-block-c"><button type="submit" data-theme="b">SELECT</button></div>
-	 
-
-
 
 	</form>
 	</div>
