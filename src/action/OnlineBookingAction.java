@@ -33,19 +33,16 @@ import com.opensymphony.xwork2.ActionSupport;
 @ParentPackage(value="default")
 public class OnlineBookingAction extends ActionSupport implements SessionAware{
 	private Map<String, Object> session = null;
-	private List<RoomFacility> roomFacilities = null;
+	
 	private List<Room> rooms = null;
 	private Booking booking = null;
 	private Integer id;
-	private Date dateArrival;
-	private Integer numGuests = 1;
-	private Integer numNight = 1;
+	private Integer numNights = 1;
 	private List<Extra> extras;
 	private List<Integer> bookingExtrasId = null;
-	private Guest guest;
-	private Integer roomId;
 	private Integer idStructure;
 	private Structure structure;
+	
 	@Autowired
 	private ExtraService extraService = null;
 	@Autowired
@@ -67,8 +64,13 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 		})
 	})
 	public String goOnlineBookingCalendar(){
-		
+		Booking booking = null;
+			
 		this.getSession().put("idStructure", this.getIdStructure());
+		
+		booking = new Booking();
+		this.getSession().put("onlineBooking", booking);
+		this.setBooking(booking);
 		return SUCCESS;
 	}
 	
@@ -82,33 +84,39 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 	
 	public String goOnlineBookingRooms(){
 		Structure structure = null;
-		List <Booking> toRemoveBookings =  null; 
 		List <Room> rooms = null;
-		toRemoveBookings = new ArrayList<Booking>();
+		Booking booking = null;
+		Date dateOut = null;
+		Convention defaultConvention = null;
+		
 		this.setIdStructure((Integer) this.getSession().get("idStructure"));
-		//structure = this.getStructureService().findStructureById(this.getIdStructure());
-		//this.getStructureService().buildStructure(structure);
-			structure = ( (User) this.getSession().get("user")).getStructure();
-		rooms = this.getRoomService().findRoomsByIdStructure(structure);
+	
+		structure = ( (User) this.getSession().get("user")).getStructure();
+		booking = (Booking) this.getSession().get("onlineBooking");
+		
+		booking.setNrGuests(this.getBooking().getNrGuests());
+		booking.setDateIn(this.getBooking().getDateIn());
+		
+		dateOut  = DateUtils.addDays(booking.getDateIn(), this.getNumNights());	
+		booking.setDateOut(dateOut);
+		
+		defaultConvention = this.getConventionService().findConventionsByIdStructure(structure).get(0);
+		booking.setConvention(defaultConvention);
+		
 		this.setRooms(new ArrayList<Room>());
-		//remove not completed booking from the memory
 		
-		for (Booking abooking : this.getBookingService().findBookingsByIdStructure(structure)){			
-			if (! checkBookingIsValid(abooking) ){				
-				toRemoveBookings.add(abooking);
+		rooms = new ArrayList<Room>();
+		for(Room each : this.getRoomService().findRoomsByIdStructure(structure)){			
+			if ( (each.getRoomType().getMaxGuests() >= booking.getNrGuests() ) && 
+					this.getStructureService().hasRoomFreeInPeriod(structure,each.getId(), booking.getDateIn(), booking.getDateOut()) ) {
+				booking.setRoom(each);
+				each.setPrice(this.calculateTotalForBooking(structure, booking));
+				rooms.add(each);
 			}
-		}
-		
-		this.getBookingService().findBookingsByIdStructure(structure);
-		for(Room each : rooms){			
-			if ( (each.getRoomType().getMaxGuests() >= this.getNumGuests() ) && 
-					this.getStructureService().hasRoomFreeInPeriod(structure,each.getId(), this.getDateArrival(), this.calculateDateOut()) ) {
-				each.setPrice( calculateTotalForBooking(each));
-				this.getRooms().add(each);
-			}
-		}
-		
-		this.setRoomFacilities(this.getStructureService().findRoomFacilitiesByIdStructure(structure));
+		}	
+		booking.setRoom(null);
+		this.setRooms(rooms);
+		this.setBooking(booking);
 		return SUCCESS;
 	}
 	
@@ -123,27 +131,22 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 		Structure structure = null;
 		Room theBookedRoom = null;
 		Double roomSubtotal = 0.0;
-		Convention defaultConvention = null;
+		Booking booking = null;
 		
 		this.setIdStructure((Integer) this.getSession().get("idStructure"));
-		//structure = this.getStructureService().findStructureById(this.getIdStructure());
-		//this.getStructureService().buildStructure(structure);
+		
 		structure = ( (User) this.getSession().get("user")).getStructure();
-		theBookedRoom = this.getRoomService().findRoomById(structure,this.getRoomId());
-		this.setBooking(new Booking());
-		this.getBooking().setRoom(theBookedRoom);	
-		this.setBooking(new Booking());
-		this.getBooking().setRoom(theBookedRoom);
-		this.getBooking().setDateIn(this.getDateArrival());
-		this.getBooking().setDateOut(this.calculateDateOut());
-		this.getBooking().setNrGuests(this.getNumGuests());
-		defaultConvention = this.getConventionService().findConventionsByIdStructure(structure).get(0);
-		this.getBooking().setConvention(defaultConvention);
-		roomSubtotal = this.getBookingService().calculateRoomSubtotalForBooking(structure,this.getBooking());
-		this.getBooking().setRoomSubtotal(roomSubtotal);		
-		this.getSession().put("workingBooking", this.getBooking());
-		this.setRoomFacilities(this.getStructureService().findRoomFacilitiesByIdStructure(structure));
-		this.setExtras(this.getExtraService().findExtrasByIdStructure(structure.getId()));
+		booking = (Booking) this.getSession().get("onlineBooking");
+		
+		theBookedRoom = this.getRoomService().findRoomById(structure,this.getBooking().getRoom().getId());
+		booking.setRoom(theBookedRoom);		
+		
+		roomSubtotal = this.getBookingService().calculateRoomSubtotalForBooking(structure,booking);
+		booking.setRoomSubtotal(roomSubtotal);		
+		
+		this.setExtras(this.getExtraService().findExtrasByIdStructure(structure.getId()));		
+		
+		this.setBooking(booking);
 		return SUCCESS;
 	}
 	
@@ -159,29 +162,26 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 		List<Extra> checkedExtras = null;
 		Double extraSubtotal = 0.0;
 		List<BookedExtraItem> bookedExtraItems = null;
+		Booking booking = null;
 		
 		this.setIdStructure((Integer) this.getSession().get("idStructure"));
-		//structure = this.getStructureService().findStructureById(this.getIdStructure());
-		//this.getStructureService().buildStructure(structure);
 		structure = ( (User) this.getSession().get("user")).getStructure();
+		booking = (Booking) this.getSession().get("onlineBooking");
 		
-		this.setBooking((Booking) this.getSession().get("workingBooking"));
+		checkedExtras = new ArrayList<Extra>();
 		if (this.getBookingExtrasId() != null) {
-			checkedExtras = this.getExtraService().findExtrasByIds(
-					this.getBookingExtrasId());
-			this.getBooking().setExtras(checkedExtras);
-
-			bookedExtraItems = this.calculateBookedExtraItems(structure,
-					this.getBooking());
-			this.getBooking().setExtraItems(bookedExtraItems);
-
-			extraSubtotal = this.getBooking()
-					.calculateExtraSubtotalForBooking();
-			this.getBooking().setExtraSubtotal(extraSubtotal);
+			checkedExtras = this.getExtraService().findExtrasByIds(this.getBookingExtrasId());
 		}
-		//this.getBookingService().updateBooking(structure, this.getBooking());
-		this.setRoomFacilities(this.getStructureService()
-				.findRoomFacilitiesByIdStructure(structure));
+		booking.setExtras(checkedExtras);
+
+		bookedExtraItems = this.calculateBookedExtraItems(structure,booking);
+		booking.setExtraItems(bookedExtraItems);
+
+		extraSubtotal = booking.calculateExtraSubtotalForBooking();
+		booking.setExtraSubtotal(extraSubtotal);
+		
+		this.setBooking(booking);
+		
 		return SUCCESS;
 	}
 	
@@ -192,74 +192,37 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 				@Result(name="input", location="/jsp/online/validationError.jsp")
 		})
 	})
-	public String goOnlineBookingFinal(){
+	public String goOnlineBookingFinal() {
 		Structure structure = null;
-		Guest oldGuest = null;
-		
-		this.setIdStructure((Integer) this.getSession().get("idStructure"));
-		//structure = this.getStructureService().findStructureById(this.getIdStructure());
-		//this.getStructureService().buildStructure(structure);
-		structure = ( (User) this.getSession().get("user")).getStructure();
-		this.setStructure(structure);
-		this.setBooking((Booking) this.getSession().get("workingBooking"));
-		
-		try {			
-			oldGuest = this.getGuestService().findGuestById(this.getGuest().getId());
-			this.getGuest().setId_structure(structure.getId());
-			if(oldGuest == null){
-				//Si tratta di un nuovo guest e devo aggiungerlo
-				this.getGuestService().insertGuest(this.getGuest());
-			}				
-			this.getBooking().setBooker(this.getGuest());
-			this.getBooking().setStatus("online");
-			//check if current booking is valid to save
-			if (this.getBookingService().saveOnlineBooking(structure, this.getBooking()) < 1){				
-				this.getSession().put("workingBooking", null);
-				addActionError("This booking cannot be saved");
-				return ERROR;				
-			}
-		
-			
-		}catch(NullPointerException e) {			 
-				//this.getBookingService().deleteBooking(structure, this.getBooking());
-				this.getSession().put("workingBooking", null);
-			 	addActionError("This booking cannot be saved");
-				return ERROR;
+		Booking booking = null;
 
-		 }finally{
-			 this.getSession().put("workingBooking", null);
-		 }
-		 
-		this.setRoomFacilities(this.getStructureService().findRoomFacilitiesByIdStructure(structure));
+		this.setIdStructure((Integer) this.getSession().get("idStructure"));
+		structure = ((User) this.getSession().get("user")).getStructure();
+
+		this.setStructure(structure);
+		booking = (Booking) this.getSession().get("onlineBooking");
+		
+		this.getBooking().getBooker().setId_structure(this.getIdStructure());
+		booking.setBooker(this.getBooking().getBooker());
+		this.getGuestService().insertGuest(booking.getBooker());
+		
+		booking.setStatus("online");
+		
+		if (this.getBookingService().saveOnlineBooking(structure,booking) < 1) {
+			this.getSession().put("onlineBooking", null);
+			addActionError("This booking cannot be saved");
+			return ERROR;
+		}
+		
+		this.setBooking(booking);
 		return SUCCESS;
 	}
 
-	private Date calculateDateOut(){
-		Date dateOut = null;
-		
-		if(( this.getNumNight()!=null ) && ( this.getDateArrival()!=null )){
-			dateOut  = DateUtils.addDays(this.getDateArrival(), this.getNumNight() );	
-		}		
-		return dateOut;
-	}
 	
-	private Double calculateTotalForBooking(Room aRoom){
-		Structure structure = null;
+	private Double calculateTotalForBooking(Structure structure,Booking booking){
 		Double subTotal = null;
-		Booking aBooking = new Booking();
-		Convention defaultConvention = null;
 		
-		structure = this.getStructureService().findStructureById(this.getIdStructure());
-		this.getStructureService().buildStructure(structure);
-		
-		aBooking.setId(structure.nextKey());
-		aBooking.setRoom(aRoom);
-		aBooking.setDateIn(this.getDateArrival());
-		aBooking.setDateOut(this.calculateDateOut());
-		aBooking.setNrGuests(this.getNumGuests());
-		defaultConvention = this.getConventionService().findConventionsByIdStructure(structure).get(0);
-		aBooking.setConvention(defaultConvention);
-		subTotal = this.getBookingService().calculateRoomSubtotalForBooking(structure,aBooking);
+		subTotal = this.getBookingService().calculateRoomSubtotalForBooking(structure,booking);
 		return subTotal;
 	}
 	
@@ -300,27 +263,11 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 	public void setExtras(List<Extra> extras) {
 		this.extras = extras;
 	}
-	public Guest getGuest() {
-		return guest;
+	
+	public Integer getNumNights() {
+		return numNights;
 	}
-	public void setGuest(Guest guest) {
-		this.guest = guest;
-	}
-	public Date getDateArrival() {
-		return dateArrival;
-	}
-	public void setDateArrival(Date dateArrival) {
-		this.dateArrival = dateArrival;
-	}
-	public Integer getNumNight() {
-		return numNight;
-	}
-	public List<RoomFacility> getRoomFacilities() {
-		return roomFacilities;
-	}
-	public void setRoomFacilities(List<RoomFacility> roomFacilities) {
-		this.roomFacilities = roomFacilities;
-	}
+	
 	public List<Room> getRooms() {
 		return rooms;
 	}
@@ -346,14 +293,9 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public Integer getNumGuests() {
-		return numGuests;
-	}
-	public void setNumGuests(Integer numGuests) {
-		this.numGuests = numGuests;
-	}
-	public void setNumNight(Integer numNight) {
-		this.numNight = numNight;
+	
+	public void setNumNights(Integer numNight) {
+		this.numNights = numNight;
 	}
 	public List<Integer> getBookingExtrasId() {
 		return bookingExtrasId;
@@ -361,12 +303,7 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 	public void setBookingExtrasId(List<Integer> bookingExtrasId) {
 		this.bookingExtrasId = bookingExtrasId;
 	}
-	public Integer getRoomId() {
-		return roomId;
-	}
-	public void setRoomId(Integer roomId) {
-		this.roomId = roomId;
-	}
+	
 	public Integer getIdStructure() {
 		return idStructure;
 	}

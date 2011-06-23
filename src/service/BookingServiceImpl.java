@@ -93,16 +93,10 @@ public class BookingServiceImpl implements BookingService {
 	}
 	
 	public Integer saveOnlineBooking(Structure structure, Booking booking) {
+		booking.setId(structure.nextKey());
+		structure.getBookings().add(booking);
 		
-		try{
-			booking.setId(structure.nextKey());
-			structure.getBookings().add(booking);
-		}
-		catch(NullPointerException e){
-			
-			return 0;
-		}
-
+		
 		return 1;
 		
 	}

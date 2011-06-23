@@ -25,29 +25,29 @@
 
 	<div data-role="content" >
 		<div class="contentHeader">
-			<p>Date Arrival: <strong><s:property value="dateArrival"/></strong>, <s:property value="numNight"/> nights, <s:property value="numGuests"/> peoples</p>	
+			<p>Date Arrival: <strong><s:property value="booking.dateIn"/></strong>, <s:property value="booking.calculateNumNights()"/> nights, <s:property value="booking.numGuests"/> peoples</p>	
 			<p>Total Price: <strong><s:property value="booking.roomSubtotal + booking.extraSubtotal"/></strong></p>
 			</div>
 			<form action="goOnlineBookingFinal.action"  method="post">
 <div id="firstNameDiv" data-role="fieldcontain">
   <label for="firstNo">First Name*</label>
-  <input id="firstNo" name="guest.firstName" type="text" class="required" />
+  <input id="firstNo" name="booking.booker.firstName" type="text" class="required" />
 </div>
 <div id="lastNameDiv" data-role="fieldcontain">
   <label for="lastNo">Last Name*</label>
-  <input id="lastNo" name="guest.lastName" type="text" class="required" />
+  <input id="lastNo" name="booking.booker.lastName" type="text" class="required" />
 </div>
 <div id="phoneNameDiv" data-role="fieldcontain">
   <label for="phoneNo">Phone*</label>
-  <input id="phoneNo" name="guest.phone" type="text" class="required" />
+  <input id="phoneNo" name="booking.booker.phone" type="text" class="required" />
 </div>
 <div id="addressNameDiv" data-role="fieldcontain">
   <label for="addressNo">Address*</label>
-  <input id="addressNo" name="guest.address" type="text" class="required" />
+  <input id="addressNo" name="booking.booker.address" type="text" class="required" />
 </div>
   	<div id="stateDiv" data-role="fieldcontain">
   		<label for="state">State*</label>		
-      <select id="state" name="guest.country" tabindex="2" class="required" >
+      <select id="state" name="booking.booker.country" tabindex="2" class="required" >
                 <option selected="selected" value="">Select One</option>
 				<option value="Afghanistan">Afghanistan</option>
 				<option value="Albania">Albania</option>
@@ -280,7 +280,7 @@
     </div>
 	<div id="zipcodeNameDiv" data-role="fieldcontain">
   <label for="zipcodeNo">ZipCode*</label>
-  <input id="zipcodeNo" name="guest.zipCode" type="text" class="required" />
+  <input id="zipcodeNo" name="booking.booker.zipCode" type="text" class="required" />
 </div>
 
 <div data-role="fieldcontain">

@@ -84,6 +84,7 @@ public class RoomAction extends ActionSupport implements SessionAware{
 		
 		user = (User)this.getSession().get("user");
 		structure = user.getStructure();
+		
 		this.setRooms(this.getRoomService().findRoomsByIdStructure(structure));
 		this.setRoomTypes(this.getRoomTypeService().findRoomTypesByIdStructure(structure));
 		this.setRoomFacilities(this.getStructureService().findRoomFacilitiesByIdStructure(structure));
@@ -165,6 +166,7 @@ public class RoomAction extends ActionSupport implements SessionAware{
 				
 		user = (User)this.getSession().get("user");
 		structure = user.getStructure();
+		
 		oldRoom = this.getRoomService().findRoomById(structure,this.getRoom().getId());			
 		if(oldRoom == null){
 			//Si tratta di un add			

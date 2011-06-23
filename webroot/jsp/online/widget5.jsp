@@ -16,12 +16,12 @@
 
 	<div data-role="content">
 	<div class="alert"></div>	
-	<strong>Congratulation, <s:property value="booking.booker.firstName"/>  <s:property value="booking.booker.lastName"/>,<br/> your booking request has been sent</strong>
+	<strong>Congratulations, <s:property value="booking.booker.firstName"/>  <s:property value="booking.booker.lastName"/>,<br/> your booking request has been sent</strong>
 	<div data-role="fieldcontain">
 	<p class="resume_booking">
-	 <b>Date Arrival: </b><s:property value="dateArrival"/><br/>
-	 <b>Nights: </b><s:property value="numNight"/><br/>
-	 <b>Number of peoples: </b><s:property value="numGuests"/><br/>
+	 <b>Date Arrival: </b><s:property value="booking.dateIn"/><br/>
+	 <b>Nights: </b><s:property value="booking.calculateNumNights()"/><br/>
+	 <b>Number of persons: </b><s:property value="booking.nrGuests"/><br/>
 	 <b>Total Price: <strong style="color: red; font-size: 14px;"><s:property value="booking.roomSubtotal + booking.extraSubtotal"/></strong> &euro;</b>
 	</p>	
 	

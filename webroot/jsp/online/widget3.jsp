@@ -16,7 +16,7 @@
 
 	<div data-role="content">
 		<div class="contentHeader">
-<p>Date Arrival: <strong><s:property value="dateArrival"/></strong>, <s:property value="numNight"/> nights, <s:property value="numGuests"/> peoples</p>	
+<p>Date Arrival: <strong><s:property value="booking.dateIn"/></strong>, <s:property value="booking.calculateNumNights()"/> nights, <s:property value="booking.nrGuests"/> persons</p>	
 <p>Total Price: <strong><s:property value="booking.roomSubtotal"/></strong></p>
 </div>			<form action="goOnlineBookingGuest.action" method="post">
 

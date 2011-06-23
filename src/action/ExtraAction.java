@@ -47,7 +47,6 @@ public class ExtraAction extends ActionSupport implements SessionAware{
 		user = (User)this.getSession().get("user");
 		structure = user.getStructure();
 		
-		//this.setExtras(structure.getExtras());
 		extras = this.getExtraService().findExtrasByIdStructure(structure.getId());
 		this.setExtras(extras);
 		

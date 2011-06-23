@@ -16,7 +16,7 @@
 
 	<div data-role="content">
 	<div class="contentHeader">
-			<p><strong><s:property value="dateArrival"/></strong>, <s:property value="numNight"/> nights, <s:property value="numGuests"/> Persons</p>	
+			<p><strong><s:property value="booking.dateIn"/></strong>, <s:property value="booking.calculateNumNights()"/> nights, <s:property value="numGuests"/> Persons</p>	
 
   </div>
   <ul data-role="listview" data-theme="g">

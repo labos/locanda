@@ -41,6 +41,7 @@ public class ConventionAction extends ActionSupport implements SessionAware{
 	
 		user = (User)this.getSession().get("user");
 		structure = user.getStructure();
+		
 		this.setConventions(this.getConventionService().findConventionsByIdStructure(structure));
 		return SUCCESS;		
 	}
