@@ -355,7 +355,7 @@ display: none;
                   <div class="type-text"><label for="email">Email:</label> 
                   <input type="text" name="booking.booker.email" id="email" value="<s:property value="booking.booker.email"/>" /></div>
 
-                  <div class="type-text"><label for="zipCode">ZipCode: <sup title="This field is mandatory.">*</sup> </label> 
+                  <div class="type-text"><label for="zipCode">ZipCode:</label> 
                   <input type="text" name="booking.booker.zipCode" id="zipCode" value="<s:property value="booking.booker.zipCode"/>" /></div>
                   
                    <div class="type-text"><label for="notes">Note:</label> 

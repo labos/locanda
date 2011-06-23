@@ -18,37 +18,38 @@
  */
  </script>
 	<div data-role="header">
-		<h1>Confirm Details</h1>
+		<h1><s:text name="bookerDetails" /></h1>
 						<a href="goOnlineBookingCalendar.action?idStructure=<s:property value="idStructure"/>" class="ui-btn-right"  rel="external" data-icon="home" data-iconpos="notext" 
            data-direction="reverse">Home</a> 
 	</div><!-- /header -->
 
 	<div data-role="content" >
 		<div class="contentHeader">
-			<p>Date Arrival: <strong><s:property value="booking.dateIn"/></strong>, <s:property value="booking.calculateNumNights()"/> nights, <s:property value="booking.nrGuests"/> persons</p>	
-			<p>Total Price: <strong><s:property value="booking.roomSubtotal + booking.extraSubtotal"/></strong></p>
+		<ul data-role="listview" data-theme="c">
+		
+			<li><s:text name="dateIn" />: <strong><s:property value="booking.dateIn"/></strong>, <s:property value="booking.calculateNumNights()"/> <s:text name="nights" />, <s:property value="booking.nrGuests"/> <s:text name="persons" /></li>	
+			<li><s:text name="subtotalRoom" />: &euro;<strong><s:property value="booking.roomSubtotal"/></strong></li>
+			<li><s:text name="subtotalExtra" />: &euro;<strong><s:property value="booking.extraSubtotal"/></strong></li>
+			<li><s:text name="subtotal" />: &euro;<strong class="red"><s:property value="booking.roomSubtotal + booking.extraSubtotal"/></strong></li>
+			</ul>
 			</div>
 			<form action="goOnlineBookingFinal.action"  method="post">
 <div id="firstNameDiv" data-role="fieldcontain">
-  <label for="firstNo">First Name*</label>
+  <label for="firstNo"><s:text name="firstName" />*</label>
   <input id="firstNo" name="booking.booker.firstName" type="text" class="required" />
 </div>
 <div id="lastNameDiv" data-role="fieldcontain">
-  <label for="lastNo">Last Name*</label>
+  <label for="lastNo"><s:text name="lastName" />*</label>
   <input id="lastNo" name="booking.booker.lastName" type="text" class="required" />
 </div>
 <div id="phoneNameDiv" data-role="fieldcontain">
-  <label for="phoneNo">Phone*</label>
+  <label for="phoneNo"><s:text name="phone" />*</label>
   <input id="phoneNo" name="booking.booker.phone" type="text" class="required" />
 </div>
-<div id="addressNameDiv" data-role="fieldcontain">
-  <label for="addressNo">Address*</label>
-  <input id="addressNo" name="booking.booker.address" type="text" class="required" />
-</div>
   	<div id="stateDiv" data-role="fieldcontain">
-  		<label for="state">State*</label>		
+  		<label for="state"><s:text name="country" />*</label>		
       <select id="state" name="booking.booker.country" tabindex="2" class="required" >
-                <option selected="selected" value="">Select One</option>
+                <option selected="selected" value=""><s:text name="select" /></option>
 				<option value="Afghanistan">Afghanistan</option>
 				<option value="Albania">Albania</option>
 				<option value="Algeria">Algeria</option>
@@ -278,13 +279,13 @@
 				<option value="Zimbabwe Republic">Zimbabwe Republic</option>
     		</select>
     </div>
-	<div id="zipcodeNameDiv" data-role="fieldcontain">
-  <label for="zipcodeNo">ZipCode*</label>
-  <input id="zipcodeNo" name="booking.booker.zipCode" type="text" class="required" />
+	<div id="emailNameDiv" data-role="fieldcontain">
+  <label for="emailNo">Email*</label>
+  <input id="emailNo" name="booking.booker.email" type="text" class="required" />
 </div>
 
 <div data-role="fieldcontain">
-	<button type="submit" data-theme="b" id="btn_guest_next">SUBMIT REQUEST</button>
+	<button type="submit" data-theme="b" id="btn_guest_next"><s:text name="sendBooking" /></button>
 </div>
 
 </form>

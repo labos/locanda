@@ -8,14 +8,25 @@
 <!-- Start of first page -->
 <div data-role="page" id="foo2">
 
-	<div data-role="header">
-		<h1><s:text name="selectDateOnline" /></h1>
-		
-
-           		<a href="<s:property escape="false" value="localeIT"/>" class="ui-btn-left" rel="external" data-icon="grid" data-iconpos="notext" 
+	<div data-role="header" data-position="inline">
+		<a href="goOnlineBookingCalendar.action?idStructure=<s:property value="idStructure"/>" class="ui-btn-left" rel="external" data-icon="home" data-iconpos="notext" 
+           data-direction="reverse">Home</a>
+           		<h1><s:text name="selectDateOnline" /></h1>
+                <!--       		<a data-inline="true"  href="<s:property escape="false" value="localeIT"/>"  rel="external" data-icon="locanda-ita" data-iconpos="notext" 
+           data-direction="reverse">Lang</a>
+               <a data-inline="true" href="<s:property escape="false" value="localeEN"/>"  rel="external" data-icon="locanda-eng" data-iconpos="notext" 
            data-direction="reverse">Lang</a> 
-		<a href="goOnlineBookingCalendar.action?idStructure=<s:property value="idStructure"/>" class="ui-btn-right" rel="external" data-icon="home" data-iconpos="notext" 
-           data-direction="reverse">Home</a> 
+           
+            -->
+                      		<div style="position:absolute; right:0px; top:0px;">
+           				<select name="select-choice-1" id="select-choice-1" data-icon="locanda-eng">
+		<option value="standard"> </option>
+		<option value="rush">Italian</option>
+		<option value="express">Englis</option>
+	</select>
+ </div>
+           
+           
 	</div><!-- /header -->
 
 	<div data-role="content">

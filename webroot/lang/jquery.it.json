@@ -23,7 +23,8 @@ $.i18n.it.strings = {
     next: "Dopo",
     rooms: "Camere",
     newBookingForRoom: "Nuova prenotazione per la camera",
-    modifyBooking: "Modifica Prenotazione"
+    modifyBooking: "Modifica Prenotazione",
+    dateInRequired: "Devi selezionare una data"
     
 };
    

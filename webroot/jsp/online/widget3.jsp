@@ -9,22 +9,22 @@
 <div data-role="page" id="foo3">
 
 	<div data-role="header">
-		<h1>Select extras (optional)</h1>
+		<h1><s:text name="extrasSelect" /></h1>
 				<a href="goOnlineBookingCalendar.action?idStructure=<s:property value="idStructure"/>" class="ui-btn-right" rel="external" data-icon="home" data-iconpos="notext" 
            data-direction="reverse">Home</a> 
 	</div><!-- /header -->
 
 	<div data-role="content">
 		<div class="contentHeader">
-<p>Date Arrival: <strong><s:property value="booking.dateIn"/></strong>, <s:property value="booking.calculateNumNights()"/> nights, <s:property value="booking.nrGuests"/> persons</p>	
-<p>Total Price: <strong><s:property value="booking.roomSubtotal"/></strong></p>
+<p><s:text name="dateIn" />: <strong><s:property value="booking.dateIn"/></strong>, <s:property value="booking.calculateNumNights()"/> <s:text name="nights" />, <s:property value="booking.nrGuests"/> <s:text name="persons" /></p>	
+<p><s:text name="subtotal" />: <strong><s:property value="booking.roomSubtotal"/></strong></p>
 </div>			<form action="goOnlineBookingGuest.action" method="post">
 
 <fieldset data-role="controlgroup">
                     <s:iterator value="extras" var="eachExtra"  status="extraStatus">
                   <legend></legend>
 		<input type="checkbox" name="bookingExtrasId" id="checkbox-<s:property value="#extraStatus.index"/>" class="custom" value="<s:property value="#eachExtra.id"/>" />
-		<label for="checkbox-<s:property value="#extraStatus.index"/>"><s:property value="#eachExtra.name"/> (<s:property value=""/> / <s:property value="#eachExtra.resourcePriceType"/> / <s:property value="eachExtra.timePriceType"/>)</label>
+		<label for="checkbox-<s:property value="#extraStatus.index"/>"><s:property value="#eachExtra.name"/> ( <s:property value="#eachExtra.resourcePriceType"/> / <s:property value="#eachExtra.timePriceType"/>)</label>
           </s:iterator>
     </fieldset>
 
@@ -32,7 +32,7 @@
 <div class="c33l">
 <div data-role="fieldcontain">
 <p>&nbsp;</p>
-<button type="submit" data-theme="b">NEXT</button>
+<button type="submit" data-theme="b"><s:text name="next" /></button>
 	<!--<a href="index.html" data-role="button" data-theme="b">NEXT</a>
 --></div>
 </div>

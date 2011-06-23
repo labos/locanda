@@ -133,6 +133,21 @@ color:#fff;
 .title_widget,.resume_booking {
 text-align:left;
 }
+
+.ui-icon-locanda-ita {
+background-image:url("images/italy-icon.png");
+height:18px;
+width:18px;
+}
+
+.ui-icon-locanda-eng {
+background-image:url("images/eng-icon.png");
+height:18px;
+width:18px;
+}
+
+strong.red{
+color: red;}
 </style>
 
 <script>
@@ -155,7 +170,7 @@ $(function () {
         event.preventDefault();
         if ($(this).parents("form").valid()) {
             if ($('input:hidden[name="booking.dateIn"]').val() == "") {
-                $(".alert").html("Select a date from the calendar!").show();
+                $(".alert").html($.i18n("dateInRequired")).show();
                 return false;
             }
             $(this).parents("form").submit();

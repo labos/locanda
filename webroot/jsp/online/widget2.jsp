@@ -9,14 +9,14 @@
 <div data-role="page" id="foo">
 
 	<div data-role="header">
-		<h1>Select a Room</h1>
+		<h1><s:text name="roomSelect" /></h1>
 		<a href="goOnlineBookingCalendar.action?idStructure=<s:property value="idStructure"/>" class="ui-btn-right" rel="external" data-icon="home" data-iconpos="notext" 
            data-direction="reverse">Home</a> 
 	</div><!-- /header -->
 
 	<div data-role="content">
 	<div class="contentHeader">
-			<p><strong><s:property value="booking.dateIn"/></strong>, <s:property value="booking.calculateNumNights()"/> nights, <s:property value="numGuests"/> Persons</p>	
+			<p><strong><s:property value="booking.dateIn"/></strong>, <s:property value="booking.calculateNumNights()"/> <s:text name="nights" />, <s:property value="numGuests"/> <s:text name="persons" /></p>	
 
   </div>
   <ul data-role="listview" data-theme="g">
@@ -30,8 +30,8 @@
 	<input type="hidden" name="booking.room.id" value="<s:property value="#eachRoom.id"/>" />
 		<img width="90" height="75" src="images/roomtype/<s:property value="#eachRoom.roomType.images[0].fileName"/>"  alt="room photo" /></div>
 	<div class="ui-block-b">	<p class="price_room_widget"><s:property value="#eachRoom.roomType.name"/></p>
-	<p class="price_room_widget">&euro; <s:property value="#eachRoom.price"/> <span>/room/nigth</span></p></div>  
-	<div class="ui-block-c"><button type="submit" data-theme="b">SELECT</button></div>
+	<p class="price_room_widget">&euro; <s:property value="#eachRoom.price"/> <span></span></p></div>  
+	<div class="ui-block-c"><button type="submit" data-theme="b"><s:text name="select" /></button></div>
 
 	</form>
 	</div>
@@ -40,8 +40,8 @@
 
 </ul>
 	<s:if test="rooms.size() == 0">
-		<h3>No rooms available for the selected period.</h3>
-		<a href="goOnlineBookingCalendar.action"  rel="external" data-role="button" data-icon="alert" data-theme="b">BACK</a>
+		<h3><s:text name="roomsNotAvailableOnlineAction" /></h3>
+		<a href="goOnlineBookingCalendar.action"  rel="external" data-role="button" data-icon="alert" data-theme="b"><s:text name="back" /></a>
 		
 	</s:if>
 

@@ -203,6 +203,7 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 		booking = (Booking) this.getSession().get("onlineBooking");
 		
 		this.getBooking().getBooker().setId_structure(this.getIdStructure());
+		this.getBooking().getBooker().setAddress(getText("guestNoAddress"));
 		booking.setBooker(this.getBooking().getBooker());
 		this.getGuestService().insertGuest(booking.getBooker());
 		
@@ -236,6 +237,7 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 			if(bookedExtraItem==null){
 				bookedExtraItem = new BookedExtraItem();
 				bookedExtraItem.setExtra(each);
+				bookedExtraItem.setMaxQuantity(booking.calculateExtraItemMaxQuantity(each));
 				bookedExtraItem.setQuantity(booking.calculateExtraItemMaxQuantity(each));
 				bookedExtraItem.setUnitaryPrice(
 						this.getStructureService().calculateExtraItemUnitaryPrice(structure, booking.getDateIn(), booking.getDateOut(),booking.getRoom().getRoomType(), booking.getConvention(), each));				
