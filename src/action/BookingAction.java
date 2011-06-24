@@ -825,7 +825,36 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		this.setIdStructure(structure.getId());
 		return SUCCESS;		
 	}
+	
+	@Actions({
+		@Action(value="/online",results = {
+				@Result(name="success",location="/onlineBookingsPreview.jsp")
+		}) 	
+	})
+	public String goOnlinePreviewBookings(){
+		User user = null;
+		Structure structure = null;
+		
+		user = (User)session.get("user");
+		structure = user.getStructure();
+		this.setIdStructure(structure.getId());
+		return SUCCESS;		
+	}
 
+	@Actions({
+		@Action(value="/mobile",results = {
+				@Result(name="success",location="goOnlineBookingCalendar.action", type="redirect")
+		}) 	
+	})
+	public String goMobileBookings(){
+		User user = null;
+		Structure structure = null;
+		
+		user = (User)session.get("user");
+		structure = user.getStructure();
+		this.setIdStructure(structure.getId());
+		return SUCCESS;		
+	}
 	
 	public Message getMessage() {
 		return message;

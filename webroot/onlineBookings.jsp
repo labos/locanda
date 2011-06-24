@@ -25,6 +25,9 @@
             <fieldset>
               <legend>Widget</legend>
               <div class="c50l">
+                   <div class="type-check">
+					<a href="online.action" target="_blank" >Try Widget Online</a>
+             	  </div> 
            	 	  <div class="type-text">
                   	<span>Past this code into your website and get booking service</span>
              	  </div>
@@ -35,7 +38,7 @@
              	 <div class="type-check">
 					<a href="#" id="customizewidget">Customize Layout</a>
              	  </div>  
-             	  <div class="type-check">
+              	  <div class="type-check">
                   	<input type="checkbox" name="online.price" id="onlineRequire" value="1"/>
                   	                  	<label for="onlineRequire">Require payment</label>
              	  </div>         	 	
