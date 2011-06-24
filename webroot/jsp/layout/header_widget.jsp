@@ -134,13 +134,13 @@ color:#fff;
 text-align:left;
 }
 
-.ui-icon-locanda-ita {
+.ui-icon-locanda-it {
 background-image:url("images/italy-icon.png");
 height:18px;
 width:18px;
 }
 
-.ui-icon-locanda-eng {
+.ui-icon-locanda-en {
 background-image:url("images/eng-icon.png");
 height:18px;
 width:18px;

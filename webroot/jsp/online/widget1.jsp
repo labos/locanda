@@ -19,7 +19,7 @@
            
             -->
                       		<div style="position:absolute; right:0px; top:0px;">
-           				<select name="select-choice-1" id="choice-language" data-icon="locanda-eng" data-native-menu="false">
+           				<select name="select-choice-1" id="choice-language" data-icon="locanda-<s:property value="#request.locale.getLanguage()" />" data-native-menu="false">
 		<option value="standard"> </option>
 		<option value="<s:property escape="false" value="localeIT"/>">Italian</option>
 		<option value="<s:property escape="false" value="localeEN"/>">English</option>
