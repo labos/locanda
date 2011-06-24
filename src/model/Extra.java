@@ -10,6 +10,7 @@ public class Extra implements Serializable{
 	private String resourcePriceType;
 	private String description;
 	private Integer id_structure;
+	private Boolean availableOnline;
 	
 	
 	@Override
@@ -71,7 +72,11 @@ public class Extra implements Serializable{
 	public void setId_structure(Integer id_structure) {
 		this.id_structure = id_structure;
 	}
-	
-	
+	public Boolean getAvailableOnline() {
+		return availableOnline;
+	}
+	public void setAvailableOnline(Boolean availableOnline) {
+		this.availableOnline = availableOnline;
+	}
 
 }

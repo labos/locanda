@@ -1,6 +1,8 @@
 package service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import java.util.List;
 
@@ -10,7 +12,6 @@ import org.springframework.stereotype.Service;
 import persistence.mybatis.mappers.ExtraMapper;
 
 import model.Extra;
-import model.Structure;
 @Service
 public class ExtraServiceImpl implements ExtraService {
 	@Autowired
@@ -25,7 +26,17 @@ public class ExtraServiceImpl implements ExtraService {
 		return ret;
 	}	
 	
-	
+	public List<Extra> findExtrasByIdStructureAndAvailableOnline(Integer idStructure, Boolean availableOnline) {
+		List<Extra> ret = null;
+		Map params = null;
+		
+		params = new HashMap();
+		params.put("id", idStructure);
+		params.put("availableOnline", availableOnline);
+		
+		ret = this.getExtraMapper().findExtrasByIdStructureAndAvailableOnline(params);
+		return ret;
+	}
 
 	@Override
 	public Integer insertExtra(Extra extra) {

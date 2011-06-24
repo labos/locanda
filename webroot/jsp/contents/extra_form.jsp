@@ -14,33 +14,37 @@
                   <div class="type-text">	
                   	<label for="extraFormName">Extra name <sup title="This field is mandatory.">*</sup></label>
                 	<input type="text" class="required" name="extra.name" id="extraFormName" value="<s:property value="extra.name"/>" aria-required="true"/>
-                  </div> 
+                  </div>
+                  
                   <div class="subcr type-check">
-                  <div class="c50l">
-					<input 
-					  <s:if test="extra.timePriceType == 'per Night'">checked="checked"</s:if>
-					  type="radio" name="extra.timePriceType" value="per Night"/>per Night<br/>
-                    <input 
-                      <s:if test="extra.timePriceType == 'per Week'">checked="checked"</s:if>
-					  type="radio" name="extra.timePriceType" value="per Week"/>per Week<br/>
-                    <input 
-                      <s:if test="extra.timePriceType == 'per Booking'">checked="checked"</s:if>
-				      type="radio" name="extra.timePriceType" value="per Booking"/>per Booking
+                    <div class="c50l">
+					  <input 
+					    <s:if test="extra.timePriceType == 'per Night'">checked="checked"</s:if>
+					    type="radio" name="extra.timePriceType" value="per Night"/>per Night<br/>
+                      <input 
+                        <s:if test="extra.timePriceType == 'per Week'">checked="checked"</s:if>
+					    type="radio" name="extra.timePriceType" value="per Week"/>per Week<br/>
+                      <input 
+                        <s:if test="extra.timePriceType == 'per Booking'">checked="checked"</s:if>
+				        type="radio" name="extra.timePriceType" value="per Booking"/>per Booking
+				    </div>				 
+				    <div class="c50l">
+				  	  <input 
+					    <s:if test="extra.resourcePriceType == 'per Room'">checked="checked"</s:if>
+					    type="radio" name="extra.resourcePriceType" value="per Room"/>per Room<br/>
+                      <input 
+                        <s:if test="extra.resourcePriceType == 'per Person'">checked="checked"</s:if>
+					    type="radio" name="extra.resourcePriceType" value="per Person"/>per Person<br/>
+                      <input 
+                        <s:if test="extra.resourcePriceType == 'per Item'">checked="checked"</s:if>
+					    type="radio" name="extra.resourcePriceType" value="per Item"/>per Item
 				    </div>
-							 
-				  <div class="c50l">
-				  	<input 
-					  <s:if test="extra.resourcePriceType == 'per Room'">checked="checked"</s:if>
-					  type="radio" name="extra.resourcePriceType" value="per Room"/>per Room<br/>
-                    <input 
-                      <s:if test="extra.resourcePriceType == 'per Person'">checked="checked"</s:if>
-					  type="radio" name="extra.resourcePriceType" value="per Person"/>per Person<br/>
-                    <input 
-                      <s:if test="extra.resourcePriceType == 'per Item'">checked="checked"</s:if>
-					  type="radio" name="extra.resourcePriceType" value="per Item"/>per Item
 				  </div>
 				  
-				  </div>
+				  <div class="type-check ">
+                    <s:checkbox id="online" key="extra.availableOnline" label="onLine" />
+                  </div>
+                  
 				  <div class="type-text">	
                   	<label for="extraFormName">Extra Description</label>
 					<textarea name="extra.description"><s:property value="extra.description"/></textarea>		 

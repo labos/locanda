@@ -8,9 +8,7 @@ import java.util.Map;
 import model.BookedExtraItem;
 import model.Booking;
 import model.Extra;
-import model.Guest;
 import model.Room;
-import model.RoomFacility;
 import model.Structure;
 import model.listini.Convention;
 import model.User;
@@ -59,7 +57,6 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 	@Actions({
 		@Action(value="/goOnlineBookingCalendar",results = {
 				@Result(name="success",location="/jsp/online/widget1.jsp"),
-				
 				@Result(name="input", location="/jsp/online/validationError.jsp")
 		})
 	})
@@ -77,11 +74,9 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 	@Actions({
 		@Action(value="/goOnlineBookingRooms",results = {
 				@Result(name="success",location="/jsp/online/widget2.jsp"),
-				
 				@Result(name="input", location="/jsp/online/validationError.jsp")
 		})
 	})
-	
 	public String goOnlineBookingRooms(){
 		Structure structure = null;
 		List <Room> rooms = null;
@@ -123,7 +118,6 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 	@Actions({
 		@Action(value="/goOnlineBookingExtras",results = {
 				@Result(name="success",location="/jsp/online/widget3.jsp"),
-				
 				@Result(name="input", location="/jsp/online/validationError.jsp")
 		})
 	})
@@ -144,7 +138,7 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 		roomSubtotal = this.getBookingService().calculateRoomSubtotalForBooking(structure,booking);
 		booking.setRoomSubtotal(roomSubtotal);		
 		
-		this.setExtras(this.getExtraService().findExtrasByIdStructure(structure.getId()));		
+		this.setExtras(this.getExtraService().findExtrasByIdStructureAndAvailableOnline(structure.getId(), true));		
 		
 		this.setBooking(booking);
 		return SUCCESS;

@@ -8,6 +8,7 @@ import model.Extra;
 @Transactional
 public interface ExtraService {
 	public List<Extra> findExtrasByIdStructure(Integer structureId);
+	public List<Extra> findExtrasByIdStructureAndAvailableOnline(Integer idStructure, Boolean availableOnline);
 	public Integer insertExtra(Extra extra);
 	public Extra findExtraById(Integer id);
 	public Integer updateExtra(Extra extra);
