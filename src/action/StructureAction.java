@@ -15,6 +15,7 @@ import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import service.ImageService;
 import service.StructureService;
 import service.UserService;
 
@@ -34,6 +35,8 @@ public class StructureAction extends ActionSupport implements SessionAware {
 	private StructureService structureService = null;
 	@Autowired
 	private UserService userService = null;
+	@Autowired
+	private ImageService imageService = null;
 	
 	@Actions({
 		@Action(value="/goUpdateDetails",results = {
@@ -120,15 +123,15 @@ public class StructureAction extends ActionSupport implements SessionAware {
 	})
 	public String deleteImageStructure() {
 		User user = null;
-		Image anImage = null;
-		
+				
 		user = (User)this.getSession().get("user");
-		this.setStructure(user.getStructure());
-		anImage = this.getStructureService().findImageById(structure,this.getImage().getId());
 		
-		if (this.getStructureService().deleteImage(structure,anImage) > 0) {
+				
+		if (this.getImageService().deleteImage(this.getImage().getId()) > 0) {
 			this.getMessage().setResult(Message.SUCCESS);
-			this.getMessage().setDescription(getText("structureImageDeleteSuccessAction"));			
+			this.getMessage().setDescription(getText("structureImageDeleteSuccessAction"));	
+			//this.getStructureService().findStructureByIdUser(user.getId());
+			//this.setStructure(user.getStructure());
 			return SUCCESS;
 		}
 		else{
@@ -218,5 +221,15 @@ public class StructureAction extends ActionSupport implements SessionAware {
 	public void setUserService(UserService userService) {
 		this.userService = userService;
 	}
+
+	public ImageService getImageService() {
+		return imageService;
+	}
+
+	public void setImageService(ImageService imageService) {
+		this.imageService = imageService;
+	}
+	
+	
 	
 }

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="persistence.mybatis.mappers.ImageMapper">
+
+ 
+  <cache />
+  <insert id="insertStructureImage" useGeneratedKeys="true" keyProperty="id" parameterType="model.Image">
+  	 insert into image(name,fileName,id_structure) values(#{name},#{fileName},#{id_structure})
+  </insert>  
+  
+  <select id="findImagesByIdStructure" parameterType="int" resultType="model.Image">
+  	<include refid="selectImages"/> where id_structure = #{id_structure}
+  </select>
+  
+  <sql id="selectImages">
+  	select id,name,fileName,id_structure from image
+  </sql>
+  
+  <delete id="deleteImage" parameterType="int">
+  	delete from image where id = #{id}
+  
+  </delete>
+
+	
+  
+    
+</mapper>

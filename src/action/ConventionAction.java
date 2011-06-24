@@ -77,13 +77,10 @@ public class ConventionAction extends ActionSupport implements SessionAware{
 		user = (User)session.get("user");
 		structure = user.getStructure();
 		
-		
-		//oldConvention = structure.findConventionById(this.getConvention().getId());
 		oldConvention = this.getConventionService().findConventionById(structure,this.getConvention().getId());
 		if(oldConvention == null){
 			//Si tratta di una aggiunta
-			this.getConvention().setId(structure.nextKey());
-			//structure.addConvention(this.getConvention());
+			//this.getConvention().setId(structure.nextKey());
 			this.getConventionService().insertConvention(structure, this.getConvention());
 			this.getStructureService().refreshPriceLists(structure);
 			this.getMessage().setResult(Message.SUCCESS);
@@ -91,7 +88,6 @@ public class ConventionAction extends ActionSupport implements SessionAware{
 			
 		}else{
 			//Si tratta di un update
-			//structure.updateConvention(this.getConvention());
 			this.getConventionService().updateConvention(structure, this.getConvention());
 			this.getMessage().setResult(Message.SUCCESS);
 			this.getMessage().setDescription(getText("conventionUpdateSuccessAction"));

@@ -37,7 +37,7 @@ CREATE TABLE `guest` (
   `idNumber` varchar(255) DEFAULT NULL,
   `id_structure` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -46,7 +46,7 @@ CREATE TABLE `guest` (
 
 LOCK TABLES `guest` WRITE;
 /*!40000 ALTER TABLE `guest` DISABLE KEYS */;
-INSERT INTO `guest` VALUES (1,'Paolo','Rossi','paolo@rossi.it','06-6789458','Roma, Via Rossini 84','Italy','09123',NULL,NULL,1);
+INSERT INTO `guest` VALUES (1,'Paolino','Rossi','paolo@rossi.it','06-6789458','Roma, Via Rossini 84','Italy','09123',NULL,NULL,1),(2,'rossini','paolini',NULL,'4444','sdddds','Bangladesh','sddsds',NULL,NULL,1),(3,'rossini','paolini',NULL,'4444','sdddds','Andorra','sddsds',NULL,NULL,1),(4,'ddssd','dsdsdds',NULL,'sdsdsd','sdsdsd','Bangladesh','sdsdsd',NULL,NULL,1),(5,'sandro','pinna',NULL,'23444','4444','Algeria','4444',NULL,NULL,1),(6,'dsdsds','sdsdsd',NULL,'sddssd','sddsds','Barbados','sdssd',NULL,NULL,1),(7,'ddsds','sdsdsd',NULL,'sdssd','fdffd','Angola Republica','cxcxxc',NULL,NULL,1),(8,'dsdsd','ssd',NULL,'sdsd','sdsd','Belarus','ssdsd',NULL,NULL,1),(9,'sd','sdds',NULL,'dssdsd','sdsdsd','Bahrain','sdsdsd',NULL,NULL,1),(10,'dsaa','assad',NULL,'aa','add','Algeria','adda',NULL,NULL,1),(11,'ffdfd','dffdfd',NULL,'fdfdfd','fdfdfd','Barbados','ffddf',NULL,NULL,1),(12,'dsdsd','sddsd',NULL,'sdssd','sddd','Algeria','dsds',NULL,NULL,1),(13,'fdfdf','fdfdfd',NULL,'fdfdfd','dffdfd','Algeria','fdfdf',NULL,NULL,1),(14,'sdsds','dsdsds',NULL,'dsdsds','dsdsd','Angola Republica','dsds',NULL,NULL,1);
 /*!40000 ALTER TABLE `guest` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -74,7 +74,7 @@ CREATE TABLE `extra` (
 
 LOCK TABLES `extra` WRITE;
 /*!40000 ALTER TABLE `extra` DISABLE KEYS */;
-INSERT INTO `extra` VALUES (1,'Breakfast','per Night','per Room',1,'breakfast description'),(2,'Parking','per Night','per Room',1,'Parking description');
+INSERT INTO `extra` VALUES (1,'Breakfast','per Night','per Person',1,'breakfast description'),(2,'Parking','per Night','per Room',1,'Parking description');
 /*!40000 ALTER TABLE `extra` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -102,6 +102,33 @@ LOCK TABLES `season` WRITE;
 /*!40000 ALTER TABLE `season` DISABLE KEYS */;
 INSERT INTO `season` VALUES (46,'Bassa Stagione',2011,1),(47,'Alta Stagione',2011,1);
 /*!40000 ALTER TABLE `season` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `image`
+--
+
+DROP TABLE IF EXISTS `image`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `image` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `fileName` varchar(255) DEFAULT NULL,
+  `id_structure` int(11) DEFAULT NULL,
+  `id_room` int(11) DEFAULT NULL,
+  `id_roomType` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `image`
+--
+
+LOCK TABLES `image` WRITE;
+/*!40000 ALTER TABLE `image` DISABLE KEYS */;
+/*!40000 ALTER TABLE `image` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -162,7 +189,7 @@ CREATE TABLE `structure` (
 
 LOCK TABLES `structure` WRITE;
 /*!40000 ALTER TABLE `structure` DISABLE KEYS */;
-INSERT INTO `structure` VALUES (1,'Polaris','locanda@labos.it','http://www.locanda.it','+39 070','+39 070','Laboratorio Sofotware Open Source ','Pula','Italy','09135','Agriturismo Pixinamanna',1);
+INSERT INTO `structure` VALUES (1,'Polaris','locanda@labos.it','http://www.locanda.it','+39 073','+39 076','Laboratorio Software Open Source ','Pula','Italy','09135','Agriturismo Pixinamanna',1);
 /*!40000 ALTER TABLE `structure` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -200,4 +227,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2011-06-09 10:14:36
+-- Dump completed on 2011-06-24  9:56:03

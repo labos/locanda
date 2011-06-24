@@ -28,7 +28,7 @@ public interface StructureService {
 	public Boolean hasRoomFreeForBooking(Structure structure,Booking booking);
 	public Boolean hasPeriodFreeForSeason(Structure structure, List<Period> periods);
 	public Image findImageById(Structure structure,Integer id);
-	public Integer insertImage(Structure structure,Image structureImage);
+	//public Integer insertImage(Structure structure,Image structureImage);
 	public Integer deleteImage(Structure structure,Image structureImage);
 	public StructureFacility findStructureFacilityById(Structure structure,Integer id);
 	public Integer insertStructureFacility(Structure structure,StructureFacility structureFacility);

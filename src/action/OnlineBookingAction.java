@@ -250,15 +250,6 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 		return bookedExtraItems;
 	}
 	
-	private Boolean checkBookingIsValid (Booking booking){
-		
-		if(booking.getRoom() != null && booking.getId() != null && booking.getBooker() != null 
-									 && booking.getDateIn() != null && booking.getDateOut() != null){
-			return true;
-		}
-			return false;
-	}
-	
 	public List<Extra> getExtras() {
 		return extras;
 	}

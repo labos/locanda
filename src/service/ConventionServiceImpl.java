@@ -17,6 +17,7 @@ public class ConventionServiceImpl implements ConventionService{
 
 	
 	public Integer insertConvention(Structure structure, Convention convention) {
+		convention.setId(structure.nextKey());
 		structure.getConventions().add(convention);
 		return 1;
 	}

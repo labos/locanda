@@ -54,12 +54,18 @@ public class StructureServiceImpl implements StructureService{
 	private RoomService roomService = null;
 	@Autowired
 	private GuestService guestService = null;
-	
-	
+	@Autowired 
+	private ImageService imageService = null;	
 	
 	@Override
-	public Structure findStructureByIdUser(Integer id_user) {		
-		return this.getStructureMapper().findStructureByIdUser(id_user);
+	public Structure findStructureByIdUser(Integer id_user) {	
+		Structure ret = null;
+		Integer id_structure = null;
+		
+		ret = this.getStructureMapper().findStructureByIdUser(id_user);
+		id_structure = ret.getId();
+		ret.setImages(this.getImageService().findImagesByIdStructure(id_structure));
+		return ret;
 	}
 
 
@@ -277,11 +283,14 @@ public class StructureServiceImpl implements StructureService{
 	}
 
 
-	@Override
+	
+	/*
 	public Integer insertImage(Structure structure, Image structureImage) {
+		structureImage.setId(structure.nextKey());
 		structure.getImages().add(structureImage);
+		
 		return 1;
-	}
+	}*/
 
 
 	@Override
@@ -458,6 +467,18 @@ public class StructureServiceImpl implements StructureService{
 	public void setGuestService(GuestService guestService) {
 		this.guestService = guestService;
 	}
+	
+	
+
+
+	public ImageService getImageService() {
+		return imageService;
+	}
+
+
+	public void setImageService(ImageService imageService) {
+		this.imageService = imageService;
+	}
 
 
 	public void buildStructure(Structure structure) {
@@ -472,7 +493,7 @@ public class StructureServiceImpl implements StructureService{
 		this.buildExtras(structure);
 		this.buildExtraPriceLists(structure);
 		this.buildBookings(structure);
-		this.buildImages(structure);
+		//this.buildImages(structure);
 		this.buildStructureFacilities(structure);
 
 	}
@@ -930,6 +951,7 @@ public class StructureServiceImpl implements StructureService{
 				roomPriceList);
 	}
 
+	/*
 	private void buildImages(Structure structure) {
 
 		Image img = null;
@@ -938,8 +960,10 @@ public class StructureServiceImpl implements StructureService{
 		img.setId(structure.nextKey());
 		img.setName("Facciata");
 		img.setFileName("facciata.jpg");
-		this.insertImage(structure, img);
-	}
+		this.insertImage(structure, img);	
+		img.setId_structure(structure.getId());
+		
+	}*/
 
 	private void buildStructureFacilities(Structure structure) {
 
@@ -952,5 +976,7 @@ public class StructureServiceImpl implements StructureService{
 		this.insertStructureFacility(structure,
 				structFacility);
 	}	
+	
+	
 
 }

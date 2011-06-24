@@ -24,6 +24,7 @@ import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import service.ImageService;
 import service.RoomService;
 import service.RoomTypeService;
 import service.StructureService;
@@ -49,6 +50,8 @@ public class UploadAction extends ActionSupport implements SessionAware{
 	private RoomTypeService roomTypeService = null;
 	@Autowired
 	private RoomService roomService = null;
+	@Autowired
+	private ImageService imageService = null;
 	
 	@Actions({
 		@Action(value="/uploadFacilityIF",results = {
@@ -56,7 +59,7 @@ public class UploadAction extends ActionSupport implements SessionAware{
 		}),
 		@Action(value="/uploadFacility",results = {
 				@Result(type ="json",name="success", params={
-						"excludeProperties", "session,upload,uploadFileName,uploadContentType,name,structureService,roomTypeService,roomService"
+						"excludeProperties", "session,upload,uploadFileName,uploadContentType,name,structureService,roomTypeService,roomService,imageService"
 						}),
 				@Result(type ="json",name="error", params={
 						"root","message"
@@ -105,7 +108,7 @@ public class UploadAction extends ActionSupport implements SessionAware{
 		}),
 		@Action(value="/uploadStructureImage",results = {
 				@Result(type ="json",name="success", params={
-						"excludeProperties", "session,upload,uploadFileName,uploadContentType,name,structureService,roomTypeService,roomService"
+						"excludeProperties", "session,upload,uploadFileName,uploadContentType,name,structureService,roomTypeService,roomService,imageService"
 						}),
 				@Result(type ="json",name="error", params={
 						"root","message"
@@ -120,7 +123,7 @@ public class UploadAction extends ActionSupport implements SessionAware{
 		File target = null;
 		
 		user = (User)this.getSession().get("user");
-		structure =  user.getStructure();
+		structure = user.getStructure();
 		
 		if (this.getStructureService().findRoomFacilityByName(structure, this.getName()) != null){
 			message.setResult(Message.ERROR);
@@ -137,8 +140,12 @@ public class UploadAction extends ActionSupport implements SessionAware{
 		this.getImage().setName(this.getName());
 		this.getImage().setFileName(this.getUploadFileName());
 		
-		this.getImage().setId(structure.nextKey());
-		this.getStructureService().insertImage(structure, this.getImage());
+		//this.getStructureService().insertImage(structure, this.getImage());
+		
+		this.getImage().setId_structure(structure.getId());
+		this.getImageService().insertStructureImage(this.getImage());
+		
+		
 		
 		message.setResult(Message.SUCCESS);
 		message.setDescription(getText("structureImageAddSuccessAction"));
@@ -151,7 +158,7 @@ public class UploadAction extends ActionSupport implements SessionAware{
 		}),
 		@Action(value="/uploadStructureFacility",results = {
 				@Result(type ="json",name="success", params={
-						"excludeProperties", "session,upload,uploadFileName,uploadContentType,name,structureService,roomTypeService,roomService"
+						"excludeProperties", "session,upload,uploadFileName,uploadContentType,name,structureService,roomTypeService,roomService,imageService"
 						}),
 				@Result(type ="json",name="error", params={
 						"root","message"
@@ -196,7 +203,7 @@ public class UploadAction extends ActionSupport implements SessionAware{
 		}),
 		@Action(value="/uploadRoomImage",results = {
 				@Result(type ="json",name="success", params={
-						"excludeProperties", "session,upload,uploadFileName,uploadContentType,name,structureService,roomTypeService,roomService"
+						"excludeProperties", "session,upload,uploadFileName,uploadContentType,name,structureService,roomTypeService,roomService,imageService"
 						}),
 				@Result(type ="json",name="error", params={
 						"root","message"
@@ -250,7 +257,7 @@ public class UploadAction extends ActionSupport implements SessionAware{
 		}),
 		@Action(value="/uploadRoomTypeImage",results = {
 				@Result(type ="json",name="success", params={
-						"excludeProperties", "session,upload,uploadFileName,uploadContentType,name,structureService,roomTypeService,roomService"
+						"excludeProperties", "session,upload,uploadFileName,uploadContentType,name,structureService,roomTypeService,roomService,imageService"
 						}),
 				@Result(type ="json",name="error", params={
 						"root","message"
@@ -304,7 +311,7 @@ public class UploadAction extends ActionSupport implements SessionAware{
 		}),
 		@Action(value="/uploadRoomTypeFacility",results = {
 				@Result(type ="json",name="success", params={
-						"excludeProperties", "session,upload,uploadFileName,uploadContentType,name,structureService,roomTypeService,roomService"
+						"excludeProperties", "session,upload,uploadFileName,uploadContentType,name,structureService,roomTypeService,roomService,imageService"
 						}),
 				@Result(type ="json",name="error", params={
 						"root","message"
@@ -429,5 +436,17 @@ public class UploadAction extends ActionSupport implements SessionAware{
 	public void setRoomService(RoomService roomService) {
 		this.roomService = roomService;
 	}
+
+
+	public ImageService getImageService() {
+		return imageService;
+	}
+
+
+	public void setImageService(ImageService imageService) {
+		this.imageService = imageService;
+	}
+	
+	
 
 }
