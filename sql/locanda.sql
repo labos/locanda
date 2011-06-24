@@ -64,6 +64,7 @@ CREATE TABLE `extra` (
   `resourcePriceType` varchar(255) DEFAULT NULL,
   `id_structure` int(11) DEFAULT NULL,
   `description` varchar(255) DEFAULT NULL,
+  `availableOnline` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -74,7 +75,7 @@ CREATE TABLE `extra` (
 
 LOCK TABLES `extra` WRITE;
 /*!40000 ALTER TABLE `extra` DISABLE KEYS */;
-INSERT INTO `extra` VALUES (1,'Breakfast','per Night','per Person',1,'breakfast description'),(2,'Parking','per Night','per Room',1,'Parking description');
+INSERT INTO `extra` VALUES (1,'Breakfast','per Night','per Person',1,'breakfast description',NULL),(2,'Parking','per Night','per Room',1,'Parking description',NULL);
 /*!40000 ALTER TABLE `extra` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -227,4 +228,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2011-06-24  9:56:03
+-- Dump completed on 2011-06-24 14:06:11
