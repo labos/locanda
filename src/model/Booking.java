@@ -102,7 +102,7 @@ public class Booking {
 		Integer numNights = 0;
 		
 		numNights = this.calculateNumNights();
-				
+		System.out.println(extra.getTimePriceType());	
 		if (extra.getTimePriceType().equals("per Night")) {
 			if (extra.getResourcePriceType().equals("per Room")) {
 				ret = numNights;
