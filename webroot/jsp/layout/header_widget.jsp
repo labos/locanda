@@ -161,6 +161,14 @@ $(function () {
             }
         }
     });
+    
+    $('#choice-language').change(function() {
+    	 
+        $("#choice-language option:selected").each(function () {
+        	location.href= $(this).val();
+          });
+
+    	});
     $(".btn_next").button({
         icons: {
             primary: "ui-icon-seek-next"

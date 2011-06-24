@@ -11,9 +11,22 @@
 	<fieldset><legend>Seasons</legend>
 		<div class="subcolumns"><a href="#top_anchor" class="add_period"
 			title="add period">Add New Period</a></div>
+				<div class="subcolumns">
+		<div class="c33l">
+		<div class="subcl type-select">
+		<s:select label="%{getText('year')}"
+       name="season.year"
+       headerKey="season.year"
+       list="#{'2011':'2011', '2012':'2012', '2013':'2013','2014':'2014','2015':'2015'}"
+        required="true"
+/>
+		
+		</div>
+		</div>
+		</div>	
 		<div class="subcolumns">
 		<div class="c33l">
-		<div class="subcl type-text"><span>Name:</span> <input type="text"
+		<div class="subcl type-text"><span><s:text name="name" />:</span> <input type="text"
 			name="season.name" class="required"
 			value="<s:property value="season.name"/>" style="display: inline;" /></div>
 		</div>

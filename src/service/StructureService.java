@@ -14,6 +14,7 @@ import model.Structure;
 import model.StructureFacility;
 import model.listini.Convention;
 import model.listini.Period;
+import model.listini.Season;
 
 @Transactional
 public interface StructureService {
@@ -27,6 +28,7 @@ public interface StructureService {
 	public Boolean hasRoomFreeInPeriod(Structure structure,Integer roomId, Date dateIn, Date dateOut);
 	public Boolean hasRoomFreeForBooking(Structure structure,Booking booking);
 	public Boolean hasPeriodFreeForSeason(Structure structure, List<Period> periods);
+	public Boolean hasPeriodFreeForSeason(Structure structure, Season aSeason);
 	public Image findImageById(Structure structure,Integer id);
 	//public Integer insertImage(Structure structure,Image structureImage);
 	public Integer deleteImage(Structure structure,Image structureImage);
@@ -40,5 +42,6 @@ public interface StructureService {
 	
 	//Da rimuovere
 	public void buildStructure(Structure structure);
+	
 
 }

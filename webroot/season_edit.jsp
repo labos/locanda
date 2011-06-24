@@ -15,7 +15,7 @@
         <div id="col3" role="main">
           <div id="col3_content" class="clearfix">
           	<div class="header_section yform">
-              <p class="navigation"> <a class="home" href="<s:property value="url_findallseasons"/>?sect=settings">Manage Season</a><b>»</b> 
+              <p class="navigation"> <a class="home" href="<s:property value="url_findallseasons"/>?sect=settings"></a><b>»</b> 
 			  <span>&nbsp;</span></p>
               <span class="name_section">Season Details</span>
             </div>

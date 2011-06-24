@@ -87,6 +87,7 @@ public class SeasonAction extends ActionSupport implements SessionAware {
 		structure = user.getStructure();
 		
 		periodsWithoutNulls = new ArrayList<Period>();
+
 		for (Period currPeriod : this.periods) {
 			if ((currPeriod != null )){
 				if (! currPeriod.checkDates()){
@@ -95,11 +96,14 @@ public class SeasonAction extends ActionSupport implements SessionAware {
 					return ERROR;
 					
 				}
+				
 				periodsWithoutNulls.add(currPeriod);				
 			}
 		}
 		
-		if (!this.getStructureService().hasPeriodFreeForSeason(structure, periodsWithoutNulls)) {
+		
+		this.getSeason().setPeriods(periodsWithoutNulls);
+		if (!this.getStructureService().hasPeriodFreeForSeason(structure, this.getSeason())) {
 			this.getMessage().setResult(Message.ERROR);
 			this.getMessage().setDescription(getText("periodOverlappedAction"));
 			return ERROR;
@@ -108,18 +112,17 @@ public class SeasonAction extends ActionSupport implements SessionAware {
 		this.getSeason().setId_structure(structure.getId());
 		
 		oldSeason = this.getSeasonService().findSeasonById(this.getSeason().getId());
+		int currentYear = (this.getSeason().getYear() == null )?Calendar.getInstance().get(Calendar.YEAR): this.getSeason().getYear();		
+		this.getSeason().setYear(currentYear);	
 		if (oldSeason == null) {
 			// Si tratta di una nuova season
 			//Voglio settare l'anno della stagione con l'anno corrente
-			int currentYear = Calendar.getInstance().get(Calendar.YEAR);		
-			this.getSeason().setYear(currentYear);			
+		
 			this.getSeasonService().insertSeason(this.getSeason());			
 			this.getMessage().setDescription(getText("seasonAddSuccessAction"));		
 		} else {
 			// Si tratta di un update di una season esistente
-			//workaround aspettando che la form di edit della season abbia anche il campo year
-			int currentYear = Calendar.getInstance().get(Calendar.YEAR);		
-			this.getSeason().setYear(currentYear);	
+			
 			this.getSeasonService().updateSeason(this.getSeason());			
 			this.getMessage().setDescription(getText("seasonUpdateSuccessAction"));			
 		}

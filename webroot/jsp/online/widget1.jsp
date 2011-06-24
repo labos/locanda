@@ -19,10 +19,10 @@
            
             -->
                       		<div style="position:absolute; right:0px; top:0px;">
-           				<select name="select-choice-1" id="select-choice-1" data-icon="locanda-eng">
+           				<select name="select-choice-1" id="choice-language" data-icon="locanda-eng" data-native-menu="false">
 		<option value="standard"> </option>
-		<option value="rush">Italian</option>
-		<option value="express">Englis</option>
+		<option value="<s:property escape="false" value="localeIT"/>">Italian</option>
+		<option value="<s:property escape="false" value="localeEN"/>">English</option>
 	</select>
  </div>
            
