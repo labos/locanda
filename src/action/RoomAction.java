@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import model.Facility;
 import model.Image;
 import model.Room;
-import model.RoomFacility;
 import model.RoomType;
 import model.Structure;
 import model.User;
@@ -31,15 +31,16 @@ public class RoomAction extends ActionSupport implements SessionAware{
 	private Map<String, Object> session = null;
 	private Room room = null;
 	private Message message = new Message();
-	private List<RoomFacility> roomFacilities = null;
+	private List<Facility> roomFacilities = null;
 	private List<Integer> roomFacilitiesIds = new ArrayList<Integer>();
 	private List<Room> rooms = null;
 	private Integer roomId;
 	private Image image = null;
 	private Integer roomTypeId = null;
 	private List<RoomType> roomTypes = null;
-	private List<RoomFacility> roomTypeFacility = null;
+	private List<Facility> roomTypeFacilities = null;
 	private List<TreeNode> treeNodes = new ArrayList<TreeNode>();
+	
 	@Autowired
 	private StructureService structureService = null;
 	@Autowired
@@ -114,13 +115,13 @@ public class RoomAction extends ActionSupport implements SessionAware{
 	public String findAllRoomTypesForRoom() {
 		User user = null;
 		Structure structure = null;
-		List <RoomFacility> selectedFacilities = null;
+		List <Facility> selectedFacilities = null;
 		
 		user = (User)this.getSession().get("user");
 		structure = user.getStructure();
 		this.setRoomFacilities(this.getStructureService().findRoomFacilitiesByIdStructure(structure));
-		selectedFacilities = this.getRoomTypeService().findRoomTypeById(structure,this.getRoom().getRoomType().getId()).getRoomTypeFacilities();
-		for(RoomFacility each: selectedFacilities){			
+		selectedFacilities = this.getRoomTypeService().findRoomTypeById(structure,this.getRoom().getRoomType().getId()).getFacilities();
+		for(Facility each: selectedFacilities){			
 			this.getRoomFacilitiesIds().add(each.getId());		//popolo l'array roomFacilitiesIds con gli id delle Facilities già presenti nella Room da editare
 		}
 		return SUCCESS;
@@ -142,7 +143,7 @@ public class RoomAction extends ActionSupport implements SessionAware{
 		this.setRoom(oldRoom);
 		this.setRoomTypes(this.getRoomTypeService().findRoomTypesByIdStructure(structure));
 		this.setRoomFacilities(this.getStructureService().findRoomFacilitiesByIdStructure(structure));
-		for(RoomFacility each: this.getRoom().getFacilities()){			
+		for(Facility each: this.getRoom().getFacilities()){			
 			this.getRoomFacilitiesIds().add(each.getId());		//popolo l'array roomFacilitiesIds con gli id delle Facilities già presenti nella Room da editare
 		}
 		return SUCCESS;
@@ -180,7 +181,7 @@ public class RoomAction extends ActionSupport implements SessionAware{
 	private String saveRoom(Structure structure){
 		List<Room> rooms = null;
 		String names = "";
-		List<RoomFacility> checkedFacilities = null;
+		List<Facility> checkedFacilities = null;
 		RoomType theRoomType = null;
 		
 		rooms = this.splitRooms();					
@@ -240,7 +241,7 @@ public class RoomAction extends ActionSupport implements SessionAware{
 	private String updateRoom(Structure structure, Room oldRoom){
 		//Si tratta di un update
 		String newName = null;
-		List<RoomFacility> checkedFacilities = null;
+		List<Facility> checkedFacilities = null;
 		RoomType theRoomType = null;
 		
 		newName = this.getRoom().getName();
@@ -352,10 +353,10 @@ public class RoomAction extends ActionSupport implements SessionAware{
 	public void setFacilities(List<Integer> roomFacilitiesIds) {
 		this.roomFacilitiesIds = roomFacilitiesIds;
 	}
-	public List<RoomFacility> getRoomFacilities() {
+	public List<Facility> getRoomFacilities() {
 		return roomFacilities;
 	}
-	public void setRoomFacilities(List<RoomFacility> roomFacilities) {
+	public void setRoomFacilities(List<Facility> roomFacilities) {
 		this.roomFacilities = roomFacilities;
 	}
 	public Integer getRoomTypeId() {
@@ -394,11 +395,11 @@ public class RoomAction extends ActionSupport implements SessionAware{
 	public void setImage(Image image) {
 		this.image = image;
 	}
-	public List<RoomFacility> getRoomTypeFacility() {
-		return roomTypeFacility;
+	public List<Facility> getRoomTypeFacilities() {
+		return roomTypeFacilities;
 	}
-	public void setRoomTypeFacility(List<RoomFacility> roomTypeFacility) {
-		this.roomTypeFacility = roomTypeFacility;
+	public void setRoomTypeFacilities(List<Facility> roomTypeFacility) {
+		this.roomTypeFacilities = roomTypeFacility;
 	}
 	public List<TreeNode> getTreeNodes() {
 		return treeNodes;

@@ -2,9 +2,9 @@ package action;
 
 import java.util.Map;
 
+import model.Facility;
 import model.Image;
 import model.Structure;
-import model.StructureFacility;
 import model.User;
 import model.internal.Message;
 
@@ -154,7 +154,7 @@ public class StructureAction extends ActionSupport implements SessionAware {
 	})
 	public String deleteStructureFacility() {
 		User user = null;
-		StructureFacility aStructureFacility = null;
+		Facility aStructureFacility = null;
 		
 		user = (User)this.getSession().get("user");
 		this.setStructure(user.getStructure());

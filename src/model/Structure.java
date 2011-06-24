@@ -26,8 +26,8 @@ public class Structure implements Serializable {
 	
 	private List<Room> rooms;
 	private List<RoomType> roomTypes;	
-	private List<RoomFacility> roomFacilities;
-	private List<StructureFacility> structureFacilities;
+	private List<Facility> roomFacilities;
+	private List<Facility> facilities;
 	private List<Guest> guests;
 	private List<Booking> bookings;
 	private List<Extra> extras;
@@ -46,7 +46,7 @@ public class Structure implements Serializable {
 		this.setRooms(new ArrayList<Room>());
 		this.setKeys(new TreeSet<Integer>());
 		this.getKeys().add(1);
-		this.setRoomFacilities(new ArrayList<RoomFacility>());
+		this.setRoomFacilities(new ArrayList<Facility>());
 		this.setGuests(new ArrayList<Guest>());
 		this.setBookings(new ArrayList<Booking>());
 		this.setExtras(new ArrayList<Extra>());
@@ -55,7 +55,7 @@ public class Structure implements Serializable {
 		this.setExtraPriceLists(new ArrayList<ExtraPriceList>());
 		this.setImages(new ArrayList<Image>());
 		this.setRoomTypes(new ArrayList<RoomType>());
-		this.setStructureFacilities(new ArrayList<StructureFacility>());
+		this.setFacilities(new ArrayList<Facility>());
 		this.setConventions(new ArrayList<Convention>());
 		
 	}
@@ -202,10 +202,10 @@ public class Structure implements Serializable {
 	public void setExtraPriceLists(List<ExtraPriceList> extraPriceLists) {
 		this.extraPriceLists = extraPriceLists;
 	}
-	public List<RoomFacility> getRoomFacilities() {
+	public List<Facility> getRoomFacilities() {
 		return roomFacilities;
 	}
-	public void setRoomFacilities(List<RoomFacility> roomFacilities) {
+	public void setRoomFacilities(List<Facility> roomFacilities) {
 		this.roomFacilities = roomFacilities;
 	}
 	public List<Image> getImages() {
@@ -214,11 +214,11 @@ public class Structure implements Serializable {
 	public void setImages(List<Image> images) {
 		this.images = images;
 	}
-	public List<StructureFacility> getStructureFacilities() {
-		return structureFacilities;
+	public List<Facility> getFacilities() {
+		return facilities;
 	}
-	public void setStructureFacilities(List<StructureFacility> structureFacilities) {
-		this.structureFacilities = structureFacilities;
+	public void setFacilities(List<Facility> facilities) {
+		this.facilities = facilities;
 	}
 	public List<Convention> getConventions() {
 		return conventions;

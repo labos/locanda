@@ -16,14 +16,13 @@ import model.Adjustment;
 import model.BookedExtraItem;
 import model.Booking;
 import model.Extra;
+import model.Facility;
 import model.Guest;
 import model.Image;
 import model.Payment;
 import model.Room;
-import model.RoomFacility;
 import model.RoomType;
 import model.Structure;
-import model.StructureFacility;
 import model.listini.Convention;
 import model.listini.ExtraPriceList;
 import model.listini.ExtraPriceListItem;
@@ -76,7 +75,7 @@ public class StructureServiceImpl implements StructureService{
 
 
 	@Override
-	public List<RoomFacility> findRoomFacilitiesByIdStructure(Structure structure) {
+	public List<Facility> findRoomFacilitiesByIdStructure(Structure structure) {
 		
 		return structure.getRoomFacilities();
 	}
@@ -323,36 +322,8 @@ public class StructureServiceImpl implements StructureService{
 	}
 	
 	@Override
-	public Image findImageById(Structure structure, Integer id) {
-		for(Image each: structure.getImages()){
-			if(each.getId().equals(id)){
-				return each;
-			}
-		}
-		return null;
-	}
-
-
-	
-	/*
-	public Integer insertImage(Structure structure, Image structureImage) {
-		structureImage.setId(structure.nextKey());
-		structure.getImages().add(structureImage);
-		
-		return 1;
-	}*/
-
-
-	@Override
-	public Integer deleteImage(Structure structure, Image structureImage) {
-		structure.getImages().remove(structureImage);
-		return 1;
-	}
-
-
-	@Override
-	public StructureFacility findStructureFacilityById(Structure structure,Integer id) {
-		for(StructureFacility each: structure.getStructureFacilities() ){
+	public Facility findStructureFacilityById(Structure structure,Integer id) {
+		for(Facility each: structure.getFacilities() ){
 			if(each.getId().equals(id)){
 				return each;
 			}
@@ -362,15 +333,15 @@ public class StructureServiceImpl implements StructureService{
 
 
 	@Override
-	public Integer insertStructureFacility(Structure structure,	StructureFacility structureFacility) {
-		structure.getStructureFacilities().add(structureFacility);
+	public Integer insertStructureFacility(Structure structure,	Facility structureFacility) {
+		structure.getFacilities().add(structureFacility);
 		return 1;
 	}
 
 
 	@Override
-	public Integer deleteStructureFacility(Structure structure,StructureFacility structureFacility) {
-		structure.getStructureFacilities().remove(structureFacility);
+	public Integer deleteStructureFacility(Structure structure,Facility structureFacility) {
+		structure.getFacilities().remove(structureFacility);
 		return 1;
 	}
 
@@ -386,15 +357,15 @@ public class StructureServiceImpl implements StructureService{
 
 
 	@Override
-	public Integer addRoomFacility(Structure structure, RoomFacility roomFacility) {
+	public Integer addRoomFacility(Structure structure, Facility roomFacility) {
 		structure.getRoomFacilities().add(roomFacility);
 		return 1;
 	}
 
 
 	@Override
-	public RoomFacility findRoomFacilityByName(Structure structure,String roomFacilityName) {
-		for(RoomFacility each: structure.getRoomFacilities()){
+	public Facility findRoomFacilityByName(Structure structure,String roomFacilityName) {
+		for(Facility each: structure.getRoomFacilities()){
 			if(each.getName().equals(roomFacilityName)){
 				return each;
 			}
@@ -404,10 +375,10 @@ public class StructureServiceImpl implements StructureService{
 
 	
 	@Override
-	public RoomFacility findRoomFacilityById(Structure structure, Integer id) {
-		RoomFacility ret = null;
+	public Facility findRoomFacilityById(Structure structure, Integer id) {
+		Facility ret = null;
 		
-		for (RoomFacility each:structure.getRoomFacilities()){
+		for (Facility each:structure.getRoomFacilities()){
 			if (each.getId().equals(id)) {
 				return each;
 			}
@@ -417,10 +388,10 @@ public class StructureServiceImpl implements StructureService{
 
 
 	@Override
-	public List<RoomFacility> findRoomFacilitiesByIds(Structure structure, List<Integer> ids) {
-		List<RoomFacility> ret = new ArrayList<RoomFacility>();
+	public List<Facility> findRoomFacilitiesByIds(Structure structure, List<Integer> ids) {
+		List<Facility> ret = new ArrayList<Facility>();
 		for(Integer each:ids){
-			RoomFacility aRoomFacility = this.findRoomFacilityById(structure,each);
+			Facility aRoomFacility = this.findRoomFacilityById(structure,each);
 			ret.add(aRoomFacility);
 		}
 		return ret;
@@ -572,7 +543,7 @@ public class StructureServiceImpl implements StructureService{
 	private void buildRoomTypes(Structure structure) {
 		RoomType aRoomType = null;
 		Image image = new Image();
-		RoomFacility roomTypeFacility = new RoomFacility();
+		Facility roomTypeFacility = new Facility();
 		image.setId(structure.nextKey());
 		image.setName("singola");
 		image.setFileName("single.jpg");
@@ -588,7 +559,7 @@ public class StructureServiceImpl implements StructureService{
 		aRoomType.addRoomTypeFacility(roomTypeFacility);
 		this.addRoomFacility(structure, roomTypeFacility);
 
-		roomTypeFacility = new RoomFacility();
+		roomTypeFacility = new Facility();
 		roomTypeFacility.setId(structure.nextKey());
 		roomTypeFacility.setName("air conditioned");
 		roomTypeFacility.setFileName("air_conditioned.png");
@@ -612,33 +583,33 @@ public class StructureServiceImpl implements StructureService{
 	}
 
 	private void buildRoomFacilities(Structure structure) {
-		RoomFacility aRoomFacility = null;
+		Facility aRoomFacility = null;
 
-		aRoomFacility = new RoomFacility();
+		aRoomFacility = new Facility();
 		aRoomFacility.setId(structure.nextKey());
 		aRoomFacility.setName("AAD");
 		aRoomFacility.setFileName("AAD.gif");
 		this.addRoomFacility(structure, aRoomFacility);
 
-		aRoomFacility = new RoomFacility();
+		aRoomFacility = new Facility();
 		aRoomFacility.setId(structure.nextKey());
 		aRoomFacility.setName("BAR");
 		aRoomFacility.setFileName("BAR.gif");
 		this.addRoomFacility(structure, aRoomFacility);
 
-		aRoomFacility = new RoomFacility();
+		aRoomFacility = new Facility();
 		aRoomFacility.setId(structure.nextKey());
 		aRoomFacility.setName("PHO");
 		aRoomFacility.setFileName("PHO.gif");
 		this.addRoomFacility(structure, aRoomFacility);
 
-		aRoomFacility = new RoomFacility();
+		aRoomFacility = new Facility();
 		aRoomFacility.setId(structure.nextKey());
 		aRoomFacility.setName("RAD");
 		aRoomFacility.setFileName("RAD.gif");
 		this.addRoomFacility(structure, aRoomFacility);
 
-		aRoomFacility = new RoomFacility();
+		aRoomFacility = new Facility();
 		aRoomFacility.setId(structure.nextKey());
 		aRoomFacility.setName("TEL");
 		aRoomFacility.setFileName("TEL.gif");
@@ -1017,9 +988,9 @@ public class StructureServiceImpl implements StructureService{
 
 	private void buildStructureFacilities(Structure structure) {
 
-		StructureFacility structFacility = null;
+		Facility structFacility = null;
 
-		structFacility = new StructureFacility();
+		structFacility = new Facility();
 		structFacility.setId(structure.nextKey());
 		structFacility.setName("Restaurant");
 		structFacility.setFileName("restaurant.png");

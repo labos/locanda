@@ -29,7 +29,7 @@
               <div class="c50l">
                 <div class="subcr type-check">
                		<label for="">Facilities:</label>
-                	<s:iterator value="roomTypeFacilities" var="each">
+                	<s:iterator value="facilities" var="each">
                		  <div class="facility">
 						<img width="24" height="24" src="images/room_facilities/<s:property value="#each.fileName"/>" alt="facility"/>
 						<s:checkbox id="%{#each.name}" name="roomTypeFacilitiesIds" value="roomTypeFacilitiesIds.contains(#each.id)" fieldValue="%{#each.id}"/>

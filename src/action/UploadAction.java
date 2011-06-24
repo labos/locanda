@@ -6,12 +6,12 @@ import java.util.Map;
 
 import javax.servlet.ServletContext;
 
+import model.Facility;
 import model.Image;
 import model.Room;
-import model.RoomFacility;
+
 import model.RoomType;
 import model.Structure;
-import model.StructureFacility;
 import model.User;
 import model.internal.Message;
 
@@ -39,10 +39,10 @@ public class UploadAction extends ActionSupport implements SessionAware{
 	private String uploadContentType;
 	private String name;
 	private Message message = new Message();
-	private RoomFacility roomFacility = null;
+	private Facility roomFacility = null;
 	private Room room = null;
 	private RoomType roomType = null;
-	private StructureFacility structureFacility = null;
+	private Facility structureFacility = null;
 	private Image image = null;
 	@Autowired
 	private StructureService structureService = null;
@@ -88,7 +88,7 @@ public class UploadAction extends ActionSupport implements SessionAware{
 		target = new File(imgPath + this.getUploadFileName());
 		FileUtils.copyFile(this.getUpload(), target);		
 		
-		this.setRoomFacility(new RoomFacility());
+		this.setRoomFacility(new Facility());
 		this.getRoomFacility().setName(this.getName());
 		this.getRoomFacility().setFileName(this.getUploadFileName());
 		
@@ -185,7 +185,7 @@ public class UploadAction extends ActionSupport implements SessionAware{
 		target = new File(imgPath + this.getUploadFileName());
 		FileUtils.copyFile(this.upload, target);
 		
-		this.setStructureFacility(new StructureFacility());
+		this.setStructureFacility(new Facility());
 		this.getStructureFacility().setName(this.getName());
 		this.getStructureFacility().setFileName(this.getUploadFileName());
 		
@@ -339,7 +339,7 @@ public class UploadAction extends ActionSupport implements SessionAware{
 		target = new File(imgPath + this.getUploadFileName());
 		FileUtils.copyFile(this.getUpload(), target);		
 		
-		this.setRoomFacility(new RoomFacility());
+		this.setRoomFacility(new Facility());
 		this.getRoomFacility().setName(this.getName());
 		this.getRoomFacility().setFileName(this.getUploadFileName());
 		
@@ -388,10 +388,10 @@ public class UploadAction extends ActionSupport implements SessionAware{
 	public void setMessage(Message message) {
 		this.message = message;
 	}
-	public RoomFacility getRoomFacility() {
+	public Facility getRoomFacility() {
 		return roomFacility;
 	}
-	public void setRoomFacility(RoomFacility roomFacility) {
+	public void setRoomFacility(Facility roomFacility) {
 		this.roomFacility = roomFacility;
 	}
 	public Image getImage() {
@@ -400,10 +400,10 @@ public class UploadAction extends ActionSupport implements SessionAware{
 	public void setImage(Image image) {
 		this.image = image;
 	}
-	public StructureFacility getStructureFacility() {
+	public Facility getStructureFacility() {
 		return structureFacility;
 	}
-	public void setStructureFacility(StructureFacility structureFacility) {
+	public void setStructureFacility(Facility structureFacility) {
 		this.structureFacility = structureFacility;
 	}
 	public Room getRoom() {

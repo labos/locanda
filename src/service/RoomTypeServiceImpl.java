@@ -39,7 +39,7 @@ public class RoomTypeServiceImpl implements RoomTypeService{
 		}
 		oldRoomType.setName(roomType.getName());
 		oldRoomType.setMaxGuests(roomType.getMaxGuests());
-		oldRoomType.setRoomTypeFacilities(roomType.getRoomTypeFacilities());
+		oldRoomType.setFacilities(roomType.getFacilities());
 		return 1;
 	}
 

@@ -10,9 +10,9 @@
 </head>
 <body>
 <%@ page import="net.sf.json.*" %>
-<%@ page import="model.RoomFacility;" %>
+<%@ page import="model.Facility;" %>
 <%
-RoomFacility roomfac = (RoomFacility) request.getAttribute("roomFacility");
+Facility roomfac = (Facility) request.getAttribute("roomFacility");
 
 //JSONUtil json = new JSONUtil();
 //JSONUtil.serialize(roomfac);

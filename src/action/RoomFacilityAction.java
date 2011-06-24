@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import model.Facility;
 import model.Room;
-import model.RoomFacility;
 import model.Structure;
 import model.User;
 import model.internal.Message;
@@ -25,7 +25,7 @@ import com.opensymphony.xwork2.ActionSupport;
 @ParentPackage(value="default")
 public class RoomFacilityAction extends ActionSupport implements SessionAware{
 	private Map<String, Object> session = null;
-	private List<RoomFacility> roomFacilities = null;
+	private List<Facility> roomFacilities = null;
 	private List<Integer> roomFacilitiesIds = new ArrayList<Integer>();
 	private Integer idRoom;
 	private Room room = null;
@@ -47,7 +47,7 @@ public class RoomFacilityAction extends ActionSupport implements SessionAware{
 		user = (User)this.getSession().get("user");
 		structure = user.getStructure();
 		this.setRoomFacilities(this.getStructureService().findRoomFacilitiesByIdStructure(structure));		
-		for(RoomFacility each: this.getRoomService().findRoomById(structure,this.idRoom).getFacilities()){	
+		for(Facility each: this.getRoomService().findRoomById(structure,this.idRoom).getFacilities()){	
 			this.roomFacilitiesIds.add(each.getId());			
 		}
 		return SUCCESS;
@@ -63,7 +63,7 @@ public class RoomFacilityAction extends ActionSupport implements SessionAware{
 	public String updateRoomFacilities() {
 		User user = null;
 		Structure structure = null;
-		List<RoomFacility>  checkedFacilities = null;
+		List<Facility>  checkedFacilities = null;
 		
 		user = (User)this.getSession().get("user");
 		structure = user.getStructure();
@@ -82,10 +82,10 @@ public class RoomFacilityAction extends ActionSupport implements SessionAware{
 	public void setSession(Map<String, Object> session) {
 		this.session = session;	
 	}
-	public List<RoomFacility> getRoomFacilities() {
+	public List<Facility> getRoomFacilities() {
 		return roomFacilities;
 	}
-	public void setRoomFacilities(List<RoomFacility> roomFacilities) {
+	public void setRoomFacilities(List<Facility> roomFacilities) {
 		this.roomFacilities = roomFacilities;
 	}
 	public Integer getIdRoom() {

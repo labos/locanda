@@ -54,7 +54,7 @@
            			<fieldset> 
            		      <legend>Facilities</legend>
            		  	  <s:iterator value="#eachRoom.facilities" var="eachFacility">
-           		  	  <s:if test="roomTypeFacility.contains(#eachFacility)">
+           		  	  <s:if test="roomTypeFacilities.contains(#eachFacility)">
            		  	   <img width="24" height="24"  src="images/roomtype_facilities/<s:property value="fileName"/>" alt="<s:property value="#eachFacility.name"/>"/>
            		  	   </s:if>
            		  	   <s:else>

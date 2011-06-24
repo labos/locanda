@@ -9,20 +9,20 @@ public class Room {
 	private Double price;
 	private String notes;
 	private RoomType roomType;
-	private List<RoomFacility> facilities;
+	private List<Facility> facilities;
 	private List<Image> images;
 	
 	
 	public Room(){
-		this.facilities = new ArrayList<RoomFacility>();
+		this.facilities = new ArrayList<Facility>();
 		this.images = new ArrayList<Image>();
 	}
 	
-	public Boolean addRoomFacility(RoomFacility roomFacility){
+	public Boolean addRoomFacility(Facility roomFacility){
 		return this.getFacilities().add(roomFacility);	
 	}
 	
-	public Boolean updateRoomFacilities (List<RoomFacility> facilities){
+	public Boolean updateRoomFacilities (List<Facility> facilities){
 		this.setFacilities(facilities);
 		return true;
 	}
@@ -82,10 +82,10 @@ public class Room {
 	public void setNotes(String notes) {
 		this.notes = notes;
 	}
-	public List<RoomFacility> getFacilities() {
+	public List<Facility> getFacilities() {
 		return facilities;
 	}
-	public void setFacilities(List<RoomFacility> facilities) {
+	public void setFacilities(List<Facility> facilities) {
 		this.facilities = facilities;
 	}
 	public RoomType getRoomType() {
