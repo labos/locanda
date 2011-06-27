@@ -75,7 +75,7 @@
           </div>	 		  
          <!-- DIALOG FACILITY --> 
          <div id="dialog-facility" title="Edit Facility">
-			</div>
+		 </div>
          
                       
                       

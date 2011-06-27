@@ -85,4 +85,6 @@
 		   			<div class="upload_loader">&nbsp;</div>
 		   			<div class="image_preview"></div>
 		</div>  
-           		  
+                  <!-- DIALOG FACILITY --> 
+         <div id="dialog-facility" title="Edit Facility">
+			</div>  		  
