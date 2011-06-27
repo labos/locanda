@@ -23,6 +23,7 @@ import model.Payment;
 import model.Room;
 import model.RoomType;
 import model.Structure;
+import model.User;
 import model.listini.Convention;
 import model.listini.ExtraPriceList;
 import model.listini.ExtraPriceListItem;
@@ -61,9 +62,11 @@ public class StructureServiceImpl implements StructureService{
 		Structure ret = null;
 		Integer id_structure = null;
 		
+		
 		ret = this.getStructureMapper().findStructureByIdUser(id_user);
 		id_structure = ret.getId();
 		ret.setImages(this.getImageService().findImagesByIdStructure(id_structure));
+				
 		return ret;
 	}
 

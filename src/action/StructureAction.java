@@ -50,7 +50,9 @@ public class StructureAction extends ActionSupport implements SessionAware {
 		user = (User)this.getSession().get("user");
 		
 		this.setStructure(
-				this.getStructureService().findStructureByIdUser(user.getId()));			
+				this.getStructureService().findStructureByIdUser(user.getId()));
+		//Da rimuovere la riga seguente quanto tutte le facilities saranno sul DB
+		this.getStructure().setFacilities(user.getStructure().getFacilities());
 		return SUCCESS;
 	}
 
