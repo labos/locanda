@@ -12,8 +12,12 @@ $.i18n.en.strings = {
     nrGuestVsMaxGuest: "Be careful, you're adding a number of guests exceeds the capacity of the room",
     roomRequired: "You must select a room",
     listRoomsRetrieve: "Problem getting rooms list...",
-    listGuestsRetrive: "Problema restituzione dettagli guest...",
+    listGuestsRetrive: "Problem getting guest details...",
     uploadStopped: "The Upload was interrupted",
+    updateFacilitySuccess: "Facility update successfully",
+    updateFacilityError: "Problem during the facility update",
+    destroyFacilitySuccess: "Facility destroyed successfully",
+    destroyFacilityError: "Problem during the facility deletion",
     facilityNameRequired: "You must enter the name of the facility",
     bookingOverlapping: "Error checking booking overlappings in server",
     validPriceAlert: "Please enter a valid price value",
@@ -24,5 +28,7 @@ $.i18n.en.strings = {
     rooms: "Rooms",
     newBookingForRoom: "New Booking for Room",
     modifyBooking: "Modify Booking",
-    dateInRequired: "Devi selezionare una data"
+    dateInRequired: "Devi selezionare una data",
+    save: "Save",
+    delete: "Delete"
 };

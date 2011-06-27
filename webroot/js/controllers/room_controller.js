@@ -1,6 +1,6 @@
 $(function () {
-    //---  ACCOMODATION SECTION CODE    
-    $.Class.extend('Controllers.Accomodation', /* @prototype */ {
+    //---  ROOM SECTION CODE    
+    $.Class.extend('Controllers.Room', /* @prototype */ {
         init: function () { 
         	var self = this;
         	/* Buttons rendering and event handler attachments */
@@ -40,8 +40,8 @@ $(function () {
             $("#roomType").change(function () {
                 var selectedId = $(this).find(":selected").val();
                 if (typeof parseInt(selectedId) == "number" && parseInt(selectedId) > 0) {
-                	//create an Accomodation instance 
-                	var accomodationObj = new Models.Accomodation();
+                	//create a Room instance 
+                	var accomodationObj = new Models.Room();
                 	//set some attributes of the model.
                 	accomodationObj.attr("roomType",new Models.RoomType());
                 	//get all roomtypefacilities and pass the results to callback, calling a service of the model.
@@ -96,8 +96,8 @@ $(function () {
 
     
     });
-    //---  END ACCOMODATION SECTION CODE 
+    //---  END ROOM SECTION CODE 
     
     
-    new Controllers.Accomodation();
+    new Controllers.Room();
 });

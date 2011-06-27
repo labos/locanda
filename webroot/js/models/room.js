@@ -9,6 +9,9 @@
 $.Model.extend('Models.Room',
 /* @Static */
 {
+	associations : {
+	    hasMany : "RoomFacility"
+	  },
 	/**
  	 * Retrieves rooms data from your backend services.
  	 * @param {Object} params params that might refine your results.
@@ -78,4 +81,20 @@ $.Model.extend('Models.Room',
 	}
 },
 /* @Prototype */
-{});
+{		  setRoomType: function(roomtype) {
+    return roomtype;
+},
+
+	getRoomTypeFacilities: function(roomTypeId, success, error){
+	  var self = this;
+
+		$.ajax({
+			url: 'findRoomTypesForRoom.action',
+			type: 'POST',
+			dataType: 'html',
+			data: {'room.roomType.id': roomTypeId},
+			success: success,
+			error: error
+		});
+	  }
+});

@@ -14,6 +14,10 @@ $.i18n.it.strings = {
     listRoomsRetrieve: "Problema restituzione lista camere...",
     listGuestsRetrive: "Problema restituzione dettagli guest...",
     uploadStopped: "E'stato interrotto l'upload",
+    updateFacilitySuccess: "Facility aggiornata con successo",
+    updateFacilityError: "Si è verificato un problema durante l'aggiornamento della facility",
+    destroyFacilitySuccess: "Facility eliminata con successo",
+    destroyFacilityError: "Si è verificato un problema durante la cancellazione della facility",
     facilityNameRequired: "Devi inserire il nome della facility",
     bookingOverlapping: "Errore: booking sovrapposti",
     validPriceAlert: "Attenzione, devi inserire un prezzo valido",
@@ -24,7 +28,9 @@ $.i18n.it.strings = {
     rooms: "Camere",
     newBookingForRoom: "Nuova prenotazione per la camera",
     modifyBooking: "Modifica Prenotazione",
-    dateInRequired: "Devi selezionare una data"
+    dateInRequired: "Devi selezionare una data",
+    save: "Salva",
+    delete: "Elimina"
     
 };
    

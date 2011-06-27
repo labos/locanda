@@ -39,7 +39,7 @@
 				    <!-- div facility for javascript purpose-->
 				  	<div class="facility" style="display: none; border-color: red;">
 					  <img  width="24" height="24" src="images/room_facilities/" alt="facility"/>
-					  <input type="checkbox" id="" name="" checked="checked"/>
+					  <input type="checkbox" id="" name="" />
 					  <label for=""></label>
 				  	</div>
 				  	<!-- end div facility for javascript purpose-->
@@ -73,7 +73,10 @@
 		   	  </div>
 		   	</div>      
           </div>	 		  
-          
+         <!-- DIALOG FACILITY --> 
+         <div id="dialog-facility" title="Edit Facility">
+			</div>
+         
                       
                       
 					   

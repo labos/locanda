@@ -766,7 +766,9 @@ width: 80%;
 
 }
 
-
+.facility img {
+cursor: pointer;
+}
 
 /*.validationErrors{
 	border: 1px dotted red;

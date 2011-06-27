@@ -4,7 +4,7 @@ steal.plugins(
 
 		)				
 
-		.models("roomFacility","accomodation","roomType","guest","extra", "room")						// loads files in models folder 
+		.models("roomFacility","roomType","guest","extra", "room", "facility")						// loads files in models folder 
 
 		.controllers(
 				 "guest",
@@ -15,7 +15,7 @@ steal.plugins(
 		 		"extra",
 		 		"upload",
 		 		"tree",
-		 		"accomodation",
+		 		"room",
 		 		"online");					// loads files in controllers folder
 
 
