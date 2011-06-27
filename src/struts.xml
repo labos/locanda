@@ -26,10 +26,11 @@
 
 <struts>
 	<constant name="struts.custom.i18n.resources" value="global" />
+     <constant name="struts.multipart.maxSize" value="1000000" />
       
   	<package name="default" extends="struts-default,json-default" namespace="/">
     	<action name="locale" class="action.LocaleAction">
 			<result name="SUCCESS" type="redirect">${redirect}</result>	
-		</action>	
-    </package>
+		</action>
+		</package>
 </struts>
