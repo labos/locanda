@@ -56,16 +56,15 @@ public class StructureServiceImpl implements StructureService{
 	private GuestService guestService = null;
 	@Autowired 
 	private ImageService imageService = null;	
+	@Autowired
+	private FacilityService facilityService = null;
 	
 	@Override
 	public Structure findStructureByIdUser(Integer id_user) {	
 		Structure ret = null;
-		Integer id_structure = null;
-		
-		
+			
 		ret = this.getStructureMapper().findStructureByIdUser(id_user);
-		id_structure = ret.getId();
-		ret.setImages(this.getImageService().findImagesByIdStructure(id_structure));
+		
 				
 		return ret;
 	}
@@ -324,31 +323,8 @@ public class StructureServiceImpl implements StructureService{
 		return true;	
 	}
 	
-	@Override
-	public Facility findStructureFacilityById(Structure structure,Integer id) {
-		for(Facility each: structure.getFacilities() ){
-			if(each.getId().equals(id)){
-				return each;
-			}
-		}
-		return null;
-	}
-
-
-	@Override
-	public Integer insertStructureFacility(Structure structure,	Facility structureFacility) {
-		structure.getFacilities().add(structureFacility);
-		return 1;
-	}
-
-
-	@Override
-	public Integer deleteStructureFacility(Structure structure,Facility structureFacility) {
-		structure.getFacilities().remove(structureFacility);
-		return 1;
-	}
-
-
+	
+	
 	public SeasonService getSeasonService() {
 		return seasonService;
 	}
@@ -503,6 +479,19 @@ public class StructureServiceImpl implements StructureService{
 	public void setImageService(ImageService imageService) {
 		this.imageService = imageService;
 	}
+	
+	
+
+
+	public FacilityService getFacilityService() {
+		return facilityService;
+	}
+
+
+	public void setFacilityService(
+			FacilityService structureFacilityService) {
+		this.facilityService = structureFacilityService;
+	}
 
 
 	public void buildStructure(Structure structure) {
@@ -517,9 +506,7 @@ public class StructureServiceImpl implements StructureService{
 		this.buildExtras(structure);
 		this.buildExtraPriceLists(structure);
 		this.buildBookings(structure);
-		//this.buildImages(structure);
-		this.buildStructureFacilities(structure);
-
+		
 	}
 
 	private void buildRooms(Structure structure) {
@@ -975,31 +962,8 @@ public class StructureServiceImpl implements StructureService{
 				roomPriceList);
 	}
 
-	/*
-	private void buildImages(Structure structure) {
+	
 
-		Image img = null;
-
-		img = new Image();
-		img.setId(structure.nextKey());
-		img.setName("Facciata");
-		img.setFileName("facciata.jpg");
-		this.insertImage(structure, img);	
-		img.setId_structure(structure.getId());
-		
-	}*/
-
-	private void buildStructureFacilities(Structure structure) {
-
-		Facility structFacility = null;
-
-		structFacility = new Facility();
-		structFacility.setId(structure.nextKey());
-		structFacility.setName("Restaurant");
-		structFacility.setFileName("restaurant.png");
-		this.insertStructureFacility(structure,
-				structFacility);
-	}	
 	
 	
 

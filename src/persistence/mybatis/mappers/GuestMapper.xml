@@ -10,9 +10,12 @@
    <include refid="selectGuests"/>  where id_structure = #{id_structure}  
   </select>
   
+  
   <select id="findGuestById" parameterType="int" resultType="model.Guest" >
    <include refid="selectGuests"/>  where id = #{id}  
   </select>
+  
+  
  	
   <sql id="selectGuests">
   	SELECT id,firstName,lastName,email,phone,address,country,zipCode,notes,idNumber,id_structure from guest

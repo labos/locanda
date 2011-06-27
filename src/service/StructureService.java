@@ -27,9 +27,9 @@ public interface StructureService {
 	public Boolean hasRoomFreeForBooking(Structure structure,Booking booking);
 	public Boolean hasPeriodFreeForSeason(Structure structure, List<Period> periods);
 	public Boolean hasPeriodFreeForSeason(Structure structure, Season aSeason);
-	public Facility findStructureFacilityById(Structure structure,Integer id);
-	public Integer insertStructureFacility(Structure structure,Facility structureFacility);
-	public Integer deleteStructureFacility(Structure structure,Facility structureFacility);
+	
+	
+		
 	public Structure findStructureByIdUser(Integer id_user);
 	public Structure findStructureById(Integer id);
 	public Integer updateStructure(Structure structure);

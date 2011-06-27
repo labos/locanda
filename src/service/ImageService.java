@@ -10,6 +10,6 @@ import model.Image;
 public interface ImageService {
 	public Integer insertStructureImage(Image image);	
 	public List<Image> findImagesByIdStructure(Integer id_structure);
-	public Integer deleteImage(Integer id);
+	public Integer deleteStructureImage(Integer id);
 
 }

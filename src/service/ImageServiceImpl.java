@@ -32,9 +32,9 @@ public class ImageServiceImpl implements ImageService{
 
 
 	@Override
-	public Integer deleteImage(Integer id) {
+	public Integer deleteStructureImage(Integer id) {
 		
-		return this.getImageMapper().deleteImage(id);
+		return this.getImageMapper().deleteStructureImage(id);
 	}
 
 

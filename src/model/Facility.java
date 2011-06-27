@@ -1,6 +1,8 @@
 package model;
 
-public class Facility {
+import java.io.Serializable;
+
+public class Facility implements Serializable{
 	private Integer id;
 	private String name;
 	private String fileName;

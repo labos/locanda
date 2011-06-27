@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="persistence.mybatis.mappers.FacilityMapper">
+	<cache />
+	<insert id="insertStructureFacility" parameterType="model.Facility" useGeneratedKeys="true" keyProperty="id">
+		INSERT into structureFacility(name,fileName,id_structure) values (#{name},#{fileName},#{id_structure})	
+	</insert>
+	<delete id="deleteStructureFacility" parameterType="int" >
+		DELETE from structureFacility where id = #{id}
+	</delete>
+	
+	<select id="findStructureFacilitiesByIdStructure" parameterType="int" resultType="model.Facility">
+		<include refid="findStructureFacilities" />  where id_structure = #{id_structure}
+	
+	</select>
+	
+	<sql id="findStructureFacilities">
+		SELECT id,name,fileName,id_structure from structureFacility 
+	</sql>
+
+</mapper>
