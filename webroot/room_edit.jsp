@@ -16,7 +16,7 @@
       <div id="col3_content" class="clearfix">
       
         <div class="header_section yform">
-          <p class="navigation"> <a class="home" href="<s:property value="url_findallroom"/>?sect=guests"></a><b>»</b> 
+          <p class="navigation"> <a class="home" href="<s:property value="url_findallroom"/>?sect=accomodation"></a><b>»</b> 
 		  <span>&nbsp;</span></p>
           <span class="name_section">Room Details</span>
         </div>
@@ -49,7 +49,7 @@
 								<a title="<s:property value="#eachImage.name" />" href="#drop" class="thumb" rel="history">
 									<img alt="<s:property value="#eachImage.name" />" src="images/room_images/<s:property value="#eachImage.fileName" />" />
 									</a>
-									<span><s:property value="#eachImage.name" /><a class="erase_image" href="deletePhotoRoom.action?image.id=<s:property value="#eachImage.id" />&room.id=<s:property value="room.id" />"  title="erase"><img src="images/delete.png" alt="Delete Image" /></a></span>
+									<span><s:property value="#eachImage.name" /><a class="erase_image" href="deleteRoomImage.action?image.id=<s:property value="#eachImage.id" />"  title="erase"><img src="images/delete.png" alt="Delete Image" /></a></span>
 								
 							</li>
         </s:iterator>
@@ -58,7 +58,7 @@
 								<a title="Title #1" href="#drop" class="thumb" rel="history">
 									<img alt="Title #1" src="images/room_images/" />
 								</a>
-								<span class="name_image">__PVALUE__<a class="erase_image" href="deletePhotoRoom.action?room.id=<s:property value="room.id" />&image.id="  title="erase"><img src="images/delete.png" alt="Delete Image" /></a></span>
+								<span class="name_image">__PVALUE__<a class="erase_image" href="deleteRoomImage.action?image.id="  title="erase"><img src="images/delete.png" alt="Delete Image" /></a></span>
 										
 							</li>
 							</ul>

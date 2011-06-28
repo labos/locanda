@@ -693,14 +693,16 @@ background:none repeat scroll 0 0 rgba(0, 0, 0, 0.5);
 bottom:5px;
 right:5px;
 max-width:80px;
+max-height: 18px;
 padding:1px 5px;
 position:absolute;
 color: #fff;
 font-weight: 600;
+overflow: hidden;
 }
 
 ul.thumbs li  span a, ul.thumbs_facility li span a {
-right: 0px;
+right: 1px;
 position:absolute;
 
 }
@@ -723,7 +725,7 @@ border:1px solid #88A4D6;
 cursor:pointer;
 font-size:15px;
 font-weight:bold;
-left:690px;
+left:690px;sdfsdf
 padding:2px 7px 2px 27px;
 text-decoration:none;
 top:24px;
@@ -782,6 +784,10 @@ span.hov_edit {
 	cursor: pointer;
 	
 	}
+
+input[name='facility_name'] {
+width: 180px;
+}
 
 /*.validationErrors{
 	border: 1px dotted red;
