@@ -65,7 +65,7 @@
           
           <div class="beauty">
      	  	<div class="subcolumns">
-           	  <div class="c50l">
+           	  <div class="c33l">
     			<label for="name_facility">Facility Name:</label>&nbsp;<input type="text" name="facility_name" value="" id="name_facility" class="require"/>
  			  </div>
  			  <div class="c20l">
@@ -86,5 +86,5 @@
 		   			<div class="image_preview"></div>
 		</div>  
                   <!-- DIALOG FACILITY --> 
-         <div id="dialog-facility" title="Edit Facility">
+         <div id="dialog-facility" title="<s:text name="facilityEdit" />">
 			</div>  		  

@@ -1,98 +1,110 @@
-/**
- * @tag controllers, home
- * Displays a table of facilities.	 Lets the user 
- * ["Locanda.Controllers.Facility.prototype.form submit" create], 
- * ["Locanda.Controllers.Facility.prototype.&#46;edit click" edit],
- * or ["Locanda.Controllers.Facility.prototype.&#46;destroy click" destroy] facilities.
- */
-$.Controller.extend('Controllers.Facility',
-/* @Static */
-{
-	onDocument: true
-},
-/* @Prototype */
-{
- /**
- * When the page loads, gets all facilities to be displayed.
- */
- load: function(){
-	if(!$("#facility").length){
-	 $(document.body).append($('<div/>').attr('id','facility'));
-		 Models.Facility.findAll({}, this.callback('list'));
- 	}
- },
- /**
- * Displays a list of facilities and the submit form.
- * @param {Array} facilities An array of Locanda.Models.Facility objects.
- */
- list: function( facilities ){
-	$('#facility').html(this.view('init', {facilities:facilities} ));
- },
- /**
- * Responds to the create form being submitted by creating a new Locanda.Models.Facility.
- * @param {jQuery} el A jQuery wrapped element.
- * @param {Event} ev A jQuery event whose default action is prevented.
- */
-'form submit': function( el, ev ){
-	ev.preventDefault();
-	new Models.Facility(el.formParams()).save();
-},
-/**
- * Listens for facilities being created.	 When a facility is created, displays the new facility.
- * @param {String} called The open ajax event that was called.
- * @param {Event} facility The new facility.
- */
-'facility.created subscribe': function( called, facility ){
-	$("#facility tbody").append( this.view("list", {facilities:[facility]}) );
-	$("#facility form input[type!=submit]").val(""); //clear old vals
-},
- /**
- * Creates and places the edit interface.
- * @param {jQuery} el The facility's edit link element.
- */
-'.edit click': function( el ){
-	var facility = el.closest('.facility').model();
-	facility.elements().html(this.view('edit', facility));
-},
- /**
- * Removes the edit interface.
- * @param {jQuery} el The facility's cancel link element.
- */
-'.cancel click': function( el ){
-	this.show(el.closest('.facility').model());
-},
- /**
- * Updates the facility from the edit values.
- */
-'.update click': function( el ){
-	var $facility = el.closest('.facility'); 
-	$facility.model().update($facility.formParams());
-},
- /**
- * Listens for updated facilities.	 When a facility is updated, 
- * update's its display.
- */
-'facility.updated subscribe': function( called, facility ){
-	this.show(facility);
-},
- /**
- * Shows a facility's information.
- */
-show: function( facility ){
-	facility.elements().html(this.view('show',facility));
-},
- /**
- *	 Handle's clicking on a facility's destroy link.
- */
-'.destroy click': function( el ){
-	if(confirm("Are you sure you want to destroy?")){
-		el.closest('.facility').model().destroy();
-	}
- },
- /**
- *	 Listens for facilities being destroyed and removes them from being displayed.
- */
-"facility.destroyed subscribe": function(called, facility){
-	facility.elements().remove();	 //removes ALL elements
- }
+$(function () {
+    //---  ROOM SECTION CODE    
+    $.Class.extend('Controllers.Facility', /* @prototype */ {
+        init: function () { 
+        	var self = this;
+
+            $(".facility").hover(function () {
+                if ($(this).children(".hov_edit")) {
+
+                	$(this).children(".hov_edit").show();
+                }},
+                function () {
+                    if ($(this).children(".hov_edit")) {
+
+                    	$(this).children(".hov_edit").hide();
+                    }}
+            );
+            
+            /**
+             * @attribute $facilityDom
+             * Jquery Object Dom of facility in editing (private variable)
+             */
+            this.$facilityDom = null;
+	        /**
+	        *
+	        * Local variable to store dialog buttons translated for facility editing and related execution code.
+	        */
+		var dialogButtons = {};
+		var params = $( "#dialog-facility" ).find("form").serialize();
+			dialogButtons[$.i18n("save")] = function() { 
+			
+			Models.Facility.update({},params, self.callback('updateFacilitySuccess'), self.callback('updateFacilityError')); };
+			
+			dialogButtons[$.i18n("delete")] = function() { 
+                if (confirm($.i18n("alertCancel"))) {
+                	Models.Facility.destroy({},params, self.callback('destroyFacilitySuccess'), self.callback('destroyFacilityError')); 
+                    $(this).dialog("close");
+                };
+               
+                    
+                };
+			
+		
+		
+	        /**
+	        *
+	        * Manage facility editing with image click event handler.
+	        */
+		$('.facility').find("img, .hov_edit").click( function() {
+			self.$facilityDom = $(this).parent();
+			$( "#dialog-facility:ui-dialog" ).dialog( "destroy" );
+			var idFacility = $(this).siblings("input:hidden").val();
+			var nameFacility = $(this).siblings("label").text();
+			var fileNameFacility = $(this).attr("src") || $(this).siblings("img").attr("src");
+			var added = new EJS({url: 'js/views/facility/show.ejs'}).render({facility: {id:idFacility, name: nameFacility, fileName: fileNameFacility}, labels:{name: $.i18n("name")}});
+			$( "#dialog-facility" ).html(added).dialog({
+				minHeight: 140,
+				minWidth: 400, 
+				modal: true,
+				buttons: dialogButtons
+
+			});
+
+		});
+    	
+        
+        },
+        
+        /**
+         * update a facility.
+         * @param {String} .
+         */
+    	updateFacilitySuccess: function(data){
+    		var self = this;
+    		$().notify($.i18n("warning"), $.i18n("updateFacilitySuccess"));
+    		
+    	},
+    	/**
+         * manage errors during update facility.
+         */
+    	updateFacilityError: function(){
+    		
+    		$().notify($.i18n("warning"), $.i18n("updateFacilityError"));
+    	},
+        /**
+         * destroy a facility.
+         * @param {String}.
+         */
+    	destroyFacilitySuccess: function(data){
+    		var self = this;
+    		this.$facilityDom.remove();
+    		$().notify($.i18n("warning"), $.i18n("destroyFacilitySuccess"));
+    		
+    	},
+    	/**
+         * manage errors during destroy facility.
+         */
+    	destroyFacilityError: function(){
+    		
+    		$().notify($.i18n("warning"), $.i18n("destroyFacilityError"));
+    	}
+    
+
+    
+    });
+    //---  END ROOM SECTION CODE 
+    
+    
+    new Controllers.Facility();
 });

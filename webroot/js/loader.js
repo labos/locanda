@@ -16,6 +16,7 @@ steal.plugins(
 		 		"upload",
 		 		"tree",
 		 		"room",
+		 		"facility",
 		 		"online");					// loads files in controllers folder
 
 

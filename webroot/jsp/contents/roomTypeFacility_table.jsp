@@ -6,6 +6,7 @@
 						<label for="">Facilities:</label>					 
 						<s:iterator value="roomFacilities" var="each">
                		  <div class="facility">
+               		  <span class="hov_edit"></span>
 						<img width="24" height="24" src="images/room_facilities/<s:property value="#each.fileName"/>" alt="facility"/>
 						<s:checkbox id="%{#each.name}_fac" name="roomFacilitiesIds" value="roomFacilitiesIds.contains(#each.id)" fieldValue="%{#each.id}" label="%{#each.name}"/>
 						 </div>

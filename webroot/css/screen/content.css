@@ -576,6 +576,7 @@ width:15px;
 }
 
 div.facility {
+position: relative;
 border: 1px dotted grey;
 padding:2px;
 margin-bottom:2px;
@@ -771,11 +772,14 @@ cursor: pointer;
 }
 
 span.hov_edit {
+	display: none;
 	position: absolute;
 	width:24px;
-	height: 15px;
-	bottom:0;
-	opacity: 0.67;
+	height: 17px;
+	bottom:0px;
+	background: url("../images/edit-icon.png") no-repeat scroll;
+	background-color: #D0F279;
+	cursor: pointer;
 	
 	}
 
