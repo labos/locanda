@@ -72,7 +72,15 @@ $(function () {
          */
     	updateFacilitySuccess: function(data){
     		var self = this;
-    		$().notify($.i18n("warning"), $.i18n("updateFacilitySuccess"));
+    		if( data && $.isPlainObject(data) ){
+    			
+        		this.$facilityDom.find("label").text(data.name);
+        		this.$facilityDom.find("img").attr("src",data.fileName);
+        		$().notify($.i18n("warning"), $.i18n("updateFacilitySuccess"));
+        		return;
+    		}
+
+    		$().notify($.i18n("warning"), $.i18n("updateFacilityError"));
     		
     	},
     	/**
