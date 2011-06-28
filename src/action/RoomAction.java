@@ -20,6 +20,7 @@ import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import service.ImageService;
 import service.RoomService;
 import service.RoomTypeService;
 import service.StructureService;
@@ -47,6 +48,8 @@ public class RoomAction extends ActionSupport implements SessionAware{
 	private RoomTypeService roomTypeService = null;
 	@Autowired
 	private RoomService roomService = null;
+	@Autowired
+	private ImageService imageService = null;
 	
 	@Actions({
 		@Action(value="/findAllRooms",results = {
@@ -140,6 +143,7 @@ public class RoomAction extends ActionSupport implements SessionAware{
 		user = (User)this.getSession().get("user");
 		structure = user.getStructure();
 		oldRoom = this.getRoomService().findRoomById(structure,this.getRoom().getId());
+		oldRoom.setImages(this.getImageService().findImagesByIdRoom(this.getRoom().getId()));
 		this.setRoom(oldRoom);
 		this.setRoomTypes(this.getRoomTypeService().findRoomTypesByIdStructure(structure));
 		this.setRoomFacilities(this.getStructureService().findRoomFacilitiesByIdStructure(structure));
@@ -310,14 +314,10 @@ public class RoomAction extends ActionSupport implements SessionAware{
 	})
 	public String deletePhotoRoom() {
 		User user = null; 
-		Structure structure = null;
-		Room aRoom = null;
-		
+				
 		user = (User)this.getSession().get("user");
-		structure = user.getStructure();
-		aRoom = this.getRoomService().findRoomById(structure,this.getRoom().getId());
-		
-		if(aRoom.deleteImage(this.getImage())){
+				
+		if(this.getImageService().deleteRoomImage(this.getImage().getId()) >0){
 			this.getMessage().setResult(Message.SUCCESS);
 			this.getMessage().setDescription(getText("roomImageDeleteSuccessAction"));
 			return "success";
@@ -425,5 +425,14 @@ public class RoomAction extends ActionSupport implements SessionAware{
 	public void setRoomService(RoomService roomService) {
 		this.roomService = roomService;
 	}
+
+	public ImageService getImageService() {
+		return imageService;
+	}
+
+	public void setImageService(ImageService imageService) {
+		this.imageService = imageService;
+	}
+	
 	
 }

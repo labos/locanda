@@ -242,8 +242,8 @@ public class UploadAction extends ActionSupport implements SessionAware{
 		this.getImage().setName(this.getName());
 		this.getImage().setFileName(this.getUploadFileName());
 		
-		this.getImage().setId(structure.nextKey());
-		aRoom.addImage(this.getImage());
+		this.getImage().setId_room(this.getRoom().getId());
+		this.getImageService().insertRoomImage(this.getImage());
 					
 		message.setResult(Message.SUCCESS);
 		message.setDescription(getText("roomImageAddSuccessAction"));
@@ -279,7 +279,7 @@ public class UploadAction extends ActionSupport implements SessionAware{
 			message.setResult(Message.ERROR);
 			message.setDescription(getText("roomTypeImageAlreadyPresentError"));
 			return ERROR;
-		};
+		}
 		aRoomType = this.getRoomTypeService().findRoomTypeById(structure, this.getRoomType().getId());
 		if (aRoomType == null){			
 			message.setResult(Message.ERROR);
@@ -296,8 +296,9 @@ public class UploadAction extends ActionSupport implements SessionAware{
 		this.getImage().setName(this.getName());
 		this.getImage().setFileName(this.getUploadFileName());
 		
-		this.getImage().setId(structure.nextKey());
-		aRoomType.addRoomTypeImage(this.getImage());
+		this.getImage().setId_roomType(this.getRoomType().getId());
+		this.getImageService().insertRoomTypeImage(this.getImage());
+	
 				
 		message.setResult(Message.SUCCESS);
 		message.setDescription(getText("facilityImageAddSuccessAction"));
