@@ -30,7 +30,8 @@ $.i18n.it.strings = {
     modifyBooking: "Modifica Prenotazione",
     dateInRequired: "Devi selezionare una data",
     save: "Salva",
-    delete: "Elimina"
+    delete: "Elimina",
+    name: "Nome"
     
 };
    

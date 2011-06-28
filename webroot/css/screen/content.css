@@ -770,6 +770,15 @@ width: 80%;
 cursor: pointer;
 }
 
+span.hov_edit {
+	position: absolute;
+	width:24px;
+	height: 15px;
+	bottom:0;
+	opacity: 0.67;
+	
+	}
+
 /*.validationErrors{
 	border: 1px dotted red;
 }*/

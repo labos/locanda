@@ -360,7 +360,7 @@ $.fn.deprecatedBrowser = function () {
 			var idFacility = $(this).siblings("input:hidden").val();
 			var nameFacility = $(this).siblings("label").text();
 			var fileNameFacility = $(this).attr("src");
-			var added = new EJS({url: 'js/views/facility/show.ejs'}).render({facility: {id:idFacility, name: nameFacility, fileName: fileNameFacility}});
+			var added = new EJS({url: 'js/views/facility/show.ejs'}).render({facility: {id:idFacility, name: nameFacility, fileName: fileNameFacility}, labels:{name: $.i18n("name")}});
 			$( "#dialog-facility" ).html(added).dialog({
 				minHeight: 140,
 				minWidth: 400, 

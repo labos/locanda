@@ -1,8 +1,9 @@
 <form class="yform">
 	<fieldset>
 	         <div class="c62l">
+	         <span class="hov_edit"></span>
 	<img width="24" height="24" src="<%=facility.fileName %>" alt="facility"/>
-		<label for="name">Name</label>
+		<label for="name"><%=labels.name %></label>
 		<input type="text" name="name" id="name" value="<%=facility.name %>" />
 		<input type="hidden" name="facility.id"  value="<%=facility.id %>" />
 		</div>
