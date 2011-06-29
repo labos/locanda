@@ -310,7 +310,7 @@ public class RoomAction extends ActionSupport implements SessionAware{
 	}	
 	
 	@Actions({
-		@Action(value="/deletePhotoRoom",results = {
+		@Action(value="/deleteRoomImage",results = {
 				@Result(type ="json",name="success", params={
 						"root","message"
 				} ),
@@ -320,7 +320,7 @@ public class RoomAction extends ActionSupport implements SessionAware{
 		})
 		
 	})
-	public String deletePhotoRoom() {
+	public String deleteRoomImage() {
 		User user = null; 
 				
 		user = (User)this.getSession().get("user");

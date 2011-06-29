@@ -158,7 +158,7 @@ public class RoomTypeAction extends ActionSupport implements SessionAware{
 	}
 		
 	@Actions({
-		@Action(value="/deletePhotoRoomType",results = {
+		@Action(value="/deleteRoomTypeImage",results = {
 				@Result(type ="json",name="success", params={
 						"root","message"
 				}),
@@ -167,7 +167,7 @@ public class RoomTypeAction extends ActionSupport implements SessionAware{
 				})
 		})
 	})
-	public String deletePhotoRoomType() {
+	public String deleteRoomTypeImage() {
 		User user = null; 
 		user = (User)this.getSession().get("user");
 				

@@ -982,7 +982,7 @@ $.ajax({
             	   var bookingData = $(this).data("calEvent");
 
             	   
-            	   $('div.jGrowl-notification').trigger('jGrowl.shutdown');
+            	   $('div.jGrowl-notification').trigger('jGrowl.close');
             	   var htmlBooker = new EJS({url: 'js/views/booker/show.ejs'}).render({booker: bookingData, labels:{name: $.i18n("name"), phone: $.i18n("phone"), address: $.i18n("address")}});
             	   $.jGrowl(htmlBooker, { sticky: true, header: $.i18n("bookerData"), position: 'top-right', life: 1000 });
             	   }, function(){});
