@@ -725,7 +725,7 @@ border:1px solid #88A4D6;
 cursor:pointer;
 font-size:15px;
 font-weight:bold;
-left:690px;sdfsdf
+left:690px;
 padding:2px 7px 2px 27px;
 text-decoration:none;
 top:24px;
@@ -787,6 +787,22 @@ span.hov_edit {
 
 input[name='facility_name'] {
 width: 180px;
+}
+
+a.skype{
+	float: right;
+	width:24px;
+	height: 22px;
+	background: url("../images/skype-icon.png") no-repeat scroll 0 0 transparent;
+	cursor: pointer;
+}
+
+a.gmaps{
+	float: right;
+	width:24px;
+	height: 22px;
+	background: url("../images/maps-icon.png") no-repeat scroll 0 0 transparent;
+	cursor: pointer;
 }
 
 /*.validationErrors{

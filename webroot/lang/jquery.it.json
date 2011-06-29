@@ -32,7 +32,8 @@ $.i18n.it.strings = {
     save: "Salva",
     delete: "Elimina",
     name: "Nome",
-    bookerData: "Dati cliente"
-    
+    bookerData: "Dati cliente",
+    phone: "Telefono",
+    address: "Indirizzo"
 };
    

@@ -75,8 +75,8 @@ $(function () {
     		var self = this;
     		if( data && $.isPlainObject(data) ){
     			
-        		this.$facilityDom.find("label").text(data.name);
-        		this.$facilityDom.find("img").attr("src",data.fileName);
+        		this.$facilityDom.find("label").text(data.facility.name);
+        		this.$facilityDom.find("img").attr("src",data.facility.fileName);
         		$().notify($.i18n("warning"), $.i18n("updateFacilitySuccess"));
         		return;
     		}

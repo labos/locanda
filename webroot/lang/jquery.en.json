@@ -32,5 +32,7 @@ $.i18n.en.strings = {
     save: "Save",
     delete: "Delete",
     name: "Name",
-    bookerData: "Booker Data"
+    bookerData: "Booker Data",
+    phone: "Phone",
+    address: "Address"
 };

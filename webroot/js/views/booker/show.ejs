@@ -1,0 +1,5 @@
+<ul>
+<li><span><%= labels.phone %>: </span><span><%= booker.bookerPhone %></span><a class="skype" href="callto:<%= booker.bookerPhone %>"></a></li>
+<li><span>Email: </span><a href="mailto:<%= booker.bookerEmail %>"><%= booker.bookerEmail %></a></li>
+<li><span><%= labels.address %>: </span><span><%= booker.bookerAddress %></span> <a class="gmaps" target="_blank" href="http://mapof.it/<%= booker.bookerAddress %>"></a></li>
+</ul>
