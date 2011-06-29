@@ -73,7 +73,7 @@ $(function () {
          */
     	updateFacilitySuccess: function(data){
     		var self = this;
-    		if( data && $.isPlainObject(data) ){
+    		if( data && $.isPlainObject(data) && data.result == "success" ){
     			
         		this.$facilityDom.find("label").text(data.facility.name);
         		this.$facilityDom.find("img").attr("src",data.facility.fileName);
@@ -97,8 +97,12 @@ $(function () {
          */
     	destroyFacilitySuccess: function(data){
     		var self = this;
-    		this.$facilityDom.remove();
-    		$().notify($.i18n("warning"), $.i18n("destroyFacilitySuccess"));
+    		if (data.result == "success"){
+        		this.$facilityDom.remove();
+        		$().notify($.i18n("warning"), $.i18n("destroyFacilitySuccess"));
+        		return;
+    		}
+    		$().notify($.i18n("warning"), $.i18n("destroyFacilityError"));
     		
     	},
     	/**

@@ -88,7 +88,10 @@ public class RoomFacilityAction extends ActionSupport implements SessionAware{
 		@Action(value="/deleteFacility", results={
 				@Result(type ="json",name="success", params={
 						"root","message"
-				})					
+				}),
+				@Result(type ="json",name="error", params={
+						"root","message"
+				})	
 			})
 	})
 	public String deleteUploadedFacility() {
@@ -113,7 +116,10 @@ public class RoomFacilityAction extends ActionSupport implements SessionAware{
 		@Action(value="/updateFacility", results={
 				@Result(type ="json",name="success", params={
 						"excludeProperties","session,roomFacilities,roomFacilitiesIds,idRoom,room,structureService,roomService,facilityService"
-				})					
+				}),
+				@Result(type ="json",name="error", params={
+						"excludeProperties","session,roomFacilities,roomFacilitiesIds,idRoom,room,structureService,roomService,facilityService"
+				})	
 			})
 	})
 	public String updateUploadedFacility() {
