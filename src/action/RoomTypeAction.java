@@ -18,6 +18,7 @@ import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import service.FacilityService;
 import service.ImageService;
 import service.RoomTypeService;
 import service.StructureService;
@@ -38,6 +39,9 @@ public class RoomTypeAction extends ActionSupport implements SessionAware{
 	private RoomTypeService roomTypeService;
 	@Autowired
 	private ImageService imageService = null;
+	@Autowired
+	private FacilityService facilityService = null;
+	
 	
 	@Actions({
 		@Action(value="/findAllRoomTypes",results = {
@@ -76,7 +80,7 @@ public class RoomTypeAction extends ActionSupport implements SessionAware{
 		roomType = this.getRoomTypeService().findRoomTypeById(structure,this.getRoomType().getId());
 		roomType.setImages(this.getImageService().findImagesByIdRoomType(this.getRoomType().getId()));
 		this.setRoomType(roomType);
-		this.setFacilities(this.getStructureService().findRoomFacilitiesByIdStructure(structure));
+		this.setFacilities(this.getFacilityService().findUploadedFacilitiesByIdStructure(structure.getId()));
 		for(Facility each: this.getRoomType().getFacilities()){			
 			this.getRoomTypeFacilitiesIds().add(each.getId());		//popolo l'array roomFacilitiesIds con gli id delle Facilities già presenti nella Room da editare
 		}
@@ -99,13 +103,15 @@ public class RoomTypeAction extends ActionSupport implements SessionAware{
 		user = (User)session.get("user");
 		structure = user.getStructure();
 		
-		checkedFacilities = this.getStructureService().findRoomFacilitiesByIds(structure,this.getRoomTypeFacilitiesIds());
+		//checkedFacilities = this.getStructureService().findRoomFacilitiesByIds(structure,this.getRoomTypeFacilitiesIds());
+		checkedFacilities = this.getFacilityService().findUploadedFacilitiesByIds(this.getRoomTypeFacilitiesIds());
 		oldRoomtype = this.getRoomTypeService().findRoomTypeById(structure,this.getRoomType().getId());
 		if(oldRoomtype == null){
 			//Si tratta di una aggiunta
 			this.getRoomType().setId(structure.nextKey());
 			this.getRoomType().setFacilities(checkedFacilities);
 			this.getRoomTypeService().insertRoomType(structure, this.getRoomType());
+			this.getFacilityService().insertRoomTypeFacilities(this.getRoomTypeFacilitiesIds(), this.getRoomType().getId());
 			this.getStructureService().refreshPriceLists(structure);
 			this.getMessage().setResult(Message.SUCCESS);
 			this.getMessage().setDescription(getText("roomTypeAddSuccessAction"));
@@ -114,6 +120,8 @@ public class RoomTypeAction extends ActionSupport implements SessionAware{
 			//Si tratta di un update
 			this.getRoomType().setFacilities(checkedFacilities);
 			this.getRoomTypeService().updateRoomType(structure, this.getRoomType());
+			this.getFacilityService().deleteAllFacilitiesFromRoomType(this.getRoomType().getId());
+			this.getFacilityService().insertRoomTypeFacilities(this.getRoomTypeFacilitiesIds(), this.getRoomType().getId());
 			this.getMessage().setResult(Message.SUCCESS);
 			this.getMessage().setDescription(getText("roomTypeUpdateSuccessAction"));
 		}
@@ -161,7 +169,6 @@ public class RoomTypeAction extends ActionSupport implements SessionAware{
 	})
 	public String deletePhotoRoomType() {
 		User user = null; 
-		RoomType aRoomType = null;		
 		user = (User)this.getSession().get("user");
 				
 		if(this.getImageService().deleteRoomTypeImage(this.getImage().getId())>0){
@@ -237,6 +244,14 @@ public class RoomTypeAction extends ActionSupport implements SessionAware{
 
 	public void setImageService(ImageService imageService) {
 		this.imageService = imageService;
+	}
+
+	public FacilityService getFacilityService() {
+		return facilityService;
+	}
+
+	public void setFacilityService(FacilityService facilityService) {
+		this.facilityService = facilityService;
 	}
 	
 	

@@ -46,7 +46,7 @@ $.Model.extend('Models.Facility',
      */
 	update: function( id, attrs, success, error ){
 		$.ajax({
-			url: 'saveUpdateFacility.action',
+			url: 'updateFacility.action',
 			type: 'post',
 			dataType: 'json',
 			data: attrs,

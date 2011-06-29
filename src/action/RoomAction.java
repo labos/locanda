@@ -20,6 +20,7 @@ import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import service.FacilityService;
 import service.ImageService;
 import service.RoomService;
 import service.RoomTypeService;
@@ -50,6 +51,8 @@ public class RoomAction extends ActionSupport implements SessionAware{
 	private RoomService roomService = null;
 	@Autowired
 	private ImageService imageService = null;
+	@Autowired
+	private FacilityService facilityService = null;
 	
 	@Actions({
 		@Action(value="/findAllRooms",results = {
@@ -146,7 +149,8 @@ public class RoomAction extends ActionSupport implements SessionAware{
 		oldRoom.setImages(this.getImageService().findImagesByIdRoom(this.getRoom().getId()));
 		this.setRoom(oldRoom);
 		this.setRoomTypes(this.getRoomTypeService().findRoomTypesByIdStructure(structure));
-		this.setRoomFacilities(this.getStructureService().findRoomFacilitiesByIdStructure(structure));
+		//this.setRoomFacilities(this.getStructureService().findRoomFacilitiesByIdStructure(structure));
+		this.setRoomFacilities(this.getFacilityService().findUploadedFacilitiesByIdStructure(structure.getId()));
 		for(Facility each: this.getRoom().getFacilities()){			
 			this.getRoomFacilitiesIds().add(each.getId());		//popolo l'array roomFacilitiesIds con gli id delle Facilities già presenti nella Room da editare
 		}
@@ -202,11 +206,11 @@ public class RoomAction extends ActionSupport implements SessionAware{
 			return "error";			
 		}	
 		else{	
-			//checkedFacilities = structure.findRoomFacilitiesByIds(this.getRoomFacilitiesIds());
-			checkedFacilities = this.getStructureService().findRoomFacilitiesByIds(structure,this.getRoomFacilitiesIds());			
+			checkedFacilities = this.getFacilityService().findUploadedFacilitiesByIds(this.getRoomFacilitiesIds());
 			for(Room each: rooms){
 				each.setId(structure.nextKey());				
 				each.setFacilities(checkedFacilities);
+				this.getFacilityService().insertRoomFacilities(this.getRoomFacilitiesIds(), each.getId());
 
 				if(this.getRoom().getRoomType().getId() < 0){
 					this.getMessage().setResult(Message.ERROR);
@@ -261,8 +265,12 @@ public class RoomAction extends ActionSupport implements SessionAware{
 				return "error";
 			}
 		}
-		checkedFacilities = this.getStructureService().findRoomFacilitiesByIds(structure,this.getRoomFacilitiesIds());
+		//checkedFacilities = this.getStructureService().findRoomFacilitiesByIds(structure,this.getRoomFacilitiesIds());
+		checkedFacilities = this.getFacilityService().findUploadedFacilitiesByIds(this.getRoomFacilitiesIds());
 		this.getRoom().setFacilities(checkedFacilities);
+		
+		this.getFacilityService().deleteAllFacilitiesFromRoom(this.getRoom().getId());
+		this.getFacilityService().insertRoomFacilities(this.getRoomFacilitiesIds(), this.getRoom().getId());
 		
 		theRoomType = this.getRoomTypeService().findRoomTypeById(structure,this.getRoom().getRoomType().getId());
 		this.getRoom().setRoomType(theRoomType);
@@ -432,6 +440,14 @@ public class RoomAction extends ActionSupport implements SessionAware{
 
 	public void setImageService(ImageService imageService) {
 		this.imageService = imageService;
+	}
+
+	public FacilityService getFacilityService() {
+		return facilityService;
+	}
+
+	public void setFacilityService(FacilityService facilityService) {
+		this.facilityService = facilityService;
 	}
 	
 	

@@ -95,10 +95,8 @@ public class UploadAction extends ActionSupport implements SessionAware{
 		this.getRoomFacility().setName(this.getName());
 		this.getRoomFacility().setFileName(this.getUploadFileName());
 		
-		this.getRoomFacility().setId(structure.nextKey());
-		//structure.addRoomFacility(this.getRoomFacility());
-		this.getStructureService().addRoomFacility(structure, this.getRoomFacility());
-		
+		this.getRoomFacility().setId_structure(structure.getId());
+		this.getFacilityService().insertUploadedFacility(this.getRoomFacility());
 		message.setResult(Message.SUCCESS);
 		message.setDescription(getText("facilityAddSuccessAction"));
 		return SUCCESS;
@@ -343,8 +341,8 @@ public class UploadAction extends ActionSupport implements SessionAware{
 		this.getRoomFacility().setName(this.getName());
 		this.getRoomFacility().setFileName(this.getUploadFileName());
 		
-		this.getRoomFacility().setId(structure.nextKey());
-		this.getStructureService().addRoomFacility(structure, this.getRoomFacility());
+		this.getRoomFacility().setId_structure(structure.getId());
+		this.getFacilityService().insertUploadedFacility(this.getRoomFacility());
 		
 		message.setResult(Message.SUCCESS);
 		message.setDescription(getText("logoAddSuccessAction"));

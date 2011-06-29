@@ -4,12 +4,27 @@
 
 <mapper namespace="persistence.mybatis.mappers.FacilityMapper">
 	<cache />
+	<insert id="insertUploadedFacility" parameterType="model.Facility" useGeneratedKeys="true" keyProperty="id">
+		INSERT into uploadedFacility(name,fileName,id_structure) values (#{name},#{fileName},#{id_structure})	
+	</insert>
+	<insert id="insertRoomFacility" parameterType="map" >
+		INSERT into roomFacility(id_uploadedFacility,id_room) values (#{id_uploadedFacility},#{id_room})	
+	</insert>
+	<insert id="insertRoomTypeFacility" parameterType="map" >
+		INSERT into roomTypeFacility(id_uploadedFacility,id_roomType) values (#{id_uploadedFacility},#{id_roomType})	
+	</insert>
 	<insert id="insertStructureFacility" parameterType="model.Facility" useGeneratedKeys="true" keyProperty="id">
 		INSERT into structureFacility(name,fileName,id_structure) values (#{name},#{fileName},#{id_structure})	
 	</insert>
-	<delete id="deleteStructureFacility" parameterType="int" >
-		DELETE from structureFacility where id = #{id}
-	</delete>
+	
+	<select id="findUploadedFacilitiesByIdStructure" parameterType="int" resultType="model.Facility">
+		<include refid="findUploadedFacilities" />  where id_structure = #{id_structure}	
+	</select>
+	
+	<select id="findUploadedFacilityById" parameterType="int" resultType="model.Facility">
+		<include refid="findUploadedFacilities" />  where id = #{id}
+	
+	</select>
 	
 	<select id="findStructureFacilitiesByIdStructure" parameterType="int" resultType="model.Facility">
 		<include refid="findStructureFacilities" />  where id_structure = #{id_structure}
@@ -19,5 +34,40 @@
 	<sql id="findStructureFacilities">
 		SELECT id,name,fileName,id_structure from structureFacility 
 	</sql>
+	
+	<sql id="findUploadedFacilities">
+		SELECT id,name,fileName,id_structure from uploadedFacility 
+	</sql>
+	
+	
+	<delete id="deleteUploadedFacility" parameterType="int" >
+		DELETE from uploadedFacility where id = #{id}
+	</delete>
+	
+	<delete id="deleteFacilityFromAllRooms" parameterType="int" >
+		DELETE from roomFacility where id_uploadedFacility = #{id_uploadedFacility}
+	</delete>
+	
+	<delete id="deleteFacilityFromAllRoomTypes" parameterType="int" >
+		DELETE from roomTypeFacility where id_uploadedFacility = #{id_uploadedFacility}
+	</delete>
+	
+	<delete id="deleteAllFacilitiesFromRoom" parameterType="int" >
+		DELETE from roomFacility where id_room = #{id_room}
+	</delete>
+	
+	<delete id="deleteAllFacilitiesFromRoomType" parameterType="int" >
+		DELETE from roomTypeFacility where id_roomType = #{id_roomType}
+	</delete>
+	
+	<delete id="deleteStructureFacility" parameterType="int" >
+		DELETE from structureFacility where id = #{id}
+	</delete>
+	
+	<update id="updateUploadedFacility" parameterType="model.Facility">
+	 	UPDATE uploadedFacility set name = #{name} where id = #{id}
+	</update>
+	
+	
 
 </mapper>

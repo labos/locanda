@@ -9,6 +9,7 @@ public class Facility implements Serializable{
 	private Integer  id_structure;
 	private Integer id_room;
 	private Integer id_roomType;
+	private Integer id_uploadedFacility;
 	
 	public Integer getId() {
 		return id;
@@ -46,6 +47,12 @@ public class Facility implements Serializable{
 	}
 	public void setId_roomType(Integer id_roomType) {
 		this.id_roomType = id_roomType;
+	}
+	public Integer getId_uploadedFacility() {
+		return id_uploadedFacility;
+	}
+	public void setId_uploadedFacility(Integer id_uploadedFacility) {
+		this.id_uploadedFacility = id_uploadedFacility;
 	}
 	
 	
