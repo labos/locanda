@@ -966,12 +966,24 @@ $.ajax({
    	               "end": date_end ,
    	               "title":val.booker.lastName  + ' ' + val.booker.firstName,
    	               "bookId": val.id,
-   	               "confirmed": val.status
+   	               "confirmed": val.status,
+	               "bookerPhone": val.booker.phone,
+	               "bookerAddress": val.booker.address,
+	               "bookerEmail": val.booker.email
+		    	 		
    	            });
    		    	 		
    		    		 });
    		     
                self._renderEvents(list_bookings, $weekDayColumns);
+               $.jGrowl.defaults.pool = 0;
+
+               $(".wc-cal-event").hover(function(){
+            	   var bookingData = $(this).data("calEvent");
+            	   $('div.jGrowl-notification').trigger('jGrowl.close');
+            	   var htmlBooker = '<label>Phone</label><span>' + bookingData.bookerPhone +'</span>';
+            	   $.jGrowl(htmlBooker, { sticky: true, header: $.i18n("bookerData"), position: 'top-right', life: 1000 });
+            	   }, function(){});
                if (options.loading) options.loading(false);
             });
          }

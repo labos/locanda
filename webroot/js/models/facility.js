@@ -47,7 +47,7 @@ $.Model.extend('Models.Facility',
 	update: function( id, attrs, success, error ){
 		$.ajax({
 			url: 'saveUpdateFacility.action',
-			type: 'put',
+			type: 'post',
 			dataType: 'json',
 			data: attrs,
 			success: success,
@@ -62,8 +62,8 @@ $.Model.extend('Models.Facility',
 	 */
 	destroy: function( id, success, error ){
 		$.ajax({
-			url: 'deleteFacility.action'+id,
-			type: 'post',
+			url: 'deleteFacility.action?facility.id='+id,
+			type: 'get',
 			dataType: 'json',
 			success: success,
 			error: error

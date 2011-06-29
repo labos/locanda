@@ -26,14 +26,15 @@ $(function () {
 	        * Local variable to store dialog buttons translated for facility editing and related execution code.
 	        */
 		var dialogButtons = {};
-		var params = $( "#dialog-facility" ).find("form").serialize();
+		
 			dialogButtons[$.i18n("save")] = function() { 
-			
+				var params = $( "#dialog-facility" ).find("form").serialize();
 			Models.Facility.update({},params, self.callback('updateFacilitySuccess'), self.callback('updateFacilityError')); };
 			
 			dialogButtons[$.i18n("delete")] = function() { 
+				var id = $( "#dialog-facility" ).find("input:hidden['facility.id']").val();
                 if (confirm($.i18n("alertCancel"))) {
-                	Models.Facility.destroy({},params, self.callback('destroyFacilitySuccess'), self.callback('destroyFacilityError')); 
+                	Models.Facility.destroy(id, self.callback('destroyFacilitySuccess'), self.callback('destroyFacilityError')); 
                     $(this).dialog("close");
                 };
                

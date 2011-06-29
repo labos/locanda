@@ -31,7 +31,8 @@ $.i18n.it.strings = {
     dateInRequired: "Devi selezionare una data",
     save: "Salva",
     delete: "Elimina",
-    name: "Nome"
+    name: "Nome",
+    bookerData: "Dati cliente"
     
 };
    

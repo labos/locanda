@@ -31,5 +31,6 @@ $.i18n.en.strings = {
     dateInRequired: "Devi selezionare una data",
     save: "Save",
     delete: "Delete",
-    name: "Name"
+    name: "Name",
+    bookerData: "Booker Data"
 };
