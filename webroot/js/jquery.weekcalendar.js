@@ -976,12 +976,13 @@ $.ajax({
    		    		 });
    		     
                self._renderEvents(list_bookings, $weekDayColumns);
-               $.jGrowl.defaults.pool = 0;
+               $.jGrowl.defaults.pool = 1;
 
                $(".wc-cal-event").hover(function(){
             	   var bookingData = $(this).data("calEvent");
+
             	   
-            	   $('div.jGrowl-notification').trigger('jGrowl.close');
+            	   $('div.jGrowl-notification').trigger('jGrowl.shutdown');
             	   var htmlBooker = new EJS({url: 'js/views/booker/show.ejs'}).render({booker: bookingData, labels:{name: $.i18n("name"), phone: $.i18n("phone"), address: $.i18n("address")}});
             	   $.jGrowl(htmlBooker, { sticky: true, header: $.i18n("bookerData"), position: 'top-right', life: 1000 });
             	   }, function(){});

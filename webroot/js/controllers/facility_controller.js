@@ -29,11 +29,13 @@ $(function () {
 		
 			dialogButtons[$.i18n("save")] = function() { 
 				var params = $( "#dialog-facility" ).find("form").serialize();
-			Models.Facility.update({},params, self.callback('updateFacilitySuccess'), self.callback('updateFacilityError')); };
+			Models.Facility.update({},params, self.callback('updateFacilitySuccess'), self.callback('updateFacilityError'));
+			$(this).dialog("close");
+			};
 			
 			dialogButtons[$.i18n("delete")] = function() { 
 				var id = $( "#dialog-facility" ).find("input:hidden['facility.id']").val();
-                if (confirm($.i18n("alertCancel"))) {
+                if (confirm($.i18n("alertDelete"))) {
                 	Models.Facility.destroy(id, self.callback('destroyFacilitySuccess'), self.callback('destroyFacilityError')); 
                     $(this).dialog("close");
                 };
@@ -73,11 +75,10 @@ $(function () {
          */
     	updateFacilitySuccess: function(data){
     		var self = this;
-    		if( data && $.isPlainObject(data) && data.result == "success" ){
+    		if( data && $.isPlainObject(data) && data.message.result == "success" ){
     			
         		this.$facilityDom.find("label").text(data.facility.name);
-        		this.$facilityDom.find("img").attr("src",data.facility.fileName);
-        		$().notify($.i18n("warning"), $.i18n("updateFacilitySuccess"));
+        		$().notify($.i18n("congratulation"), $.i18n("updateFacilitySuccess"));
         		return;
     		}
 
@@ -99,7 +100,7 @@ $(function () {
     		var self = this;
     		if (data.result == "success"){
         		this.$facilityDom.remove();
-        		$().notify($.i18n("warning"), $.i18n("destroyFacilitySuccess"));
+        		$().notify($.i18n("congratulation"), $.i18n("destroyFacilitySuccess"));
         		return;
     		}
     		$().notify($.i18n("warning"), $.i18n("destroyFacilityError"));
