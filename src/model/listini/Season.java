@@ -96,6 +96,4 @@ public class Season implements Serializable{
 		this.id_structure = id_structure;
 	}
 	
-	
-
 }

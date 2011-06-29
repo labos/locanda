@@ -1,7 +1,7 @@
-<project name="Locanda" default="buildAll" basedir="..">
+<project name="Locanda Server2" default="buildAll" basedir="..">
 	<description>Locanda build file for Localhost</description>
 	
-	<import file="buildProperties.xml"/>
+	<import file="buildProperties_server2.xml"/>
 	
 	<path id="class.path">
 		<fileset dir="${webroot.path}/lib" includes="*.jar"/>
@@ -102,27 +102,27 @@
         	<arg value="--user=${mysql.username}" />  
         	<arg value="--password=${mysql.password}" />  
         	<arg value="--host=${mysql.host}" />  
-        	<arg value="--port=${mysql.port}" />   
+        	<arg value="--port=${mysql.port}" /> 
         	<arg value="${webappname}" />  
     	</exec>  
 	</target>
 	
 	<target name="DB_restore">
 		<exec executable="mysql" input="${mysql.dump.path}/${webappname}.sql">
-   	    	<arg value="--user=${mysql.username}" />
-      		<arg value="--password=${mysql.password}" />
-			<arg value="--host=${mysql.host}" />  
-        	<arg value="--port=${mysql.port}" /> 
+   	    	<arg value="--user=${mysql.username}"/>
+      		<arg value="--password=${mysql.password}"/>
+			<arg value="--host=${mysql.host}" />
+			<arg value="--port=${mysql.port}" /> 
       		<arg value="${webappname}"/>
     	</exec>
 	</target>
 	
 	<target name="DB_drop">
     	<exec executable="mysqladmin">
-      		<arg value="--user=${mysql.username}" />
-      		<arg value="--password=${mysql.password}" />
-			<arg value="--host=${mysql.host}" />  
-        	<arg value="--port=${mysql.port}" /> 
+      		<arg value="--user=${mysql.username}"/>
+      		<arg value="--password=${mysql.password}"/>
+			<arg value="--host=${mysql.host}" />
+			<arg value="--port=${mysql.port}" /> 
       		<arg value="--force"/>
       		<arg value="drop"/>
       		<arg value="${webappname}"/>
@@ -131,10 +131,10 @@
  
   	<target name="DB_create">
     	<exec executable="mysqladmin">
-      		<arg value="--user=${mysql.username}" />
-      		<arg value="--password=${mysql.password}" />
-			<arg value="--host=${mysql.host}" />  
-        	<arg value="--port=${mysql.port}" /> 
+      		<arg value="--user=${mysql.username}"/>
+      		<arg value="--password=${mysql.password}"/>
+			<arg value="--host=${mysql.host}" /> 
+			<arg value="--port=${mysql.port}" /> 
       		<arg value="create"/>
       		<arg value="${webappname}"/>
     	</exec>

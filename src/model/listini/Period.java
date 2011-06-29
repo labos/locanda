@@ -3,11 +3,7 @@ package model.listini;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
-
 import org.apache.commons.lang.time.DateUtils;
-
-
 
 public class Period implements Serializable{
 	private Integer id = null;

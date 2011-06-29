@@ -42,7 +42,7 @@
 				  </div>
 				  
 				  <div class="type-check ">
-                    <s:checkbox id="online" key="extra.availableOnline" label="onLine" />
+                    <s:checkbox id="online" key="extra.availableOnline" label="%{getText('onlineAvailable')}"/>
                   </div>
                   
 				  <div class="type-text">	
