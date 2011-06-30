@@ -9,7 +9,7 @@
 	</path> 
 	
 	<target name="propertySetter">
-		<available property="deployed" file="${tomcat.application.path}" type="dir"/>
+		<available property="deployed" file="/" type="dir"/>
 	</target>
 	
 	<target name="clean" description="clean up build directory">
@@ -31,7 +31,7 @@
 		<replaceregexp file="${webroot.path}/jdbc.properties" match="jdbc.password=.*" replace ="jdbc.password=${mysql.password}"/>
 	</target>
 	
-	<target name="compile" depends="init" description="compilation on bin folder">
+	<target name="compile" depends="dist" description="compilation on bin folder">
 		<javac srcdir="${src.path}" destdir="${build.path}">
 			<classpath refid="class.path"/>
 		</javac>
@@ -44,7 +44,7 @@
 	</target>
 	
 	<target name="fast_deploy" description="Deploy on tomcat folder">
-		<copy todir="${tomcat.deploy.path}/${webappname}">
+		<copy todir="${tomcat.application.folder}">
 			<fileset dir="${workdir.path}">
 				<include name="**"/>
 			</fileset>
@@ -63,14 +63,14 @@
 		<stop url="${tomcat.manager.url}"
 		      username="${tomcat.username}"
 		      password="${tomcat.password}"
-              path="/${webappname}"/>
+              path="${tomcat.application.path}"/>
 	</target>
 	
 	<target name="start" description="Start Tomcat application">
 		<start url="${tomcat.manager.url}"
  		       username="${tomcat.username}"
                password="${tomcat.password}"
-               path="/${webappname}"/>
+               path="${tomcat.application.path}"/>
 	</target>
 	
 	<target name="WAR build" depends="" description="WAR build from dist to webapps folder">
@@ -87,14 +87,14 @@
 	<taskdef name="deploy" classname="org.apache.catalina.ant.DeployTask"/>
 	<target name="deploy" description="Install web application" depends="WAR build">
 		<deploy url="${tomcat.manager.url}" username="${tomcat.username}" password="${tomcat.password}"
-			path="/${webappname}" war="file:${tomcat.deploy.path}/${webappname}.war"/>
+			path="${tomcat.application.path}" war="file:${tomcat.deploy.path}/${webappname}.war"/>
 	</target>
 	
 	<taskdef name="undeploy" classname="org.apache.catalina.ant.UndeployTask"/>
 	<target name="undeploy" depends="propertySetter" description="Remove web application" if="deployed">
 		<delete file="${tomcat.deploy.path}/${webappname}.war"></delete>
 		<undeploy url="${tomcat.manager.url}" username="${tomcat.username}" password="${tomcat.password}"
-            path="/${webappname}"/>
+            path="${tomcat.application.path}"/>
 	</target>
 	
 	<target name="DB_dump">  
