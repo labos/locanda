@@ -66,7 +66,7 @@
           <div class="beauty">
      	  	<div class="subcolumns">
            	  <div class="c33l">
-    			<label for="name_facility">Facility Name:</label>&nbsp;<input type="text" name="facility_name" value="" id="name_facility" class="require"/>
+    			<label for="name_facility"><s:text name="facilityName" />:</label>&nbsp;<input type="text" name="facility_name" value="" id="name_facility" class="require"/>
  			  </div>
  			  <div class="c20l">
  				<br/>
@@ -74,7 +74,7 @@
    				  <input type="hidden" name="name" value=""/>
      			  <input type="file" name="upload" multiple/>
     			  <button>Upload</button> 
-    			  <div>Upload Facility Logo</div>  
+    			  <div><s:text name="uploadFacility" /></div>  
 				</form> 
 
 		   	  </div>

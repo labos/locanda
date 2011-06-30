@@ -1,20 +1,29 @@
 $(function () {
-    //---  ROOM SECTION CODE    
+    //---  FACILITY SECTION CODE    
     $.Class.extend('Controllers.Facility', /* @prototype */ {
         init: function () { 
         	var self = this;
+        	
+        	
+        	$(".facility").live(
+        	        'hover',
+        	        function (ev) {
+        	            if (ev.type == 'mouseenter') {
+        	            	if ($(this).children(".hov_edit")) {
 
-            $(".facility").hover(function () {
-                if ($(this).children(".hov_edit")) {
+        	                	$(this).children(".hov_edit").show();
+        	                }
+        	            }
 
-                	$(this).children(".hov_edit").show();
-                }},
-                function () {
-                    if ($(this).children(".hov_edit")) {
+        	            if (ev.type == 'mouseleave') {
+                            if ($(this).children(".hov_edit")) {
 
-                    	$(this).children(".hov_edit").hide();
-                    }}
-            );
+                            	$(this).children(".hov_edit").hide();
+                            }
+        	            }
+        	        });
+
+
             
             /**
              * @attribute $facilityDom
@@ -49,10 +58,10 @@ $(function () {
 	        *
 	        * Manage facility editing with image click event handler.
 	        */
-		$('.facility').find("img, .hov_edit").click( function() {
+		$('.facility').find("img, .hov_edit").live('click',  function() {
 			self.$facilityDom = $(this).parent();
 			$( "#dialog-facility:ui-dialog" ).dialog( "destroy" );
-			var idFacility = $(this).siblings("input:hidden").val();
+			var idFacility = $(this).siblings("input[name='roomFacilitiesIds']").val();
 			var nameFacility = $(this).siblings("label").text();
 			var fileNameFacility = $(this).attr("src") || $(this).siblings("img").attr("src");
 			var added = new EJS({url: 'js/views/facility/show.ejs'}).render({facility: {id:idFacility, name: nameFacility, fileName: fileNameFacility}, labels:{name: $.i18n("name")}});
@@ -117,7 +126,7 @@ $(function () {
 
     
     });
-    //---  END ROOM SECTION CODE 
+    //---  END FACILITY SECTION CODE 
     
     
     new Controllers.Facility();

@@ -22,7 +22,7 @@
               </div>
             </fieldset>
             <div class="type-button">
-          	  <button class="btn_submit" type="submit" role="button" aria-disabled="false">Log In</button>
+          	  <button class="btn_submit" type="submit" role="button" aria-disabled="false"><s:text name="login" /></button>
             </div>
           </form>
       </div><!-- end: #home -->

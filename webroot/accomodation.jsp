@@ -47,9 +47,9 @@
       		 	<div class="c40l">
                   <div class="type_rooms">
                     <ul>
-				      <li><b>Room type:</b><a href="findAllRoomTypes.action?sect=accomodation#<s:property value="#eachRoom.roomType.name"/>" ><s:property value="#eachRoom.roomType.name"/></a></li>
-				      <li><b>Max Guests:</b> <s:property value="#eachRoom.roomType.maxGuests"/></li>
-				      <li><b>Notes:</b> <s:property value="#eachRoom.notes"/></li>
+				      <li><b><s:text name="roomType" />: </b><a href="findAllRoomTypes.action?sect=accomodation#<s:property value="#eachRoom.roomType.name"/>" ><s:property value="#eachRoom.roomType.name"/></a></li>
+				      <li><b><s:text name="roomTypeMaxGuests" />:</b> <s:property value="#eachRoom.roomType.maxGuests"/></li>
+				      <li><b><s:text name="notes" />:</b> <s:property value="#eachRoom.notes"/></li>
 				    </ul>
            			<fieldset> 
            		      <legend>Facilities</legend>

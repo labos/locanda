@@ -17,7 +17,7 @@
           	<div class="header_section yform">
               <p class="navigation"> <a class="home" href="<s:property value="url_findallroomtypes"/>?sect=accomodation"></a><b>»</b> 
 			  <span>&nbsp;</span></p>
-              <span class="name_section">Room Type Details</span>
+              <span class="name_section"><s:text name="roomTypeDetails" /></span>
             </div>
           
             <div>
@@ -27,7 +27,7 @@
            <div class="beauty">
      	  	<div class="subcolumns">
            	  <div class="c33l">
-    			<label for="name_facility">Image Name:</label>&nbsp;<input type="text" name="facility_name" value="" id="name_image" class="require"/>
+    			<label for="name_facility"><s:text name="imageName" />:</label>&nbsp;<input type="text" name="facility_name" value="" id="name_image" class="require"/>
  			  </div>
  			  <div class="c20l">
  				<br/>
@@ -36,7 +36,7 @@
    				  <input type="hidden" name="roomType.id" value="<s:property value="roomType.id"/>"/>
      			  <input type="file" name="upload" multiple/>
     			  <button>Upload</button>
-    			  <div>Upload Room Type Photo</div>  
+    			  <div><s:text name="uploadRoomTypeImage" /></div>  
 				</form> 
 		   	  </div>
 		   	</div>
@@ -53,7 +53,7 @@
 							</li>
         </s:iterator>
 							<li style="display: none">
-							<h4>NEW</h4>
+							<h4><s:text name="new" /></h4>
 								<a title="Title #1" href="#drop" class="thumb" rel="history">
 									<img alt="Title #1" src="images/roomtype/" />
 								</a>

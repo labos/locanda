@@ -45,7 +45,8 @@
                     </div>                  
                   </div>
                 </div>
-                <div class="subcolumns">
+                <fieldset> 
+           		      <legend><s:text name="images" /></legend>
                         <ul class="thumbs">
         <s:iterator value="#eachRoomType.images" var="eachImage" >
         					<li>
@@ -56,7 +57,7 @@
 
 							</ul>
                 
-                </div>
+                </fieldset>
                 
                 
              	<div class="type-button">

@@ -980,12 +980,19 @@ $.ajax({
 
                $(".wc-cal-event").hover(function(){
             	   var bookingData = $(this).data("calEvent");
-
+            	   var growlid = null;
+            	   if ( $('div.jGrowl-notification').length > 1 ){
+            		   
+            		   growlid = $('div.jGrowl-notification:parent').data("jGrowl").growlID;
+            	   }
+            	   if(growlid != bookingData.bookId ) {
+            		   $('div.jGrowl-notification').trigger('jGrowl.close');
+                	   var htmlBooker = new EJS({url: 'js/views/booker/show.ejs'}).render({booker: bookingData, labels:{name: $.i18n("name"), phone: $.i18n("phone"), address: $.i18n("address")}});
+                	   $.jGrowl(htmlBooker, {growlID: bookingData.bookId, sticky: true, header: $.i18n("bookerData"), position: 'top-right', life: 1000 });
+                	               		   
+            	   }
             	   
-            	   $('div.jGrowl-notification').trigger('jGrowl.close');
-            	   var htmlBooker = new EJS({url: 'js/views/booker/show.ejs'}).render({booker: bookingData, labels:{name: $.i18n("name"), phone: $.i18n("phone"), address: $.i18n("address")}});
-            	   $.jGrowl(htmlBooker, { sticky: true, header: $.i18n("bookerData"), position: 'top-right', life: 1000 });
-            	   }, function(){});
+            	}, function(){});
                if (options.loading) options.loading(false);
             });
          }

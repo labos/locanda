@@ -15,6 +15,7 @@
 					
 					<!-- div facility for javascript purpose-->
 				  	<div class="facility" style="display: none; border-color: red;">
+				  	<span class="hov_edit"></span>
 					  <img  width="24" height="24" src="images/room_facilities/" alt="facility"/>
 					  <input type="checkbox" id="" name=""/>
 					  <label for=""></label>

@@ -1,5 +1,5 @@
 $(function () {
-    $.Class.extend('Controllers.Guest', /* @prototype */ {
+    $.Class.extend('Controllers.Guest', {
         init: function () {
             var self = this;
         	/* Buttons rendering and event handler attachments */

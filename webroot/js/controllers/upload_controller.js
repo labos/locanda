@@ -29,11 +29,11 @@ $(function() {
 				facility_row_checked_cloned.find('label').attr("for", id_facility + "_fac").text(name_facility);
 				facility_row_checked_cloned.insertAfter($(".facility:last")).show();
 				facility_row_checked_cloned.animate({
-					backgroundColor: "#A2D959",
+					backgroundColor: "#DBF296",
 					color: "#000",
 					border: "1px solid #fff"
 				}, 500).effect("pulsate", {
-					times: 10
+					times: 2
 				}, 1000);
 			} else if (responseObject.roomFacility && actionName.indexOf("uploadRoomTypeFacility") >= 0) {
 				//get the name of the facility
@@ -60,11 +60,11 @@ $(function() {
 				facility_row_checked_cloned.find('label').attr("for", id_facility + "_fac").text(name_facility);
 				facility_row_checked_cloned.insertAfter($(".facility:last")).show();
 				facility_row_checked_cloned.animate({
-					backgroundColor: "#A2D959",
+					backgroundColor: "#DBF296",
 					color: "#000",
 					border: "1px solid #fff"
 				}, 500).effect("pulsate", {
-					times: 10
+					times: 2
 				}, 1000);
 			} else if (responseObject.image && actionName.indexOf("uploadStructureImage") >= 0) {
 				//get the name of the image
@@ -93,7 +93,7 @@ $(function() {
 					color: "#000",
 					border: "1px solid #fff"
 				}, 500).effect("pulsate", {
-					times: 10
+					times: 2
 				}, 1000);
 			} else if (responseObject.structureFacility && actionName.indexOf("uploadStructureFacility") >= 0) {
 				//get the name of the facility
@@ -122,7 +122,7 @@ $(function() {
 					color: "#000",
 					border: "1px solid #fff"
 				}, 500).effect("pulsate", {
-					times: 10
+					times: 2
 				}, 1000);
 			} else if (responseObject.image && actionName.indexOf("uploadRoomImage") >= 0) {
 				//get the name of the image
@@ -151,7 +151,7 @@ $(function() {
 					color: "#000",
 					border: "1px solid #fff"
 				}, 500).effect("pulsate", {
-					times: 10
+					times: 2
 				}, 1000);
 			} else if (responseObject.image && actionName.indexOf("uploadRoomTypeImage") >= 0) {
 				//get the name of the image
@@ -180,7 +180,7 @@ $(function() {
 					color: "#000",
 					border: "1px solid #fff"
 				}, 500).effect("pulsate", {
-					times: 10
+					times: 2
 				}, 1000);
 			}
 		} else {
