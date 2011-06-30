@@ -41,8 +41,6 @@ public class Season implements Serializable{
 		return true;
 	}
 
-
-
 	public Boolean addPeriod(Period aPeriod){
 		return this.getPeriods().add(aPeriod);
 	}
@@ -59,39 +57,30 @@ public class Season implements Serializable{
 	public Integer getId() {
 		return id;
 	}
-
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
 	public Integer getYear() {
 		return year;
 	}
-
 	public void setYear(Integer year) {
 		this.year = year;
 	}
-
 	public List<Period> getPeriods() {
 		return periods;
 	}
-
 	public void setPeriods(List<Period> periods) {
 		this.periods = periods;
 	}
-
 	public String getName() {
 		return name;
 	}
-
 	public void setName(String name) {
 		this.name = name;
 	}
-
 	public Integer getId_structure() {
 		return id_structure;
 	}
-
 	public void setId_structure(Integer id_structure) {
 		this.id_structure = id_structure;
 	}

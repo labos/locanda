@@ -1,7 +1,9 @@
 package service;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,9 +31,6 @@ public class SeasonServiceImpl implements SeasonService{
 		return this.getSeasonMapper().findSeasonById(seasonId);
 	}
 	
-	
-	
-	
 	public Season findSeasonByName(Integer structureId,String name) {
 		Map params = new HashMap();
 		params.put("structureId", structureId);
@@ -44,6 +43,7 @@ public class SeasonServiceImpl implements SeasonService{
 		Map params = new HashMap();
 		params.put("structureId", structureId);
 		params.put("year", year);
+		
 		return this.getSeasonMapper().findSeasonsByYear(params);
 	}
 	
@@ -58,8 +58,26 @@ public class SeasonServiceImpl implements SeasonService{
 		return ret;
 	}
 	
+	public Boolean checkYears(Season season) {
+		Integer year = null;
+		List<Period> periods = new ArrayList<Period>();
+		Boolean ret = false;
+		Calendar startCalendar = new GregorianCalendar();
+		Calendar endCalendar = new GregorianCalendar();
+		
+		year = season.getYear();
+		periods = season.getPeriods();
+		
+		for (Period eachPeriod : periods) {
+			startCalendar.setTime(eachPeriod.getStartDate());
+			endCalendar.setTime(eachPeriod.getEndDate());
+			if (startCalendar.get(Calendar.YEAR) == year && endCalendar.get(Calendar.YEAR) == year) {
+				ret = true;
+			}
+		}
+		return ret;
+	}
 	
-
 	public Integer insertSeason(Season season) {
 		Integer ret = 0;
 		
@@ -108,7 +126,6 @@ public class SeasonServiceImpl implements SeasonService{
 		return ret;
 	}
 
-	
 	public Integer deleteSeason(Integer seasonId) {
 		Integer ret = 0;
 		
@@ -116,11 +133,6 @@ public class SeasonServiceImpl implements SeasonService{
 		ret = this.getSeasonMapper().deleteSeason(seasonId);
 		return ret;
 	}
-	
-	
-
-	
-	
 
 	public Integer deletePeriod(Integer periodId) {
 		Integer ret = 0;
@@ -136,6 +148,5 @@ public class SeasonServiceImpl implements SeasonService{
 	public void setSeasonMapper(SeasonMapper seasonMapper) {
 		this.seasonMapper = seasonMapper;
 	}
-
 
 }

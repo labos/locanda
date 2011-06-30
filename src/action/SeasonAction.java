@@ -48,7 +48,7 @@ public class SeasonAction extends ActionSupport implements SessionAware {
 		structure = user.getStructure();		
 		
 		this.setSeasons(this.getSeasonService().findSeasonsByStructureId(structure.getId()));
-		//Rimuovere questa istruzione quando tutto sarà  sul DB
+		//Rimuovere questa istruzione quando tutto sarà sul DB
 		structure.setSeasons(this.getSeasons());
 		this.getStructureService().refreshPriceLists(structure);	
 		return SUCCESS;
@@ -85,7 +85,6 @@ public class SeasonAction extends ActionSupport implements SessionAware {
 		
 		user = (User) session.get("user");
 		structure = user.getStructure();
-		
 		periodsWithoutNulls = new ArrayList<Period>();
 
 		for (Period currPeriod : this.periods) {
@@ -94,35 +93,35 @@ public class SeasonAction extends ActionSupport implements SessionAware {
 					this.getMessage().setResult(Message.ERROR);
 					this.getMessage().setDescription(getText("dateOutMoreDateInAction"));
 					return ERROR;
-					
 				}
-				
 				periodsWithoutNulls.add(currPeriod);				
 			}
 		}
-		
-		
 		this.getSeason().setPeriods(periodsWithoutNulls);
+		
 		if (!this.getStructureService().hasPeriodFreeForSeason(structure, this.getSeason())) {
 			this.getMessage().setResult(Message.ERROR);
 			this.getMessage().setDescription(getText("periodOverlappedAction"));
 			return ERROR;
 		}	
-		this.getSeason().setPeriods(periodsWithoutNulls);
 		this.getSeason().setId_structure(structure.getId());
 		
-		oldSeason = this.getSeasonService().findSeasonById(this.getSeason().getId());
 		int currentYear = (this.getSeason().getYear() == null )?Calendar.getInstance().get(Calendar.YEAR): this.getSeason().getYear();		
-		this.getSeason().setYear(currentYear);	
+		this.getSeason().setYear(currentYear);
+		
+		if (!this.getSeasonService().checkYears(this.getSeason())) {
+			this.getMessage().setResult(Message.ERROR);
+			this.getMessage().setDescription(getText("periodYearError"));
+			return ERROR;
+		}
+		oldSeason = this.getSeasonService().findSeasonById(this.getSeason().getId());
 		if (oldSeason == null) {
 			// Si tratta di una nuova season
-			//Voglio settare l'anno della stagione con l'anno corrente
-		
+			//Voglio settare l'anno della stagione con l'anno corrente	
 			this.getSeasonService().insertSeason(this.getSeason());			
 			this.getMessage().setDescription(getText("seasonAddSuccessAction"));		
 		} else {
 			// Si tratta di un update di una season esistente
-			
 			this.getSeasonService().updateSeason(this.getSeason());			
 			this.getMessage().setDescription(getText("seasonUpdateSuccessAction"));			
 		}
@@ -134,7 +133,6 @@ public class SeasonAction extends ActionSupport implements SessionAware {
 			@Result(type = "json", name = "success", params = { "root", "message" }),
 			@Result(type = "json", name = "error", params = { "root", "message" }) 
 			})
-
 	})
 	public String deleteSeason() {
 		try{

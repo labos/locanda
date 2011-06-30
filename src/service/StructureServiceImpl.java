@@ -172,8 +172,6 @@ public class StructureServiceImpl implements StructureService{
 		}
 	}
 
-	
-
 	@Override
 	public Boolean hasRoomFreeInPeriod(Structure structure, Integer roomId, Date dateIn, Date dateOut) {
 		//Estraggo i Booking della camera con roomId dato
@@ -204,9 +202,6 @@ public class StructureServiceImpl implements StructureService{
 		}
 		return true;
 	}
-	
-	
-
 
 	@Override
 	public Boolean hasRoomFreeForBooking(Structure structure, Booking booking) {
@@ -236,8 +231,6 @@ public class StructureServiceImpl implements StructureService{
 		return true;	
 	}
 
-	
-
 	@Override
 	public Boolean hasPeriodFreeForSeason(Structure structure, List<Period> periods) {
 		//Estraggo i Booking della camera con roomId dato
@@ -246,10 +239,8 @@ public class StructureServiceImpl implements StructureService{
 		for(Season each: this.getSeasonService().findSeasonsByStructureId(structure.getId())){
 			
 			if(! currentSeasonId.equals(each.getId())){
-			
 				currentPeriods.addAll(each.getPeriods());
 			}
-
 		}
 		
 		for (Period period : periods) {
@@ -269,13 +260,10 @@ public class StructureServiceImpl implements StructureService{
 					return false;
 				}
 			}
-			
 		}
 		//              dateIn |--------------------------| dateOut    dateIn |--------| dateOut
 		//       |------------------|    |---|     |--------------------------------------|    roomBookings
 		//             aBooking         aBooking         aBooking
-		
-		
 		return true;	
 	}
 	
@@ -289,10 +277,8 @@ public class StructureServiceImpl implements StructureService{
 		for(Season each: this.getSeasonService().findSeasonsByStructureId(structure.getId())){
 			
 			if(currentSeasonId == null || ! currentSeasonId.equals(each.getId())){
-			
 				currentPeriods.addAll(each.getPeriods());
 			}
-
 		}
 		
 		for (Period period : periods) {
@@ -313,17 +299,12 @@ public class StructureServiceImpl implements StructureService{
 					return false;
 				}
 			}
-			
 		}
 		//              dateIn |--------------------------| dateOut    dateIn |--------| dateOut
 		//       |------------------|    |---|     |--------------------------------------|    roomBookings
 		//             aBooking         aBooking         aBooking
-		
-		
 		return true;	
 	}
-	
-	
 	
 	public SeasonService getSeasonService() {
 		return seasonService;

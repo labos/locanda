@@ -14,6 +14,7 @@ public interface SeasonService {
 	public Season findSeasonById(Integer seasonId);
 	public Season findSeasonByName(Integer structureId,String name);
 	public Season findSeasonByDate(Integer structureId, Date date);
+	public Boolean checkYears(Season season);
 	public Integer insertSeason(Season season);
 	public Integer updateSeason(Season season);
 	public Integer deleteSeason(Integer seasonId);
