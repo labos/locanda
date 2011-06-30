@@ -19,7 +19,9 @@ public interface FacilityService {
 	public List<Facility> findUploadedFacilitiesByIdStructure(Integer id_structure);
 	public Facility findUploadedFacilityById(Integer id);
 	public List<Facility> findUploadedFacilitiesByIds(List<Integer> ids);
-	public List<Facility> findStructureFacilitiesByIdStructure(Integer id_structure);	
+	public List<Facility> findStructureFacilitiesByIdStructure(Integer id_structure);
+	public List<Facility> findRoomFacilitiesByIdRoom(Integer id_room);
+	public List<Facility> findRoomTypeFacilitiesByIdRoomType(Integer id_roomType);
 	
 	public Integer deleteUploadedFacility(Integer id);
 	public Integer deleteAllFacilitiesFromRoom(Integer id_room);

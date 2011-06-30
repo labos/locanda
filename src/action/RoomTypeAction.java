@@ -55,12 +55,13 @@ public class RoomTypeAction extends ActionSupport implements SessionAware{
 		
 		user = (User)this.getSession().get("user");
 		structure = user.getStructure();
+		
 		roomTypes = this.getRoomTypeService().findRoomTypesByIdStructure(structure);
 		for(RoomType each: roomTypes){
 			each.setImages(this.getImageService().findImagesByIdRoomType(each.getId()));
 		}
 		this.setRoomTypes(roomTypes);
-		this.setFacilities(this.getStructureService().findRoomFacilitiesByIdStructure(structure));
+		this.setFacilities(this.getFacilityService().findUploadedFacilitiesByIdStructure(structure.getId()));
 		return SUCCESS;
 	}
 	

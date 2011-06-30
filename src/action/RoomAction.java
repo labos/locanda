@@ -71,8 +71,12 @@ public class RoomAction extends ActionSupport implements SessionAware{
 		structure = user.getStructure();
 		
 		this.setRooms(this.getRoomService().findRoomsByIdStructure(structure));
+		for(Room aRoom: this.getRooms()){
+			aRoom.setFacilities(this.getFacilityService().findRoomFacilitiesByIdRoom(aRoom.getId()));
+		}
+		
 		this.setRoomTypes(this.getRoomTypeService().findRoomTypesByIdStructure(structure));
-		this.setRoomFacilities(this.getStructureService().findRoomFacilitiesByIdStructure(structure));
+		this.setRoomFacilities(this.getFacilityService().findUploadedFacilitiesByIdStructure(structure.getId()));
 		if (this.getRoomTypeId() != null){			
 			this.setRooms(this.getRoomService().findRoomsByRoomTypeId(structure,this.getRoomTypeId()));
 		}
@@ -92,10 +96,7 @@ public class RoomAction extends ActionSupport implements SessionAware{
 		user = (User)this.getSession().get("user");
 		structure = user.getStructure();
 		
-		this.setRooms(this.getRoomService().findRoomsByIdStructure(structure));
 		this.setRoomTypes(this.getRoomTypeService().findRoomTypesByIdStructure(structure));
-		this.setRoomFacilities(this.getStructureService().findRoomFacilitiesByIdStructure(structure));
-			
 		//Setting tree node for rooms folding
 		for (RoomType eachRoomType : this.getRoomTypes()) {							
 			//build first level nodes - room types
@@ -125,8 +126,9 @@ public class RoomAction extends ActionSupport implements SessionAware{
 		
 		user = (User)this.getSession().get("user");
 		structure = user.getStructure();
-		this.setRoomFacilities(this.getStructureService().findRoomFacilitiesByIdStructure(structure));
-		selectedFacilities = this.getRoomTypeService().findRoomTypeById(structure,this.getRoom().getRoomType().getId()).getFacilities();
+		
+		this.setRoomFacilities(this.getFacilityService().findUploadedFacilitiesByIdStructure(structure.getId()));
+		selectedFacilities = this.getFacilityService().findRoomTypeFacilitiesByIdRoomType(this.getRoom().getRoomType().getId());
 		for(Facility each: selectedFacilities){			
 			this.getRoomFacilitiesIds().add(each.getId());		//popolo l'array roomFacilitiesIds con gli id delle Facilities già presenti nella Room da editare
 		}

@@ -27,8 +27,15 @@
 	</select>
 	
 	<select id="findStructureFacilitiesByIdStructure" parameterType="int" resultType="model.Facility">
-		<include refid="findStructureFacilities" />  where id_structure = #{id_structure}
+		<include refid="findStructureFacilities" />  where id_structure = #{id_structure}	
+	</select>
 	
+	<select id="findRoomFacilitiesByIdRoom" parameterType="int" resultType="model.Facility">
+		select id,name,fileName from uploadedFacility where id IN(select id_uploadedFacility from roomFacility where id_room = #{id_room})			
+	</select>
+	
+	<select id="findRoomTypeFacilitiesByIdRoomType" parameterType="int" resultType="model.Facility">
+		select id,name,fileName from uploadedFacility where id IN(select id_uploadedFacility from roomTypeFacility where id_roomType = #{id_roomType})			
 	</select>
 	
 	<sql id="findStructureFacilities">

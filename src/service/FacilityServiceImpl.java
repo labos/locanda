@@ -120,9 +120,33 @@ public class FacilityServiceImpl implements FacilityService{
 	}
 	
 	@Override
+	public List<Facility> findRoomFacilitiesByIdRoom(Integer id_room) {		
+		return this.getFacilityMapper().findRoomFacilitiesByIdRoom(id_room);
+	}
+
+	
+	
+	@Override
+	public List<Facility> findRoomTypeFacilitiesByIdRoomType(Integer id_roomType) {
+		return this.getFacilityMapper().findRoomTypeFacilitiesByIdRoomType(id_roomType);
+	}
+
+
+
+
+
+
+	@Override
 	public Integer deleteStructureFacility(Integer id) {
 		return this.getFacilityMapper().deleteStructureFacility(id);
 	}
+
+	
+
+	
+
+
+
 
 
 	@Override
