@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.1.49, for debian-linux-gnu (i686)
+-- MySQL dump 10.13  Distrib 5.1.41, for debian-linux-gnu (i486)
 --
 -- Host: localhost    Database: locanda
 -- ------------------------------------------------------
--- Server version	5.1.49-1ubuntu8.1
+-- Server version	5.1.41-3ubuntu12.10
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -63,6 +63,11 @@ CREATE TABLE `guest` (
   `notes` varchar(255) DEFAULT NULL,
   `idNumber` varchar(255) DEFAULT NULL,
   `id_structure` int(11) DEFAULT NULL,
+  `gender` varchar(255) DEFAULT NULL,
+  `birthDay` int(11) DEFAULT NULL,
+  `birthMonth` varchar(255) DEFAULT NULL,
+  `birthYear` int(11) DEFAULT NULL,
+  `birthPlace` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -73,7 +78,7 @@ CREATE TABLE `guest` (
 
 LOCK TABLES `guest` WRITE;
 /*!40000 ALTER TABLE `guest` DISABLE KEYS */;
-INSERT INTO `guest` VALUES (1,'Paolino','Rossi','paolo@rossi.it','06-6789458','Roma, Via Rossini 84','Italy','09123',NULL,NULL,1),(2,'rossini','paolini',NULL,'4444','sdddds','Bangladesh','sddsds',NULL,NULL,1),(3,'rossini','paolini',NULL,'4444','sdddds','Andorra','sddsds',NULL,NULL,1),(4,'ddssd','dsdsdds',NULL,'sdsdsd','sdsdsd','Bangladesh','sdsdsd',NULL,NULL,1),(5,'sandro','pinna',NULL,'23444','4444','Algeria','4444',NULL,NULL,1),(6,'dsdsds','sdsdsd',NULL,'sddssd','sddsds','Barbados','sdssd',NULL,NULL,1),(7,'ddsds','sdsdsd',NULL,'sdssd','fdffd','Angola Republica','cxcxxc',NULL,NULL,1),(8,'dsdsd','ssd',NULL,'sdsd','sdsd','Belarus','ssdsd',NULL,NULL,1),(9,'sd','sdds',NULL,'dssdsd','sdsdsd','Bahrain','sdsdsd',NULL,NULL,1),(10,'dsaa','assad',NULL,'aa','add','Algeria','adda',NULL,NULL,1),(11,'ffdfd','dffdfd',NULL,'fdfdfd','fdfdfd','Barbados','ffddf',NULL,NULL,1),(12,'dsdsd','sddsd',NULL,'sdssd','sddd','Algeria','dsds',NULL,NULL,1),(13,'fdfdf','fdfdfd',NULL,'fdfdfd','dffdfd','Algeria','fdfdf',NULL,NULL,1),(14,'sdsds','dsdsds',NULL,'dsdsds','dsdsd','Angola Republica','dsds',NULL,NULL,1);
+INSERT INTO `guest` VALUES (1,'Paolino','Rossi','paolo@rossi.it','06-6789458','Roma, Via Rossini 84','Italy','09123','','AK2392029',1,'M',22,'aug',1950,'Casteddu');
 /*!40000 ALTER TABLE `guest` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -426,4 +431,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2011-07-01 16:46:19
+-- Dump completed on 2011-07-01 17:10:16

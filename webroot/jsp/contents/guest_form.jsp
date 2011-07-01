@@ -19,6 +19,78 @@
                	    <label for="lastName">Last name: <sup title="This field is mandatory.">*</sup></label>
                     <input class="required" type="text" name="guest.lastName" id="lastName" value="<s:property value="guest.lastName"/>" size="20"  aria-required="true"/>
              	  </div>
+             	  <div class="type-select">
+                  	<label for="gender">Gender:<sup title="This field is mandatory.">*</sup></label>
+                	<select class="required" name="guest.gender" id="gender" size="1" aria-required="true">
+					  <option selected="selected" value="<s:property value="guest.gender"/>"><s:property value="guest.gender"/></option>
+					  <option value="M">M</option>
+					  <option value="F">F</option>
+					</select>
+				  </div>
+				  <div class="type-select">
+                  	<label for="birthDay">Birth Day:<sup title="This field is mandatory.">*</sup></label>
+                	<select class="required" name="guest.birthDay" id="birthDay" size="1" aria-required="true">
+					  <option selected="selected" value="<s:property value="guest.birthDay"/>"><s:property value="guest.birthDay"/></option>
+					  <option value="1">1</option>
+					  <option value="2">2</option>
+					  <option value="3">3</option>
+					  <option value="4">4</option>
+					  <option value="5">5</option>
+					  <option value="6">6</option>
+					  <option value="7">7</option>
+					  <option value="8">8</option>
+					  <option value="9">9</option>
+					  <option value="10">10</option>
+					  <option value="11">11</option>
+					  <option value="12">12</option>
+					  <option value="13">13</option>
+					  <option value="14">14</option>
+					  <option value="15">15</option>
+					  <option value="16">16</option>
+					  <option value="17">17</option>
+					  <option value="18">18</option>
+					  <option value="19">19</option>
+					  <option value="20">20</option>
+					  <option value="21">21</option>
+					  <option value="22">22</option>
+					  <option value="23">23</option>
+					  <option value="24">24</option>
+					  <option value="25">25</option>
+					  <option value="26">26</option>
+					  <option value="27">27</option>
+					  <option value="28">28</option>
+					  <option value="29">29</option>
+					  <option value="30">30</option>
+					  <option value="31">31</option>
+					</select>
+					<label for="birthMonth">Birth Month:<sup title="This field is mandatory.">*</sup></label>
+                	<select class="required" name="guest.birthMonth" id="birthMonth" size="1" aria-required="true">
+					  <option selected="selected" value="<s:property value="guest.birthMonth"/>"><s:property value="guest.birthMonth"/></option>
+					  <option value="jan"><s:text name="jan"/></option>
+					  <option value="feb"><s:text name="feb"/></option>
+					  <option value="mar"><s:text name="mar"/></option>
+					  <option value="apr"><s:text name="apr"/></option>
+					  <option value="may"><s:text name="may"/></option>
+					  <option value="jun"><s:text name="jun"/></option>
+					  <option value="jul"><s:text name="jul"/></option>
+					  <option value="aug"><s:text name="aug"/></option>
+					  <option value="sep"><s:text name="sep"/></option>
+					  <option value="oct"><s:text name="oct"/></option>
+					  <option value="nov"><s:text name="nov"/></option>
+					  <option value="dic"><s:text name="dic"/></option>
+					</select>
+					<label for="birthYear">Birth Year:<sup title="This field is mandatory.">*</sup></label>
+                	<select class="required" name="guest.birthYear" id="birthYear" size="1" aria-required="true">
+					  <option selected="selected" value="<s:property value="guest.birthYear"/>"><s:property value="guest.birthYear"/></option>
+					  <s:iterator value="years" var="eachYear">
+					  	<option value="<s:property value="#eachYear"/>"><s:property value="#eachYear"/></option>
+					  </s:iterator>  
+					</select>
+				  </div>
+				  <div class="type-text">
+               	    <label for="birthPlace">Birth Place: <sup title="This field is mandatory.">*</sup></label>
+                    <input class="required" type="text" name="guest.birthPlace" id="birthPlace" value="<s:property value="guest.birthPlace"/>" size="20"  aria-required="true"/>
+             	  </div>   
                   <div class="type-text">
                     <label for="phone">Phone:<sup title="This field is mandatory.">*</sup></label>
                     <input type="text" name="guest.phone" id="phone" class="required" value="<s:property value="guest.phone"/>" />

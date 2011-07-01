@@ -24,7 +24,7 @@
   </typeAliases>
 -->
 
-
+<!--
   <mappers>
     <mapper resource="persistence/mybatis/mappers/StudenteMapper.xml"/>
     <mapper resource="persistence/mybatis/mappers/SeasonMapper.xml"/>
@@ -32,6 +32,7 @@
       <mapper resource="persistence/mybatis/mappers/UserMapper.xml"/>
        <mapper resource="persistence/mybatis/mappers/StructureMapper.xml"/>
   </mappers>
+-->
 
 </configuration>
 

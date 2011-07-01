@@ -24,13 +24,12 @@ public class GuestServiceImpl implements GuestService{
 		
 		return this.getGuestMapper().insertGuest(guest);
 	}
+	
 	@Override
 	public Guest findGuestById(Integer id) {		
 		return this.getGuestMapper().findGuestById(id);
 	}
 	
-	
-
 	@Override
 	public Integer updateGuest(Guest guest) {
 		
@@ -50,12 +49,5 @@ public class GuestServiceImpl implements GuestService{
 	public void setGuestMapper(GuestMapper guestMapper) {
 		this.guestMapper = guestMapper;
 	}
-
-
-
-	
-	
-	
-	
 
 }

@@ -5,31 +5,26 @@
 <mapper namespace="persistence.mybatis.mappers.GuestMapper">
   <cache />
   
-  
   <select id="findGuestsByIdStructure" parameterType="int" resultType="model.Guest" >
-   <include refid="selectGuests"/>  where id_structure = #{id_structure}  
+  	<include refid="selectGuests"/>  where id_structure = #{id_structure}  
   </select>
-  
   
   <select id="findGuestById" parameterType="int" resultType="model.Guest" >
-   <include refid="selectGuests"/>  where id = #{id}  
+  	<include refid="selectGuests"/>  where id = #{id}  
   </select>
   
-  
- 	
   <sql id="selectGuests">
-  	SELECT id,firstName,lastName,email,phone,address,country,zipCode,notes,idNumber,id_structure from guest
+  	SELECT id,firstName,lastName,gender,birthDay,birthMonth,birthYear,birthPlace,email,phone,address,country,zipCode,notes,idNumber,id_structure from guest
   </sql>
   
   <insert id="insertGuest" parameterType="model.Guest" useGeneratedKeys="true" keyProperty="id">
-  	INSERT into guest(firstName,lastName,email,phone,address,country,zipCode,notes,idNumber,id_structure) values 
-  		(#{firstName},#{lastName},#{email},#{phone},#{address},#{country},#{zipCode},#{notes},#{idNumber},#{id_structure})
-  
+  	INSERT into guest(firstName,lastName,gender,birthDay,birthMonth,birthYear,birthPlace,email,phone,address,country,zipCode,notes,idNumber,id_structure) values 
+  		(#{firstName},#{lastName},#{gender},#{birthDay},#{birthMonth},#{birthYear},#{birthPlace},#{email},#{phone},#{address},#{country},#{zipCode},#{notes},#{idNumber},#{id_structure})
   </insert>
   
   <update id="updateGuest" parameterType="model.Guest">
   	UPDATE guest set 
-  	firstName= #{firstName},lastName= #{lastName},email= #{email},phone= #{phone},address= #{address},country= #{country},zipCode= #{zipCode},notes= #{notes},idNumber= #{idNumber},id_structure= #{id_structure}
+  	firstName= #{firstName},lastName= #{lastName},gender=#{gender},birthDay=#{birthDay},birthMonth=#{birthMonth},birthYear=#{birthYear},birthPlace=#{birthPlace},email= #{email},phone= #{phone},address= #{address},country= #{country},zipCode= #{zipCode},notes= #{notes},idNumber= #{idNumber},id_structure= #{id_structure}
   	where id = #{id}
   </update>
   

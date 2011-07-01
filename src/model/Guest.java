@@ -8,6 +8,11 @@ public class Guest implements Serializable{
 	
 	private String firstName;
 	private String lastName;
+	private String gender;
+	private Integer birthDay;
+	private String birthMonth;
+	private Integer birthYear;
+	private String birthPlace;
 	private String email;
 	private String phone;
 	private String address;
@@ -106,7 +111,35 @@ public class Guest implements Serializable{
 	public void setId_structure(Integer id_Structure) {
 		this.id_structure = id_Structure;
 	}
-	
-	
+	public String getGender() {
+		return gender;
+	}
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+	public Integer getBirthDay() {
+		return birthDay;
+	}
+	public void setBirthDay(Integer birthDay) {
+		this.birthDay = birthDay;
+	}
+	public String getBirthMonth() {
+		return birthMonth;
+	}
+	public void setBirthMonth(String birthMonth) {
+		this.birthMonth = birthMonth;
+	}
+	public Integer getBirthYear() {
+		return birthYear;
+	}
+	public void setBirthYear(Integer birthYear) {
+		this.birthYear = birthYear;
+	}
+	public String getBirthPlace() {
+		return birthPlace;
+	}
+	public void setBirthPlace(String birthPlace) {
+		this.birthPlace = birthPlace;
+	}
 
 }

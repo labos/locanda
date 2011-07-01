@@ -59,10 +59,9 @@ public class SeasonAction extends ActionSupport implements SessionAware {
 				results = { @Result(name = "success", location = "/season_edit.jsp") })
 	})
 	public String goUpdateSeason() {
-		User user = null;
 		Season theSeason = null;
-		
-		user = (User) session.get("user");
+		//User user = null;
+		//user = (User) session.get("user");
 		
 		theSeason = this.getSeasonService().findSeasonById(this.getId());
 		this.setSeason(theSeason);

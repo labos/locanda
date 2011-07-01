@@ -17,10 +17,7 @@
         <div class="header_section">
           <span class="name_section"><s:text name="manageGuests" /></span>   
           <div class="right type-text">
-            <input type="text" name="term" class="txt_guest_search" /><button class="btn_g_search">SEARCH</button>      
-              <div class="search_links">
-              <!--<span>Or browse:&nbsp;</span><a href="#">staying this week</a><span>,&nbsp;</span><a href="#">staying next week</a>,&nbsp;<a href="#">staying this month</a>,&nbsp;<a href="#">staying last month</a>,&nbsp;<a href="#">all</a>
-            --></div>
+            <input type="text" name="term" class="txt_guest_search" /><button class="btn_g_search">SEARCH</button>
           </div>  
         </div>
           </form>
@@ -48,6 +45,7 @@
 					  <ul>
 				        <li><b>Address:</b> <s:property value="#eachGuest.address"/> - <s:property value="#eachGuest.zipCode"/> <s:property value="#eachGuest.country"/></li>
 				        <li><b>Phone:</b> <s:property value="#eachGuest.phone"/></li>
+				        <li><b>E-Mail:</b> <s:property value="#eachGuest.email"/></li>
 				        <li><b>Notes:</b> <s:property value="#eachGuest.notes"/></li>
 				      </ul>
                     </div>                  

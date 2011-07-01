@@ -32,6 +32,7 @@ public class GuestAction extends ActionSupport implements SessionAware{
 	private Message message = new Message();
 	private List<Booking> bookings = null;
 	private String term;
+	private List<Integer> years = null;
 	@Autowired
 	private GuestService guestService = null;
 	@Autowired
@@ -55,7 +56,6 @@ public class GuestAction extends ActionSupport implements SessionAware{
 	}
 	
 	@Actions({
-
 		@Action(value="/findAllGuestsJson",results = {
 				@Result(type ="json",name="success", params={
 						"root","guests"
@@ -63,7 +63,6 @@ public class GuestAction extends ActionSupport implements SessionAware{
 				@Action(value="/findAllGuestsFiltered",results = {
 						@Result(name="success",location="/guests.jsp")
 				})
-		
 	})
 	public String findAllGuestsFiltered() {
 		User user = null;
@@ -93,7 +92,6 @@ public class GuestAction extends ActionSupport implements SessionAware{
 		@Action(value="/findAllGuestsByName",results = {
 				@Result(name="success",location="/guests.jsp")
 		}) 
-		
 	})
 	public String findAllGuestsByName() {
 		User user = null;
@@ -127,13 +125,12 @@ public class GuestAction extends ActionSupport implements SessionAware{
 				@Result(type ="json",name="error", params={
 						"root","message"
 				})}) 
-		
 	})	
 	public String findGuestById(){
-		User user = null;
+//		User user = null;
 		Guest aGuest = null;
 		
-		user = (User)session.get("user");
+//		user = (User)session.get("user");
 		
 		aGuest = this.getGuestService().findGuestById(this.getId());
 		if(aGuest != null){
@@ -150,7 +147,6 @@ public class GuestAction extends ActionSupport implements SessionAware{
 		@Action(value="/goUpdateGuest",results = {
 				@Result(name="success",location="/guest_edit.jsp")
 		})
-		
 	})
 	public String goUpdateGuest() {
 		User user = null;
@@ -159,6 +155,10 @@ public class GuestAction extends ActionSupport implements SessionAware{
 		user = (User)session.get("user");
 		structure = user.getStructure();
 		
+		this.years = new ArrayList<Integer>();		//popolo l'array degli anni. serve solo per la select
+		for (int i=2012; i>1900; i--) {
+			years.add(i);
+		}
 		this.setGuest(this.getGuestService().findGuestById(this.getId())); 
 		this.setBookings(this.getBookingService().findBookingsByGuestId(structure,this.getId()));
 		
@@ -205,9 +205,8 @@ public class GuestAction extends ActionSupport implements SessionAware{
 		})
 	})
 	public String deleteGuest(){
-		User user = null;
-		
-		user = (User)session.get("user");
+//		User user = null;
+//		user = (User)session.get("user");
 		
 		try{
 			this.getGuestService().deleteGuest(this.getId());
@@ -264,6 +263,13 @@ public class GuestAction extends ActionSupport implements SessionAware{
 	public void setTerm(String term) {
 		this.term = term;
 	}
+	public List<Integer> getYears() {
+		return years;
+	}
+	public void setYears(List<Integer> years) {
+		this.years = years;
+	}
+
 	public GuestService getGuestService() {
 		return guestService;
 	}
