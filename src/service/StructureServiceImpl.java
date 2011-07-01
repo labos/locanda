@@ -478,14 +478,14 @@ public class StructureServiceImpl implements StructureService{
 	public void buildStructure(Structure structure) {
 
 		//this.buildRoomFacilities(structure);
-		//this.buildRoomTypes(structure);
-		//this.buildRooms(structure);
-		//this.buildGuests(structure);
-		//this.buildSeasons(structure);
-		//this.buildConventions(structure);
-		//this.buildRoomPriceLists(structure);
-		//this.buildExtras(structure);
-		//this.buildExtraPriceLists(structure);
+		this.buildRoomTypes(structure);
+		this.buildRooms(structure);
+		this.buildGuests(structure);
+		this.buildSeasons(structure);
+		this.buildConventions(structure);
+		this.buildRoomPriceLists(structure);
+		this.buildExtras(structure);
+		this.buildExtraPriceLists(structure);
 		//this.buildBookings(structure);
 		
 	}
@@ -527,77 +527,21 @@ public class StructureServiceImpl implements StructureService{
 
 	}*/
 	
-	/*
-	private void buildRoomTypes(Structure structure) {
-		RoomType aRoomType = null;
-		Image image = new Image();
-		Facility roomTypeFacility = new Facility();
-		
-		image.setId(structure.nextKey());
-		image.setName("singola");
-		image.setFileName("single.jpg");
-		roomTypeFacility.setId(structure.nextKey());
-		roomTypeFacility.setName("wifi");
-		roomTypeFacility.setFileName("wifi.png");
-
-		aRoomType = new RoomType();
-		aRoomType.setId(structure.nextKey());
-		aRoomType.setName("singola");
-		aRoomType.setMaxGuests(1);
-
-		aRoomType.addRoomTypeFacility(roomTypeFacility);
-		this.addRoomFacility(structure, roomTypeFacility);
-
-		roomTypeFacility = new Facility();
-		roomTypeFacility.setId(structure.nextKey());
-		roomTypeFacility.setName("air conditioned");
-		roomTypeFacility.setFileName("air_conditioned.png");
-		aRoomType.addRoomTypeFacility(roomTypeFacility);
-		this.addRoomFacility(structure, roomTypeFacility);
-
-		aRoomType.addRoomTypeImage(image);
-
-		this.getRoomTypeService().insertRoomType(structure, aRoomType);
-
-		image = new Image();
-		image.setId(structure.nextKey());
-		image.setName("doppia");
-		image.setFileName("double.jpg");
-		aRoomType = new RoomType();
-		aRoomType.setId(structure.nextKey());
-		aRoomType.setName("doppia");
-		aRoomType.setMaxGuests(2);
-		aRoomType.addRoomTypeImage(image);
-		this.getRoomTypeService().insertRoomType(structure, aRoomType);
-	}*/
 	
-	/*
+	private void buildRoomTypes(Structure structure) {
+		List<RoomType> roomTypes = null;
+		
+		roomTypes = this.getRoomTypeService().findRoomTypesByIdStructure(structure.getId());
+		structure.setRoomTypes(roomTypes);
+	}
+	
+	
 	private void buildRooms(Structure structure) {
-		Room aRoom = null;
-
-		aRoom = new Room();
-		//aRoom.setId(structure.nextKey());
-		aRoom.setName("101");
-		aRoom.addRoomFacility(this.findRoomFacilitiesByIdStructure(structure).get(0));
-		aRoom.addRoomFacility(this.findRoomFacilitiesByIdStructure(structure).get(2));
-		aRoom.setRoomType(this.getRoomTypeService()
-				.findRoomTypesByIdStructure(structure).get(0));
-		//this.getRoomService().insertRoom(structure, aRoom);
-		aRoom.setId_structure(structure.getId());
-		aRoom.setId_roomType(aRoom.getRoomType().getId());
-		this.getRoomService().insertRoom(aRoom);
-
-		aRoom = new Room();
-		aRoom.setId(structure.nextKey());
-		aRoom.setName("201");
-		aRoom.addRoomFacility(this.findRoomFacilitiesByIdStructure(structure).get(1));
-		aRoom.setRoomType(this.getRoomTypeService()
-				.findRoomTypesByIdStructure(structure).get(1));
-		//this.getRoomService().insertRoom(structure, aRoom);
-		aRoom.setId_structure(structure.getId());
-		aRoom.setId_roomType(aRoom.getRoomType().getId());
-		this.getRoomService().insertRoom(aRoom);
-	}*/
+		List<Room> rooms = null;
+		
+		rooms = this.getRoomService().findRoomsByIdStructure(structure.getId());
+		structure.setRooms(rooms);
+	}
 
 	
 
