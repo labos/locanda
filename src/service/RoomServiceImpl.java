@@ -10,9 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import persistence.mybatis.mappers.FacilityMapper;
 import persistence.mybatis.mappers.RoomMapper;
 import persistence.mybatis.mappers.RoomTypeMapper;
 
+import model.Facility;
 import model.Room;
 import model.RoomType;
 import model.Structure;
@@ -23,7 +25,8 @@ public class RoomServiceImpl implements RoomService{
 	private RoomMapper roomMapper = null;
 	@Autowired
 	private RoomTypeMapper roomTypeMapper = null;
-
+	@Autowired
+	private FacilityMapper facilityMapper = null;
 	
 	/*
 	@Override
@@ -36,10 +39,13 @@ public class RoomServiceImpl implements RoomService{
 	public Room findRoomById(Integer id) {	
 		Room room = null;
 		RoomType roomType = null;
+		List<Facility> facilities = null;
 		
+		facilities = this.getFacilityMapper().findRoomFacilitiesByIdRoom(id);
 		room = this.getRoomMapper().findRoomById(id);
 		roomType = this.getRoomTypeMapper().findRoomTypeById(room.getId_roomType());
 		room.setRoomType(roomType);
+		room.setFacilities(facilities);
 		return room;
 	}
 
@@ -190,6 +196,14 @@ public class RoomServiceImpl implements RoomService{
 
 	public void setRoomTypeMapper(RoomTypeMapper roomTypeMapper) {
 		this.roomTypeMapper = roomTypeMapper;
+	}
+
+	public FacilityMapper getFacilityMapper() {
+		return facilityMapper;
+	}
+
+	public void setFacilityMapper(FacilityMapper facilityMapper) {
+		this.facilityMapper = facilityMapper;
 	}
 	
 	

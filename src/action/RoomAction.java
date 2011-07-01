@@ -182,7 +182,7 @@ public class RoomAction extends ActionSupport implements SessionAware{
 		structure = user.getStructure();
 		
 		//oldRoom = this.getRoomService().findRoomById(structure,this.getRoom().getId());	
-		oldRoom = this.getRoomService().findRoomById(this.getRoom().getId());
+		oldRoom = (this.getRoom().getId() == null )? null :  this.getRoomService().findRoomById(this.getRoom().getId());
 		if(oldRoom == null){
 			//Si tratta di un add			
 			return this.saveRoom(structure);			
