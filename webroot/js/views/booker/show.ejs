@@ -1,5 +1,9 @@
 <ul>
 <li><span><%= labels.phone %>: </span><span><%= booker.bookerPhone %></span><a class="skype" href="callto:<%= booker.bookerPhone %>"></a></li>
+<% if( booker.bookerEmail!= null && booker.bookerEmail !='' ){ %>
 <li><span>Email: </span><a href="mailto:<%= booker.bookerEmail %>"><%= booker.bookerEmail %></a></li>
+<% } %>
+<% if( booker.bookerAddress!= null && booker.bookerAddress !='' ){ %>
 <li><span><%= labels.address %>: </span><span><%= booker.bookerAddress %></span> <a class="gmaps" target="_blank" href="http://mapof.it/<%= booker.bookerAddress %>"></a></li>
+<% } %>
 </ul>
