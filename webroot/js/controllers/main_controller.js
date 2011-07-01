@@ -42,11 +42,13 @@ $(document).ready(function () {
 
        	    //Notifier for all jsp(s)
        	    $.fn.notify = function (title, description, redirect) {
+          	     $('#jGrowl').jGrowl('shutdown').remove();
        	        //get height of the body to cover all html page
        	        var heightbody = $('body').height();
        	        if (!$(".ui-widget-overlay").is(':visible')) {
        	            $(".ui-widget-overlay").css("height", heightbody).show();
        	        }
+
        	        $.jGrowl(description, {
        	            beforeClose: function (e, m) {
        	                if (redirect) {

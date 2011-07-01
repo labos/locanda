@@ -18,7 +18,7 @@ $.i18n.it.strings = {
     updateFacilityError: "Si è verificato un problema durante l'aggiornamento della facility",
     destroyFacilitySuccess: "Facility eliminata con successo",
     destroyFacilityError: "Si è verificato un problema durante la cancellazione della facility",
-    facilityNameRequired: "Devi inserire il nome della facility",
+    facilityNameRequired: "Devi inserire il nome della facility con almeno un carattere",
     bookingOverlapping: "Errore: booking sovrapposti",
     validPriceAlert: "Attenzione, devi inserire un prezzo valido",
     alertCancel: "Attenzione le modifiche che hai effettuato non verranno salvate. Vuoi chiudere ugualmente?",

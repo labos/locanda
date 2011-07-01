@@ -264,7 +264,7 @@ $.fn.deprecatedBrowser = function () {
 		beforeSend: function (event, files, index, xhr, handler, callBack) {
 			var facility_name = handler.uploadForm.parents(".beauty").find('input[name="facility_name"]').val();
 			var type_img = files.type;
-			if (facility_name.length > 2) {
+			if (facility_name.length > 0) {
 				handler.uploadForm.find('input:hidden[name="name"]').val(facility_name);
 				callBack();
 			} else {
