@@ -1,14 +1,17 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Room {
+public class Room implements Serializable{
 	private Integer id;
 	private String name;
 	private Double price;
 	private String notes;
 	private RoomType roomType;
+	private Integer id_roomType;
+	private Integer id_structure;
 	private List<Facility> facilities;
 	private List<Image> images;
 	
@@ -99,6 +102,24 @@ public class Room {
 	}
 	public void setImages(List<Image> images) {
 		this.images = images;
+	}
+
+	public Integer getId_roomType() {
+		return id_roomType;
+	}
+
+	public void setId_roomType(Integer id_roomType) {
+		this.id_roomType = id_roomType;
+	}
+
+	public Integer getId_structure() {
+		return id_structure;
+	}
+
+	public void setId_structure(Integer id_structure) {
+		this.id_structure = id_structure;
 	}	
+	
+	
 
 }

@@ -224,7 +224,8 @@ public class UploadAction extends ActionSupport implements SessionAware{
 			return ERROR;
 		};
 		
-		aRoom = this.getRoomService().findRoomById(structure,this.getRoom().getId());
+		//aRoom = this.getRoomService().findRoomById(structure,this.getRoom().getId());
+		aRoom = this.getRoomService().findRoomById(this.getRoom().getId());
 		if (aRoom == null){			
 			message.setResult(Message.ERROR);
 			message.setDescription(getText("roomImageNoRoomError"));
@@ -278,7 +279,7 @@ public class UploadAction extends ActionSupport implements SessionAware{
 			message.setDescription(getText("roomTypeImageAlreadyPresentError"));
 			return ERROR;
 		}
-		aRoomType = this.getRoomTypeService().findRoomTypeById(structure, this.getRoomType().getId());
+		aRoomType = this.getRoomTypeService().findRoomTypeById(this.getRoomType().getId());
 		if (aRoomType == null){			
 			message.setResult(Message.ERROR);
 			message.setDescription(getText("roomTypeImageNoRoomTypeError"));

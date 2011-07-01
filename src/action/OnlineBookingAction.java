@@ -101,7 +101,7 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 		this.setRooms(new ArrayList<Room>());
 		
 		rooms = new ArrayList<Room>();
-		for(Room each : this.getRoomService().findRoomsByIdStructure(structure)){			
+		for(Room each : this.getRoomService().findRoomsByIdStructure(structure.getId())){			
 			if ( (each.getRoomType().getMaxGuests() >= booking.getNrGuests() ) && 
 					this.getStructureService().hasRoomFreeInPeriod(structure,each.getId(), booking.getDateIn(), booking.getDateOut()) ) {
 				booking.setRoom(each);
@@ -132,7 +132,7 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 		structure = ( (User) this.getSession().get("user")).getStructure();
 		booking = (Booking) this.getSession().get("onlineBooking");
 		
-		theBookedRoom = this.getRoomService().findRoomById(structure,this.getBooking().getRoom().getId());
+		theBookedRoom = this.getRoomService().findRoomById(this.getBooking().getRoom().getId());
 		booking.setRoom(theBookedRoom);		
 		
 		roomSubtotal = this.getBookingService().calculateRoomSubtotalForBooking(structure,booking);

@@ -1,15 +1,18 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RoomType {
+public class RoomType implements Serializable{
 	
 	private Integer id;
 	private String name;
 	private Integer maxGuests;
+	private String notes;
 	private List<Image> images;
 	private List<Facility> facilities;
+	private Integer id_structure;
 	
 	
 	public RoomType(){
@@ -97,6 +100,26 @@ public class RoomType {
 
 	public void setFacilities(List<Facility> facilityList) {
 		this.facilities = facilityList;
+	}
+
+
+	public Integer getId_structure() {
+		return id_structure;
+	}
+
+
+	public void setId_structure(Integer id_structure) {
+		this.id_structure = id_structure;
+	}
+
+
+	public String getNotes() {
+		return notes;
+	}
+
+
+	public void setNotes(String notes) {
+		this.notes = notes;
 	}
 	
 	

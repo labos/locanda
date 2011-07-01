@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="persistence.mybatis.mappers.RoomMapper"> 
+  <cache />
+  <insert id="insertRoom" parameterType="model.Room" useGeneratedKeys="true" keyProperty="id">
+  	INSERT into room(name,notes,id_roomType,id_structure) values(#{name},#{notes},#{id_roomType},#{id_structure})  	
+  </insert>
+  
+  <update id="updateRoom" parameterType="model.Room">
+  	UPDATE room set name = #{name},notes = #{notes},id_roomType = #{id_roomType},id_structure = #{id_structure} where id = #{id}  
+  </update>
+  
+  <delete id="deleteRoom">
+  	DELETE from room where id = #{id}  
+  </delete>
+  
+  <select id="findRoomsByIdStructure" parameterType="int" resultType="model.Room">
+  	<include refid="selectRoom"/> WHERE id_structure = #{id_structure}   
+  </select>
+  
+  <select id="findRoomById" parameterType="int" resultType="model.Room">
+  	<include refid="selectRoom"/> WHERE id = #{id}   
+  </select>
+  
+  <select id="findRoomByIdStructureAndName" parameterType="map" resultType="model.Room">
+  	<include refid="selectRoom"/> WHERE id_structure = #{id_structure} and   name = #{name}   
+  </select>
+  
+   <select id="findRoomsByIdRoomType" parameterType="int" resultType="model.Room">
+  	<include refid="selectRoom"/> WHERE id_roomType = #{id_roomType}   
+  </select>
+  
+  <sql id="selectRoom">
+  	SELECT id,name,notes,id_roomType,id_structure FROM room
+  </sql>
+    
+</mapper>

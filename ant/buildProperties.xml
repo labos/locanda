@@ -4,7 +4,7 @@
 	<property name="webappname" value="locanda"/>
 	<property name="host" value="localhost"/>
 	
-	<property name="tomcat.home.path" value="/opt/tomcat"/>
+	<property name="tomcat.home.path" value="/opt/java/apache-tomcat-7.0.2"/>
 	<property name="tomcat.deploy.path" value="${tomcat.home.path}/webapps"/>
 	<property name="tomcat.application.path" value="${tomcat.deploy.path}/${webappname}"/>
 	<property name="tomcat.username" value="tomcat"/>
@@ -24,7 +24,7 @@
 	<property name="mysql.host" value="${host}"/>
 	<property name="mysql.port" value="3306"/>
 	<property name="mysql.username" value="root"/>
-	<property name="mysql.password" value="gu1d0"/>
+	<property name="mysql.password" value="root"/>
 	<property name="mysql.dump.path" value="sql"/>
 	
 </project>

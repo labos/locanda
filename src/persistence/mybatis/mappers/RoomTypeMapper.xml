@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="persistence.mybatis.mappers.RoomTypeMapper"> 
+  <cache />
+  <insert id="insertRoomType" parameterType="model.RoomType" useGeneratedKeys="true" keyProperty="id">
+  	INSERT into roomType(name,maxGuests,notes,id_structure) values(#{name},#{maxGuests},#{notes},#{id_structure})  	
+  </insert>
+  
+  <update id="updateRoomType" parameterType="model.RoomType">
+  	UPDATE roomType set name = #{name},maxGuests = #{maxGuests}, notes = #{notes},id_structure = #{id_structure} where id = #{id}  
+  </update>
+  
+  <delete id="deleteRoomType">
+  	DELETE from roomType where id = #{id}  
+  </delete>
+  
+  <select id="findRoomTypesByIdStructure" parameterType="int" resultType="model.RoomType">
+  	<include refid="selectRoomType"/> WHERE id_structure = #{id_structure}   
+  </select>
+  
+  <select id="findRoomTypeById" parameterType="int" resultType="model.RoomType">
+  	<include refid="selectRoomType"/> WHERE id = #{id}   
+  </select>
+  
+  <select id="findRoomTypeByIdStructureAndName" parameterType="map" resultType="model.RoomType">
+  	<include refid="selectRoomType"/> WHERE id_structure = #{id_structure} and   name = #{name}   
+  </select>
+  
+  <sql id="selectRoomType">
+  	SELECT id,name,maxGuests,notes,id_structure FROM roomType
+  </sql>
+    
+</mapper>

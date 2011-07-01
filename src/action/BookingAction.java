@@ -301,7 +301,8 @@ public class BookingAction extends ActionSupport implements SessionAware{
 	private void updateRoom(Structure structure,Booking booking){
 		Room newRoom = null; 
 		
-		newRoom = this.getRoomService().findRoomById(structure,this.getBooking().getRoom().getId());
+		//newRoom = this.getRoomService().findRoomById(structure,this.getBooking().getRoom().getId());
+		newRoom = this.getRoomService().findRoomById(this.getBooking().getRoom().getId());
 		booking.setRoom(newRoom);	
 	}
 	
@@ -514,7 +515,8 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		booking.setDateIn(this.getBooking().getDateIn());
 		booking.setDateOut(this.getBooking().getDateOut());		
 		
-		theBookedRoom = this.getRoomService().findRoomById(structure,this.getBooking().getRoom().getId());
+		//theBookedRoom = this.getRoomService().findRoomById(structure,this.getBooking().getRoom().getId());
+		theBookedRoom = this.getRoomService().findRoomById(this.getBooking().getRoom().getId());
 		booking.setRoom(theBookedRoom);
 		
 		defaultConvention = this.getConventionService().findConventionsByIdStructure(structure).get(0);
@@ -525,7 +527,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		
 		this.setBooking(booking);
 		
-		this.setRooms(this.getRoomService().findRoomsByIdStructure(structure));
+		this.setRooms(this.getRoomService().findRoomsByIdStructure(structure.getId()));
 		this.setExtras(this.getExtraService().findExtrasByIdStructure(structure.getId()));
 		this.setConventions(this.getConventionService().findConventionsByIdStructure(structure));
 				
@@ -557,7 +559,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		booking.setConvention(defaultConvention);	
 		this.setBooking(booking);
 		
-		this.setRooms(this.getRoomService().findRoomsByIdStructure(structure));
+		this.setRooms(this.getRoomService().findRoomsByIdStructure(structure.getId()));
 		this.setExtras(this.getExtraService().findExtrasByIdStructure(structure.getId()));
 		this.setConventions(this.getConventionService().findConventionsByIdStructure(structure));		
 		
@@ -589,7 +591,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		
 		this.setBooking(booking);
 						
-		this.setRooms(this.getRoomService().findRoomsByIdStructure(structure));
+		this.setRooms(this.getRoomService().findRoomsByIdStructure(structure.getId()));
 		this.setExtras(this.getExtraService().findExtrasByIdStructure(structure.getId()));		
 		this.setBookingExtraIds(this.calculateBookingExtraIds());
 		this.setConventions(this.getConventionService().findConventionsByIdStructure(structure));		

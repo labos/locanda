@@ -53,7 +53,8 @@ public class RoomFacilityAction extends ActionSupport implements SessionAware{
 		
 		//this.setRoomFacilities(this.getStructureService().findRoomFacilitiesByIdStructure(structure));
 		this.setRoomFacilities(this.getFacilityService().findUploadedFacilitiesByIdStructure(structure.getId()));
-		for(Facility each: this.getRoomService().findRoomById(structure,this.idRoom).getFacilities()){	
+		//for(Facility each: this.getRoomService().findRoomById(structure,this.idRoom).getFacilities()){	
+		for(Facility each: this.getFacilityService().findRoomFacilitiesByIdRoom(this.getIdRoom())){	
 			this.roomFacilitiesIds.add(each.getId());			
 		}
 		return SUCCESS;
@@ -73,7 +74,8 @@ public class RoomFacilityAction extends ActionSupport implements SessionAware{
 		
 		user = (User)this.getSession().get("user");
 		structure = user.getStructure();
-		this.setRoom(this.getRoomService().findRoomById(structure,this.getIdRoom()));		
+		//this.setRoom(this.getRoomService().findRoomById(structure,this.getIdRoom()));
+		this.setRoom(this.getRoomService().findRoomById(this.getIdRoom()));
 		checkedFacilities = this.getStructureService().findRoomFacilitiesByIds(structure,this.getRoomFacilitiesIds());	
 		this.getRoom().setFacilities(checkedFacilities);
 		this.getFacilityService().deleteAllFacilitiesFromRoom(this.getIdRoom());

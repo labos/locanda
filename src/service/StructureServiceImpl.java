@@ -129,7 +129,7 @@ public class StructureServiceImpl implements StructureService{
 		
 		//for (Season eachSeason : structure.getSeasons()) {
 		for (Season eachSeason : this.getSeasonService().findSeasonsByStructureId(structure.getId())) {
-			for (RoomType eachRoomType : this.getRoomTypeService().findRoomTypesByIdStructure(structure)) {
+			for (RoomType eachRoomType : this.getRoomTypeService().findRoomTypesByIdStructure(structure.getId())) {
 				for (Convention eachConvention : this.getConventionService().findConventionsByIdStructure(structure)) {
 					newRoomPriceList = new RoomPriceList();
 					newRoomPriceList.setId(structure.nextKey());
@@ -477,44 +477,62 @@ public class StructureServiceImpl implements StructureService{
 
 	public void buildStructure(Structure structure) {
 
-		this.buildRoomFacilities(structure);
-		this.buildRoomTypes(structure);
-		this.buildRooms(structure);
-		this.buildGuests(structure);
-		this.buildSeasons(structure);
-		this.buildConventions(structure);
-		this.buildRoomPriceLists(structure);
-		this.buildExtras(structure);
-		this.buildExtraPriceLists(structure);
-		this.buildBookings(structure);
+		//this.buildRoomFacilities(structure);
+		//this.buildRoomTypes(structure);
+		//this.buildRooms(structure);
+		//this.buildGuests(structure);
+		//this.buildSeasons(structure);
+		//this.buildConventions(structure);
+		//this.buildRoomPriceLists(structure);
+		//this.buildExtras(structure);
+		//this.buildExtraPriceLists(structure);
+		//this.buildBookings(structure);
 		
 	}
 
-	private void buildRooms(Structure structure) {
-		Room aRoom = null;
 
-		aRoom = new Room();
-		aRoom.setId(structure.nextKey());
-		aRoom.setName("101");
-		aRoom.addRoomFacility(this.findRoomFacilitiesByIdStructure(structure).get(0));
-		aRoom.addRoomFacility(this.findRoomFacilitiesByIdStructure(structure).get(2));
-		aRoom.setRoomType(this.getRoomTypeService()
-				.findRoomTypesByIdStructure(structure).get(0));
-		this.getRoomService().insertRoom(structure, aRoom);
+	/*
+	private void buildRoomFacilities(Structure structure) {
+		Facility aRoomFacility = null;
 
-		aRoom = new Room();
-		aRoom.setId(structure.nextKey());
-		aRoom.setName("201");
-		aRoom.addRoomFacility(this.findRoomFacilitiesByIdStructure(structure).get(1));
-		aRoom.setRoomType(this.getRoomTypeService()
-				.findRoomTypesByIdStructure(structure).get(1));
-		this.getRoomService().insertRoom(structure, aRoom);
-	}
+		aRoomFacility = new Facility();
+		aRoomFacility.setId(structure.nextKey());
+		aRoomFacility.setName("AAD");
+		aRoomFacility.setFileName("AAD.gif");
+		this.addRoomFacility(structure, aRoomFacility);
 
+		aRoomFacility = new Facility();
+		aRoomFacility.setId(structure.nextKey());
+		aRoomFacility.setName("BAR");
+		aRoomFacility.setFileName("BAR.gif");
+		this.addRoomFacility(structure, aRoomFacility);
+
+		aRoomFacility = new Facility();
+		aRoomFacility.setId(structure.nextKey());
+		aRoomFacility.setName("PHO");
+		aRoomFacility.setFileName("PHO.gif");
+		this.addRoomFacility(structure, aRoomFacility);
+
+		aRoomFacility = new Facility();
+		aRoomFacility.setId(structure.nextKey());
+		aRoomFacility.setName("RAD");
+		aRoomFacility.setFileName("RAD.gif");
+		this.addRoomFacility(structure, aRoomFacility);
+
+		aRoomFacility = new Facility();
+		aRoomFacility.setId(structure.nextKey());
+		aRoomFacility.setName("TEL");
+		aRoomFacility.setFileName("TEL.gif");
+		this.addRoomFacility(structure, aRoomFacility);
+
+	}*/
+	
+	/*
 	private void buildRoomTypes(Structure structure) {
 		RoomType aRoomType = null;
 		Image image = new Image();
 		Facility roomTypeFacility = new Facility();
+		
 		image.setId(structure.nextKey());
 		image.setName("singola");
 		image.setFileName("single.jpg");
@@ -551,42 +569,38 @@ public class StructureServiceImpl implements StructureService{
 		aRoomType.setMaxGuests(2);
 		aRoomType.addRoomTypeImage(image);
 		this.getRoomTypeService().insertRoomType(structure, aRoomType);
-	}
+	}*/
+	
+	/*
+	private void buildRooms(Structure structure) {
+		Room aRoom = null;
 
-	private void buildRoomFacilities(Structure structure) {
-		Facility aRoomFacility = null;
+		aRoom = new Room();
+		//aRoom.setId(structure.nextKey());
+		aRoom.setName("101");
+		aRoom.addRoomFacility(this.findRoomFacilitiesByIdStructure(structure).get(0));
+		aRoom.addRoomFacility(this.findRoomFacilitiesByIdStructure(structure).get(2));
+		aRoom.setRoomType(this.getRoomTypeService()
+				.findRoomTypesByIdStructure(structure).get(0));
+		//this.getRoomService().insertRoom(structure, aRoom);
+		aRoom.setId_structure(structure.getId());
+		aRoom.setId_roomType(aRoom.getRoomType().getId());
+		this.getRoomService().insertRoom(aRoom);
 
-		aRoomFacility = new Facility();
-		aRoomFacility.setId(structure.nextKey());
-		aRoomFacility.setName("AAD");
-		aRoomFacility.setFileName("AAD.gif");
-		this.addRoomFacility(structure, aRoomFacility);
+		aRoom = new Room();
+		aRoom.setId(structure.nextKey());
+		aRoom.setName("201");
+		aRoom.addRoomFacility(this.findRoomFacilitiesByIdStructure(structure).get(1));
+		aRoom.setRoomType(this.getRoomTypeService()
+				.findRoomTypesByIdStructure(structure).get(1));
+		//this.getRoomService().insertRoom(structure, aRoom);
+		aRoom.setId_structure(structure.getId());
+		aRoom.setId_roomType(aRoom.getRoomType().getId());
+		this.getRoomService().insertRoom(aRoom);
+	}*/
 
-		aRoomFacility = new Facility();
-		aRoomFacility.setId(structure.nextKey());
-		aRoomFacility.setName("BAR");
-		aRoomFacility.setFileName("BAR.gif");
-		this.addRoomFacility(structure, aRoomFacility);
+	
 
-		aRoomFacility = new Facility();
-		aRoomFacility.setId(structure.nextKey());
-		aRoomFacility.setName("PHO");
-		aRoomFacility.setFileName("PHO.gif");
-		this.addRoomFacility(structure, aRoomFacility);
-
-		aRoomFacility = new Facility();
-		aRoomFacility.setId(structure.nextKey());
-		aRoomFacility.setName("RAD");
-		aRoomFacility.setFileName("RAD.gif");
-		this.addRoomFacility(structure, aRoomFacility);
-
-		aRoomFacility = new Facility();
-		aRoomFacility.setId(structure.nextKey());
-		aRoomFacility.setName("TEL");
-		aRoomFacility.setFileName("TEL.gif");
-		this.addRoomFacility(structure, aRoomFacility);
-
-	}
 
 	private void buildGuests(Structure structure) {
 		structure.setGuests(this.getGuestService().findGuestsByIdStructure(
@@ -607,7 +621,7 @@ public class StructureServiceImpl implements StructureService{
 		List<BookedExtraItem> bookedExtraItems = null;
 
 		aBooking = new Booking();
-		aRoom = this.getRoomService().findRoomByName(structure, "101");
+		aRoom = this.getRoomService().findRoomByIdStructureAndName(structure.getId(), "101");
 
 		aGuest = this.getGuestService()
 				.findGuestsByIdStructure(structure.getId()).get(0);
@@ -728,7 +742,7 @@ public class StructureServiceImpl implements StructureService{
 		extraPriceList = new ExtraPriceList();
 		extraPriceList.setId(structure.nextKey());
 		extraPriceList.setRoomType(this.getRoomTypeService()
-				.findRoomTypesByIdStructure(structure).get(0));
+				.findRoomTypesByIdStructure(structure.getId()).get(0));
 		extraPriceList.setSeason(this.getSeasonService().findSeasonByName(
 				structure.getId(), "Bassa Stagione"));
 		extraPriceList.setConvention(this.getConventionService()
@@ -749,7 +763,7 @@ public class StructureServiceImpl implements StructureService{
 		extraPriceList = new ExtraPriceList();
 		extraPriceList.setId(structure.nextKey());
 		extraPriceList.setRoomType(this.getRoomTypeService()
-				.findRoomTypesByIdStructure(structure).get(0));
+				.findRoomTypesByIdStructure(structure.getId()).get(0));
 		extraPriceList.setSeason(this.getSeasonService().findSeasonByName(
 				structure.getId(), "Alta Stagione"));
 		extraPriceList.setConvention(this.getConventionService()
@@ -815,7 +829,7 @@ public class StructureServiceImpl implements StructureService{
 		roomPriceList = new RoomPriceList();
 		roomPriceList.setId(structure.nextKey());
 		roomPriceList.setRoomType(this.getRoomTypeService()
-				.findRoomTypesByIdStructure(structure).get(0));
+				.findRoomTypesByIdStructure(structure.getId()).get(0));
 		roomPriceList.setSeason(this.getSeasonService().findSeasonByName(
 				structure.getId(), "Bassa Stagione"));
 		roomPriceList.setConvention(this.getConventionService()
@@ -840,7 +854,7 @@ public class StructureServiceImpl implements StructureService{
 		roomPriceList = new RoomPriceList();
 		roomPriceList.setId(structure.nextKey());
 		roomPriceList.setRoomType(this.getRoomTypeService()
-				.findRoomTypesByIdStructure(structure).get(0));
+				.findRoomTypesByIdStructure(structure.getId()).get(0));
 		roomPriceList.setSeason(this.getSeasonService().findSeasonByName(
 				structure.getId(), "Alta Stagione"));
 		roomPriceList.setConvention(this.getConventionService()
@@ -865,7 +879,7 @@ public class StructureServiceImpl implements StructureService{
 		roomPriceList = new RoomPriceList();
 		roomPriceList.setId(structure.nextKey());
 		roomPriceList.setRoomType(this.getRoomTypeService()
-				.findRoomTypesByIdStructure(structure).get(1));
+				.findRoomTypesByIdStructure(structure.getId()).get(1));
 		roomPriceList.setSeason(this.getSeasonService().findSeasonByName(
 				structure.getId(), "Bassa Stagione"));
 		roomPriceList.setConvention(this.getConventionService()
@@ -906,7 +920,7 @@ public class StructureServiceImpl implements StructureService{
 		roomPriceList = new RoomPriceList();
 		roomPriceList.setId(structure.nextKey());
 		roomPriceList.setRoomType(this.getRoomTypeService()
-				.findRoomTypesByIdStructure(structure).get(1));
+				.findRoomTypesByIdStructure(structure.getId()).get(1));
 		roomPriceList.setSeason(this.getSeasonService().findSeasonByName(
 				structure.getId(), "Alta Stagione"));
 		roomPriceList.setConvention(this.getConventionService()
