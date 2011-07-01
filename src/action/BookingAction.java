@@ -434,6 +434,25 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		
 		booker = this.getBooking().getBooker();		
 		booker.setId_structure(structure.getId());
+		
+		
+		oldGuest = this.getGuestService().findGuestById(booker.getId());
+		if(oldGuest == null){
+			//Si tratta di un nuovo guest e devo aggiungerlo
+			this.getGuestService().insertGuest(booker);
+		}else{
+			//Si tratta di un guest esistente e devo fare l'update
+			
+			oldGuest.setAddress(booker.getAddress());
+			oldGuest.setFirstName(booker.getFirstName());
+			oldGuest.setLastName(booker.getLastName());
+			oldGuest.setEmail(booker.getEmail());
+			oldGuest.setNotes(booker.getNotes());
+			booker = oldGuest;
+			this.getGuestService().updateGuest(booker);
+		}
+		
+		
 		booking.setBooker(booker);
 		
 		booking.setStatus(this.getBooking().getStatus());
@@ -449,14 +468,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 			this.getBookingService().updateBooking(structure, booking);
 		}		
 		
-		oldGuest = this.getGuestService().findGuestById(booker.getId());
-		if(oldGuest == null){
-			//Si tratta di un nuovo guest e devo aggiungerlo
-			this.getGuestService().insertGuest(booker);
-		}else{
-			//Si tratta di un guest esistente e devo fare l'update
-			this.getGuestService().updateGuest(booker);
-		}
+
 		
 		for(Guest each: booking.getGuests()){
 			if(each.getId()== null){
