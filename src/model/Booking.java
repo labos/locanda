@@ -34,7 +34,7 @@ public class Booking {
 	private String status = "confirmed";
 	private List<Guest> guests = null;
 	private Convention convention = null;
-	private List<BookedExtraItem> extraItems;
+	private List<ExtraItem> extraItems;
 	
 	
 	public Booking(){
@@ -42,7 +42,7 @@ public class Booking {
 		this.adjustments = new ArrayList<Adjustment>();
 		this.payments = new ArrayList<Payment>();
 		this.guests = new ArrayList<Guest>();
-		this.extraItems = new ArrayList<BookedExtraItem>();
+		this.extraItems = new ArrayList<ExtraItem>();
 	}
 	
 	public Integer calculateNumNights(){
@@ -85,10 +85,10 @@ public class Booking {
 	}
 	
 	
-	public BookedExtraItem findExtraItem(Extra extra){
-		BookedExtraItem ret = null;
+	public ExtraItem findExtraItem(Extra extra){
+		ExtraItem ret = null;
 		
-		for(BookedExtraItem each: this.getExtraItems()){
+		for(ExtraItem each: this.getExtraItems()){
 			if(each.getExtra().equals(extra)){
 				each.setExtra(extra);
 				return each;
@@ -146,7 +146,7 @@ public class Booking {
 	public Double calculateExtraSubtotalForBooking(){
 		Double ret = 0.0;
 		
-		for (BookedExtraItem eachItem : this.getExtraItems()) {
+		for (ExtraItem eachItem : this.getExtraItems()) {
 				ret = ret + eachItem.getSubtotal();
 			  }
 		return ret;
@@ -155,11 +155,22 @@ public class Booking {
 	public void updateExtraSubtotal(){
 		Double extraSubtotal = 0.0;
 		
-		for (BookedExtraItem each : this.getExtraItems()) {
+		for (ExtraItem each : this.getExtraItems()) {
 			extraSubtotal = extraSubtotal + each.getSubtotal();
 		}
 		this.setExtraSubtotal(extraSubtotal);
 	}
+	
+	public List<Integer> calculateExtraIds(){
+		List<Integer> ret = null;
+		
+		ret = new ArrayList<Integer>();
+		for(ExtraItem each: this.getExtraItems()){
+			ret.add(each.getExtra().getId());
+		}
+		return ret;
+	}
+	
 	
 	public Boolean addExtra(Extra anExtra){
 		return this.getExtras().add(anExtra);
@@ -193,7 +204,7 @@ public class Booking {
 		return this.getGuests().remove(aGuest);
 	}
 	
-	public Boolean addExtraItem(BookedExtraItem anExtraItem){
+	public Boolean addExtraItem(ExtraItem anExtraItem){
 		return this.getExtraItems().add(anExtraItem);
 	}
 	
@@ -316,10 +327,10 @@ public class Booking {
 	public void setConvention(Convention convention) {
 		this.convention = convention;
 	}
-	public List<BookedExtraItem> getExtraItems() {
+	public List<ExtraItem> getExtraItems() {
 		return extraItems;
 	}
-	public void setExtraItems(List<BookedExtraItem> extraItems) {
+	public void setExtraItems(List<ExtraItem> extraItems) {
 		this.extraItems = extraItems;
 	}
 

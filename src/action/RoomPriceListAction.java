@@ -104,7 +104,7 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware{
 					eachNode2.buildChild(eachRoomType.getName());
 				}
 					for (TreeNode eachNode3 : eachNode2.getChildren()) {//per ogni roomType costruisco i nodi di quarto livello - le convenzioni
-						for (Convention aConvention : this.getConventionService().findConventionsByIdStructure(structure)) {
+						for (Convention aConvention : this.getConventionService().findConventionsByIdStructure(structure.getId())) {
 							String href = webappPath + "/findRoomPriceListItems" +
 							"?seasonId=" + this.getSeasonService().findSeasonByName(structure.getId(),eachNode2.getData().getTitle()).getId() + 
 							"&roomTypeId=" + this.getRoomTypeService().findRoomTypeByIdStructureAndName(structure.getId(),eachNode3.getData().getTitle()).getId() +
@@ -141,7 +141,7 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware{
 		
 		season = this.getSeasonService().findSeasonById(this.getSeasonId());
 		roomType = this.getRoomTypeService().findRoomTypeById(this.getRoomTypeId());
-		convention = this.getConventionService().findConventionById(structure,this.getConventionId());
+		convention = this.getConventionService().findConventionById(this.getConventionId());
 		this.setPriceList(this.getRoomPriceListService().findRoomPriceListByStructureAndSeasonAndRoomTypeAndConvention(structure, season, roomType, convention));
 		return SUCCESS;
 	}

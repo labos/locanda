@@ -108,7 +108,7 @@ public class ExtraPriceListAction extends ActionSupport implements SessionAware{
 				}
 					for (TreeNode eachNode3 : eachNode2.getChildren()) {//per ogni roomType costruisco i nodi di quarto livello - le convenzioni
 						
-						for (Convention aConvention : this.getConventionService().findConventionsByIdStructure(structure)) {
+						for (Convention aConvention : this.getConventionService().findConventionsByIdStructure(structure.getId())) {
 							
 							String href = webappPath + "/findExtraPriceListItems" +
 							"?seasonId=" + this.getSeasonService().findSeasonByName(structure.getId(),eachNode2.getData().getTitle()).getId() + 
@@ -143,7 +143,7 @@ public class ExtraPriceListAction extends ActionSupport implements SessionAware{
 		
 		season = this.getSeasonService().findSeasonById(this.getSeasonId());
 		roomType = this.getRoomTypeService().findRoomTypeById(this.getRoomTypeId());
-		convention = this.getConventionService().findConventionById(structure,this.getConventionId());
+		convention = this.getConventionService().findConventionById(this.getConventionId());
 		this.setPriceList(this.getExtraPriceListService().findExtraPriceListByStructureAndSeasonAndRoomTypeAndConvention(structure,season, roomType, convention));
 		return SUCCESS;
 	}

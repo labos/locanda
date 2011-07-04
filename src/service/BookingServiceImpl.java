@@ -79,7 +79,7 @@ public class BookingServiceImpl implements BookingService {
 		oldBooking.setRoomSubtotal(booking.getRoomSubtotal());
 		oldBooking.setNotes(booking.getNotes());
 		oldBooking.setRoom(booking.getRoom());
-		oldBooking.setExtras(booking.getExtras());
+		//oldBooking.setExtras(booking.getExtras());
 		oldBooking.setExtraItems(booking.getExtraItems());
 		oldBooking.setAdjustments(booking.getAdjustments());
 		oldBooking.setPayments(booking.getPayments());

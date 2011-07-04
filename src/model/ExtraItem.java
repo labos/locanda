@@ -1,6 +1,6 @@
 package model;
 
-public class BookedExtraItem {
+public class ExtraItem {
 	
 	private Integer id;
 	
@@ -25,7 +25,7 @@ public class BookedExtraItem {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		BookedExtraItem other = (BookedExtraItem) obj;
+		ExtraItem other = (ExtraItem) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;

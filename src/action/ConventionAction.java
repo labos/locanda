@@ -42,7 +42,7 @@ public class ConventionAction extends ActionSupport implements SessionAware{
 		user = (User)this.getSession().get("user");
 		structure = user.getStructure();
 		
-		this.setConventions(this.getConventionService().findConventionsByIdStructure(structure));
+		this.setConventions(this.getConventionService().findConventionsByIdStructure(structure.getId()));
 		return SUCCESS;		
 	}
 	
@@ -58,7 +58,7 @@ public class ConventionAction extends ActionSupport implements SessionAware{
 		user = (User)session.get("user");
 		structure = user.getStructure();
 		
-		this.setConvention(this.getConventionService().findConventionById(structure,this.getConvention().getId())); 
+		this.setConvention(this.getConventionService().findConventionById(this.getConvention().getId())); 
 		return SUCCESS;
 	}
 	
@@ -77,18 +77,20 @@ public class ConventionAction extends ActionSupport implements SessionAware{
 		user = (User)session.get("user");
 		structure = user.getStructure();
 		
-		oldConvention = this.getConventionService().findConventionById(structure,this.getConvention().getId());
+		oldConvention = this.getConventionService().findConventionById(this.getConvention().getId());
 		if(oldConvention == null){
 			//Si tratta di una aggiunta
 			//this.getConvention().setId(structure.nextKey());
-			this.getConventionService().insertConvention(structure, this.getConvention());
+			this.getConvention().setId_structure(structure.getId());
+			this.getConventionService().insertConvention(this.getConvention());
 			this.getStructureService().refreshPriceLists(structure);
 			this.getMessage().setResult(Message.SUCCESS);
 			this.getMessage().setDescription(getText("conventionAddSuccessAction"));
 			
 		}else{
 			//Si tratta di un update
-			this.getConventionService().updateConvention(structure, this.getConvention());
+			this.getConvention().setId_structure(structure.getId());
+			this.getConventionService().updateConvention(this.getConvention());
 			this.getMessage().setResult(Message.SUCCESS);
 			this.getMessage().setDescription(getText("conventionUpdateSuccessAction"));
 		}
@@ -106,13 +108,11 @@ public class ConventionAction extends ActionSupport implements SessionAware{
 	public String deleteConvention(){
 		User user = null;
 		Structure structure = null;
-		Convention currentConvention = null;
-		
+				
 		user = (User)session.get("user");
 		structure = user.getStructure();
 		
-		currentConvention = this.getConventionService().findConventionById(structure,this.getConvention().getId());
-		if(this.getConventionService().deleteConvention(structure,currentConvention)>0){
+		if(this.getConventionService().deleteConvention(this.getConvention().getId())>0){
 			this.getMessage().setResult(Message.SUCCESS);
 			this.getMessage().setDescription(getText("conventionDeleteSuccessAction"));
 			return SUCCESS;

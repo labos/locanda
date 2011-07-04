@@ -1,10 +1,15 @@
 package model.listini;
 
-public class Convention {
+import java.io.Serializable;
+
+import org.springframework.core.serializer.Serializer;
+
+public class Convention implements Serializable{
 	private Integer id;
 	private String name;
 	private String description;
 	private String activationCode;
+	private Integer id_structure;
 	
 	@Override
 	public int hashCode() {
@@ -53,6 +58,12 @@ public class Convention {
 	}
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	public Integer getId_structure() {
+		return id_structure;
+	}
+	public void setId_structure(Integer id_structure) {
+		this.id_structure = id_structure;
 	}
 	
 	

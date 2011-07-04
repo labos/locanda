@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import model.BookedExtraItem;
+import model.ExtraItem;
 import model.Booking;
 import model.Extra;
 import model.Room;
@@ -95,7 +95,7 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 		dateOut  = DateUtils.addDays(booking.getDateIn(), this.getNumNights());	
 		booking.setDateOut(dateOut);
 		
-		defaultConvention = this.getConventionService().findConventionsByIdStructure(structure).get(0);
+		defaultConvention = this.getConventionService().findConventionsByIdStructure(structure.getId()).get(0);
 		booking.setConvention(defaultConvention);
 		
 		this.setRooms(new ArrayList<Room>());
@@ -155,7 +155,7 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 		Structure structure = null;
 		List<Extra> checkedExtras = null;
 		Double extraSubtotal = 0.0;
-		List<BookedExtraItem> bookedExtraItems = null;
+		List<ExtraItem> extraItems = null;
 		Booking booking = null;
 		
 		this.setIdStructure((Integer) this.getSession().get("idStructure"));
@@ -166,10 +166,10 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 		if (this.getBookingExtrasId() != null) {
 			checkedExtras = this.getExtraService().findExtrasByIds(this.getBookingExtrasId());
 		}
-		booking.setExtras(checkedExtras);
+		//booking.setExtras(checkedExtras);
 
-		bookedExtraItems = this.calculateBookedExtraItems(structure,booking);
-		booking.setExtraItems(bookedExtraItems);
+		extraItems = this.calculateExtraItems(structure,booking,checkedExtras);
+		booking.setExtraItems(extraItems);
 
 		extraSubtotal = booking.calculateExtraSubtotalForBooking();
 		booking.setExtraSubtotal(extraSubtotal);
@@ -221,27 +221,27 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 		return subTotal;
 	}
 	
-	private List<BookedExtraItem> calculateBookedExtraItems(Structure structure, Booking booking){
-		BookedExtraItem bookedExtraItem = null;
-		List<BookedExtraItem> bookedExtraItems = null;
+	private List<ExtraItem> calculateExtraItems(Structure structure, Booking booking,List<Extra> checkedExtras){
+		ExtraItem extraItem = null;
+		List<ExtraItem> extraItems = null;
 		
-		bookedExtraItems = new ArrayList<BookedExtraItem>();
-		for(Extra each: booking.getExtras()){
-			bookedExtraItem = booking.findExtraItem(each);
-			if(bookedExtraItem==null){
-				bookedExtraItem = new BookedExtraItem();
-				bookedExtraItem.setExtra(each);
-				bookedExtraItem.setMaxQuantity(booking.calculateExtraItemMaxQuantity(each));
-				bookedExtraItem.setQuantity(booking.calculateExtraItemMaxQuantity(each));
-				bookedExtraItem.setUnitaryPrice(
+		extraItems = new ArrayList<ExtraItem>();
+		for(Extra each: checkedExtras){
+			extraItem = booking.findExtraItem(each);
+			if(extraItem==null){
+				extraItem = new ExtraItem();
+				extraItem.setExtra(each);
+				extraItem.setMaxQuantity(booking.calculateExtraItemMaxQuantity(each));
+				extraItem.setQuantity(booking.calculateExtraItemMaxQuantity(each));
+				extraItem.setUnitaryPrice(
 						this.getStructureService().calculateExtraItemUnitaryPrice(structure, booking.getDateIn(), booking.getDateOut(),booking.getRoom().getRoomType(), booking.getConvention(), each));				
 			}else{
-				bookedExtraItem.setUnitaryPrice(
+				extraItem.setUnitaryPrice(
 						this.getStructureService().calculateExtraItemUnitaryPrice(structure, booking.getDateIn(), booking.getDateOut(),booking.getRoom().getRoomType(), booking.getConvention(), each));	
 			}
-			bookedExtraItems.add(bookedExtraItem);
+			extraItems.add(extraItem);
 		}
-		return bookedExtraItems;
+		return extraItems;
 	}
 	
 	public List<Extra> getExtras() {

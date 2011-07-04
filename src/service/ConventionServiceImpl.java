@@ -4,7 +4,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import persistence.mybatis.mappers.ConventionMapper;
 
 import model.RoomType;
 import model.Structure;
@@ -14,52 +17,50 @@ import model.listini.Season;
 
 @Service
 public class ConventionServiceImpl implements ConventionService{
+	@Autowired
+	private ConventionMapper conventionMapper = null;
 
 	
-	public Integer insertConvention(Structure structure, Convention convention) {
-		convention.setId(structure.nextKey());
-		structure.getConventions().add(convention);
-		return 1;
-	}
-
-	
-	public Integer updateConvention(Structure structure, Convention convention) {
-		Convention oldConvention = null;
-		
-		oldConvention = this.findConventionById(structure,convention.getId());		
-		if(oldConvention == null){
-			return 0;
-		}
-		oldConvention.setName(convention.getName());
-		oldConvention.setActivationCode(convention.getActivationCode());
-		oldConvention.setDescription(convention.getDescription());
-		return 1;
-	}
-
-	
-	public Integer deleteConvention(Structure structure, Convention convention) {
-		structure.getConventions().remove(convention);
-		return 1;
-	}
-
 	
 	@Override
-	public List<Convention> findConventionsByIdStructure(Structure structure) {
-		
-		return structure.getConventions();
+	public Integer insertConvention(Convention convention) {		
+		return this.getConventionMapper().insertConvention(convention);
 	}
 
 
-	public Convention findConventionById(Structure structure, Integer id) {
-		Convention ret = null;
-		
-		for(Convention each: structure.getConventions()){
-			if(each.getId().equals(id)){
-				return each;
-			}
-		}
-		return ret;
+	@Override
+	public Integer updateConvention(Convention convention) {
+		return this.getConventionMapper().updateConvention(convention);
 	}
 
+
+	@Override
+	public Integer deleteConvention(Integer id) {
+		return this.getConventionMapper().deleteConvention(id);
+	}
+
+
+	@Override
+	public List<Convention> findConventionsByIdStructure(Integer id_structure) {
+		return this.getConventionMapper().findConventionsByIdStructure(id_structure);
+	}
+
+
+	@Override
+	public Convention findConventionById(Integer id) {
+		return this.getConventionMapper().findConventionById(id);
+	}
+
+
+
+	public ConventionMapper getConventionMapper() {
+		return conventionMapper;
+	}
+
+
+	public void setConventionMapper(ConventionMapper conventionMapper) {
+		this.conventionMapper = conventionMapper;
+	}
+	
 	
 }

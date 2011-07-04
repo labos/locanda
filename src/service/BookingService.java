@@ -18,4 +18,5 @@ public interface BookingService {
 	public List<Booking> findBookingsByGuestId(Structure structure,Integer guestId);
 	public Integer deleteBooking(Structure structure, Booking aBooking);
 	public Integer saveOnlineBooking(Structure structure, Booking booking);
+	
 }
