@@ -6,29 +6,29 @@
 
 		<form method="post" action="updateDetails.action" class="yform json full" role="application">
           <fieldset>
-          	<legend>Structure Details</legend>
+          	<legend><s:text name="structureDetails"/>Details</legend>
           	<div class="c50l">
               <input type="hidden" name="redirect_form" value="goUpdateDetails.action?sect=settings" />
               <input type="hidden" name="structure.id" value="<s:property value="structure.id"/>" />
                 <div class="c50l">
             	  <div class="type-text">
-                  	<label for="name">Name <sup title="This field is mandatory.">*</sup></label>
+                  	<label for="name"><s:text name="name"/><sup title="This field is mandatory.">*</sup></label>
                   	<input type="text" class="required" name="structure.name" id="name" value="<s:property value="structure.name"/>" aria-required="true"  />
                   </div>
                   <div class="type-text">
-               	 	<label for="address">Address</label>
+               	 	<label for="address"><s:text name="address"/></label>
                   	<input type="text" name="structure.address" id="address" value="<s:property value="structure.address"/>" aria-required="true" />
               	  </div>
              	  <div class="type-text">
-               	 	<label for="city">City</label>
+               	 	<label for="city"><s:text name="city"/></label>
                   	<input type="text" name="structure.city" id="city" value="<s:property value="structure.city"/>" aria-required="true" />
               	  </div>
               	  <div class="type-text">
-               	 	<label for="zipCode">Zip Code</label>
+               	 	<label for="zipCode"><s:text name="zip"/></label>
                   	<input type="text" name="structure.zipCode" id="zipCode" value="<s:property value="structure.zipCode"/>" aria-required="true" />
               	  </div>
               	  <div class="type-seleupdateDetails.actionct">
-                	<label for="country">Country</label>
+                	<label for="country"><s:text name="country"/></label>
                 	<select name="structure.country" id="country" aria-required="true" >
 					  <option selected="selected" value="<s:property value="structure.country"/>"><s:property value="structure.country"/></option>
 						<option value="Afghanistan">Afghanistan</option>
@@ -261,149 +261,141 @@
 					</select>
               	  </div>
               	  <div class="type-text">
-					<label for="email">E-Mail <sup title="This field is mandatory.">*</sup></label>
+					<label for="email"><s:text name="email"/><sup title="This field is mandatory.">*</sup></label>
                 	<input type="text" class="required email" name="structure.email" id="email" value="<s:property value="structure.email"/>" aria-required="true" size="20" />
               	  </div>
               	  <div class="type-text">
-                	<label for="url">Web Site URL</label>
+                	<label for="url"><s:text name="web"/></label>
                 	<input type="text" name="structure.url" id="url" value="<s:property value="structure.url"/>" aria-required="true" />
               	  </div>
               	  <div class="type-text">
-					<label for="phone">Phone <sup title="This field is mandatory.">*</sup></label>
+					<label for="phone"><s:text name="phone"/><sup title="This field is mandatory.">*</sup></label>
                 	<input type="text" class="required" name="structure.phone" id="phone" value="<s:property value="structure.phone"/>" aria-required="true" />
               	  </div>
               	  <div class="type-text">
-					<label for="fax">Fax</label>
+					<label for="fax"><s:text name="fax"/></label>
                 	<input type="text" name="structure.fax" id="fax" value="<s:property value="structure.fax"/>" aria-required="true" />
               	  </div>
               	  <div class="type-text">
-                  	<label for="notes">Notes</label> 
+                  	<label for="notes"><s:text name="notes"/></label> 
                   	<textarea name="structure.notes" id="notes"><s:property value="structure.notes"/></textarea>
                   </div>
        
               	  <div class="type-button">
-                  	<button class="btn_save">SAVE</button>
-                    <button class="btn_reset btn_cancel_form">CANCEL</button>
+                  	<button class="btn_save"><s:text name="save"/></button>
+                    <button class="btn_reset btn_cancel_form"><s:text name="cancel"/></button>
               	  </div>
               	  	
                 </div>
             </div>
           </fieldset>  
         </form>
+        
         <!-- CHANGING PASSWORD -->
-        		<form method="post" action="updateAccount.action" class="yform json full" role="application">
+        <form method="post" action="updateAccount.action" class="yform json full" role="application">
           <fieldset>
           	<legend>Account Details</legend>
           	<div class="c50l">
-                    <div class="type-text">
-                  	<label for="password"><s:text name="password"></s:text> <sup title="This field is mandatory.">*</sup></label>
-                  	<input type="password" class="required" name="password" id="password" aria-required="true"  />
-                  </div>
-                    <div class="type-text">
-                  	<label for="retyped"><s:text name="reTypePassword"></s:text> <sup title="This field is mandatory.">*</sup></label>
-                  	<input type="password" class="required" name="reTyped" id="retyped"  aria-required="true"  />
-                  </div>
-                    <div class="type-button">
-                  	<button class="btn_save">SAVE</button>
-                    <button class="btn_reset btn_cancel_form">CANCEL</button>
-              	  </div>
-                  </div>
-                  </fieldset>
-                  </form>
+              <div class="type-text">
+              	<label for="password"><s:text name="password"></s:text> <sup title="This field is mandatory.">*</sup></label>
+                <input type="password" class="required" name="password" id="password" aria-required="true" />
+              </div>
+              <div class="type-text">
+                <label for="retyped"><s:text name="reTypePassword"></s:text> <sup title="This field is mandatory.">*</sup></label>
+                <input type="password" class="required" name="reTyped" id="retyped"  aria-required="true" />
+              </div>
+              <div class="type-button">
+                <button class="btn_save"><s:text name="save"/></button>
+                <button class="btn_reset btn_cancel_form"><s:text name="cancel"/></button>
+              </div>
+            </div>
+          </fieldset>
+        </form>
+        
         <!-- STRUCTURE FACILITY UPLOADING -->
           <div class="beauty">
      	  	<div class="subcolumns">
            	  <div class="c33l">
-    			<label for="name_facility">Facility Name:</label>&nbsp;<input type="text" name="facility_name" value="" id="name_facility" class="require"/>
+    			<label for="name_facility"><s:text name="facilityName"/>:</label>&nbsp;<input type="text" name="facility_name" value="" id="name_facility" class="require"/>
  			  </div>
  			  <div class="c20l">
  				<br/>
  				<form id="uploadStructFacility" action="uploadStructureFacility.action" method="post" enctype="multipart/form-data">
    				  <input type="hidden" name="name" value=" "/>
      			  <input type="file" name="upload" multiple/>
-    			  <button>Upload</button>
-    			  <div>Upload Facility Image</div>  
+    			  <button><s:text name="upload"/></button>
+    			  <div><s:text name="uploadFacilityImage"/></div>  
 				</form> 
 		   	  </div>
 		   	</div>      
           </div>
           
-          
-                 <div class="beautify">
-                  <div class="subcolumns">
-                        <ul class="thumbs_facility">
-        					<s:iterator value="structure.facilities" var="eachFacility" >
-        					<li>
-        					<h4><s:property value="#eachFacility.name" /></h4>
-								<a title="<s:property value="#eachFacility.name" />" href="#drop" class="thumb" rel="history">
-									<img alt="<s:property value="#eachFacility.name" />" src="images/struct_facilities/<s:property value="#eachFacility.fileName" />" />
-									</a>
-									<span><s:property value="#eachFacility.name" /><a class="erase_image" href="deleteStructureFacility.action?image.id=<s:property value="#eachFacility.id" />"  title="erase"><img src="images/delete.png" alt="Delete Image" /></a></span>
-								
-							</li>
-       						 </s:iterator>
-							<li style="display: none">
-							<h4>NEW</h4>
-								<a title="Title #1" href="#drop" class="thumb" rel="history">
-									<img alt="Title #1" src="images/struct_facilities/" />
-								</a>
-							<span class="name_image">__PVALUE__<a class="erase_image" href="deleteStructureFacility.action?image.id="  title="erase"><img src="images/delete.png" alt="Delete Image" /></a></span>
-							</li>
-							</ul>
-						</div>
-						
-						<div class="subcolumns">
-						&nbsp;
-						</div>
-						</div>
-          
-          
+          <div class="beautify">
+            <div class="subcolumns">
+              <ul class="thumbs_facility">
+       		  <s:iterator value="structure.facilities" var="eachFacility" >
+        	  	<li>
+        	      <h4><s:property value="#eachFacility.name" /></h4>
+				  <a title="<s:property value="#eachFacility.name" />" href="#drop" class="thumb" rel="history">
+				  	<img alt="<s:property value="#eachFacility.name" />" src="images/struct_facilities/<s:property value="#eachFacility.fileName" />" />
+				  </a>
+				  <span><s:property value="#eachFacility.name" /><a class="erase_image" href="deleteStructureFacility.action?image.id=<s:property value="#eachFacility.id" />"  title="erase"><img src="images/delete.png" alt="Delete Image" /></a></span>	
+				</li>
+       		  </s:iterator>
+				<li style="display: none">
+				  <h4><s:text name="new"/></h4>
+				  <a title="Title #1" href="#drop" class="thumb" rel="history">
+			        <img alt="Title #1" src="images/struct_facilities/" />
+				  </a>
+				  <span class="name_image">__PVALUE__<a class="erase_image" href="deleteStructureFacility.action?image.id="  title="erase"><img src="images/delete.png" alt="Delete Image" /></a></span>
+				</li>
+			  </ul>
+			</div>
+			<div class="subcolumns">&nbsp;</div>
+		  </div>
+            
         <!--  STRUCTURE IMAGE UPLOADING  -->
-           <div class="beauty">
+          <div class="beauty">
      	  	<div class="subcolumns">
            	  <div class="c33l">
-    			<label for="name_facility">Image Name:</label>&nbsp;<input type="text" name="facility_name" value="" id="name_facility" class="require"/>
+    			<label for="name_facility"><s:text name="imageName"/>:</label>&nbsp;<input type="text" name="facility_name" value="" id="name_facility" class="require"/>
  			  </div>
  			  <div class="c20l">
  				<br/>
  				<form id="uploadImage" action="uploadStructureImage.action" method="post" enctype="multipart/form-data">
    				  <input type="hidden" name="name" value=" "/>
      			  <input type="file" name="upload" multiple/>
-    			  <button>Upload</button>
-    			  <div>Upload Structure Image</div>  
+    			  <button><s:text name="upload"/></button>
+    			  <div><s:text name="uploadFacilityImage"/></div>  
 				</form> 
 		   	  </div>
 		   	</div>      
           </div>
-                 <div class="beautify">
-                  <div class="subcolumns">
-                       <ul class="thumbs">
-        <s:iterator value="structure.images" var="eachImage" >
-        					<li>
-        					<h4><s:property value="#eachImage.name" /></h4>
-								<a title="<s:property value="#eachImage.name" />" href="#drop" class="thumb" rel="history">
-									<img alt="<s:property value="#eachImage.name" />" src="images/structure/<s:property value="#eachImage.fileName" />" />
-									</a>
-									<span><s:property value="#eachImage.name" /><a class="erase_image" href="deleteImageStructure.action?image.id=<s:property value="#eachImage.id" />"  title="erase"><img src="images/delete.png" alt="Delete Image" /></a></span>
-								
-							</li>
-        </s:iterator>
-							<li style="display: none">
-							<h4>NEW</h4>
-								<a title="Title #1" href="#drop" class="thumb" rel="history">
-									<img alt="Title #1" src="images/structure/" />
-								</a>
-								<span class="name_image">__PVALUE__<a class="erase_image" href="deleteImageStructure.action?image.id="  title="erase"><img src="images/delete.png" alt="Delete Image" /></a></span>
-										
-							</li>
-							</ul>
-						</div>
-						<div class="subcolumns">
-							<div class="result_facility_upload" id="result_facility_upload" ></div>
-		   					<div class="upload_loader">&nbsp;</div>
-		   					<div class="image_preview"></div>
-						</div>
-						</div>
-                      
-                      
-					   
+          
+          <div class="beautify">
+          	<div class="subcolumns">
+              <ul class="thumbs">
+       		  <s:iterator value="structure.images" var="eachImage" >
+        	  	<li>
+        		  <h4><s:property value="#eachImage.name" /></h4>
+				  <a title="<s:property value="#eachImage.name" />" href="#drop" class="thumb" rel="history">
+				    <img alt="<s:property value="#eachImage.name" />" src="images/structure/<s:property value="#eachImage.fileName" />" />
+				  </a>
+				  <span><s:property value="#eachImage.name" /><a class="erase_image" href="deleteImageStructure.action?image.id=<s:property value="#eachImage.id" />"  title="erase"><img src="images/delete.png" alt="Delete Image" /></a></span>
+				</li>
+        	  </s:iterator>
+			    <li style="display: none">
+			  	  <h4><s:text name="new"/></h4>
+				  <a title="Title #1" href="#drop" class="thumb" rel="history">
+				    <img alt="Title #1" src="images/structure/" />
+				  </a>
+				  <span class="name_image">__PVALUE__<a class="erase_image" href="deleteImageStructure.action?image.id=" title="erase"><img src="images/delete.png" alt="Delete Image" /></a></span>
+			    </li>
+			  </ul>
+			</div>
+			<div class="subcolumns">
+			  <div class="result_facility_upload" id="result_facility_upload" ></div>
+		   	  <div class="upload_loader">&nbsp;</div>
+		   	  <div class="image_preview"></div>
+			</div>
+	      </div>		   

@@ -40,8 +40,8 @@
       		 		<div class="c40l">
                       <div class="type_rooms">
                       	<ul>
-					  	  <li><b> Price Type:</b> <s:property value="#eachExtra.timePriceType"/>/<s:property value="#eachExtra.resourcePriceType"/></li>
-                      	  <li><b> Description:</b><textarea readonly="readonly"><s:property value="#eachExtra.description"/></textarea></li>
+					  	  <li><b><s:text name="priceType"/>:</b> <s:property value="#eachExtra.timePriceType"/>/<s:property value="#eachExtra.resourcePriceType"/></li>
+                      	  <li><b><s:text name="description"/>:</b><textarea readonly="readonly"><s:property value="#eachExtra.description"/></textarea></li>
                       	</ul>
                       </div>                  
                	    </div>

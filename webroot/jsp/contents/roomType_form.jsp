@@ -6,23 +6,23 @@
 
 		<form method="post" action="saveUpdateRoomType.action" class="yform json full" role="application">
 		  <fieldset>
-          	<legend><s:text name="roomTypeDetails" /></legend>
+          	<legend><s:text name="roomTypeDetails"/></legend>
           	  <div class="c50l">
               	<input type="hidden" name="redirect_form" value="findAllRoomTypes.action?sect=accomodation" />
                 <input type="hidden" name="roomType.id" value="<s:property value="roomType.id"/>"/>
                 <div class="c50l">
                   <div class="type-text">	
-                  	<label for="roomTypeName"><s:text name="roomTypeName" />: <sup title="This field is mandatory.">*</sup></label>
+                  	<label for="roomTypeName"><s:text name="roomTypeName"/>:<sup title="This field is mandatory.">*</sup></label>
                 	<input type="text" class="required" name="roomType.name" id="roomTypeName" value="<s:property value="roomType.name"/>" aria-required="true"/>
                   </div>
                   <div class="type-text">           
-       				<label for="roomTypeMaxGuests"><s:text name="roomTypeMaxGuests" />: <sup title="This field is mandatory.">*</sup></label>
+       				<label for="roomTypeMaxGuests"><s:text name="roomTypeMaxGuests"/>:<sup title="This field is mandatory.">*</sup></label>
                     <input type="text" class="required number" name="roomType.maxGuests" id="roomTypeMaxGuests" value="<s:property value="roomType.maxGuests"/>" aria-required="true"/>
       		      </div> 
                   
                   <div class="type-button">
-                  	<button class="btn_save"><s:text name="save" /></button>
-                    <button class="btn_reset btn_cancel_form"><s:text name="delete" /></button>
+                  	<button class="btn_save"><s:text name="save"/></button>
+                    <button class="btn_reset btn_cancel_form"><s:text name="delete"/></button>
                   </div>	
                 </div>
               </div>
@@ -37,30 +37,28 @@
 						<label for="<s:property value="name"/>_fac"><s:property value="#each.name"/></label>
 					  </div>
 					</s:iterator>
-				    <!-- div facility for javascript purpose-->
+				  <!-- div facility for javascript purpose-->
 				  	<div class="facility" style="display: none; border-color: red;">
 				  	<span class="hov_edit"></span>
 					  <img  width="24" height="24" src="images/room_facilities/" alt="facility"/>
 					  <input type="checkbox" id="" name="" />
 					  <label for=""></label>
 				  	</div>
-				  	<!-- end div facility for javascript purpose-->
+				  <!-- end div facility for javascript purpose-->
 				</div>
-         	  </div>
-              
-              
-              
+         	  </div>     
             </fieldset>   
           </form>
-           <div class="subcolumns">
-				<div class="result_facility_upload" id="result_facility_upload" ></div>
-		   			<div class="upload_loader">&nbsp;</div>
-		   			<div class="image_preview"></div>
-		</div>
+          
+          <div class="subcolumns">
+		   	<div class="result_facility_upload" id="result_facility_upload" ></div>
+		   	<div class="upload_loader">&nbsp;</div>
+		   	<div class="image_preview"></div>
+		  </div>
           <div class="beauty">
      	  	<div class="subcolumns">
            	  <div class="c33l">
-    			<label for="name_facility"><s:text name="facilityName" />:</label>&nbsp;<input type="text" name="facility_name" value="" id="name_facility" class="require"/>
+    			<label for="name_facility"><s:text name="facilityName"/>:</label>&nbsp;<input type="text" name="facility_name" value="" id="name_facility" class="require"/>
  			  </div>
  			  <div class="c20l">
  				<br/>
@@ -71,14 +69,8 @@
     			  <button>Upload</button> 
     			  <div><s:text name="uploadFacility" /></div>  
 				</form> 
-
 		   	  </div>
 		   	</div>      
           </div>	 		  
          <!-- DIALOG FACILITY --> 
-         <div id="dialog-facility" title="<s:text name="facilityEdit" />">
-		 </div>
-         
-                      
-                      
-					   
+           <div id="dialog-facility" title="<s:text name="facilityEdit" />"></div>        			   

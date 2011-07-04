@@ -6,13 +6,13 @@
 
 		<form method="post" action="saveUpdateExtra.action" class="yform json full" role="application">
 		  <fieldset>
-          	<legend>Extras details</legend>
+          	<legend><s:text name="extraDetails"/></legend>
           	  <div class="c50l">
               	<input type="hidden" name="redirect_form" value="findAllExtras.action?sect=accomodation" />
                 <input type="hidden" name="extra.id" value="<s:property value="extra.id"/>"/>
                 <div class="c50l">
                   <div class="type-text">	
-                  	<label for="extraFormName">Extra name <sup title="This field is mandatory.">*</sup></label>
+                  	<label for="extraFormName"><s:text name="extra"/> <s:text name="name"/><sup title="This field is mandatory.">*</sup></label>
                 	<input type="text" class="required" name="extra.name" id="extraFormName" value="<s:property value="extra.name"/>" aria-required="true"/>
                   </div>
                   
@@ -20,24 +20,24 @@
                     <div class="c50l">
 					  <input 
 					    <s:if test="extra.timePriceType == 'per Night'">checked="checked"</s:if>
-					    type="radio" name="extra.timePriceType" value="per Night"/>per Night<br/>
+					    type="radio" name="extra.timePriceType" value="per Night"/><s:text name="extraPerNight"/><br/>
                       <input 
                         <s:if test="extra.timePriceType == 'per Week'">checked="checked"</s:if>
-					    type="radio" name="extra.timePriceType" value="per Week"/>per Week<br/>
+					    type="radio" name="extra.timePriceType" value="per Week"/><s:text name="extraPerWeek"/><br/>
                       <input 
                         <s:if test="extra.timePriceType == 'per Booking'">checked="checked"</s:if>
-				        type="radio" name="extra.timePriceType" value="per Booking"/>per Booking
+				        type="radio" name="extra.timePriceType" value="per Booking"/><s:text name="extraPerBooking"/>
 				    </div>				 
 				    <div class="c50l">
 				  	  <input 
 					    <s:if test="extra.resourcePriceType == 'per Room'">checked="checked"</s:if>
-					    type="radio" name="extra.resourcePriceType" value="per Room"/>per Room<br/>
+					    type="radio" name="extra.resourcePriceType" value="per Room"/><s:text name="extraPerRoom"/><br/>
                       <input 
                         <s:if test="extra.resourcePriceType == 'per Person'">checked="checked"</s:if>
-					    type="radio" name="extra.resourcePriceType" value="per Person"/>per Person<br/>
+					    type="radio" name="extra.resourcePriceType" value="per Person"/><s:text name="extraPerPerson"/><br/>
                       <input 
                         <s:if test="extra.resourcePriceType == 'per Item'">checked="checked"</s:if>
-					    type="radio" name="extra.resourcePriceType" value="per Item"/>per Item
+					    type="radio" name="extra.resourcePriceType" value="per Item"/><s:text name="extraPerItem"/>
 				    </div>
 				  </div>
 				  
@@ -46,17 +46,15 @@
                   </div>
                   
 				  <div class="type-text">	
-                  	<label for="extraFormName">Extra Description</label>
+                  	<label for="extraFormName"><s:text name="description"/> <s:text name="extra"/></label>
 					<textarea name="extra.description"><s:property value="extra.description"/></textarea>		 
                   </div>
+                  
                   <div class="type-button">
-                  	<button class="btn_save">SAVE</button>
-                    <button class="btn_reset btn_cancel_form">CANCEL</button>
+                  	<button class="btn_save"><s:text name="save"/></button>
+                    <button class="btn_reset btn_cancel_form"><s:text name="cancel"/></button>
                   </div>	
                 </div>
               </div>
             </fieldset>   
-          </form>
-                      
-                      
-					   
+          </form>			   

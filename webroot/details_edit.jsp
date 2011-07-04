@@ -15,7 +15,7 @@
         <div id="col3" role="main">
           <div id="col3_content" class="clearfix">
           	<div class="header_section yform">
-              <span class="name_section">Structure Details</span>
+              <span class="name_section"><s:text name="structureDetails"/></span>
             </div>
           
             <div>

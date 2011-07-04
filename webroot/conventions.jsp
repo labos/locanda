@@ -35,15 +35,15 @@
       		 	  <div class="c40l">
                     <div class="type_rooms">
 					  <ul>
-				        <li><b><s:text name="name" />:</b> <s:property value="#eachConvention.name"/></li>
-				        <li><b><s:text name="code" />:</b> <s:property value="#eachConvention.activationCode"/></li>
-				        <li><b><s:text name="description" />:</b> <s:property value="#eachConvention.description"/></li>
+				        <li><b><s:text name="name"/>:</b> <s:property value="#eachConvention.name"/></li>
+				        <li><b><s:text name="code"/>:</b> <s:property value="#eachConvention.activationCode"/></li>
+				        <li><b><s:text name="description"/>:</b> <s:property value="#eachConvention.description"/></li>
 				      </ul>
                     </div>                  
                   </div>
                 </div>
              	<div class="type-button">
-             	  <button class="btn_delete"><s:text name="delete" /></button>
+             	  <button class="btn_delete"><s:text name="delete"/></button>
                 </div>
            	  </fieldset>
             </form>        

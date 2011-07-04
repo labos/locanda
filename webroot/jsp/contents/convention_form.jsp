@@ -12,20 +12,20 @@
                 <input type="hidden" name="convention.id" value="<s:property value="convention.id"/>"/>
                 <div class="c50l">
                   <div class="type-text">	
-                  	<label for="conventionFormName">Convention name <sup title="This field is mandatory.">*</sup></label>
+                  	<label for="conventionFormName"><s:text name="name"/><sup title="This field is mandatory.">*</sup></label>
                 	<input type="text" class="required" name="convention.name" id="conventionFormName" value="<s:property value="convention.name"/>" aria-required="true"/>
                   </div>
                   <div class="type-text">           
-       				<label for="conventionFormCode">Convention code <sup title="This field is mandatory.">*</sup></label>
+       				<label for="conventionFormCode"><s:text name="code"/><sup title="This field is mandatory.">*</sup></label>
                     <input type="text" class="required" name="convention.activationCode" id="conventionFormCode" value="<s:property value="convention.activationCode"/>" aria-required="true"/>
       		      </div> 
 				  <div class="type-text">	
-                  	<label for="conventionFormDescr">Convention description</label>
+                  	<label for="conventionFormDescr"><s:text name="description"/></label>
 					<textarea name="convention.description" id="conventionFormDescr"><s:property value="convention.description"/></textarea>		 
                   </div>
                   <div class="type-button">
-                  	<button class="btn_save">SAVE</button>
-                    <button class="btn_reset btn_cancel_form">CANCEL</button>
+                  	<button class="btn_save"><s:text name="save"/></button>
+                    <button class="btn_reset btn_cancel_form"><s:text name="cancel"/></button>
                   </div>	
                 </div>
               </div>

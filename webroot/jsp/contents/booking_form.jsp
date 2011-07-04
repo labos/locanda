@@ -9,9 +9,9 @@
 display: none;
 }
 </style>
-<div class="validationErrors"></div>
-              <form class="yform json" action="saveUpdateBooking.action">
-                             <input type="hidden" name="redirect_form" value="home.action?sect=planner" />
+	<div class="validationErrors"></div>
+      <form class="yform json" action="saveUpdateBooking.action">
+        <input type="hidden" name="redirect_form" value="home.action?sect=planner" />
                              <input type="hidden" name="booking.id" value="<s:property value="booking.id"/>"/>
                              <div class="subcolumns_oldgecko">
                              <fieldset>
@@ -27,7 +27,7 @@ display: none;
                    			   </option>
                     		</s:iterator>
                     		<s:if test="booking.room == null">
-							  <option selected="selected" value="-1">Select One</option>
+							  <option selected="selected" value="-1"><s:text name="selectOne"/></option>
 							</s:if>	
                     		</select>
             				</div>

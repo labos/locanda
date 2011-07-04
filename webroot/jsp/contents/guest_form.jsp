@@ -4,7 +4,7 @@
 <%@ taglib uri="/struts-tags" prefix="s" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<form method="post" action="saveUpdateGuest.action" class="yform json" role="application">           
+		<form method="post" action="saveUpdateGuest.action" class="yform json" role="application">           
   		  <fieldset>
           	<legend>Guest details</legend>
               <div class="c80l">
@@ -12,15 +12,15 @@
               	<input type="hidden" name="id" value="<s:property value="id"/>"/>
            	 	<input type="hidden" name="guest.id" value="<s:property value="guest.id"/>"/>
            	 	  <div class="type-text">
-                  	<label for="firstName">First name: <sup title="This field is mandatory.">*</sup></label>
+                  	<label for="firstName"><s:text name="firstName"/>:<sup title="This field is mandatory.">*</sup></label>
                   	<input class="required" type="text" name="guest.firstName" id="firstName" value="<s:property value="guest.firstName"/>" size="20" />
              	  </div>
               	  <div class="type-text" role="alert" aria-live="assertive">
-               	    <label for="lastName">Last name: <sup title="This field is mandatory.">*</sup></label>
+               	    <label for="lastName"><s:text name="lastName"/><sup title="This field is mandatory.">*</sup></label>
                     <input class="required" type="text" name="guest.lastName" id="lastName" value="<s:property value="guest.lastName"/>" size="20"  aria-required="true"/>
              	  </div>
              	  <div class="type-select">
-                  	<label for="gender">Gender:<sup title="This field is mandatory.">*</sup></label>
+                  	<label for="gender"><s:text name="gender"/>:<sup title="This field is mandatory.">*</sup></label>
                 	<select class="required" name="guest.gender" id="gender" size="1" aria-required="true">
 					  <option selected="selected" value="<s:property value="guest.gender"/>"><s:property value="guest.gender"/></option>
 					  <option value="M">M</option>
@@ -28,7 +28,7 @@
 					</select>
 				  </div>
 				  <div class="type-select">
-                  	<label for="birthDay">Birth Day:<sup title="This field is mandatory.">*</sup></label>
+                  	<label for="birthDay"><s:text name="birthDay"/>:<sup title="This field is mandatory.">*</sup></label>
                 	<select class="required" name="guest.birthDay" id="birthDay" size="1" aria-required="true">
 					  <option selected="selected" value="<s:property value="guest.birthDay"/>"><s:property value="guest.birthDay"/></option>
 					  <option value="1">1</option>
@@ -63,7 +63,7 @@
 					  <option value="30">30</option>
 					  <option value="31">31</option>
 					</select>
-					<label for="birthMonth">Birth Month:<sup title="This field is mandatory.">*</sup></label>
+					<label for="birthMonth"><s:text name="birthMonth"/>:<sup title="This field is mandatory.">*</sup></label>
                 	<select class="required" name="guest.birthMonth" id="birthMonth" size="1" aria-required="true">
 					  <option selected="selected" value="<s:property value="guest.birthMonth"/>"><s:property value="guest.birthMonth"/></option>
 					  <option value="jan"><s:text name="jan"/></option>
@@ -79,7 +79,7 @@
 					  <option value="nov"><s:text name="nov"/></option>
 					  <option value="dic"><s:text name="dic"/></option>
 					</select>
-					<label for="birthYear">Birth Year:<sup title="This field is mandatory.">*</sup></label>
+					<label for="birthYear"><s:text name="birthYear"/>:<sup title="This field is mandatory.">*</sup></label>
                 	<select class="required" name="guest.birthYear" id="birthYear" size="1" aria-required="true">
 					  <option selected="selected" value="<s:property value="guest.birthYear"/>"><s:property value="guest.birthYear"/></option>
 					  <s:iterator value="years" var="eachYear">
@@ -88,23 +88,23 @@
 					</select>
 				  </div>
 				  <div class="type-text">
-               	    <label for="birthPlace">Birth Place: <sup title="This field is mandatory.">*</sup></label>
+               	    <label for="birthPlace"><s:text name="birthPlace"/>:<sup title="This field is mandatory.">*</sup></label>
                     <input class="required" type="text" name="guest.birthPlace" id="birthPlace" value="<s:property value="guest.birthPlace"/>" size="20"  aria-required="true"/>
              	  </div>   
                   <div class="type-text">
-                    <label for="phone">Phone:<sup title="This field is mandatory.">*</sup></label>
+                    <label for="phone"><s:text name="phone"/>:<sup title="This field is mandatory.">*</sup></label>
                     <input type="text" name="guest.phone" id="phone" class="required" value="<s:property value="guest.phone"/>" />
                   </div>
                   <div class="type-text">
-                  	<label for="email">Email:<sup title="This field is mandatory.">*</sup></label>
-                  	<input type="text" name="guest.email" id="email" class="required email"  value="<s:property value="guest.email"/>"/>
+                  	<label for="email"><s:text name="email"/>:<sup title="This field is mandatory.">*</sup></label>
+                  	<input type="text" name="guest.email" id="email" class="required email" value="<s:property value="guest.email"/>"/>
                   </div> 
                   <div class="type-text">
-                  	<label for="address">Address:<sup title="This field is mandatory.">*</sup></label>
-                  	<input type="text" name="guest.address" id="address" class="required"  value="<s:property value="guest.address"/>"/>
+                  	<label for="address"><s:text name="address"/>:<sup title="This field is mandatory.">*</sup></label>
+                  	<input type="text" name="guest.address" id="address" class="required" value="<s:property value="guest.address"/>"/>
                   </div>
                   <div class="type-select">
-                <label for="country">Country:<sup title="This field is mandatory.">*</sup></label>
+                <label for="country"><s:text name="country"/>:<sup title="This field is mandatory.">*</sup></label>
                 <select class="required" name="guest.country" id="country" size="1" aria-required="true">
 				<option selected="selected" value="<s:property value="guest.country"/>"><s:property value="guest.country"/></option>
 				<option value="Afghanistan">Afghanistan</option>
@@ -337,7 +337,7 @@
 				</select>
               </div>
                   <div class="type-text">
-                  	<label for="zipCode">ZipCode:<sup title="This field is mandatory.">*</sup></label>
+                  	<label for="zipCode"><s:text name="zip"/>:<sup title="This field is mandatory.">*</sup></label>
                   	<input type="text" name="guest.zipCode" id="zipCode" class="required" value="<s:property value="guest.zipCode"/>" />
                   </div>
                  <div class="type-text">
@@ -345,16 +345,14 @@
                   	<input type="text" name="guest.idNumber" id="idNum" class="required"  value="<s:property value="guest.idNumber"/>"/>
                   </div>
                   <div class="type-text">
-                  	<label for="notes">Notes:</label> 
+                  	<label for="notes"><s:text name="notes"/>:</label> 
                   	<textarea name="guest.notes" id="notes"><s:property value="guest.notes"/></textarea>
                   </div>
                   
                   <div class="type-button">
-            		<button class="btn_save">SAVE</button>
-           		 	<button class="btn_reset btn_cancel_form">CANCEL</button>
+            		<button class="btn_save"><s:text name="save"/></button>
+           		 	<button class="btn_reset btn_cancel_form"><s:text name="cancel"/></button>
            		  </div>
-
               </div>
-            </fieldset>
-              
-           </form>
+            </fieldset>      
+        </form>
