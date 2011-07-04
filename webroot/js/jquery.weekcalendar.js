@@ -81,10 +81,10 @@ $(function() {
          },
          noEvents : function() {
          },
-         shortMonths : ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+         shortMonths : [$.i18n("jan"), $.i18n("feb"), $.i18n("mar"), $.i18n("apr"), $.i18n("may"), $.i18n("jun"), $.i18n("jul"), $.i18n("aug"), $.i18n("sep"), $.i18n("oct"), $.i18n("nov"), $.i18n("dec")],
          longMonths : ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
          shortDays : ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-         longDays : ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+         longDays : [$.i18n("sunday"), $.i18n("monday"), $.i18n("tuesday"), $.i18n("wednesday"), $.i18n("thursday"), $.i18n("friday"), $.i18n("saturday")]
       },
 
       /***********************
