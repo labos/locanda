@@ -234,7 +234,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		user = (User)this.getSession().get("user");
 		structure = user.getStructure();		
 				
-		if(!this.checkBookingDates(structure)){
+		if(!this.checkBookingDatesNotNull(structure)){
 			return ERROR;
 		}		
 		this.updateExtras(structure);
@@ -684,6 +684,31 @@ public class BookingAction extends ActionSupport implements SessionAware{
 				
 	}
 	
+	@Actions({
+		@Action(value="/checkBookingDatesNotNull",results = {
+				@Result(type ="json",name="success", params={
+						"root","message"
+				}),
+				@Result(name="input", location="/validationError.jsp"),
+				@Result(type ="json",name="error", params={
+						"root","message"
+				})
+		})
+	})
+	public String checkBookingDatesNotNull(){
+		User user = null;
+		Structure structure = null;
+		
+		user = (User)session.get("user");
+		structure = user.getStructure();		
+		
+		if(!this.checkBookingDatesNotNull(structure)){
+			return ERROR;
+		}
+		return SUCCESS;
+				
+	}
+	
 	private Boolean checkBookingDates(Structure structure) {
 		
 		if(this.getBooking().getDateIn()!=null && this.getBooking().getDateOut()!=null){
@@ -697,7 +722,33 @@ public class BookingAction extends ActionSupport implements SessionAware{
 				this.getMessage().setDescription(getText("bookingOverlappedAction"));
 				return false;
 			}			
-		}		
+		}
+
+		this.getMessage().setDescription(getText("bookingDatesOK"));
+		this.getMessage().setResult(Message.SUCCESS);
+		return true;
+	}
+	
+	
+	private Boolean checkBookingDatesNotNull(Structure structure) {
+		
+		if(this.getBooking().getDateIn()!=null && this.getBooking().getDateOut()!=null){
+			if(!this.getBooking().checkDates()){
+				this.getMessage().setResult(Message.ERROR);
+				this.getMessage().setDescription(getText("dateOutMoreDateInAction"));
+				return false;
+			}
+			if ((this.getBooking().getRoom().getId()!=null) && (!this.getStructureService().hasRoomFreeForBooking(structure,this.getBooking()))) {
+				this.getMessage().setResult(Message.ERROR);
+				this.getMessage().setDescription(getText("bookingOverlappedAction"));
+				return false;
+			}			
+		}
+		else{
+			this.getMessage().setResult(Message.ERROR);
+			this.getMessage().setDescription(getText("bookingNotChosenDates"));
+			return false;
+		}
 		this.getMessage().setDescription(getText("bookingDatesOK"));
 		this.getMessage().setResult(Message.SUCCESS);
 		return true;

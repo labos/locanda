@@ -351,13 +351,60 @@ $(function () {
                     $(this).closest("." + selector + "_row").remove();
                 });
             }); /*ADD LISTENER FOR CHANGE ROOM OR DATEIN OR DATEOUT OR NUMNIGHTS FROM BOOKING*/
-            $('input:checkbox[name="bookingExtraIds"], .quantity').change(function () {
+            $('input:checkbox[name="bookingExtraIds"], .quantity').change(function (event) {
+            	var clicked = this;
                 // check if room was selected
                 if (!(parseInt($('#sel_rooms_list').val()) > 0)) {
                     $().notify($.i18n("warning"), $.i18n("roomRequired"));
                     return;
                 }
-         			self.calculatePrice(this, 'updateExtras.action');
+                
+                var formInput = $(clicked).parents().find(".yform.json").serialize();
+                $.ajax({
+                	  type: 'POST',
+                	  url: "checkBookingDatesNotNull.action",
+                	  data: formInput,
+                		  success: function(data_action){
+                		   if (data_action.result == "success")
+                			   {
+                		
+                		
+                			   self.calculatePrice(clicked, 'updateExtras.action');        			    				    
+                			   }
+                	    
+                	     else if (data_action.result == "error")
+                	    	 {
+                   		  event.preventDefault();
+                            var validator = $(clicked).parents(".yform.json").validate();
+                            // check if previous date is null
+                            
+                          	  $(clicked).val($(clicked).data("prevDate")); 
+                            
+                            
+                            
+                            $().notify($.i18n("warning"), data_action.description);
+
+                	    	 }
+                	   	else{
+                  		  event.preventDefault();
+                            var validator = $(clicked).parents(".yform.json").validate();
+                            validator.resetForm();
+                	   		$(".validationErrors").html($.i18n("bookingOverlapping"));
+                	   		}  
+                	  },
+                	  error: function() {
+                		  event.preventDefault();
+                        var validator = $(clicked).parents(".yform.json").validate();
+    
+                        $().notify($.i18n("warning"), $.i18n("bookingOverlapping"));
+
+                	  },
+                	  dataType: 'json'
+                	});
+                
+                
+                
+         			
             });
 			
             $('#sel_rooms_list').change(function () {
@@ -402,7 +449,11 @@ $(function () {
               	    	 {
                  		  event.preventDefault();
                           var validator = $(clicked).parents(".yform.json").validate();
-                          $(clicked).val($(clicked).data("prevDate"));
+                          // check if previous date is null
+                          
+                        	  $(clicked).val($(clicked).data("prevDate")); 
+                          
+                          
                           
                           $().notify($.i18n("warning"), data_action.description);
 
