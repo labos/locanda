@@ -2,7 +2,6 @@ $(function () {
     $.Class.extend('Booking', /* @static */ { /* update subtotal */
         updateSubtotal: function () {
             var subtotal = 0;
-            //-- var payments = ["#price_room",  "#extras_room", "input.extra_value_adjustment" ];
             var payments = ["#extras_room", "input.extra_value_adjustment", '#price_room'];
             try {
                 $.each(payments, function (key, value) {
@@ -370,13 +369,61 @@ $(function () {
          			self.calculatePrice(this,'updateRoom.action');
             });
             
-            $('#booking_duration, input:text[name="booking.dateIn"], input:text[name="booking.dateOut"]').change(function () {
+            $('#booking_duration, input:text[name="booking.dateIn"], input:text[name="booking.dateOut"]')
+            .focus(function () {
+        // Store the current value on focus, before it changes
+            	$(this).data("prevDate",$(this).val());
+
+    }).change(function (event) {
                 // check in room was selected
+            	// save current dom that raieses a change event
+            	var clicked = this;
+            	
+            	
                 if (!(parseInt($('#sel_rooms_list').val()) > 0)) {
                     $().notify($.i18n("warning"), $.i18n("roomRequired"));
                     return;
                 }
-         			self.calculatePrice(this,'updateBookingDates.action');
+                var formInput = $(clicked).parents().find(".yform.json").serialize();
+                 
+                $.ajax({
+              	  type: 'POST',
+              	  url: "checkBookingDates.action",
+              	  data: formInput,
+              		  success: function(data_action){
+              		   if (data_action.result == "success")
+              			   {
+              		
+              		
+              			 self.calculatePrice(clicked,'updateBookingDates.action');         			    				    
+              			   }
+              	    
+              	     else if (data_action.result == "error")
+              	    	 {
+                 		  event.preventDefault();
+                          var validator = $(clicked).parents(".yform.json").validate();
+                          $(clicked).val($(clicked).data("prevDate"));
+                          
+                          $().notify($.i18n("warning"), data_action.description);
+
+              	    	 }
+              	   	else{
+                		  event.preventDefault();
+                          var validator = $(clicked).parents(".yform.json").validate();
+                          validator.resetForm();
+              	   		$(".validationErrors").html($.i18n("bookingOverlapping"));
+              	   		}  
+              	  },
+              	  error: function() {
+              		  event.preventDefault();
+                      var validator = $(clicked).parents(".yform.json").validate();
+  
+                      $().notify($.i18n("warning"), $.i18n("bookingOverlapping"));
+
+              	  },
+              	  dataType: 'json'
+              	});
+         		
             });
             
             $('#nr_guests').change(function () {
@@ -426,7 +473,7 @@ $(function () {
             });
         },
 
-    	/**
+    	/**)
     	 * Get new prices for booking.
     	 * @param {String} selector (an html class name or an id value ) .
     	 * @param {String} action url to call for booking json retrieval.
