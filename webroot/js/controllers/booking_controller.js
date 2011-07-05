@@ -106,125 +106,7 @@ $(function () {
                 }
             });
             
-            $(".btn_check_in").button({
-                icons: {
-                    primary: "ui-icon-check"
-                }
-            }).click(function (event) {
-                event.preventDefault();
-                var hrefAction = "checkInBooking.action",
-                    $this = $(this),
-                    idBooking = (typeof parseInt($('input:hidden[name="booking.id"]').val()) === 'number') ? parseInt($('input:hidden[name="booking.id"]').val()) : null;
-                if (idBooking !== null && idBooking > 0) {
-                    $.ajax({
-                        type: "POST",
-                        url: hrefAction,
-                        data: {
-                            id: idBooking
-                        },
-                        success: function (data_action) {
-                            var title_notification = null;
-                            if (data_action.result == "success") {
-                                $().notify($.i18n("congratulation"), data_action.description);
-                                //UPDATE BOOKING STATUS HIDDEN FIELD
-                                $("input:hidden[name='booking.status']").val("checkedin");
-                                //ADD CHECKOUT LISTENER
-                                $this.attr("class", "btn_check_out").button("destroy").button({
-                                    label: "CHECK OUT",
-                                    icons: {
-                                        primary: "ui-icon-check"
-                                    }
-                                }).click(function (event) {
-                                    event.preventDefault();
-                                    var hrefAction = "checkOutBooking.action",
-                                        $this = $(this),
-                                        idBooking = (typeof parseInt($('input:hidden[name="booking.id"]').val()) === 'number') ? parseInt($('input:hidden[name="booking.id"]').val()) : null;
-                                    $.ajax({
-                                        type: "POST",
-                                        url: hrefAction,
-                                        data: {
-                                            id: idBooking
-                                        },
-                                        success: function (data_action) {
-                                            var title_notification = null;
-                                            if (data_action.result == "success") {
-                                                $().notify($.i18n("congratulation"), data_action.description);
-                                                // UPDATE BUTTON CHECKING
-                                                $this.button({
-                                                    disabled: true,
-                                                    label: "CHECKED"
-                                                });
-                                                // END UPDATE BUTTON CHECKING
-                                                //UPDATE BOOKING STATUS HIDDEN FIELD
-                                                $("input:hidden[name='booking.status']").val("checkedout");
-                                            }
-                                            else if (data_action.result == "error") {
-                                                $().notify($.i18n("warning"), data_action.description);
-                                            }
-                                            else {
-                                                $(".validationErrors").html(data_action);
-                                            }
-                                        },
-                                        error: function () {
-                                            $().notify($.i18n("seriousError"), $.i18n("seriousErrorDescription"));
-                                        }
-                                    });
-                                });
-                                
-                                setTimeout( "window.location.reload()", 1000);
-                                //END ADDING CHECKOUT LISTENER
-                            }
-                            else if (data_action.result == "error") {
-                                $().notify($.i18n("warning"), data_action.description);
-                            }
-                            else {
-                                $(".validationErrors").html(data_action);
-                            }
-                        },
-                        error: function () {
-                            $().notify($.i18n("seriousError"), $.i18n("seriousErrorDescription"));
-                        }
-                    });
-                }
-            });
-            $(".btn_check_out").button({
-                icons: {
-                    primary: "ui-icon-check"
-                }
-            }).click(function (event) {
-                event.preventDefault();
-                var hrefAction = "checkOutBooking.action",
-                    $this = $(this),
-                    idBooking = (typeof parseInt($('input:hidden[name="booking.id"]').val()) === 'number') ? parseInt($('input:hidden[name="booking.id"]').val()) : null;
-                $.ajax({
-                    type: "POST",
-                    url: hrefAction,
-                    data: {
-                        id: idBooking
-                    },
-                    success: function (data_action) {
-                        var title_notification = null;
-                        if (data_action.result == "success") {
-                            $().notify($.i18n("congratulation"), data_action.description);
-                            $this.button({
-                                disabled: true,
-                                label: "CHECKED"
-                            });
-                            $("input:hidden[name='booking.status']").val("checkedout");
-                            setTimeout( "window.location.reload()", 1000);
-                        }
-                        else if (data_action.result == "error") {
-                            $().notify($.i18n("warning"), data_action.description);
-                        }
-                        else {
-                            $(".validationErrors").html(data_action);
-                        }
-                    },
-                    error: function () {
-                        $().notify($.i18n("seriousError"), $.i18n("seriousErrorDescription"));
-                    }
-                });
-            }); /* extras adding */
+
             /* adjustment and payments*/
             $.fn.getSelector = function () {
                 var selector = "";
@@ -351,12 +233,15 @@ $(function () {
                     $(this).closest("." + selector + "_row").remove();
                 });
             }); /*ADD LISTENER FOR CHANGE ROOM OR DATEIN OR DATEOUT OR NUMNIGHTS FROM BOOKING*/
-            $('input:checkbox[name="bookingExtraIds"], .quantity').live('focus',function () {
+            
+$.fn.eventExtraChange = function (){
+            
+            $(this).focus (function () {
         // Store the current value on focus, before it changes
             	$(this).data("prevExtraValue",$(this).val());
             	$(this).is(":checked")? $(this).data("prevExtraValue",true) :$(this).data("prevExtraValue",false);
 
-    }).live('change',function (event) {
+    }).change (function (event) {
             	var clicked = this;
                 // check if room was selected
                 if (!(parseInt($('#sel_rooms_list').val()) > 0)) {
@@ -409,6 +294,11 @@ $(function () {
          			
             });
 			
+            
+};
+            
+$('input:checkbox[name="bookingExtraIds"], .quantity').eventExtraChange();        
+            
             $('#sel_rooms_list').change(function () {
                 // check in room was selected
                 if (!(parseInt($('#sel_rooms_list').val()) > 0)) {
@@ -562,13 +452,15 @@ $(function () {
                             }
 							var extraCheckBoxNumber = $('input:checkbox[name="bookingExtraIds"]').length;
 							for (var extraID = 1; extraID <= extraCheckBoxNumber; extraID++) {
-								if ($clicked.is('#' + extraID + '_extraCheckBox')) {
-									if ($('#' + extraID + '_extraQuantity').length != 0) {
+								var currentCheckbox  = 'input:checkbox#' + extraID + '_extraCheckBox';
+								
+								if ($clicked.is(currentCheckbox)) {
+									if ($('select#' + extraID + '_extraQuantity').length != 0) {
 										if ($clicked.is(":checked")) {
-											$('#' + extraID + '_extraQuantity').show();
+											$('select#' + extraID + '_extraQuantity').show();
 										}
 										else {
-											$('#' + extraID + '_extraQuantity').hide();
+											$('select#' + extraID + '_extraQuantity').hide();
 										}
 								}
 								else {
@@ -647,9 +539,7 @@ $(function () {
                 data: formInput,
                 success: function (data_action) {
                     $(".type-select.extraCheckList").html(data_action);
-/*					$('input:checkbox[name="bookingExtraIds"], .quantity').change(function () {
-         				self.calculatePrice(this,'updateExtras.action');
-           			 });*/
+                    $('input:checkbox[name="bookingExtraIds"], .quantity').eventExtraChange();
                 },
                 error: function () {
                     $().notify($.i18n("seriousError"), $.i18n("seriousErrorDescr"));
