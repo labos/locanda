@@ -16,44 +16,41 @@
           <div id="col3_content" class="clearfix">
             <div class="header_section">
               <s:url action="#" var="urlGoAddNewBooking"></s:url>
-              <span class="name_section">Online Bookings</span>
+              <span class="name_section"><s:text name="onlineBooking"/></span>
             </div>
   		    <form method="post" action="#" class="yform json full" role="application">
               <fieldset>
                 <legend>Widget</legend>
                 <div class="c50l">
                    <div class="type-check">
-					<a href="online.action" target="_blank" >Try Widget Online</a>
+					<a href="online.action" target="_blank"><s:text name="onlineWidgetTry"/></a>
              	  </div> 
            	 	  <div class="type-text">
-                  	<span>Past this code into your website and get booking service</span>
+                  	<span><s:text name="onlineWidgetPaste"/></span>
              	  </div>
                   <div class="type-text">
-                  	<textarea readonly="readonly" id="text-widget" rows="5" cols="30"><iframe height="900" width="400" marginheight="0" marginwidth="0"
-        src="http://localhost:8080/locanda/goOnlineBookingCalendar.action?idStructure=<s:property value="idStructure" />" scrolling="no"></iframe></textarea>
+                  	<textarea readonly="readonly" id="text-widget" rows="5" cols="30">
+                  	  <iframe height="900" width="400" marginheight="0" marginwidth="0" src="http://localhost:8080/locanda/goOnlineBookingCalendar.action?idStructure=<s:property value="idStructure"/>" scrolling="no"/>
+        			</textarea>
              	  </div>
-             	 <div class="type-check">
-					<a href="#" id="customizewidget">Customize Layout</a>
+             	  <div class="type-check">
+					<a href="#" id="customizewidget"><s:text name="customizeLayout"/></a>
              	  </div>  
               	  <div class="type-check">
                   	<input type="checkbox" name="online.price" id="onlineRequire" value="1"/>
-                  	                  	<label for="onlineRequire">Require payment</label>
+                  	<label for="onlineRequire"><s:text name="requirePayment"/></label>
              	  </div>         	 	
                   <div class="type-button">
-            		<button class="btn_save">SAVE</button>
+            		<button class="btn_save"><s:text name="save"/></button>
            		  </div>
-	    <div id ="text-widget-edit" style="display: none">
-	    <textarea  rows="5" cols="30">
-	    <iframe height="900" width="400" marginheight="0" marginwidth="0"
-        src="http://localhost:8080/locanda/goOnlineBookingCalendar.action" scrolling="no"></iframe>
-        </textarea>
-	    </div>
-	    
-              </div>
+	    		  <div id ="text-widget-edit" style="display: none">
+	    			<textarea rows="5" cols="30">
+	    			  <iframe height="900" width="400" marginheight="0" marginwidth="0" src="http://localhost:8080/locanda/goOnlineBookingCalendar.action" scrolling="no"/>
+        			</textarea>
+	    		  </div>
+	    		</div>
               </fieldset>
-              </form>
-
-            <div id="event_edit_container" >
-            </div>
+            </form>
+            <div id="event_edit_container"/>
           </div>
 <jsp:include page="jsp/layout/footer.jsp" />     

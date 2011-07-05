@@ -24,7 +24,7 @@ $.i18n.it.strings = {
     alertCancel: "Attenzione le modifiche che hai effettuato non verranno salvate. Vuoi chiudere ugualmente?",
     today: "Oggi",
     prev: "Precedente",
-    next: "Dopo",
+    next: "Successivo",
     rooms: "Camere",
     newBookingForRoom: "Nuova prenotazione per la camera",
     modifyBooking: "Modifica Prenotazione",
@@ -67,4 +67,3 @@ $.i18n.it.strings = {
     nov: "Nov",
     dec: "Dic"
  };
-   

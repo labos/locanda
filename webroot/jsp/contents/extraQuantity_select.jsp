@@ -7,7 +7,7 @@
 		  <s:iterator value="extras" var="eachExtra" >
 		  
 		     	<div class="type-check ">
-                    <s:checkbox id="%{#eachExtra.id}_extraCheckBox" name="bookingExtraIds"  value="bookingExtraIds.contains(#eachExtra.id)" fieldValue="%{#eachExtra.id}" label="%{#eachExtra.name}" />
+                  <s:checkbox id="%{#eachExtra.id}_extraCheckBox" name="bookingExtraIds"  value="bookingExtraIds.contains(#eachExtra.id)" fieldValue="%{#eachExtra.id}" label="%{#eachExtra.name}" />
                 </div>
                 	  
 					<s:iterator value="booking.extraItems" var="eachExtraItem" status="itemStatus">
@@ -29,16 +29,13 @@
 								</option>
 							  </s:iterator>
               		  	  	</select>
-              		  	</div>
-                  	  	<div class="c33l">
-                  	  	  <div class="subcl type-text"><span>&euro;: </span><s:property value="#eachExtraItem.unitaryPrice" />
-                  	  	   <input type="hidden"  name="booking.extraItems[<s:property value="#itemStatus.index"/>].unitaryPrice" value="<s:property value="#eachExtraItem.unitaryPrice" />"/>
+              		  	  </div>
+                  	  	  <div class="c33l">
+                  	  	    <div class="subcl type-text"><span>&euro;: </span><s:property value="#eachExtraItem.unitaryPrice" />
+                  	  	     <input type="hidden"  name="booking.extraItems[<s:property value="#itemStatus.index"/>].unitaryPrice" value="<s:property value="#eachExtraItem.unitaryPrice" />"/>
+                  	        </div>
+                  	  	  </div>
                   	    </div>
-                  	  	</div>
-                  	  </div>
                   	  </s:if>
-          			</s:iterator>
-          </s:iterator>
-                      
-                      
-					   
+          	        </s:iterator>
+          </s:iterator>		   
