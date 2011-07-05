@@ -20,18 +20,17 @@
     <div id="col3" role="main">
       <div id="col3_content" class="clearfix">
         <div class="header_section yform">
-          <span class="name_section"><s:text name="manageAccomodation" /></span>
+          <span class="name_section"><s:text name="manageAccomodation"/></span>
         </div>
         
         <div>
-          <button class="btn_add_form"><s:text name="addNew" /></button>
+          <button class="btn_add_form"><s:text name="addNew"/></button>
         </div>
         <div class="yform hideform">
           <jsp:include page="jsp/contents/room_form.jsp" />
         </div>
         
-        
-        <s:iterator value="rooms" var="eachRoom" >
+        <s:iterator value="rooms" var="eachRoom">
          
         <div style="display:block; height:100%;"> 
 		  <form method="post" action="deleteRoom.action" class="yform json full" role="application">
@@ -40,19 +39,19 @@
               <input type="hidden" name="room.id" value="<s:property value="id"/>"/>
               <legend class="title_season">
 				<a href="goUpdateRoom.action?sect=accomodation&room.id=<s:property value="#eachRoom.id"/>"><s:property value="#eachRoom.name"/></a>
-                <a href="goUpdateRoom.action?sect=accomodation&room.id=<s:property value="#eachRoom.id"/>"><img src="images/sign-up-icon.png" alt="edit" /></a>
+                <a href="goUpdateRoom.action?sect=accomodation&room.id=<s:property value="#eachRoom.id"/>"><img src="images/sign-up-icon.png" alt="edit"/></a>
               </legend>
             	
 		      <div class="subcolumns">
       		 	<div class="c40l">
                   <div class="type_rooms">
                     <ul>
-				      <li><b><s:text name="roomType" />: </b><a href="findAllRoomTypes.action?sect=accomodation#<s:property value="#eachRoom.roomType.name"/>" ><s:property value="#eachRoom.roomType.name"/></a></li>
-				      <li><b><s:text name="roomTypeMaxGuests" />:</b> <s:property value="#eachRoom.roomType.maxGuests"/></li>
-				      <li><b><s:text name="notes" />:</b> <s:property value="#eachRoom.notes"/></li>
+				      <li><b><s:text name="roomType"/>: </b><a href="findAllRoomTypes.action?sect=accomodation#<s:property value="#eachRoom.roomType.name"/>" ><s:property value="#eachRoom.roomType.name"/></a></li>
+				      <li><b><s:text name="roomTypeMaxGuests"/>:</b> <s:property value="#eachRoom.roomType.maxGuests"/></li>
+				      <li><b><s:text name="notes"/>:</b> <s:property value="#eachRoom.notes"/></li>
 				    </ul>
            			<fieldset> 
-           		      <legend>Facilities</legend>
+           		      <legend><s:text name="facilities"/></legend>
            		  	  <s:iterator value="#eachRoom.facilities" var="eachFacility">
            		  	  <s:if test="roomTypeFacilities.contains(#eachFacility)">
            		  	   <img width="24" height="24"  src="images/roomtype_facilities/<s:property value="fileName"/>" alt="<s:property value="#eachFacility.name"/>"/>
@@ -75,5 +74,5 @@
 		</s:iterator>
 		
       </div>
-      </div>
+    </div>
 <jsp:include page="jsp/layout/footer.jsp" />     

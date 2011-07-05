@@ -17,19 +17,18 @@
         <div class="header_section">
           <span class="name_section"><s:text name="manageGuests" /></span>   
           <div class="right type-text">
-            <input type="text" name="term" class="txt_guest_search" /><button class="btn_g_search">SEARCH</button>
+            <input type="text" name="term" class="txt_guest_search" /><button class="btn_g_search"><s:text name="search"/></button>
           </div>  
         </div>
-          </form>
-        <div>
-          <button class="btn_add_form"><s:text name="addNew" /></button>
-        </div>
+      </form>
+      <div>
+        <button class="btn_add_form"><s:text name="addNew" /></button>
+      </div>
         <div class="yform hideform">
        	  <jsp:include page="jsp/contents/guest_form.jsp" />
         </div>
           
-        <s:iterator value="guests" var="eachGuest" >
-          
+        <s:iterator value="guests" var="eachGuest" >  
           <div>
 		    <form method="post" action="deleteGuest.action" class="yform json full" role="application">
               <fieldset>
@@ -43,10 +42,10 @@
       		 	  <div class="c40l">
                     <div class="type_rooms">
 					  <ul>
-				        <li><b>Address:</b> <s:property value="#eachGuest.address"/> - <s:property value="#eachGuest.zipCode"/> <s:property value="#eachGuest.country"/></li>
-				        <li><b>Phone:</b> <s:property value="#eachGuest.phone"/></li>
-				        <li><b>E-Mail:</b> <s:property value="#eachGuest.email"/></li>
-				        <li><b>Notes:</b> <s:property value="#eachGuest.notes"/></li>
+				        <li><b><s:text name="address"/>:</b> <s:property value="#eachGuest.address"/> - <s:property value="#eachGuest.zipCode"/> <s:property value="#eachGuest.country"/></li>
+				        <li><b><s:text name="phone"/>:</b> <s:property value="#eachGuest.phone"/></li>
+				        <li><b><s:text name="email"/>:</b> <s:property value="#eachGuest.email"/></li>
+				        <li><b><s:text name="notes"/>:</b> <s:property value="#eachGuest.notes"/></li>
 				      </ul>
                     </div>                  
                   </div>
@@ -57,9 +56,7 @@
            	  </fieldset>
             </form>        
 		  </div>
-		
 		</s:iterator>
 		       
-      </div>
-          
+      </div>    
 <jsp:include page="jsp/layout/footer.jsp" />   

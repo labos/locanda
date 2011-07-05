@@ -7,24 +7,21 @@
 <jsp:include page="jsp/layout/header_menu.jsp" />
       <div id="main">
         <!-- begin: #col1 - first float column -->
-
         <div id="col1" role="complementary">
           <div id="col1_content" class="clearfix">
           </div>
         </div><!-- end: #col1 -->
         <!-- begin: #col3 static column -->
-
         <div id="col3" role="main">
           <div id="col3_content" class="clearfix">
-          <div class="header_section">
-          <s:url action="#" var="urlGoAddNewBooking"></s:url>
-          
-          <span class="name_section">Online Bookings</span>
-               </div>
-  		  <form method="post" action="#" class="yform json full" role="application">
-            <fieldset>
-              <legend>Widget</legend>
-              <div class="c50l">
+            <div class="header_section">
+              <s:url action="#" var="urlGoAddNewBooking"></s:url>
+              <span class="name_section">Online Bookings</span>
+            </div>
+  		    <form method="post" action="#" class="yform json full" role="application">
+              <fieldset>
+                <legend>Widget</legend>
+                <div class="c50l">
                    <div class="type-check">
 					<a href="online.action" target="_blank" >Try Widget Online</a>
              	  </div> 
