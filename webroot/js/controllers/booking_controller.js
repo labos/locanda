@@ -351,12 +351,12 @@ $(function () {
                     $(this).closest("." + selector + "_row").remove();
                 });
             }); /*ADD LISTENER FOR CHANGE ROOM OR DATEIN OR DATEOUT OR NUMNIGHTS FROM BOOKING*/
-            $('input:checkbox[name="bookingExtraIds"], .quantity').focus(function () {
+            $('input:checkbox[name="bookingExtraIds"], .quantity').live('focus',function () {
         // Store the current value on focus, before it changes
             	$(this).data("prevExtraValue",$(this).val());
             	$(this).is(":checked")? $(this).data("prevExtraValue",true) :$(this).data("prevExtraValue",false);
 
-    }).change(function (event) {
+    }).live('change',function (event) {
             	var clicked = this;
                 // check if room was selected
                 if (!(parseInt($('#sel_rooms_list').val()) > 0)) {
@@ -381,13 +381,9 @@ $(function () {
                 	    	 {
                    		  event.preventDefault();
                             var validator = $(clicked).parents(".yform.json").validate();
-                            // check if previous date is null
-                            var prova1 =$(clicked).val();
-                            var prova2 = $(clicked).data("prevExtraValue");
-                          	  
+                                                     	 
                           	$(clicked).attr("checked", $(clicked).data("prevExtraValue"));
-                            
-                            
+                                                       
                             $().notify($.i18n("warning"), data_action.description);
 
                 	    	 }
@@ -651,9 +647,9 @@ $(function () {
                 data: formInput,
                 success: function (data_action) {
                     $(".type-select.extraCheckList").html(data_action);
-					$('input:checkbox[name="bookingExtraIds"], .quantity').change(function () {
+/*					$('input:checkbox[name="bookingExtraIds"], .quantity').change(function () {
          				self.calculatePrice(this,'updateExtras.action');
-           			 });
+           			 });*/
                 },
                 error: function () {
                     $().notify($.i18n("seriousError"), $.i18n("seriousErrorDescr"));
