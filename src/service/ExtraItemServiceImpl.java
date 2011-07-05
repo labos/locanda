@@ -6,19 +6,28 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import persistence.mybatis.mappers.ExtraItemMapper;
+import persistence.mybatis.mappers.ExtraMapper;
 
+import model.Extra;
 import model.ExtraItem;
 
 @Service
 public class ExtraItemServiceImpl implements ExtraItemService{
 	@Autowired
 	private ExtraItemMapper extraItemMapper = null;
+	@Autowired
+	private ExtraMapper extraMapper = null;
 
 	@Override
 	public List<ExtraItem> findExtraItemsByIdBooking(Integer id_booking) {
 		List<ExtraItem> extraItems = null;
+		Extra extra = null;
 		
 		extraItems = this.getExtraItemMapper().findExtraItemsByIdBooking(id_booking);
+		for(ExtraItem each: extraItems){
+			extra = this.getExtraMapper().findExtraById(each.getId_extra());
+			each.setExtra(extra);
+		}
 		return extraItems;
 	}
 
@@ -39,8 +48,13 @@ public class ExtraItemServiceImpl implements ExtraItemService{
 	public void setExtraItemMapper(ExtraItemMapper extraItemMapper) {
 		this.extraItemMapper = extraItemMapper;
 	}
-	
-	
-	
+
+	public ExtraMapper getExtraMapper() {
+		return extraMapper;
+	}
+
+	public void setExtraMapper(ExtraMapper extraMapper) {
+		this.extraMapper = extraMapper;
+	}	
 
 }

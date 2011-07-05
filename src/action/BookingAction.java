@@ -307,13 +307,6 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		booking.setRoom(newRoom);	
 	}
 	
-	/*
-	private void updateExtras(Booking booking){
-		List<Extra> checkedExtras = null;
-		
-		checkedExtras = this.getExtraService().findExtrasByIds(this.getBookingExtraIds());
-		booking.setExtras(checkedExtras);
-	}*/
 	
 	
 	private void updateExtraItems(Structure structure, Booking booking,List<Extra> checkedExtras){
