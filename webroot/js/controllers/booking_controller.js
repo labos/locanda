@@ -266,8 +266,16 @@ $.fn.eventExtraChange = function (){
                 	    	 {
                    		  event.preventDefault();
                             var validator = $(clicked).parents(".yform.json").validate();
-                                                     	 
-                          	$(clicked).attr("checked", $(clicked).data("prevExtraValue"));
+                            
+                                    if ( $(clicked).data("prevExtraValue") == true ){
+                                    	
+                                    	$(clicked).attr("checked", "checked");
+                                    }      
+                                    else {
+                                    	$(clicked).removeAttr('checked');
+
+                                    }
+                          	
                                                        
                             $().notify($.i18n("warning"), data_action.description);
 
