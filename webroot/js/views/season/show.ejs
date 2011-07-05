@@ -1,14 +1,14 @@
 <div class="subcolumns period">
 <div class="c25l">
-<div class="subcl type-text"><span>From:</span>
+<div class="subcl type-text"><span><%= labels.from %>:</span>
  <input type="text"	class="adddatepicker required" name="periods[<%=index %>].startDate"	value="" style="display: inline;" />
  </div>
 </div>
 <div class="c20l">
-<div class="subcl type-text"><span>To:</span> <input type="text"
+<div class="subcl type-text"><span><%= labels.to %>:</span> <input type="text"
 	class="adddatepicker required" name="periods[<%= index %>].endDate"
 	value="" style="display: inline;" /></div>
 </div>
 <div class="c10l"><label></label> <a href="#"
-	class="erase_period" title="erase">Delete Period</a></div>
+	class="erase_period" title="erase"><%= labels.delete %></a></div>
 </div>

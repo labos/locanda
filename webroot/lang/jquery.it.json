@@ -31,6 +31,8 @@ $.i18n.it.strings = {
     dateInRequired: "Devi selezionare una data",
     save: "Salva",
     delete: "Elimina",
+    to: "Da",
+    from: "A",
     name: "Nome",
     bookerData: "Dati cliente",
     phone: "Telefono",
