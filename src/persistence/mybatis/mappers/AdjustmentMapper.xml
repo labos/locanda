@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="persistence.mybatis.mappers.AdjustmentMapper"> 
+  <cache />  
+  <insert id="insertAdjustment" parameterType="model.Adjustment" useGeneratedKeys="true" keyProperty="id" >
+  insert into adjustment (date,description,amount,id_booking) 
+  values (#{date}, #{description}, #{amount}, #{id_booking})
+  
+  </insert>
+  
+  <delete id="deleteAdjustmentsByIdBooking" parameterType="int">
+  	delete from adjustment where id_booking = #{id_booking}
+  </delete>
+  
+  <select id="findAdjustmentsByIdBooking" parameterType="int" resultType="model.Adjustment">
+  <include refid="selectAdjustment"/> where id_booking = #{id_booking}
+  </select>
+  
+  <sql id="selectAdjustment">
+  select id,date,description,amount,id_booking from adjustment  
+  </sql>
+    
+</mapper>

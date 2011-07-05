@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="persistence.mybatis.mappers.ExtraItemMapper"> 
+  <cache />
+  
+  <select id="findExtraItemsByIdBooking" resultType="model.ExtraItem" parameterType="int">
+  <include refid="selectExtraItem"/>  where id_booking = #{id_booking}  
+  </select>
+  
+  <sql id="selectExtraItem">
+  select id,id_booking,id_extra,quantity,maxQuantity,unitaryPrice from extraItem
+  </sql>
+  
+  <insert id="insertExtraItem" parameterType="model.ExtraItem" useGeneratedKeys="true" keyProperty="id">
+  insert into extraItem(id_booking,id_extra,quantity,maxQuantity,unitaryPrice) 
+  values(#{id_booking},#{id_extra},#{quantity},#{maxQuantity},#{unitaryPrice})
+  
+  </insert>
+  
+  <delete id="deleteExtraItemsByIdBooking" parameterType="int">
+  delete from extraItem where id_booking = #{id_booking}
+  </delete>
+  
+  
+  
+ 
+    
+</mapper>

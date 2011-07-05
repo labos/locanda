@@ -177,7 +177,7 @@ public class StructureServiceImpl implements StructureService{
 		//Estraggo i Booking della camera con roomId dato
 		List<Booking> roomBookings = new ArrayList<Booking>();
 		
-		for(Booking each: this.getBookingService().findBookingsByIdStructure(structure)){
+		for(Booking each: this.getBookingService().findBookingsByIdStructure(structure.getId())){
 			if(each.getRoom().getId().equals(roomId)){
 				roomBookings.add(each);
 			}
@@ -208,7 +208,7 @@ public class StructureServiceImpl implements StructureService{
 		//Estraggo i Booking della camera con roomId dato
 		List<Booking> roomBookings = new ArrayList<Booking>();
 		
-		for(Booking each: this.getBookingService().findBookingsByIdStructure(structure)){
+		for(Booking each: this.getBookingService().findBookingsByIdStructure(structure.getId())){
 			if(each.getRoom().getId().equals(booking.getRoom().getId()) && !each.equals(booking)){
 				roomBookings.add(each);
 			}

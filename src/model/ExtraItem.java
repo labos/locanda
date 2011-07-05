@@ -1,6 +1,8 @@
 package model;
 
-public class ExtraItem {
+import java.io.Serializable;
+
+public class ExtraItem implements Serializable{
 	
 	private Integer id;
 	
@@ -8,6 +10,8 @@ public class ExtraItem {
 	private Integer quantity = 0;
 	private Integer maxQuantity = 0;
 	private Double unitaryPrice = 0.0;
+	private Integer id_booking;
+	private Integer id_extra;
 	
 	
 	@Override
@@ -68,5 +72,20 @@ public class ExtraItem {
 	public void setMaxQuantity(Integer maxQuantity) {
 		this.maxQuantity = maxQuantity;
 	}
+	public Integer getId_booking() {
+		return id_booking;
+	}
+	public void setId_booking(Integer id_booking) {
+		this.id_booking = id_booking;
+	}
+	public Integer getId_extra() {
+		return id_extra;
+	}
+	public void setId_extra(Integer id_extra) {
+		this.id_extra = id_extra;
+	}
+	
+	
+	
 	
 }

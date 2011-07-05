@@ -1,5 +1,6 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -16,7 +17,7 @@ import model.listini.ExtraPriceList;
 import model.listini.ExtraPriceListItem;
 import model.listini.Season;
 
-public class Booking {
+public class Booking implements Serializable{
 	
 	private Integer id;
 	
@@ -35,6 +36,11 @@ public class Booking {
 	private List<Guest> guests = null;
 	private Convention convention = null;
 	private List<ExtraItem> extraItems;
+	private Integer id_structure = null;
+	private Integer id_convention = null;
+	private Integer id_room = null;
+	
+	
 	
 	
 	public Booking(){
@@ -166,7 +172,7 @@ public class Booking {
 		
 		ret = new ArrayList<Integer>();
 		for(ExtraItem each: this.getExtraItems()){
-			ret.add(each.getExtra().getId());
+			ret.add(each.getId_extra());
 		}
 		return ret;
 	}
@@ -332,6 +338,30 @@ public class Booking {
 	}
 	public void setExtraItems(List<ExtraItem> extraItems) {
 		this.extraItems = extraItems;
+	}
+
+	public Integer getId_structure() {
+		return id_structure;
+	}
+
+	public void setId_structure(Integer id_structure) {
+		this.id_structure = id_structure;
+	}
+
+	public Integer getId_convention() {
+		return id_convention;
+	}
+
+	public void setId_convention(Integer id_convention) {
+		this.id_convention = id_convention;
+	}
+
+	public Integer getId_room() {
+		return id_room;
+	}
+
+	public void setId_room(Integer id_room) {
+		this.id_room = id_room;
 	}
 
 	

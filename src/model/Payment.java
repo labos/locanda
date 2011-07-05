@@ -1,12 +1,14 @@
 package model;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Payment {
+public class Payment implements Serializable{
 	private Integer id;
 	private Date date;
 	private String description;
 	private Double amount;
+	private Integer id_booking;
 	
 		
 	@Override
@@ -55,6 +57,13 @@ public class Payment {
 	}
 	public void setAmount(Double amount) {
 		this.amount = amount;
-	}	
+	}
+	public Integer getId_booking() {
+		return id_booking;
+	}
+	public void setId_booking(Integer id_booking) {
+		this.id_booking = id_booking;
+	}
+	
 
 }

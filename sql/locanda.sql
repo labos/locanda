@@ -42,6 +42,30 @@ LOCK TABLES `adjustment` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `booker`
+--
+
+DROP TABLE IF EXISTS `booker`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `booker` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_booking` int(11) DEFAULT NULL,
+  `id_guest` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `booker`
+--
+
+LOCK TABLES `booker` WRITE;
+/*!40000 ALTER TABLE `booker` DISABLE KEYS */;
+/*!40000 ALTER TABLE `booker` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `booking`
 --
 
@@ -57,11 +81,11 @@ CREATE TABLE `booking` (
   `extraSubtotal` double DEFAULT NULL,
   `status` varchar(255) DEFAULT NULL,
   `notes` varchar(255) DEFAULT NULL,
-  `id_booker` int(11) DEFAULT NULL,
   `id_structure` int(11) DEFAULT NULL,
   `id_convention` int(11) DEFAULT NULL,
+  `id_room` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -71,30 +95,6 @@ CREATE TABLE `booking` (
 LOCK TABLES `booking` WRITE;
 /*!40000 ALTER TABLE `booking` DISABLE KEYS */;
 /*!40000 ALTER TABLE `booking` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `bookingExtra`
---
-
-DROP TABLE IF EXISTS `bookingExtra`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `bookingExtra` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_booking` int(11) DEFAULT NULL,
-  `id_extra` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `bookingExtra`
---
-
-LOCK TABLES `bookingExtra` WRITE;
-/*!40000 ALTER TABLE `bookingExtra` DISABLE KEYS */;
-/*!40000 ALTER TABLE `bookingExtra` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -135,7 +135,7 @@ CREATE TABLE `convention` (
   `activationCode` varchar(255) DEFAULT NULL,
   `id_structure` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -144,7 +144,7 @@ CREATE TABLE `convention` (
 
 LOCK TABLES `convention` WRITE;
 /*!40000 ALTER TABLE `convention` DISABLE KEYS */;
-INSERT INTO `convention` VALUES (1,'agevolazione Default','Default convention','XXX',1),(2,'diee convention','ewwewew','eweweew',1),(3,'agevolazione Default','Default convention','XXX',1),(4,'agevolazione Default','Default convention','XXX',1),(5,'agevolazione Default','Default convention','XXX',1),(6,'agevolazione Default','Default convention','XXX',1);
+INSERT INTO `convention` VALUES (1,'agevolazione Default','Default convention','XXX',1),(3,'agevolazione Default','Default convention','XXX',1),(4,'agevolazione Default','Default convention','XXX',1),(5,'agevolazione Default','Default convention','XXX',1),(6,'agevolazione Default','Default convention','XXX',1),(7,'agevolazione Default','Default convention','XXX',1),(8,'agevolazione Default','Default convention','XXX',1),(9,'agevolazione Default','Default convention','XXX',1),(10,'agevolazione Default','Default convention','XXX',1),(11,'agevolazione Default','Default convention','XXX',1),(12,'agevolazione Default','Default convention','XXX',1),(13,'agevolazione Default','Default convention','XXX',1),(14,'agevolazione Default','Default convention','XXX',1),(15,'agevolazione Default','Default convention','XXX',1),(16,'agevolazione Default','Default convention','XXX',1);
 /*!40000 ALTER TABLE `convention` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -192,7 +192,7 @@ CREATE TABLE `extraItem` (
   `maxQuantity` int(11) DEFAULT NULL,
   `unitaryPrice` double DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -229,7 +229,7 @@ CREATE TABLE `guest` (
   `birthYear` int(11) DEFAULT NULL,
   `birthPlace` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -238,7 +238,7 @@ CREATE TABLE `guest` (
 
 LOCK TABLES `guest` WRITE;
 /*!40000 ALTER TABLE `guest` DISABLE KEYS */;
-INSERT INTO `guest` VALUES (1,'Paolino','Rossi','paolo@rossi.it','06-6789458','Roma, Via Rossini 84','Italy','09123','','AK2392029',1,'M',22,'aug',1950,'Casteddu');
+INSERT INTO `guest` VALUES (1,'Paolino','Rossi','paolo@rossi.it','06-6789458',NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `guest` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -617,4 +617,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2011-07-04  8:30:39
+-- Dump completed on 2011-07-05 14:13:48

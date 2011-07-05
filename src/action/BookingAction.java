@@ -307,13 +307,13 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		booking.setRoom(newRoom);	
 	}
 	
-	
+	/*
 	private void updateExtras(Booking booking){
 		List<Extra> checkedExtras = null;
 		
 		checkedExtras = this.getExtraService().findExtrasByIds(this.getBookingExtraIds());
 		booking.setExtras(checkedExtras);
-	}
+	}*/
 	
 	
 	private void updateExtraItems(Structure structure, Booking booking,List<Extra> checkedExtras){
@@ -409,10 +409,9 @@ public class BookingAction extends ActionSupport implements SessionAware{
 	public String saveUpdateBooking(){
 		User user = null;
 		Structure structure = null;
-		Booking oldBooking = null;
 		Guest booker = null;
-		Guest oldGuest = null;
 		Booking booking = null;
+		Convention convention = null;
 		
 		user = (User)session.get("user");
 		structure = user.getStructure();		
@@ -429,73 +428,27 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		//Payments
 		this.filterPayments();
 		booking.setPayments(this.getBooking().getPayments());
-		//Guests
+		//ExtraItems: non c'è bisogno di filtrarli perchè vengono aggiornati ad ogni chiamata di updateExtras		
+		
+		//Guests: da inserire quando ci saranno i guests
+		/*
 		this.filterGuests();	
 		booking.setGuests(this.getBooking().getGuests());
-		
+		*/
 		booker = this.getBooking().getBooker();		
 		booker.setId_structure(structure.getId());
-		
-		
-		oldGuest = this.getGuestService().findGuestById(booker.getId());
-		if(oldGuest == null){
-			//Si tratta di un nuovo guest e devo aggiungerlo
-			this.getGuestService().insertGuest(booker);
-		}else{
-			//Si tratta di un guest esistente e devo fare l'update
-			
-			oldGuest.setAddress(booker.getAddress());
-			oldGuest.setFirstName(booker.getFirstName());
-			oldGuest.setLastName(booker.getLastName());
-			oldGuest.setEmail(booker.getEmail());
-			oldGuest.setNotes(booker.getNotes());
-			booker = oldGuest;
-			this.getGuestService().updateGuest(booker);
-		}
-		
-		
 		booking.setBooker(booker);
 		
-		booking.setStatus(this.getBooking().getStatus());
+		booking.setId_room(this.getBooking().getRoom().getId());
 		
-		oldBooking = this.getBookingService().findBookingById(structure, booking.getId());
-	
-		if(oldBooking==null){
-			//Si tratta di un nuovo booking
-			booking.setId(structure.nextKey());
-			this.getBookingService().insertBooking(structure, booking);
-		}else{
-			//Si tratta di un update di un booking esistente			
-			this.getBookingService().updateBooking(structure, booking);
-		}		
+		convention = booking.getConvention();
+		booking.setId_convention(convention.getId());
 		
-
+		booking.setStatus(this.getBooking().getStatus());		
+		booking.setId_structure(structure.getId());
 		
-		for(Guest each: booking.getGuests()){
-			if(each.getId()== null){
-				each.setId(structure.nextKey());
-			}
-		}	
+		this.getBookingService().saveUpdateBooking(booking);
 		
-		for(Payment each: this.getBooking().getPayments()){
-			if(each.getId()== null){
-				each.setId(structure.nextKey());
-			}
-		}	
-		
-		for(Adjustment each: this.getBooking().getAdjustments()){
-			if(each.getId()==null){
-				each.setId(structure.nextKey());
-			}
-		}
-		
-		for (ExtraItem each : this.getBooking().getExtraItems()) {
-			if (each.getId() == null) {
-				each.setId(structure.nextKey());
-			}
-		}
-		
-		//Salvare anche la convenzione
 		this.getSession().put("booking", booking);
 		this.getMessage().setResult(Message.SUCCESS);
 		this.getMessage().setDescription(getText("bookingAddUpdateSuccessAction"));
@@ -602,11 +555,11 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		//findBookingById deve caricare dal DB anche gli extraItems, adjustments e payments, 
 		//booker e Convention perchè devono essre usati nella JSP
 		
-		booking = this.getBookingService().findBookingById(structure, this.getId());
+		booking = this.getBookingService().findBookingById(this.getId());
 		this.getSession().put("booking", booking);
 		
 		this.setBooking(booking);
-						
+		
 		this.setRooms(this.getRoomService().findRoomsByIdStructure(structure.getId()));
 		//Tutti gli Extra della Struttura
 		this.setExtras(this.getExtraService().findExtrasByIdStructure(structure.getId()));
@@ -654,7 +607,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		
 		user = (User)session.get("user");
 		structure = user.getStructure();
-		this.setBookings(this.getBookingService().findBookingsByIdStructure(structure));
+		this.setBookings(this.getBookingService().findBookingsByIdStructure(structure.getId()));
 		return SUCCESS;		
 	}	
 
@@ -811,7 +764,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		user = (User)this.getSession().get("user");
 		structure = user.getStructure();
 		
-		if(this.getBookingService().deleteBooking(structure,this.getBooking())>0 ){
+		if(this.getBookingService().deleteBooking(this.getBooking().getId())>0 ){
 			this.getMessage().setResult(Message.SUCCESS);
 			this.getMessage().setDescription(getText("bookingDeleteSuccessAction"));
 			return "success";
@@ -822,6 +775,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		}		
 	}	
 	
+	/*
 	@Actions({
 		@Action(value="/checkInBooking",results = {
 				@Result(type ="json",name="success", params={
@@ -840,7 +794,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		user = (User)session.get("user");
 		structure = user.getStructure();
 		
-		aBooking = this.getBookingService().findBookingById(structure, this.getId());
+		aBooking = this.getBookingService().findBookingById(this.getId());
 		if(aBooking!=null){
 			aBooking.setStatus("checkedin");
 			this.getBookingService().updateBooking(structure, aBooking);
@@ -851,8 +805,9 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		this.getMessage().setResult(Message.ERROR);
 		this.getMessage().setDescription(getText("bookingNotFoundAction"));
 		return ERROR;	
-	}
+	}*/
 	
+	/*
 	@Actions({
 		@Action(value="/checkOutBooking",results = {
 				@Result(type ="json",name="success", params={
@@ -871,7 +826,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		user = (User)session.get("user");
 		structure = user.getStructure();
 		
-		aBooking = this.getBookingService().findBookingById(structure, this.getId());
+		aBooking = this.getBookingService().findBookingById(this.getId());
 		if(aBooking!=null){
 			aBooking.setStatus("checkedout");
 			this.getBookingService().updateBooking(structure, aBooking);
@@ -882,7 +837,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		this.getMessage().setResult(Message.ERROR);
 		this.getMessage().setDescription(getText("bookingNotFoundAction"));
 		return ERROR;	
-	}
+	}*/
 	
 	@Actions({
 		@Action(value="/goOnlineBookings",results = {

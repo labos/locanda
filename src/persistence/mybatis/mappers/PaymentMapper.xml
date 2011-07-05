@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="persistence.mybatis.mappers.PaymentMapper"> 
+  <cache />  
+  <insert id="insertPayment" parameterType="model.Payment" useGeneratedKeys="true" keyProperty="id" >
+  insert into payment (date,description,amount,id_booking) 
+  values (#{date}, #{description}, #{amount}, #{id_booking})
+  
+  </insert>
+  
+  <delete id="deletePaymentsByIdBooking" parameterType="int">
+  	delete from payment where id_booking = #{id_booking}
+  </delete>
+  
+  <select id="findPaymentsByIdBooking" parameterType="int" resultType="model.Payment">
+  <include refid="selectPayment"/> where id_booking = #{id_booking}
+  </select>
+  
+  <sql id="selectPayment">
+  select id,date,description,amount,id_booking from payment  
+  </sql>
+    
+</mapper>

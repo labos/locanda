@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="persistence.mybatis.mappers.BookerMapper"> 
+  <cache />  
+  
+  <insert id="insertBooker" parameterType="map" >
+  insert into booker(id_booking,id_guest) values(#{id_booking},#{id_guest})  
+  </insert>  
+    
+  
+  <delete id="deleteBookerByIdBooking" parameterType="int">
+  delete from booker where id_booking = #{id_booking} 
+  </delete>
+  
+  <select id="findIdBookerByIdBooking" resultType="int" parameterType="int">
+  	select id_guest from booker where id_booking = #{id_booking}  
+  </select>  
+    
+</mapper>

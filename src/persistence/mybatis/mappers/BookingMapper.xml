@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="persistence.mybatis.mappers.BookingMapper"> 
+  <cache />  
+  
+  <select id="findBookingById" resultType="model.Booking" parameterType="int">
+  	<include refid="selectBooking"/>  where id = #{id}  
+  </select>
+  
+  
+  <select id="findBookingIdsByIdStructure" resultType="int" parameterType="int">
+  	select id from booking  where id_structure = #{id_structure}  
+  </select>
+  
+  <select id="findBookingsByIdStructure" resultType="model.Booking" parameterType="int">
+  	<include refid="selectBooking"/>  where id_structure = #{id_structure}  
+  </select>
+  
+  <select id="findBookingIdsByIdBooker" resultType="int" parameterType="int">
+  	select id from booking  where id_booker = #{id_booker}  
+  </select>
+  
+  <select id="findBookingsByIdBooker" resultType="model.Booking" parameterType="int">
+  	<include refid="selectBooking"/>  where id_booker = #{id_booker}  
+  </select>
+  
+  <sql id="selectBooking">
+   select id,nrGuests,dateIn,dateOut,roomSubtotal,extraSubtotal,notes,status,id_convention,id_room,id_structure from booking
+  </sql>
+  
+  <insert id="insertBooking" parameterType="model.Booking" useGeneratedKeys="true" keyProperty="id">
+  	insert into booking(nrGuests,dateIn,dateOut,roomSubtotal,extraSubtotal,notes,status,id_convention,id_room,id_structure)  
+  	values(#{nrGuests},#{dateIn},#{dateOut},#{roomSubtotal},#{extraSubtotal},#{notes},#{status},#{id_convention},#{id_room},#{id_structure})
+  </insert>
+  
+  <update id="updateBooking" parameterType="model.Booking">
+  	update booking set nrGuests = #{nrGuests},dateIn = #{dateIn},dateOut = #{dateOut},roomSubtotal = #{roomSubtotal},extraSubtotal = #{extraSubtotal},
+  	notes = #{notes},status = #{status},id_convention = #{id_convention},id_room = #{id_room},id_structure = #{id_structure}
+  	where id = #{id}
+  </update>
+  
+  <delete id="deleteBooking" parameterType="int">  
+   delete from booking where id = #{id}  
+  </delete>
+    
+</mapper>

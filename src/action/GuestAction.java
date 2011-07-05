@@ -160,7 +160,7 @@ public class GuestAction extends ActionSupport implements SessionAware{
 			years.add(i);
 		}
 		this.setGuest(this.getGuestService().findGuestById(this.getId())); 
-		this.setBookings(this.getBookingService().findBookingsByGuestId(structure,this.getId()));
+		this.setBookings(this.getBookingService().findBookingsByIdBooker(this.getId()));
 		
 		return SUCCESS;
 	}
