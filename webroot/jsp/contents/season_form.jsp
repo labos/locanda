@@ -7,7 +7,7 @@
   <form method="post" action="saveUpdateSeason.action" class="yform json" role="application"><input type="hidden" name="redirect_form" value="findAllSeasons.action?sect=settings" /> 
 	<input type="hidden" name="season.id" value="<s:property value="season.id"/>"/>
 	<fieldset>
-	  <legend>Seasons</legend>
+	  <legend><s:text name="seasons"/></legend>
 		<div class="subcolumns"><a href="#top_anchor" class="add_period" title="add period"><s:text name="periodAddNew"/></a></div>
 		<div class="subcolumns">
 		  <div class="c33l">
@@ -26,13 +26,13 @@
 		<div class="subcolumns period">
 		  <div class="c25l">
 		    <div class="subcl type-text">
-		      <span>From:</span> 
+		      <span><s:text name="from"/>:</span> 
 		      <input type="text" class="datepicker required" name="periods[0].startDate" value="<s:date name="season.periods[0].startDate" format="%{#session.datePattern}"/>" style="display: inline;"/>
 		    </div>
 		  </div>
 		  <div class="c20l">
 		    <div class="subcl type-text">
-		      <span>To:</span> 
+		      <span><s:text name="to"/>:</span> 
 		      <input type="text"class="datepicker required" name="periods[0].endDate" value="<s:date name="season.periods[0].endDate" format="%{#session.datePattern}"/>"style="display: inline;"/>
 		    </div>
 		  </div>
@@ -76,23 +76,3 @@
 		<a name="top_anchor"></a>
 	</fieldset>
   </form>
-<!--  Hidden new season  -->
-  <div class="subcolumns period" id="to_add_period" style="display: none;">
-    <div class="c25l">
-	  <div class="subcl type-text">
-	    <span><s:text name="from"/>:</span> 
-	    <input type="text" class="adddatepicker required" name="periods[__PVALUE__].startDate" value="" style="display: inline;"/>
-	  </div>
-    </div>
-    <div class="c20l">
-      <div class="subcl type-text">
-        <span><s:text name="to"/>:</span>
-        <input type="text" class="adddatepicker required" name="periods[__PVALUE__].endDate" value="" style="display: inline;"/>
-      </div>
-    </div>
-    <div class="c10l">
-      <label>&nbsp;</label>
-      <a href="#" class="erase_period" title="erase"><s:text name="periodDelete"/></a>
-    </div>
-  </div>
-<!--  End Hidden new season  -->
