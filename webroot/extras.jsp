@@ -15,11 +15,11 @@
         <div id="col3" role="main">
           <div id="col3_content" class="clearfix">
           	<div class="header_section">
-          	  <span class="name_section"><s:text name="manageExtras" /></span>
+          	  <span class="name_section"><s:text name="manageExtras"/></span>
       	 	</div>
       	
       	    <div>
-              <button class="btn_add_form btn_addExtra"><s:text name="addNew" /></button>
+              <button class="btn_add_form btn_addExtra"><s:text name="addNew"/></button>
             </div>
             <div class="yform hideform">
           	  <jsp:include page="jsp/contents/extra_form.jsp" />
@@ -34,7 +34,7 @@
                   <input type="hidden" name="extra.id" value="<s:property value="#eachExtra.id"/>"/> 
                   <legend class="title_season">
               		<a href="goUpdateExtra.action?sect=accomodation&extra.id=<s:property value="#eachExtra.id"/>"><s:property value="#eachExtra.name"/></a>
-              		<a href="goUpdateExtra.action?sect=accomodation&extra.id=<s:property value="#eachExtra.id"/>"><img src="images/sign-up-icon.png" alt="edit" /></a>
+              		<a href="goUpdateExtra.action?sect=accomodation&extra.id=<s:property value="#eachExtra.id"/>"><img src="images/sign-up-icon.png" alt="edit"/></a>
               	  </legend>
                   <div class="subcolumns">
       		 		<div class="c40l">

@@ -7,25 +7,20 @@
 <jsp:include page="jsp/layout/header_menu.jsp" />
       <div id="main">
         <!-- begin: #col1 - first float column -->
-
         <div id="col1" role="complementary">
-          <div id="col1_content" class="clearfix">
-          </div>
+          <div id="col1_content" class="clearfix"></div>
         </div><!-- end: #col1 -->
         <!-- begin: #col3 static column -->
-
         <div id="col3" role="main">
           <div id="col3_content" class="clearfix">
-          <div class="header_section">
-          <s:url action="goAddNewBooking.action?sect=planner" var="urlGoAddNewBooking"></s:url>
-          
-          <span class="name_section"><s:text name="planner" /></span>
-               <a class="btn_right_<s:property value="#request.locale.getLanguage()" />" href="<s:property value="urlGoAddNewBooking"/>" title="Add new booking" /></a>
-               </div>
+            <div class="header_section">
+              <s:url action="goAddNewBooking.action?sect=planner" var="urlGoAddNewBooking"></s:url>
+              <span class="name_section"><s:text name="planner" /></span>
+              <a class="btn_right_<s:property value="#request.locale.getLanguage()" />" href="<s:property value="urlGoAddNewBooking"/>" title="Add new booking"/></a>
+            </div>
             <div id='calendar'></div>
-
-            <div id="event_edit_container" >
-            <div style="text-align: center"><img src="images/loading.gif" /></div>
+            <div id="event_edit_container">
+              <div style="text-align: center"><img src="images/loading.gif"/></div>
             </div>
           </div>
 <jsp:include page="jsp/layout/footer.jsp" />     

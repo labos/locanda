@@ -8,14 +8,12 @@
 
 <jsp:include page="jsp/layout/header_menu.jsp" />
 
-<link rel='stylesheet' type='text/css' href='css/screen/basemod_2col_left_tree.css' />
-
   <div id="main">
       
     <div id="col2" role="complementary">
       <div id="col2_content" class="clearfix">
         <div class="header_section">
-       	  <span class="name_section">Extra Price Lists</span>
+       	  <span class="name_section"><s:text name="extraPriceList"/></span>
       	</div>
       </div>
     </div>
@@ -34,11 +32,11 @@
       <div class="priceTable">
         <form class="yform json full noBorder" id="priceList_form" action="updateExtraPriceListItems.action">
 	  	  <fieldset>
-          	<legend>Click to edit the Price List -> <a href="#" id="priceList_edit"><img src="images/sign-up-icon.png" alt="edit" /></a> </legend>
+          	<legend><s:text name="priceListEdit"/> -> <a href="#" id="priceList_edit"><img src="images/sign-up-icon.png" alt="edit"/></a></legend>
           	<table class="full priceList_table">
           	  <thead>
           	  	<tr>
-          		  <th>Extra</th><th>Price</th>
+          		  <th><s:text name="extra"/></th><th><s:text name="price"/></th>
           		</tr>
           	  </thead>
           	  <tbody>

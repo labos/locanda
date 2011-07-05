@@ -103,7 +103,7 @@ public class RoomAction extends ActionSupport implements SessionAware{
 		//Setting tree node for rooms folding
 		for (RoomType eachRoomType : this.getRoomTypes()) {							
 			//build first level nodes - room types
-			this.treeNodes.add(TreeNode.buildNode(eachRoomType.getName().toString(), "?roomTypeId=" + eachRoomType.getId()));
+			this.treeNodes.add(TreeNode.buildNode(eachRoomType.getName().toString(), "?roomTypeId=" + eachRoomType.getId() + "&sect=accomodation"));
 		}
 		return SUCCESS;
 	}

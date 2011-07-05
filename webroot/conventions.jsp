@@ -26,10 +26,10 @@
           <div>
 		    <form method="post" action="deleteConvention.action" class="yform json full" role="application">
               <fieldset>
-                <input type="hidden" name="redirect_form" value="findAllConventions.action?sect=settings" />
+                <input type="hidden" name="redirect_form" value="findAllConventions.action?sect=settings"/>
                 <legend class="title_season">
                 	<a href="goUpdateConvention.action?sect=settings&convention.id=<s:property value="#eachConvention.id"/>"><s:property value="#eachConvention.name"/></a>
-                	<a href="goUpdateConvention.action?sect=settings&convention.id=<s:property value="#eachConvention.id"/>"><img src="images/sign-up-icon.png" alt="edit" /></a>
+                	<a href="goUpdateConvention.action?sect=settings&convention.id=<s:property value="#eachConvention.id"/>"><img src="images/sign-up-icon.png" alt="edit"/></a>
                 </legend>
 		    	<div class="subcolumns">
       		 	  <div class="c40l">
