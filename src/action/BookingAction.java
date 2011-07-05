@@ -573,16 +573,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		return SUCCESS;
 	}
 	
-	/*
-	private List<Integer> calculateBookingExtraIds(){
-		List<Integer> ret = null;
-		
-		ret = new ArrayList<Integer>();
-		for(Extra each: this.getBooking().getExtras()){
-			ret.add(each.getId());
-		}
-		return ret;
-	}*/
+	
 	
 	@Actions({
 		@Action(value="/findAllBookings",results = {
@@ -726,6 +717,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		this.getBooking().setPayments(paymentsWithoutNulls);		
 	}
 	
+	
 	private void filterGuests(){
 		List<Guest> guestWithoutNulls = null;
 		
@@ -752,10 +744,10 @@ public class BookingAction extends ActionSupport implements SessionAware{
 	})
 	public String deleteBooking() {
 		User user = null;
-		Structure structure = null;
+		
 		
 		user = (User)this.getSession().get("user");
-		structure = user.getStructure();
+		
 		
 		if(this.getBookingService().deleteBooking(this.getBooking().getId())>0 ){
 			this.getMessage().setResult(Message.SUCCESS);
@@ -768,70 +760,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		}		
 	}	
 	
-	/*
-	@Actions({
-		@Action(value="/checkInBooking",results = {
-				@Result(type ="json",name="success", params={
-						"root","message"
-				}),
-				@Result(type ="json",name="error", params={
-						"root","message"
-				})
-		})
-	})
-	public String checkInBooking() {
-		User user = null;
-		Structure structure = null;
-		Booking aBooking = null;
 		
-		user = (User)session.get("user");
-		structure = user.getStructure();
-		
-		aBooking = this.getBookingService().findBookingById(this.getId());
-		if(aBooking!=null){
-			aBooking.setStatus("checkedin");
-			this.getBookingService().updateBooking(structure, aBooking);
-			this.getMessage().setResult(Message.SUCCESS);
-			this.getMessage().setDescription(getText("bookingCheckInSuccessAction"));
-			return SUCCESS;
-		}
-		this.getMessage().setResult(Message.ERROR);
-		this.getMessage().setDescription(getText("bookingNotFoundAction"));
-		return ERROR;	
-	}*/
-	
-	/*
-	@Actions({
-		@Action(value="/checkOutBooking",results = {
-				@Result(type ="json",name="success", params={
-						"root","message"
-				}),
-				@Result(type ="json",name="error", params={
-						"root","message"
-				})
-		})
-	})
-	public String checkOutBooking() {
-		User user = null;
-		Structure structure = null;
-		Booking aBooking = null;
-		
-		user = (User)session.get("user");
-		structure = user.getStructure();
-		
-		aBooking = this.getBookingService().findBookingById(this.getId());
-		if(aBooking!=null){
-			aBooking.setStatus("checkedout");
-			this.getBookingService().updateBooking(structure, aBooking);
-			this.getMessage().setResult(Message.SUCCESS);
-			this.getMessage().setDescription(getText("bookingCheckOutSuccessAction"));
-			return SUCCESS;
-		}
-		this.getMessage().setResult(Message.ERROR);
-		this.getMessage().setDescription(getText("bookingNotFoundAction"));
-		return ERROR;	
-	}*/
-	
 	@Actions({
 		@Action(value="/goOnlineBookings",results = {
 				@Result(name="success",location="/onlineBookings.jsp")

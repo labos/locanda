@@ -14,17 +14,10 @@
   	select id from booking  where id_structure = #{id_structure}  
   </select>
   
-  <select id="findBookingsByIdStructure" resultType="model.Booking" parameterType="int">
-  	<include refid="selectBooking"/>  where id_structure = #{id_structure}  
-  </select>
   
   <select id="findBookingIdsByIdBooker" resultType="int" parameterType="int">
-  	select id from booking  where id_booker = #{id_booker}  
-  </select>
-  
-  <select id="findBookingsByIdBooker" resultType="model.Booking" parameterType="int">
-  	<include refid="selectBooking"/>  where id_booker = #{id_booker}  
-  </select>
+  	select id_booking from booker where id_guest = #{id_booker}  
+  </select>  
   
   <sql id="selectBooking">
    select id,nrGuests,dateIn,dateOut,roomSubtotal,extraSubtotal,notes,status,id_convention,id_room,id_structure from booking
