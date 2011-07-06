@@ -19,6 +19,8 @@ import model.listini.Season;
 public class ConventionServiceImpl implements ConventionService{
 	@Autowired
 	private ConventionMapper conventionMapper = null;
+	@Autowired
+	private RoomPriceListService roomPriceListService = null;
 
 	
 	
@@ -36,6 +38,7 @@ public class ConventionServiceImpl implements ConventionService{
 
 	@Override
 	public Integer deleteConvention(Integer id) {
+		this.getRoomPriceListService().deleteRoomPriceListsByIdConvention(id);
 		return this.getConventionMapper().deleteConvention(id);
 	}
 
@@ -60,6 +63,16 @@ public class ConventionServiceImpl implements ConventionService{
 
 	public void setConventionMapper(ConventionMapper conventionMapper) {
 		this.conventionMapper = conventionMapper;
+	}
+
+
+	public RoomPriceListService getRoomPriceListService() {
+		return roomPriceListService;
+	}
+
+
+	public void setRoomPriceListService(RoomPriceListService roomPriceListService) {
+		this.roomPriceListService = roomPriceListService;
 	}
 	
 	

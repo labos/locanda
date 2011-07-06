@@ -15,6 +15,7 @@ import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import service.ConventionService;
+import service.RoomPriceListService;
 import service.StructureService;
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -28,6 +29,7 @@ public class ConventionAction extends ActionSupport implements SessionAware{
 	private StructureService structureService = null;
 	@Autowired
 	private ConventionService conventionService = null;
+	
 	
 	
 	@Actions({
@@ -160,5 +162,8 @@ public class ConventionAction extends ActionSupport implements SessionAware{
 	public void setConventionService(ConventionService conventionService) {
 		this.conventionService = conventionService;
 	}
+
+	
+	
 
 }

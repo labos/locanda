@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="persistence.mybatis.mappers.RoomPriceListItemMapper"> 
+  <cache />
+  <insert id="insertRoomPriceListItem" parameterType="model.listini.RoomPriceListItem" useGeneratedKeys="true" keyProperty="id">
+  	insert into roomPriceListItem(numGuests,priceSunday,priceMonday,priceTuesday, priceWednesday,priceThursday,priceFriday,priceSaturday,id_roomPriceList) 
+  	values(#{numGuests},#{priceSunday},#{priceMonday},#{priceTuesday},#{priceWednesday},#{priceThursday},#{priceFriday},#{priceSaturday},#{id_roomPriceList})  
+  </insert>
+  <delete id="deleteRoomPriceListItemsByIdRoomPriceList" parameterType="int">
+  	delete from roomPriceListItem where id_roomPriceList = #{id_roomPriceList}
+  </delete>
+  <select id="findRoomPriceListItemsByIdRoomPriceList" resultType="model.listini.RoomPriceListItem" parameterType="int">
+  select 
+  id,numGuests,priceSunday,priceMonday,priceTuesday, priceWednesday,priceThursday,priceFriday,priceSaturday,id_roomPriceList 
+  from  roomPriceListItem 
+  where id_roomPriceList = #{id_roomPriceList}  
+  </select>
+  <update id="updateRoomPriceListItem" parameterType="model.listini.RoomPriceListItem">
+  update roomPriceListItem 
+  set priceSunday = #{priceSunday},priceMonday = #{priceMonday},priceTuesday = #{priceTuesday}, priceWednesday = #{priceWednesday},priceThursday = #{priceThursday},priceFriday = #{priceFriday},priceSaturday = #{priceSaturday}  
+  where id = #{id}	
+  </update>
+      
+</mapper>

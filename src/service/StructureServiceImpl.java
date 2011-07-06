@@ -132,34 +132,41 @@ public class StructureServiceImpl implements StructureService{
 			for (RoomType eachRoomType : this.getRoomTypeService().findRoomTypesByIdStructure(structure.getId())) {
 				for (Convention eachConvention : this.getConventionService().findConventionsByIdStructure(structure.getId())) {
 					newRoomPriceList = new RoomPriceList();
-					newRoomPriceList.setId(structure.nextKey());
+				  //newRoomPriceList.setId(structure.nextKey());
+					newRoomPriceList.setId_structure(structure.getId());
 					newRoomPriceList.setSeason(eachSeason);
+					newRoomPriceList.setId_season(eachSeason.getId());
 					newRoomPriceList.setRoomType(eachRoomType);
+					newRoomPriceList.setId_roomType(eachRoomType.getId());
 					newRoomPriceList.setConvention(eachConvention);
+					newRoomPriceList.setId_convention(eachConvention.getId());
 					List<RoomPriceListItem> roomItems = new ArrayList<RoomPriceListItem>();
 					for (int i=1; i<=eachRoomType.getMaxGuests(); i++) {
 						newRoomPriceListItem = new RoomPriceListItem();
-						newRoomPriceListItem.setId(structure.nextKey());
+					  //newRoomPriceListItem.setId(structure.nextKey());
 						newRoomPriceListItem.setNumGuests(i);
-						prices = new Double[7];
-						for (int y=0; y<7; y++) {
-							prices[y] = 0.0;
-						}
-						newRoomPriceListItem.setPrices(prices);
+						newRoomPriceListItem.setPriceMonday(0.0);// lun
+						newRoomPriceListItem.setPriceTuesday(0.0);// mar
+						newRoomPriceListItem.setPriceWednesday(0.0);// mer
+						newRoomPriceListItem.setPriceThursday(0.0);// gio
+						newRoomPriceListItem.setPriceFriday(0.0);// ven
+						newRoomPriceListItem.setPriceSaturday(0.0);// sab
+						newRoomPriceListItem.setPriceSunday(0.0);// dom
 						roomItems.add(newRoomPriceListItem);
 					}
 					newRoomPriceList.setItems(roomItems);
 					//structure.addRoomPriceList(newRoomPriceList);
-					this.getRoomPriceListService().insertRoomPriceList(structure, newRoomPriceList);
+					//this.getRoomPriceListService().insertRoomPriceList(structure, newRoomPriceList);
+					this.getRoomPriceListService().insertRoomPriceList(newRoomPriceList);
 					newExtraPriceList = new ExtraPriceList();
-					newExtraPriceList.setId(structure.nextKey());
+					//newExtraPriceList.setId(structure.nextKey());
 					newExtraPriceList.setSeason(eachSeason);
 					newExtraPriceList.setRoomType(eachRoomType);
 					newExtraPriceList.setConvention(eachConvention);
 					List<ExtraPriceListItem> extraItems = new ArrayList<ExtraPriceListItem>();
 					for (Extra eachExtra : this.getExtraService().findExtrasByIdStructure(structure.getId())) {
 						newExtraPriceListItem = new ExtraPriceListItem();
-						newExtraPriceListItem.setId(structure.nextKey());
+						//newExtraPriceListItem.setId(structure.nextKey());
 						newExtraPriceListItem.setExtra(eachExtra);
 						newExtraPriceListItem.setPrice(price);
 						extraItems.add(newExtraPriceListItem);
@@ -478,14 +485,14 @@ public class StructureServiceImpl implements StructureService{
 	public void buildStructure(Structure structure) {
 
 		//this.buildRoomFacilities(structure);
-		this.buildRoomTypes(structure);
-		this.buildRooms(structure);
-		this.buildGuests(structure);
-		this.buildSeasons(structure);
-		this.buildConventions(structure);
-		this.buildRoomPriceLists(structure);
-		this.buildExtras(structure);
-		this.buildExtraPriceLists(structure);
+		//this.buildRoomTypes(structure);
+		//this.buildRooms(structure);
+		//this.buildGuests(structure);
+		//this.buildSeasons(structure);
+		//this.buildConventions(structure);
+//		this.buildRoomPriceLists(structure);
+		//this.buildExtras(structure);
+		//this.buildExtraPriceLists(structure);
 		//this.buildBookings(structure);
 		
 	}
@@ -665,6 +672,7 @@ public class StructureServiceImpl implements StructureService{
 
 	}
 
+	/*
 	private void buildConventions(Structure structure) {
 		Convention convention = null;
 
@@ -678,7 +686,7 @@ public class StructureServiceImpl implements StructureService{
 		convention.setId_structure(structure.getId());
 		this.getConventionService().insertConvention(convention);
 
-	}
+	}*/
 
 	private void buildExtraPriceLists(Structure structure) {
 		ExtraPriceList extraPriceList = null;
@@ -767,7 +775,7 @@ public class StructureServiceImpl implements StructureService{
 				extraPriceList);
 	}
 
-	private void buildRoomPriceLists(Structure structure) {
+	/*private void buildRoomPriceLists(Structure structure) {
 		RoomPriceList roomPriceList = null;
 		RoomPriceListItem roomPriceListItem = null;
 		Double[] prices = null;
@@ -784,15 +792,15 @@ public class StructureServiceImpl implements StructureService{
 		roomPriceListItem = new RoomPriceListItem();
 		roomPriceListItem.setId(structure.nextKey());
 		roomPriceListItem.setNumGuests(1);
-		prices = new Double[7];
-		prices[0] = 50.0;// lun
-		prices[1] = 50.0;// mar
-		prices[2] = 50.0;// mer
-		prices[3] = 50.0;// gio
-		prices[4] = 50.0;// ven
-		prices[5] = 50.0;// sab
-		prices[6] = 50.0;// dom
-		roomPriceListItem.setPrices(prices);
+		
+		roomPriceListItem.setPriceMonday(50.0);// lun
+		roomPriceListItem.setPriceTuesday(50.0);// mar
+		roomPriceListItem.setPriceWednesday(50.0);// mer
+		roomPriceListItem.setPriceThursday(50.0);// gio
+		roomPriceListItem.setPriceFriday(50.0);// ven
+		roomPriceListItem.setPriceSaturday(50.0);// sab
+		roomPriceListItem.setPriceSunday(50.0);// dom
+		
 		roomPriceList.addItem(roomPriceListItem);
 		this.getRoomPriceListService().insertRoomPriceList(structure,
 				roomPriceList);
@@ -809,15 +817,13 @@ public class StructureServiceImpl implements StructureService{
 		roomPriceListItem = new RoomPriceListItem();
 		roomPriceListItem.setId(structure.nextKey());
 		roomPriceListItem.setNumGuests(1);
-		prices = new Double[7];
-		prices[0] = 80.0;// lun
-		prices[1] = 80.0;// mar
-		prices[2] = 80.0;// mer
-		prices[3] = 80.0;// gio
-		prices[4] = 80.0;// ven
-		prices[5] = 80.0;// sab
-		prices[6] = 80.0;// dom
-		roomPriceListItem.setPrices(prices);
+		roomPriceListItem.setPriceMonday(80.0);// lun
+		roomPriceListItem.setPriceTuesday(80.0);// mar
+		roomPriceListItem.setPriceWednesday(80.0);// mer
+		roomPriceListItem.setPriceThursday(80.0);// gio
+		roomPriceListItem.setPriceFriday(80.0);// ven
+		roomPriceListItem.setPriceSaturday(80.0);// sab
+		roomPriceListItem.setPriceSunday(80.0);// dom
 		roomPriceList.addItem(roomPriceListItem);
 		this.getRoomPriceListService().insertRoomPriceList(structure,
 				roomPriceList);
@@ -834,29 +840,25 @@ public class StructureServiceImpl implements StructureService{
 		roomPriceListItem = new RoomPriceListItem();
 		roomPriceListItem.setId(structure.nextKey());
 		roomPriceListItem.setNumGuests(1);
-		prices = new Double[7];
-		prices[0] = 80.0;// lun
-		prices[1] = 80.0;// mar
-		prices[2] = 80.0;// mer
-		prices[3] = 80.0;// gio
-		prices[4] = 80.0;// ven
-		prices[5] = 80.0;// sab
-		prices[6] = 80.0;// dom
-		roomPriceListItem.setPrices(prices);
+		roomPriceListItem.setPriceMonday(80.0);// lun
+		roomPriceListItem.setPriceTuesday(80.0);// mar
+		roomPriceListItem.setPriceWednesday(80.0);// mer
+		roomPriceListItem.setPriceThursday(80.0);// gio
+		roomPriceListItem.setPriceFriday(80.0);// ven
+		roomPriceListItem.setPriceSaturday(80.0);// sab
+		roomPriceListItem.setPriceSunday(80.0);// dom
 		roomPriceList.addItem(roomPriceListItem);
 
 		roomPriceListItem = new RoomPriceListItem();
 		roomPriceListItem.setId(structure.nextKey());
 		roomPriceListItem.setNumGuests(2);
-		prices = new Double[7];
-		prices[0] = 100.0;// lun
-		prices[1] = 100.0;// mar
-		prices[2] = 100.0;// mer
-		prices[3] = 100.0;// gio
-		prices[4] = 100.0;// ven
-		prices[5] = 100.0;// sab
-		prices[6] = 100.0;// dom
-		roomPriceListItem.setPrices(prices);
+		roomPriceListItem.setPriceMonday(100.0);// lun
+		roomPriceListItem.setPriceTuesday(100.0);// mar
+		roomPriceListItem.setPriceWednesday(100.0);// mer
+		roomPriceListItem.setPriceThursday(100.0);// gio
+		roomPriceListItem.setPriceFriday(100.0);// ven
+		roomPriceListItem.setPriceSaturday(100.0);// sab
+		roomPriceListItem.setPriceSunday(100.0);// dom
 		roomPriceList.addItem(roomPriceListItem);
 
 		// structure.addRoomPriceList(roomPriceList);
@@ -875,34 +877,30 @@ public class StructureServiceImpl implements StructureService{
 		roomPriceListItem = new RoomPriceListItem();
 		roomPriceListItem.setId(structure.nextKey());
 		roomPriceListItem.setNumGuests(1);
-		prices = new Double[7];
-		prices[0] = 90.0;// lun
-		prices[1] = 90.0;// mar
-		prices[2] = 90.0;// mer
-		prices[3] = 90.0;// gio
-		prices[4] = 90.0;// ven
-		prices[5] = 90.0;// sab
-		prices[6] = 90.0;// dom
-		roomPriceListItem.setPrices(prices);
+		roomPriceListItem.setPriceMonday(90.0);// lun
+		roomPriceListItem.setPriceTuesday(90.0);// mar
+		roomPriceListItem.setPriceWednesday(90.0);// mer
+		roomPriceListItem.setPriceThursday(90.0);// gio
+		roomPriceListItem.setPriceFriday(90.0);// ven
+		roomPriceListItem.setPriceSaturday(90.0);// sab
+		roomPriceListItem.setPriceSunday(90.0);// dom
 		roomPriceList.addItem(roomPriceListItem);
 
 		roomPriceListItem = new RoomPriceListItem();
 		roomPriceListItem.setId(structure.nextKey());
 		roomPriceListItem.setNumGuests(2);
-		prices = new Double[7];
-		prices[0] = 130.0;// lun
-		prices[1] = 130.0;// mar
-		prices[2] = 130.0;// mer
-		prices[3] = 130.0;// gio
-		prices[4] = 130.0;// ven
-		prices[5] = 130.0;// sab
-		prices[6] = 130.0;// dom
-		roomPriceListItem.setPrices(prices);
+		roomPriceListItem.setPriceMonday(130.0);// lun
+		roomPriceListItem.setPriceTuesday(130.0);// mar
+		roomPriceListItem.setPriceWednesday(130.0);// mer
+		roomPriceListItem.setPriceThursday(130.0);// gio
+		roomPriceListItem.setPriceFriday(130.0);// ven
+		roomPriceListItem.setPriceSaturday(130.0);// sab
+		roomPriceListItem.setPriceSunday(130.0);// dom
 		roomPriceList.addItem(roomPriceListItem);
 
 		this.getRoomPriceListService().insertRoomPriceList(structure,
 				roomPriceList);
-	}
+	}*/
 
 	
 

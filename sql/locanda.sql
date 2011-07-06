@@ -53,7 +53,7 @@ CREATE TABLE `booker` (
   `id_booking` int(11) DEFAULT NULL,
   `id_guest` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -85,7 +85,7 @@ CREATE TABLE `booking` (
   `id_convention` int(11) DEFAULT NULL,
   `id_room` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -135,7 +135,7 @@ CREATE TABLE `convention` (
   `activationCode` varchar(255) DEFAULT NULL,
   `id_structure` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -144,7 +144,6 @@ CREATE TABLE `convention` (
 
 LOCK TABLES `convention` WRITE;
 /*!40000 ALTER TABLE `convention` DISABLE KEYS */;
-INSERT INTO `convention` VALUES (1,'agevolazione Default','Default convention','XXX',1),(3,'agevolazione Default','Default convention','XXX',1),(4,'agevolazione Default','Default convention','XXX',1),(5,'agevolazione Default','Default convention','XXX',1),(6,'agevolazione Default','Default convention','XXX',1),(7,'agevolazione Default','Default convention','XXX',1),(8,'agevolazione Default','Default convention','XXX',1),(9,'agevolazione Default','Default convention','XXX',1),(10,'agevolazione Default','Default convention','XXX',1),(11,'agevolazione Default','Default convention','XXX',1),(12,'agevolazione Default','Default convention','XXX',1),(13,'agevolazione Default','Default convention','XXX',1),(14,'agevolazione Default','Default convention','XXX',1),(15,'agevolazione Default','Default convention','XXX',1),(16,'agevolazione Default','Default convention','XXX',1);
 /*!40000 ALTER TABLE `convention` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -173,7 +172,6 @@ CREATE TABLE `extra` (
 
 LOCK TABLES `extra` WRITE;
 /*!40000 ALTER TABLE `extra` DISABLE KEYS */;
-INSERT INTO `extra` VALUES (1,'Breakfast','per Night','per Person',1,'breakfast description',1),(2,'Parking','per Night','per Room',1,'Parking description',NULL);
 /*!40000 ALTER TABLE `extra` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -192,7 +190,7 @@ CREATE TABLE `extraItem` (
   `maxQuantity` int(11) DEFAULT NULL,
   `unitaryPrice` double DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -229,7 +227,7 @@ CREATE TABLE `guest` (
   `birthYear` int(11) DEFAULT NULL,
   `birthPlace` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -238,7 +236,6 @@ CREATE TABLE `guest` (
 
 LOCK TABLES `guest` WRITE;
 /*!40000 ALTER TABLE `guest` DISABLE KEYS */;
-INSERT INTO `guest` VALUES (1,'Paolino','Rossi','paolo@rossi.it','06-6789458',NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `guest` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -283,7 +280,7 @@ CREATE TABLE `period` (
   PRIMARY KEY (`id`),
   KEY `fk_period_1` (`id_season`),
   CONSTRAINT `fk_period_1` FOREIGN KEY (`id_season`) REFERENCES `season` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=70 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -292,7 +289,6 @@ CREATE TABLE `period` (
 
 LOCK TABLES `period` WRITE;
 /*!40000 ALTER TABLE `period` DISABLE KEYS */;
-INSERT INTO `period` VALUES (68,'2011-09-01','2011-12-31',46),(69,'2011-05-01','2011-08-31',47);
 /*!40000 ALTER TABLE `period` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -319,7 +315,6 @@ CREATE TABLE `room` (
 
 LOCK TABLES `room` WRITE;
 /*!40000 ALTER TABLE `room` DISABLE KEYS */;
-INSERT INTO `room` VALUES (13,'101','',2,1),(14,'102','',2,1);
 /*!40000 ALTER TABLE `room` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -373,6 +368,63 @@ LOCK TABLES `roomImage` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `roomPriceList`
+--
+
+DROP TABLE IF EXISTS `roomPriceList`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `roomPriceList` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_roomType` int(11) DEFAULT NULL,
+  `id_season` int(11) DEFAULT NULL,
+  `id_convention` int(11) DEFAULT NULL,
+  `id_structure` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=315 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `roomPriceList`
+--
+
+LOCK TABLES `roomPriceList` WRITE;
+/*!40000 ALTER TABLE `roomPriceList` DISABLE KEYS */;
+/*!40000 ALTER TABLE `roomPriceList` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `roomPriceListItem`
+--
+
+DROP TABLE IF EXISTS `roomPriceListItem`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `roomPriceListItem` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `numGuests` int(11) DEFAULT NULL,
+  `priceSunday` double DEFAULT NULL,
+  `priceMonday` double DEFAULT NULL,
+  `priceTuesday` double DEFAULT NULL,
+  `priceWednesday` double DEFAULT NULL,
+  `priceThursday` double DEFAULT NULL,
+  `priceFriday` double DEFAULT NULL,
+  `priceSaturday` double DEFAULT NULL,
+  `id_roomPriceList` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=472 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `roomPriceListItem`
+--
+
+LOCK TABLES `roomPriceListItem` WRITE;
+/*!40000 ALTER TABLE `roomPriceListItem` DISABLE KEYS */;
+/*!40000 ALTER TABLE `roomPriceListItem` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `roomType`
 --
 
@@ -395,7 +447,6 @@ CREATE TABLE `roomType` (
 
 LOCK TABLES `roomType` WRITE;
 /*!40000 ALTER TABLE `roomType` DISABLE KEYS */;
-INSERT INTO `roomType` VALUES (2,'Singola',1,1,NULL),(3,'Doppia',2,1,NULL);
 /*!40000 ALTER TABLE `roomType` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -461,7 +512,7 @@ CREATE TABLE `season` (
   `year` int(11) DEFAULT NULL,
   `id_structure` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -470,7 +521,6 @@ CREATE TABLE `season` (
 
 LOCK TABLES `season` WRITE;
 /*!40000 ALTER TABLE `season` DISABLE KEYS */;
-INSERT INTO `season` VALUES (46,'Bassa Stagione',2011,1),(47,'Alta Stagione',2011,1);
 /*!40000 ALTER TABLE `season` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -617,4 +667,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2011-07-05 14:13:48
+-- Dump completed on 2011-07-06 16:06:00

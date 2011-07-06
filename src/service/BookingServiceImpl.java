@@ -200,8 +200,10 @@ public class BookingServiceImpl implements BookingService {
 		for(Date aBookingDate: bookingDates){
 			season = this.getSeasonService().findSeasonByDate(structure.getId(),aBookingDate );
 			listinoCameraDelGiorno =
-				this.getRoomPriceListService().findRoomPriceListByStructureAndSeasonAndRoomTypeAndConvention(
-						structure, season, booking.getRoom().getRoomType(), booking.getConvention());
+//				this.getRoomPriceListService().findRoomPriceListByStructureAndSeasonAndRoomTypeAndConvention(
+//						structure, season, booking.getRoom().getRoomType(), booking.getConvention());
+				this.getRoomPriceListService().findRoomPriceListByIdStructureAndIdSeasonAndIdRoomTypeAndIdConvention(
+						structure.getId(), season.getId(), booking.getRoom().getRoomType().getId(), booking.getConvention().getId());
 			calendar = Calendar.getInstance();
 			calendar.setTime(aBookingDate);
 			dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);

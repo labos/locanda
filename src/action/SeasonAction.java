@@ -135,7 +135,7 @@ public class SeasonAction extends ActionSupport implements SessionAware {
 	})
 	public String deleteSeason() {
 		try{
-			this.getSeasonService().deleteSeason(this.season.getId());
+			this.getSeasonService().deleteSeason(this.getSeason().getId());
 			this.getMessage().setResult(Message.SUCCESS);
 			this.getMessage().setDescription(getText("seasonDeleteSuccessAction"));
 			return SUCCESS;

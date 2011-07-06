@@ -1,9 +1,10 @@
 package model.listini;
 
-public class RoomPriceListItem {
+import java.io.Serializable;
+
+public class RoomPriceListItem implements Serializable{
 	private Integer id;
 	private Integer numGuests;
-	private Double[] prices = new Double[7]; 
 	private Double priceSunday = 0.0;//dayOfWeek 1
 	private Double priceMonday = 0.0;//dayOfWeek 2
 	private Double priceTuesday = 0.0;//dayOfWeek 3
@@ -11,15 +12,17 @@ public class RoomPriceListItem {
 	private Double priceThursday = 0.0;//dayOfWeek 5
 	private Double priceFriday = 0.0;//dayOfWeek 6
 	private Double priceSaturday = 0.0;//dayOfWeek 7
+	private Integer id_roomPriceList;
 	
-	
-	//prezzo lunedi = prices[0]
-	//prezzo martedi = prices[1]
-	//prezzo mercoledi = prices[2]
-	//prezzo giovedi = prices[3]
-	//prezzo venerdi = prices[4]
-	//prezzo sabato = prices[5]
-	//prezzo domenica = prices[6]
+		
+	public void updatePrices(RoomPriceListItem anotherItem){
+		this.setPriceMonday(anotherItem.getPriceMonday());
+		this.setPriceTuesday(anotherItem.getPriceTuesday());
+		this.setPriceWednesday(anotherItem.getPriceWednesday());
+		this.setPriceThursday(anotherItem.getPriceThursday());
+		this.setPriceFriday(anotherItem.getPriceFriday());
+		this.setPriceSaturday(anotherItem.getPriceSaturday());
+	}
 	
 	@Override
 	public int hashCode() {
@@ -45,7 +48,7 @@ public class RoomPriceListItem {
 		return true;
 	}
 	
-	/*
+	
 	public Double getPrice(Integer dayOfWeek){
 		//dayOfWeek
 		//1 domenica
@@ -79,41 +82,6 @@ public class RoomPriceListItem {
 			return this.getPriceSaturday();
 		}
 		return ret;
-	}*/
-	
-	public Double getPrice(Integer dayOfWeek){
-		//dayOfWeek
-		//1 domenica
-		//2 lunedi
-		//3 martedi
-		//4 mercoledi
-		//5 giovedi
-		//6 venerdi
-		//7 sabato
-		Double ret = 0.0;
-		
-		if(dayOfWeek.equals(1)){
-			return prices[6];
-		}
-		if(dayOfWeek.equals(2)){
-			return prices[0];
-		}
-		if(dayOfWeek.equals(3)){
-			return prices[1];
-		}
-		if(dayOfWeek.equals(4)){
-			return prices[2];
-		}
-		if(dayOfWeek.equals(5)){
-			return prices[3];
-		}
-		if(dayOfWeek.equals(6)){
-			return prices[4];
-		}
-		if(dayOfWeek.equals(7)){
-			return prices[5];
-		}
-		return ret;
 	}
 	
 	public Integer getId() {
@@ -128,12 +96,7 @@ public class RoomPriceListItem {
 	public void setNumGuests(Integer numGuests) {
 		this.numGuests = numGuests;
 	}
-	public Double[] getPrices() {
-		return prices;
-	}
-	public void setPrices(Double[] prices) {
-		this.prices = prices;
-	}
+	
 	public Double getPriceSunday() {
 		return priceSunday;
 	}
@@ -175,6 +138,14 @@ public class RoomPriceListItem {
 	}
 	public void setPriceSaturday(Double priceSaturday) {
 		this.priceSaturday = priceSaturday;
+	}
+
+	public Integer getId_roomPriceList() {
+		return id_roomPriceList;
+	}
+
+	public void setId_roomPriceList(Integer id_roomPriceList) {
+		this.id_roomPriceList = id_roomPriceList;
 	}
 	
 	

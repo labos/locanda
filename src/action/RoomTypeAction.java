@@ -43,6 +43,8 @@ public class RoomTypeAction extends ActionSupport implements SessionAware{
 	private FacilityService facilityService = null;
 	
 	
+	
+	
 	@Actions({
 		@Action(value="/findAllRoomTypes",results = {
 				@Result(name="success",location="/roomTypes.jsp")
@@ -149,10 +151,15 @@ public class RoomTypeAction extends ActionSupport implements SessionAware{
 		User user = null;
 		Structure structure = null;
 		
+		Integer ret = 0;
+		
 		user = (User)this.getSession().get("user");
 		structure = user.getStructure();
 		
-		if(this.getRoomTypeService().deleteRoomType(this.getRoomType().getId()) >0){
+		
+		ret = this.getRoomTypeService().deleteRoomType(this.getRoomType().getId());
+		
+		if(ret >0){
 			this.getMessage().setResult(Message.SUCCESS);
 			this.getMessage().setDescription(getText("roomTypeDeleteSuccessAction"));
 			return SUCCESS;

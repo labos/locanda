@@ -1,16 +1,22 @@
 package model.listini;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import model.RoomType;
 
-public class RoomPriceList {
+public class RoomPriceList implements Serializable{
 	private Integer id;
 	private RoomType roomType;
 	private Season season;
 	private Convention convention;
 	private List<RoomPriceListItem> items;
+	private Integer id_roomType;
+	private Integer id_season;
+	private Integer id_convention;
+	private Integer id_structure;
+	
 	
 	public RoomPriceList(){
 		this.setItems(new ArrayList<RoomPriceListItem>());
@@ -40,7 +46,8 @@ public class RoomPriceList {
 		if(oldItem == null){
 			return false;			
 		}
-		oldItem.setPrices(anItem.getPrices());
+		oldItem.updatePrices(anItem);		
+		//oldItem.setPrices(anItem.getPrices());
 		return true;
 	}
 	
@@ -85,5 +92,39 @@ public class RoomPriceList {
 	public void setItems(List<RoomPriceListItem> items) {
 		this.items = items;
 	}
+
+	public Integer getId_roomType() {
+		return id_roomType;
+	}
+
+	public void setId_roomType(Integer id_roomType) {
+		this.id_roomType = id_roomType;
+	}
+
+	public Integer getId_season() {
+		return id_season;
+	}
+
+	public void setId_season(Integer id_season) {
+		this.id_season = id_season;
+	}
+
+	public Integer getId_convention() {
+		return id_convention;
+	}
+
+	public void setId_convention(Integer id_convention) {
+		this.id_convention = id_convention;
+	}
+
+	public Integer getId_structure() {
+		return id_structure;
+	}
+
+	public void setId_structure(Integer id_structure) {
+		this.id_structure = id_structure;
+	}
+	
+	
 	
 }

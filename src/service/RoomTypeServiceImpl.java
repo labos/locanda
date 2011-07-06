@@ -17,6 +17,8 @@ import model.Structure;
 public class RoomTypeServiceImpl implements RoomTypeService{
 	@Autowired
 	private RoomTypeMapper roomTypeMapper = null;
+	@Autowired
+	private RoomPriceListService roomPriceListService = null;
 
 	@Override
 	public Integer insertRoomType(RoomType roomType) {
@@ -31,6 +33,7 @@ public class RoomTypeServiceImpl implements RoomTypeService{
 	@Override
 	public Integer deleteRoomType(Integer id) {
 		
+		this.getRoomPriceListService().deleteRoomPriceListsByIdRoomType(id);
 		return this.getRoomTypeMapper().deleteRoomType(id);
 	}
 
@@ -63,6 +66,14 @@ public class RoomTypeServiceImpl implements RoomTypeService{
 
 	public void setRoomTypeMapper(RoomTypeMapper roomTypeMapper) {
 		this.roomTypeMapper = roomTypeMapper;
+	}
+
+	public RoomPriceListService getRoomPriceListService() {
+		return roomPriceListService;
+	}
+
+	public void setRoomPriceListService(RoomPriceListService roomPriceListService) {
+		this.roomPriceListService = roomPriceListService;
 	}
 	
 

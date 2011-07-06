@@ -20,6 +20,8 @@ import model.listini.Season;
 public class SeasonServiceImpl implements SeasonService{
 	@Autowired
 	private SeasonMapper seasonMapper = null;
+	@Autowired
+	private RoomPriceListService roomPriceListService = null;
 	
 	public List<Season> findSeasonsByStructureId(Integer structureId) {
 		
@@ -130,6 +132,7 @@ public class SeasonServiceImpl implements SeasonService{
 		Integer ret = 0;
 		
 		this.getSeasonMapper().deletePeriodsFromSeason(seasonId);
+		this.getRoomPriceListService().deleteRoomPriceListsByIdSeason(seasonId);
 		ret = this.getSeasonMapper().deleteSeason(seasonId);
 		return ret;
 	}
@@ -148,5 +151,15 @@ public class SeasonServiceImpl implements SeasonService{
 	public void setSeasonMapper(SeasonMapper seasonMapper) {
 		this.seasonMapper = seasonMapper;
 	}
+
+	public RoomPriceListService getRoomPriceListService() {
+		return roomPriceListService;
+	}
+
+	public void setRoomPriceListService(RoomPriceListService roomPriceListService) {
+		this.roomPriceListService = roomPriceListService;
+	}
+	
+	
 
 }

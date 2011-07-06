@@ -16,6 +16,7 @@ import model.internal.Message;
 import model.internal.TreeNode;
 import model.listini.Convention;
 import model.listini.RoomPriceList;
+import model.listini.RoomPriceListItem;
 import model.listini.Season;
 
 import org.apache.struts2.ServletActionContext;
@@ -53,6 +54,7 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware{
 	private RoomTypeService roomTypeService = null;
 	@Autowired
 	private ConventionService conventionService = null;
+	
 		
 	@Actions({
 		@Action(value="/goFindAllRoomPriceLists",results = {
@@ -132,17 +134,12 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware{
 	public String findRoomPriceListItems() {
 		User user = null;
 		Structure structure = null;
-		Season season = null;
-		RoomType roomType = null;
-		Convention convention = null;
-		
+
 		user = (User)this.getSession().get("user");
 		structure = user.getStructure();
 		
-		season = this.getSeasonService().findSeasonById(this.getSeasonId());
-		roomType = this.getRoomTypeService().findRoomTypeById(this.getRoomTypeId());
-		convention = this.getConventionService().findConventionById(this.getConventionId());
-		this.setPriceList(this.getRoomPriceListService().findRoomPriceListByStructureAndSeasonAndRoomTypeAndConvention(structure, season, roomType, convention));
+		this.setPriceList(this.getRoomPriceListService().findRoomPriceListByIdStructureAndIdSeasonAndIdRoomTypeAndIdConvention(
+				structure.getId(), this.getSeasonId(), this.getRoomTypeId(), this.getConventionId()));
 		return SUCCESS;
 	}
 	
@@ -155,16 +152,14 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware{
 	})
 	public String updateRoomPriceListItems(){
 		User user = null;
-		Structure structure = null;
-		RoomPriceList oldRoomPriceList = null;
-		
+			
 		user = (User)this.getSession().get("user");
-		structure = user.getStructure();
-		oldRoomPriceList = this.getRoomPriceListService().findRoomPriceListById(structure,this.getPriceList().getId());
 		
-		for (int i = 0; i < oldRoomPriceList.getItems().size(); i++) {
-			oldRoomPriceList.updateItem(this.getPriceList().getItems().get(i));
+		for(RoomPriceListItem each: this.getPriceList().getItems()){
+			this.getRoomPriceListService().updateRoomPriceListItem(each);
 		}
+		
+		
 		this.getMessage().setResult(Message.SUCCESS);
 		this.getMessage().setDescription(getText("priceListUpdateSuccessAction"));
 		return SUCCESS;		
