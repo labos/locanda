@@ -127,7 +127,6 @@ $(function () {
                         },
                         modal: true,
                         width: 790,
-                        hide: "explode",
                         show: "blind",
                         closeOnEscape: true,
                         title: $.i18n("newBookingForRoom") + ": " + room_name,

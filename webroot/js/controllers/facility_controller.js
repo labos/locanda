@@ -42,7 +42,7 @@ $(function () {
 			$(this).dialog("close");
 			};
 			
-			dialogButtons[$.i18n("delete")] = function() { 
+			dialogButtons[$.i18n("erase")] = function() { 
 				var id = $( "#dialog-facility" ).find("input:hidden['facility.id']").val();
                 if (confirm($.i18n("alertDelete"))) {
                 	Models.Facility.destroy(id, self.callback('destroyFacilitySuccess'), self.callback('destroyFacilityError')); 

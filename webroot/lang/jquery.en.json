@@ -30,7 +30,7 @@ $.i18n.en.strings = {
     modifyBooking: "Modify Booking",
     dateInRequired: "Devi selezionare una data",
     save: "Save",
-    delete: "Delete",
+    erase: "Delete",
     to: "To",
     from: "From",
     name: "Name",
