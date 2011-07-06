@@ -19,6 +19,7 @@ $.i18n.en.strings = {
     destroyFacilitySuccess: "Facility destroyed successfully",
     destroyFacilityError: "Problem during the facility deletion",
     facilityNameRequired: "You must enter the name of the facility. Insert at least one character.",
+    facilityTypeFileError: "File type not allowed. Only jpeg, gif or png.",
     bookingOverlapping: "Error checking booking overlappings in server",
     validPriceAlert: "Please enter a valid price value",
     alertCancel: "Please note the changes you have made will not be saved. Do you want to quit anyway?",

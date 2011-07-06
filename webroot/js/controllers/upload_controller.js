@@ -263,8 +263,21 @@ $.fn.deprecatedBrowser = function () {
 		},
 		beforeSend: function (event, files, index, xhr, handler, callBack) {
 			var facility_name = handler.uploadForm.parents(".beauty").find('input[name="facility_name"]').val();
-			var type_img = files.type;
-			if (facility_name.length > 0) {
+			var file = files[index];
+			var isValidImage = true;
+			var isValidName = true;
+			var errorMessage = '';
+                if (!(/^image\/(gif|jpeg|png)$/.test(file.type) || /^image\/(gif|jpeg|png)$/.test(file.name))) {
+                	isValidImage = false;
+                	errorMessage = $.i18n("facilityTypeFileError");
+                }
+				
+    			if (facility_name.length <= 0) {
+    				isValidName = false;
+    				errorMessage = errorMessage + $.i18n("facilityNameRequired");
+    			}
+                
+			if (isValidImage && isValidName) {
 				handler.uploadForm.find('input:hidden[name="name"]').val(facility_name);
 				callBack();
 			} else {
@@ -275,7 +288,7 @@ $.fn.deprecatedBrowser = function () {
 				if (isNaN(readyState) || readyState < 2) {
 					handler.onAbort(event, files, index, xhr, handler);
 				}
-				$().notify($.i18n("warning"), $.i18n("facilityNameRequired"));
+				$().notify($.i18n("warning"), errorMessage);
 			}
 		},
 		previewSelector: ".image_preview",
