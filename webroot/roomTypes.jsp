@@ -36,7 +36,7 @@
                 </legend>
 		    	<div class="subcolumns">
       		 	  <div class="c40l">
-                    <div class="type_rooms">
+                    <div class="type-text">
 					  <ul>
 				        <li><b><s:text name="maxGuests"/>:</b> <s:property value="#eachRoomType.maxGuests"/></li>
 				      </ul>

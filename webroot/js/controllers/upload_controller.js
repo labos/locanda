@@ -267,14 +267,14 @@ $.fn.deprecatedBrowser = function () {
 			var isValidImage = true;
 			var isValidName = true;
 			var errorMessage = '';
-                if (!(/^image\/(gif|jpeg|png)$/.test(file.type) || /^image\/(gif|jpeg|png)$/.test(file.name))) {
+                if (!(/^image\/(gif|jpeg|jpg|png)$/.test(file.type) || /\.(gif|jpe?g|png)$/i.test(file.name))) {
                 	isValidImage = false;
                 	errorMessage = $.i18n("facilityTypeFileError");
                 }
 				
     			if (facility_name.length <= 0) {
     				isValidName = false;
-    				errorMessage = errorMessage + $.i18n("facilityNameRequired");
+    				errorMessage = errorMessage + ' ' + $.i18n("facilityNameRequired");
     			}
                 
 			if (isValidImage && isValidName) {

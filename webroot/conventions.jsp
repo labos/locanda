@@ -34,7 +34,7 @@
                 </legend>
 		    	<div class="subcolumns">
       		 	  <div class="c40l">
-                    <div class="type_rooms">
+                    <div class="type-text">
 					  <ul>
 				        <li><b><s:text name="name"/>:</b> <s:property value="#eachConvention.name"/></li>
 				        <li><b><s:text name="code"/>:</b> <s:property value="#eachConvention.activationCode"/></li>
