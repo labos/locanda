@@ -12,7 +12,7 @@
  </insert>
  
  <update id="updateConvention" parameterType="model.listini.Convention">
- 	update convention set name = #{name},description = #{description},activationCode = #{activationCode},id_structure = #{id_structure} 
+ 	update convention set name = #{name},description = #{description},activationCode = #{activationCode},id_structure = #{id_structure} where id = #{id}
  </update>
  
  <delete id="deleteConvention" parameterType="int"> 
