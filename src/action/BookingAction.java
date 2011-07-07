@@ -45,7 +45,7 @@ public class BookingAction extends ActionSupport implements SessionAware{
 	private String dateOut = null;
 	private List<Extra> extras = null;
 	private List<Convention> conventions = null;
-	private List<Integer> bookingExtraIds = new ArrayList<Integer>();
+	private List bookingExtraIds = new ArrayList();
 	private Double adjustmentsSubtotal = 0.0;
 	private Double paymentsSubtotal = 0.0;
 	private Integer idStructure;
@@ -247,10 +247,17 @@ public class BookingAction extends ActionSupport implements SessionAware{
 	public void updateExtras(Structure structure) {	
 		Booking booking = null;	
 		List<Extra> checkedExtras = null;
+		List<Integer> filteredBookingExtraIds = null;
 					
 		booking  = (Booking) this.getSession().get("booking");			
 		
-		checkedExtras = this.getExtraService().findExtrasByIds(this.getBookingExtraIds());
+		filteredBookingExtraIds = new ArrayList<Integer>();
+		for(Object each: this.getBookingExtraIds()){
+			if(each instanceof Integer){
+				filteredBookingExtraIds.add((Integer) each);
+			}
+		}
+		checkedExtras = this.getExtraService().findExtrasByIds(filteredBookingExtraIds);
 		this.updateExtraItems(structure, booking,checkedExtras);					
 		booking.updateExtraSubtotal();	
 		
@@ -868,10 +875,10 @@ public class BookingAction extends ActionSupport implements SessionAware{
 	public void setExtras(List<Extra> extras) {
 		this.extras = extras;
 	}
-	public List<Integer> getBookingExtraIds() {
+	public List getBookingExtraIds() {
 		return bookingExtraIds;
 	}
-	public void setBookingExtraIds(List<Integer> bookingExtraIds) {
+	public void setBookingExtraIds(List bookingExtraIds) {
 		this.bookingExtraIds = bookingExtraIds;
 	}
 	public Double getAdjustmentsSubtotal() {
