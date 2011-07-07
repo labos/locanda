@@ -85,7 +85,8 @@ public class ConventionAction extends ActionSupport implements SessionAware{
 			//this.getConvention().setId(structure.nextKey());
 			this.getConvention().setId_structure(structure.getId());
 			this.getConventionService().insertConvention(this.getConvention());
-			this.getStructureService().refreshPriceLists(structure);
+			//this.getStructureService().refreshPriceLists(structure);
+			this.getStructureService().addPriceListsForConvention(structure, this.getConvention().getId());
 			this.getMessage().setResult(Message.SUCCESS);
 			this.getMessage().setDescription(getText("conventionAddSuccessAction"));
 			
@@ -162,8 +163,5 @@ public class ConventionAction extends ActionSupport implements SessionAware{
 	public void setConventionService(ConventionService conventionService) {
 		this.conventionService = conventionService;
 	}
-
 	
-	
-
 }

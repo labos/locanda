@@ -121,7 +121,8 @@ public class RoomTypeAction extends ActionSupport implements SessionAware{
 			this.getRoomTypeService().insertRoomType(this.getRoomType());
 			
 			this.getFacilityService().insertRoomTypeFacilities(this.getRoomTypeFacilitiesIds(), this.getRoomType().getId());
-			this.getStructureService().refreshPriceLists(structure);
+			//this.getStructureService().refreshPriceLists(structure);
+			this.getStructureService().addPriceListsForRoomType(structure, this.getRoomType().getId());
 			this.getMessage().setResult(Message.SUCCESS);
 			this.getMessage().setDescription(getText("roomTypeAddSuccessAction"));
 			

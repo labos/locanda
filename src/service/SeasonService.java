@@ -9,7 +9,7 @@ import model.listini.Season;
 
 @Transactional
 public interface SeasonService {
-	public List<Season> findSeasonsByStructureId(Integer structureId);
+	public List<Season> findSeasonsByIdStructure(Integer structureId);
 	public List<Season> findSeasonsByYear(Integer structureId,Integer year);
 	public Season findSeasonById(Integer seasonId);
 	public Season findSeasonByName(Integer structureId,String name);

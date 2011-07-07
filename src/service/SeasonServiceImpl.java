@@ -23,7 +23,7 @@ public class SeasonServiceImpl implements SeasonService{
 	@Autowired
 	private RoomPriceListService roomPriceListService = null;
 	
-	public List<Season> findSeasonsByStructureId(Integer structureId) {
+	public List<Season> findSeasonsByIdStructure(Integer structureId) {
 		
 		return this.getSeasonMapper().findSeasonsByStructureId(structureId);
 	}

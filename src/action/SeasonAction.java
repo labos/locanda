@@ -47,7 +47,7 @@ public class SeasonAction extends ActionSupport implements SessionAware {
 		user = (User) session.get("user");
 		structure = user.getStructure();		
 		
-		this.setSeasons(this.getSeasonService().findSeasonsByStructureId(structure.getId()));
+		this.setSeasons(this.getSeasonService().findSeasonsByIdStructure(structure.getId()));
 		//Rimuovere questa istruzione quando tutto sarà sul DB
 		structure.setSeasons(this.getSeasons());
 		

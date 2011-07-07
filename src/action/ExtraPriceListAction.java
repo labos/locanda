@@ -90,7 +90,7 @@ public class ExtraPriceListAction extends ActionSupport implements SessionAware{
 		user = (User)this.getSession().get("user");
 		structure = user.getStructure();
 		
-		for (Season eachSeason : this.getSeasonService().findSeasonsByStructureId(structure.getId())) {			//costruisco il set con tutti gli anni
+		for (Season eachSeason : this.getSeasonService().findSeasonsByIdStructure(structure.getId())) {			//costruisco il set con tutti gli anni
 			years.add(eachSeason.getYear());
 		}
 		for (Integer eachYear : years) {							//costruisco i nodi di primo livello - gli anni

@@ -1,15 +1,11 @@
 package service;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import persistence.mybatis.mappers.FacilityMapper;
 import persistence.mybatis.mappers.RoomMapper;
 import persistence.mybatis.mappers.RoomTypeMapper;
@@ -17,7 +13,6 @@ import persistence.mybatis.mappers.RoomTypeMapper;
 import model.Facility;
 import model.Room;
 import model.RoomType;
-import model.Structure;
 
 @Service
 public class RoomServiceImpl implements RoomService{
