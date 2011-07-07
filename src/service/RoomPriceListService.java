@@ -1,16 +1,9 @@
 package service;
 
-import java.util.List;
-import java.util.Map;
-
 import org.springframework.transaction.annotation.Transactional;
 
-import model.RoomType;
-import model.Structure;
-import model.listini.Convention;
 import model.listini.RoomPriceList;
 import model.listini.RoomPriceListItem;
-import model.listini.Season;
 
 @Transactional
 public interface RoomPriceListService {

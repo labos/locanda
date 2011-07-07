@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="persistence.mybatis.mappers.ExtraPriceListItemMapper"> 
+  <cache />
+  
+  <insert id="insertExtraPriceListItem" parameterType="model.listini.ExtraPriceListItem" useGeneratedKeys="true" keyProperty="id">
+  	insert into extraPriceListItem(price,id_extra, id_extraPriceList) 
+  	values(#{price},#{id_extra},#{id_extraPriceList})  
+  </insert>
+  
+  <delete id="deleteExtraPriceListItemsByIdExtraPriceList" parameterType="int">
+  	delete from extraPriceListItem where id_extraPriceList = #{id_extraPriceList}
+  </delete>
+  
+  <delete id="deleteExtraPriceListItemsByIdExtra" parameterType="int">
+  	delete from extraPriceListItem where id_extra = #{id_extra}
+  </delete>
+  
+  <select id="findExtraPriceListItemsByIdExtraPriceList" resultType="model.listini.ExtraPriceListItem" parameterType="int">
+  select 
+  id,price,id_extra, id_extraPriceList  
+  from  extraPriceListItem 
+  where id_extraPriceList = #{id_extraPriceList}  
+  </select>
+  
+  
+  <update id="updateExtraPriceListItem" parameterType="model.listini.ExtraPriceListItem">
+  update extraPriceListItem 
+  set price = #{price},id_extra = #{id_extra},id_extraPriceList = #{id_extraPriceList}     
+  where id = #{id}	
+  </update>
+      
+</mapper>

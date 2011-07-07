@@ -144,7 +144,9 @@ public class ExtraPriceListAction extends ActionSupport implements SessionAware{
 		season = this.getSeasonService().findSeasonById(this.getSeasonId());
 		roomType = this.getRoomTypeService().findRoomTypeById(this.getRoomTypeId());
 		convention = this.getConventionService().findConventionById(this.getConventionId());
-		this.setPriceList(this.getExtraPriceListService().findExtraPriceListByStructureAndSeasonAndRoomTypeAndConvention(structure,season, roomType, convention));
+		//this.setPriceList(this.getExtraPriceListService().findExtraPriceListByStructureAndSeasonAndRoomTypeAndConvention(structure,season, roomType, convention));
+		this.setPriceList(this.getExtraPriceListService().findExtraPriceListByIdStructureAndIdSeasonAndIdRoomTypeAndIdConvention(
+				structure.getId(), season.getId(), roomType.getId(), convention.getId()));
 		return SUCCESS;
 	}
 	
@@ -162,7 +164,7 @@ public class ExtraPriceListAction extends ActionSupport implements SessionAware{
 		
 		user = (User)this.getSession().get("user");
 		structure = user.getStructure();
-		oldExtraPriceList = this.getExtraPriceListService().findExtraPriceListById(structure,this.getPriceList().getId());
+		oldExtraPriceList = this.getExtraPriceListService().findExtraPriceListById(this.getPriceList().getId());
 		
 		for (int i = 0; i < oldExtraPriceList.getItems().size(); i++) {
 			oldExtraPriceList.updateItem(this.getPriceList().getItems().get(i));

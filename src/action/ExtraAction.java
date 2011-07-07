@@ -147,12 +147,16 @@ public class ExtraAction extends ActionSupport implements SessionAware{
 		user = (User)this.getSession().get("user");
 		structure = user.getStructure();
 		
-		for (ExtraPriceList eachPriceList : this.getExtraPriceListService().findExtraPriceListsByIdStructure(structure)) {
+		
+		for (ExtraPriceList eachPriceList : this.getExtraPriceListService().findExtraPriceListsByIdStructure(structure.getId())) {
 			newExtraPriceListItem = new ExtraPriceListItem();
-			newExtraPriceListItem.setId(structure.nextKey());
-			newExtraPriceListItem.setExtra(this.getExtra());
+			//newExtraPriceListItem.setId(structure.nextKey());
+			//newExtraPriceListItem.setExtra(this.getExtra());
+			newExtraPriceListItem.setId_extra(this.getExtra().getId());
 			newExtraPriceListItem.setPrice(0.0);
-			eachPriceList.addItem(newExtraPriceListItem);
+			newExtraPriceListItem.setId_extraPriceList(eachPriceList.getId());
+			//eachPriceList.addItem(newExtraPriceListItem);
+			this.getExtraPriceListService().insertExtraPriceListItem(newExtraPriceListItem);
 		}
 	}
 	

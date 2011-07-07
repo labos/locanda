@@ -1,11 +1,15 @@
 package model.listini;
 
+import java.io.Serializable;
+
 import model.Extra;
 
-public class ExtraPriceListItem {
+public class ExtraPriceListItem implements Serializable{
 	private Integer id;
 	private Extra extra;
 	private Double price;
+	private Integer id_extra;
+	private Integer id_extraPriceList;
 	
 	
 	@Override
@@ -50,6 +54,20 @@ public class ExtraPriceListItem {
 	}
 	public void setPrice(Double price) {
 		this.price = price;
+	}
+	public Integer getId_extra() {
+		return id_extra;
+	}
+	public void setId_extra(Integer id_extra) {
+		this.id_extra = id_extra;
+	}
+	public Integer getId_extraPriceList() {
+		return id_extraPriceList;
+	}
+	public void setId_extraPriceList(Integer id_extraPriceList) {
+		this.id_extraPriceList = id_extraPriceList;
 	}	
+	
+	
 
 }
