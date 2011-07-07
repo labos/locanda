@@ -13,7 +13,9 @@
     <!-- begin: #col3 static column -->
     <div id="col3" role="main">
       <div id="col3_content" class="clearfix">
-          
+        <div class="header_section">
+          <span class="name_section"><s:text name="manageConventions"/></span>
+      	</div>
         <div>
           <button class="btn_add_form"><s:text name="addNew" /></button>
         </div>
@@ -22,7 +24,6 @@
         </div>
           
         <s:iterator value="conventions" var="eachConvention" >
-          
           <div>
 		    <form method="post" action="deleteConvention.action" class="yform json full" role="application">
               <fieldset>
@@ -49,9 +50,7 @@
            	  </fieldset>
             </form>        
 		  </div>
-		
-		</s:iterator>
-		       
-      </div>
-          
+		</s:iterator>  
+		    
+      </div>  
 <jsp:include page="jsp/layout/footer.jsp" />   
