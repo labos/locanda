@@ -61,7 +61,7 @@ $(function () {
 		$('.facility').find("img, .hov_edit").live('click',  function() {
 			self.$facilityDom = $(this).parent();
 			$( "#dialog-facility:ui-dialog" ).dialog( "destroy" );
-			var idFacility = $(this).siblings("input[name='roomFacilitiesIds']").val();
+			var idFacility = $(this).siblings("input[name='roomFacilitiesIds']").val() || $(this).siblings("input[name='roomTypeFacilitiesIds']").val();
 			var nameFacility = $(this).siblings("label").text();
 			var fileNameFacility = $(this).attr("src") || $(this).siblings("img").attr("src");
 			var added = new EJS({url: 'js/views/facility/show.ejs'}).render({facility: {id:idFacility, name: nameFacility, fileName: fileNameFacility}, labels:{name: $.i18n("name")}});

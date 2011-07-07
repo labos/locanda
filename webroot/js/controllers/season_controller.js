@@ -18,11 +18,31 @@ $(function() {
 							event.preventDefault();
 							$(this).parents(".yform").submitForm();
 						});
+					    
+					    /* Change year management */
+					    $("#season_year").change(function(){
+					    	
+					    	var selectedYear  = $(this).find(":selected").val();
+					    	
+					    
+					    	$(".datepicker").each(function(index) {
+					    		 var selectedData = $(this).datepicker("getDate");
+					    		 var dateDate = new Date(selectedData);
+					    		 if ( selectedYear  && selectedYear != dateDate.getFullYear()){
+					    			 dateDate.setFullYear(selectedYear);
+					    			 $(this).datepicker("setDate",dateDate);
+					    		 }
+					    	    
+					    	  });
+
+					    	
+					    });
 						$(".rename_season").toggle(function () {
 							$(this).siblings('input[name="season.name"]').focus().css("border", "1px solid").removeAttr("readonly");
 						}, function () {
 							$('input[name="season.name"]').css("border", "none").attr("readonly", "true");
-						}); 
+						});
+						
 						/* Add period management */
 														
 						$(".add_period").click(function () {
