@@ -49,6 +49,13 @@ public class GuestAction extends ActionSupport implements SessionAware{
 		
 		user = (User)session.get("user");
 		structure = user.getStructure();
+		List<Integer> listYears =new ArrayList<Integer>();
+		
+		for (int i=2012; i>1900; i--) {
+			listYears.add(i);
+		}
+		
+		this.setYears(listYears);
 		this.setGuests(
 				this.getGuestService().findGuestsByIdStructure(
 						structure.getId()));
@@ -72,7 +79,13 @@ public class GuestAction extends ActionSupport implements SessionAware{
 
 		user = (User) session.get("user");
 		structure = user.getStructure();
-
+		List<Integer> listYears =new ArrayList<Integer>();
+		
+		for (int i=2012; i>1900; i--) {
+			listYears.add(i);
+		}
+		
+		this.setYears(listYears);
 		if (this.getTerm() != null && this.getTerm().length() > 1) {
 			allGuests = this.getGuestService().findGuestsByIdStructure(
 					structure.getId());
@@ -102,6 +115,13 @@ public class GuestAction extends ActionSupport implements SessionAware{
 		user = (User) session.get("user");
 		structure = user.getStructure();
 		
+		List<Integer> listYears =new ArrayList<Integer>();
+		
+		for (int i=2012; i>1900; i--) {
+			listYears.add(i);
+		}
+		
+		this.setYears(listYears);
 		returnedGuests = new ArrayList<Guest>();
 		if (this.getTerm() != null && this.getTerm().length() > 1) {
 			allGuests = this.getGuestService().findGuestsByIdStructure(structure.getId());
@@ -131,7 +151,13 @@ public class GuestAction extends ActionSupport implements SessionAware{
 		Guest aGuest = null;
 		
 //		user = (User)session.get("user");
+		List<Integer> listYears =new ArrayList<Integer>();
 		
+		for (int i=2012; i>1900; i--) {
+			listYears.add(i);
+		}
+		
+		this.setYears(listYears);
 		aGuest = this.getGuestService().findGuestById(this.getId());
 		if(aGuest != null){
 			this.setGuest(aGuest);
@@ -154,11 +180,13 @@ public class GuestAction extends ActionSupport implements SessionAware{
 		
 		user = (User)session.get("user");
 		structure = user.getStructure();
+		List<Integer> listYears =new ArrayList<Integer>();
 		
-		this.years = new ArrayList<Integer>();		//popolo l'array degli anni. serve solo per la select
 		for (int i=2012; i>1900; i--) {
-			years.add(i);
+			listYears.add(i);
 		}
+		
+		this.setYears(listYears);
 		this.setGuest(this.getGuestService().findGuestById(this.getId())); 
 		this.setBookings(this.getBookingService().findBookingsByIdBooker(this.getId()));
 		

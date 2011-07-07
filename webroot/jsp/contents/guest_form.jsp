@@ -79,14 +79,8 @@
 					  <option value="nov"><s:text name="nov"/></option>
 					  <option value="dic"><s:text name="dic"/></option>
 					</select>
-					<label for="birthYear"><s:text name="birthYear"/>:<sup title="This field is mandatory.">*</sup></label>
-                	<select class="required" name="guest.birthYear" id="birthYear" size="1" aria-required="true">
-					  <option selected="selected" value="<s:property value="guest.birthYear"/>"><s:property value="guest.birthYear"/></option>
-					  <s:iterator value="years" var="eachYear">
-					  	<option value="<s:property value="#eachYear"/>"><s:property value="#eachYear"/></option>
-					  </s:iterator>  
-					</select>
-				  </div>
+					<s:select label="%{getText('guest.birthYear')}" name="guest.birthYear" headerKey="guest.birthYear" list="years" required="true"/>
+					</div>
 				  <div class="type-text">
                	    <label for="birthPlace"><s:text name="birthPlace"/>:<sup title="This field is mandatory.">*</sup></label>
                     <input class="required" type="text" name="guest.birthPlace" id="birthPlace" value="<s:property value="guest.birthPlace"/>" size="20"  aria-required="true"/>
