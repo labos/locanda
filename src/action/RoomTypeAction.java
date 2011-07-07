@@ -32,7 +32,7 @@ public class RoomTypeAction extends ActionSupport implements SessionAware{
 	private RoomType roomType = null;
 	private Image image = null;
 	private List<Facility> facilities = null;
-	private List<Integer> roomTypeFacilitiesIds = new ArrayList<Integer>();
+	private List roomTypeFacilitiesIds = new ArrayList();
 	@Autowired
 	private StructureService structureService = null;
 	@Autowired
@@ -105,12 +105,20 @@ public class RoomTypeAction extends ActionSupport implements SessionAware{
 		Structure structure = null;
 		RoomType oldRoomtype = null;
 		List<Facility> checkedFacilities = null;
+		List<Integer> filteredRoomTypeFacilitesIds = null;
 		
 		user = (User)session.get("user");
 		structure = user.getStructure();
 		
-		//checkedFacilities = this.getStructureService().findRoomFacilitiesByIds(structure,this.getRoomTypeFacilitiesIds());
-		checkedFacilities = this.getFacilityService().findUploadedFacilitiesByIds(this.getRoomTypeFacilitiesIds());
+		filteredRoomTypeFacilitesIds = new ArrayList<Integer>();
+		for(Object each: this.getRoomTypeFacilitiesIds()){
+			if(each instanceof Integer){
+				filteredRoomTypeFacilitesIds.add((Integer)each);
+			}
+		}
+		
+		//checkedFacilities = this.getFacilityService().findUploadedFacilitiesByIds(this.getRoomTypeFacilitiesIds());
+		checkedFacilities = this.getFacilityService().findUploadedFacilitiesByIds(filteredRoomTypeFacilitesIds);
 		oldRoomtype = this.getRoomTypeService().findRoomTypeById(this.getRoomType().getId());
 		if(oldRoomtype == null){
 			//Si tratta di una aggiunta
@@ -120,7 +128,7 @@ public class RoomTypeAction extends ActionSupport implements SessionAware{
 			this.getRoomType().setId_structure(structure.getId());
 			this.getRoomTypeService().insertRoomType(this.getRoomType());
 			
-			this.getFacilityService().insertRoomTypeFacilities(this.getRoomTypeFacilitiesIds(), this.getRoomType().getId());
+			this.getFacilityService().insertRoomTypeFacilities(filteredRoomTypeFacilitesIds, this.getRoomType().getId());
 			//this.getStructureService().refreshPriceLists(structure);
 			this.getStructureService().addPriceListsForRoomType(structure, this.getRoomType().getId());
 			this.getMessage().setResult(Message.SUCCESS);
@@ -134,7 +142,7 @@ public class RoomTypeAction extends ActionSupport implements SessionAware{
 			this.getRoomTypeService().updateRoomType(this.getRoomType());
 			
 			this.getFacilityService().deleteAllFacilitiesFromRoomType(this.getRoomType().getId());
-			this.getFacilityService().insertRoomTypeFacilities(this.getRoomTypeFacilitiesIds(), this.getRoomType().getId());
+			this.getFacilityService().insertRoomTypeFacilities(filteredRoomTypeFacilitesIds, this.getRoomType().getId());
 			this.getMessage().setResult(Message.SUCCESS);
 			this.getMessage().setDescription(getText("roomTypeUpdateSuccessAction"));
 		}
@@ -230,10 +238,10 @@ public class RoomTypeAction extends ActionSupport implements SessionAware{
 	public void setImage(Image image) {
 		this.image = image;
 	}
-	public List<Integer> getRoomTypeFacilitiesIds() {
+	public List getRoomTypeFacilitiesIds() {
 		return roomTypeFacilitiesIds;
 	}
-	public void setRoomTypeFacilitiesIds(List<Integer> roomFacilitiesIds) {
+	public void setRoomTypeFacilitiesIds(List roomFacilitiesIds) {
 		this.roomTypeFacilitiesIds = roomFacilitiesIds;
 	}	
 	public List<Facility> getFacilities() {
