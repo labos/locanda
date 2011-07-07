@@ -248,15 +248,19 @@ public class BookingAction extends ActionSupport implements SessionAware{
 		Booking booking = null;	
 		List<Extra> checkedExtras = null;
 		List<Integer> filteredBookingExtraIds = null;
+		Integer anInt;
 					
 		booking  = (Booking) this.getSession().get("booking");			
 		
 		filteredBookingExtraIds = new ArrayList<Integer>();
 		for(Object each: this.getBookingExtraIds()){
-			if(each instanceof Integer){
-				filteredBookingExtraIds.add((Integer) each);
-			}
-		}
+			try{
+				anInt = Integer.parseInt((String)each);
+				filteredBookingExtraIds.add(anInt);
+			}catch (Exception e) {
+				
+			}			
+		}		
 		checkedExtras = this.getExtraService().findExtrasByIds(filteredBookingExtraIds);
 		this.updateExtraItems(structure, booking,checkedExtras);					
 		booking.updateExtraSubtotal();	

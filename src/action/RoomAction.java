@@ -35,7 +35,7 @@ public class RoomAction extends ActionSupport implements SessionAware{
 	private Room room = null;
 	private Message message = new Message();
 	private List<Facility> roomFacilities = null;
-	private List<Integer> roomFacilitiesIds = new ArrayList<Integer>();
+	private List roomFacilitiesIds = new ArrayList();
 	private List<Room> rooms = null;
 	private Integer roomId;
 	private Image image = null;
@@ -197,7 +197,18 @@ public class RoomAction extends ActionSupport implements SessionAware{
 		String names = "";
 		List<Facility> checkedFacilities = null;
 		RoomType theRoomType = null;
+		List<Integer> filteredRoomFacilitiesIds = null;
+		Integer anInt;
+		
+		filteredRoomFacilitiesIds = new ArrayList<Integer>();
+		for(Object each: this.getRoomFacilitiesIds()){
+			try{
+				anInt = Integer.parseInt((String)each);
+				filteredRoomFacilitiesIds.add(anInt);
+			}catch (Exception e) {
 				
+			}			
+		}
 		rooms = this.splitRooms();					
 		for(Room each: rooms){
 			
@@ -213,11 +224,11 @@ public class RoomAction extends ActionSupport implements SessionAware{
 			return "error";			
 		}	
 		else{	
-			checkedFacilities = this.getFacilityService().findUploadedFacilitiesByIds(this.getRoomFacilitiesIds());
+			checkedFacilities = this.getFacilityService().findUploadedFacilitiesByIds(filteredRoomFacilitiesIds);
 			for(Room each: rooms){
 				//each.setId(structure.nextKey());				
 				each.setFacilities(checkedFacilities);
-				this.getFacilityService().insertRoomFacilities(this.getRoomFacilitiesIds(), each.getId());
+				this.getFacilityService().insertRoomFacilities(filteredRoomFacilitiesIds, each.getId());
 
 				if(this.getRoom().getRoomType().getId() < 0){
 					this.getMessage().setResult(Message.ERROR);
@@ -264,6 +275,18 @@ public class RoomAction extends ActionSupport implements SessionAware{
 		String newName = null;
 		List<Facility> checkedFacilities = null;
 		RoomType theRoomType = null;
+		List<Integer> filteredRoomFacilitiesIds = null;
+		Integer anInt;
+		
+		filteredRoomFacilitiesIds = new ArrayList<Integer>();
+		for(Object each: this.getRoomFacilitiesIds()){
+			try{
+				anInt = Integer.parseInt((String)each);
+				filteredRoomFacilitiesIds.add(anInt);
+			}catch (Exception e) {
+				
+			}			
+		}
 		
 		newName = this.getRoom().getName();
 		if(newName.contains(",")){
@@ -279,11 +302,11 @@ public class RoomAction extends ActionSupport implements SessionAware{
 			}
 		}
 		//checkedFacilities = this.getStructureService().findRoomFacilitiesByIds(structure,this.getRoomFacilitiesIds());
-		checkedFacilities = this.getFacilityService().findUploadedFacilitiesByIds(this.getRoomFacilitiesIds());
+		checkedFacilities = this.getFacilityService().findUploadedFacilitiesByIds(filteredRoomFacilitiesIds);
 		this.getRoom().setFacilities(checkedFacilities);
 		
 		this.getFacilityService().deleteAllFacilitiesFromRoom(this.getRoom().getId());
-		this.getFacilityService().insertRoomFacilities(this.getRoomFacilitiesIds(), this.getRoom().getId());
+		this.getFacilityService().insertRoomFacilities(filteredRoomFacilitiesIds, this.getRoom().getId());
 		
 		theRoomType = this.getRoomTypeService().findRoomTypeById(this.getRoom().getRoomType().getId());
 		this.getRoom().setRoomType(theRoomType);
@@ -401,10 +424,10 @@ public class RoomAction extends ActionSupport implements SessionAware{
 	public void setRoomId(Integer roomId) {
 		this.roomId = roomId;
 	}
-	public List<Integer> getRoomFacilitiesIds() {
+	public List getRoomFacilitiesIds() {
 		return roomFacilitiesIds;
 	}
-	public void setRoomFacilitiesIds(List<Integer> roomFacilitiesIds) {
+	public void setRoomFacilitiesIds(List roomFacilitiesIds) {
 		this.roomFacilitiesIds = roomFacilitiesIds;
 	}
 	public List<RoomType> getRoomTypes() {

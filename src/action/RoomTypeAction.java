@@ -106,17 +106,20 @@ public class RoomTypeAction extends ActionSupport implements SessionAware{
 		RoomType oldRoomtype = null;
 		List<Facility> checkedFacilities = null;
 		List<Integer> filteredRoomTypeFacilitesIds = null;
+		Integer anInt;
 		
 		user = (User)session.get("user");
 		structure = user.getStructure();
-		
+				
 		filteredRoomTypeFacilitesIds = new ArrayList<Integer>();
 		for(Object each: this.getRoomTypeFacilitiesIds()){
-			if(each instanceof Integer){
-				filteredRoomTypeFacilitesIds.add((Integer)each);
-			}
-		}
-		
+			try{
+				anInt = Integer.parseInt((String)each);
+				filteredRoomTypeFacilitesIds.add(anInt);
+			}catch (Exception e) {
+				
+			}			
+		}		
 		//checkedFacilities = this.getFacilityService().findUploadedFacilitiesByIds(this.getRoomTypeFacilitiesIds());
 		checkedFacilities = this.getFacilityService().findUploadedFacilitiesByIds(filteredRoomTypeFacilitesIds);
 		oldRoomtype = this.getRoomTypeService().findRoomTypeById(this.getRoomType().getId());
