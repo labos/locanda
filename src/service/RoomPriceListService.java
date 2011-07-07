@@ -22,7 +22,6 @@ public interface RoomPriceListService {
 	public Integer deleteRoomPriceListById(Integer id);
 	public Integer updateRoomPriceListItem(RoomPriceListItem roomPriceListItem);
 	
-	//public List<RoomPriceList> findRoomPriceListsByIdSeason(Integer id_season);
 	public Integer deleteRoomPriceListsByIdSeason(Integer id_season);
 	public Integer deleteRoomPriceListsByIdRoomType(Integer id_roomType);
 	public Integer deleteRoomPriceListsByIdConvention(Integer id_convention);

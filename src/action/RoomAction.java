@@ -215,7 +215,7 @@ public class RoomAction extends ActionSupport implements SessionAware{
 		else{	
 			checkedFacilities = this.getFacilityService().findUploadedFacilitiesByIds(this.getRoomFacilitiesIds());
 			for(Room each: rooms){
-				each.setId(structure.nextKey());				
+				//each.setId(structure.nextKey());				
 				each.setFacilities(checkedFacilities);
 				this.getFacilityService().insertRoomFacilities(this.getRoomFacilitiesIds(), each.getId());
 

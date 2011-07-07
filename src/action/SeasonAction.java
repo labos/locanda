@@ -50,7 +50,7 @@ public class SeasonAction extends ActionSupport implements SessionAware {
 		this.setSeasons(this.getSeasonService().findSeasonsByStructureId(structure.getId()));
 		//Rimuovere questa istruzione quando tutto sarà sul DB
 		structure.setSeasons(this.getSeasons());
-		this.getStructureService().refreshPriceLists(structure);	
+		
 		return SUCCESS;
 	}
 
@@ -86,7 +86,7 @@ public class SeasonAction extends ActionSupport implements SessionAware {
 		structure = user.getStructure();
 		periodsWithoutNulls = new ArrayList<Period>();
 
-		for (Period currPeriod : this.periods) {
+		for (Period currPeriod : this.getPeriods()) {
 			if ((currPeriod != null )){
 				if (! currPeriod.checkDates()){
 					this.getMessage().setResult(Message.ERROR);
@@ -117,7 +117,9 @@ public class SeasonAction extends ActionSupport implements SessionAware {
 		if (oldSeason == null) {
 			// Si tratta di una nuova season
 			//Voglio settare l'anno della stagione con l'anno corrente	
-			this.getSeasonService().insertSeason(this.getSeason());			
+			this.getSeasonService().insertSeason(this.getSeason());		
+			//this.getStructureService().refreshPriceLists(structure);	
+			this.getStructureService().addPriceListsForSeason(structure, this.getSeason().getId());
 			this.getMessage().setDescription(getText("seasonAddSuccessAction"));		
 		} else {
 			// Si tratta di un update di una season esistente

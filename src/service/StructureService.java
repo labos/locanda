@@ -18,6 +18,7 @@ import model.listini.Season;
 public interface StructureService {
 	public Double calculateExtraItemUnitaryPrice(Structure structure, Date dateIn, Date dateOut, RoomType roomType, Convention convention, Extra extra);
 	public void refreshPriceLists(Structure structure);
+	public void addPriceListsForSeason(Structure structure, Integer id_season);
 	public Integer addRoomFacility(Structure structure, Facility roomFacility);
 	public Facility findRoomFacilityByName(Structure structure, String roomFacilityName);
 	public Facility findRoomFacilityById(Structure structure,Integer id);

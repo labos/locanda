@@ -61,20 +61,6 @@ public class RoomPriceListServiceImpl implements RoomPriceListService{
 		return ret;
 	}
 
-	/*
-	@Override
-	public List<RoomPriceList> findRoomPriceListsByIdSeason(Integer id_season) {
-		List<RoomPriceList> roomPriceLists = null;
-		List<RoomPriceListItem> roomPriceListItems = null;
-		
-		roomPriceLists = this.getRoomPriceListMapper().findRoomPriceListsByIdSeason(id_season);
-		for (RoomPriceList each : roomPriceLists) {
-			roomPriceListItems = this.getRoomPriceListItemMapper().findRoomPriceListItemsByIdRoomPriceList(each.getId());
-			each.setItems(roomPriceListItems);
-		}
-		return roomPriceLists;
-	}*/
-
 	@Override
 	public RoomPriceList findRoomPriceListById(Integer id) {
 		RoomPriceList roomPriceList = null;
@@ -84,14 +70,7 @@ public class RoomPriceListServiceImpl implements RoomPriceListService{
 		roomPriceListItems = this.getRoomPriceListItemMapper().findRoomPriceListItemsByIdRoomPriceList(roomPriceList.getId());
 		roomPriceList.setItems(roomPriceListItems);
 		return roomPriceList;
-	}
-	
-	
-	
-	
-	
-
-	
+	}	
 
 	@Override
 	public Integer deleteRoomPriceListById(Integer id) {
@@ -100,9 +79,7 @@ public class RoomPriceListServiceImpl implements RoomPriceListService{
 		this.getRoomPriceListItemMapper().deleteRoomPriceListItemsByIdRoomPriceList(id);
 		ret = this.getRoomPriceListMapper().deleteRoomPriceListById(id);
 		return ret;
-	}
-	
-	
+	}	
 	
 
 	@Override

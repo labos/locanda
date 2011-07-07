@@ -156,6 +156,7 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware{
 		user = (User)this.getSession().get("user");
 		
 		for(RoomPriceListItem each: this.getPriceList().getItems()){
+			each.setId_roomPriceList(this.getPriceList().getId());
 			this.getRoomPriceListService().updateRoomPriceListItem(each);
 		}
 		
