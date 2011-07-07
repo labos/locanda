@@ -128,8 +128,8 @@ $(document).ready(function () { <%
     			<li class="ui-menu-item"><a href="<s:property value="url_findallroompricelists"/>?sect=settings"><s:text name="roomPriceList"/></a></li>
     			<li class="ui-menu-item"><a href="<s:property value="url_findallextrapricelists"/>?sect=settings"><s:text name="extraPriceList"/></a></li>
     			<li class="ui-menu-item"><a href="<s:property value="url_findallconventions"/>?sect=settings"><s:text name="conventions"/></a></li>
-    			<li class="ui-menu-item"><a href="emails.jsp?sect=settings"><s:text name="emails" /></a></li>
-    			<li class="ui-menu-item"><a href="<s:property value="url_details"/>?sect=settings"><s:text name="structureDetails"/></a></li>
+    			<!--<li class="ui-menu-item"><a href="emails.jsp?sect=settings"><s:text name="emails" /></a></li>
+    			--><li class="ui-menu-item"><a href="<s:property value="url_details"/>?sect=settings"><s:text name="structureDetails"/></a></li>
   			  </ul>
             </li>         
             <li><a href="#"><s:text name="help" /></a></li>
