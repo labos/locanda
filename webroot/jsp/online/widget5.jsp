@@ -14,7 +14,7 @@
   <div data-role="content">
     <div class="alert">
     </div>
-    <strong><s:text name="congratulation" />, <s:property value="booking.booker.firstName"/><s:property value="booking.booker.lastName"/>,
+    <strong><s:text name="congratulation" />, <s:property value="booking.booker.firstName"/> <s:property value="booking.booker.lastName"/>,
       <br/>
       <s:text name="onlineBookingSuccess" />.
     </strong>
@@ -40,7 +40,7 @@
         </li>
       </ul>
       <p>
-        <s:text name="onlineCall"/><s:property value="structure.name"/><s:text name="onlineCallByPhone"/>: <a href="tel:<s:property value="structure.phone"/>"><s:property value="structure.phone"/></a>
+        <s:text name="onlineCall"/>: <s:property value="structure.name"/><s:text name="onlineCallByPhone"/>: <a href="tel:<s:property value="structure.phone"/>"><s:property value="structure.phone"/></a>
         <br/>
       </p>
       <p>

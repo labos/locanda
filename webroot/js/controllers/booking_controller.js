@@ -458,7 +458,7 @@ $('input:checkbox[name="bookingExtraIds"], .quantity').eventExtraChange();
                                     $("#nr_guests").append('<option value="' + i + '">' + i + '</option');
                                 }
                             }
-							var extraCheckBoxNumber = $('input:checkbox[name="bookingExtraIds"]').length;
+/*							var extraCheckBoxNumber = $('input:checkbox[name="bookingExtraIds"]').length;
 							for (var extraID = 1; extraID <= extraCheckBoxNumber; extraID++) {
 								var currentCheckbox  = 'input:checkbox#' + extraID + '_extraCheckBox';
 								
@@ -475,7 +475,27 @@ $('input:checkbox[name="bookingExtraIds"], .quantity').eventExtraChange();
 									self.displayQuantitySelect($('input:checkbox[name="bookingExtraIds"]'));
 								}
 								}
-							}
+							}*/
+                            
+                            $('input:checkbox[name="bookingExtraIds"]').each( function (){
+                            	var extraID = $(this).val();
+                            	var currentCheckbox  = 'input:checkbox#' + extraID + '_extraCheckBox';
+								if ($clicked.is(currentCheckbox)) {
+									if ($('select#' + extraID + '_extraQuantity').length != 0) {
+										if ($clicked.is(":checked")) {
+											$('select#' + extraID + '_extraQuantity').show();
+										}
+										else {
+											$('select#' + extraID + '_extraQuantity').hide();
+										}
+								}
+								else {
+									self.displayQuantitySelect($('input:checkbox[name="bookingExtraIds"]'));
+								}
+								}
+                            	
+                            });
+                            
                             if (maxGuests !== null && parseInt(maxGuests) > 0 && ($clicked.is("select#sel_rooms_list") || $clicked.is("select#nr_guests"))) {
                                 var numbermaxGuests = parseInt(maxGuests);
                                 //update number of rows to add guests

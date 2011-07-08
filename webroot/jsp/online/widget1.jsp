@@ -70,7 +70,7 @@
                   <button type="submit" data-theme="b" data-icon="arrow-r" id="btn_widg_next">
                       <s:text name="next" />
                   </button>
-                  -->
+                 
               </div>
           </div>
         </form>
