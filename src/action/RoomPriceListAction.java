@@ -103,7 +103,12 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware{
 			}
 			for (TreeNode eachNode2 : eachNode1.getChildren()) {		//per ogni stagione costruisco i nodi di terzo livello - i roomTypes
 				for (RoomType eachRoomType : this.getRoomTypeService().findRoomTypesByIdStructure(structure.getId())) {
-					eachNode2.buildChild(eachRoomType.getName());
+					if (this.getConventionService().findConventionsByIdStructure(structure.getId()).size() == 0) {	//senza convenzioni devo assegnare una pagina vuota al nodo dei RoomTypes
+						String href = "jsp/layout/blank.jsp";
+						eachNode2.buildChild(eachRoomType.getName(), href);
+					}else {
+						eachNode2.buildChild(eachRoomType.getName());
+					}
 				}
 					for (TreeNode eachNode3 : eachNode2.getChildren()) {//per ogni roomType costruisco i nodi di quarto livello - le convenzioni
 						for (Convention aConvention : this.getConventionService().findConventionsByIdStructure(structure.getId())) {
