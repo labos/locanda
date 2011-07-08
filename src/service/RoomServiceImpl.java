@@ -32,9 +32,12 @@ public class RoomServiceImpl implements RoomService{
 		
 		facilities = this.getFacilityMapper().findRoomFacilitiesByIdRoom(id);
 		room = this.getRoomMapper().findRoomById(id);
-		roomType = this.getRoomTypeMapper().findRoomTypeById(room.getId_roomType());
-		room.setRoomType(roomType);
-		room.setFacilities(facilities);
+		if (room!=null){
+			roomType = this.getRoomTypeMapper().findRoomTypeById(room.getId_roomType());
+			room.setRoomType(roomType);
+			room.setFacilities(facilities);
+		}
+
 		return room;
 	}
 
