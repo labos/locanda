@@ -3,7 +3,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="/struts-tags" prefix="s" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-		<input type="hidden" name="priceList.id" value="<s:property value="priceList.id"/>"/>		
 		<s:iterator value="priceList.items" var="eachPriceListItem" status="itemStatus">
           	  <tr>
           	  	<td><input type="hidden" name="redirect_form" value="goFindAllExtraPriceLists.action?sect=settings" />
@@ -12,6 +11,8 @@
           	  	<td><input type="text" name="priceList.items[<s:property value="#itemStatus.index"/>].price" id="extraPrices" value="<s:property value="#eachPriceListItem.price"/>" class="required number noBorder static_small_input" readonly="readonly"/></td>
           	  </tr>
         </s:iterator>
+     <tr style="display:none;"><td><input type="hidden" name="priceList.id" value="<s:property value="priceList.id"/>"/>		
+</td></tr>      
                       
                       
 					   

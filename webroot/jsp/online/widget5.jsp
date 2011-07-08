@@ -40,11 +40,11 @@
         </li>
       </ul>
       <p>
-        <s:text name="onlineCall"/>: <s:property value="structure.name"/><s:text name="onlineCallByPhone"/>: <a href="tel:<s:property value="structure.phone"/>"><s:property value="structure.phone"/></a>
+        <s:text name="onlineCall"/>: <s:property value="structure.name"/> <s:text name="onlineCallByPhone"/>: <a href="tel:<s:property value="structure.phone"/>"><s:property value="structure.phone"/></a>
         <br/>
       </p>
       <p>
-        <s:text name="onlineSendEmail"/><s:property value="structure.name"/>: <a href="mailto:<s:property value="structure.email"/>?subject=Info Booking (<s:property value="structure.name"/>)"><s:property value="structure.email"/></a>
+        <s:text name="onlineSendEmail"/>: <s:property value="structure.name"/>: <a href="mailto:<s:property value="structure.email"/>?subject=Info Booking (<s:property value="structure.name"/>)"><s:property value="structure.email"/></a>
         <br/>
       </p>
       <p>

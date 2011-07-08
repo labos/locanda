@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import persistence.mybatis.mappers.FacilityMapper;
 import persistence.mybatis.mappers.RoomMapper;
 import persistence.mybatis.mappers.RoomTypeMapper;
-
+import persistence.mybatis.mappers.ImageMapper;
 import model.Facility;
 import model.Room;
 import model.RoomType;
@@ -22,7 +22,8 @@ public class RoomServiceImpl implements RoomService{
 	private RoomTypeMapper roomTypeMapper = null;
 	@Autowired
 	private FacilityMapper facilityMapper = null;
-	    
+	@Autowired
+	private ImageMapper imageMapper = null;    
 	@Override
 	public Room findRoomById(Integer id) {	
 		Room room = null;
@@ -55,6 +56,7 @@ public class RoomServiceImpl implements RoomService{
 		rooms = this.getRoomMapper().findRoomsByIdStructure(id_structure);
 		for(Room each: rooms){
 			roomType = this.getRoomTypeMapper().findRoomTypeById(each.getId_roomType());
+			roomType.setImages(this.getImageMapper().findImagesByIdRoomType(roomType.getId()));
 			each.setRoomType(roomType);
 		}
 		return rooms;
@@ -112,6 +114,14 @@ public class RoomServiceImpl implements RoomService{
 
 	public void setFacilityMapper(FacilityMapper facilityMapper) {
 		this.facilityMapper = facilityMapper;
+	}
+
+	public ImageMapper getImageMapper() {
+		return imageMapper;
+	}
+
+	public void setImageMapper(ImageMapper imageMapper) {
+		this.imageMapper = imageMapper;
 	}
 	
 	
