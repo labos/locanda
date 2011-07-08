@@ -61,6 +61,7 @@ public class RoomServiceImpl implements RoomService{
 			roomType = this.getRoomTypeMapper().findRoomTypeById(each.getId_roomType());
 			roomType.setImages(this.getImageMapper().findImagesByIdRoomType(roomType.getId()));
 			each.setRoomType(roomType);
+			each.setImages(this.getImageMapper().findImagesByIdRoom(each.getId()));
 		}
 		return rooms;
 	}
