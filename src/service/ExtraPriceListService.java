@@ -26,5 +26,6 @@ public interface ExtraPriceListService {
 	public ExtraPriceList findExtraPriceListById(Integer id);
 	public List<ExtraPriceList> findExtraPriceListsByIdStructure(Integer id_structure);
 	public Integer deleteExtraPriceListById(Integer id);
+	public Integer updateExtraPriceListItem(ExtraPriceListItem extraPriceListItem);
 	
 }

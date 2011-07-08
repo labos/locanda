@@ -16,6 +16,7 @@ import model.internal.Message;
 import model.internal.TreeNode;
 import model.listini.Convention;
 import model.listini.ExtraPriceList;
+import model.listini.ExtraPriceListItem;
 import model.listini.Season;
 
 import org.apache.struts2.ServletActionContext;
@@ -144,7 +145,6 @@ public class ExtraPriceListAction extends ActionSupport implements SessionAware{
 		season = this.getSeasonService().findSeasonById(this.getSeasonId());
 		roomType = this.getRoomTypeService().findRoomTypeById(this.getRoomTypeId());
 		convention = this.getConventionService().findConventionById(this.getConventionId());
-		//this.setPriceList(this.getExtraPriceListService().findExtraPriceListByStructureAndSeasonAndRoomTypeAndConvention(structure,season, roomType, convention));
 		this.setPriceList(this.getExtraPriceListService().findExtraPriceListByIdStructureAndIdSeasonAndIdRoomTypeAndIdConvention(
 				structure.getId(), season.getId(), roomType.getId(), convention.getId()));
 		return SUCCESS;
@@ -166,8 +166,8 @@ public class ExtraPriceListAction extends ActionSupport implements SessionAware{
 		structure = user.getStructure();
 		oldExtraPriceList = this.getExtraPriceListService().findExtraPriceListById(this.getPriceList().getId());
 		
-		for (int i = 0; i < oldExtraPriceList.getItems().size(); i++) {
-			oldExtraPriceList.updateItem(this.getPriceList().getItems().get(i));
+		for(ExtraPriceListItem each: this.getPriceList().getItems()){
+			this.getExtraPriceListService().updateExtraPriceListItem(each);
 		}
 		this.getMessage().setResult(Message.SUCCESS);
 		this.getMessage().setDescription(getText("priceListUpdateSuccessAction"));

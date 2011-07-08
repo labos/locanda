@@ -105,6 +105,14 @@ public class ExtraPriceListServiceImpl implements ExtraPriceListService{
 	}
 
 	
+	@Override
+	public Integer updateExtraPriceListItem(ExtraPriceListItem extraPriceListItem) {
+		
+		return this.getExtraPriceListItemMapper().updateExtraPriceListItem(extraPriceListItem);
+	}
+
+
+
 	public ExtraPriceListItemMapper getExtraPriceListItemMapper() {
 		return extraPriceListItemMapper;
 	}

@@ -28,7 +28,7 @@
   
   <update id="updateExtraPriceListItem" parameterType="model.listini.ExtraPriceListItem">
   update extraPriceListItem 
-  set price = #{price},id_extra = #{id_extra},id_extraPriceList = #{id_extraPriceList}     
+  set price = #{price}   
   where id = #{id}	
   </update>
       
