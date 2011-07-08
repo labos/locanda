@@ -337,13 +337,19 @@ padding: 0;
 clear: both;
 margin-left: 0! important;
 margin-top: 0px;
-z-index:1000;
+z-index:2000;
 left: 0;
 }
 ul.sub_menu li, ul.sub_menu li a{
 background: none;
 border: none;
 }
+
+ul.sub_menu li, ul.sub_menu li a{
+-moz-border-radius: 6px;
+border-radius: 6px;
+}
+
 ul.sub_menu li:hover,ul.sub_menu li a:hover {
 background: none;
 background-color: #AFD775;
