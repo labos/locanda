@@ -23,7 +23,10 @@
                 <legend>Widget</legend>
                 <div class="c50l">
                    <div class="type-check">
-					<a href="online.action" target="_blank"><s:text name="onlineWidgetTry"/></a>
+					<a href="online.action?idStructure=<s:property value="idStructure"/>" target="_blank"><s:text name="onlineWidgetTry"/></a>
+             	  </div> 
+             	  <div class="type-check">
+					<a href="mobile.action?idStructure=<s:property value="idStructure"/>" target="_blank">Mobile widget</a>
              	  </div> 
            	 	  <div class="type-text">
                   	<span><s:text name="onlineWidgetPaste"/></span>

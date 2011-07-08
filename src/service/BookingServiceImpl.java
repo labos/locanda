@@ -213,10 +213,24 @@ public class BookingServiceImpl implements BookingService {
 	}
 	
 	public Integer saveOnlineBooking(Structure structure, Booking booking) {
-		booking.setId(structure.nextKey());
-		structure.getBookings().add(booking);		
-		return 1;
-		
+		Integer ret = 0;
+		Guest oldBooker = null;
+
+		ret = this.getBookingMapper().insertBooking(booking);
+
+		this.getExtraItemService().deleteExtraItemsByIdBooking(booking.getId());
+		for (ExtraItem extraItem : booking.getExtraItems()) {
+			extraItem.setId_booking(booking.getId());
+			extraItem.setId_extra(extraItem.getExtra().getId());
+			this.getExtraItemService().insertExtraItem(extraItem);
+		}
+
+		// Il Booker online viene sempre considerato come un nuovo guest e devo
+		// sempre aggiungerlo
+		// DA MODIFICARE
+		this.getBookerService().insertBooker(booking.getBooker(),booking.getId());
+		return ret;
+
 	}
 
 	public RoomPriceListService getRoomPriceListService() {

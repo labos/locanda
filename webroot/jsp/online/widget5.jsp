@@ -49,7 +49,7 @@
       </p>
       <p>
         <img src="http://maps.google.com/maps/api/staticmap?center=<s:property value="structure.city"/>, <s:property value="structure.country"/>&zoom=15&size=200x200&maptype=roadmap&sensor=false" />
-      </p><a href="goOnlineBookingCalendar.action?idStructure=<s:property value="idStructure"/>" rel="external" data-role="button" data-icon="check" data-theme="b"><s:text name="finish"/></a>
+      </p><a href="goOnlineBookingCalendar.action?idStructure=<s:property value="structure.id"/>" rel="external" data-role="button" data-icon="check" data-theme="b"><s:text name="finish"/></a>
     </div>
   </div><!-- /content -->
   <div data-role="footer">
