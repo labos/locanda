@@ -3,7 +3,7 @@ $(document).ready(function () {
 	
     $.Class.extend('Main', /* @static */ {
         init: function () {
-       	 	 	 	       	 	
+
        	    //Submit form function
        	    $.fn.submitForm = function (action) {
        	        //setting for input form fields
