@@ -99,16 +99,21 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware{
 		for (TreeNode eachNode1 : this.getTreeNodes()) {						//per ogni anno costruisco i nodi di secondo livello - le stagioni
 			List<Season> perYearSeasons = this.getSeasonService().findSeasonsByYear(structure.getId(),Integer.parseInt(eachNode1.getData().getTitle()));	//tutte le stagioni di quell'anno
 			for (Season eachYearSeason : perYearSeasons) {
-				eachNode1.buildChild(eachYearSeason.getName());
+				if (this.getRoomTypeService().findRoomTypesByIdStructure(structure.getId()).size() == 0) {	//senza roomTypes devo assegnare una pagina vuota al nodo delle Seasons
+					String href = "jsp/layout/blank.jsp";
+					eachNode1.buildChild(eachYearSeason.getName(), href);
+				} else {
+					eachNode1.buildChild(eachYearSeason.getName());
+				}	
 			}
 			for (TreeNode eachNode2 : eachNode1.getChildren()) {		//per ogni stagione costruisco i nodi di terzo livello - i roomTypes
 				for (RoomType eachRoomType : this.getRoomTypeService().findRoomTypesByIdStructure(structure.getId())) {
-					if (this.getConventionService().findConventionsByIdStructure(structure.getId()).size() == 0) {	//senza convenzioni devo assegnare una pagina vuota al nodo dei RoomTypes
+					if (this.getConventionService().findConventionsByIdStructure(structure.getId()).size() == 0) {	//senza Conventions devo assegnare una pagina vuota al nodo dei RoomTypes
 						String href = "jsp/layout/blank.jsp";
 						eachNode2.buildChild(eachRoomType.getName(), href);
 					}else {
 						eachNode2.buildChild(eachRoomType.getName());
-					}
+					}	
 				}
 					for (TreeNode eachNode3 : eachNode2.getChildren()) {//per ogni roomType costruisco i nodi di quarto livello - le convenzioni
 						for (Convention aConvention : this.getConventionService().findConventionsByIdStructure(structure.getId())) {
