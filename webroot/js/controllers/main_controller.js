@@ -60,18 +60,14 @@ $(document).ready(function () {
        	            },
        	            position: "center",
        	            speed: 1000,
-       	            life: 1000,
+       	            life: 20,
        	            closeDuration: "fast",
        	            header: title,
        	            close: function () {
        	                $(".ui-widget-overlay").hide();
        	            }
        	        });
-       	    };
-       	    
-       	    
-       	 	
-       	 	
+       	    };	
         }
     }, /* @prototype */ {
     	
