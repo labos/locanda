@@ -21,6 +21,8 @@ public class ConventionServiceImpl implements ConventionService{
 	private ConventionMapper conventionMapper = null;
 	@Autowired
 	private RoomPriceListService roomPriceListService = null;
+	@Autowired
+	private ExtraPriceListService extraPriceListService = null;
 
 	
 	
@@ -39,6 +41,7 @@ public class ConventionServiceImpl implements ConventionService{
 	@Override
 	public Integer deleteConvention(Integer id) {
 		this.getRoomPriceListService().deleteRoomPriceListsByIdConvention(id);
+		this.getExtraPriceListService().deleteExtraPriceListsByIdConvention(id);
 		return this.getConventionMapper().deleteConvention(id);
 	}
 
@@ -73,6 +76,16 @@ public class ConventionServiceImpl implements ConventionService{
 
 	public void setRoomPriceListService(RoomPriceListService roomPriceListService) {
 		this.roomPriceListService = roomPriceListService;
+	}
+
+
+	public ExtraPriceListService getExtraPriceListService() {
+		return extraPriceListService;
+	}
+
+
+	public void setExtraPriceListService(ExtraPriceListService extraPriceListService) {
+		this.extraPriceListService = extraPriceListService;
 	}
 	
 	

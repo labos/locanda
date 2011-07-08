@@ -36,7 +36,7 @@ public class RoomTypeServiceImpl implements RoomTypeService{
 	public Integer deleteRoomType(Integer id) {
 		
 		this.getRoomPriceListService().deleteRoomPriceListsByIdRoomType(id);
-		//this.getExtraPriceListService().deleteExtraPriceListById(id)
+		this.getExtraPriceListService().deleteExtraPriceListsByIdRoomType(id);
 		return this.getRoomTypeMapper().deleteRoomType(id);
 	}
 

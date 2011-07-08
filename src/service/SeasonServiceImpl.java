@@ -22,6 +22,8 @@ public class SeasonServiceImpl implements SeasonService{
 	private SeasonMapper seasonMapper = null;
 	@Autowired
 	private RoomPriceListService roomPriceListService = null;
+	@Autowired
+	private ExtraPriceListService extraPriceListService = null;
 	
 	public List<Season> findSeasonsByIdStructure(Integer structureId) {
 		
@@ -133,6 +135,7 @@ public class SeasonServiceImpl implements SeasonService{
 		
 		this.getSeasonMapper().deletePeriodsFromSeason(seasonId);
 		this.getRoomPriceListService().deleteRoomPriceListsByIdSeason(seasonId);
+		this.getExtraPriceListService().deleteExtraPriceListsByIdSeason(seasonId);
 		ret = this.getSeasonMapper().deleteSeason(seasonId);
 		return ret;
 	}
@@ -158,6 +161,14 @@ public class SeasonServiceImpl implements SeasonService{
 
 	public void setRoomPriceListService(RoomPriceListService roomPriceListService) {
 		this.roomPriceListService = roomPriceListService;
+	}
+
+	public ExtraPriceListService getExtraPriceListService() {
+		return extraPriceListService;
+	}
+
+	public void setExtraPriceListService(ExtraPriceListService extraPriceListService) {
+		this.extraPriceListService = extraPriceListService;
 	}
 	
 	
