@@ -14,6 +14,7 @@ import persistence.mybatis.mappers.ExtraPriceListMapper;
 import model.Extra;
 import model.listini.ExtraPriceList;
 import model.listini.ExtraPriceListItem;
+import model.listini.RoomPriceList;
 
 @Service
 public class ExtraPriceListServiceImpl implements ExtraPriceListService{
@@ -103,6 +104,53 @@ public class ExtraPriceListServiceImpl implements ExtraPriceListService{
 		ret = this.getExtraPriceListMapper().deleteExtraPriceListById(id);
 		return ret;
 	}
+	
+	
+	@Override
+	public Integer deleteExtraPriceListsByIdSeason(Integer id_season) {
+		Integer ret = 0;
+		List<ExtraPriceList> extraPriceLists = null;
+		
+		extraPriceLists = this.getExtraPriceListMapper().findExtraPriceListsByIdSeason(id_season);
+		for(ExtraPriceList each: extraPriceLists){
+			this.deleteExtraPriceListById(each.getId());
+		}
+		
+		return ret;
+	}
+
+	@Override
+	public Integer deleteExtraPriceListsByIdRoomType(Integer id_roomType) {
+		Integer ret = 0;
+		List<ExtraPriceList> extraPriceLists = null;
+		
+		extraPriceLists = this.getExtraPriceListMapper().findExtraPriceListsByIdRoomType(id_roomType);
+		for(ExtraPriceList each: extraPriceLists){
+			this.deleteExtraPriceListById(each.getId());
+		}
+		
+		return ret;
+	}
+
+	@Override
+	public Integer deleteExtraPriceListsByIdConvention(Integer id_convention) {
+		Integer ret = 0;
+		List<ExtraPriceList> extraPriceLists = null;
+		
+		extraPriceLists = this.getExtraPriceListMapper().findExtraPriceListsByIdConvention(id_convention);
+		for(ExtraPriceList each: extraPriceLists){
+			this.deleteExtraPriceListById(each.getId());
+		}
+		
+		return ret;
+	}
+	
+	
+	
+	
+	
+	
+	
 
 	
 	@Override

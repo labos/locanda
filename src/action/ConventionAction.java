@@ -1,5 +1,6 @@
 package action;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -40,11 +41,17 @@ public class ConventionAction extends ActionSupport implements SessionAware{
 	public String findAllConventions(){
 		User user = null;
 		Structure structure = null;
+		List<Convention> filteredConventions = null;
 	
 		user = (User)this.getSession().get("user");
 		structure = user.getStructure();
-		
-		this.setConventions(this.getConventionService().findConventionsByIdStructure(structure.getId()));
+		filteredConventions = new ArrayList<Convention>();
+		for(Convention each: this.getConventionService().findConventionsByIdStructure(structure.getId())){
+			if(!each.getActivationCode().equals("thisconventionshouldntneverberemoved")){
+				filteredConventions.add(each);
+			}
+		}
+		this.setConventions(filteredConventions);
 		return SUCCESS;		
 	}
 	

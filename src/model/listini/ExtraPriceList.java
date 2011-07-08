@@ -54,7 +54,8 @@ public class ExtraPriceList implements Serializable{
 		Double ret = 0.0;
 		
 		for(ExtraPriceListItem each: this.getItems()){
-			if(each.getExtra().equals(extra)){
+			if(each.getId_extra().equals(
+					extra.getId())){
 				return each.getPrice();
 			}
 		}

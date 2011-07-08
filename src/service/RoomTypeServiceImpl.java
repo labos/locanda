@@ -19,6 +19,8 @@ public class RoomTypeServiceImpl implements RoomTypeService{
 	private RoomTypeMapper roomTypeMapper = null;
 	@Autowired
 	private RoomPriceListService roomPriceListService = null;
+	@Autowired
+	private ExtraPriceListService extraPriceListService = null;
 
 	@Override
 	public Integer insertRoomType(RoomType roomType) {
@@ -34,6 +36,7 @@ public class RoomTypeServiceImpl implements RoomTypeService{
 	public Integer deleteRoomType(Integer id) {
 		
 		this.getRoomPriceListService().deleteRoomPriceListsByIdRoomType(id);
+		//this.getExtraPriceListService().deleteExtraPriceListById(id)
 		return this.getRoomTypeMapper().deleteRoomType(id);
 	}
 
@@ -74,6 +77,14 @@ public class RoomTypeServiceImpl implements RoomTypeService{
 
 	public void setRoomPriceListService(RoomPriceListService roomPriceListService) {
 		this.roomPriceListService = roomPriceListService;
+	}
+
+	public ExtraPriceListService getExtraPriceListService() {
+		return extraPriceListService;
+	}
+
+	public void setExtraPriceListService(ExtraPriceListService extraPriceListService) {
+		this.extraPriceListService = extraPriceListService;
 	}
 	
 

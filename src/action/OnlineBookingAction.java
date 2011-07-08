@@ -103,7 +103,11 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 		dateOut  = DateUtils.addDays(booking.getDateIn(), this.getNumNights());	
 		booking.setDateOut(dateOut);
 		
-		defaultConvention = this.getConventionService().findConventionsByIdStructure(structure.getId()).get(0);
+		for(Convention each: this.getConventionService().findConventionsByIdStructure(structure.getId())){
+			if(each.getActivationCode().equals("thisconventionshouldntneverberemoved")){
+				defaultConvention = each;
+			}			
+		}
 		booking.setConvention(defaultConvention);
 		booking.setId_convention(defaultConvention.getId());
 		

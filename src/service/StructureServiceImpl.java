@@ -164,6 +164,7 @@ public class StructureServiceImpl implements StructureService{
 				for (Extra eachExtra : this.getExtraService().findExtrasByIdStructure(structure.getId())) {
 					newExtraPriceListItem = new ExtraPriceListItem();
 					newExtraPriceListItem.setExtra(eachExtra);
+					newExtraPriceListItem.setId_extra(eachExtra.getId());
 					newExtraPriceListItem.setPrice(price);
 					extraItems.add(newExtraPriceListItem);
 				}
@@ -229,6 +230,7 @@ public class StructureServiceImpl implements StructureService{
 				for (Extra eachExtra : this.getExtraService().findExtrasByIdStructure(structure.getId())) {
 					newExtraPriceListItem = new ExtraPriceListItem();
 					newExtraPriceListItem.setExtra(eachExtra);
+					newExtraPriceListItem.setId_extra(eachExtra.getId());
 					newExtraPriceListItem.setPrice(price);
 					extraItems.add(newExtraPriceListItem);
 				}
@@ -294,6 +296,7 @@ public class StructureServiceImpl implements StructureService{
 				for (Extra eachExtra : this.getExtraService().findExtrasByIdStructure(structure.getId())) {
 					newExtraPriceListItem = new ExtraPriceListItem();
 					newExtraPriceListItem.setExtra(eachExtra);
+					newExtraPriceListItem.setId_extra(eachExtra.getId());
 					newExtraPriceListItem.setPrice(price);
 					extraItems.add(newExtraPriceListItem);
 				}
