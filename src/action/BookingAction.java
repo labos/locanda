@@ -114,6 +114,7 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 		this.updateRoomSubtotal(id_structure, booking);		
 		this.updateUnitaryPriceInBookedExtraItems(id_structure, booking);
 		this.updateMaxQuantityInBookedExtraItems(booking);
+		this.updateQuantityInBookedExtraItems(booking);
 		booking.updateExtraSubtotal();
 		
 		this.setBooking(booking);
@@ -355,8 +356,19 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 		for(ExtraItem each: booking.getExtraItems()){
 			maxQuantity = booking.calculateExtraItemMaxQuantity(each.getExtra());
 			each.setMaxQuantity(maxQuantity);
+			
 		}		
 	}	
+	
+	private void updateQuantityInBookedExtraItems(Booking booking){
+		Integer maxQuantity;
+		
+		for(ExtraItem each: booking.getExtraItems()){
+			maxQuantity = booking.calculateExtraItemMaxQuantity(each.getExtra());
+			each.setQuantity(maxQuantity);
+			
+		}		
+	}
 	
 	private void updateUnitaryPriceInBookedExtraItems(Integer id_structure, Booking booking){
 		Double unitaryPrice;
