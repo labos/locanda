@@ -206,9 +206,9 @@ color: red;}
 </s:url>
 <s:url id="localeEN" namespace="/" action="locale" >
    <s:param name="request_locale" >en</s:param>
-   <s:param name="redirect" ><s:property value="#redirectLang"/>.action</s:param>
+   <s:param name="redirect" ><s:property value="#redirectLang"/>.action?idStructure=<s:property value="structure.id"/></s:param>
 </s:url>
 <s:url id="localeIT" namespace="/" action="locale" >
    <s:param name="request_locale" >it</s:param>
-     <s:param name="redirect" ><s:property value="#redirectLang"/>.action</s:param>
+     <s:param name="redirect" ><s:property value="#redirectLang"/>.action?idStructure=<s:property value="structure.id"/></s:param>
 </s:url>

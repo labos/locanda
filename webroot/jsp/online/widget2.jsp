@@ -6,7 +6,7 @@
 <jsp:include page="../layout/header_widget.jsp" /><!-- Start of first page -->
 <div data-role="page" id="foo">
   <div data-role="header">
-    <h1><s:text name="roomSelect"/></h1><a href="goOnlineBookingCalendar.action?idStructure=<s:property value="idStructure"/>" class="ui-btn-right" rel="external" data-icon="home" data-iconpos="notext" data-direction="reverse"><s:text name="home"/></a>
+    <h1><s:text name="roomSelect"/></h1><a href="goOnlineBookingCalendar.action?idStructure=<s:property value="structure.id"/>" class="ui-btn-right" rel="external" data-icon="home" data-iconpos="notext" data-direction="reverse"><s:text name="home"/></a>
   </div>
   <!-- /header -->
   <div data-role="content">

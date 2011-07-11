@@ -19,7 +19,7 @@
   
   <div data-role="header">
     <h1><s:text name="bookerDetails"/></h1>
-    <a href="goOnlineBookingCalendar.action?idStructure=<s:property value="idStructure"/>" class="ui-btn-right" rel="external" data-icon="home" data-iconpos="notext" data-direction="reverse"><s:text name="home"/></a>
+    <a href="goOnlineBookingCalendar.action?idStructure=<s:property value="structure.id"/>" class="ui-btn-right" rel="external" data-icon="home" data-iconpos="notext" data-direction="reverse"><s:text name="home"/></a>
   </div>
   <!-- /header -->
   <div data-role="content">

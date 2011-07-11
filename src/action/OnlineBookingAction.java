@@ -79,6 +79,7 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 		datePattern = sdf.toPattern();
 		this.getSession().put("datePattern", datePattern);	
 		structure = this.getStructureService().findStructureById(this.getIdStructure());
+		this.setStructure(structure);
 		
 		booking = new Booking();
 		booking.setStatus("online");
@@ -105,6 +106,8 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 		
 	
 		structure =  (Structure) this.getSession().get("structure");
+		this.setStructure(structure);
+		
 		booking = (Booking) this.getSession().get("onlineBooking");		
 		
 		booking.setNrGuests(this.getBooking().getNrGuests());
@@ -151,6 +154,8 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 		Booking booking = null;		
 		
 		structure =  (Structure) this.getSession().get("structure");
+		this.setStructure(structure);
+		
 		booking = (Booking) this.getSession().get("onlineBooking");
 		
 		theBookedRoom = this.getRoomService().findRoomById(this.getBooking().getRoom().getId());
@@ -182,6 +187,8 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 		
 		
 		structure =  (Structure) this.getSession().get("structure");
+		this.setStructure(structure);
+		
 		booking = (Booking) this.getSession().get("onlineBooking");
 		
 		checkedExtras = new ArrayList<Extra>();
