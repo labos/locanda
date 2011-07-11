@@ -80,5 +80,3 @@
         <h4>Locanda <s:text name="onlineWidget"/></h4>
       </div><!-- /header -->
     </div><!-- /page -->
-
-

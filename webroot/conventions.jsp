@@ -14,7 +14,7 @@
     <div id="col3" role="main">
       <div id="col3_content" class="clearfix">
         <div class="header_section">
-          <span class="name_section"><s:text name="manageConventions"/></span>
+          <span class="name_section"><s:text name="conventions"/></span>
       	</div>
         <div>
           <button class="btn_add_form"><s:text name="addNew" /></button>

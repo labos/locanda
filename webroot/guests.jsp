@@ -14,7 +14,7 @@
       <div id="col3_content" class="clearfix">
       <form action="findAllGuestsFiltered.action">
         <div class="header_section">
-          <span class="name_section"><s:text name="manageGuests" /></span>   
+          <span class="name_section"><s:text name="guests" /></span>   
           <div class="right type-text">
             <input type="text" name="term" class="txt_guest_search" /><button class="btn_g_search"><s:text name="search"/></button>
           </div>  

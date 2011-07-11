@@ -7,10 +7,10 @@
 		<form method="post" action="saveUpdateExtra.action" class="yform json full" role="application">
 		  <fieldset>
           	<legend><s:text name="extraDetails"/></legend>
-          	  <div class="c50l">
+          	  <div class="c60l">
               	<input type="hidden" name="redirect_form" value="findAllExtras.action?sect=accomodation" />
                 <input type="hidden" name="extra.id" value="<s:property value="extra.id"/>"/>
-                <div class="c50l">
+                <div class="c60l">
                   <div class="type-text">	
                   	<label for="extraFormName"><s:text name="extra"/> <s:text name="name"/><sup title="This field is mandatory.">*</sup></label>
                 	<input type="text" class="required" name="extra.name" id="extraFormName" value="<s:property value="extra.name"/>" aria-required="true"/>

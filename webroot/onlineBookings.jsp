@@ -39,10 +39,12 @@
              	  <div class="type-check">
 					<a href="#" id="customizewidget"><s:text name="customizeLayout"/></a>
              	  </div>  
+              	  <!--
               	  <div class="type-check">
                   	<input type="checkbox" name="online.price" id="onlineRequire" value="1"/>
                   	<label for="onlineRequire"><s:text name="requirePayment"/></label>
              	  </div>         	 	
+                  -->
                   <div class="type-button">
             		<button class="btn_save"><s:text name="save"/></button>
            		  </div>

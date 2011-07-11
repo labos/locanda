@@ -16,7 +16,7 @@
                 	<input type="text" class="required" name="roomType.name" id="roomTypeName" value="<s:property value="roomType.name"/>" aria-required="true"/>
                   </div>
                   <div class="type-text">           
-       				<label for="roomTypeMaxGuests"><s:text name="roomTypeMaxGuests"/>:<sup title="This field is mandatory.">*</sup></label>
+       				<label for="roomTypeMaxGuests"><s:text name="maxGuests"/>:<sup title="This field is mandatory.">*</sup></label>
                     <input type="text" class="required number" name="roomType.maxGuests" id="roomTypeMaxGuests" value="<s:property value="roomType.maxGuests"/>" aria-required="true"/>
       		      </div> 
                   

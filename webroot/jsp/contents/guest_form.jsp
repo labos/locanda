@@ -6,7 +6,7 @@
 
 		<form method="post" action="saveUpdateGuest.action" class="yform json" role="application">           
   		  <fieldset>
-          	<legend>Guest details</legend>
+          	<legend><s:text name="guestDetails"/></legend>
               <div class="c80l">
               	<input type="hidden" name="redirect_form" value="findAllGuests.action?sect=guests" />
               	<input type="hidden" name="id" value="<s:property value="id"/>"/>

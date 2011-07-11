@@ -161,16 +161,16 @@ width:80%;
                   	  <div class="c50r">
              			<a href="#adjustment_anchor" class="add_adjustment" title="add adjustment"><img src="images/add-icon.png" alt="Add Adjustment" /><s:text name="addNewAdjustment" /></a>
               		  	<a name="adjustment_anchor"></a>
-              		  </div>
+              		  </div>room
               		</div>
               		<s:iterator value="booking.adjustments" var="eachAdjust" status="adjustStatus">
               		  <div  class="subcolumns adjustment_row">
               		  	<input type="hidden" class="idAdjustment" name="booking.adjustments[<s:property value="#adjustStatus.index"/>].id" value="<s:property value="#eachAdjust.id"/>"/>
               		  	<div class="c40l">
-              		  	  <div class="subcl type-text"><span><s:text name="name" />:</span><input type="text" name="booking.adjustments[<s:property value="#adjustStatus.index"/>].description" value="<s:property value="#eachAdjust.description" />" class="require" style="width: 90%;" /></div>
+              		  	  <div class="subcl type-text"><span><s:text name="name"/>:</span><input type="text" name="booking.adjustments[<s:property value="#adjustStatus.index"/>].description" value="<s:property value="#eachAdjust.description" />" class="require" style="width: 90%;" /></div>
               		  	</div>
                   	  	<div class="c33l">
-                  	  	  <div class="subcl type-text"><span><s:text name="amount" />(&euro;):</span><input type="text" name="booking.adjustments[<s:property value="#adjustStatus.index"/>].amount"  value="<s:property value="#eachAdjust.amount" />" class="extra_value_adjustment validPrice"/></div>
+                  	  	  <div class="subcl type-text"><span><s:text name="amount"/> (&euro;):</span><input type="text" name="booking.adjustments[<s:property value="#adjustStatus.index"/>].amount"  value="<s:property value="#eachAdjust.amount" />" class="extra_value_adjustment validPrice"/></div>
                   	  	</div>
                   	  	<div class="c25r"><label>&nbsp;</label><a href="#" class="erase_adjustment" title="erase"><img src="images/delete.png" alt="Delete Adjustment" /><s:text name="deleteAdjustment" /></a></div>
                   	  </div>
