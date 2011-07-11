@@ -650,7 +650,7 @@ CREATE TABLE `uploadedFacility` (
   `fileName` varchar(255) DEFAULT NULL,
   `id_structure` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -659,6 +659,7 @@ CREATE TABLE `uploadedFacility` (
 
 LOCK TABLES `uploadedFacility` WRITE;
 /*!40000 ALTER TABLE `uploadedFacility` DISABLE KEYS */;
+INSERT INTO `uploadedFacility` VALUES (4,'Aria Condizionata','ACO.gif',1),(6,'TV','TVC.gif',1),(7,'TV satellitare','TVS.gif',1),(8,'Minibar','FRI.gif',1),(9,'Telefono','TEL.gif',1),(10,'Phon','PHO.gif',1),(11,'Cassaforte','CSS.gif',1),(12,'Internet','INT.gif',1),(13,'Internet Wi-Fi','WFI.gif',1);
 /*!40000 ALTER TABLE `uploadedFacility` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -696,4 +697,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2011-07-11 11:11:58
+-- Dump completed on 2011-07-11 12:00:26
