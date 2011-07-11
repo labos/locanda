@@ -5,7 +5,7 @@
 
 		<form method="post" action="saveUpdateConvention.action" class="yform json full" role="application">
 		  <fieldset>
-          	<legend>Convention details</legend>
+          	<legend><s:text name="conventionDetails" /></legend>
           	  <div class="c50l">
               	<input type="hidden" name="redirect_form" value="findAllConventions.action?sect=settings" />
                 <input type="hidden" name="convention.id" value="<s:property value="convention.id"/>"/>

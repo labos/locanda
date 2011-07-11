@@ -1,8 +1,11 @@
 package action;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import model.ExtraItem;
@@ -67,7 +70,14 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 	public String goOnlineBookingCalendar(){
 		Booking booking = null;
 		Structure structure = null;
-			
+		Locale locale = null;
+		SimpleDateFormat sdf = null;
+		String datePattern = null;
+		locale = this.getLocale();
+		sdf = (SimpleDateFormat) DateFormat.getDateInstance(
+				DateFormat.SHORT, locale);
+		datePattern = sdf.toPattern();
+		this.getSession().put("datePattern", datePattern);	
 		structure = this.getStructureService().findStructureById(this.getIdStructure());
 		
 		booking = new Booking();

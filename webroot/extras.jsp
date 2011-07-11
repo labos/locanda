@@ -38,7 +38,7 @@
               	  </legend>
                   <div class="subcolumns">
       		 		<div class="c40l">
-                      <div class="type_rooms">
+                      <div class="type-text">
                       	<ul>
 					  	  <li><b><s:text name="priceType"/>:</b> <s:property value="#eachExtra.timePriceType"/>/<s:property value="#eachExtra.resourcePriceType"/></li>
                       	  <li><b><s:text name="description"/>:</b><textarea readonly="readonly"><s:property value="#eachExtra.description"/></textarea></li>

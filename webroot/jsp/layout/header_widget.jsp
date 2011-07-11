@@ -46,6 +46,55 @@
     	  {
     	  I18NSettings.datePattern ="dd/mm/yy";
     	  }
+      
+      
+      $("#largeDatepicker").datepicker({
+          dateFormat: I18NSettings.datePattern,
+          onSelect: function (dateText, inst) {
+              var selectedData = $.datepicker.formatDate(I18NSettings.datePattern, $(this).datepicker("getDate"));
+              if (selectedData) {
+                  $('input:hidden[name="booking.dateIn"]').val(selectedData);
+              }
+          }
+      });
+      
+      $('#choice-language').change(function() {
+      	 
+          $("#choice-language option:selected").each(function () {
+          	location.href= $(this).val();
+            });
+
+      	});
+      $(".btn_next").button({
+          icons: {
+              primary: "ui-icon-seek-next"
+          }
+      });
+      $("#btn_widg_next").click(function (event) {
+          event.preventDefault();
+          if ($(this).parents("form").valid()) {
+          	
+          	
+              if ($('input:hidden[name="booking.dateIn"]').val() == "") {
+                  $(".alert").html($.i18n("dateInRequired")).show();
+                  return false;
+              }
+              $(this).parents("form").submit();
+          }
+          return false;
+      });
+      $('[data-role=page]').live('pagebeforecreate', function (event) {
+          $("#btn_guest_next").click(function (event) {
+              event.preventDefault();
+              $(this).validate();
+              if (!$(this).parents("form").valid()) {
+                  return false;
+              }
+              $(this).parents("form").submit();
+          });
+      });
+      
+      
 
       });
 </script>
@@ -150,53 +199,6 @@ strong.red{
 color: red;}
 </style>
 
-<script>
-$(function () {
-    $("#largeDatepicker").datepicker({
-        dateFormat: I18NSettings.datePattern,
-        onSelect: function (dateText, inst) {
-            var selectedData = $.datepicker.formatDate(I18NSettings.datePattern, $(this).datepicker("getDate"));
-            if (selectedData) {
-                $('input:hidden[name="booking.dateIn"]').val(selectedData);
-            }
-        }
-    });
-    
-    $('#choice-language').change(function() {
-    	 
-        $("#choice-language option:selected").each(function () {
-        	location.href= $(this).val();
-          });
-
-    	});
-    $(".btn_next").button({
-        icons: {
-            primary: "ui-icon-seek-next"
-        }
-    });
-    $("#btn_widg_next").click(function (event) {
-        event.preventDefault();
-        if ($(this).parents("form").valid()) {
-            if ($('input:hidden[name="booking.dateIn"]').val() == "") {
-                $(".alert").html($.i18n("dateInRequired")).show();
-                return false;
-            }
-            $(this).parents("form").submit();
-        }
-        return false;
-    });
-    $('[data-role=page]').live('pagebeforecreate', function (event) {
-        $("#btn_guest_next").click(function (event) {
-            event.preventDefault();
-            $(this).validate();
-            if (!$(this).parents("form").valid()) {
-                return false;
-            }
-            $(this).parents("form").submit();
-        });
-    });
-});
-	</script>
 	</head>
 	<s:set var="redirectLang" value="#context['struts.actionMapping'].name" />
 <s:url id="localeFR" namespace="/" action="locale" >
