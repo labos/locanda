@@ -12,7 +12,7 @@
   <div data-role="content">
     <div class="contentHeader">
       <p>
-        <strong><s:property value="booking.dateIn"/></strong>, <s:property value="booking.calculateNumNights()"/><s:text name="nights"/>, <s:property value="numGuests"/><s:text name="persons"/>
+        <strong><s:property value="booking.dateIn"/></strong>, <s:property value="booking.calculateNumNights()"/><s:text name="nights"/>, <s:property value="booking.nrGuests"/><s:text name="persons"/>
       </p>
     </div>
     <ul data-role="listview" data-theme="g">
@@ -43,7 +43,7 @@
       </s:iterator>
     </ul>
     <s:if test="rooms.size() == 0">
-      <h3><s:text name="roomsNotAvailableOnlineAction" /></h3><a href="goOnlineBookingCalendar.action" rel="external" data-role="button" data-icon="alert" data-theme="b"><s:text name="back"/></a>
+      <h3><s:text name="roomsNotAvailableOnlineAction" /></h3><a href="goOnlineBookingCalendar.action?idStructure=<s:property value="structure.id"/>" rel="external" data-role="button" data-icon="alert" data-theme="b"><s:text name="back"/></a>
     </s:if>
   </div><!-- /content -->
   
