@@ -708,6 +708,7 @@ overflow: hidden;
 }
 
 ul.thumbs li  span a, ul.thumbs_facility li span a {
+top: 0px;
 right: 1px;
 position:absolute;
 
