@@ -218,11 +218,11 @@ $.fn.deprecatedBrowser = function () {
 		},
 		buildDownloadRow: function (file) {
 			var resultRow = "";
-			if (typeof file !== "undefined") {
+/*			if (typeof file !== "undefined") {
 				resultRow = file.message.result;
 			} else {
 				resultRow = "";
-			}
+			}*/
 			return $('<tr><td>' + resultRow + '<\/td><\/tr>');
 		},
 		onComplete: function (event, files, index, xhr, handler) {
@@ -236,7 +236,7 @@ $.fn.deprecatedBrowser = function () {
 				}
 				$().notify($.i18n("congratulation"), json.message.description);
 			} else if (typeof json !== "undefined" && typeof json.message !== "undefined" && json.message.result == "error") {
-				$().notify($.i18n("warning"), json.description);
+				$().notify($.i18n("warning"), json.message.description);
 			} else {
 				$().notify($.i18n("warning"), $.i18n("seriousErrorDescr"));
 			}

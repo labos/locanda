@@ -8,6 +8,9 @@
 .type_rooms{
 display: none;
 }
+.yform .type-select select {
+width:80%;
+}
 </style>
 	<div class="validationErrors"></div>
       <form class="yform json" action="saveUpdateBooking.action">
