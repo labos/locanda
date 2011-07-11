@@ -60,6 +60,28 @@ public class ImageServiceImpl implements ImageService{
 
 
 	@Override
+	public Image findStructureImageByName(String name) {
+		
+		return this.getImageMapper().findStructureImageByName(name);
+	}
+
+
+
+	@Override
+	public Image findRoomImageByName(String name) {
+		return this.getImageMapper().findRoomImageByName(name);
+	}
+
+
+
+	@Override
+	public Image findRoomTypeImageByName(String name) {
+		return this.getImageMapper().findRoomTypeImageByName(name);
+	}
+
+
+
+	@Override
 	public Integer deleteRoomImage(Integer id) {
 		return this.getImageMapper().deleteRoomImage(id);
 	}
@@ -67,8 +89,24 @@ public class ImageServiceImpl implements ImageService{
 
 
 	@Override
+	public Integer deleteAllImagesFromRoom(Integer id) {
+		
+		return this.getImageMapper().deleteAllImagesFromRoom(id);
+	}
+
+
+
+	@Override
 	public Integer deleteRoomTypeImage(Integer id) {
 		return this.getImageMapper().deleteRoomTypeImage(id);
+	}
+
+
+
+	@Override
+	public Integer deleteAllImagesFromRoomType(Integer id) {
+		
+		return this.getImageMapper().deleteAllImagesFromRoomType(id);
 	}
 
 

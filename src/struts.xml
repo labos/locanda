@@ -26,11 +26,21 @@
 
 <struts>
 	<constant name="struts.custom.i18n.resources" value="global" />
-     <constant name="struts.multipart.maxSize" value="1000000" />
-      
+    <constant name="struts.multipart.maxSize" value="1000000" />      
   	<package name="default" extends="struts-default,json-default" namespace="/">
+  		<interceptors>
+    			<interceptor name="userAwareInterceptor" class="struts.interceptor.UserAwareInterceptor"></interceptor>
+    			<interceptor-stack name="userAwareStack">
+    				<interceptor-ref name="userAwareInterceptor"></interceptor-ref>
+    				<interceptor-ref name="defaultStack"></interceptor-ref>
+    			</interceptor-stack>    		
+    	</interceptors>
+    	<default-interceptor-ref name="userAwareStack"></default-interceptor-ref>   	
+    	<global-results>
+    			<result name="notLogged">/homeNotLogged.jsp</result>    		
+    	</global-results>    	
     	<action name="locale" class="action.LocaleAction">
 			<result name="SUCCESS" type="redirect">${redirect}</result>	
 		</action>
-		</package>
+	</package>
 </struts>

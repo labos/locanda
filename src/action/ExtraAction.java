@@ -6,32 +6,47 @@ import java.util.Map;
 import model.Extra;
 import model.Structure;
 import model.User;
+import model.UserAware;
 import model.internal.Message;
 import model.listini.ExtraPriceList;
 import model.listini.ExtraPriceListItem;
 
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Actions;
+import org.apache.struts2.convention.annotation.InterceptorRef;
+import org.apache.struts2.convention.annotation.InterceptorRefs;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import service.BookingService;
 import service.ExtraPriceListService;
 import service.ExtraService;
 
 import com.opensymphony.xwork2.ActionSupport;
 
-@ParentPackage(value="default")
-public class ExtraAction extends ActionSupport implements SessionAware{
+@ParentPackage( value="default")
+@InterceptorRefs({
+	@InterceptorRef("userAwareStack")    
+})
+@Result(name="notLogged", location="/homeNotLogged.jsp")
+public class ExtraAction extends ActionSupport implements SessionAware,UserAware{
 	private Map<String, Object> session = null;
 	private Message message = new Message();
 	private List<Extra> extras = null;
 	private Extra extra = null;
+	private Integer idStructure;
+	
+	
+
 	@Autowired
 	private ExtraService extraService = null;
 	@Autowired
 	private ExtraPriceListService extraPriceListService = null;
+	@Autowired
+	private BookingService bookingService = null;
+	
 	
 	@Actions({
 		@Action(value="/findAllExtras",results = {
@@ -39,15 +54,9 @@ public class ExtraAction extends ActionSupport implements SessionAware{
 		}) 
 	})
 	public String findAllExtras() {
-		User user = null;
-		Structure structure = null;
 		List<Extra> extras = null;
-		
-		
-		user = (User)this.getSession().get("user");
-		structure = user.getStructure();
-		
-		extras = this.getExtraService().findExtrasByIdStructure(structure.getId());
+				
+		extras = this.getExtraService().findExtrasByIdStructure(this.getIdStructure());
 		this.setExtras(extras);
 		
 		return SUCCESS;
@@ -59,12 +68,9 @@ public class ExtraAction extends ActionSupport implements SessionAware{
 		})		
 	})
 	public String goUpdateExtra() {
-		User user = null;
-		Structure structure = null;
+		
 		Extra extra = null;
 		
-		user = (User)this.getSession().get("user");
-		structure = user.getStructure();
 		
 		extra = this.getExtraService().findExtraById(this.getExtra().getId());
 		this.setExtra(extra);
@@ -83,15 +89,13 @@ public class ExtraAction extends ActionSupport implements SessionAware{
 		})
 	})
 	public String saveUpdateExtra() {
-		User user = null;
-		Structure structure = null;
+		
 		Extra oldExtra = null;
 		
-		user = (User)this.getSession().get("user");
-		structure = user.getStructure();
+	
 		
 		oldExtra = this.getExtraService().findExtraById(this.getExtra().getId());
-		this.getExtra().setId_structure(structure.getId());
+		this.getExtra().setId_structure(this.getIdStructure());
 		if(oldExtra == null){
 			//Si tratta di un add			
 			this.getExtraService().insertExtra(this.getExtra());
@@ -121,34 +125,40 @@ public class ExtraAction extends ActionSupport implements SessionAware{
 		})
 	})
 	public String deleteExtra() {
-		User user = null;
-		Structure structure = null;		
 		
-		user = (User)this.getSession().get("user");
-		structure = user.getStructure();
+		Integer count = 0;
+		Integer id_extra = 0;
 		
-		try{
-			this.getExtraService().deleteExtra(this.getExtra().getId());
+		
+		
+		id_extra = this.getExtra().getId();
+		
+		if(this.getBookingService().countBookingsByIdExtra(id_extra) > 0){
+			this.getMessage().setResult(Message.ERROR);
+			this.getMessage().setDescription("Non è possibile cancellare l'extra perchè esistono booking associati a questo extra");
+			return "error";
+		}
+		
+		count = this.getExtraService().deleteExtra(id_extra);
+		if(count > 0){
 			this.getMessage().setResult(Message.SUCCESS);
 			this.getMessage().setDescription(getText("extraDeleteSuccessAction"));
 			return "success";
-		}catch (Exception e) {
+		}else{
 			this.getMessage().setResult(Message.ERROR);
 			this.getMessage().setDescription(getText("extraDeleteSuccessAction"));
 			return "error";
 		}
+		
 	}
 	
 	public void buildExtraPriceListFromExtra() {
-		User user = null;
-		Structure structure = null;
+		
 		ExtraPriceListItem newExtraPriceListItem = null;
 		
-		user = (User)this.getSession().get("user");
-		structure = user.getStructure();
 		
 		
-		for (ExtraPriceList eachPriceList : this.getExtraPriceListService().findExtraPriceListsByIdStructure(structure.getId())) {
+		for (ExtraPriceList eachPriceList : this.getExtraPriceListService().findExtraPriceListsByIdStructure(this.getIdStructure())) {
 			newExtraPriceListItem = new ExtraPriceListItem();
 			//newExtraPriceListItem.setId(structure.nextKey());
 			//newExtraPriceListItem.setExtra(this.getExtra());
@@ -196,6 +206,22 @@ public class ExtraAction extends ActionSupport implements SessionAware{
 	}
 	public void setExtraPriceListService(ExtraPriceListService extraPriceListService) {
 		this.extraPriceListService = extraPriceListService;
+	}
+
+	public BookingService getBookingService() {
+		return bookingService;
+	}
+
+	public void setBookingService(BookingService bookingService) {
+		this.bookingService = bookingService;
 	}	
+	public Integer getIdStructure() {
+		return idStructure;
+	}
+
+	public void setIdStructure(Integer idStructure) {
+		this.idStructure = idStructure;
+	}
+	
 	
 }

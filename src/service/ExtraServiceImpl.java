@@ -22,19 +22,19 @@ public class ExtraServiceImpl implements ExtraService {
 	
 
 
-	public List<Extra> findExtrasByIdStructure(Integer idStructure) {
+	public List<Extra> findExtrasByIdStructure(Integer id_structure) {
 		List<Extra> ret = null;
 		
-		ret = this.getExtraMapper().findExtrasByIdStructure(idStructure);
+		ret = this.getExtraMapper().findExtrasByIdStructure(id_structure);
 		return ret;
 	}	
 	
-	public List<Extra> findExtrasByIdStructureAndAvailableOnline(Integer idStructure, Boolean availableOnline) {
+	public List<Extra> findExtrasByIdStructureAndAvailableOnline(Integer id_structure, Boolean availableOnline) {
 		List<Extra> ret = null;
 		Map params = null;
 		
 		params = new HashMap();
-		params.put("id", idStructure);
+		params.put("id_structure", id_structure);
 		params.put("availableOnline", availableOnline);
 		
 		ret = this.getExtraMapper().findExtrasByIdStructureAndAvailableOnline(params);

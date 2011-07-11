@@ -23,6 +23,24 @@
    select id,nrGuests,dateIn,dateOut,roomSubtotal,extraSubtotal,notes,status,id_convention,id_room,id_structure from booking
   </sql>
   
+  
+  <select id="countBookingsByIdConvention" parameterType="int" resultType="int">
+  	select count(id) from booking where id_convention = #{id_convention}  
+  </select>
+  
+  <select id="countBookingsByIdRoom" parameterType="int" resultType="int">
+  	select count(id) from booking where id_room = #{id_room}  
+  </select>
+  
+  
+  <select id="countBookingsByIdExtra" parameterType="int" resultType="int">
+  	select count(id) from extraItem where id_extra = #{id_extra}  
+  </select>
+  
+   <select id="countBookingsByIdGuest" parameterType="int" resultType="int">
+  	select count(id) from booker where id_guest = #{id_guest}  
+  </select>  
+  
   <insert id="insertBooking" parameterType="model.Booking" useGeneratedKeys="true" keyProperty="id">
   	insert into booking(nrGuests,dateIn,dateOut,roomSubtotal,extraSubtotal,notes,status,id_convention,id_room,id_structure)  
   	values(#{nrGuests},#{dateIn},#{dateOut},#{roomSubtotal},#{extraSubtotal},#{notes},#{status},#{id_convention},#{id_room},#{id_structure})

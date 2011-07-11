@@ -7,6 +7,8 @@ import java.util.Map;
 
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Actions;
+import org.apache.struts2.convention.annotation.InterceptorRef;
+import org.apache.struts2.convention.annotation.InterceptorRefs;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.interceptor.SessionAware;
@@ -18,12 +20,17 @@ import com.opensymphony.xwork2.ActionSupport;
 
 import model.Structure;
 import model.User;
+import model.UserAware;
 import model.internal.Message;
 import model.listini.Period;
 import model.listini.Season;
 
-@ParentPackage(value = "default")
-public class SeasonAction extends ActionSupport implements SessionAware {
+@ParentPackage( value="default")
+@InterceptorRefs({
+	@InterceptorRef("userAwareStack")    
+})
+@Result(name="notLogged", location="/homeNotLogged.jsp")
+public class SeasonAction extends ActionSupport implements SessionAware,UserAware {
 	private Integer id;
 	private Map<String, Object> session = null;
 	private List<Season> seasons = null;
@@ -31,6 +38,8 @@ public class SeasonAction extends ActionSupport implements SessionAware {
 	private Integer idPeriod = null;
 	private List<Period> periods = new ArrayList<Period>();
 	private Message message = new Message();
+	private Integer idStructure;
+	
 	@Autowired
 	private StructureService structureService = null;	
 	@Autowired
@@ -41,15 +50,8 @@ public class SeasonAction extends ActionSupport implements SessionAware {
 				results = { @Result(name = "success", location = "/seasons.jsp") })
 	})
 	public String findAllSeasons() {
-		User user = null;
-		Structure structure = null;
-		
-		user = (User) session.get("user");
-		structure = user.getStructure();		
-		
-		this.setSeasons(this.getSeasonService().findSeasonsByIdStructure(structure.getId()));
-		//Rimuovere questa istruzione quando tutto sarà sul DB
-		structure.setSeasons(this.getSeasons());
+				
+		this.setSeasons(this.getSeasonService().findSeasonsByIdStructure(this.getIdStructure()));
 		
 		return SUCCESS;
 	}
@@ -60,8 +62,6 @@ public class SeasonAction extends ActionSupport implements SessionAware {
 	})
 	public String goUpdateSeason() {
 		Season theSeason = null;
-		//User user = null;
-		//user = (User) session.get("user");
 		
 		theSeason = this.getSeasonService().findSeasonById(this.getId());
 		this.setSeason(theSeason);
@@ -77,13 +77,11 @@ public class SeasonAction extends ActionSupport implements SessionAware {
 			}) 
 	})
 	public String saveUpdateSeason() {
-		User user = null;
-		Structure structure = null;
+		
 		Season oldSeason = null;
 		List <Period> periodsWithoutNulls = null; 
 		
-		user = (User) session.get("user");
-		structure = user.getStructure();
+		
 		periodsWithoutNulls = new ArrayList<Period>();
 
 		for (Period currPeriod : this.getPeriods()) {
@@ -98,12 +96,12 @@ public class SeasonAction extends ActionSupport implements SessionAware {
 		}
 		this.getSeason().setPeriods(periodsWithoutNulls);
 		
-		if (!this.getStructureService().hasPeriodFreeForSeason(structure, this.getSeason())) {
+		if (!this.getStructureService().hasPeriodFreeForSeason(this.getIdStructure(), this.getSeason())) {
 			this.getMessage().setResult(Message.ERROR);
 			this.getMessage().setDescription(getText("periodOverlappedAction"));
 			return ERROR;
 		}	
-		this.getSeason().setId_structure(structure.getId());
+		this.getSeason().setId_structure(this.getIdStructure());
 		
 		int currentYear = (this.getSeason().getYear() == null )?Calendar.getInstance().get(Calendar.YEAR): this.getSeason().getYear();		
 		this.getSeason().setYear(currentYear);
@@ -119,7 +117,7 @@ public class SeasonAction extends ActionSupport implements SessionAware {
 			//Voglio settare l'anno della stagione con l'anno corrente	
 			this.getSeasonService().insertSeason(this.getSeason());		
 			//this.getStructureService().refreshPriceLists(structure);	
-			this.getStructureService().addPriceListsForSeason(structure, this.getSeason().getId());
+			this.getStructureService().addPriceListsForSeason(this.getIdStructure(), this.getSeason().getId());
 			this.getMessage().setDescription(getText("seasonAddSuccessAction"));		
 		} else {
 			// Si tratta di un update di una season esistente
@@ -202,6 +200,14 @@ public class SeasonAction extends ActionSupport implements SessionAware {
 	}
 	public void setStructureService(StructureService structureService) {
 		this.structureService = structureService;
+	}
+
+	public Integer getIdStructure() {
+		return idStructure;
+	}
+
+	public void setIdStructure(Integer idStructure) {
+		this.idStructure = idStructure;
 	}
 	
 }

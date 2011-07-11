@@ -16,20 +16,15 @@ import model.listini.Season;
 
 @Transactional
 public interface StructureService {
-	public Double calculateExtraItemUnitaryPrice(Structure structure, Date dateIn, Date dateOut, RoomType roomType, Convention convention, Extra extra);
+	public Double calculateExtraItemUnitaryPrice(Integer id_structure, Date dateIn, Date dateOut, RoomType roomType, Convention convention, Extra extra);
 	
-	public void addPriceListsForSeason(Structure structure, Integer id_season);
-	public void addPriceListsForRoomType(Structure structure, Integer id_roomType);
-	public void addPriceListsForConvention(Structure structure, Integer id_convention);
-	public Integer addRoomFacility(Structure structure, Facility roomFacility);
-	public Facility findRoomFacilityByName(Structure structure, String roomFacilityName);
-	public Facility findRoomFacilityById(Structure structure,Integer id);
-	public List<Facility> findRoomFacilitiesByIds(Structure structure, List<Integer> ids);
-	public List<Facility> findRoomFacilitiesByIdStructure(Structure structure);
-	public Boolean hasRoomFreeInPeriod(Structure structure,Integer roomId, Date dateIn, Date dateOut);
-	public Boolean hasRoomFreeForBooking(Structure structure,Booking booking);
-	public Boolean hasPeriodFreeForSeason(Structure structure, List<Period> periods);
-	public Boolean hasPeriodFreeForSeason(Structure structure, Season aSeason);
+	public void addPriceListsForSeason(Integer id_structure, Integer id_season);
+	public void addPriceListsForRoomType(Integer id_structure, Integer id_roomType);
+	public void addPriceListsForConvention(Integer id_structure, Integer id_convention);
+	
+	public Boolean hasRoomFreeInPeriod(Integer id_structure,Integer roomId, Date dateIn, Date dateOut);
+	public Boolean hasRoomFreeForBooking(Integer id_structure,Booking booking);
+	public Boolean hasPeriodFreeForSeason(Integer id_structure, Season aSeason);
 	
 	
 		
@@ -37,8 +32,6 @@ public interface StructureService {
 	public Structure findStructureById(Integer id);
 	public Integer updateStructure(Structure structure);
 	
-	//Da rimuovere
-	public void buildStructure(Structure structure);
-	
+		
 
 }

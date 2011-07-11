@@ -116,9 +116,9 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 		rooms = new ArrayList<Room>();
 		for(Room each : this.getRoomService().findRoomsByIdStructure(structure.getId())){			
 			if ( (each.getRoomType().getMaxGuests() >= booking.getNrGuests() ) && 
-					this.getStructureService().hasRoomFreeInPeriod(structure,each.getId(), booking.getDateIn(), booking.getDateOut()) ) {
+					this.getStructureService().hasRoomFreeInPeriod(structure.getId(),each.getId(), booking.getDateIn(), booking.getDateOut()) ) {
 				booking.setRoom(each);
-				each.setPrice(this.calculateTotalForBooking(structure, booking));
+				each.setPrice(this.calculateTotalForBooking(structure.getId(), booking));
 				rooms.add(each);
 			}
 		}	
@@ -147,7 +147,7 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 		booking.setRoom(theBookedRoom);		
 		booking.setId_room(theBookedRoom.getId());
 		
-		roomSubtotal = this.getBookingService().calculateRoomSubtotalForBooking(structure,booking);
+		roomSubtotal = this.getBookingService().calculateRoomSubtotalForBooking(structure.getId(),booking);
 		booking.setRoomSubtotal(roomSubtotal);		
 		
 		this.setExtras(this.getExtraService().findExtrasByIdStructureAndAvailableOnline(structure.getId(), true));		
@@ -179,7 +179,7 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 			checkedExtras = this.getExtraService().findExtrasByIds(this.getBookingExtrasId());
 		}
 		
-		extraItems = this.calculateExtraItems(structure,booking,checkedExtras);
+		extraItems = this.calculateExtraItems(structure.getId(),booking,checkedExtras);
 		booking.setExtraItems(extraItems);
 
 		extraSubtotal = booking.calculateExtraSubtotalForBooking();
@@ -209,7 +209,7 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 		this.getBooking().getBooker().setId_structure(structure.getId());
 		this.getBooking().getBooker().setAddress(getText("guestNoAddress"));
 		booking.setBooker(this.getBooking().getBooker());		
-		if (this.getBookingService().saveOnlineBooking(structure,booking) == 0 ) {
+		if (this.getBookingService().saveOnlineBooking(booking) == 0 ) {
 			this.getSession().put("onlineBooking", null);
 			addActionError("This booking cannot be saved");
 			return ERROR;
@@ -220,14 +220,14 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 	}
 
 	
-	private Double calculateTotalForBooking(Structure structure,Booking booking){
+	private Double calculateTotalForBooking(Integer id_structure,Booking booking){
 		Double subTotal = null;
 		
-		subTotal = this.getBookingService().calculateRoomSubtotalForBooking(structure,booking);
+		subTotal = this.getBookingService().calculateRoomSubtotalForBooking(id_structure,booking);
 		return subTotal;
 	}
 	
-	private List<ExtraItem> calculateExtraItems(Structure structure, Booking booking,List<Extra> checkedExtras){
+	private List<ExtraItem> calculateExtraItems(Integer id_structure, Booking booking,List<Extra> checkedExtras){
 		ExtraItem extraItem = null;
 		List<ExtraItem> extraItems = null;
 		
@@ -240,10 +240,10 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 				extraItem.setMaxQuantity(booking.calculateExtraItemMaxQuantity(each));
 				extraItem.setQuantity(booking.calculateExtraItemMaxQuantity(each));
 				extraItem.setUnitaryPrice(
-						this.getStructureService().calculateExtraItemUnitaryPrice(structure, booking.getDateIn(), booking.getDateOut(),booking.getRoom().getRoomType(), booking.getConvention(), each));				
+						this.getStructureService().calculateExtraItemUnitaryPrice(id_structure, booking.getDateIn(), booking.getDateOut(),booking.getRoom().getRoomType(), booking.getConvention(), each));				
 			}else{
 				extraItem.setUnitaryPrice(
-						this.getStructureService().calculateExtraItemUnitaryPrice(structure, booking.getDateIn(), booking.getDateOut(),booking.getRoom().getRoomType(), booking.getConvention(), each));	
+						this.getStructureService().calculateExtraItemUnitaryPrice(id_structure, booking.getDateIn(), booking.getDateOut(),booking.getRoom().getRoomType(), booking.getConvention(), each));	
 			}
 			extraItems.add(extraItem);
 		}

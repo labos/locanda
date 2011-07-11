@@ -9,6 +9,7 @@ import javax.servlet.ServletContext;
 import model.Facility;
 import model.Image;
 import model.Room;
+import model.UserAware;
 
 import model.RoomType;
 import model.Structure;
@@ -19,6 +20,8 @@ import org.apache.commons.io.FileUtils;
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Actions;
+import org.apache.struts2.convention.annotation.InterceptorRef;
+import org.apache.struts2.convention.annotation.InterceptorRefs;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.interceptor.SessionAware;
@@ -32,8 +35,12 @@ import service.StructureService;
 
 import com.opensymphony.xwork2.ActionSupport;
 
-@ParentPackage(value="default")
-public class UploadAction extends ActionSupport implements SessionAware{
+@ParentPackage( value="default")
+@InterceptorRefs({
+	@InterceptorRef("userAwareStack")    
+})
+@Result(name="notLogged", location="/homeNotLogged.jsp")
+public class UploadAction extends ActionSupport implements SessionAware,UserAware{
 	private Map<String, Object> session = null;
 	private File upload;
 	private String uploadFileName;
@@ -45,6 +52,8 @@ public class UploadAction extends ActionSupport implements SessionAware{
 	private RoomType roomType = null;
 	private Facility structureFacility = null;
 	private Image image = null;
+	private Integer idStructure;
+	
 	@Autowired
 	private StructureService structureService = null;
 	@Autowired
@@ -70,16 +79,11 @@ public class UploadAction extends ActionSupport implements SessionAware{
 		})
 	})
 	public String uploadFacility() throws IOException {
-		User user = null; 
 		ServletContext context = null; 
 		String imgPath = null; 
-		Structure structure = null; 
 		File target = null;
 		
-		user = (User)this.getSession().get("user");
-		structure = user.getStructure();
-		
-		if (this.getStructureService().findRoomFacilityByName(structure, this.getName()) != null){
+		if(this.getFacilityService().findUploadedFacilityByName(this.getName())!=null){
 			message.setResult(Message.ERROR);
 			message.setDescription(getText("facilityAlreadyPresentError"));
 			return ERROR;
@@ -95,7 +99,7 @@ public class UploadAction extends ActionSupport implements SessionAware{
 		this.getRoomFacility().setName(this.getName());
 		this.getRoomFacility().setFileName(this.getUploadFileName());
 		
-		this.getRoomFacility().setId_structure(structure.getId());
+		this.getRoomFacility().setId_structure(this.getIdStructure());
 		this.getFacilityService().insertUploadedFacility(this.getRoomFacility());
 		message.setResult(Message.SUCCESS);
 		message.setDescription(getText("facilityAddSuccessAction"));
@@ -117,16 +121,13 @@ public class UploadAction extends ActionSupport implements SessionAware{
 		})
 	})
 	public String uploadStructureImage() throws IOException {
-		User user = null; 
+		
 		ServletContext context = null; 
 		String imgPath = null; 
-		Structure structure = null;
 		File target = null;
+	
 		
-		user = (User)this.getSession().get("user");
-		structure = user.getStructure();
-		
-		if (this.getStructureService().findRoomFacilityByName(structure, this.getName()) != null){
+		if(this.getImageService().findStructureImageByName(this.getName()) != null){
 			message.setResult(Message.ERROR);
 			message.setDescription(getText("structureImageAlreadyPresentError"));
 			return ERROR;
@@ -141,7 +142,7 @@ public class UploadAction extends ActionSupport implements SessionAware{
 		this.getImage().setName(this.getName());
 		this.getImage().setFileName(this.getUploadFileName());
 		
-		this.getImage().setId_structure(structure.getId());
+		this.getImage().setId_structure(this.getIdStructure());
 		this.getImageService().insertStructureImage(this.getImage());		
 		
 		message.setResult(Message.SUCCESS);
@@ -163,15 +164,14 @@ public class UploadAction extends ActionSupport implements SessionAware{
 		})
 	})
 	public String uploadStructureFacility() throws IOException {
-		User user = null;
+		
 		ServletContext context = null;
 		String imgPath = null; 
-		Structure structure = null; 
+		
 		File target = null;
 		
-		user = (User)this.getSession().get("user");
-		structure =user.getStructure();		
-		if (this.getStructureService().findRoomFacilityByName(structure, this.getName()) != null){
+		
+		if(this.getFacilityService().findStructureFacilityByName(this.getName()) != null){
 			message.setResult(Message.ERROR);
 			message.setDescription(getText("facilityAlreadyPresentError"));
 			return ERROR;
@@ -186,7 +186,7 @@ public class UploadAction extends ActionSupport implements SessionAware{
 		this.getStructureFacility().setName(this.getName());
 		this.getStructureFacility().setFileName(this.getUploadFileName());
 		
-		this.getStructureFacility().setId_structure(structure.getId());
+		this.getStructureFacility().setId_structure(this.getIdStructure());
 		this.getFacilityService().insertStructureFacility(this.getStructureFacility());
 		
 		message.setResult(Message.SUCCESS);
@@ -209,22 +209,19 @@ public class UploadAction extends ActionSupport implements SessionAware{
 	})
 	public String uploadRoomImage() throws IOException {
 		Room aRoom = null;
-		User user = null; 
+		
 		ServletContext context = null; 
 		String imgPath = null; 
-		Structure structure = null; 
+		
 		File target = null;
 		
-		user = (User)this.getSession().get("user");
-		structure = user.getStructure();
-				
-		if (structure.hasRoomPhotoNamed(this.getName())) {
+		
+		if(this.getImageService().findRoomImageByName(this.getName()) != null){
 			message.setResult(Message.ERROR);
 			message.setDescription(getText("roomImageAlreadyPresentError"));
 			return ERROR;
 		};
 		
-		//aRoom = this.getRoomService().findRoomById(structure,this.getRoom().getId());
 		aRoom = this.getRoomService().findRoomById(this.getRoom().getId());
 		if (aRoom == null){			
 			message.setResult(Message.ERROR);
@@ -265,16 +262,12 @@ public class UploadAction extends ActionSupport implements SessionAware{
 
 	public String uploadRoomTypeImage() throws IOException {
 		RoomType aRoomType = null;
-		User user = null; 
 		ServletContext context = null; 
 		String imgPath = null; 
-		Structure structure = null; 
+		
 		File target = null;
-		
-		user = (User)this.getSession().get("user");
-		structure = user.getStructure();		
-		
-		if (structure.hasRoomPhotoNamed(this.getName())) {
+				
+		if(this.getImageService().findRoomTypeImageByName(this.getName()) != null){
 			message.setResult(Message.ERROR);
 			message.setDescription(getText("roomTypeImageAlreadyPresentError"));
 			return ERROR;
@@ -318,16 +311,14 @@ public class UploadAction extends ActionSupport implements SessionAware{
 		})
 	})
 	public String uploadRoomTypeFacility() throws IOException {
-		User user = null; 
+		
 		ServletContext context = null; 
 		String imgPath = null; 
-		Structure structure = null; 
-		File target = null;
 		
-		user = (User)this.getSession().get("user");
-		structure = user.getStructure();
+		File target = null;
+	
 				
-		if (this.getStructureService().findRoomFacilityByName(structure, this.getName()) != null){
+		if(this.getFacilityService().findUploadedFacilityByName(this.getName())!=null){
 			message.setResult(Message.ERROR);
 			message.setDescription(getText("facilityAlreadyPresentError"));
 			return ERROR;
@@ -342,7 +333,7 @@ public class UploadAction extends ActionSupport implements SessionAware{
 		this.getRoomFacility().setName(this.getName());
 		this.getRoomFacility().setFileName(this.getUploadFileName());
 		
-		this.getRoomFacility().setId_structure(structure.getId());
+		this.getRoomFacility().setId_structure(this.getIdStructure());
 		this.getFacilityService().insertUploadedFacility(this.getRoomFacility());
 		
 		message.setResult(Message.SUCCESS);
@@ -454,6 +445,16 @@ public class UploadAction extends ActionSupport implements SessionAware{
 
 	public void setFacilityService(FacilityService facilityService) {
 		this.facilityService = facilityService;
+	}
+
+
+	public Integer getIdStructure() {
+		return idStructure;
+	}
+
+
+	public void setIdStructure(Integer idStructure) {
+		this.idStructure = idStructure;
 	}
 	
 	

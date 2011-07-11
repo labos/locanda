@@ -14,11 +14,6 @@ import model.listini.Season;
 
 @Transactional
 public interface ExtraPriceListService {
-	
-	
-	//public ExtraPriceList findExtraPriceListById(Structure structure,Integer id);
-	//public ExtraPriceList findExtraPriceListByStructureAndSeasonAndRoomTypeAndConvention(Structure structure,Season season, RoomType roomType, Convention convention);
-
 	public Integer insertExtraPriceList(ExtraPriceList extraPriceList);
 	public Integer insertExtraPriceListItem(ExtraPriceListItem extraPriceListItem);
 	public ExtraPriceList findExtraPriceListByIdStructureAndIdSeasonAndIdRoomTypeAndIdConvention(Integer id_structure, Integer id_season, Integer id_roomType, Integer id_convention);

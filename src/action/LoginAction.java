@@ -71,8 +71,7 @@ public class LoginAction extends ActionSupport implements SessionAware {
 		user = this.getUserService().findUserByEmail(this.getEmail().trim());
 		if (user.getPassword().equals(this.getPassword().trim())) {
 			structure = this.getStructureService().findStructureByIdUser(user.getId());
-			this.getStructureService().buildStructure(structure);
-			user.setStructure(structure);
+			user.setStructure(structure);			
 			this.getSession().put("user", user);
 			
 			locale = this.getLocale();

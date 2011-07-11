@@ -23,11 +23,6 @@ public class FacilityServiceImpl implements FacilityService{
 		return this.getFacilityMapper().insertUploadedFacility(facility);
 	}
 
-
-	
-
-	
-
 	@Override
 	public Integer insertRoomFacility(Integer id_uploadedFacility,Integer id_room) {
 		Map map = null;
@@ -37,12 +32,7 @@ public class FacilityServiceImpl implements FacilityService{
 		map.put("id_room", id_room);
 		return this.getFacilityMapper().insertRoomFacility(map);
 	}
-
-
-
-
-
-
+	
 	@Override
 	public Integer insertRoomTypeFacility(Integer id_uploadedFacility,Integer id_roomType) {
 		Map map = null;
@@ -52,11 +42,6 @@ public class FacilityServiceImpl implements FacilityService{
 		map.put("id_roomType", id_roomType);
 		return this.getFacilityMapper().insertRoomTypeFacility(map);
 	}
-
-
-
-
-
 
 	@Override
 	public Integer insertRoomFacilities(List<Integer> uploadedFacilitiesIds,Integer id_room) {
@@ -100,6 +85,11 @@ public class FacilityServiceImpl implements FacilityService{
 		return this.getFacilityMapper().findUploadedFacilityById(id);
 	}
 
+	
+	@Override
+	public Facility findUploadedFacilityByName(String name) {		
+		return this.getFacilityMapper().findUploadedFacilityByName(name);
+	}
 
 	@Override
 	public List<Facility> findUploadedFacilitiesByIds(List<Integer> ids) {
@@ -119,6 +109,14 @@ public class FacilityServiceImpl implements FacilityService{
 		return this.getFacilityMapper().findStructureFacilitiesByIdStructure(id_structure);
 	}
 	
+	
+	
+	@Override
+	public Facility findStructureFacilityByName(String name) {
+		
+		return this.getFacilityMapper().findStructureFacilityByName(name);
+	}
+
 	@Override
 	public List<Facility> findRoomFacilitiesByIdRoom(Integer id_room) {		
 		return this.getFacilityMapper().findRoomFacilitiesByIdRoom(id_room);

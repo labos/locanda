@@ -6,10 +6,13 @@ import model.Facility;
 import model.Image;
 import model.Structure;
 import model.User;
+import model.UserAware;
 import model.internal.Message;
 
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Actions;
+import org.apache.struts2.convention.annotation.InterceptorRef;
+import org.apache.struts2.convention.annotation.InterceptorRefs;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.interceptor.SessionAware;
@@ -23,8 +26,12 @@ import service.UserService;
 
 import com.opensymphony.xwork2.ActionSupport;
 
-@ParentPackage(value="default")
-public class StructureAction extends ActionSupport implements SessionAware {
+@ParentPackage( value="default")
+@InterceptorRefs({
+	@InterceptorRef("userAwareStack")    
+})
+@Result(name="notLogged", location="/homeNotLogged.jsp")
+public class StructureAction extends ActionSupport implements SessionAware,UserAware {
 	
 	private Map<String, Object> session = null;
 	private Message message = new Message();	
@@ -32,6 +39,9 @@ public class StructureAction extends ActionSupport implements SessionAware {
 	private Image image = null;
 	private String password;
 	private String reTyped;
+	private Integer idStructure;
+	
+	
 	@Autowired
 	private StructureService structureService = null;
 	@Autowired
@@ -48,11 +58,9 @@ public class StructureAction extends ActionSupport implements SessionAware {
 		
 	})
 	public String goUpdateDetails() {
-		User user = null;
 		Structure structure = null;
-		user = (User)this.getSession().get("user");
 		
-		structure = this.getStructureService().findStructureByIdUser(user.getId());		
+		structure = this.getStructureService().findStructureById(this.getIdStructure());		
 		structure.setImages(this.getImageService().findImagesByIdStructure(structure.getId()));
 		structure.setFacilities(this.getFacilityService().findStructureFacilitiesByIdStructure(structure.getId()));
 		
@@ -128,16 +136,10 @@ public class StructureAction extends ActionSupport implements SessionAware {
 		})
 	})
 	public String deleteImageStructure() {
-		User user = null;
-				
-		user = (User)this.getSession().get("user");
-		
-				
+					
 		if (this.getImageService().deleteStructureImage(this.getImage().getId()) > 0) {
 			this.getMessage().setResult(Message.SUCCESS);
 			this.getMessage().setDescription(getText("structureImageDeleteSuccessAction"));	
-			//this.getStructureService().findStructureByIdUser(user.getId());
-			//this.setStructure(user.getStructure());
 			return SUCCESS;
 		}
 		else{
@@ -159,11 +161,7 @@ public class StructureAction extends ActionSupport implements SessionAware {
 		
 	})
 	public String deleteStructureFacility() {
-		User user = null;
-		
-		user = (User)this.getSession().get("user");
-		//this.setStructure(user.getStructure());
-		
+				
 		if ( this.getFacilityService().deleteStructureFacility(this.getImage().getId())>0) {
 			this.getMessage().setResult(Message.SUCCESS);
 			this.getMessage().setDescription(getText("structureFacilityDeleteSuccessAction"));			
@@ -240,6 +238,14 @@ public class StructureAction extends ActionSupport implements SessionAware {
 
 	public void setFacilityService(FacilityService facilityService) {
 		this.facilityService = facilityService;
+	}
+
+	public Integer getIdStructure() {
+		return idStructure;
+	}
+
+	public void setIdStructure(Integer idStructure) {
+		this.idStructure = idStructure;
 	}
 	
 	

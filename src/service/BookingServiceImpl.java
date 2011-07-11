@@ -129,6 +129,38 @@ public class BookingServiceImpl implements BookingService {
 			
 		return bookings;
 	}	
+	
+	@Override
+	public Integer countBookingsByIdConvention(Integer id_convention) {
+		
+		return this.getBookingMapper().countBookingsByIdConvention(id_convention);
+	}
+
+
+
+	@Override
+	public Integer countBookingsByIdRoom(Integer id_room) {
+		
+		return this.getBookingMapper().countBookingsByIdRoom(id_room);
+	}
+
+
+
+	@Override
+	public Integer countBookingsByIdExtra(Integer id_extra) {
+		
+		return this.getBookingMapper().countBookingsByIdExtra(id_extra);
+	}
+
+
+
+	@Override
+	public Integer countBookingsByIdGuest(Integer id_guest) {
+		
+		return this.getBookingMapper().countBookingsByIdGuest(id_guest);
+	}
+
+
 
 	@Override
 	public Integer saveUpdateBooking(Booking booking) {	
@@ -188,7 +220,7 @@ public class BookingServiceImpl implements BookingService {
 	}
 	
 	
-	public Double calculateRoomSubtotalForBooking(Structure structure, Booking booking) {
+	public Double calculateRoomSubtotalForBooking(Integer id_structure, Booking booking) {
 		Double ret = 0.0;
 		List<Date> bookingDates = null;
 		RoomPriceList listinoCameraDelGiorno;
@@ -198,12 +230,9 @@ public class BookingServiceImpl implements BookingService {
 		
 		bookingDates = booking.calculateBookingDates();
 		for(Date aBookingDate: bookingDates){
-			season = this.getSeasonService().findSeasonByDate(structure.getId(),aBookingDate );
-			
-//				this.getRoomPriceListService().findRoomPriceListByStructureAndSeasonAndRoomTypeAndConvention(
-//						structure, season, booking.getRoom().getRoomType(), booking.getConvention());
+			season = this.getSeasonService().findSeasonByDate(id_structure,aBookingDate );
 			listinoCameraDelGiorno =	this.getRoomPriceListService().findRoomPriceListByIdStructureAndIdSeasonAndIdRoomTypeAndIdConvention(
-						structure.getId(), 
+						id_structure, 
 						season.getId(),
 						booking.getRoom().getRoomType().getId(), 
 						booking.getConvention().getId());
@@ -215,9 +244,9 @@ public class BookingServiceImpl implements BookingService {
 		return ret;
 	}
 	
-	public Integer saveOnlineBooking(Structure structure, Booking booking) {
+	public Integer saveOnlineBooking(Booking booking) {
 		Integer ret = 0;
-		Guest oldBooker = null;
+		
 
 		ret = this.getBookingMapper().insertBooking(booking);
 

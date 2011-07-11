@@ -20,6 +20,18 @@
   	<include refid="selectStructureImages"/> where id_structure = #{id_structure}
   </select>
   
+   <select id="findStructureImageByName" parameterType="string" resultType="model.Image">
+  	<include refid="selectStructureImages"/>  where name = #{name}
+   </select>
+   
+    <select id="findRoomImageByName" parameterType="string" resultType="model.Image">
+  	<include refid="selectRoomImages"/>  where name = #{name}
+   </select>
+   
+    <select id="findRoomTypeImageByName" parameterType="string" resultType="model.Image">
+  	<include refid="selectRoomTypeImages"/>  where name = #{name}
+   </select>
+  
    <select id="findImagesByIdRoom" parameterType="int" resultType="model.Image">
   	<include refid="selectRoomImages"/> where id_room = #{id_room}
   </select>
@@ -27,6 +39,8 @@
    <select id="findImagesByIdRoomType" parameterType="int" resultType="model.Image">
   	<include refid="selectRoomTypeImages"/> where id_roomType = #{id_roomType}
    </select>
+   
+  
   
   <sql id="selectStructureImages">
   	select id,name,fileName,id_structure from structureImage
@@ -47,9 +61,15 @@
   <delete id="deleteRoomImage" parameterType="int">
   	delete from roomImage where id = #{id}  
   </delete>
+  <delete id="deleteAllImagesFromRoom" parameterType="int">
+  	delete from roomImage where id_room = #{id_room}  
+  </delete>
   
   <delete id="deleteRoomTypeImage" parameterType="int">
   	delete from roomTypeImage where id = #{id}  
+  </delete>
+  <delete id="deleteAllImagesFromRoomType" parameterType="int">
+  	delete from roomTypeImage where id_roomType = #{id_roomType}  
   </delete>
 
 	

@@ -13,7 +13,7 @@
   </select>
   
   <select id="findExtrasByIdStructureAndAvailableOnline" parameterType="map" resultType="model.Extra">
-	 <include refid="selectExtra"/> FROM extra where id_structure = #{id} and availableOnline = #{availableOnline}
+	 <include refid="selectExtra"/> FROM extra where id_structure = #{id_structure} and availableOnline = #{availableOnline}
   </select>
   
   <select id="findExtraById" parameterType="int" resultType="model.Extra">

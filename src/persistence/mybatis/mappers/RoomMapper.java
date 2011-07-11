@@ -16,6 +16,7 @@ public interface RoomMapper {
 	public Room findRoomByIdStructureAndName(Map map);
 	public List<Room> findRoomsByIdStructure(Integer id_structure);
 	public List<Room> findRoomsByIdRoomType(Integer id_roomType);
+	public Integer countRoomsByIdRoomType(Integer id_roomType);
 	
 
 }

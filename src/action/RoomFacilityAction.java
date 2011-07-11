@@ -8,10 +8,13 @@ import model.Facility;
 import model.Room;
 import model.Structure;
 import model.User;
+import model.UserAware;
 import model.internal.Message;
 
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Actions;
+import org.apache.struts2.convention.annotation.InterceptorRef;
+import org.apache.struts2.convention.annotation.InterceptorRefs;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.interceptor.SessionAware;
@@ -23,8 +26,12 @@ import service.StructureService;
 
 import com.opensymphony.xwork2.ActionSupport;
 
-@ParentPackage(value="default")
-public class RoomFacilityAction extends ActionSupport implements SessionAware{
+@ParentPackage( value="default")
+@InterceptorRefs({
+	@InterceptorRef("userAwareStack")    
+})
+@Result(name="notLogged", location="/homeNotLogged.jsp")
+public class RoomFacilityAction extends ActionSupport implements SessionAware,UserAware{
 	private Map<String, Object> session = null;
 	private List<Facility> roomFacilities = null;
 	private List<Integer> roomFacilitiesIds = new ArrayList<Integer>();
@@ -32,6 +39,7 @@ public class RoomFacilityAction extends ActionSupport implements SessionAware{
 	private Room room = null;
 	private Message message = new Message();
 	private Facility facility;
+	private Integer idStructure;
 	@Autowired
 	private StructureService structureService = null;
 	@Autowired
@@ -45,15 +53,7 @@ public class RoomFacilityAction extends ActionSupport implements SessionAware{
 		})
 	})
 	public String goUpdateRoomFacilities() {
-		User user = null;
-		Structure structure = null;
-		
-		user = (User)this.getSession().get("user");
-		structure = user.getStructure();
-		
-		//this.setRoomFacilities(this.getStructureService().findRoomFacilitiesByIdStructure(structure));
-		this.setRoomFacilities(this.getFacilityService().findUploadedFacilitiesByIdStructure(structure.getId()));
-		//for(Facility each: this.getRoomService().findRoomById(structure,this.idRoom).getFacilities()){	
+		this.setRoomFacilities(this.getFacilityService().findUploadedFacilitiesByIdStructure(this.getIdStructure()));
 		for(Facility each: this.getFacilityService().findRoomFacilitiesByIdRoom(this.getIdRoom())){	
 			this.roomFacilitiesIds.add(each.getId());			
 		}
@@ -68,15 +68,12 @@ public class RoomFacilityAction extends ActionSupport implements SessionAware{
 			})
 	})
 	public String updateRoomFacilities() {
-		User user = null;
-		Structure structure = null;
+		
 		List<Facility>  checkedFacilities = null;
 		
-		user = (User)this.getSession().get("user");
-		structure = user.getStructure();
-		//this.setRoom(this.getRoomService().findRoomById(structure,this.getIdRoom()));
+		
 		this.setRoom(this.getRoomService().findRoomById(this.getIdRoom()));
-		checkedFacilities = this.getStructureService().findRoomFacilitiesByIds(structure,this.getRoomFacilitiesIds());	
+		checkedFacilities = this.getFacilityService().findUploadedFacilitiesByIds(this.getRoomFacilitiesIds());
 		this.getRoom().setFacilities(checkedFacilities);
 		this.getFacilityService().deleteAllFacilitiesFromRoom(this.getIdRoom());
 		this.getFacilityService().insertRoomFacilities(this.getRoomFacilitiesIds(), this.getIdRoom());
@@ -97,10 +94,7 @@ public class RoomFacilityAction extends ActionSupport implements SessionAware{
 			})
 	})
 	public String deleteUploadedFacility() {
-		User user = null;
-			
-		user = (User)this.getSession().get("user");
-		
+				
 		if(this.getFacilityService().deleteUploadedFacility(this.getFacility().getId()) > 0){
 			this.getMessage().setResult(Message.SUCCESS);
 			return SUCCESS;
@@ -125,9 +119,6 @@ public class RoomFacilityAction extends ActionSupport implements SessionAware{
 			})
 	})
 	public String updateUploadedFacility() {
-		User user = null;
-			
-		user = (User)this.getSession().get("user");
 		
 		if(this.getFacilityService().updateUploadedFacility(this.getFacility()) > 0){
 			this.setFacility(this.getFacilityService().findUploadedFacilityById(this.getFacility().getId()));
@@ -205,6 +196,14 @@ public class RoomFacilityAction extends ActionSupport implements SessionAware{
 
 	public void setFacility(Facility facility) {
 		this.facility = facility;
+	}
+
+	public Integer getIdStructure() {
+		return idStructure;
+	}
+
+	public void setIdStructure(Integer idStructure) {
+		this.idStructure = idStructure;
 	}
 	
 		

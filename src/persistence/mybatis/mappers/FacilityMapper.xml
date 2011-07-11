@@ -26,8 +26,16 @@
 	
 	</select>
 	
+	<select id="findUploadedFacilityByName" parameterType="string" resultType="model.Facility">
+		<include refid="findUploadedFacilities" />  where name = #{name}	
+	</select>
+	
 	<select id="findStructureFacilitiesByIdStructure" parameterType="int" resultType="model.Facility">
 		<include refid="findStructureFacilities" />  where id_structure = #{id_structure}	
+	</select>
+	
+	<select id="findStructureFacilityByName" parameterType="string" resultType="model.Facility">
+		<include refid="findStructureFacilities" />  where name = #{name}	
 	</select>
 	
 	<select id="findRoomFacilitiesByIdRoom" parameterType="int" resultType="model.Facility">

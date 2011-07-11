@@ -6,30 +6,42 @@ import java.util.Map;
 
 import model.Structure;
 import model.User;
+import model.UserAware;
 import model.internal.Message;
 import model.listini.Convention;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Actions;
+import org.apache.struts2.convention.annotation.InterceptorRef;
+import org.apache.struts2.convention.annotation.InterceptorRefs;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import service.BookingService;
 import service.ConventionService;
 import service.RoomPriceListService;
 import service.StructureService;
 import com.opensymphony.xwork2.ActionSupport;
 
-@ParentPackage(value="default")
-public class ConventionAction extends ActionSupport implements SessionAware{
+@ParentPackage( value="default")
+@InterceptorRefs({
+	@InterceptorRef("userAwareStack")    
+})
+@Result(name="notLogged", location="/homeNotLogged.jsp")
+public class ConventionAction extends ActionSupport implements SessionAware,UserAware{
 	private Map<String, Object> session = null;
 	private Message message = new Message();
 	private List<Convention> conventions = null;
 	private Convention convention = null;
+	private Integer idStructure;	
+	
 	@Autowired 
 	private StructureService structureService = null;
 	@Autowired
 	private ConventionService conventionService = null;
+	@Autowired
+	private BookingService bookingService = null;
 	
 	
 	
@@ -39,14 +51,11 @@ public class ConventionAction extends ActionSupport implements SessionAware{
 		})
 	})
 	public String findAllConventions(){
-		User user = null;
-		Structure structure = null;
 		List<Convention> filteredConventions = null;
 	
-		user = (User)this.getSession().get("user");
-		structure = user.getStructure();
+		
 		filteredConventions = new ArrayList<Convention>();
-		for(Convention each: this.getConventionService().findConventionsByIdStructure(structure.getId())){
+		for(Convention each: this.getConventionService().findConventionsByIdStructure(this.getIdStructure())){
 			if(!each.getActivationCode().equals("thisconventionshouldntneverberemoved")){
 				filteredConventions.add(each);
 			}
@@ -61,12 +70,7 @@ public class ConventionAction extends ActionSupport implements SessionAware{
 		})
 	})
 	public String goUpdateConvention() {
-		User user = null;
-		Structure structure = null;
-		
-		user = (User)session.get("user");
-		structure = user.getStructure();
-		
+				
 		this.setConvention(this.getConventionService().findConventionById(this.getConvention().getId())); 
 		return SUCCESS;
 	}
@@ -79,27 +83,22 @@ public class ConventionAction extends ActionSupport implements SessionAware{
 		})
 	})
 	public String saveUpdateConvention(){
-		User user = null;
-		Structure structure = null;
 		Convention oldConvention = null;
 				
-		user = (User)session.get("user");
-		structure = user.getStructure();
-		
 		oldConvention = this.getConventionService().findConventionById(this.getConvention().getId());
 		if(oldConvention == null){
 			//Si tratta di una aggiunta
 			//this.getConvention().setId(structure.nextKey());
-			this.getConvention().setId_structure(structure.getId());
+			this.getConvention().setId_structure(this.getIdStructure());
 			this.getConventionService().insertConvention(this.getConvention());
 			//this.getStructureService().refreshPriceLists(structure);
-			this.getStructureService().addPriceListsForConvention(structure, this.getConvention().getId());
+			this.getStructureService().addPriceListsForConvention(this.getIdStructure(), this.getConvention().getId());
 			this.getMessage().setResult(Message.SUCCESS);
 			this.getMessage().setDescription(getText("conventionAddSuccessAction"));
 			
 		}else{
 			//Si tratta di un update
-			this.getConvention().setId_structure(structure.getId());
+			this.getConvention().setId_structure(this.getIdStructure());
 			this.getConventionService().updateConvention(this.getConvention());
 			this.getMessage().setResult(Message.SUCCESS);
 			this.getMessage().setDescription(getText("conventionUpdateSuccessAction"));
@@ -111,18 +110,26 @@ public class ConventionAction extends ActionSupport implements SessionAware{
 		@Action(value="/deleteConvention",results = {
 				@Result(type ="json",name="success", params={
 						"root","message"
+				}),
+				@Result(type ="json",name="error", params={
+						"root","message"
 				})
 		})
 		
 	})
 	public String deleteConvention(){
-		User user = null;
-		Structure structure = null;
-				
-		user = (User)session.get("user");
-		structure = user.getStructure();
+		Integer count = 0;
+		Integer id_convention;
 		
-		if(this.getConventionService().deleteConvention(this.getConvention().getId())>0){
+		id_convention = this.getConvention().getId();
+		count = this.getConventionService().deleteConvention(id_convention);
+		
+		if(this.getBookingService().countBookingsByIdConvention(id_convention) > 0){
+			this.getMessage().setResult(Message.ERROR);
+			this.getMessage().setDescription("Non è possibile cancellare la convention perchè esistono Booking associati a questa convention");
+			return ERROR;
+		}
+		if(count > 0){
 			this.getMessage().setResult(Message.SUCCESS);
 			this.getMessage().setDescription(getText("conventionDeleteSuccessAction"));
 			return SUCCESS;
@@ -170,5 +177,22 @@ public class ConventionAction extends ActionSupport implements SessionAware{
 	public void setConventionService(ConventionService conventionService) {
 		this.conventionService = conventionService;
 	}
+
+	public BookingService getBookingService() {
+		return bookingService;
+	}
+
+	public void setBookingService(BookingService bookingService) {
+		this.bookingService = bookingService;
+	}
+
+	public Integer getIdStructure() {
+		return idStructure;
+	}
+
+	public void setIdStructure(Integer idStructure) {
+		this.idStructure = idStructure;
+	}
+	
 	
 }

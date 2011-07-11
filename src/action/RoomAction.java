@@ -11,16 +11,20 @@ import model.Room;
 import model.RoomType;
 import model.Structure;
 import model.User;
+import model.UserAware;
 import model.internal.Message;
 import model.internal.TreeNode;
 
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Actions;
+import org.apache.struts2.convention.annotation.InterceptorRef;
+import org.apache.struts2.convention.annotation.InterceptorRefs;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import service.BookingService;
 import service.FacilityService;
 import service.ImageService;
 import service.RoomService;
@@ -29,8 +33,12 @@ import service.StructureService;
 
 import com.opensymphony.xwork2.ActionSupport;
 
-@ParentPackage(value="default")
-public class RoomAction extends ActionSupport implements SessionAware{
+@ParentPackage( value="default")
+@InterceptorRefs({
+	@InterceptorRef("userAwareStack")    
+})
+@Result(name="notLogged", location="/homeNotLogged.jsp")
+public class RoomAction extends ActionSupport implements SessionAware,UserAware{
 	private Map<String, Object> session = null;
 	private Room room = null;
 	private Message message = new Message();
@@ -43,6 +51,7 @@ public class RoomAction extends ActionSupport implements SessionAware{
 	private List<RoomType> roomTypes = null;
 	private List<Facility> roomTypeFacilities = null;
 	private List<TreeNode> treeNodes = new ArrayList<TreeNode>();
+	private Integer idStructure;
 	
 	@Autowired
 	private StructureService structureService = null;
@@ -54,6 +63,8 @@ public class RoomAction extends ActionSupport implements SessionAware{
 	private ImageService imageService = null;
 	@Autowired
 	private FacilityService facilityService = null;
+	@Autowired
+	private BookingService bookingService = null;
 	
 	@Actions({
 		@Action(value="/findAllRooms",results = {
@@ -65,21 +76,14 @@ public class RoomAction extends ActionSupport implements SessionAware{
 				})}) 
 	})
 	public String findAllRooms() {
-		User user = null;
-		Structure structure = null;
 		
-		user = (User)this.getSession().get("user");
-		structure = user.getStructure();
-		
-		//this.setRooms(this.getRoomService().findRoomsByIdStructure(structure));
-		this.setRooms(this.getRoomService().findRoomsByIdStructure(structure.getId()));
+		this.setRooms(this.getRoomService().findRoomsByIdStructure(this.getIdStructure()));
 		for(Room aRoom: this.getRooms()){
 			aRoom.setFacilities(this.getFacilityService().findRoomFacilitiesByIdRoom(aRoom.getId()));
 		}
 		
-		//this.setRoomTypes(this.getRoomTypeService().findRoomTypesByIdStructure(structure));
-		this.setRoomTypes(this.getRoomTypeService().findRoomTypesByIdStructure(structure.getId()));
-		this.setRoomFacilities(this.getFacilityService().findUploadedFacilitiesByIdStructure(structure.getId()));
+		this.setRoomTypes(this.getRoomTypeService().findRoomTypesByIdStructure(this.getIdStructure()));
+		this.setRoomFacilities(this.getFacilityService().findUploadedFacilitiesByIdStructure(this.getIdStructure()));
 		if (this.getRoomTypeId() != null){			
 			this.setRooms(this.getRoomService().findRoomsByIdRoomType(this.getRoomTypeId()));
 		}
@@ -93,13 +97,8 @@ public class RoomAction extends ActionSupport implements SessionAware{
 				})}) 
 	})
 	public String findAllTreeRooms() {
-		User user = null;
-		Structure structure = null;
-		
-		user = (User)this.getSession().get("user");
-		structure = user.getStructure();
-		
-		this.setRoomTypes(this.getRoomTypeService().findRoomTypesByIdStructure(structure.getId()));
+				
+		this.setRoomTypes(this.getRoomTypeService().findRoomTypesByIdStructure(this.getIdStructure()));
 		//Setting tree node for rooms folding
 		for (RoomType eachRoomType : this.getRoomTypes()) {							
 			//build first level nodes - room types
@@ -123,14 +122,10 @@ public class RoomAction extends ActionSupport implements SessionAware{
 		})
 	})
 	public String findAllRoomTypesForRoom() {
-		User user = null;
-		Structure structure = null;
+		
 		List <Facility> selectedFacilities = null;
-		
-		user = (User)this.getSession().get("user");
-		structure = user.getStructure();
-		
-		this.setRoomFacilities(this.getFacilityService().findUploadedFacilitiesByIdStructure(structure.getId()));
+				
+		this.setRoomFacilities(this.getFacilityService().findUploadedFacilitiesByIdStructure(this.getIdStructure()));
 		selectedFacilities = this.getFacilityService().findRoomTypeFacilitiesByIdRoomType(this.getRoom().getRoomType().getId());
 		for(Facility each: selectedFacilities){			
 			this.getRoomFacilitiesIds().add(each.getId());		//popolo l'array roomFacilitiesIds con gli id delle Facilities già presenti nella Room da editare
@@ -144,18 +139,14 @@ public class RoomAction extends ActionSupport implements SessionAware{
 		})
 	})
 	public String goUpdateRoom() {
-		User user = null;
-		Structure structure = null;
+		
 		Room oldRoom = null;
 		
-		user = (User)this.getSession().get("user");
-		structure = user.getStructure();
-		//oldRoom = this.getRoomService().findRoomById(structure,this.getRoom().getId());
 		oldRoom = this.getRoomService().findRoomById(this.getRoom().getId());
 		oldRoom.setImages(this.getImageService().findImagesByIdRoom(this.getRoom().getId()));
 		this.setRoom(oldRoom);
-		this.setRoomTypes(this.getRoomTypeService().findRoomTypesByIdStructure(structure.getId()));
-		this.setRoomFacilities(this.getFacilityService().findUploadedFacilitiesByIdStructure(structure.getId()));
+		this.setRoomTypes(this.getRoomTypeService().findRoomTypesByIdStructure(this.getIdStructure()));
+		this.setRoomFacilities(this.getFacilityService().findUploadedFacilitiesByIdStructure(this.getIdStructure()));
 		for(Facility each: this.getRoom().getFacilities()){			
 			this.getRoomFacilitiesIds().add(each.getId());		//popolo l'array roomFacilitiesIds con gli id delle Facilities già presenti nella Room da editare
 		}
@@ -174,31 +165,28 @@ public class RoomAction extends ActionSupport implements SessionAware{
 		})
 	})
 	public String saveUpdateRoom() {
-		User user = null; 
-		Structure structure = null;
-		Room oldRoom = null;
-				
-		user = (User)this.getSession().get("user");
-		structure = user.getStructure();
 		
-		//oldRoom = this.getRoomService().findRoomById(structure,this.getRoom().getId());	
+		Room oldRoom = null;
+		
+		
 		oldRoom = (this.getRoom().getId() == null )? null :  this.getRoomService().findRoomById(this.getRoom().getId());
 		if(oldRoom == null){
 			//Si tratta di un add			
-			return this.saveRoom(structure);			
+			return this.saveRoom(this.getIdStructure());			
 		}else{
 			//Si tratta di un update			
-			return this.updateRoom(structure, oldRoom);			
+			return this.updateRoom(this.getIdStructure(), oldRoom);			
 		}	
 	}
 	
-	private String saveRoom(Structure structure){
+	private String saveRoom(Integer id_structure){
 		List<Room> rooms = null;
 		String names = "";
 		List<Facility> checkedFacilities = null;
 		RoomType theRoomType = null;
 		List<Integer> filteredRoomFacilitiesIds = null;
 		Integer anInt;
+		String text = null;
 		
 		filteredRoomFacilitiesIds = new ArrayList<Integer>();
 		for(Object each: this.getRoomFacilitiesIds()){
@@ -212,43 +200,42 @@ public class RoomAction extends ActionSupport implements SessionAware{
 		rooms = this.splitRooms();					
 		for(Room each: rooms){
 			
-			if(this.getRoomService().findRoomByIdStructureAndName(structure.getId(),each.getName()) != null){
+			if(this.getRoomService().findRoomByIdStructureAndName(id_structure,each.getName()) != null){
 				names = names + "," + each.getName();
 			}
 		}
 		
 		if(names.length()>0){
 			this.getMessage().setResult(Message.ERROR);
-			String text = getText("rooms") + names.substring(1) + getText("alreadyPresent");
+			text = getText("rooms") + names.substring(1) + getText("alreadyPresent");
 			this.getMessage().setDescription(text);
 			return "error";			
 		}	
 		else{	
 			checkedFacilities = this.getFacilityService().findUploadedFacilitiesByIds(filteredRoomFacilitiesIds);
-			for(Room each: rooms){
-				//each.setId(structure.nextKey());				
-				each.setFacilities(checkedFacilities);
-				this.getFacilityService().insertRoomFacilities(filteredRoomFacilitiesIds, each.getId());
+			for(Room each: rooms){				
 
 				if(this.getRoom().getRoomType().getId() < 0){
 					this.getMessage().setResult(Message.ERROR);
 					
-					String text = (this.getRoomTypeService().findRoomTypesByIdStructure(structure.getId()).size() > 0)? getText("roomTypeNotSelectedAction") : getText("roomTypeAbsentAction");
+					text = (this.getRoomTypeService().findRoomTypesByIdStructure(id_structure).size() > 0)? getText("roomTypeNotSelectedAction") : getText("roomTypeAbsentAction");
 					this.getMessage().setDescription(text);
 					return "error";	
 				}
-				theRoomType = this.getRoomTypeService().findRoomTypeById(this.getRoom().getRoomType().getId());
-				each.setRoomType(theRoomType);
 				
+				each.setFacilities(checkedFacilities);
+								
+				theRoomType = this.getRoomTypeService().findRoomTypeById(this.getRoom().getRoomType().getId());
+				each.setRoomType(theRoomType);				
 				each.setId_roomType(theRoomType.getId());
-				each.setId_structure(structure.getId());			    
+				
+				each.setId_structure(id_structure);
+				
 				this.getRoomService().insertRoom(each);
 				
-				
-				//this.getRoomService().insertRoom(structure, each);
 			}
 			this.getMessage().setResult(Message.SUCCESS);
-			String text = getText("roomsAddSuccessAction");
+			text = getText("roomsAddSuccessAction");
 			this.getMessage().setDescription(text);
 			return "success";	
 		}
@@ -270,7 +257,7 @@ public class RoomAction extends ActionSupport implements SessionAware{
 		return rooms;
 	}
 	
-	private String updateRoom(Structure structure, Room oldRoom){
+	private String updateRoom(Integer id_structure, Room oldRoom){
 		//Si tratta di un update
 		String newName = null;
 		List<Facility> checkedFacilities = null;
@@ -295,26 +282,26 @@ public class RoomAction extends ActionSupport implements SessionAware{
 			return "error";
 		}				
 		if(!newName.equals(oldRoom.getName())){
-			if(this.getRoomService().findRoomByIdStructureAndName(structure.getId(), newName) != null){
+			if(this.getRoomService().findRoomByIdStructureAndName(id_structure, newName) != null){
 				this.getMessage().setResult(Message.ERROR);
 				this.getMessage().setDescription(getText("roomNameAlreadyPresentError"));
 				return "error";
 			}
 		}
-		//checkedFacilities = this.getStructureService().findRoomFacilitiesByIds(structure,this.getRoomFacilitiesIds());
+		
 		checkedFacilities = this.getFacilityService().findUploadedFacilitiesByIds(filteredRoomFacilitiesIds);
 		this.getRoom().setFacilities(checkedFacilities);
 		
-		this.getFacilityService().deleteAllFacilitiesFromRoom(this.getRoom().getId());
-		this.getFacilityService().insertRoomFacilities(filteredRoomFacilitiesIds, this.getRoom().getId());
-		
 		theRoomType = this.getRoomTypeService().findRoomTypeById(this.getRoom().getRoomType().getId());
-		this.getRoom().setRoomType(theRoomType);
-		
-		//this.getRoomService().updateRoom(structure, this.getRoom());
+		this.getRoom().setRoomType(theRoomType);		
 		this.getRoom().setId_roomType(this.getRoom().getRoomType().getId());
-		this.getRoom().setId_structure(structure.getId());
+		
+		this.getRoom().setId_structure(id_structure);
+		
+		
 		this.getRoomService().updateRoom(this.getRoom());
+		
+		
 		this.getMessage().setResult(Message.SUCCESS);
 		this.getMessage().setDescription(getText("roomUpdateSuccessAction"));
 		return "success";
@@ -331,13 +318,20 @@ public class RoomAction extends ActionSupport implements SessionAware{
 		})
 	})
 	public String deleteRoom() {
-		User user = null; 
-		Structure structure = null;
 		
-		user = (User)this.getSession().get("user");
-		structure = user.getStructure();
+		Integer count = 0;
+		Integer id_room;
+	
 		
-		if(this.getRoomService().deleteRoom(this.getRoom().getId())>0){
+		id_room = this.getRoom().getId();
+		
+		if(this.getBookingService().countBookingsByIdRoom(id_room)>0){
+			this.getMessage().setResult(Message.ERROR);
+			this.getMessage().setDescription("Non è possibile cancellare la stanza perchè esistono Booking associati a quella stanza");
+			return "error";
+		}
+		count = this.getRoomService().deleteRoom(id_room);
+		if(count>0){
 			this.getMessage().setResult(Message.SUCCESS);
 			this.getMessage().setDescription(getText("roomDeleteSuccessAction"));
 			return "success";
@@ -360,10 +354,7 @@ public class RoomAction extends ActionSupport implements SessionAware{
 		
 	})
 	public String deleteRoomImage() {
-		User user = null; 
-				
-		user = (User)this.getSession().get("user");
-				
+					
 		if(this.getImageService().deleteRoomImage(this.getImage().getId()) >0){
 			this.getMessage().setResult(Message.SUCCESS);
 			this.getMessage().setDescription(getText("roomImageDeleteSuccessAction"));
@@ -487,6 +478,22 @@ public class RoomAction extends ActionSupport implements SessionAware{
 
 	public void setFacilityService(FacilityService facilityService) {
 		this.facilityService = facilityService;
+	}
+
+	public BookingService getBookingService() {
+		return bookingService;
+	}
+
+	public void setBookingService(BookingService bookingService) {
+		this.bookingService = bookingService;
+	}
+
+	public Integer getIdStructure() {
+		return idStructure;
+	}
+
+	public void setIdStructure(Integer idStructure) {
+		this.idStructure = idStructure;
 	}
 	
 	

@@ -8,11 +8,14 @@ import model.Booking;
 import model.Guest;
 import model.Structure;
 import model.User;
+import model.UserAware;
 import model.internal.Message;
 
 
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Actions;
+import org.apache.struts2.convention.annotation.InterceptorRef;
+import org.apache.struts2.convention.annotation.InterceptorRefs;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.interceptor.SessionAware;
@@ -20,11 +23,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import service.BookingService;
 import service.GuestService;
+import service.UserService;
 
 import com.opensymphony.xwork2.ActionSupport;
 
-@ParentPackage(value="default")
-public class GuestAction extends ActionSupport implements SessionAware{
+@ParentPackage( value="default")
+@InterceptorRefs({
+	@InterceptorRef("userAwareStack")    
+})
+@Result(name="notLogged", location="/homeNotLogged.jsp")
+public class GuestAction extends ActionSupport implements SessionAware,UserAware{
 	private Map<String, Object> session = null;
 	private List<Guest> guests = null;
 	private Guest guest = null;
@@ -33,6 +41,8 @@ public class GuestAction extends ActionSupport implements SessionAware{
 	private List<Booking> bookings = null;
 	private String term;
 	private List<Integer> years = null;
+	private Integer idStructure = null;
+	
 	@Autowired
 	private GuestService guestService = null;
 	@Autowired
@@ -44,11 +54,7 @@ public class GuestAction extends ActionSupport implements SessionAware{
 		}) 
 	})
 	public String findAllGuests(){
-		User user = null;
-		Structure structure = null;
 		
-		user = (User)session.get("user");
-		structure = user.getStructure();
 		List<Integer> listYears =new ArrayList<Integer>();
 		
 		for (int i=2012; i>1900; i--) {
@@ -58,7 +64,7 @@ public class GuestAction extends ActionSupport implements SessionAware{
 		this.setYears(listYears);
 		this.setGuests(
 				this.getGuestService().findGuestsByIdStructure(
-						structure.getId()));
+						this.getIdStructure()));
 		return SUCCESS;		
 	}
 	
@@ -72,13 +78,11 @@ public class GuestAction extends ActionSupport implements SessionAware{
 				})
 	})
 	public String findAllGuestsFiltered() {
-		User user = null;
-		Structure structure = null;
+		
 		List<Guest> allGuests = null;
 		List<Guest> returnedGuests = new ArrayList<Guest>();
 
-		user = (User) session.get("user");
-		structure = user.getStructure();
+		
 		List<Integer> listYears =new ArrayList<Integer>();
 		
 		for (int i=2012; i>1900; i--) {
@@ -88,7 +92,7 @@ public class GuestAction extends ActionSupport implements SessionAware{
 		this.setYears(listYears);
 		if (this.getTerm() != null && this.getTerm().length() > 1) {
 			allGuests = this.getGuestService().findGuestsByIdStructure(
-					structure.getId());
+					this.getIdStructure());
 
 			for (Guest guest : allGuests) {
 				if (guest.getLastName().toLowerCase()
@@ -107,13 +111,11 @@ public class GuestAction extends ActionSupport implements SessionAware{
 		}) 
 	})
 	public String findAllGuestsByName() {
-		User user = null;
-		Structure structure = null;
+		
 		List<Guest> allGuests = null;
 		List<Guest> returnedGuests = null;
 
-		user = (User) session.get("user");
-		structure = user.getStructure();
+	
 		
 		List<Integer> listYears =new ArrayList<Integer>();
 		
@@ -124,7 +126,7 @@ public class GuestAction extends ActionSupport implements SessionAware{
 		this.setYears(listYears);
 		returnedGuests = new ArrayList<Guest>();
 		if (this.getTerm() != null && this.getTerm().length() > 1) {
-			allGuests = this.getGuestService().findGuestsByIdStructure(structure.getId());
+			allGuests = this.getGuestService().findGuestsByIdStructure(this.getIdStructure());
 			for (Guest guest : allGuests) {
 				String allName = guest.getFirstName().toLowerCase()
 						+ guest.getLastName().toLowerCase();
@@ -175,11 +177,7 @@ public class GuestAction extends ActionSupport implements SessionAware{
 		})
 	})
 	public String goUpdateGuest() {
-		User user = null;
-		Structure structure = null;
 		
-		user = (User)session.get("user");
-		structure = user.getStructure();
 		List<Integer> listYears =new ArrayList<Integer>();
 		
 		for (int i=2012; i>1900; i--) {
@@ -201,15 +199,11 @@ public class GuestAction extends ActionSupport implements SessionAware{
 		})	
 	})
 	public String saveUpdateGuest(){
-		User user = null;
-		Structure structure = null;
+		
 		Guest oldGuest = null;
 		
-		user = (User)session.get("user");
-		structure = user.getStructure();
-		
 		oldGuest = this.getGuestService().findGuestById(this.getGuest().getId());
-		this.getGuest().setId_structure(structure.getId());
+		this.getGuest().setId_structure(this.getIdStructure());
 		if(oldGuest == null){
 			//Si tratta di una aggiunta
 			this.getGuestService().insertGuest(this.getGuest());
@@ -229,23 +223,35 @@ public class GuestAction extends ActionSupport implements SessionAware{
 		@Action(value="/deleteGuest",results = {
 				@Result(type ="json",name="success", params={
 						"root","message"
+				}),
+				@Result(type ="json",name="error", params={
+						"root","message"
 				})
 		})
 	})
 	public String deleteGuest(){
-//		User user = null;
-//		user = (User)session.get("user");
+
+		Integer id_guest = 0;
+		Integer count = 0;
 		
-		try{
-			this.getGuestService().deleteGuest(this.getId());
+		id_guest = this.getId();
+		
+		if(this.getBookingService().countBookingsByIdGuest(id_guest) > 0){
+			this.getMessage().setResult(Message.ERROR);
+			this.getMessage().setDescription("Non è possibile cancellare il Guest perchè esistono dei Booking Associati a questo Guest");
+			return ERROR;
+		}
+		count = this.getGuestService().deleteGuest(id_guest);
+		if(count>0){
 			this.getMessage().setResult(Message.SUCCESS);
 			this.getMessage().setDescription(getText("guestDeleteSuccessAction"));
 			return SUCCESS;
-		}catch (Exception e) {
+		}else{
 			this.getMessage().setResult(Message.ERROR);
 			this.getMessage().setDescription(getText("guestDeleteErrorAction"));
 			return ERROR;
 		}
+		
 	}
 
 	public Message getMessage() {
@@ -310,5 +316,14 @@ public class GuestAction extends ActionSupport implements SessionAware{
 	public void setBookingService(BookingService bookingService) {
 		this.bookingService = bookingService;
 	}
+
+	public Integer getIdStructure() {
+		return idStructure;
+	}
+
+	public void setIdStructure(Integer idStructure) {
+		this.idStructure = idStructure;
+	}
+	
 	
 }

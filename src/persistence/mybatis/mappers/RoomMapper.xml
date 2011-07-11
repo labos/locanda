@@ -32,6 +32,10 @@
   	<include refid="selectRoom"/> WHERE id_roomType = #{id_roomType}   
   </select>
   
+  <select id="countRoomsByIdRoomType" parameterType="int" resultType="int">
+  select count(id) from room where id_roomType = #{id_roomType}  
+  </select>
+  
   <sql id="selectRoom">
   	SELECT id,name,notes,id_roomType,id_structure FROM room
   </sql>

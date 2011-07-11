@@ -21,20 +21,26 @@ public class RoomServiceImpl implements RoomService{
 	@Autowired
 	private RoomTypeMapper roomTypeMapper = null;
 	@Autowired
-	private FacilityMapper facilityMapper = null;
+	private ImageMapper imageMapper = null;   
 	@Autowired
-	private ImageMapper imageMapper = null;    
+	private FacilityService facilityService = null;
+	@Autowired
+	private ImageService imageService = null;
+	
+	
 	@Override
 	public Room findRoomById(Integer id) {	
 		Room room = null;
 		RoomType roomType = null;
 		List<Facility> facilities = null;
 		
-		facilities = this.getFacilityMapper().findRoomFacilitiesByIdRoom(id);
+		
 		room = this.getRoomMapper().findRoomById(id);
 		if (room!=null){
 			roomType = this.getRoomTypeMapper().findRoomTypeById(room.getId_roomType());
 			room.setRoomType(roomType);
+			
+			facilities = this.getFacilityService().findRoomFacilitiesByIdRoom(id);
 			room.setFacilities(facilities);
 		}
 
@@ -42,13 +48,27 @@ public class RoomServiceImpl implements RoomService{
 	}
 
 	@Override
-	public Integer updateRoom(Room room) {		
-		return this.getRoomMapper().updateRoom(room);
+	public Integer updateRoom(Room room) {
+		Integer ret = 0;
+		
+		ret = this.getRoomMapper().updateRoom(room);
+		
+		this.getFacilityService().deleteAllFacilitiesFromRoom(room.getId());
+		for(Facility each: room.getFacilities()){
+			this.getFacilityService().insertRoomFacility(each.getId(), room.getId());
+		}
+		return ret;
 	}	
 
 	@Override
 	public Integer deleteRoom(Integer id) {		
-		return this.getRoomMapper().deleteRoom(id);
+		Integer ret = 0;
+		
+		//Verificare che la room si possa cancellare
+		this.getFacilityService().deleteAllFacilitiesFromRoom(id);
+		this.getImageService().deleteAllImagesFromRoom(id);
+		ret = this.getRoomMapper().deleteRoom(id);
+		return ret;
 	}
 
 	@Override
@@ -86,13 +106,29 @@ public class RoomServiceImpl implements RoomService{
 		
 		map = new HashMap();
 		map.put("id_structure", id_structure);
-		map.put("name", name);
+		map.put("name", name);		
+		
 		return this.getRoomMapper().findRoomByIdStructureAndName(map);
+	}
+	
+	
+	
+
+	@Override
+	public Integer countRoomsByIdRoomType(Integer id_roomType) {
+		
+		return this.getRoomMapper().countRoomsByIdRoomType(id_roomType);
 	}
 
 	@Override
-	public Integer insertRoom(Room room) {		
-		return this.getRoomMapper().insertRoom(room);
+	public Integer insertRoom(Room room) {	
+		Integer ret = 0;
+		
+		ret = this.getRoomMapper().insertRoom(room);
+		for(Facility each: room.getFacilities()){
+			this.getFacilityService().insertRoomFacility(each.getId(),room.getId());
+		}
+		return ret;
 	}
 
 	
@@ -112,20 +148,29 @@ public class RoomServiceImpl implements RoomService{
 		this.roomTypeMapper = roomTypeMapper;
 	}
 
-	public FacilityMapper getFacilityMapper() {
-		return facilityMapper;
-	}
-
-	public void setFacilityMapper(FacilityMapper facilityMapper) {
-		this.facilityMapper = facilityMapper;
-	}
-
+	
 	public ImageMapper getImageMapper() {
 		return imageMapper;
 	}
 
 	public void setImageMapper(ImageMapper imageMapper) {
 		this.imageMapper = imageMapper;
+	}
+
+	public FacilityService getFacilityService() {
+		return facilityService;
+	}
+
+	public void setFacilityService(FacilityService facilityService) {
+		this.facilityService = facilityService;
+	}
+
+	public ImageService getImageService() {
+		return imageService;
+	}
+
+	public void setImageService(ImageService imageService) {
+		this.imageService = imageService;
 	}
 	
 	

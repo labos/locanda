@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import persistence.mybatis.mappers.RoomTypeMapper;
 
+import model.Facility;
 import model.Room;
 import model.RoomType;
 import model.Structure;
@@ -21,22 +22,45 @@ public class RoomTypeServiceImpl implements RoomTypeService{
 	private RoomPriceListService roomPriceListService = null;
 	@Autowired
 	private ExtraPriceListService extraPriceListService = null;
+	@Autowired
+	private FacilityService facilityService = null;
+	@Autowired
+	private StructureService structureService = null;
+	@Autowired
+	private ImageService imageService = null;
 
 	@Override
 	public Integer insertRoomType(RoomType roomType) {
-		return this.getRoomTypeMapper().insertRoomType(roomType);
+		Integer ret = 0;
+		
+		ret = this.getRoomTypeMapper().insertRoomType(roomType);
+		for(Facility each: roomType.getFacilities()){
+			this.getFacilityService().insertRoomTypeFacility(each.getId(), roomType.getId());
+		}
+		this.getStructureService().addPriceListsForRoomType(roomType.getId_structure(), roomType.getId());
+		return ret ;
 	}
 
 	@Override
 	public Integer updateRoomType(RoomType roomType) {
-		return this.getRoomTypeMapper().updateRoomType(roomType);
+		Integer ret = 0;
+		
+		this.getFacilityService().deleteAllFacilitiesFromRoomType(roomType.getId());
+		for(Facility each: roomType.getFacilities()){
+			this.getFacilityService().insertRoomTypeFacility(each.getId(), roomType.getId());
+		}
+		ret = this.getRoomTypeMapper().updateRoomType(roomType);
+		return ret;
 	}
 
 	@Override
 	public Integer deleteRoomType(Integer id) {
-		
+		//Controllare se ci sono Room con id_roomType == id
 		this.getRoomPriceListService().deleteRoomPriceListsByIdRoomType(id);
 		this.getExtraPriceListService().deleteExtraPriceListsByIdRoomType(id);
+		this.getFacilityService().deleteAllFacilitiesFromRoomType(id);
+		this.getImageService().deleteAllImagesFromRoomType(id);
+		
 		return this.getRoomTypeMapper().deleteRoomType(id);
 	}
 
@@ -86,6 +110,32 @@ public class RoomTypeServiceImpl implements RoomTypeService{
 	public void setExtraPriceListService(ExtraPriceListService extraPriceListService) {
 		this.extraPriceListService = extraPriceListService;
 	}
+
+	public FacilityService getFacilityService() {
+		return facilityService;
+	}
+
+	public void setFacilityService(FacilityService facilityService) {
+		this.facilityService = facilityService;
+	}
+
+	public StructureService getStructureService() {
+		return structureService;
+	}
+
+	public void setStructureService(StructureService structureService) {
+		this.structureService = structureService;
+	}
+
+	public ImageService getImageService() {
+		return imageService;
+	}
+
+	public void setImageService(ImageService imageService) {
+		this.imageService = imageService;
+	}
+	
+	
 	
 
 }
