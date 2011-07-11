@@ -608,7 +608,6 @@ CREATE TABLE `structureFacility` (
 
 LOCK TABLES `structureFacility` WRITE;
 /*!40000 ALTER TABLE `structureFacility` DISABLE KEYS */;
-INSERT INTO `structureFacility` VALUES (3,'logo','logo-small.png',1);
 /*!40000 ALTER TABLE `structureFacility` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -625,7 +624,7 @@ CREATE TABLE `structureImage` (
   `fileName` varchar(255) DEFAULT NULL,
   `id_structure` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -634,6 +633,7 @@ CREATE TABLE `structureImage` (
 
 LOCK TABLES `structureImage` WRITE;
 /*!40000 ALTER TABLE `structureImage` DISABLE KEYS */;
+INSERT INTO `structureImage` VALUES (2,'Logo','labos-small.png',1);
 /*!40000 ALTER TABLE `structureImage` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -696,4 +696,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2011-07-11 10:46:18
+-- Dump completed on 2011-07-11 11:11:58
