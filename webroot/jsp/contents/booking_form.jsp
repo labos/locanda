@@ -161,7 +161,7 @@ width:80%;
                   	  <div class="c50r">
              			<a href="#adjustment_anchor" class="add_adjustment" title="add adjustment"><img src="images/add-icon.png" alt="Add Adjustment" /><s:text name="addNewAdjustment" /></a>
               		  	<a name="adjustment_anchor"></a>
-              		  </div>room
+              		  </div>
               		</div>
               		<s:iterator value="booking.adjustments" var="eachAdjust" status="adjustStatus">
               		  <div  class="subcolumns adjustment_row">

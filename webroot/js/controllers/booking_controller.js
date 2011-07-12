@@ -495,7 +495,7 @@ $('input:checkbox[name="bookingExtraIds"], .quantity').eventExtraChange();
 								}
                             	
                             });
-                            
+                            /*
                             if (maxGuests !== null && parseInt(maxGuests) > 0 && ($clicked.is("select#sel_rooms_list") || $clicked.is("select#nr_guests"))) {
                                 var numbermaxGuests = parseInt(maxGuests);
                                 //update number of rows to add guests
@@ -516,6 +516,8 @@ $('input:checkbox[name="bookingExtraIds"], .quantity').eventExtraChange();
                                     });
                                 }                                
                             }
+                            
+                            */
                             if (($clicked.is("select#booking_duration") || $clicked.is("select#nr_guests"))) {
                                
                                 self.displayQuantitySelect($('input:checkbox[name="bookingExtraIds"]'));
