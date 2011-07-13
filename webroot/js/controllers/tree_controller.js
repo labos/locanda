@@ -25,6 +25,7 @@ $(function () {
 
             
             $(".room_tree, .extra_tree").bind("loaded.jstree", function (event, data) {
+				//$(".room_tree, .extra_tree").jstree("open_all");
                 $(".jstree-leaf").click(function (event) {
                     event.preventDefault();
                     var url_table = $("a", this).attr("href");
@@ -52,9 +53,6 @@ $(function () {
                 });
             });
             $(".room_tree").jstree({
-                "core": {
-                    "initially_open": ["root"]
-                },
                 "json_data": {
                     "ajax": {
                         "url": "findAllRoomPriceLists.action"
