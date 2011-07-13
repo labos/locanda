@@ -79,7 +79,7 @@
 					  <option value="nov"><s:text name="nov"/></option>
 					  <option value="dic"><s:text name="dic"/></option>
 					</select>
-					<s:select label="%{getText('guest.birthYear')}" name="guest.birthYear" headerKey="guest.birthYear" list="years" required="true"/>
+					<s:select label="%{getText('guest.birthYear')}" name="guest.birthYear" headerKey="-1" list="years" required="true"/>
 					</div>
 				  <div class="type-text">
                	    <label for="birthPlace"><s:text name="birthPlace"/>:</label>

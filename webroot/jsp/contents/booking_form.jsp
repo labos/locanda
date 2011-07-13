@@ -129,7 +129,21 @@ width:80%;
                     </div>
                     </div>
                   <!--  END ACCORDION  -->
-                 	  
+                 <!-- START SECOND ACCORDION -->
+                  
+                      <div class="type-select guests-select">
+                      	<s:select label="%{getText('guests')}"
+							        name="booking.nrGuests"
+							        list="listNumGuests"
+									headerKey="booking.nrGuests"
+							        multiple="false"
+							        size="1"
+							        required="true"
+							        id="nr_guests"/>
+							        
+                	  </div>                 
+                  	
+                  	  <!--  END SECOND ACCORDION -->	  
                   <div class="type-text"><hr/></div>	  
                   <div class="type-select extraCheckList"><label for="">Extras:</label>
                       	<jsp:include page="extraQuantity_select.jsp" />     	  

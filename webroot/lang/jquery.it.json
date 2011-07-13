@@ -27,6 +27,7 @@ $.i18n.it.strings = {
     prev: "Precedente",
     next: "Successivo",
     rooms: "Camere",
+    guests: "Ospiti",
     newBookingForRoom: "Nuova prenotazione per la camera",
     modifyBooking: "Modifica Prenotazione",
     dateInRequired: "Devi selezionare una data",

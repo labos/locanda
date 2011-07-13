@@ -27,6 +27,7 @@ $.i18n.en.strings = {
     prev: "Prev",
     next: "Next",
     rooms: "Rooms",
+    guests: "Guests",
     newBookingForRoom: "New Booking for Room",
     modifyBooking: "Modify Booking",
     dateInRequired: "Devi selezionare una data",

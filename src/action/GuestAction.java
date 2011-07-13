@@ -1,6 +1,7 @@
 package action;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
@@ -56,8 +57,8 @@ public class GuestAction extends ActionSupport implements SessionAware,UserAware
 	public String findAllGuests(){
 		
 		List<Integer> listYears =new ArrayList<Integer>();
-		
-		for (int i=2012; i>1900; i--) {
+		Integer currentYear = Calendar.getInstance().get(Calendar.YEAR);
+		for (int i=1900; i<=currentYear; i++) {
 			listYears.add(i);
 		}
 		
@@ -81,15 +82,8 @@ public class GuestAction extends ActionSupport implements SessionAware,UserAware
 		
 		List<Guest> allGuests = null;
 		List<Guest> returnedGuests = new ArrayList<Guest>();
-
 		
-		List<Integer> listYears =new ArrayList<Integer>();
-		
-		for (int i=2012; i>1900; i--) {
-			listYears.add(i);
-		}
-		
-		this.setYears(listYears);
+		this.addYears();
 		if (this.getTerm() != null && this.getTerm().length() > 1) {
 			allGuests = this.getGuestService().findGuestsByIdStructure(
 					this.getIdStructure());
@@ -115,15 +109,8 @@ public class GuestAction extends ActionSupport implements SessionAware,UserAware
 		List<Guest> allGuests = null;
 		List<Guest> returnedGuests = null;
 
-	
+		this.addYears();
 		
-		List<Integer> listYears =new ArrayList<Integer>();
-		
-		for (int i=2012; i>1900; i--) {
-			listYears.add(i);
-		}
-		
-		this.setYears(listYears);
 		returnedGuests = new ArrayList<Guest>();
 		if (this.getTerm() != null && this.getTerm().length() > 1) {
 			allGuests = this.getGuestService().findGuestsByIdStructure(this.getIdStructure());
@@ -149,17 +136,10 @@ public class GuestAction extends ActionSupport implements SessionAware,UserAware
 				})}) 
 	})	
 	public String findGuestById(){
-//		User user = null;
+
 		Guest aGuest = null;
 		
-//		user = (User)session.get("user");
-		List<Integer> listYears =new ArrayList<Integer>();
-		
-		for (int i=2012; i>1900; i--) {
-			listYears.add(i);
-		}
-		
-		this.setYears(listYears);
+		this.addYears();
 		aGuest = this.getGuestService().findGuestById(this.getId());
 		if(aGuest != null){
 			this.setGuest(aGuest);
@@ -178,13 +158,8 @@ public class GuestAction extends ActionSupport implements SessionAware,UserAware
 	})
 	public String goUpdateGuest() {
 		
-		List<Integer> listYears =new ArrayList<Integer>();
+		this.addYears();
 		
-		for (int i=2012; i>1900; i--) {
-			listYears.add(i);
-		}
-		
-		this.setYears(listYears);
 		this.setGuest(this.getGuestService().findGuestById(this.getId())); 
 		this.setBookings(this.getBookingService().findBookingsByIdBooker(this.getId()));
 		
@@ -252,6 +227,15 @@ public class GuestAction extends ActionSupport implements SessionAware,UserAware
 			return ERROR;
 		}
 		
+	}
+	
+	private void addYears(){
+		List<Integer> listYears =new ArrayList<Integer>();
+		Integer currentYear = Calendar.getInstance().get(Calendar.YEAR);
+		for (int i=1900; i<currentYear; i++) {
+			listYears.add(i);
+		}
+		this.setYears(listYears);
 	}
 
 	public Message getMessage() {

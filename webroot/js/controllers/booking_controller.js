@@ -1,5 +1,30 @@
+/*******************************************************************************
+ *
+ *  Copyright 2011 - Sardegna Ricerche, Distretto ICT, Pula, Italy
+ *
+ * Licensed under the EUPL, Version 1.1.
+ * You may not use this work except in compliance with the Licence.
+ * You may obtain a copy of the Licence at:
+ *
+ *  http://www.osor.eu/eupl
+ *
+ * Unless required by applicable law or agreed to in  writing, software distributed under the Licence is distributed on an "AS IS" basis,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the Licence for the specific language governing permissions and limitations under the Licence.
+ * In case of controversy the competent court is the Court of Cagliari (Italy).
+ *******************************************************************************/
 $(function () {
-    $.Class.extend('Booking', /* @static */ { /* update subtotal */
+	
+    /*
+     * @class Booking
+     * @parent Class
+     * @constructor
+     * Create or edit a booking.
+     * @tag controllers
+     * @author LabOpenSource
+     */
+    $.Class.extend('Booking', /* @static */ { 
+    	/* update subtotal */
         updateSubtotal: function () {
             var subtotal = 0;
             var payments = ["#extras_room", "input.extra_value_adjustment", '#price_room'];
@@ -18,11 +43,11 @@ $(function () {
                 });
                 // now update permanently subtotal
                 $(".subtotal_room").text(subtotal);
-                //---  $("#subtotal_room").val(subtotal);
+               
                 Booking.updateBalance();
             }
             catch (e) {
-                //nothing for now -- problema nei selettori
+                //nothing for now -- selector exceptions management
             }
         },
         /* update balance due */
@@ -51,7 +76,11 @@ $(function () {
             }
         },
                 
-        
+        /*
+         * Calculate.
+         * @param {Object} a calendar event object.
+         * @param {Object} an Jquery Dom object .
+         */
         days_between_signed: function (date1, date2) {
             // The number of milliseconds in one day
             var ONE_DAY = 1000 * 60 * 60 * 24;
@@ -92,11 +121,7 @@ $(function () {
             
             this.guest.getCustomers("input[name='booking.booker.lastName']", null); 
             
-//			//controllo se i checkbox degli extra sono ceccati al caricamento della finestra modale
-//            if ($('input:checkbox[name="bookingExtraIds"]:checked')) {
-//  				self.displayQuantitySelect($('input:checkbox[name="bookingExtraIds"]:checked'));
-//			}
-            
+          
             $(".btn_checked").button({
                 disabled: true
             });
@@ -377,7 +402,7 @@ $('input:checkbox[name="bookingExtraIds"], .quantity').eventExtraChange();
          		
             });
             
-            $('#nr_guests').change(function () {
+            $('#nr_guests').live('change', function () {
                 // check in room was selected
                 if (!(parseInt($('#sel_rooms_list').val()) > 0)) {
                     $().notify($.i18n("warning"), $.i18n("roomRequired"));
@@ -448,17 +473,15 @@ $('input:checkbox[name="bookingExtraIds"], .quantity').eventExtraChange();
                             var roomSubTotal = data_action.booking.roomSubtotal;
                             var extraSubTotal = data_action.booking.extraSubtotal;
                             var numNights = data_action.numNights;
+                            var listNumGuests = data_action.listNumGuests;
+                            var nrGuests = data_action.booking.nrGuests;
                             var priceRoom = 0;
                             var subTotal = roomSubTotal + extraSubTotal;
                             var maxGuests = data_action.booking.room.roomType.maxGuests;
-                            if (maxGuests !== null && parseInt(maxGuests) > 0 && $clicked.is("select#sel_rooms_list")) {
-                                var numbermaxGuests = parseInt(maxGuests);
-                                $("#nr_guests").empty();
-                                for (var i = 1; i <= numbermaxGuests; i++) {
-                                    $("#nr_guests").append('<option value="' + i + '">' + i + '</option');
-                                }
-                            }
-/*							var extraCheckBoxNumber = $('input:checkbox[name="bookingExtraIds"]').length;
+
+                            
+                            
+						var extraCheckBoxNumber = $('input:checkbox[name="bookingExtraIds"]').length;
 							for (var extraID = 1; extraID <= extraCheckBoxNumber; extraID++) {
 								var currentCheckbox  = 'input:checkbox#' + extraID + '_extraCheckBox';
 								
@@ -475,7 +498,7 @@ $('input:checkbox[name="bookingExtraIds"], .quantity').eventExtraChange();
 									self.displayQuantitySelect($('input:checkbox[name="bookingExtraIds"]'));
 								}
 								}
-							}*/
+							}
                             
                             $('input:checkbox[name="bookingExtraIds"]').each( function (){
                             	var extraID = $(this).val();
@@ -495,29 +518,17 @@ $('input:checkbox[name="bookingExtraIds"], .quantity').eventExtraChange();
 								}
                             	
                             });
-                            /*
-                            if (maxGuests !== null && parseInt(maxGuests) > 0 && ($clicked.is("select#sel_rooms_list") || $clicked.is("select#nr_guests"))) {
-                                var numbermaxGuests = parseInt(maxGuests);
-                                //update number of rows to add guests
-                                var selector = "guest";
-                                //count the number of guests already added
-                                var formParent = $(".guests-select");
-                                var num_of_items = formParent.siblings(".guest_row").size();
-                                // get last subcolumns
-                                var dd = formParent.siblings("." + selector + "_row:last").length ? formParent.siblings("." + selector + "_row:last") : formParent;
-                                // setup of cloned row to add
-                                for (var i = num_of_items; i < numbermaxGuests; i++) {
-                                    var added = $("#to_add_" + selector + "").clone().insertAfter(dd).removeAttr("id").show();
-                                    added.html(added.html().replace(/__PVALUE__/ig, num_of_items));
-                                    // attach listener to cloned row
-                                    // attach erase click
-                                    added.find(".erase_" + selector + "").click(function () {
-                                        $(this).closest("." + selector + "_row").remove();
-                                    });
-                                }                                
+                            
+                            if (maxGuests !== null && parseInt(maxGuests) > 0 && ($clicked.is("select#sel_rooms_list"))) {
+                                
+                                var $dd = $(".guests-select");
+
+    							// number of guests variation
+    							var added = new EJS({url: 'js/views/booking/listNumGuests.ejs'}).render({lNumGuests: listNumGuests, nGuests: nrGuests, labels:{labelNrGuests: $.i18n("guests")}});
+    							$dd.html(added);
                             }
                             
-                            */
+                            
                             if (($clicked.is("select#booking_duration") || $clicked.is("select#nr_guests"))) {
                                
                                 self.displayQuantitySelect($('input:checkbox[name="bookingExtraIds"]'));
