@@ -60,6 +60,7 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 	private Double paymentsSubtotal = 0.0;
 	private Integer idStructure;
 	private List<Integer> listNumGuests = null;
+	
 	@Autowired
 	private ExtraService extraService = null;
 	@Autowired
@@ -176,18 +177,24 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 			this.updateUnitaryPriceInBookedExtraItems(id_structure, booking);
 			booking.updateExtraSubtotal();
 		}
-		
 		this.setBooking(booking);
-		//create list of guest numbers
-		List<Integer> listNum =new ArrayList<Integer>();
-		Integer maxGuests = this.getBooking().getRoom().getRoomType().getMaxGuests();
-		for (int i=1; i<= maxGuests; i++) {
-			listNum.add(i);
-		}
+		this.updateListNumGuests(booking);
 		
-		this.setListNumGuests(listNum);
 	}
 	
+	private void updateListNumGuests(Booking booking){
+		List<Integer> listNumGuests = null;
+		Integer maxGuests = 0;
+		
+		listNumGuests = new ArrayList<Integer>();
+		maxGuests = booking.getRoom().getRoomType().getMaxGuests();
+		for (Integer i= 1; i<= maxGuests; i++) {
+			listNumGuests.add(i);
+		}
+		
+		this.setListNumGuests(listNumGuests);
+		
+	}
 	
 	@Actions({
 		@Action(value="/updateNrGuests",results = {
@@ -481,9 +488,9 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 		booking.setDateIn(this.getBooking().getDateIn());
 		booking.setDateOut(this.getBooking().getDateOut());		
 		
-		//theBookedRoom = this.getRoomService().findRoomById(structure,this.getBooking().getRoom().getId());
 		theBookedRoom = this.getRoomService().findRoomById(this.getBooking().getRoom().getId());
 		booking.setRoom(theBookedRoom);
+		this.updateListNumGuests(booking);
 		
 		defaultConvention = this.getConventionService().findConventionsByIdStructure(this.getIdStructure()).get(0);
 		booking.setConvention(defaultConvention);
@@ -522,7 +529,8 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 		
 		this.setRooms(this.getRoomService().findRoomsByIdStructure(this.getIdStructure()));
 		this.setExtras(this.getExtraService().findExtrasByIdStructure(this.getIdStructure()));
-		this.setConventions(this.getConventionService().findConventionsByIdStructure(this.getIdStructure()));		
+		this.setConventions(this.getConventionService().findConventionsByIdStructure(this.getIdStructure()));
+		this.setListNumGuests(new ArrayList<Integer>());
 		
 			
 		return SUCCESS;
@@ -542,8 +550,6 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 		Double adjustmentsSubtotal = 0.0;
 		Double paymentsSubtotal = 0.0;
 		
-		//findBookingById deve caricare dal DB anche gli extraItems, adjustments e payments, 
-		//booker e Convention perchè devono essre usati nella JSP
 		
 		booking = this.getBookingService().findBookingById(this.getId());
 		this.getSession().put("booking", booking);
@@ -551,7 +557,6 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 		this.setBooking(booking);
 		
 		this.setRooms(this.getRoomService().findRoomsByIdStructure(this.getIdStructure()));
-		//Tutti gli Extra della Struttura
 		this.setExtras(this.getExtraService().findExtrasByIdStructure(this.getIdStructure()));
 		
 		
@@ -567,6 +572,7 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 		paymentsSubtotal = this.getBooking().calculatePaymentsSubtotal();
 		this.setPaymentsSubtotal(paymentsSubtotal);		
 		
+		this.updateListNumGuests(booking);
 		return SUCCESS;
 	}
 	
