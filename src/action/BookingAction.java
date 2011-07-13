@@ -90,37 +90,37 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 		})
 	})	
 	public String updateBookingDates() {
+		Integer numNights;
+		Booking booking = null;
 		
 		if(!this.checkBookingDates(this.getIdStructure())){
 			return ERROR;
 		}		
-		this.updateBookingDates(this.getIdStructure());
-		this.getMessage().setResult(Message.SUCCESS);
-		this.getMessage().setDescription(getText("calculatedPriceAction"));
-		return "success";						
-	}
-	
-	public void updateBookingDates(Integer id_structure) {
-		Integer numNights;
-		Booking booking = null;
 		
 		booking  = (Booking) this.getSession().get("booking");		
 		
 		booking.setDateIn(this.getBooking().getDateIn());
 		booking.setDateOut(this.getBooking().getDateOut());
 		
-		numNights = booking.calculateNumNights();
-		this.setNumNights(numNights);
 		
-		this.updateRoomSubtotal(id_structure, booking);		
-		this.updateUnitaryPriceInBookedExtraItems(id_structure, booking);
+		
+		this.updateRoomSubtotal(booking);		
+		this.updateUnitaryPriceInBookedExtraItems(booking);
 		this.updateMaxQuantityInBookedExtraItems(booking);
 		this.updateQuantityInBookedExtraItems(booking);
 		booking.updateExtraSubtotal();
 		
-		this.setBooking(booking);
+		this.setBooking(booking);	
 		
+		numNights = booking.calculateNumNights();
+		this.setNumNights(numNights);
+		
+		this.getMessage().setResult(Message.SUCCESS);
+		this.getMessage().setDescription(getText("calculatedPriceAction"));
+		return "success";						
 	}
+	
+	
 	
 	
 		
@@ -136,34 +136,25 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 		})
 	})	
 	public String updateRoom() {
-		
-		if(!this.checkBookingDates(this.getIdStructure())){
-			return ERROR;
-		}		
-		this.updateRoom(this.getIdStructure());
-		this.getMessage().setResult(Message.SUCCESS);
-		this.getMessage().setDescription(getText("calculatedPriceAction"));
-		return "success";						
-	}
-	
-	public void updateRoom(Integer id_structure) {
 		Integer numGuests;
 		Booking booking = null;			
 		RoomType newRoomType = null;
 		RoomType oldRoomType = null;
+		
+		if(!this.checkBookingDates(this.getIdStructure())){
+			return ERROR;
+		}		
 				
-		booking  = (Booking) this.getSession().get("booking");
+		booking  = (Booking) this.getSession().get("booking");		
 		
 		if(booking.getRoom()!=null){
 			oldRoomType = booking.getRoom().getRoomType();
-		}
-		
+		}		
 		this.updateRoom(booking);	
 		
 		if(booking.getRoom()!=null){
 			newRoomType = booking.getRoom().getRoomType();
-		}
-		
+		}		
 		//Se cambia la categoria allora devo aggiornare i prezzi
 		if((oldRoomType!= null) && (newRoomType!= null) && !(oldRoomType.equals(newRoomType) )){
 			numGuests = booking.getNrGuests();
@@ -173,28 +164,27 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 				//Se cambia il numero di guest devo aggiornare anche la quantità massima degli extra item
 				this.updateMaxQuantityInBookedExtraItems(booking);
 			}			
-			this.updateRoomSubtotal(id_structure, booking);			
-			this.updateUnitaryPriceInBookedExtraItems(id_structure, booking);
+			this.updateRoomSubtotal(booking);			
+			this.updateUnitaryPriceInBookedExtraItems(booking);
 			booking.updateExtraSubtotal();
 		}
 		this.setBooking(booking);
+		
 		this.updateListNumGuests(booking);
 		
+		this.getMessage().setResult(Message.SUCCESS);
+		this.getMessage().setDescription(getText("calculatedPriceAction"));
+		return "success";						
 	}
 	
-	private void updateListNumGuests(Booking booking){
-		List<Integer> listNumGuests = null;
-		Integer maxGuests = 0;
+	private void updateRoom(Booking booking){
+		Room newRoom = null; 
 		
-		listNumGuests = new ArrayList<Integer>();
-		maxGuests = booking.getRoom().getRoomType().getMaxGuests();
-		for (Integer i= 1; i<= maxGuests; i++) {
-			listNumGuests.add(i);
-		}
-		
-		this.setListNumGuests(listNumGuests);
-		
+		newRoom = this.getRoomService().findRoomById(this.getBooking().getRoom().getId());
+		booking.setRoom(newRoom);	
 	}
+	
+	
 	
 	@Actions({
 		@Action(value="/updateNrGuests",results = {
@@ -208,28 +198,24 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 		})
 	})	
 	public String updateNrGuests() {
+		Booking booking = null;	
 		
 		if(!this.checkBookingDates(this.getIdStructure())){
 			return ERROR;
-		}		
-		this.updateNrGuests(this.getIdStructure());
+		}				
+		
+		booking  = (Booking) this.getSession().get("booking");			
+		
+		booking.setNrGuests(this.getBooking().getNrGuests());
+		this.updateRoomSubtotal(booking);
+		this.updateMaxQuantityInBookedExtraItems(booking);		
+		this.setBooking(booking);		
+		
 		this.getMessage().setResult(Message.SUCCESS);
 		this.getMessage().setDescription(getText("calculatedPriceAction"));
 		return "success";						
 	}
 	
-	public void updateNrGuests(Integer id_structure) {
-		Booking booking = null;		
-		
-		booking  = (Booking) this.getSession().get("booking");			
-		
-		booking.setNrGuests(this.getBooking().getNrGuests());
-		this.updateRoomSubtotal(id_structure, booking);
-		this.updateMaxQuantityInBookedExtraItems(booking);
-		
-		this.setBooking(booking);
-		
-	}
 	
 	
 	@Actions({
@@ -244,22 +230,14 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 		})
 	})	
 	public String updateExtras() {
-		
-		if(!this.checkBookingDatesNotNull(this.getIdStructure())){
-			return ERROR;
-		}		
-		this.updateExtras(this.getIdStructure());
-		
-		this.getMessage().setResult(Message.SUCCESS);
-		this.getMessage().setDescription(getText("calculatedPriceAction"));
-		return "success";						
-	}
-	
-	public void updateExtras(Integer id_structure) {	
 		Booking booking = null;	
 		List<Extra> checkedExtras = null;
 		List<Integer> filteredBookingExtraIds = null;
 		Integer anInt;
+		
+		if(!this.checkBookingDatesNotNull(this.getIdStructure())){
+			return ERROR;
+		}		
 					
 		booking  = (Booking) this.getSession().get("booking");			
 		
@@ -273,11 +251,17 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 			}			
 		}		
 		checkedExtras = this.getExtraService().findExtrasByIds(filteredBookingExtraIds);
-		this.updateExtraItems(id_structure, booking,checkedExtras);					
+		this.updateExtraItems(booking,checkedExtras);					
 		booking.updateExtraSubtotal();	
 		
-		this.setBooking(booking);
-	}	
+		this.setBooking(booking);	
+		
+		this.getMessage().setResult(Message.SUCCESS);
+		this.getMessage().setDescription(getText("calculatedPriceAction"));
+		return "success";						
+	}
+	
+	
 	
 	@Actions({
 		@Action(value="/updateConvention",results = {
@@ -291,42 +275,35 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 		})
 	})	
 	public String updateConvention() {
+		Booking booking = null;			
 		
 		if(!this.checkBookingDates(this.getIdStructure())){
 			return ERROR;
-		}		
-		this.updateConvention(this.getIdStructure());
+		}			
+		
+		booking  = (Booking) this.getSession().get("booking");
+		booking.setConvention(this.getBooking().getConvention());
+				
+		//Se cambia la convenzione allora devo aggiornare i prezzi della room e degli extra
+		this.updateRoomSubtotal(booking);			
+		this.updateUnitaryPriceInBookedExtraItems(booking);
+		booking.updateExtraSubtotal();
+		
+		this.setBooking(booking);	
+		
 		this.getMessage().setResult(Message.SUCCESS);
 		this.getMessage().setDescription(getText("calculatedPriceAction"));
 		return "success";						
 	}
 	
-	public void updateConvention(Integer id_structure) {
-		Booking booking = null;			
-						
-		booking  = (Booking) this.getSession().get("booking");
-		booking.setConvention(this.getBooking().getConvention());
-				
-		//Se cambia la convenzione allora devo aggiornare i prezzi della room e degli extra
-		this.updateRoomSubtotal(id_structure, booking);			
-		this.updateUnitaryPriceInBookedExtraItems(id_structure, booking);
-		booking.updateExtraSubtotal();
-		
-		this.setBooking(booking);
-	}
-	
-	
-	private void updateRoom(Booking booking){
-		Room newRoom = null; 
-		
-		//newRoom = this.getRoomService().findRoomById(structure,this.getBooking().getRoom().getId());
-		newRoom = this.getRoomService().findRoomById(this.getBooking().getRoom().getId());
-		booking.setRoom(newRoom);	
-	}
 	
 	
 	
-	private void updateExtraItems(Integer id_structure, Booking booking,List<Extra> checkedExtras){
+	
+	
+	
+	
+	private void updateExtraItems(Booking booking,List<Extra> checkedExtras){
 		ExtraItem extraItem = null;		
 		List<ExtraItem> extraItems = null;
 		
@@ -348,7 +325,7 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 				extraItem.setQuantity(booking.calculateExtraItemMaxQuantity(each));
 				extraItem.setMaxQuantity(booking.calculateExtraItemMaxQuantity(each));
 				extraItem.setUnitaryPrice(
-						this.getStructureService().calculateExtraItemUnitaryPrice(id_structure, booking.getDateIn(), booking.getDateOut(), booking.getRoom().getRoomType(), booking.getConvention(), each));
+						this.getStructureService().calculateExtraItemUnitaryPrice(this.getIdStructure(), booking.getDateIn(), booking.getDateOut(), booking.getRoom().getRoomType(), booking.getConvention(), each));
 			}
 			extraItems.add(extraItem);	
 		}	
@@ -356,10 +333,10 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 	}
 	
 	
-	private void updateRoomSubtotal(Integer id_structure, Booking booking){
+	private void updateRoomSubtotal(Booking booking){
 		Double roomSubtotal = 0.0;
 		
-		roomSubtotal = this.getBookingService().calculateRoomSubtotalForBooking(id_structure,booking);
+		roomSubtotal = this.getBookingService().calculateRoomSubtotalForBooking(this.getIdStructure(),booking);
 		booking.setRoomSubtotal(roomSubtotal);		
 	}
 	
@@ -385,11 +362,11 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 		}		
 	}
 	
-	private void updateUnitaryPriceInBookedExtraItems(Integer id_structure, Booking booking){
+	private void updateUnitaryPriceInBookedExtraItems(Booking booking){
 		Double unitaryPrice;
 		if((booking.getDateIn()!=null) && (booking.getDateOut()!=null)){
 			for(ExtraItem each: booking.getExtraItems()){
-				unitaryPrice = this.getStructureService().calculateExtraItemUnitaryPrice(id_structure, booking.getDateIn(), booking.getDateOut(), booking.getRoom().getRoomType(), booking.getConvention(), each.getExtra());
+				unitaryPrice = this.getStructureService().calculateExtraItemUnitaryPrice(this.getIdStructure(), booking.getDateIn(), booking.getDateOut(), booking.getRoom().getRoomType(), booking.getConvention(), each.getExtra());
 				each.setUnitaryPrice(unitaryPrice);
 			}	
 			
@@ -732,20 +709,6 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 	}
 	
 	
-	private void filterGuests(){
-		List<Guest> guestWithoutNulls = null;
-		
-		guestWithoutNulls = new ArrayList<Guest>();
-		
-		for(Guest each: this.getBooking().getGuests()){
-			if(each!=null){
-				guestWithoutNulls.add(each);
-			}			
-		}
-		this.getBooking().setGuests(guestWithoutNulls);
-		
-	}
-	
 	@Actions({
 		@Action(value="/deleteBooking",results = {
 				@Result(type ="json",name="success", params={
@@ -771,7 +734,8 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 		}		
 	}	
 	
-		
+	
+	
 	@Actions({
 		@Action(value="/goOnlineBookings",results = {
 				@Result(name="success",location="/onlineBookings.jsp")
@@ -781,7 +745,19 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 		return SUCCESS;		
 	}
 	
-	
+	private void updateListNumGuests(Booking booking){
+		List<Integer> listNumGuests = null;
+		Integer maxGuests = 0;
+		
+		listNumGuests = new ArrayList<Integer>();
+		maxGuests = booking.getRoom().getRoomType().getMaxGuests();
+		for (Integer i= 1; i<= maxGuests; i++) {
+			listNumGuests.add(i);
+		}
+		
+		this.setListNumGuests(listNumGuests);
+		
+	}
 	
 	public Message getMessage() {
 		return message;
