@@ -1,9 +1,11 @@
 package action;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import org.apache.commons.lang.time.DateUtils;
 
 import model.Adjustment;
 import model.ExtraItem;
@@ -20,6 +22,7 @@ import model.internal.Message;
 import model.listini.Convention;
 import model.listini.Season;
 
+import org.apache.commons.lang.time.DateUtils;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Actions;
 import org.apache.struts2.convention.annotation.InterceptorRef;
@@ -409,6 +412,12 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 			return ERROR;
 		}		
 		
+		
+		
+		if(!this.checkBookingChecking()){
+			return ERROR;
+		}		
+		
 		booking = (Booking) this.getSession().get("booking");
 		
 		//Adjustments
@@ -502,6 +511,38 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 						
 		defaultConvention = this.getConventionService().findConventionsByIdStructure(this.getIdStructure()).get(0);
 		booking.setConvention(defaultConvention);	
+		this.setBooking(booking);
+		
+		this.setRooms(this.getRoomService().findRoomsByIdStructure(this.getIdStructure()));
+		this.setExtras(this.getExtraService().findExtrasByIdStructure(this.getIdStructure()));
+		this.setConventions(this.getConventionService().findConventionsByIdStructure(this.getIdStructure()));
+		this.setListNumGuests(new ArrayList<Integer>());
+		
+			
+		return SUCCESS;
+	}
+	
+	
+	@Actions({
+		@Action(value="/goAddNewBookingFromGuest",results = {
+				@Result(name="success",location="/book.jsp")
+		})
+	})
+	public String goAddNewBookingFromGuest() {
+		Convention defaultConvention = null;
+		Booking booking = null;
+		Guest booker = null;		
+		booking = new Booking();
+		this.getSession().put("booking", booking);
+						
+		defaultConvention = this.getConventionService().findConventionsByIdStructure(this.getIdStructure()).get(0);
+		booking.setConvention(defaultConvention);
+		
+		//booker settings..
+		booker = this.getGuestService().findGuestById(this.getId());
+		booking.setBooker(booker);
+		
+		
 		this.setBooking(booking);
 		
 		this.setRooms(this.getRoomService().findRoomsByIdStructure(this.getIdStructure()));
@@ -679,6 +720,26 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 		}
 		this.getMessage().setDescription(getText("bookingDatesOK"));
 		this.getMessage().setResult(Message.SUCCESS);
+		return true;
+	}
+	
+	private Boolean checkBookingChecking(){
+		
+		Date dateOut = this.getBooking().getDateOut();
+		String status = this.getBooking().getStatus();
+		if(status!=null && status.equals("checkedout") && dateOut!=null){
+			
+			if (DateUtils.truncatedCompareTo(Calendar.getInstance().getTime(), dateOut,Calendar.DAY_OF_MONTH) < 0)
+			{
+				
+				this.getMessage().setResult(Message.ERROR);
+				this.getMessage().setDescription("Attenzione, non puoi effettuare il checkout prima della date di partenza.");
+				return false;
+			}
+			
+			
+		}
+		
 		return true;
 	}
 	

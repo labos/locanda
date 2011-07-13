@@ -118,8 +118,8 @@ width:80%;
                <div id="accordion">
                <h2><a href="#top_accordion"><s:text name="bookerDetails" /></a></h2>
                <div>
-                  <div class="type-text"><label for="phone"><s:text name="phone" />: <sup title="This field is mandatory.">*</sup> </label> 
-                  <input type="text" name="booking.booker.phone" id="phone" value="<s:property value="booking.booker.phone"/>" class="required"/></div>
+                  <div class="type-text"><label for="phone"><s:text name="phone" />:</sup> </label> 
+                  <input type="text" name="booking.booker.phone" id="phone" value="<s:property value="booking.booker.phone"/>"/></div>
                		<div class="type-text"><label for="email">Email:</label> 
                   <input type="text" name="booking.booker.email" id="email" value="<s:property value="booking.booker.email"/>" /></div>
                    <div class="type-text"><label for="notes">Note:</label> 

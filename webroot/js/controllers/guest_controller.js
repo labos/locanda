@@ -15,6 +15,12 @@ $(function () {
                 }
             });
             
+            $(".btn_add_booking").button({
+                icons: {
+                    primary: "ui-icon-circle-plus"
+                }
+            });
+            
             $(".btn_edit_guest").button({
                 icons: {
                     primary: "ui-icon-check"

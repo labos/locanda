@@ -420,33 +420,7 @@ $('input:checkbox[name="bookingExtraIds"], .quantity').eventExtraChange();
          			self.calculatePrice(this,'updateConvention.action');
             });
 			
-            //---  BOOK SECTION CODE   
-            $.ajaxSetup({
-                beforeSend: function (xhr) {
-                    if (xhr.overrideMimeType) {
-                        xhr.overrideMimeType("application/json");
-                    }
-                },
-                cache: false
-            });
-            var cache = {},
-                lastXhr;
-            $('input[name="fullname"]').autocomplete({
-                minLength: 2,
-                source: function (request, response) {
-                    var term = request.term;
-                    if (term in cache) {
-                        response(cache[term]);
-                        return;
-                    }
-                    lastXhr = $.getJSON("customer.json", request, function (data, status, xhr) {
-                        cache[term] = data.customers;
-                        if (xhr === lastXhr) {
-                            response(data.customers);
-                        }
-                    });
-                }
-            });
+    
         },
 
     	/**)

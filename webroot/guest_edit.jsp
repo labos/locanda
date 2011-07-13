@@ -27,7 +27,11 @@
             <div>	
 			  <jsp:include page="jsp/contents/guest_form.jsp" />       
 		      <div class="beautify">
-                <legend><b></b><s:text name="guestBookings"/></b></legend>
+                <legend><b><s:text name="guestBookings"/></b></legend>
+                <div class="subcolumns">
+                <a class="btn_add_booking" href="goAddNewBookingFromGuest.action?id=<s:property value="guest.id"/>"><s:text name="newBooking" /></a>
+                </div>
+                <hr/>
                 <%@ page import="model.Booking;" %>
                 <s:iterator value="bookings" var="eachBooking" >
                     <%
@@ -52,7 +56,6 @@
               	    </div>
               	    <div class="book_guest">                    
               	      <div class="c20l"><a href="goUpdateBooking.action?sect=planner&id=<s:property value="#eachBooking.id"/>"><span class="link"><s:text name="edit" /></span></a></div>
-              	      <div class="c20l"><a href="goAddNewBooking.action?sect=planner"><span class="link"><s:text name="newBooking" /></span></a></div><div class="c20l"><span></span></div><div class="c20l"><span></span></div>
               	    </div>
                   </div>
                 </s:iterator>
