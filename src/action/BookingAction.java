@@ -59,7 +59,7 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 	private Double adjustmentsSubtotal = 0.0;
 	private Double paymentsSubtotal = 0.0;
 	private Integer idStructure;
-	
+	private List<Integer> listNumGuests = null;
 	@Autowired
 	private ExtraService extraService = null;
 	@Autowired
@@ -178,6 +178,14 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 		}
 		
 		this.setBooking(booking);
+		//create list of guest numbers
+		List<Integer> listNum =new ArrayList<Integer>();
+		Integer maxGuests = this.getBooking().getRoom().getRoomType().getMaxGuests();
+		for (int i=1; i<= maxGuests; i++) {
+			listNum.add(i);
+		}
+		
+		this.setListNumGuests(listNum);
 	}
 	
 	
@@ -863,6 +871,14 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 
 	public void setIdStructure(Integer idStructure) {
 		this.idStructure = idStructure;
+	}
+
+	public List<Integer> getListNumGuests() {
+		return listNumGuests;
+	}
+
+	public void setListNumGuests(List<Integer> listNumGuests) {
+		this.listNumGuests = listNumGuests;
 	}
 
 	public ExtraService getExtraService() {
