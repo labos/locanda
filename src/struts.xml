@@ -25,6 +25,7 @@
         "http://struts.apache.org/dtds/struts-2.0.dtd">
 
 <struts>
+    <constant name="struts.i18n.encoding" value="UTF-8"/>
 	<constant name="struts.custom.i18n.resources" value="global" />
     <constant name="struts.multipart.maxSize" value="1000000" />      
   	<package name="default" extends="struts-default,json-default" namespace="/">
