@@ -27,7 +27,7 @@
             <div>	
 			  <jsp:include page="jsp/contents/guest_form.jsp" />       
 		      <div class="beautify">
-                <legend>Bookings</legend>
+                <legend><b></b><s:text name="guestBookings"/></b></legend>
                 <%@ page import="model.Booking;" %>
                 <s:iterator value="bookings" var="eachBooking" >
                     <%
@@ -45,13 +45,13 @@
      				 %>
                   <div class="subcolumns">
               	    <div class="c50l book_guest">
-              	      <div class="c20l"><b>Room:</b> <p><s:property value="#eachBooking.room.name"/>/<s:property value="#eachBooking.room.roomType.name"/></p></div>                    
-              	      <div class="c20l"><b>CheckIn:</b> <p><s:property value="#eachBooking.dateIn"/></p></div>
-              	      <div class="c20l"><b>CheckOut:</b> <p><s:property value="#eachBooking.dateOut"/></p></div>
-              	      <div class="c20l"><b>Subtotal:</b> <p>&euro; <% out.print(adjPluspay) ; %></p></div>
+              	      <div class="c20l"><b><s:text name="room"/>:</b> <p><s:property value="#eachBooking.room.name"/>/<s:property value="#eachBooking.room.roomType.name"/></p></div>                    
+              	      <div class="c20l"><b><s:text name="checkin"/>:</b> <p><s:property value="#eachBooking.dateIn"/></p></div>
+              	      <div class="c20l"><b><s:text name="checkout"/>:</b> <p><s:property value="#eachBooking.dateOut"/></p></div>
+              	      <div class="c20l"><b><s:text name="subtotal"/>:</b> <p>&euro; <% out.print(adjPluspay) ; %></p></div>
               	    </div>
               	    <div class="book_guest">                    
-              	      <div class="c20l"><a href="goUpdateBooking.action?sect=planner&id=<s:property value="#eachBooking.id"/>"><span class="link"><s:text name="details" /></span></a></div>
+              	      <div class="c20l"><a href="goUpdateBooking.action?sect=planner&id=<s:property value="#eachBooking.id"/>"><span class="link"><s:text name="edit" /></span></a></div>
               	      <div class="c20l"><a href="goAddNewBooking.action?sect=planner"><span class="link"><s:text name="newBooking" /></span></a></div><div class="c20l"><span></span></div><div class="c20l"><span></span></div>
               	    </div>
                   </div>
