@@ -8,8 +8,7 @@
       <div id="home">
       	<h1>Locanda - Download</h1>
       	<p><s:text name="homeWelcomeMessage"/>.</p>
-      	
-      	<form role="application" class="yform" action="" method="post">
+      	<form role="application" class="yform" action="<s:property value="url_download"/>" method="post">
             <fieldset>
               <legend>Inserisci i tuoi dati</legend>
               <div class="type-text">
@@ -29,9 +28,8 @@
                 <input type="text" aria-required="true" size="20" id="phone" name="phone" class="required">
               </div>
             </fieldset>
-
             <div class="type-button">
-              <a href="<s:property value="url_download"/>" title="download" ><img  src="images/download.png" alt="download"/></a>
+              <button><img  src="images/download.png" alt="download"/></button>
             </div>
           </form>
       	
