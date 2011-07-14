@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE validators PUBLIC	"-//OpenSymphony Group//XWork Validator 1.0//EN" 
+  		"http://www.opensymphony.com/xwork/xwork-validator-1.0.2.dtd">
+  		
+  		
+<validators>
+	<field name="name">
+		<field-validator type="requiredstring">
+			<param name="trim">true</param>
+            <message><![CDATA[ name required  ]]></message>
+		</field-validator>
+	</field>
+	<field name="surname">
+		<field-validator type="requiredstring">
+			<param name="trim">true</param>
+            <message><![CDATA[surname required ]]></message>
+		</field-validator>
+	</field>
+		<field name="email">
+		<field-validator type="requiredstring">
+			<param name="trim">true</param>
+            <message><![CDATA[email required ]]></message>
+		</field-validator>
+	</field>
+		<field name="phone">
+		<field-validator type="requiredstring">
+			<param name="trim">true</param>
+            <message><![CDATA[phone required ]]></message>
+		</field-validator>
+	</field>
+</validators>
+
