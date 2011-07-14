@@ -211,7 +211,9 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 		
 		booking.setNrGuests(this.getBooking().getNrGuests());
 		this.updateRoomSubtotal(booking);
-		this.updateMaxQuantityInBookedExtraItems(booking);		
+		this.updateMaxQuantityInBookedExtraItems(booking);	
+		this.updateQuantityInBookedExtraItems(booking);
+		booking.updateExtraSubtotal();
 		this.setBooking(booking);		
 		
 		this.getMessage().setResult(Message.SUCCESS);
@@ -298,10 +300,6 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 		this.getMessage().setDescription(getText("calculatedPriceAction"));
 		return "success";						
 	}
-	
-	
-	
-	
 	
 	
 	
