@@ -8,8 +8,35 @@
       <div id="home">
       	<h1>Locanda - Download</h1>
       	<p><s:text name="homeWelcomeMessage"/>.</p>
+      	
+      	<form role="application" class="yform" action="" method="post">
+            <fieldset>
+              <legend>Inserisci i tuoi dati</legend>
+              <div class="type-text">
+                <label for="firstname">Nome</label>
+                <input type="text" size="20" id="firstname" name="name" class="required">
+              </div>
+              <div class="type-text">
+                <label for="firstname">Cognome</label>
+                <input type="text" size="20" id="firstname" name="surname" class="required">
+              </div>
+              <div class="type-text">
+                <label for="email">E-Mail <sup title="This field is mandatory.">*</sup></label>
+                <input type="text" aria-required="true" size="20" id="email" name="email" class="required">
+              </div>
+                <div class="type-text">
+                <label for="phone">Telefono <sup title="This field is mandatory.">*</sup></label>
+                <input type="text" aria-required="true" size="20" id="phone" name="phone" class="required">
+              </div>
+            </fieldset>
+
+            <div class="type-button">
+              <a href="<s:property value="url_download"/>" title="download" ><img  src="images/download.png" alt="download"/></a>
+            </div>
+          </form>
+      	
+      	
       	<p id="home_images">
-      	<a href="<s:property value="url_download"/>" title="download" ><img  src="images/download.png" alt="download"/></a>
       	</p>
       </div>
 <jsp:include page="jsp/layout/footer.jsp" />     
