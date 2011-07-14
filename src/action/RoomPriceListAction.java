@@ -10,8 +10,6 @@ import javax.servlet.ServletContext;
 
 import model.Booking;
 import model.RoomType;
-import model.Structure;
-import model.User;
 import model.UserAware;
 import model.internal.Message;
 import model.internal.TreeNode;
@@ -91,7 +89,6 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware,U
 		Set<Integer> years = null; 
 		ServletContext context = null;
 		String webappPath = null;
-		
 		
 		years = new HashSet<Integer>();
 		context = ServletActionContext.getServletContext();

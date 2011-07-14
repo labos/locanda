@@ -43,5 +43,6 @@
     	<action name="locale" class="action.LocaleAction">
 			<result name="SUCCESS" type="redirect">${redirect}</result>	
 		</action>
+		
 	</package>
 </struts>

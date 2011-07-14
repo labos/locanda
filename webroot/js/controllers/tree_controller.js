@@ -59,7 +59,7 @@ $(function () {
                     }
                 },
                 "themes": {
-                    "theme": "default",
+                    "theme": "apple",
                     "dots": true,
                     "icons": true
                 },
