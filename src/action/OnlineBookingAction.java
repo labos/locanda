@@ -107,6 +107,7 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 	
 		structure =  (Structure) this.getSession().get("structure");
 		this.setStructure(structure);
+		this.setIdStructure(structure.getId());
 		
 		booking = (Booking) this.getSession().get("onlineBooking");		
 		

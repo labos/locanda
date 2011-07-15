@@ -32,7 +32,9 @@
                 	<s:iterator value="facilities" var="each">
                		  <div class="facility">
                		  <span class="hov_edit"></span>
-						<img width="24" height="24" src="images/room_facilities/<s:property value="#each.fileName"/>" alt="facility"/>
+						<img width="24" height="24"
+						  src="resources/<s:property value="idStructure"/>/facilities/roomOrRoomType/<s:property value="#each.fileName"/>" 
+						  alt="facility"/>						
 						<s:checkbox id="%{#each.name}" name="roomTypeFacilitiesIds" value="roomTypeFacilitiesIds.contains(#each.id)" fieldValue="%{#each.id}"/>
 						<label for="<s:property value="name"/>_fac"><s:property value="#each.name"/></label>
 					  </div>
@@ -40,7 +42,9 @@
 				  <!-- div facility for javascript purpose-->
 				  	<div class="facility" style="display: none; border-color: red;">
 				  	<span class="hov_edit"></span>
-					  <img  width="24" height="24" src="images/room_facilities/" alt="facility"/>
+					  <img  width="24" height="24"
+					   src="resources/<s:property value="idStructure"/>/facilities/roomOrRoomType/" 
+					   alt="facility"/>
 					  <input type="checkbox" id="" name="" />
 					  <label for=""></label>
 				  	</div>
@@ -62,7 +66,7 @@
  			  </div>
  			  <div class="c20l">
  				<br/>
- 				<form id="uploadFacility" action="uploadRoomTypeFacility.action" method="post" enctype="multipart/form-data">
+ 				<form id="uploadFacility" action="uploadFacility.action" method="post" enctype="multipart/form-data">
    				  <input type="hidden" name="name" value=""/>
    				    <input type="hidden" name="roomType.id" value="<s:property value="roomType.id"/>"/>
      			  <input type="file" name="upload" multiple/>

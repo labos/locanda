@@ -336,7 +336,10 @@
         	  	<li>
         	      <h4><s:property value="#eachFacility.name" /></h4>
 				  <a title="<s:property value="#eachFacility.name" />" href="#drop" class="thumb" rel="history">
-				  	<img alt="<s:property value="#eachFacility.name" />" src="images/struct_facilities/<s:property value="#eachFacility.fileName" />" />
+				  	<img 
+				  	alt="<s:property value="#eachFacility.name" />"
+				  	src="resources/<s:property value="idStructure"/>/facilities/structure/<s:property value="#eachFacility.fileName"/>" />
+				  	
 				  </a>
 				  <span><s:property value="#eachFacility.name" /><a class="erase_image" href="deleteStructureFacility.action?image.id=<s:property value="#eachFacility.id" />"  title="erase"><img src="images/delete.png" alt="Delete Image" /></a></span>	
 				</li>
@@ -344,7 +347,9 @@
 				<li style="display: none">
 				  <h4><s:text name="new"/></h4>
 				  <a title="Title #1" href="#drop" class="thumb" rel="history">
-			        <img alt="Title #1" src="images/struct_facilities/" />
+			        <img
+			         alt="Title #1"
+			         src="resources/<s:property value="idStructure"/>/facilities/structure/" />
 				  </a>
 				  <span class="name_image">__PVALUE__<a class="erase_image" href="deleteStructureFacility.action?image.id="  title="erase"><img src="images/delete.png" alt="Delete Image" /></a></span>
 				</li>

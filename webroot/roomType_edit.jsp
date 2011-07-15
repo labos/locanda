@@ -45,7 +45,9 @@
         			<li>
         			  <h4><s:property value="#eachImage.name"/></h4>
 					  <a title="<s:property value="#eachImage.name"/>" href="#drop" class="thumb" rel="history">
-					  	<img alt="<s:property value="#eachImage.name"/>" src="images/roomtype/<s:property value="#eachImage.fileName"/>"/>
+					  	<img 
+					  	alt="<s:property value="#eachImage.name"/>" 
+					   	src="resources/<s:property value="idStructure"/>/images/roomType/<s:property value="#eachImage.fileName"/>"/>
 					  </a>
 					  <span><s:property value="#eachImage.name"/>
 					    <a class="erase_image" href="deleteRoomTypeImage.action?image.id=<s:property value="#eachImage.id"/>" title="erase">
@@ -57,7 +59,9 @@
 				    <li style="display: none">
 					  <h4><s:text name="new"/></h4>
 					  <a title="Title #1" href="#drop" class="thumb" rel="history">
-					    <img alt="Title #1" src="images/roomtype/" />
+					    <img 
+					    alt="Title #1"
+					    src="resources/<s:property value="idStructure"/>/images/roomType/" />
 					  </a>
 					  <span class="name_image">__PVALUE__
 					    <a class="erase_image" href="deleteRoomTypeImage.action?image.id=" title="erase">

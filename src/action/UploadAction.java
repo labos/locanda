@@ -70,7 +70,19 @@ public class UploadAction extends ActionSupport implements SessionAware,UserAwar
 				@Result(name="success",location="/message_upload.jsp"),
 				@Result(name="error",location="/message_upload.jsp")
 		}),
+		@Action(value="/uploadRoomTypeFacilityIF",results = {
+				@Result(name="success",location="/message_upload.jsp"),
+				@Result(name="error",location="/message_upload.jsp")
+		}),
 		@Action(value="/uploadFacility",results = {
+				@Result(type ="json",name="success", params={
+						"excludeProperties", "session,upload,uploadFileName,uploadContentType,name,structureService,roomTypeService,roomService,imageService,facilityService"
+						}),
+				@Result(type ="json",name="error", params={
+						"excludeProperties", "session,upload,uploadFileName,uploadContentType,name,structureService,roomTypeService,roomService,imageService,facilityService"
+				})
+		}),
+		@Action(value="/uploadRoomTypeFacility",results = {
 				@Result(type ="json",name="success", params={
 						"excludeProperties", "session,upload,uploadFileName,uploadContentType,name,structureService,roomTypeService,roomService,imageService,facilityService"
 						}),
@@ -79,7 +91,7 @@ public class UploadAction extends ActionSupport implements SessionAware,UserAwar
 				})
 		})
 	})
-	public String uploadFacility() throws IOException {
+	public String uploadRoomOrTypeFacility() throws IOException {
 		ServletContext context = null; 
 		String imgPath = null; 
 		File target = null;
@@ -91,7 +103,8 @@ public class UploadAction extends ActionSupport implements SessionAware,UserAwar
 		};
 		
 		context =  ServletActionContext.getServletContext();
-		imgPath = context.getRealPath("/")+ "images/room_facilities/";	
+		//imgPath = context.getRealPath("/")+ "images/room_facilities/";	
+		imgPath = context.getRealPath("/")+ "resources/" + this.getIdStructure() + "/facilities/roomOrRoomType/";	
 		
 		target = new File(imgPath + this.getUploadFileName());
 		FileUtils.copyFile(this.getUpload(), target);		
@@ -104,51 +117,6 @@ public class UploadAction extends ActionSupport implements SessionAware,UserAwar
 		this.getFacilityService().insertUploadedFacility(this.getRoomFacility());
 		message.setResult(Message.SUCCESS);
 		message.setDescription(getText("facilityAddSuccessAction"));
-		return SUCCESS;
-	}
-	
-	
-	@Actions({
-		@Action(value="/uploadStructureImageIF",results = {
-				@Result(name="success",location="/message_upload.jsp"),
-				@Result(name="error",location="/message_upload.jsp")
-		}),
-		@Action(value="/uploadStructureImage",results = {
-				@Result(type ="json",name="success", params={
-						"excludeProperties", "session,upload,uploadFileName,uploadContentType,name,structureService,roomTypeService,roomService,imageService,facilityService"
-						}),
-				@Result(type ="json",name="error", params={
-						"excludeProperties", "session,upload,uploadFileName,uploadContentType,name,structureService,roomTypeService,roomService,imageService,facilityService"
-				})
-		})
-	})
-	public String uploadStructureImage() throws IOException {
-		
-		ServletContext context = null; 
-		String imgPath = null; 
-		File target = null;
-	
-		
-		if(this.getImageService().findStructureImageByName(this.getName()) != null){
-			message.setResult(Message.ERROR);
-			message.setDescription(getText("structureImageAlreadyPresentError"));
-			return ERROR;
-		}
-		
-		context = ServletActionContext.getServletContext();
-		imgPath =  context.getRealPath("/")+ "images/structure/";
-		target = new File(imgPath + this.getUploadFileName());
-		FileUtils.copyFile(this.getUpload(), target);
-		
-		this.setImage(new Image());
-		this.getImage().setName(this.getName());
-		this.getImage().setFileName(this.getUploadFileName());
-		
-		this.getImage().setId_structure(this.getIdStructure());
-		this.getImageService().insertStructureImage(this.getImage());		
-		
-		message.setResult(Message.SUCCESS);
-		message.setDescription(getText("structureImageAddSuccessAction"));
 		return SUCCESS;
 	}
 	
@@ -181,7 +149,8 @@ public class UploadAction extends ActionSupport implements SessionAware,UserAwar
 		}
 		
 		context =ServletActionContext.getServletContext();
-		imgPath = context.getRealPath("/")+ "images/struct_facilities/";
+		//imgPath = context.getRealPath("/")+ "images/struct_facilities/";
+		imgPath = context.getRealPath("/")+ "resources/" + this.getIdStructure() + "/facilities/structure/";	
 		target = new File(imgPath + this.getUploadFileName());
 		FileUtils.copyFile(this.upload, target);
 		
@@ -196,6 +165,7 @@ public class UploadAction extends ActionSupport implements SessionAware,UserAwar
 		message.setDescription(getText("facilityAddSuccessAction"));
 		return SUCCESS;		
 	}
+	
 
 	@Actions({
 		@Action(value="/uploadRoomImageIF",results = {
@@ -234,7 +204,8 @@ public class UploadAction extends ActionSupport implements SessionAware,UserAwar
 		}
 		
 		context = ServletActionContext.getServletContext();
-		imgPath = context.getRealPath("/")+ "images/room_images/";		
+		//imgPath = context.getRealPath("/")+ "images/room_images/";	
+		imgPath = context.getRealPath("/")+ "resources/" + this.getIdStructure() + "/images/room/";	
 		target = new File(imgPath + this.getUploadFileName());
 		FileUtils.copyFile(this.getUpload(), target);		
 		
@@ -285,7 +256,8 @@ public class UploadAction extends ActionSupport implements SessionAware,UserAwar
 		}
 		
 		context = ServletActionContext.getServletContext();
-		imgPath = context.getRealPath("/")+ "images/roomtype/";
+		//imgPath = context.getRealPath("/")+ "images/roomtype/";
+		imgPath = context.getRealPath("/")+ "resources/" +this.getIdStructure()+ "/images/roomtype/";
 		target = new File(imgPath + this.getUploadFileName());
 		FileUtils.copyFile(this.getUpload(), target);	
 		
@@ -302,6 +274,56 @@ public class UploadAction extends ActionSupport implements SessionAware,UserAwar
 		return SUCCESS;
 	}
 	
+	@Actions({
+		@Action(value="/uploadStructureImageIF",results = {
+				@Result(name="success",location="/message_upload.jsp"),
+				@Result(name="error",location="/message_upload.jsp")
+		}),
+		@Action(value="/uploadStructureImage",results = {
+				@Result(type ="json",name="success", params={
+						"excludeProperties", "session,upload,uploadFileName,uploadContentType,name,structureService,roomTypeService,roomService,imageService,facilityService"
+						}),
+				@Result(type ="json",name="error", params={
+						"excludeProperties", "session,upload,uploadFileName,uploadContentType,name,structureService,roomTypeService,roomService,imageService,facilityService"
+				})
+		})
+	})
+	public String uploadStructureImage() throws IOException {
+		
+		ServletContext context = null; 
+		String imgPath = null; 
+		File target = null;
+	
+		
+		if(this.getImageService().findStructureImageByName(this.getName()) != null){
+			message.setResult(Message.ERROR);
+			message.setDescription(getText("structureImageAlreadyPresentError"));
+			return ERROR;
+		}
+		
+		context = ServletActionContext.getServletContext();
+		//imgPath =  context.getRealPath("/")+ "images/structure/";
+		imgPath =  context.getRealPath("/")+ "resources/" +this.getIdStructure()+ "/images/structure/";
+		target = new File(imgPath + this.getUploadFileName());
+		FileUtils.copyFile(this.getUpload(), target);
+		
+		this.setImage(new Image());
+		this.getImage().setName(this.getName());
+		this.getImage().setFileName(this.getUploadFileName());
+		
+		this.getImage().setId_structure(this.getIdStructure());
+		this.getImageService().insertStructureImage(this.getImage());		
+		
+		message.setResult(Message.SUCCESS);
+		message.setDescription(getText("structureImageAddSuccessAction"));
+		return SUCCESS;
+	}
+	
+
+	
+	
+	
+	/*
 	@Actions({
 		@Action(value="/uploadRoomTypeFacilityIF",results = {
 				@Result(name="success",location="/message_upload.jsp"),
@@ -345,7 +367,10 @@ public class UploadAction extends ActionSupport implements SessionAware,UserAwar
 		message.setResult(Message.SUCCESS);
 		message.setDescription(getText("logoAddSuccessAction"));
 		return SUCCESS;
-	}
+	}*/
+	
+	
+	
 	
 	public Map<String, Object> getSession() {
 		return session;

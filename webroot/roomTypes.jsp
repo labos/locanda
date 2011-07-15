@@ -48,7 +48,9 @@
                   <ul class="thumbs">
        	 			<s:iterator value="#eachRoomType.images" var="eachImage" >
         			  <li>
-						<img width="45" height="45" alt="<s:property value="#eachImage.name"/>" src="images/roomtype/<s:property value="#eachImage.fileName"/>"/>
+						<img width="45" height="45"
+						 alt="<s:property value="#eachImage.name"/>"
+						 src="resources/<s:property value="idStructure"/>/images/roomType/<s:property value="#eachImage.fileName"/>" />
 					  </li>
         			</s:iterator>
 				  </ul>

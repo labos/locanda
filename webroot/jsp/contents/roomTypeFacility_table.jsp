@@ -8,7 +8,9 @@
 	  <s:iterator value="roomFacilities" var="each">
         <div class="facility">
           <span class="hov_edit"></span>
-		  <img width="24" height="24" src="images/room_facilities/<s:property value="#each.fileName"/>" alt="facility"/>
+		  <img width="24" height="24"
+		   src="resources/<s:property value="idStructure"/>/facilities/roomOrRoomType/<s:property value="#each.fileName"/>" 
+		   alt="facility"/>
 		  <s:checkbox id="%{#each.name}_fac" name="roomFacilitiesIds" value="roomFacilitiesIds.contains(#each.id)" fieldValue="%{#each.id}" label="%{#each.name}"/>
 		</div>
 	  </s:iterator>
@@ -16,7 +18,9 @@
 	<!-- div facility for javascript purpose-->
 	  <div class="facility" style="display: none; border-color: red;">
 	    <span class="hov_edit"></span>
-		<img  width="24" height="24" src="images/room_facilities/" alt="facility"/>
+		<img  width="24" height="24"
+		 src="resources/<s:property value="idStructure"/>/facilities/roomOrRoomType/"
+		  alt="facility"/>
 		<input type="checkbox" id="" name=""/>
 		<label for=""></label>
 	  </div>

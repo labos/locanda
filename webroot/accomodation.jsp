@@ -53,13 +53,10 @@
            			<fieldset> 
            		      <legend><s:text name="facilities"/></legend>
            		  	  <s:iterator value="#eachRoom.facilities" var="eachFacility">
-           		  	  <s:if test="roomTypeFacilities.contains(#eachFacility)">
-           		  	   <img width="24" height="24"  src="images/roomtype_facilities/<s:property value="fileName"/>" alt="<s:property value="#eachFacility.name"/>"/>
-           		  	   </s:if>
-           		  	   <s:else>
-           		  	   	 <img width="24" height="24"  src="images/room_facilities/<s:property value="fileName"/>" alt="<s:property value="#eachFacility.name"/>"/>
-           		  	   	</s:else>
-      				  </s:iterator>
+           		  	   <img width="24" height="24"
+           		  	   	 src="resources/<s:property value="idStructure"/>/facilities/roomOrRoomType/<s:property value="fileName"/>" 
+           		  	   	 alt="<s:property value="#eachFacility.name"/>"/>
+           		  	  </s:iterator>
     				</fieldset>
                   </div>                  
                 </div>
