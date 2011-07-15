@@ -66,7 +66,7 @@
  			  </div>
  			  <div class="c20l">
  				<br/>
- 				<form id="uploadFacility" action="uploadFacility.action" method="post" enctype="multipart/form-data">
+ 				<form id="uploadFacility" action="uploadRoomTypeFacility.action" method="post" enctype="multipart/form-data">
    				  <input type="hidden" name="name" value=""/>
    				    <input type="hidden" name="roomType.id" value="<s:property value="roomType.id"/>"/>
      			  <input type="file" name="upload" multiple/>

@@ -29,12 +29,12 @@ public class DownloadAction extends ActionSupport {
 		return SUCCESS;
 	}
 
-//	@Actions(
-//		@Action(value = "/download", results = {
-//				@Result(name = "success", type = "stream", params = {
-//						"inputName","inputStream"}) 
-//						})
-//			)
+	@Actions(
+	@Action(value = "/download", results = {
+				@Result(name = "success", type = "stream", params = {
+					"inputName","inputStream", "contentType", "application/octet-stream"}) 
+					})
+		)
 	public String download() {
 		String fileName = "/locanda.zip";
 		
@@ -81,7 +81,7 @@ public class DownloadAction extends ActionSupport {
 	}
 
 	public InputStream getInputStream() {
-		return inputStream;
+		return this.inputStream;
 	}
 
 	public void setInputStream(InputStream inputStream) {
