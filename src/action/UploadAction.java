@@ -257,7 +257,7 @@ public class UploadAction extends ActionSupport implements SessionAware,UserAwar
 		
 		context = ServletActionContext.getServletContext();
 		//imgPath = context.getRealPath("/")+ "images/roomtype/";
-		imgPath = context.getRealPath("/")+ "resources/" +this.getIdStructure()+ "/images/roomtype/";
+		imgPath = context.getRealPath("/")+ "resources/" +this.getIdStructure()+ "/images/roomType/";
 		target = new File(imgPath + this.getUploadFileName());
 		FileUtils.copyFile(this.getUpload(), target);	
 		
