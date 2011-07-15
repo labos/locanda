@@ -5,7 +5,9 @@
 <mapper namespace="persistence.mybatis.mappers.StructureMapper">
 
 
-	<cache />
+	<!--  
+<cache />
+-->
 
 	<select id="findStructureByIdUser" parameterType="int" resultType="model.Structure">
 		<include refid="selectStructure" />

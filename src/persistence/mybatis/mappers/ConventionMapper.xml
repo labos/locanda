@@ -4,8 +4,9 @@
 
 <mapper namespace="persistence.mybatis.mappers.ConventionMapper">
 
-
+<!--  
 <cache />
+-->
   
  <insert id="insertConvention" parameterType="model.listini.Convention" useGeneratedKeys="true" keyProperty="id">
  	insert into convention(name,description,activationCode,id_structure) values (#{name},#{description},#{activationCode},#{id_structure}) 	

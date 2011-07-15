@@ -5,7 +5,9 @@
 <mapper namespace="persistence.mybatis.mappers.UserMapper">
 
  
-  <cache />
+  <!--  
+<cache />
+-->
   
   <select id="findUserByEmail" parameterType="string" resultType="model.User">
 	 <include refid="selectUser"/> where email = #{email}
