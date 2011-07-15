@@ -16,9 +16,9 @@ public interface ImageService {
 	public List<Image> findImagesByIdRoomType(Integer id_roomType);
 	public List<Image> findImagesByIdStructure(Integer id_structure);
 	
-	public Image findStructureImageByName(String name);
-	public Image findRoomImageByName(String name);
-	public Image findRoomTypeImageByName(String name);
+	public Image findStructureImageByName(Integer id_structure, String name);
+	public Image findRoomImageByName(Integer id_structure, String name);
+	public Image findRoomTypeImageByName(Integer id_structure, String name);
 	
 	public Integer deleteRoomImage(Integer id);
 	public Integer deleteAllImagesFromRoom(Integer id);

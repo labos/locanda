@@ -96,7 +96,7 @@ public class UploadAction extends ActionSupport implements SessionAware,UserAwar
 		String imgPath = null; 
 		File target = null;
 		
-		if(this.getFacilityService().findUploadedFacilityByName(this.getName())!=null){
+		if(this.getFacilityService().findUploadedFacilityByName(this.getIdStructure(),this.getName())!=null){
 			message.setResult(Message.ERROR);
 			message.setDescription(getText("facilityAlreadyPresentError"));
 			return ERROR;
@@ -142,7 +142,7 @@ public class UploadAction extends ActionSupport implements SessionAware,UserAwar
 		File target = null;
 		
 		
-		if(this.getFacilityService().findStructureFacilityByName(this.getName()) != null){
+		if(this.getFacilityService().findStructureFacilityByName(this.getIdStructure(),this.getName()) != null){
 			message.setResult(Message.ERROR);
 			message.setDescription(getText("facilityAlreadyPresentError"));
 			return ERROR;
@@ -190,7 +190,7 @@ public class UploadAction extends ActionSupport implements SessionAware,UserAwar
 		File target = null;
 		
 		
-		if(this.getImageService().findRoomImageByName(this.getName()) != null){
+		if(this.getImageService().findRoomImageByName(this.getIdStructure(),this.getName()) != null){
 			message.setResult(Message.ERROR);
 			message.setDescription(getText("roomImageAlreadyPresentError"));
 			return ERROR;
@@ -243,7 +243,7 @@ public class UploadAction extends ActionSupport implements SessionAware,UserAwar
 		
 		File target = null;
 				
-		if(this.getImageService().findRoomTypeImageByName(this.getName()) != null){
+		if(this.getImageService().findRoomTypeImageByName(this.getIdStructure(),this.getName()) != null){
 			message.setResult(Message.ERROR);
 			message.setDescription(getText("roomTypeImageAlreadyPresentError"));
 			return ERROR;
@@ -295,7 +295,7 @@ public class UploadAction extends ActionSupport implements SessionAware,UserAwar
 		File target = null;
 	
 		
-		if(this.getImageService().findStructureImageByName(this.getName()) != null){
+		if(this.getImageService().findStructureImageByName(this.getIdStructure(),this.getName()) != null){
 			message.setResult(Message.ERROR);
 			message.setDescription(getText("structureImageAlreadyPresentError"));
 			return ERROR;

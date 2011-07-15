@@ -12,10 +12,14 @@ public interface FacilityMapper {
 	public Integer insertStructureFacility(Facility facility);
 	
 	public List<Facility> findStructureFacilitiesByIdStructure(Integer id_structure);
-	public Facility findStructureFacilityByName(String name);
+	
 	public List<Facility> findUploadedFacilitiesByIdStructure(Integer id_structure);
 	public Facility findUploadedFacilityById(Integer id);
-	public Facility findUploadedFacilityByName(String name);
+	
+	public Facility findStructureFacilityByName(Map map);
+	public Facility findUploadedFacilityByName(Map map);
+	
+	
 	public List<Facility> findRoomFacilitiesByIdRoom(Integer id_room);
 	public List<Facility> findRoomTypeFacilitiesByIdRoomType(Integer id_roomType);
 	

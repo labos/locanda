@@ -20,16 +20,16 @@
   	<include refid="selectStructureImages"/> where id_structure = #{id_structure}
   </select>
   
-   <select id="findStructureImageByName" parameterType="string" resultType="model.Image">
-  	<include refid="selectStructureImages"/>  where name = #{name}
+   <select id="findStructureImageByName" parameterType="map" resultType="model.Image">
+  	<include refid="selectStructureImages"/>  where id_structure = #{id_structure} and name = #{name}
    </select>
    
-    <select id="findRoomImageByName" parameterType="string" resultType="model.Image">
-  	<include refid="selectRoomImages"/>  where name = #{name}
+    <select id="findRoomImageByName" parameterType="map" resultType="model.Image">
+  	<include refid="selectRoomImages"/>  where id_structure = #{id_structure} and name = #{name}
    </select>
    
-    <select id="findRoomTypeImageByName" parameterType="string" resultType="model.Image">
-  	<include refid="selectRoomTypeImages"/>  where name = #{name}
+    <select id="findRoomTypeImageByName" parameterType="map" resultType="model.Image">
+  	<include refid="selectRoomTypeImages"/>  where id_structure = #{id_structure} and name = #{name}
    </select>
   
    <select id="findImagesByIdRoom" parameterType="int" resultType="model.Image">

@@ -1,6 +1,8 @@
 package persistence.mybatis.mappers;
 
 import java.util.List;
+import java.util.Map;
+
 import model.Image;
 
 public interface ImageMapper {
@@ -12,9 +14,9 @@ public interface ImageMapper {
 	public List<Image> findImagesByIdRoomType(Integer id_roomType);
 	public List<Image> findImagesByIdStructure(Integer id_structure);
 	
-	public Image findStructureImageByName(String name);
-	public Image findRoomImageByName(String name);
-	public Image findRoomTypeImageByName(String name);
+	public Image findStructureImageByName(Map map);
+	public Image findRoomImageByName(Map map);
+	public Image findRoomTypeImageByName(Map map);
 	
 	public Integer deleteRoomImage(Integer id);
 	public Integer deleteAllImagesFromRoom(Integer id);

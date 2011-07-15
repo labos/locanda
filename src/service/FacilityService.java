@@ -18,11 +18,14 @@ public interface FacilityService {
 	
 	public List<Facility> findUploadedFacilitiesByIdStructure(Integer id_structure);
 	public Facility findUploadedFacilityById(Integer id);
-	public Facility findUploadedFacilityByName(String name);
+	
 	public List<Facility> findUploadedFacilitiesByIds(List<Integer> ids);
 	
 	public List<Facility> findStructureFacilitiesByIdStructure(Integer id_structure);
-	public Facility findStructureFacilityByName(String name);
+	
+	public Facility findUploadedFacilityByName(Integer id_structure, String name);	
+	public Facility findStructureFacilityByName(Integer id_structure, String name);
+	
 	public List<Facility> findRoomFacilitiesByIdRoom(Integer id_room);
 	public List<Facility> findRoomTypeFacilitiesByIdRoomType(Integer id_roomType);
 	

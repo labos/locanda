@@ -1,6 +1,8 @@
 package service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -60,23 +62,40 @@ public class ImageServiceImpl implements ImageService{
 
 
 	@Override
-	public Image findStructureImageByName(String name) {
+	public Image findStructureImageByName(Integer id_structure, String name) {
+		Map map = null;
 		
-		return this.getImageMapper().findStructureImageByName(name);
+		map = new HashMap();
+		map.put("id_structure", id_structure);
+		map.put("name", name);
+		
+		return this.getImageMapper().findStructureImageByName(map);
 	}
 
 
 
 	@Override
-	public Image findRoomImageByName(String name) {
-		return this.getImageMapper().findRoomImageByName(name);
+	public Image findRoomImageByName(Integer id_structure, String name) {
+		Map map = null;
+		
+		map = new HashMap();
+		map.put("id_structure", id_structure);
+		map.put("name", name);
+		
+		return this.getImageMapper().findRoomImageByName(map);
 	}
 
 
 
 	@Override
-	public Image findRoomTypeImageByName(String name) {
-		return this.getImageMapper().findRoomTypeImageByName(name);
+	public Image findRoomTypeImageByName(Integer id_structure, String name) {
+		Map map = null;
+		
+		map = new HashMap();
+		map.put("id_structure", id_structure);
+		map.put("name", name);
+		
+		return this.getImageMapper().findRoomTypeImageByName(map);
 	}
 
 

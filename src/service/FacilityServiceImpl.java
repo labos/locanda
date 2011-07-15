@@ -87,8 +87,23 @@ public class FacilityServiceImpl implements FacilityService{
 
 	
 	@Override
-	public Facility findUploadedFacilityByName(String name) {		
-		return this.getFacilityMapper().findUploadedFacilityByName(name);
+	public Facility findUploadedFacilityByName(Integer id_structure, String name) {	
+		Map map = null;
+		
+		map = new HashMap();
+		map.put("id_structure", id_structure);
+		map.put("name", name);
+		return this.getFacilityMapper().findUploadedFacilityByName(map);
+	}
+	
+	@Override
+	public Facility findStructureFacilityByName(Integer id_structure, String name) {
+		Map map = null;
+		
+		map = new HashMap();
+		map.put("id_structure", id_structure);
+		map.put("name", name);
+		return this.getFacilityMapper().findStructureFacilityByName(map);
 	}
 
 	@Override
@@ -111,11 +126,7 @@ public class FacilityServiceImpl implements FacilityService{
 	
 	
 	
-	@Override
-	public Facility findStructureFacilityByName(String name) {
-		
-		return this.getFacilityMapper().findStructureFacilityByName(name);
-	}
+	
 
 	@Override
 	public List<Facility> findRoomFacilitiesByIdRoom(Integer id_room) {		

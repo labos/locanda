@@ -22,9 +22,5 @@
   <delete id="deleteExtraItemsByIdBooking" parameterType="int">
   delete from extraItem where id_booking = #{id_booking}
   </delete>
-  
-  
-  
- 
     
 </mapper>
