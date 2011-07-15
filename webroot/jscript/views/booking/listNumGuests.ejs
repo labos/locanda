@@ -1,8 +1,0 @@
-<label for="nr_guests"><%= labels.labelNrGuests %></label>
-<select id="nr_guests"  name='booking.nrGuests'>
-<%for(var attribute in lNumGuests){%>
-<option value='<%= lNumGuests[attribute] %>'
-<%= (lNumGuests[attribute] == nGuests)? 'selected="selected"' : '' %>
- ><%= lNumGuests[attribute] %></option>
-<%}%> 
-</select>        
