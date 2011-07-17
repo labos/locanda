@@ -70,6 +70,23 @@ public class StructureServiceImpl implements StructureService{
 		
 		return this.getStructureMapper().updateStructure(structure);
 	}
+	
+	public Integer insertStructure(Structure structure){
+		Integer ret = 0;
+		Convention defaultConvention = null;
+		
+		ret = this.getStructureMapper().insertStructure(structure);
+		if(ret>0){
+			defaultConvention = new Convention();
+			defaultConvention.setName("Nessuna Convenzione");
+			defaultConvention.setDescription("Nessuna Convenzione");
+			defaultConvention.setActivationCode("thisconventionshouldntneverberemoved");
+			defaultConvention.setId_structure(structure.getId());
+			ret = ret + this.getConventionService().insertConvention(defaultConvention);
+		}
+		
+		return ret;
+	}
 
 	public Double calculateExtraItemUnitaryPrice(Integer id_structure, Date dateIn, Date dateOut, RoomType roomType, Convention convention, Extra extra) {
 		Double ret = 0.0;

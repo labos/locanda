@@ -33,12 +33,14 @@ public class DownloadAction extends ActionSupport{
 		}
 
 
+	
 	public String execute() throws Exception {
 		ServletContext context = null; 
 		String filePath = null;
+		
 		context =  ServletActionContext.getServletContext();
 		this.setFileName("locanda.zip");
-		filePath = context.getRealPath("/") + this.getFileName();			
+		filePath = context.getRealPath("/") + "WEB-INF/download/" + this.getFileName();			
 		fileInputStream = new FileInputStream(new File(filePath ));
 
 	    return SUCCESS;

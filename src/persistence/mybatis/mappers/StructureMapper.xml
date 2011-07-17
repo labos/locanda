@@ -4,7 +4,6 @@
 
 <mapper namespace="persistence.mybatis.mappers.StructureMapper">
 
-
 	<!--  
 <cache />
 -->
@@ -28,4 +27,10 @@
  		set name= #{name},email= #{email},url= #{url},phone= #{phone},fax= #{fax},address= #{address},city= #{city},country= #{country},zipCode= #{zipCode},notes= #{notes},id_user= #{id_user}
  		where id = #{id}
 	</update>
+	<insert id="insertStructure" useGeneratedKeys="true" keyProperty="id" parameterType="model.Structure">
+		insert into 
+		structure(name,email,url,phone,fax,address,city,country,zipCode,notes,id_user) 
+		values(#{name}, #{email}, #{url}, #{phone}, #{fax}, #{address}, #{city}, #{country}, #{zipCode}, #{notes}, #{id_user})	
+	</insert>	
+	
 </mapper>

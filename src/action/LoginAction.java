@@ -72,6 +72,14 @@ public class LoginAction extends ActionSupport implements SessionAware {
 		
 		if (user != null && user.getPassword().equals(this.getPassword().trim())) {
 			structure = this.getStructureService().findStructureByIdUser(user.getId());
+			if(structure == null){
+				this.initializeStructureForUser(user.getId());
+				structure = this.getStructureService().findStructureByIdUser(user.getId());
+				if(structure == null){
+					this.getSession().put("user", null);
+					ret = "loginError";
+				}
+			}
 			user.setStructure(structure);			
 			this.getSession().put("user", user);
 			
@@ -85,6 +93,21 @@ public class LoginAction extends ActionSupport implements SessionAware {
 			this.getSession().put("user", null);
 			ret = "loginError";
 		}
+		return ret;
+	}
+	
+	private Integer initializeStructureForUser(Integer id_user){
+		Integer ret = 0;
+		Structure structure = null;
+		
+		structure = new Structure();
+		structure.setName("Locanda");
+		structure.setEmail("labopensource@gmail.com");
+		structure.setPhone("+39 070 92432684");
+		structure.setNotes("Struttura di esempio del sistema. Sovrascrivere i dati con quelli della propria struttura!");
+		structure.setId_user(id_user);
+		
+		ret = this.getStructureService().insertStructure(structure);
 		return ret;
 	}
 
