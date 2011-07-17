@@ -44,7 +44,7 @@
 			<result name="SUCCESS" type="redirect">${redirect}</result>	
 		</action>
 		
-<action name="download" class="action.DownloadAction">
+		<action name="download" class="action.DownloadAction">
 			<result name="success" type="stream">
 			  <param name="contentType">application/octet-stream</param>
 			  <param name="inputName">fileInputStream</param>

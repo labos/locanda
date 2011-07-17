@@ -1,12 +1,17 @@
 package model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class User implements Serializable{
 	private Integer id;
+	private String name;
+	private String surname;
 	private String email;
-	private Structure structure = null;
+	private String phone;
 	private String password;
+	private Date creationDate;
+	private Structure structure = null;
 	
 	
 	public String getPassword() {
@@ -39,6 +44,38 @@ public class User implements Serializable{
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getSurname() {
+		return surname;
+	}
+
+	public void setSurname(String surname) {
+		this.surname = surname;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public Date getCreationDate() {
+		return creationDate;
+	}
+
+	public void setCreationDate(Date creationDate) {
+		this.creationDate = creationDate;
 	}
 
 	

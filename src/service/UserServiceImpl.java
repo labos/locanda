@@ -21,6 +21,14 @@ public class UserServiceImpl implements UserService {
 	public Integer updateUser(User user) {
 		return this.getUserMapper().updateUser(user);
 	}
+	
+	
+
+	@Override
+	public Integer insertUser(User user) {
+		
+		return this.getUserMapper().insertUser(user);
+	}
 
 	public UserMapper getUserMapper() {
 		return userMapper;

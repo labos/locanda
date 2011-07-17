@@ -8,5 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 public interface UserService {
 	public User findUserByEmail(String email);
 	public Integer updateUser(User user);
+	public Integer insertUser(User user);
 
 }

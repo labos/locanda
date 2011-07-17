@@ -14,10 +14,15 @@
   </select> 
     
    <sql id="selectUser">
-  	SELECT id,email,password from user
+  	SELECT id,name,surname,email,phone,password from user
   </sql>
   
   <update id="updateUser" parameterType="model.User" >
   	UPDATE user SET email = #{email},password = #{password}  where id = #{id}
-  </update>    
+  </update>  
+  
+  <insert id="insertUser" parameterType="model.User" useGeneratedKeys="true" keyProperty="id">
+  	insert into user(name,surname,email,phone,password,creationDate) values(#{name},#{surname},#{email},#{phone},#{password},#{creationDate})  
+  </insert>
+    
 </mapper>
