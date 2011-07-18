@@ -27,7 +27,7 @@
 <div class="type-text"><label for="email">E-Mail <sup
 	title="This field is mandatory.">*</sup></label> <input type="text"
 	aria-required="true" size="20" id="email" name="user.email"
-	class="required" value="<s:property value="user.email"/>" /></div>
+	class="required email" value="<s:property value="user.email"/>" /></div>
 <div class="type-text"><label for="phone"><s:text
 	name="phone" /> <sup title="This field is mandatory.">*</sup></label> <input
 	type="text" aria-required="true" size="20" id="phone" name="user.phone"

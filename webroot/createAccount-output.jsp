@@ -9,8 +9,7 @@
 <jsp:include page="jsp/layout/header.jsp"/>
       <div id="home">
       	<h1>Locanda - <s:text name="createAccountSuccess"/></h1>
-      	<p><s:text name="createAccountSuccessMessage"/>.</p>
-      	<h3><s:text name="loginData"/>:</h3>
+      	<p><s:text name="createAccountSuccessMessage"/>:</p>
       	<p>
       	Email: <s:property value="user.email" /><br></br>
       	Password: locanda
