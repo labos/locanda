@@ -58,7 +58,7 @@ volte a promuovere il Progetto o la sua diffusione.
 Il sottoscritto presta il suo consenso al trattamento dei dati personali per i fini indicati nella suddetta informativa.
 </textarea></div>
 <div class="type-check">
-                <input type="checkbox" aria-required="true" size="20" id="check_disclaimer" name="disclaimer" class="required" />
+                <input type="checkbox" value="1" aria-required="true" size="20" id="check_disclaimer" name="disclaimer" class="required" />
                 <label for="check_disclaimer"><s:text name="disclaimerAccept" /></label>
               </div>
 </fieldset>
