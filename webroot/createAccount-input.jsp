@@ -15,7 +15,7 @@
               <legend>Inserisci i tuoi dati</legend>
               <div class="type-text">
                 <label for="firstname">Nome</label>
-                <input type="text" size="20" id="firstname" name="user.name" class="required" />
+                <input type="text" size="20" id="firstname" name="user.name" class="required" value = "user.name"/>
               </div>
               <div class="type-text">
                 <label for="surname">Cognome</label>
