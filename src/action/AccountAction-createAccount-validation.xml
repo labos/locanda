@@ -29,8 +29,8 @@
 		</field-validator>
 	</field>
 			<field name="disclaimer">
-		<field-validator type="requiredstring">
-			<param name="trim">true</param>
+		<field-validator type="fieldexpression">
+			<param name="expression"><![CDATA[(checkBox !=true && disclaimer!=null) or (checkBox==true && disclaimer==null)]]></param>  
             <message>${getText("disclaimer")} - ${getText("thisFileMandatory")}</message>
 		</field-validator>
 	</field>

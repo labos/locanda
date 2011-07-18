@@ -15,6 +15,7 @@ import com.opensymphony.xwork2.ActionSupport;
 
 public class AccountAction extends ActionSupport {
 	private User user = null;
+	private Integer disclaimer = null;
 	
 	@Autowired
 	private UserService userService = null;
@@ -52,6 +53,14 @@ public class AccountAction extends ActionSupport {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public Integer getDisclaimer() {
+		return disclaimer;
+	}
+
+	public void setDisclaimer(Integer disclaimer) {
+		this.disclaimer = disclaimer;
 	}
 
 	public UserService getUserService() {
