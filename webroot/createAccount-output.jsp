@@ -8,10 +8,9 @@
 <s:url action="createAccount" var="url_createAccount"></s:url>
 <jsp:include page="jsp/layout/header.jsp"/>
       <div id="home">
-      	<h1>Locanda - Account creato con successo</h1>
-      	<p><s:text name="homeWelcomeMessage"/>.</p>
-      	<h3>Complimenti! Account creato con successo.</h3>
-      	<h3>Ora puoi accedere al sistema utilizzando le seguenti credenziali:</h3>
+      	<h1>Locanda - <s:text name="createAccountSuccess"/></h1>
+      	<p><s:text name="createAccountSuccessMessage"/>.</p>
+      	<h3><s:text name="loginData"/>:</h3>
       	<p>
       	Email: <s:property value="user.email" /><br></br>
       	Password: locanda

@@ -4,28 +4,34 @@
   		
   		
 <validators>
-	<field name="name">
+	<field name="user.name">
 		<field-validator type="requiredstring">
 			<param name="trim">true</param>
-            <message><![CDATA[ name required  ]]></message>
+            <message>${getText("firstName")} - ${getText("thisFileMandatory")}</message>
 		</field-validator>
 	</field>
-	<field name="surname">
+	<field name="user.surname">
 		<field-validator type="requiredstring">
 			<param name="trim">true</param>
-            <message><![CDATA[surname required ]]></message>
+            <message>${getText("lastName")} - ${getText("thisFileMandatory")}</message>
 		</field-validator>
 	</field>
-		<field name="email">
+		<field name="user.email">
 		<field-validator type="requiredstring">
 			<param name="trim">true</param>
-            <message><![CDATA[email required ]]></message>
+            <message>${getText("email")} - ${getText("thisFileMandatory")}</message>
 		</field-validator>
 	</field>
-		<field name="phone">
+		<field name="user.phone">
 		<field-validator type="requiredstring">
 			<param name="trim">true</param>
-            <message><![CDATA[phone required ]]></message>
+            <message>${getText("phone")} - ${getText("thisFileMandatory")}</message>
+		</field-validator>
+	</field>
+			<field name="disclaimer">
+		<field-validator type="requiredstring">
+			<param name="trim">true</param>
+            <message>${getText("disclaimer")} - ${getText("thisFileMandatory")}</message>
 		</field-validator>
 	</field>
 </validators>

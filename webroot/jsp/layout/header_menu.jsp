@@ -95,6 +95,7 @@ $(document).ready(function () { <%
 <s:url action="goFindAllRoomPriceLists" var="url_findallroompricelists"></s:url>
 <s:url action="goFindAllExtraPriceLists" var="url_findallextrapricelists"></s:url>
 <s:url action="goOnlineBookings" var="url_onlinebookings"></s:url>
+<s:url action="download" var="url_download"></s:url>
 
   <div class="page_margins">
     <div class="page">
@@ -132,7 +133,12 @@ $(document).ready(function () { <%
     			--><li class="ui-menu-item"><a href="<s:property value="url_details"/>?sect=settings"><s:text name="structureDetails"/></a></li>
   			  </ul>
             </li>         
-            <li><a href="#"><s:text name="help" /></a></li>
+            <li><a href="#"><s:text name="help" /></a>
+                <ul class="sub_menu ui-menu ui-widget ui-widget-content ui-corner-all">
+    			<li class="ui-menu-item"><a href="<s:property value="url_download"/>?sect=help">Download</a></li>
+				 </ul>
+            
+            </li>
           </ul>
         </div>
       </div><!-- end: main navigation -->
