@@ -10,14 +10,13 @@
       <div id="home">
       	<h1>Locanda - Account creato con successo</h1>
       	<p><s:text name="homeWelcomeMessage"/>.</p>
+      	<h3>Complimenti! Account creato con successo.</h3>
+      	<h3>Ora puoi accedere al sistema utilizzando le seguenti credenziali:</h3>
       	<p>
-      	Complimenti! Account creato con successo. <br></br>
-      	Ora puoi accedere al sistema utilizzando le seguenti credenziali:<br></br>
       	Email: <s:property value="user.email" /><br></br>
       	Password: locanda
       	</p>
-      	
-      	<p id="home_images">
-      	</p>
+      	<p><a class="login-bottom" href="<s:property value="url_login"/>"><s:text name="login" /></a></p>
+      	<p id="home_images"></p>
       </div>
 <jsp:include page="jsp/layout/footer.jsp" />     

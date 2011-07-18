@@ -8,7 +8,7 @@
       	<h1><s:text name="login"/></h1>
       	
       	<s:url action="login" var="url"></s:url>
-      	
+      	<s:url action="goCreateAccount" var="url_account" />
       	<form method="post" action="<s:property value="url"/>" class="yform" role="application">
             <fieldset>
               <legend><s:text name="loginData" /></legend>
@@ -21,6 +21,9 @@
                 <input type="password" class="required" name="password" id="password" size="20"  aria-required="true"/>
               </div>
             </fieldset>
+            <div  id="signup" class="type-text">
+            <ul><li><strong><s:text name="notRegistered"/></strong></li><li><a href="<s:property value="url_account"/>"><s:text name="signup"/></a></li></ul>
+            </div>
             <div class="type-button">
           	  <button class="btn_submit" type="submit" role="button" aria-disabled="false"><s:text name="login"/></button>
             </div>

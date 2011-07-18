@@ -723,7 +723,7 @@ input.static_small_input {
 	width: 40px;
 }
 
-#topnav a.login-top{
+#topnav a.login-top, a.login-bottom{
 color:#3B5998;
 background:url("../images/key-icon.png") no-repeat scroll 5px 5px #DEE8FC;
 -webkit-border-radius: 5px 5px 5px 5px;
@@ -794,6 +794,26 @@ span.hov_edit {
 
 input[name='facility_name'] {
 width: 180px;
+}
+
+#signup ul
+{
+margin: 0;
+padding: 0;
+list-style-type: none;
+text-align: center;
+}
+
+#signup ul li { display: inline; }
+#signup ul li a{ text-decoration: none;
+padding: .2em 1em;
+color: #fff;
+background-color: #327E04;
+font-weight: 600;
+ }
+
+.errorMessage{
+color: red;
 }
 
 a.skype{

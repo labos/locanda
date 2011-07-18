@@ -35,6 +35,7 @@ public class AccountAction extends ActionSupport {
 	public String createAccount() {
 		if(this.getUserService().findUserByEmail(this.getUser().getEmail()) != null){
 			//Scrivere un messaggio di user duplicato!!!!!
+			addActionError(getText("warningDuplicateUser"));
 			return INPUT;
 		}
 		this.getUser().setPassword("locanda");
