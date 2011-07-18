@@ -15,7 +15,6 @@
       	Email: <s:property value="user.email" /><br></br>
       	Password: locanda
       	</p>
-      	<p><a class="login-bottom" href="<s:property value="url_login"/>"><s:text name="login" /></a></p>
       	<p id="home_images"></p>
       </div>
 <jsp:include page="jsp/layout/footer.jsp" />     
