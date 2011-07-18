@@ -9,7 +9,8 @@
 	</path> 
 	
 	<target name="propertySetter">
-		<available property="deployed" file="/" type="dir"/>
+		<available property="deployed" file="${tomcat.application.path}" type="dir"/>
+		<available property="resources" file="${tomcat.resource.path}" type="dir"/>
 	</target>
 	
 	<target name="clean" description="clean up build directory">
@@ -19,16 +20,24 @@
 	
 	<target name="init" depends="clean" description="initialization tasks">
 		<mkdir dir="${build.path}"/>
+		<mkdir dir="${dist.path}"/>
 	</target>
 	
 	<target name="dist" depends="init" description="initialization tasks">
-		<mkdir dir="${dist.path}"/>
 		<copy todir="${dist.path}">
 			<fileset dir="${workdir.path}">
 				<include name="**"/>
 			</fileset>
 		</copy>
 		<replaceregexp file="${webroot.path}/jdbc.properties" match="jdbc.password=.*" replace ="jdbc.password=${mysql.password}"/>
+	</target>
+	
+	<target name="resource_restore" depends="propertySetter" description="restore resources folder" if="resources">
+		<copy todir="${dist.path}">
+			<fileset dir="${tomcat.application.folder}">
+				<include name="resources/"/>
+			</fileset>
+		</copy>
 	</target>
 	
 	<target name="compile" depends="dist" description="compilation on bin folder">
@@ -142,6 +151,6 @@
 	
 	<target name="DB full update" depends="DB_drop, DB_create, DB_restore"></target>
 	
-	<target name="buildAll" depends="stop, undeploy, dist, compile, deploy, start"></target>
+	<target name="buildAll" depends="dist, resource_restore, stop, undeploy, compile, deploy, start"></target>
 	
 </project>
