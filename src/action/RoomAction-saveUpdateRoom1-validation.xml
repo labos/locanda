@@ -11,7 +11,7 @@
 		</field-validator>
 	</field>
 	<field name="room.roomType">
-		<field-validator type="requiredstring">
+		<field-validator type="required">
 			<param name="trim">true</param>
             <message><![CDATA[room type required ]]></message>
 		</field-validator>
