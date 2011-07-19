@@ -9,7 +9,7 @@
 	</path> 
 	
 	<target name="propertySetter">
-		<available property="deployed" file="${tomcat.application.path}" type="dir"/>
+		<available property="deployed" file="${tomcat.application.folder}" type="dir"/>
 		<available property="resources" file="${tomcat.resource.path}" type="dir"/>
 	</target>
 	
@@ -32,12 +32,10 @@
 		<replaceregexp file="${webroot.path}/jdbc.properties" match="jdbc.password=.*" replace ="jdbc.password=${mysql.password}"/>
 	</target>
 	
-	<target name="resource_restore" depends="propertySetter" description="restore resources folder" if="resources">
-		<copy todir="${dist.path}">
-			<fileset dir="${tomcat.application.folder}">
-				<include name="resources/"/>
-			</fileset>
-		</copy>
+	<target name="resource_restore"  description="restore resources folder" if="resources">
+		<exec executable="rsync">
+			<arg line="rsync -e ssh -Cavz ${host}:${tomcat.resource.path} ${dist.path}" />
+		</exec>
 	</target>
 	
 	<target name="compile" depends="dist" description="compilation on bin folder">
@@ -68,7 +66,7 @@
 	
 	<target name="fast_Build" depends="stop, undeploy, deploy, start"></target>
 	
-	<target name="stop" depends="propertySetter" description="Stop Tomcat application" if="deployed">
+	<target name="stop"  description="Stop Tomcat application" if="deployed">
 		<stop url="${tomcat.manager.url}"
 		      username="${tomcat.username}"
 		      password="${tomcat.password}"
