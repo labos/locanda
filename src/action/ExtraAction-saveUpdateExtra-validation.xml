@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE validators PUBLIC	"-//OpenSymphony Group//XWork Validator 1.0//EN" 
+  		"http://www.opensymphony.com/xwork/xwork-validator-1.0.2.dtd">
+  		
+  		
+<validators>
+
+	<field name="extra.name">
+		<field-validator type="requiredstring">
+			<param name="trim">true</param>
+            <message>${getText("name")} - ${getText("thisFileMandatory")}</message>
+		</field-validator>
+	</field>
+			<field name="extra.timePriceType">
+		<field-validator type="fieldexpression">
+<param name="expression"><![CDATA[extra.timePriceType.length() > 0]]></param>
+            <message>${getText("extraPriceType")}: ${getText("extraPerNight")}/${getText("extraPerWeek")}/${getText("extraPerBooking")} - ${getText("thisFileMandatory")}</message>
+		</field-validator>
+	</field>
+				<field name="extra.resourcePriceType">
+		<field-validator type="fieldexpression">
+<param name="expression"><![CDATA[extra.resourcePriceType.length() > 0]]></param>
+            <message>${getText("extraPriceType")}: ${getText("extraPerRoom")}/${getText("extraPerPerson")}/${getText("extraPerItem")} - ${getText("thisFileMandatory")}</message>
+		</field-validator>
+	</field>
+	
+</validators>
+

@@ -75,6 +75,7 @@ $(document).ready(function () {
     		
         	
         	/* Add shared validators */
+    		$.metadata.setType("attr", "validate");
             $(".yform").validate();
             $(".yform.json").validate();
             

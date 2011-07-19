@@ -83,6 +83,8 @@ public class ExtraAction extends ActionSupport implements SessionAware,UserAware
 				@Result(type ="json",name="success", params={
 						"root","message"
 				}),
+				
+				@Result(name = "input", location = "/validationError.jsp"),
 				@Result(type ="json",name="error", params={
 						"root","message"
 				})

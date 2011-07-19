@@ -55,7 +55,7 @@
       </div>
       <div id="emailNameDiv" data-role="fieldcontain">
         <label for="emailNo"><s:text name="email"/>*</label>
-        <input id="emailNo" name="booking.booker.email" type="text" class="required"/>
+        <input id="emailNo" name="booking.booker.email" type="text" class="required email"/>
       </div>
       <div data-role="fieldcontain">
         <button type="submit" data-theme="b" id="btn_guest_next">

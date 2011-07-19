@@ -18,8 +18,7 @@
               <p class="navigation"> <a class="home" href="<s:property value="url_findallextra"/>?sect=extras">&nbsp;</a><b>»</b> 
 			  <span>&nbsp;</span></p>
               <span class="name_section"><s:text name="extraDetails" /></span>
-            </div>
-          
+            </div>      
             <div>
  		  	  <jsp:include page="jsp/contents/extra_form.jsp" />    
             </div>        

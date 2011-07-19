@@ -31,6 +31,10 @@
 </script>
 <script type='text/javascript' src='js/jquery.weekcalendar.js'></script>
 <script type='text/javascript' src='js/jquery.validate.min.js'></script>
+<script type='text/javascript' src='js/jquery.metadata.js'></script>
+<s:if test="#request.locale.getLanguage() != 'en'">
+<script type="text/javascript" src="lang/messages_<s:property value="#request.locale.getLanguage()" />.js"></script>
+</s:if>
 <script type='text/javascript' src="js/steal/steal.js?loader.js"></script>
 <script type='text/javascript' src='js/jquery.jgrowl_minimized.js'></script>
 

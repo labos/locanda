@@ -3,7 +3,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="/struts-tags" prefix="s" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
+        <div class="validationErrors"></div>
 		<form method="post" action="saveUpdateExtra.action" class="yform json full" role="application">
 		  <fieldset>
           	<legend><s:text name="extraDetails"/></legend>
