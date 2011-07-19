@@ -117,6 +117,7 @@ $(function () {
                         'booking.dateOut': endField
                     }, function () {
                         new Main(I18NSettings.lang, I18NSettings.datePattern);
+                        delete (self.booking);
                         self.booking = new Booking(I18NSettings.lang, I18NSettings.datePattern);
                         $(".btn_save").hide();
                         $(".canc_booking").hide();
@@ -170,6 +171,7 @@ $(function () {
                     }, function () {
                         $(this).removeClass("loaderback");
                         new Main(I18NSettings.lang, I18NSettings.datePattern);
+                        delete (self.booking);
                         self.booking = new Booking(I18NSettings.lang, I18NSettings.datePattern);
                         $(".btn_save").hide();
                         $(".canc_booking").hide();

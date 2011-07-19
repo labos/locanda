@@ -101,49 +101,72 @@ $(document).ready(function () { <%
 <s:url action="goOnlineBookings" var="url_onlinebookings"></s:url>
 <s:url action="download" var="url_download"></s:url>
 
-  <div class="page_margins">
-    <div class="page">
-      <div id="header" role="banner">
-        <div id="topnav" role="contentinfo" >
-          <span><a title="logout" class="logout" href="<s:property value="url_logout"/>"></a></span>
-         <div class="langMenu">
-          </div>
-        </div>
+<div class="page_margins">
+<div class="page">
+<div id="header" role="banner">
+<div id="topnav" role="contentinfo"><span><a
+	title="logout" class="logout" href="<s:property value="url_logout"/>"></a></span>
+<div class="langMenu"></div>
+</div>
 
-        <h1>
-        <span>&nbsp;</span><em>&nbsp;</em></h1><span></span>
-      </div><!-- begin: main navigation #nav -->
-      <div id="nav" role="navigation">
-        <div class="hlist">
-          <ul>
-            <li id="planner"><a href="<s:property value="url_home"/>?sect=planner"><s:text name="planner"/></a></li>
-            <li id="accomodation"><a href="#"><s:text name="accomodation" /></a>
-              <ul class="sub_menu ui-menu ui-widget ui-widget-content ui-corner-all">
-    			<li class="ui-menu-item"><a href="<s:property value="url_findallroom"/>?sect=accomodation"><s:text name="accomodation"/></a></li>
-    			<li class="ui-menu-item"><a href="<s:property value="url_findallroomtypes"/>?sect=accomodation"><s:text name="roomTypes"/></a></li>
-    			<li class="ui-menu-item"><a href="<s:property value="url_findallextra"/>?sect=accomodation"><s:text name="extras"/></a></li>
-  			  </ul>
-            </li>
-            <li id="guests"><a href="<s:property value="url_findallguest"/>?sect=guests"><s:text name="guests" /></a></li>
-            <li id="reports"><a href="#"><s:text name="reports" /></a></li>
-            <li id="settings"><a href="#"><s:text name="settings" /></a>
-              <ul class="sub_menu ui-menu ui-widget ui-widget-content ui-corner-all">
-    			<li class="ui-menu-item"><a href="<s:property value="url_onlinebookings"/>?sect=settings"><s:text name="onlineBooking"/></a></li>
-    			<li class="ui-menu-item"><a href="<s:property value="url_findallseasons"/>?sect=settings"><s:text name="seasons"/></a></li>
-    			<li class="ui-menu-item"><a href="<s:property value="url_findallroompricelists"/>?sect=settings"><s:text name="roomPriceList"/></a></li>
-    			<li class="ui-menu-item"><a href="<s:property value="url_findallextrapricelists"/>?sect=settings"><s:text name="extraPriceList"/></a></li>
-    			<li class="ui-menu-item"><a href="<s:property value="url_findallconventions"/>?sect=settings"><s:text name="conventions"/></a></li>
-    			<!--<li class="ui-menu-item"><a href="emails.jsp?sect=settings"><s:text name="email"/></a></li>
-    			--><li class="ui-menu-item"><a href="<s:property value="url_details"/>?sect=settings"><s:text name="structureDetails"/></a></li>
-  			  </ul>
-            </li>         
-            <li><a href="#"><s:text name="help" /></a>
-                <ul class="sub_menu ui-menu ui-widget ui-widget-content ui-corner-all">
-    			<li class="ui-menu-item"><a href="<s:property value="url_download"/>?sect=help">Download</a></li>
-				 </ul>
-            
-            </li>
-          </ul>
-        </div>
-      </div><!-- end: main navigation -->
-      <!-- begin: main content area #main -->
+<h1><span>&nbsp;</span><em>&nbsp;</em></h1>
+<span></span></div>
+<!-- begin: main navigation #nav -->
+<div id="nav" role="navigation">
+<div class="hlist">
+<ul>
+	<li id="planner"><a
+		href="<s:property value="url_home"/>?sect=planner"><s:text
+		name="planner" /></a></li>
+	<li id="accomodation"><a href="#"><s:text name="accomodation" /></a>
+	<ul class="sub_menu ui-menu ui-widget ui-widget-content ui-corner-all">
+		<li class="ui-menu-item"><a
+			href="<s:property value="url_findallroom"/>?sect=accomodation"><s:text
+			name="accomodation" /></a></li>
+		<li class="ui-menu-item"><a
+			href="<s:property value="url_findallroomtypes"/>?sect=accomodation"><s:text
+			name="roomTypes" /></a></li>
+		<li class="ui-menu-item"><a
+			href="<s:property value="url_findallextra"/>?sect=accomodation"><s:text
+			name="extras" /></a></li>
+	</ul>
+	</li>
+	<li id="guests"><a
+		href="<s:property value="url_findallguest"/>?sect=guests"><s:text
+		name="guests" /></a></li>
+	<li id="reports"><a href="#"><s:text name="reports" /></a></li>
+	<li id="settings"><a href="#"><s:text name="settings" /></a>
+	<ul class="sub_menu ui-menu ui-widget ui-widget-content ui-corner-all">
+		<li class="ui-menu-item"><a
+			href="<s:property value="url_onlinebookings"/>?sect=settings"><s:text
+			name="onlineBooking" /></a></li>
+		<li class="ui-menu-item"><a
+			href="<s:property value="url_findallseasons"/>?sect=settings"><s:text
+			name="seasons" /></a></li>
+		<li class="ui-menu-item"><a
+			href="<s:property value="url_findallroompricelists"/>?sect=settings"><s:text
+			name="roomPriceList" /></a></li>
+		<li class="ui-menu-item"><a
+			href="<s:property value="url_findallextrapricelists"/>?sect=settings"><s:text
+			name="extraPriceList" /></a></li>
+		<li class="ui-menu-item"><a
+			href="<s:property value="url_findallconventions"/>?sect=settings"><s:text
+			name="conventions" /></a></li>
+		<!--<li class="ui-menu-item"><a href="emails.jsp?sect=settings"><s:text name="email"/></a></li>
+    			-->
+		<li class="ui-menu-item"><a
+			href="<s:property value="url_details"/>?sect=settings"><s:text
+			name="structureDetails" /></a></li>
+	</ul>
+	</li>
+	<li><a href="#"><s:text name="help" /></a>
+	<ul class="sub_menu ui-menu ui-widget ui-widget-content ui-corner-all">
+		<li class="ui-menu-item"><a
+			href="<s:property value="url_download"/>?sect=help">Download</a></li>
+	</ul>
+
+	</li>
+</ul>
+</div>
+</div>
+<!-- end: main navigation --> <!-- begin: main content area #main -->
