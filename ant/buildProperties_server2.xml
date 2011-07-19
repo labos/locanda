@@ -7,7 +7,7 @@
 	<property name="tomcat.home.path" value="/opt/tomcat"/>
 	<property name="tomcat.deploy.path" value="${tomcat.home.path}/webapps"/>
 	<property name="tomcat.application.path" value="/"/>
-	<property name="tomcat.application.folder" value="/ROOT"/>
+	<property name="tomcat.application.folder" value="${tomcat.deploy.path}/ROOT"/>
 	<property name="tomcat.resource.path" value="${tomcat.application.folder}/resources"/>
 	<property name="tomcat.username" value="tomcat"/>
 	<property name="tomcat.password" value="ismolas_manager"/>
