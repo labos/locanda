@@ -31,6 +31,7 @@
           	  <legend>
           	    <span><s:text name="priceListEdit"/> -></span>
           	    <a href="#" id="priceList_edit"><img src="images/sign-up-icon.png" alt="edit"/></a>
+          	    <span id="path_nodes"></span>
           	  </legend>
           	  <table class="full priceList_table">
           	    <thead>

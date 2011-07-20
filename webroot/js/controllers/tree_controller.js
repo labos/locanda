@@ -27,6 +27,7 @@ $(function () {
             $(".room_tree, .extra_tree").bind("loaded.jstree", function (event, data) {
 				//$(".room_tree, .extra_tree").jstree("open_all");
                 $(".jstree-leaf").click(function (event) {
+                	var self = this;
                     event.preventDefault();
                     var url_table = $("a", this).attr("href");
                     $.ajax({
@@ -34,6 +35,20 @@ $(function () {
                         context: document.body,
                         dataType: "html",
                         success: function (data) {
+                        	var caption = "";
+                        	// get path of selected nodes
+                        	var path_nodes = $(self).parents(".jstree-open").children("a").add( $(self).children("a"));
+                        	// set a caption string for selected nodes
+                        	$(path_nodes).each( function ( index, element ){
+                        		
+                        		caption = caption + $( element ).text() + '/';
+                        	});
+                        	// set caption
+                        	$("#path_nodes").text(caption);
+                        	// reset change selected node
+                        	$(".jstree-leaf").find("a").css({ 'color':'black'})
+                        	// change selected node
+                        	$(self).find("a").css({ 'color':'red', 'font-weight': '600'});
                             $(".priceList_table > tbody").html(data);
                         },
                         error: function (request, state, errors) {
@@ -59,7 +74,7 @@ $(function () {
                     }
                 },
                 "themes": {
-                    "theme": "apple",
+                    "theme": "default",
                     "dots": true,
                     "icons": true
                 },
@@ -71,7 +86,7 @@ $(function () {
                 },
                 "json_data": {
                     "ajax": {
-                        "url": "findAllExtraPriceLists.action"
+                    	"url": "findAllExtraPriceLists.action"
                     }
                 },
                 "themes": {
