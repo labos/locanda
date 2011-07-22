@@ -832,6 +832,15 @@ a.gmaps{
 	cursor: pointer;
 }
 
+span.copy {
+	display: none;
+	width:24px;
+	height: 22px;
+	background: url("../images/copy.png") no-repeat scroll 0 0 transparent;
+	cursor: pointer;
+	float: right;
+}
+
 /*.validationErrors{
 	border: 1px dotted red;
 }*/

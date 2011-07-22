@@ -21,6 +21,19 @@ $(function () {
                 var validator = $(this).parents(".yform.json").validate();
                 validator.resetForm();
             });
+            
+            
+            $(".copy").live('click', function(event){
+            	
+            	event.preventDefault();
+            	var priceDefault = $(this).parents("td").children("input:text").val();
+            	var pricesWeek = $(this).parents("td").siblings("td");
+            	pricesWeek.each( function( index, element ){
+            		
+            		var value = $(element).children("input:text").val( priceDefault );
+            		
+            	});
+            });
         	
 
             
@@ -59,10 +72,12 @@ $(function () {
                     $("#priceList_edit").toggle(function () {
                         $("#priceList_form").find("input").removeClass("noBorder");
                         $("#priceList_form").find("input").removeAttr('readonly', 'readonly');
+                        $(".copy").show();
                         $("#priceList_buttons").show();
                     }, function () {
                         $("#priceList_form").find("input").addClass("noBorder");
                         $("#priceList_form").find("input").attr('readonly', 'readonly');
+                        $(".copy").hide();
                         $("#priceList_buttons").hide();
                     });
                 });
