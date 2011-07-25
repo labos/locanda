@@ -32,9 +32,9 @@
 		<replaceregexp file="${webroot.path}/jdbc.properties" match="jdbc.password=.*" replace ="jdbc.password=${mysql.password}"/>
 	</target>
 	
-	<target name="resource_restore"  description="restore resources folder" if="resources">
+	<target name="resource_restore" description="restore resources folder">
 		<exec executable="rsync">
-			<arg line="rsync -e ssh -Cavz ${host}:${tomcat.resource.path} ${dist.path}" />
+			<arg line="-e ssh -Cavz ${host}:${tomcat.resource.path} ${dist.path}"/>
 		</exec>
 	</target>
 	
@@ -55,7 +55,6 @@
 			<fileset dir="${workdir.path}">
 				<include name="**"/>
 			</fileset>
-				
 		</copy>
 	</target>
 	
@@ -80,7 +79,7 @@
                path="${tomcat.application.path}"/>
 	</target>
 	
-	<target name="WAR build" depends="" description="WAR build from dist to webapps folder">
+	<target name="WAR build" description="WAR build from dist to webapps folder">
 		<echo message="Packaging the WAR...."/>
 		<war destfile="${tomcat.deploy.path}/${webappname}.war" webxml="${webroot.path}/web.xml">
 			<webinf dir="${webroot.path}"/>

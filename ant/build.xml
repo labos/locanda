@@ -32,7 +32,7 @@
 		<replaceregexp file="${webroot.path}/jdbc.properties" match="jdbc.password=.*" replace ="jdbc.password=${mysql.password}"/>
 	</target>
 	
-	<target name="resource_restore" depends="propertySetter" description="restore resources folder" if="resources">
+	<target name="resource_restore" description="restore resources folder">
 		<copy todir="${dist.path}">
 			<fileset dir="${tomcat.application.path}">
 				<include name="resources/"/>
@@ -56,8 +56,7 @@
 		<copy todir="${tomcat.deploy.path}/${webappname}">
 			<fileset dir="${workdir.path}">
 				<include name="**"/>
-			</fileset>
-				
+			</fileset>	
 		</copy>
 	</target>
 	

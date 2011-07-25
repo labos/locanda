@@ -370,7 +370,7 @@
    				  <input type="hidden" name="name" value=" "/>
      			  <input type="file" name="upload" multiple/>
     			  <button><s:text name="upload"/></button>
-    			  <div><s:text name="uploadFacilityImage"/></div>  
+    			  <div><s:text name="uploadStructureImage"/></div>  
 				</form> 
 		   	  </div>
 		   	</div>      
