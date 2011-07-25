@@ -34,6 +34,7 @@
 
 		<global-results>
 			<result name="notLogged">/homeNotLogged.jsp</result>
+			<result name="nullpointer" type="redirect">home.action</result>
 		</global-results>
 
 		<global-exception-mappings>
