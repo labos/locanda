@@ -9,6 +9,7 @@
       	
       	<s:url action="login" var="url"></s:url>
       	<s:url action="goCreateAccount" var="url_account" />
+      	<s:actionerror /><s:fielderror></s:fielderror>
       	<form method="post" action="<s:property value="url"/>" class="yform" role="application">
             <fieldset>
               <legend><s:text name="loginData" /></legend>

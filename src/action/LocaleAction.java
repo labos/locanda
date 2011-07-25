@@ -2,7 +2,7 @@ package action;
 
 import com.opensymphony.xwork2.ActionSupport;
 
-//@Result(name="success", type="redirect", location="accomodation")
+
 public class LocaleAction extends ActionSupport{
 	private String redirect;
 	private String sect;

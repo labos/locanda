@@ -59,7 +59,8 @@ public class LoginAction extends ActionSupport implements SessionAware {
 	@Actions(value = { @Action(value = "/login", results = {
 			@Result(name = "input", location = "/login.jsp"),
 			@Result(name = "loginSuccess", location = "/homeLogged.jsp"),
-			@Result(name = "loginError", location = "/login.jsp") }) })
+			@Result(name = "loginError", location = "/login.jsp"),
+			@Result(name = "nullpointer", location = "/login.jsp") }) })
 	public String execute() {
 		String ret = null;
 		User user = null;
@@ -67,7 +68,7 @@ public class LoginAction extends ActionSupport implements SessionAware {
 		Locale locale = null;
 		SimpleDateFormat sdf = null;
 		String datePattern = null;
-
+	
 		user = this.getUserService().findUserByEmail(this.getEmail().trim());
 		
 		if (user != null && user.getPassword().equals(this.getPassword().trim())) {
@@ -91,8 +92,10 @@ public class LoginAction extends ActionSupport implements SessionAware {
 			ret = "loginSuccess";
 		} else {
 			this.getSession().put("user", null);
+			addActionError(getText("loginError"));
 			ret = "loginError";
 		}
+
 		return ret;
 	}
 	

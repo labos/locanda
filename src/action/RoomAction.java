@@ -135,7 +135,8 @@ public class RoomAction extends ActionSupport implements SessionAware,UserAware{
 	
 	@Actions({
 		@Action(value="/goUpdateRoom",results = {
-				@Result(name="success",location="/room_edit.jsp")
+				@Result(name="success",location="/room_edit.jsp"),
+				@Result(name = "nullpointer", type="redirect", location = "findAllRooms.action")
 		})
 	})
 	public String goUpdateRoom() {
