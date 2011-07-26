@@ -19,8 +19,6 @@ import java.util.List;
 import java.util.Map;
 
 import model.Extra;
-import model.Structure;
-import model.User;
 import model.UserAware;
 import model.internal.Message;
 import model.listini.ExtraPriceList;
@@ -46,15 +44,12 @@ import com.opensymphony.xwork2.ActionSupport;
 	@InterceptorRef("userAwareStack")    
 })
 @Result(name="notLogged", location="/homeNotLogged.jsp")
-public class ExtraAction extends ActionSupport implements SessionAware,UserAware{
+public class ExtraAction extends ActionSupport implements SessionAware,UserAware {
 	private Map<String, Object> session = null;
 	private Message message = new Message();
 	private List<Extra> extras = null;
 	private Extra extra = null;
 	private Integer idStructure;
-	
-	
-
 	@Autowired
 	private ExtraService extraService = null;
 	@Autowired
@@ -83,9 +78,7 @@ public class ExtraAction extends ActionSupport implements SessionAware,UserAware
 		})		
 	})
 	public String goUpdateExtra() {
-		
 		Extra extra = null;
-		
 		
 		extra = this.getExtraService().findExtraById(this.getExtra().getId());
 		this.setExtra(extra);
@@ -95,26 +88,18 @@ public class ExtraAction extends ActionSupport implements SessionAware,UserAware
 		
 	@Actions({
 		@Action(value="/saveUpdateExtra",results = {
-				@Result(type ="json",name="success", params={
-						"root","message"
-				}),
-				
+				@Result(type ="json",name="success", params={"root","message"}),	
 				@Result(name = "input", location = "/validationError.jsp"),
-				@Result(type ="json",name="error", params={
-						"root","message"
-				})
+				@Result(type ="json",name="error", params={"root","message"})
 		})
 	})
 	public String saveUpdateExtra() {
-		
 		Extra oldExtra = null;
-		
-	
 		
 		oldExtra = this.getExtraService().findExtraById(this.getExtra().getId());
 		this.getExtra().setId_structure(this.getIdStructure());
 		if(oldExtra == null){
-			//Si tratta di un add			
+			//It's a new extra
 			this.getExtraService().insertExtra(this.getExtra());
 			
 			this.buildExtraPriceListFromExtra();
@@ -123,7 +108,7 @@ public class ExtraAction extends ActionSupport implements SessionAware,UserAware
 			this.getMessage().setDescription(getText("extraAddSuccessAction"));
 			return SUCCESS;
 		}else{
-			//Si tratta di un update
+			//It's an existing extra
 			this.getExtraService().updateExtra(this.getExtra());
 			this.getMessage().setResult(Message.SUCCESS);
 			this.getMessage().setDescription(getText("extraUpdateSuccessAction"));
@@ -133,26 +118,19 @@ public class ExtraAction extends ActionSupport implements SessionAware,UserAware
 	
 	@Actions({
 		@Action(value="/deleteExtra",results = {
-				@Result(type ="json",name="success", params={
-						"root","message"
-				}),
-				@Result(type ="json",name="error", params={
-						"root","message"
-				})
+				@Result(type ="json",name="success", params={"root","message"}),
+				@Result(type ="json",name="error", params={"root","message"})
 		})
 	})
 	public String deleteExtra() {
-		
 		Integer count = 0;
 		Integer id_extra = 0;
-		
-		
 		
 		id_extra = this.getExtra().getId();
 		
 		if(this.getBookingService().countBookingsByIdExtra(id_extra) > 0){
 			this.getMessage().setResult(Message.ERROR);
-			this.getMessage().setDescription("Non è possibile cancellare l'extra perchè esistono booking associati a questo extra");
+			this.getMessage().setDescription(getText("extraDeleteBookingError"));
 			return "error";
 		}
 		
@@ -166,23 +144,16 @@ public class ExtraAction extends ActionSupport implements SessionAware,UserAware
 			this.getMessage().setDescription(getText("extraDeleteSuccessAction"));
 			return "error";
 		}
-		
 	}
 	
 	public void buildExtraPriceListFromExtra() {
-		
 		ExtraPriceListItem newExtraPriceListItem = null;
-		
-		
 		
 		for (ExtraPriceList eachPriceList : this.getExtraPriceListService().findExtraPriceListsByIdStructure(this.getIdStructure())) {
 			newExtraPriceListItem = new ExtraPriceListItem();
-			//newExtraPriceListItem.setId(structure.nextKey());
-			//newExtraPriceListItem.setExtra(this.getExtra());
 			newExtraPriceListItem.setId_extra(this.getExtra().getId());
 			newExtraPriceListItem.setPrice(0.0);
 			newExtraPriceListItem.setId_extraPriceList(eachPriceList.getId());
-			//eachPriceList.addItem(newExtraPriceListItem);
 			this.getExtraPriceListService().insertExtraPriceListItem(newExtraPriceListItem);
 		}
 	}
@@ -224,21 +195,17 @@ public class ExtraAction extends ActionSupport implements SessionAware,UserAware
 	public void setExtraPriceListService(ExtraPriceListService extraPriceListService) {
 		this.extraPriceListService = extraPriceListService;
 	}
-
 	public BookingService getBookingService() {
 		return bookingService;
 	}
-
 	public void setBookingService(BookingService bookingService) {
 		this.bookingService = bookingService;
 	}	
 	public Integer getIdStructure() {
 		return idStructure;
 	}
-
 	public void setIdStructure(Integer idStructure) {
 		this.idStructure = idStructure;
 	}
-	
 	
 }

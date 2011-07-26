@@ -16,7 +16,6 @@
 package action;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -24,8 +23,6 @@ import model.Facility;
 import model.Image;
 import model.Room;
 import model.RoomType;
-import model.Structure;
-import model.User;
 import model.UserAware;
 import model.internal.Message;
 import model.internal.TreeNode;
@@ -67,7 +64,6 @@ public class RoomAction extends ActionSupport implements SessionAware,UserAware{
 	private List<Facility> roomTypeFacilities = null;
 	private List<TreeNode> treeNodes = new ArrayList<TreeNode>();
 	private Integer idStructure;
-	
 	@Autowired
 	private StructureService structureService = null;
 	@Autowired
@@ -86,9 +82,8 @@ public class RoomAction extends ActionSupport implements SessionAware,UserAware{
 				@Result(name="success",location="/accomodation.jsp")
 		}),
 		@Action(value="/findAllRoomsJson",results = {
-				@Result(type ="json",name="success", params={
-						"root","rooms"
-				})}) 
+				@Result(type ="json",name="success", params={"root","rooms"})
+				}) 
 	})
 	public String findAllRooms() {
 		
@@ -107,9 +102,8 @@ public class RoomAction extends ActionSupport implements SessionAware,UserAware{
 	
 	@Actions({
 		@Action(value="/findAllTreeRoomsJson",results = {
-				@Result(type ="json",name="success", params={
-						"root","treeNodes"
-				})}) 
+				@Result(type ="json",name="success", params={"root","treeNodes"})
+				}) 
 	})
 	public String findAllTreeRooms() {
 				
@@ -128,22 +122,17 @@ public class RoomAction extends ActionSupport implements SessionAware,UserAware{
 		}),
 		@Action(value="/findRoomTypesForRoomJson",results = {
 				@Result(name="input", location="/validationError.jsp"),
-				@Result(type ="json",name="success", params={
-						"root","message"
-				}),
-				@Result(type ="json",name="error", params={
-						"root","message"
-				})
+				@Result(type ="json",name="success", params={"root","message"}),
+				@Result(type ="json",name="error", params={"root","message"})
 		})
 	})
 	public String findAllRoomTypesForRoom() {
-		
 		List <Facility> selectedFacilities = null;
 				
 		this.setRoomFacilities(this.getFacilityService().findUploadedFacilitiesByIdStructure(this.getIdStructure()));
 		selectedFacilities = this.getFacilityService().findRoomTypeFacilitiesByIdRoomType(this.getRoom().getRoomType().getId());
 		for(Facility each: selectedFacilities){			
-			this.getRoomFacilitiesIds().add(each.getId());		//popolo l'array roomFacilitiesIds con gli id delle Facilities già presenti nella Room da editare
+			this.getRoomFacilitiesIds().add(each.getId());		//populating roomFacilitiesIds array with the ids of facilities that are already in rooms to be edited
 		}
 		return SUCCESS;
 	}
@@ -155,7 +144,6 @@ public class RoomAction extends ActionSupport implements SessionAware,UserAware{
 		})
 	})
 	public String goUpdateRoom() {
-		
 		Room oldRoom = null;
 		
 		oldRoom = this.getRoomService().findRoomById(this.getRoom().getId());
@@ -164,7 +152,7 @@ public class RoomAction extends ActionSupport implements SessionAware,UserAware{
 		this.setRoomTypes(this.getRoomTypeService().findRoomTypesByIdStructure(this.getIdStructure()));
 		this.setRoomFacilities(this.getFacilityService().findUploadedFacilitiesByIdStructure(this.getIdStructure()));
 		for(Facility each: this.getRoom().getFacilities()){			
-			this.getRoomFacilitiesIds().add(each.getId());		//popolo l'array roomFacilitiesIds con gli id delle Facilities già presenti nella Room da editare
+			this.getRoomFacilitiesIds().add(each.getId());		//populating roomFacilitiesIds array with the ids of facilities that are already in rooms to be edited
 		}
 		return SUCCESS;
 	}
@@ -172,25 +160,19 @@ public class RoomAction extends ActionSupport implements SessionAware,UserAware{
 	@Actions({
 		@Action(value="/saveUpdateRoom",results = {
 				@Result(name="input", location="/validationError.jsp"),
-				@Result(type ="json",name="success", params={
-						"root","message"
-				}),
-				@Result(type ="json",name="error", params={
-						"root","message"
-				})
+				@Result(type ="json",name="success", params={"root","message"}),
+				@Result(type ="json",name="error", params={"root","message"})
 		})
 	})
 	public String saveUpdateRoom() {
-		
 		Room oldRoom = null;
-		
 		
 		oldRoom = (this.getRoom().getId() == null )? null :  this.getRoomService().findRoomById(this.getRoom().getId());
 		if(oldRoom == null){
-			//Si tratta di un add			
+			//It's a new room			
 			return this.saveRoom(this.getIdStructure());			
 		}else{
-			//Si tratta di un update			
+			//It's an existing room	
 			return this.updateRoom(this.getIdStructure(), oldRoom);			
 		}	
 	}
@@ -244,7 +226,6 @@ public class RoomAction extends ActionSupport implements SessionAware,UserAware{
 				theRoomType = this.getRoomTypeService().findRoomTypeById(this.getRoom().getRoomType().getId());
 				each.setRoomType(theRoomType);				
 				each.setId_roomType(theRoomType.getId());
-				
 				each.setId_structure(id_structure);
 				
 				this.getRoomService().insertRoom(each);
@@ -274,7 +255,6 @@ public class RoomAction extends ActionSupport implements SessionAware,UserAware{
 	}
 	
 	private String updateRoom(Integer id_structure, Room oldRoom){
-		//Si tratta di un update
 		String newName = null;
 		List<Facility> checkedFacilities = null;
 		RoomType theRoomType = null;
@@ -286,11 +266,9 @@ public class RoomAction extends ActionSupport implements SessionAware,UserAware{
 			try{
 				anInt = Integer.parseInt((String)each);
 				filteredRoomFacilitiesIds.add(anInt);
-			}catch (Exception e) {
-				
+			}catch (Exception e) {	
 			}			
 		}
-		
 		newName = this.getRoom().getName();
 		if(newName.contains(",")){
 			this.getMessage().setResult(Message.ERROR);
@@ -313,11 +291,9 @@ public class RoomAction extends ActionSupport implements SessionAware,UserAware{
 		this.getRoom().setId_roomType(this.getRoom().getRoomType().getId());
 		
 		this.getRoom().setId_structure(id_structure);
-		
-		
+				
 		this.getRoomService().updateRoom(this.getRoom());
-		
-		
+			
 		this.getMessage().setResult(Message.SUCCESS);
 		this.getMessage().setDescription(getText("roomUpdateSuccessAction"));
 		return "success";
@@ -325,12 +301,8 @@ public class RoomAction extends ActionSupport implements SessionAware,UserAware{
 
 	@Actions({
 		@Action(value="/deleteRoom",results = {
-				@Result(type ="json",name="success", params={
-						"root","message"
-				}),
-				@Result(type ="json",name="error", params={
-						"root","message"
-				})
+				@Result(type ="json",name="success", params={"root","message"}),
+				@Result(type ="json",name="error", params={"root","message"})
 		})
 	})
 	public String deleteRoom() {
@@ -360,12 +332,8 @@ public class RoomAction extends ActionSupport implements SessionAware,UserAware{
 	
 	@Actions({
 		@Action(value="/deleteRoomImage",results = {
-				@Result(type ="json",name="success", params={
-						"root","message"
-				} ),
-				@Result(type ="json",name="error", params={
-						"root","message"
-				} )
+				@Result(type ="json",name="success", params={"root","message"}),
+				@Result(type ="json",name="error", params={"root","message"})
 		})
 		
 	})
@@ -479,38 +447,29 @@ public class RoomAction extends ActionSupport implements SessionAware,UserAware{
 	public void setRoomService(RoomService roomService) {
 		this.roomService = roomService;
 	}
-
 	public ImageService getImageService() {
 		return imageService;
 	}
-
 	public void setImageService(ImageService imageService) {
 		this.imageService = imageService;
 	}
-
 	public FacilityService getFacilityService() {
 		return facilityService;
 	}
-
 	public void setFacilityService(FacilityService facilityService) {
 		this.facilityService = facilityService;
 	}
-
 	public BookingService getBookingService() {
 		return bookingService;
 	}
-
 	public void setBookingService(BookingService bookingService) {
 		this.bookingService = bookingService;
 	}
-
 	public Integer getIdStructure() {
 		return idStructure;
 	}
-
 	public void setIdStructure(Integer idStructure) {
 		this.idStructure = idStructure;
 	}
-	
 	
 }

@@ -44,7 +44,6 @@ public class LogoutAction extends ActionSupport implements SessionAware,UserAwar
 					@Result(name="success", location="/homeNotLogged.jsp")					
 			})	
 	})	
-	
 	public String execute(){	
 		
 		this.getSession().put("user", null);
@@ -62,10 +61,8 @@ public class LogoutAction extends ActionSupport implements SessionAware,UserAwar
 	public Integer getIdStructure() {
 		return idStructure;
 	}
-
 	public void setIdStructure(Integer idStructure) {
 		this.idStructure = idStructure;
 	}
-	
 
 }

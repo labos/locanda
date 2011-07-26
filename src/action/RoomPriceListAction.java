@@ -67,7 +67,6 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware,U
 	private Integer roomTypeId = null;
 	private Integer conventionId = null;
 	private Integer idStructure;
-	
 	@Autowired
 	private SeasonService seasonService = null;
 	@Autowired
@@ -77,7 +76,7 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware,U
 	@Autowired
 	private ConventionService conventionService = null;
 	
-		
+	
 	@Actions({
 		@Action(value="/goFindAllRoomPriceLists",results = {
 				@Result(name="success",location="/roomPriceLists.jsp")
@@ -100,7 +99,6 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware,U
 		})
 	})
 	public String findAllRoomPriceLists() {
-		
 		Set<Integer> years = null; 
 		ServletContext context = null;
 		String webappPath = null;
@@ -109,25 +107,25 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware,U
 		context = ServletActionContext.getServletContext();
 		webappPath = context.getContextPath();
 		
-		for (Season eachSeason : this.getSeasonService().findSeasonsByIdStructure(this.getIdStructure())) {			//costruisco il set con tutti gli anni
+		for (Season eachSeason : this.getSeasonService().findSeasonsByIdStructure(this.getIdStructure())) {				//Building the Set with all years
 			years.add(eachSeason.getYear());
 		}
-		for (Integer eachYear : years) {							//costruisco i nodi di primo livello - gli anni
+		for (Integer eachYear : years) {								//Building level-1 nodes - years
 			this.getTreeNodes().add(TreeNode.buildNode(eachYear.toString()));
 		}
-		for (TreeNode eachNode1 : this.getTreeNodes()) {						//per ogni anno costruisco i nodi di secondo livello - le stagioni
-			List<Season> perYearSeasons = this.getSeasonService().findSeasonsByYear(this.getIdStructure(),Integer.parseInt(eachNode1.getData().getTitle()));	//tutte le stagioni di quell'anno
+		for (TreeNode eachNode1 : this.getTreeNodes()) {				//For each year, building level-2 nodes - seasons
+			List<Season> perYearSeasons = this.getSeasonService().findSeasonsByYear(this.getIdStructure(),Integer.parseInt(eachNode1.getData().getTitle()));	//All seasons for that particular year
 			for (Season eachYearSeason : perYearSeasons) {
-				if (this.getRoomTypeService().findRoomTypesByIdStructure(this.getIdStructure()).size() == 0) {	//senza roomTypes devo assegnare una pagina vuota al nodo delle Seasons
+				if (this.getRoomTypeService().findRoomTypesByIdStructure(this.getIdStructure()).size() == 0) {			//Without room types, click on a season node must link to a blank page
 					String href = "jsp/layout/blank.jsp";
 					eachNode1.buildChild(eachYearSeason.getName(), href);
 				} else {
 					eachNode1.buildChild(eachYearSeason.getName());
 				}	
 			}
-			for (TreeNode eachNode2 : eachNode1.getChildren()) {		//per ogni stagione costruisco i nodi di terzo livello - i roomTypes
+			for (TreeNode eachNode2 : eachNode1.getChildren()) {		//For each season, building level-3 nodes - room types
 				for (RoomType eachRoomType : this.getRoomTypeService().findRoomTypesByIdStructure(this.getIdStructure())) {
-					if (this.getConventionService().findConventionsByIdStructure(this.getIdStructure()).size() == 0) {	//senza Conventions devo assegnare una pagina vuota al nodo dei RoomTypes
+					if (this.getConventionService().findConventionsByIdStructure(this.getIdStructure()).size() == 0) {	//Without conventions, click on a room type node must link to a blank page
 						String href = "jsp/layout/blank.jsp";
 						eachNode2.buildChild(eachRoomType.getName(), href);
 					}else {
@@ -155,13 +153,10 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware,U
 				@Result(name="success",location="/jsp/contents/roomPriceList_table.jsp")
 				}),
 		@Action(value="/findRoomPriceListItemsJson",results = {
-				@Result(type ="json",name="success", params={
-						"root","priceList"
-				})
+				@Result(type ="json",name="success", params={"root","priceList"})
 		})
 	})
 	public String findRoomPriceListItems() {
-		
 		
 		this.setPriceList(this.getRoomPriceListService().findRoomPriceListByIdStructureAndIdSeasonAndIdRoomTypeAndIdConvention(
 				this.getIdStructure(), this.getSeasonId(), this.getRoomTypeId(), this.getConventionId()));
@@ -170,20 +165,16 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware,U
 	
 	@Actions({
 		@Action(value="/updateRoomPriceListItems",results = {
-				@Result(type ="json",name="success", params={
-						"root","message"
-				})
+				@Result(type ="json",name="success", params={"root","message"})
 		})
 	})
 	public String updateRoomPriceListItems(){
-		
 		
 		for(RoomPriceListItem each: this.getPriceList().getItems()){
 			each.setId_roomPriceList(this.getPriceList().getId());
 			this.getRoomPriceListService().updateRoomPriceListItem(each);
 		}
-		
-		
+
 		this.getMessage().setResult(Message.SUCCESS);
 		this.getMessage().setDescription(getText("priceListUpdateSuccessAction"));
 		return SUCCESS;		
@@ -274,11 +265,9 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware,U
 	public void setConventionService(ConventionService conventionService) {
 		this.conventionService = conventionService;
 	}
-
 	public Integer getIdStructure() {
 		return idStructure;
 	}
-
 	public void setIdStructure(Integer idStructure) {
 		this.idStructure = idStructure;
 	}

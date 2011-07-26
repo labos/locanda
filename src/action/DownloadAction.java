@@ -26,9 +26,6 @@ import javax.servlet.ServletContext;
 import model.UserAware;
 
 import org.apache.struts2.ServletActionContext;
-import org.apache.struts2.convention.annotation.Actions;
-import org.apache.struts2.convention.annotation.Action;
-import org.apache.struts2.convention.annotation.Actions;
 import org.apache.struts2.convention.annotation.InterceptorRef;
 import org.apache.struts2.convention.annotation.InterceptorRefs;
 import org.apache.struts2.convention.annotation.ParentPackage;
@@ -59,47 +56,31 @@ public class DownloadAction extends ActionSupport implements SessionAware,UserAw
 		fileInputStream = new FileInputStream(new File(filePath ));
 
 	    return SUCCESS;
-	  
 	}
 
 	public InputStream getFileInputStream() {
-		 
 		return fileInputStream;
-	   
 	}
-	
 	public String getFileName() {
 		return fileName;
 	}
-
 	public void setFileName(String fileName) {
 		this.fileName = fileName;
 	}
-
 	public Integer getIdStructure() {
 		return idStructure;
 	}
-
 	public void setIdStructure(Integer idStructure) {
 		this.idStructure = idStructure;
 	}
-
 	public Map<String, Object> getSession() {
 		return session;
 	}
-
 	public void setSession(Map<String, Object> session) {
 		this.session = session;
 	}
-
 	public void setFileInputStream(InputStream fileInputStream) {
 		this.fileInputStream = fileInputStream;
 	}
-
-	
-	
-	
-	
-
 	
 }

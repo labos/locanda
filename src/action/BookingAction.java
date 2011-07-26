@@ -30,14 +30,11 @@ import model.Guest;
 import model.Payment;
 import model.Room;
 import model.RoomType;
-import model.Structure;
-import model.User;
 import model.UserAware;
 import model.internal.Message;
 import model.listini.Convention;
 import model.listini.Season;
 
-import org.apache.commons.lang.time.DateUtils;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Actions;
 import org.apache.struts2.convention.annotation.InterceptorRef;
@@ -78,7 +75,6 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 	private Double paymentsSubtotal = 0.0;
 	private Integer idStructure;
 	private List<Integer> listNumGuests = null;
-	
 	@Autowired
 	private ExtraService extraService = null;
 	@Autowired
@@ -96,7 +92,6 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 	
 	@Actions({
 		@Action(
-				
 				value="/updateBookingDates",results = {
 				@Result(type ="json",name="success", params={
 						"excludeProperties","session,extraService,guestService,structureService,bookingService,roomService,conventionService,seasonService"
@@ -114,13 +109,9 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 		if(!this.checkBookingDates(this.getIdStructure())){
 			return ERROR;
 		}		
-		
 		booking  = (Booking) this.getSession().get("booking");		
-		
 		booking.setDateIn(this.getBooking().getDateIn());
 		booking.setDateOut(this.getBooking().getDateOut());
-		
-		
 		
 		this.updateRoomSubtotal(booking);		
 		this.updateUnitaryPriceInBookedExtraItems(booking);
@@ -138,10 +129,6 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 		return "success";						
 	}
 	
-	
-	
-	
-		
 	@Actions({
 		@Action(value="/updateRoom",results = {
 				@Result(type ="json",name="success", params={
@@ -164,7 +151,6 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 		}		
 				
 		booking  = (Booking) this.getSession().get("booking");		
-		
 		if(booking.getRoom()!=null){
 			oldRoomType = booking.getRoom().getRoomType();
 		}		
@@ -173,13 +159,13 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 		if(booking.getRoom()!=null){
 			newRoomType = booking.getRoom().getRoomType();
 		}		
-		//Se cambia la categoria allora devo aggiornare i prezzi
+		//If the Room Type changes, prices must be updated
 		if((oldRoomType!= null) && (newRoomType!= null) && !(oldRoomType.equals(newRoomType) )){
 			numGuests = booking.getNrGuests();
-			if (numGuests > newRoomType.getMaxGuests()) {	//nel caso cambiassi la room con preselezionato un nrGuests superiore al maxGuests della room stessa
+			if (numGuests > newRoomType.getMaxGuests()) {	//when changing a room which has pre-selected the nrGuests attribute greater than the maxGuests attribute
 				numGuests = newRoomType.getMaxGuests();
 				booking.setNrGuests(numGuests);
-				//Se cambia il numero di guest devo aggiornare anche la quantità massima degli extra item
+				//If nrGuests changes, extra items' max quantity must be updated
 				this.updateMaxQuantityInBookedExtraItems(booking);
 			}			
 			this.updateRoomSubtotal(booking);			
@@ -202,8 +188,6 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 		booking.setRoom(newRoom);	
 	}
 	
-	
-	
 	@Actions({
 		@Action(value="/updateNrGuests",results = {
 				@Result(type ="json",name="success", params={
@@ -221,7 +205,6 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 		if(!this.checkBookingDates(this.getIdStructure())){
 			return ERROR;
 		}				
-		
 		booking  = (Booking) this.getSession().get("booking");			
 		
 		booking.setNrGuests(this.getBooking().getNrGuests());
@@ -235,8 +218,6 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 		this.getMessage().setDescription(getText("calculatedPriceAction"));
 		return "success";						
 	}
-	
-	
 	
 	@Actions({
 		@Action(value="/updateExtras",results = {
@@ -257,8 +238,7 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 		
 		if(!this.checkBookingDatesNotNull(this.getIdStructure())){
 			return ERROR;
-		}		
-					
+		}					
 		booking  = (Booking) this.getSession().get("booking");			
 		
 		filteredBookingExtraIds = new ArrayList<Integer>();
@@ -281,8 +261,6 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 		return "success";						
 	}
 	
-	
-	
 	@Actions({
 		@Action(value="/updateConvention",results = {
 				@Result(type ="json",name="success", params={
@@ -300,11 +278,10 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 		if(!this.checkBookingDates(this.getIdStructure())){
 			return ERROR;
 		}			
-		
 		booking  = (Booking) this.getSession().get("booking");
 		booking.setConvention(this.getBooking().getConvention());
 				
-		//Se cambia la convenzione allora devo aggiornare i prezzi della room e degli extra
+		//If the convention changes, then room and extra prices must be updated
 		this.updateRoomSubtotal(booking);			
 		this.updateUnitaryPriceInBookedExtraItems(booking);
 		booking.updateExtraSubtotal();
@@ -316,9 +293,6 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 		return "success";						
 	}
 	
-	
-	
-	
 	private void updateExtraItems(Booking booking,List<Extra> checkedExtras){
 		ExtraItem extraItem = null;		
 		List<ExtraItem> extraItems = null;
@@ -327,15 +301,15 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 		for(Extra each: checkedExtras){
 			extraItem = null;
 			for(ExtraItem bookedExtraItem: this.getBooking().getExtraItems()){
-				//each esiste già e devo aggiornare solo la quantità leggendola dalla request
+				//each already exists and I have to update just the quantity reading it from the request
 				if(bookedExtraItem.getExtra().equals(each)){
 					extraItem = bookedExtraItem;	
-					extraItem.setExtra(each);//In certi casi extraItem.extra aveva solo l'id e non tutte le altre proprietà
+					extraItem.setExtra(each);//in some cases extraItem.extra had only the id and not all the other attributes
 					extraItem.setMaxQuantity(booking.calculateExtraItemMaxQuantity(each));					
 				}				
 			}
 			if(extraItem == null){
-				//each è un nuovo extra quindi devo creare un nuovo extra item associato
+				//each is a new extra, so a new extra item must be created
 				extraItem = new ExtraItem();
 				extraItem.setExtra(each);
 				extraItem.setQuantity(booking.calculateExtraItemMaxQuantity(each));
@@ -348,7 +322,6 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 		booking.setExtraItems(extraItems);		
 	}
 	
-	
 	private void updateRoomSubtotal(Booking booking){
 		Double roomSubtotal = 0.0;
 		
@@ -356,15 +329,12 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 		booking.setRoomSubtotal(roomSubtotal);		
 	}
 	
-	
-	
 	private void updateMaxQuantityInBookedExtraItems(Booking booking){
 		Integer maxQuantity;
 		
 		for(ExtraItem each: booking.getExtraItems()){
 			maxQuantity = booking.calculateExtraItemMaxQuantity(each.getExtra());
 			each.setMaxQuantity(maxQuantity);
-			
 		}		
 	}	
 	
@@ -374,7 +344,6 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 		for(ExtraItem each: booking.getExtraItems()){
 			maxQuantity = booking.calculateExtraItemMaxQuantity(each.getExtra());
 			each.setQuantity(maxQuantity);
-			
 		}		
 	}
 	
@@ -385,11 +354,8 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 				unitaryPrice = this.getStructureService().calculateExtraItemUnitaryPrice(this.getIdStructure(), booking.getDateIn(), booking.getDateOut(), booking.getRoom().getRoomType(), booking.getConvention(), each.getExtra());
 				each.setUnitaryPrice(unitaryPrice);
 			}	
-			
-		}
-			
+		}	
 	}
-	
 	
 	@Actions({
 		@Action(value="/displayQuantitySelect",results = {
@@ -403,12 +369,9 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 		return SUCCESS;		
 	}
 	
-	
 	@Actions({
 		@Action(value="/saveUpdateBooking",results = {
-				@Result(type ="json",name="success", params={
-						"root","message"
-				}),
+				@Result(type ="json",name="success", params={"root","message"}),
 				@Result(name="input", location="/validationError.jsp"),
 				@Result(type ="json",name="error", params={
 						"root","message"
@@ -420,12 +383,9 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 		Booking booking = null;
 		Convention convention = null;
 		
-		
 		if(!this.checkBookingDates(this.getIdStructure())){
 			return ERROR;
 		}		
-		
-		
 		
 		if(!this.checkBookingChecking()){
 			return ERROR;
@@ -439,7 +399,7 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 		//Payments
 		this.filterPayments();
 		booking.setPayments(this.getBooking().getPayments());
-		//ExtraItems: non c'è bisogno di filtrarli perchè vengono aggiornati ad ogni chiamata di updateExtras		
+		//ExtraItems: no need to filter them, because they're not updated at every updateExtras() call		
 		
 		//Guests: da inserire quando ci saranno i guests
 		/*
@@ -470,7 +430,6 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 	@Actions({
 		@Action(value="/goAddBookingFromPlanner",results = {
 				@Result(name="success",location="/jsp/contents/booking_form.jsp"),
-				
 				@Result(name="input", location="/validationError.jsp")
 		})
 	})
@@ -506,7 +465,6 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 		numNights = booking.calculateNumNights();
 		this.setNumNights(numNights);
 		
-		
 		return SUCCESS;
 	}
 	
@@ -530,11 +488,9 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 		this.setExtras(this.getExtraService().findExtrasByIdStructure(this.getIdStructure()));
 		this.setConventions(this.getConventionService().findConventionsByIdStructure(this.getIdStructure()));
 		this.setListNumGuests(new ArrayList<Integer>());
-		
 			
 		return SUCCESS;
 	}
-	
 	
 	@Actions({
 		@Action(value="/goAddNewBookingFromGuest",results = {
@@ -555,14 +511,12 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 		booker = this.getGuestService().findGuestById(this.getId());
 		booking.setBooker(booker);
 		
-		
 		this.setBooking(booking);
 		
 		this.setRooms(this.getRoomService().findRoomsByIdStructure(this.getIdStructure()));
 		this.setExtras(this.getExtraService().findExtrasByIdStructure(this.getIdStructure()));
 		this.setConventions(this.getConventionService().findConventionsByIdStructure(this.getIdStructure()));
 		this.setListNumGuests(new ArrayList<Integer>());
-		
 			
 		return SUCCESS;
 	}
@@ -581,16 +535,12 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 		Double adjustmentsSubtotal = 0.0;
 		Double paymentsSubtotal = 0.0;
 		
-		
 		booking = this.getBookingService().findBookingById(this.getId());
 		this.getSession().put("booking", booking);
-		
 		this.setBooking(booking);
 		
 		this.setRooms(this.getRoomService().findRoomsByIdStructure(this.getIdStructure()));
 		this.setExtras(this.getExtraService().findExtrasByIdStructure(this.getIdStructure()));
-		
-		
 		this.setBookingExtraIds(booking.calculateExtraIds());
 		this.setConventions(this.getConventionService().findConventionsByIdStructure(this.getIdStructure()));		
 		
@@ -607,16 +557,12 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 		return SUCCESS;
 	}
 	
-	
-	
 	@Actions({
 		@Action(value="/findAllBookings",results = {
 				@Result(name="success",location="/bookings.jsp")
 		}),
 		@Action(value="/findAllBookingsJson",results = {
-				@Result(type ="json",name="success", params={
-						"root","bookings"
-				})
+				@Result(type ="json",name="success", params={"root","bookings"})
 		}) 
 	})
 	public String findAllBookings(){
@@ -625,16 +571,11 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 		return SUCCESS;		
 	}	
 
-	
 	@Actions({
 		@Action(value="/checkBookingDates",results = {
-				@Result(type ="json",name="success", params={
-						"root","message"
-				}),
+				@Result(type ="json",name="success", params={"root","message"}),
 				@Result(name="input", location="/validationError.jsp"),
-				@Result(type ="json",name="error", params={
-						"root","message"
-				})
+				@Result(type ="json",name="error", params={"root","message"})
 		})
 	})
 	public String checkBookingDates(){
@@ -648,13 +589,9 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 	
 	@Actions({
 		@Action(value="/checkBookingDatesNotNull",results = {
-				@Result(type ="json",name="success", params={
-						"root","message"
-				}),
+				@Result(type ="json",name="success", params={"root","message"}),
 				@Result(name="input", location="/validationError.jsp"),				
-				@Result(type ="json",name="error", params={
-						"root","message"
-				})
+				@Result(type ="json",name="error", params={"root","message"})
 		})
 	})
 	public String checkBookingDatesNotNull(){
@@ -663,7 +600,6 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 			return ERROR;
 		}
 		return SUCCESS;
-				
 	}
 	
 	private Boolean checkBookingDates(Integer id_structure) {
@@ -686,18 +622,16 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 				season = this.getSeasonService().findSeasonByDate(id_structure,aBookingDate );
 				if(season == null){
 					this.getMessage().setResult(Message.ERROR);
-					this.getMessage().setDescription("Nel periodo selezionato non sono state configurate le stagioni");
+					this.getMessage().setDescription(getText("periodSeasonError"));
 					return false;
 				}
 			}
 		}
-		
-
+	
 		this.getMessage().setDescription(getText("bookingDatesOK"));
 		this.getMessage().setResult(Message.SUCCESS);
 		return true;
 	}
-	
 	
 	private Boolean checkBookingDatesNotNull(Integer id_structure) {
 		List<Date> bookingDates = null;
@@ -719,12 +653,10 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 				season = this.getSeasonService().findSeasonByDate(id_structure,aBookingDate );
 				if(season == null){
 					this.getMessage().setResult(Message.ERROR);
-					this.getMessage().setDescription("Nel periodo selezionato non sono state configurate le stagioni");
+					this.getMessage().setDescription(getText("periodSeasonError"));
 					return false;
 				}
 			}
-			
-			
 		}
 		else{
 			this.getMessage().setResult(Message.ERROR);
@@ -744,15 +676,11 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 			
 			if (DateUtils.truncatedCompareTo(Calendar.getInstance().getTime(), dateOut,Calendar.DAY_OF_MONTH) < 0)
 			{
-				
 				this.getMessage().setResult(Message.ERROR);
-				this.getMessage().setDescription("Attenzione, non puoi effettuare il checkout prima della date di partenza.");
+				this.getMessage().setDescription(getText("bookingCheckOutDateError"));
 				return false;
 			}
-			
-			
 		}
-		
 		return true;
 	}
 	
@@ -760,7 +688,6 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 		List<Adjustment> adjustmentsWithoutNulls = null;
 		
 		adjustmentsWithoutNulls = new ArrayList<Adjustment>();
-		
 		for(Adjustment each: this.getBooking().getAdjustments()){
 			if(each!=null){
 				adjustmentsWithoutNulls.add(each);
@@ -773,7 +700,6 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 		List<Payment> paymentsWithoutNulls = null;
 		
 		paymentsWithoutNulls = new ArrayList<Payment>();
-		
 		for(Payment each: this.getBooking().getPayments()){
 			if(each!=null){
 				paymentsWithoutNulls.add(each);
@@ -782,15 +708,10 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 		this.getBooking().setPayments(paymentsWithoutNulls);		
 	}
 	
-	
 	@Actions({
 		@Action(value="/deleteBooking",results = {
-				@Result(type ="json",name="success", params={
-						"root","message"
-				}),
-				@Result(type ="json",name="error", params={
-						"root","message"
-				})
+				@Result(type ="json",name="success", params={"root","message"}),
+				@Result(type ="json",name="error", params={"root","message"})
 		})
 	})
 	public String deleteBooking() {
@@ -807,8 +728,6 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 			return "error";
 		}		
 	}	
-	
-	
 	
 	@Actions({
 		@Action(value="/goOnlineBookings",results = {
@@ -828,9 +747,7 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 		for (Integer i= 1; i<= maxGuests; i++) {
 			listNumGuests.add(i);
 		}
-		
 		this.setListNumGuests(listNumGuests);
-		
 	}
 	
 	public Message getMessage() {
@@ -852,7 +769,6 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 	public void setSession(Map<String, Object> session) {
 		this.session = session;
 	}
-	
 	public Booking getBooking() {
 		return booking;
 	}
@@ -919,83 +835,59 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 	public void setConventions(List<Convention> conventions) {
 		this.conventions = conventions;
 	}
-
-
 	public Integer getIdStructure() {
 		return idStructure;
 	}
-
 	public void setIdStructure(Integer idStructure) {
 		this.idStructure = idStructure;
 	}
-
 	public List<Integer> getListNumGuests() {
 		return listNumGuests;
 	}
-
 	public void setListNumGuests(List<Integer> listNumGuests) {
 		this.listNumGuests = listNumGuests;
 	}
-
 	public ExtraService getExtraService() {
 		return extraService;
 	}
-
-
 	public void setExtraService(ExtraService extraService) {
 		this.extraService = extraService;
 	}
-
-
 	public GuestService getGuestService() {
 		return guestService;
 	}
-
-
 	public void setGuestService(GuestService guestService) {
 		this.guestService = guestService;
 	}
-
 	public StructureService getStructureService() {
 		return structureService;
 	}
-
 	public void setStructureService(StructureService structureService) {
 		this.structureService = structureService;
 	}
-
 	public BookingService getBookingService() {
 		return bookingService;
 	}
-
 	public void setBookingService(BookingService bookingService) {
 		this.bookingService = bookingService;
 	}
-
 	public RoomService getRoomService() {
 		return roomService;
 	}
-
 	public void setRoomService(RoomService roomService) {
 		this.roomService = roomService;
 	}
-
 	public ConventionService getConventionService() {
 		return conventionService;
 	}
-
 	public void setConventionService(ConventionService conventionService) {
 		this.conventionService = conventionService;
 	}
-
 	public SeasonService getSeasonService() {
 		return seasonService;
 	}
-
 	public void setSeasonService(SeasonService seasonService) {
 		this.seasonService = seasonService;
 	}
-	
-	
-	
+		
 }

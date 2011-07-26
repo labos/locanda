@@ -36,21 +36,23 @@ public class AccountAction extends ActionSupport {
 	private UserService userService = null;
 	
 	@Actions(
-			@Action(value = "/goCreateAccount", 
-					results = { @Result(name = "success", location = "/createAccount-input.jsp") }))
+		@Action(value = "/goCreateAccount", results = { 
+				@Result(name = "success", location = "/createAccount-input.jsp")}
+		)
+	)
 	public String goCreateAccount() {
 
 		return SUCCESS;
 	}
 	
 	@Actions(
-			@Action(value = "/createAccount", 
-					results = { 
+			@Action(value = "/createAccount", results = { 
 					@Result(name = "success", location = "/createAccount-output.jsp"),
-					@Result(name = "input", location = "/createAccount-input.jsp")}))
+					@Result(name = "input", location = "/createAccount-input.jsp")
+			})
+	)
 	public String createAccount() {
 		if(this.getUserService().findUserByEmail(this.getUser().getEmail()) != null){
-			//Scrivere un messaggio di user duplicato!!!!!
 			addActionError(getText("warningDuplicateUser"));
 			return INPUT;
 		}
@@ -60,33 +62,23 @@ public class AccountAction extends ActionSupport {
 		return SUCCESS;
 	}
 
-	
-
 	public User getUser() {
 		return user;
 	}
-
 	public void setUser(User user) {
 		this.user = user;
 	}
-
 	public Integer getDisclaimer() {
 		return disclaimer;
 	}
-
 	public void setDisclaimer(Integer disclaimer) {
 		this.disclaimer = disclaimer;
 	}
-
 	public UserService getUserService() {
 		return userService;
 	}
-
 	public void setUserService(UserService userService) {
 		this.userService = userService;
 	}
 	
-	
-	
-
 }

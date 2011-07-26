@@ -24,11 +24,8 @@ import javax.servlet.ServletContext;
 import model.Facility;
 import model.Image;
 import model.Room;
-import model.UserAware;
-
 import model.RoomType;
-import model.Structure;
-import model.User;
+import model.UserAware;
 import model.internal.Message;
 
 import org.apache.commons.io.FileUtils;
@@ -68,7 +65,6 @@ public class UploadAction extends ActionSupport implements SessionAware,UserAwar
 	private Facility structureFacility = null;
 	private Image image = null;
 	private Integer idStructure;
-	
 	@Autowired
 	private StructureService structureService = null;
 	@Autowired
@@ -150,12 +146,9 @@ public class UploadAction extends ActionSupport implements SessionAware,UserAwar
 		})
 	})
 	public String uploadStructureFacility() throws IOException {
-		
 		ServletContext context = null;
 		String imgPath = null; 
-		
 		File target = null;
-		
 		
 		if(this.getFacilityService().findStructureFacilityByName(this.getIdStructure(),this.getName()) != null){
 			message.setResult(Message.ERROR);
@@ -181,7 +174,6 @@ public class UploadAction extends ActionSupport implements SessionAware,UserAwar
 		return SUCCESS;		
 	}
 	
-
 	@Actions({
 		@Action(value="/uploadRoomImageIF",results = {
 				@Result(name="success",location="/message_upload.jsp"),
@@ -198,12 +190,9 @@ public class UploadAction extends ActionSupport implements SessionAware,UserAwar
 	})
 	public String uploadRoomImage() throws IOException {
 		Room aRoom = null;
-		
 		ServletContext context = null; 
 		String imgPath = null; 
-		
 		File target = null;
-		
 		
 		if(this.getImageService().findRoomImageByName(this.getIdStructure(),this.getName()) != null){
 			message.setResult(Message.ERROR);
@@ -250,7 +239,6 @@ public class UploadAction extends ActionSupport implements SessionAware,UserAwar
 				})
 		})
 	})
-
 	public String uploadRoomTypeImage() throws IOException {
 		RoomType aRoomType = null;
 		ServletContext context = null; 
@@ -282,8 +270,7 @@ public class UploadAction extends ActionSupport implements SessionAware,UserAwar
 		
 		this.getImage().setId_roomType(this.getRoomType().getId());
 		this.getImageService().insertRoomTypeImage(this.getImage());
-	
-				
+			
 		message.setResult(Message.SUCCESS);
 		message.setDescription(getText("facilityImageAddSuccessAction"));
 		return SUCCESS;
@@ -304,11 +291,9 @@ public class UploadAction extends ActionSupport implements SessionAware,UserAwar
 		})
 	})
 	public String uploadStructureImage() throws IOException {
-		
 		ServletContext context = null; 
 		String imgPath = null; 
 		File target = null;
-	
 		
 		if(this.getImageService().findStructureImageByName(this.getIdStructure(),this.getName()) != null){
 			message.setResult(Message.ERROR);
@@ -333,11 +318,7 @@ public class UploadAction extends ActionSupport implements SessionAware,UserAwar
 		message.setDescription(getText("structureImageAddSuccessAction"));
 		return SUCCESS;
 	}
-	
 
-	
-	
-	
 	/*
 	@Actions({
 		@Action(value="/uploadRoomTypeFacilityIF",results = {
@@ -383,10 +364,7 @@ public class UploadAction extends ActionSupport implements SessionAware,UserAwar
 		message.setDescription(getText("logoAddSuccessAction"));
 		return SUCCESS;
 	}*/
-	
-	
-	
-	
+
 	public Map<String, Object> getSession() {
 		return session;
 	}
@@ -472,37 +450,23 @@ public class UploadAction extends ActionSupport implements SessionAware,UserAwar
 	public void setRoomService(RoomService roomService) {
 		this.roomService = roomService;
 	}
-
-
 	public ImageService getImageService() {
 		return imageService;
 	}
-
-
 	public void setImageService(ImageService imageService) {
 		this.imageService = imageService;
 	}
-
-
 	public FacilityService getFacilityService() {
 		return facilityService;
 	}
-
-
 	public void setFacilityService(FacilityService facilityService) {
 		this.facilityService = facilityService;
 	}
-
-
 	public Integer getIdStructure() {
 		return idStructure;
 	}
-
-
 	public void setIdStructure(Integer idStructure) {
 		this.idStructure = idStructure;
 	}
 	
-	
-
 }

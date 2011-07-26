@@ -19,11 +19,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import model.Structure;
-import model.User;
 import model.UserAware;
 import model.internal.Message;
 import model.listini.Convention;
+
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Actions;
 import org.apache.struts2.convention.annotation.InterceptorRef;
@@ -35,8 +34,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import service.BookingService;
 import service.ConventionService;
-import service.RoomPriceListService;
 import service.StructureService;
+
 import com.opensymphony.xwork2.ActionSupport;
 
 @ParentPackage( value="default")
@@ -50,15 +49,12 @@ public class ConventionAction extends ActionSupport implements SessionAware,User
 	private List<Convention> conventions = null;
 	private Convention convention = null;
 	private Integer idStructure;	
-	
 	@Autowired 
 	private StructureService structureService = null;
 	@Autowired
 	private ConventionService conventionService = null;
 	@Autowired
 	private BookingService bookingService = null;
-	
-	
 	
 	@Actions({
 		@Action(value="/findAllConventions",results = {
@@ -68,7 +64,6 @@ public class ConventionAction extends ActionSupport implements SessionAware,User
 	public String findAllConventions(){
 		List<Convention> filteredConventions = null;
 	
-		
 		filteredConventions = new ArrayList<Convention>();
 		for(Convention each: this.getConventionService().findConventionsByIdStructure(this.getIdStructure())){
 			if(!each.getActivationCode().equals("thisconventionshouldntneverberemoved")){
@@ -92,9 +87,7 @@ public class ConventionAction extends ActionSupport implements SessionAware,User
 	
 	@Actions({
 		@Action(value="/saveUpdateConvention",results = {
-				@Result(type ="json",name="success", params={
-						"root","message"
-				})
+				@Result(type ="json",name="success", params={"root","message"})
 		})
 	})
 	public String saveUpdateConvention(){
@@ -102,7 +95,7 @@ public class ConventionAction extends ActionSupport implements SessionAware,User
 				
 		oldConvention = this.getConventionService().findConventionById(this.getConvention().getId());
 		if(oldConvention == null){
-			//Si tratta di una aggiunta
+			//It's a new convention
 			//this.getConvention().setId(structure.nextKey());
 			this.getConvention().setId_structure(this.getIdStructure());
 			this.getConventionService().insertConvention(this.getConvention());
@@ -112,7 +105,7 @@ public class ConventionAction extends ActionSupport implements SessionAware,User
 			this.getMessage().setDescription(getText("conventionAddSuccessAction"));
 			
 		}else{
-			//Si tratta di un update
+			//It's an existing convention
 			this.getConvention().setId_structure(this.getIdStructure());
 			this.getConventionService().updateConvention(this.getConvention());
 			this.getMessage().setResult(Message.SUCCESS);
@@ -123,14 +116,9 @@ public class ConventionAction extends ActionSupport implements SessionAware,User
 	
 	@Actions({
 		@Action(value="/deleteConvention",results = {
-				@Result(type ="json",name="success", params={
-						"root","message"
-				}),
-				@Result(type ="json",name="error", params={
-						"root","message"
-				})
+				@Result(type ="json",name="success", params={"root","message"}),
+				@Result(type ="json",name="error", params={"root","message"})
 		})
-		
 	})
 	public String deleteConvention(){
 		Integer count = 0;
@@ -141,7 +129,7 @@ public class ConventionAction extends ActionSupport implements SessionAware,User
 		
 		if(this.getBookingService().countBookingsByIdConvention(id_convention) > 0){
 			this.getMessage().setResult(Message.ERROR);
-			this.getMessage().setDescription("Non è possibile cancellare la convention perchè esistono Booking associati a questa convention");
+			this.getMessage().setDescription(getText("conventionDeleteBookingError"));
 			return ERROR;
 		}
 		if(count > 0){
@@ -192,22 +180,17 @@ public class ConventionAction extends ActionSupport implements SessionAware,User
 	public void setConventionService(ConventionService conventionService) {
 		this.conventionService = conventionService;
 	}
-
 	public BookingService getBookingService() {
 		return bookingService;
 	}
-
 	public void setBookingService(BookingService bookingService) {
 		this.bookingService = bookingService;
 	}
-
 	public Integer getIdStructure() {
 		return idStructure;
 	}
-
 	public void setIdStructure(Integer idStructure) {
 		this.idStructure = idStructure;
 	}
-	
 	
 }

@@ -21,8 +21,6 @@ import java.util.Map;
 
 import model.Facility;
 import model.Room;
-import model.Structure;
-import model.User;
 import model.UserAware;
 import model.internal.Message;
 
@@ -68,6 +66,7 @@ public class RoomFacilityAction extends ActionSupport implements SessionAware,Us
 		})
 	})
 	public String goUpdateRoomFacilities() {
+		
 		this.setRoomFacilities(this.getFacilityService().findUploadedFacilitiesByIdStructure(this.getIdStructure()));
 		for(Facility each: this.getFacilityService().findRoomFacilitiesByIdRoom(this.getIdRoom())){	
 			this.roomFacilitiesIds.add(each.getId());			
@@ -77,15 +76,11 @@ public class RoomFacilityAction extends ActionSupport implements SessionAware,Us
 	
 	@Actions({
 		@Action(value="/updateRoomFacilities", results={
-				@Result(type ="json",name="success", params={
-						"root","message"
-				})					
+				@Result(type ="json",name="success", params={"root","message"})					
 			})
 	})
 	public String updateRoomFacilities() {
-		
 		List<Facility>  checkedFacilities = null;
-		
 		
 		this.setRoom(this.getRoomService().findRoomById(this.getIdRoom()));
 		checkedFacilities = this.getFacilityService().findUploadedFacilitiesByIds(this.getRoomFacilitiesIds());
@@ -100,12 +95,8 @@ public class RoomFacilityAction extends ActionSupport implements SessionAware,Us
 	
 	@Actions({
 		@Action(value="/deleteFacility", results={
-				@Result(type ="json",name="success", params={
-						"root","message"
-				}),
-				@Result(type ="json",name="error", params={
-						"root","message"
-				})	
+				@Result(type ="json",name="success", params={"root","message"}),
+				@Result(type ="json",name="error", params={"root","message"})	
 			})
 	})
 	public String deleteUploadedFacility() {
@@ -117,12 +108,8 @@ public class RoomFacilityAction extends ActionSupport implements SessionAware,Us
 			this.getMessage().setResult(Message.ERROR);
 			return ERROR;
 		}
-		
 	}
-	
-	
-	
-	
+
 	@Actions({
 		@Action(value="/updateFacility", results={
 				@Result(type ="json",name="success", params={
@@ -144,7 +131,6 @@ public class RoomFacilityAction extends ActionSupport implements SessionAware,Us
 			this.getMessage().setResult(Message.ERROR);
 			return ERROR;
 		}
-		
 	}
 		
 	public Map<String, Object> getSession() {
@@ -196,30 +182,23 @@ public class RoomFacilityAction extends ActionSupport implements SessionAware,Us
 	public void setRoomService(RoomService roomService) {
 		this.roomService = roomService;
 	}
-
 	public FacilityService getFacilityService() {
 		return facilityService;
 	}
-
 	public void setFacilityService(FacilityService facilityService) {
 		this.facilityService = facilityService;
 	}
-
 	public Facility getFacility() {
 		return facility;
 	}
-
 	public void setFacility(Facility facility) {
 		this.facility = facility;
 	}
-
 	public Integer getIdStructure() {
 		return idStructure;
 	}
-
 	public void setIdStructure(Integer idStructure) {
 		this.idStructure = idStructure;
 	}
-	
 		
 }

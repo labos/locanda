@@ -22,11 +22,8 @@ import java.util.Map;
 
 import model.Booking;
 import model.Guest;
-import model.Structure;
-import model.User;
 import model.UserAware;
 import model.internal.Message;
-
 
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Actions;
@@ -39,7 +36,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import service.BookingService;
 import service.GuestService;
-import service.UserService;
 
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -58,7 +54,6 @@ public class GuestAction extends ActionSupport implements SessionAware,UserAware
 	private String term;
 	private List<Integer> years = null;
 	private Integer idStructure = null;
-	
 	@Autowired
 	private GuestService guestService = null;
 	@Autowired
@@ -70,13 +65,12 @@ public class GuestAction extends ActionSupport implements SessionAware,UserAware
 		}) 
 	})
 	public String findAllGuests(){
-		
-		List<Integer> listYears =new ArrayList<Integer>();
+		List<Integer> listYears = new ArrayList<Integer>();
 		Integer currentYear = Calendar.getInstance().get(Calendar.YEAR);
+		
 		for (int i=1900; i<=currentYear; i++) {
 			listYears.add(i);
 		}
-		
 		this.setYears(listYears);
 		this.setGuests(
 				this.getGuestService().findGuestsByIdStructure(
@@ -86,15 +80,13 @@ public class GuestAction extends ActionSupport implements SessionAware,UserAware
 	
 	@Actions({
 		@Action(value="/findAllGuestsJson",results = {
-				@Result(type ="json",name="success", params={
-						"root","guests"
-				})}) ,
+				@Result(type ="json",name="success", params={"root","guests"})
+				}) ,
 				@Action(value="/findAllGuestsFiltered",results = {
 						@Result(name="success",location="/guests.jsp")
 				})
 	})
 	public String findAllGuestsFiltered() {
-		
 		List<Guest> allGuests = null;
 		List<Guest> returnedGuests = new ArrayList<Guest>();
 		
@@ -120,7 +112,6 @@ public class GuestAction extends ActionSupport implements SessionAware,UserAware
 		}) 
 	})
 	public String findAllGuestsByName() {
-		
 		List<Guest> allGuests = null;
 		List<Guest> returnedGuests = null;
 
@@ -146,12 +137,10 @@ public class GuestAction extends ActionSupport implements SessionAware,UserAware
 				@Result(type ="json",name="success", params={
 						"excludeProperties","session,guests,id,guestService,bookingService"
 				}) ,
-				@Result(type ="json",name="error", params={
-						"root","message"
-				})}) 
+				@Result(type ="json",name="error", params={"root","message"})
+				}) 
 	})	
-	public String findGuestById(){
-
+	public String findGuestById() {
 		Guest aGuest = null;
 		
 		this.addYears();
@@ -189,19 +178,18 @@ public class GuestAction extends ActionSupport implements SessionAware,UserAware
 		})	
 	})
 	public String saveUpdateGuest(){
-		
 		Guest oldGuest = null;
 		
 		oldGuest = this.getGuestService().findGuestById(this.getGuest().getId());
 		this.getGuest().setId_structure(this.getIdStructure());
 		if(oldGuest == null){
-			//Si tratta di una aggiunta
+			//It's a new guest
 			this.getGuestService().insertGuest(this.getGuest());
 			this.getMessage().setResult(Message.SUCCESS);
 			this.getMessage().setDescription(getText("guestAddSuccessAction"));
 			
 		}else{
-			//Si tratta di un update
+			//It's an existing guest
 			this.getGuestService().updateGuest(this.getGuest());
 			this.getMessage().setResult(Message.SUCCESS);
 			this.getMessage().setDescription(getText("guestUpdateSuccessAction"));
@@ -211,16 +199,11 @@ public class GuestAction extends ActionSupport implements SessionAware,UserAware
 	
 	@Actions({
 		@Action(value="/deleteGuest",results = {
-				@Result(type ="json",name="success", params={
-						"root","message"
-				}),
-				@Result(type ="json",name="error", params={
-						"root","message"
-				})
+				@Result(type ="json",name="success", params={"root","message"}),
+				@Result(type ="json",name="error", params={"root","message"})
 		})
 	})
 	public String deleteGuest(){
-
 		Integer id_guest = 0;
 		Integer count = 0;
 		
@@ -228,7 +211,7 @@ public class GuestAction extends ActionSupport implements SessionAware,UserAware
 		
 		if(this.getBookingService().countBookingsByIdGuest(id_guest) > 0){
 			this.getMessage().setResult(Message.ERROR);
-			this.getMessage().setDescription("Non è possibile cancellare il Guest perchè esistono dei Booking Associati a questo Guest");
+			this.getMessage().setDescription(getText("guestDeleteBookingError"));
 			return ERROR;
 		}
 		count = this.getGuestService().deleteGuest(id_guest);
@@ -241,12 +224,12 @@ public class GuestAction extends ActionSupport implements SessionAware,UserAware
 			this.getMessage().setDescription(getText("guestDeleteErrorAction"));
 			return ERROR;
 		}
-		
 	}
 	
 	private void addYears(){
 		List<Integer> listYears =new ArrayList<Integer>();
 		Integer currentYear = Calendar.getInstance().get(Calendar.YEAR);
+		
 		for (int i=1900; i<currentYear; i++) {
 			listYears.add(i);
 		}
@@ -302,7 +285,6 @@ public class GuestAction extends ActionSupport implements SessionAware,UserAware
 	public void setYears(List<Integer> years) {
 		this.years = years;
 	}
-
 	public GuestService getGuestService() {
 		return guestService;
 	}
@@ -315,14 +297,11 @@ public class GuestAction extends ActionSupport implements SessionAware,UserAware
 	public void setBookingService(BookingService bookingService) {
 		this.bookingService = bookingService;
 	}
-
 	public Integer getIdStructure() {
 		return idStructure;
 	}
-
 	public void setIdStructure(Integer idStructure) {
 		this.idStructure = idStructure;
 	}
-	
 	
 }

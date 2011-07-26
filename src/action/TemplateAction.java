@@ -26,7 +26,6 @@ import com.opensymphony.xwork2.ActionSupport;
 public class TemplateAction extends ActionSupport implements SessionAware{
 	private Map<String, Object> session = null;
 	
-	
 	public Map<String, Object> getSession() {
 		return session;
 	}

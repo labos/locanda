@@ -122,7 +122,7 @@ public class LoginAction extends ActionSupport implements SessionAware {
 		structure.setName("Locanda");
 		structure.setEmail("labopensource@gmail.com");
 		structure.setPhone("+39 070 92432684");
-		structure.setNotes("Struttura di esempio del sistema. Sovrascrivere i dati con quelli della propria struttura!");
+		structure.setNotes("Example structure. Please overwrite data with your own!");
 		structure.setId_user(id_user);
 		
 		ret = this.getStructureService().insertStructure(structure);

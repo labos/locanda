@@ -17,7 +17,6 @@ package action;
 
 import java.util.Map;
 
-import model.Facility;
 import model.Image;
 import model.Structure;
 import model.User;
@@ -38,7 +37,6 @@ import service.ImageService;
 import service.StructureService;
 import service.UserService;
 
-
 import com.opensymphony.xwork2.ActionSupport;
 
 @ParentPackage( value="default")
@@ -55,8 +53,6 @@ public class StructureAction extends ActionSupport implements SessionAware,UserA
 	private String password;
 	private String reTyped;
 	private Integer idStructure;
-	
-	
 	@Autowired
 	private StructureService structureService = null;
 	@Autowired
@@ -70,7 +66,6 @@ public class StructureAction extends ActionSupport implements SessionAware,UserA
 		@Action(value="/goUpdateDetails",results = {
 				@Result(name="success",location="/details_edit.jsp")
 		})
-		
 	})
 	public String goUpdateDetails() {
 		Structure structure = null;
@@ -85,15 +80,10 @@ public class StructureAction extends ActionSupport implements SessionAware,UserA
 
 	@Actions({
 		@Action(value="/updateDetails",results = {
-				@Result(type ="json",name="success", params={
-						"root","message"
-				}),
-				@Result(type ="json",name="error", params={
-						"root","message"
-				})
+				@Result(type ="json",name="success", params={"root","message"}),
+				@Result(type ="json",name="error", params={"root","message"})
 		})
 	})
-	
 	public String updateDetails() {
 		User user = null;
 		
@@ -109,15 +99,10 @@ public class StructureAction extends ActionSupport implements SessionAware,UserA
 	
 	@Actions({
 		@Action(value="/updateAccount",results = {
-				@Result(type ="json",name="success", params={
-						"root","message"
-				}),
-				@Result(type ="json",name="error", params={
-						"root","message"
-				})
+				@Result(type ="json",name="success", params={"root","message"}),
+				@Result(type ="json",name="error", params={"root","message"})
 		})
 	})
-	
 	public String updateAccount() {
 		User user = null;
 		
@@ -142,12 +127,8 @@ public class StructureAction extends ActionSupport implements SessionAware,UserA
 	
 	@Actions({
 		@Action(value="/deleteImageStructure",results = {
-				@Result(type ="json",name="success", params={
-						"root","message"
-				}),
-				@Result(type ="json",name="error", params={
-						"root","message"
-				})
+				@Result(type ="json",name="success", params={"root","message"}),
+				@Result(type ="json",name="error", params={"root","message"})
 		})
 	})
 	public String deleteImageStructure() {
@@ -166,14 +147,9 @@ public class StructureAction extends ActionSupport implements SessionAware,UserA
 	
 	@Actions({
 		@Action(value="/deleteStructureFacility",results = {
-				@Result(type ="json",name="success", params={
-						"root","message"
-				}),
-				@Result(type ="json",name="error", params={
-						"root","message"
-				})
+				@Result(type ="json",name="success", params={"root","message"}),
+				@Result(type ="json",name="error", params={"root","message"})
 		})
-		
 	})
 	public String deleteStructureFacility() {
 				
@@ -238,31 +214,23 @@ public class StructureAction extends ActionSupport implements SessionAware,UserA
 	public void setUserService(UserService userService) {
 		this.userService = userService;
 	}
-
 	public ImageService getImageService() {
 		return imageService;
 	}
-
 	public void setImageService(ImageService imageService) {
 		this.imageService = imageService;
 	}
-
 	public FacilityService getFacilityService() {
 		return facilityService;
 	}
-
 	public void setFacilityService(FacilityService facilityService) {
 		this.facilityService = facilityService;
 	}
-
 	public Integer getIdStructure() {
 		return idStructure;
 	}
-
 	public void setIdStructure(Integer idStructure) {
 		this.idStructure = idStructure;
 	}
-	
-	
 	
 }

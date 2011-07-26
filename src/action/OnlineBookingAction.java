@@ -23,13 +23,13 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import model.ExtraItem;
 import model.Booking;
 import model.Extra;
+import model.ExtraItem;
 import model.Room;
 import model.Structure;
 import model.listini.Convention;
-import model.User;
+
 import org.apache.commons.lang.time.DateUtils;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Actions;
@@ -44,6 +44,7 @@ import service.ExtraService;
 import service.GuestService;
 import service.RoomService;
 import service.StructureService;
+
 import com.opensymphony.xwork2.ActionSupport;
 
 @ParentPackage(value="default")
@@ -58,7 +59,6 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 	private List<Integer> bookingExtrasId = null;
 	private Integer idStructure;
 	private Structure structure;
-	
 	@Autowired
 	private ExtraService extraService = null;
 	@Autowired
@@ -117,9 +117,7 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 		Booking booking = null;
 		Date dateOut = null;
 		Convention defaultConvention = null;
-		
-		
-	
+
 		structure =  (Structure) this.getSession().get("structure");
 		this.setStructure(structure);
 		this.setIdStructure(structure.getId());
@@ -190,7 +188,6 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 	@Actions({
 		@Action(value="/goOnlineBookingGuest",results = {
 				@Result(name="success",location="/jsp/online/widget4.jsp"),
-				
 				@Result(name="input", location="/jsp/online/validationError.jsp")
 		})
 	})
@@ -200,7 +197,6 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 		Double extraSubtotal = 0.0;
 		List<ExtraItem> extraItems = null;
 		Booking booking = null;
-		
 		
 		structure =  (Structure) this.getSession().get("structure");
 		this.setStructure(structure);
@@ -252,7 +248,6 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 		return SUCCESS;
 	}
 
-	
 	private Double calculateTotalForBooking(Integer id_structure,Booking booking){
 		Double subTotal = null;
 		
@@ -283,7 +278,6 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 		return extraItems;
 	}
 	
-	
 	@Actions({
 		@Action(value="/online",results = {
 				@Result(name="success",location="/onlineBookingsPreview.jsp")
@@ -299,19 +293,15 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 		return SUCCESS;		
 	}
 
-	
-	
 	public List<Extra> getExtras() {
 		return extras;
 	}
 	public void setExtras(List<Extra> extras) {
 		this.extras = extras;
 	}
-	
 	public Integer getNumNights() {
 		return numNights;
 	}
-	
 	public List<Room> getRooms() {
 		return rooms;
 	}

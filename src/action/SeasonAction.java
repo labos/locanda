@@ -20,6 +20,11 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
+import model.UserAware;
+import model.internal.Message;
+import model.listini.Period;
+import model.listini.Season;
+
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Actions;
 import org.apache.struts2.convention.annotation.InterceptorRef;
@@ -31,14 +36,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import service.SeasonService;
 import service.StructureService;
-import com.opensymphony.xwork2.ActionSupport;
 
-import model.Structure;
-import model.User;
-import model.UserAware;
-import model.internal.Message;
-import model.listini.Period;
-import model.listini.Season;
+import com.opensymphony.xwork2.ActionSupport;
 
 @ParentPackage( value="default")
 @InterceptorRefs({
@@ -54,7 +53,6 @@ public class SeasonAction extends ActionSupport implements SessionAware,UserAwar
 	private List<Period> periods = new ArrayList<Period>();
 	private Message message = new Message();
 	private Integer idStructure;
-	
 	@Autowired
 	private StructureService structureService = null;	
 	@Autowired
@@ -84,18 +82,14 @@ public class SeasonAction extends ActionSupport implements SessionAware,UserAwar
 	}
 	
 	@Actions({ @Action(value = "/saveUpdateSeason", results = {
-			@Result(type = "json", name = "success", params = { "root",
-					"message" 
-					}),
+			@Result(type = "json", name = "success", params = {"root","message"}),
 			@Result(name = "input", location = "/validationError.jsp"),
-			@Result(type = "json", name = "error", params = { "root", "message" }) 
+			@Result(type = "json", name = "error", params = {"root", "message"}) 
 			}) 
 	})
 	public String saveUpdateSeason() {
-		
 		Season oldSeason = null;
 		List <Period> periodsWithoutNulls = null; 
-		
 		
 		periodsWithoutNulls = new ArrayList<Period>();
 
@@ -128,14 +122,14 @@ public class SeasonAction extends ActionSupport implements SessionAware,UserAwar
 		}
 		oldSeason = this.getSeasonService().findSeasonById(this.getSeason().getId());
 		if (oldSeason == null) {
-			// Si tratta di una nuova season
-			//Voglio settare l'anno della stagione con l'anno corrente	
+			//It's a new season
+			//Setting the season's year to the current year	
 			this.getSeasonService().insertSeason(this.getSeason());		
 			//this.getStructureService().refreshPriceLists(structure);	
 			this.getStructureService().addPriceListsForSeason(this.getIdStructure(), this.getSeason().getId());
 			this.getMessage().setDescription(getText("seasonAddSuccessAction"));		
 		} else {
-			// Si tratta di un update di una season esistente
+			//It's an existing season
 			this.getSeasonService().updateSeason(this.getSeason());			
 			this.getMessage().setDescription(getText("seasonUpdateSuccessAction"));			
 		}
@@ -144,8 +138,8 @@ public class SeasonAction extends ActionSupport implements SessionAware,UserAwar
 	}
 	
 	@Actions({ @Action(value = "/deleteSeason", results = {
-			@Result(type = "json", name = "success", params = { "root", "message" }),
-			@Result(type = "json", name = "error", params = { "root", "message" }) 
+			@Result(type = "json", name = "success", params = {"root", "message"}),
+			@Result(type = "json", name = "error", params = {"root", "message"}) 
 			})
 	})
 	public String deleteSeason() {
@@ -216,11 +210,9 @@ public class SeasonAction extends ActionSupport implements SessionAware,UserAwar
 	public void setStructureService(StructureService structureService) {
 		this.structureService = structureService;
 	}
-
 	public Integer getIdStructure() {
 		return idStructure;
 	}
-
 	public void setIdStructure(Integer idStructure) {
 		this.idStructure = idStructure;
 	}

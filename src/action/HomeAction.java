@@ -51,7 +51,6 @@ public class HomeAction extends ActionSupport implements SessionAware{
 			})	
 	})
 	public String goLogin(){
-
 		String ret = "notLogged";
 		
 		if(this.getSession().get("user")!=null){
