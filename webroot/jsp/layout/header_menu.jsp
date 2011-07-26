@@ -124,7 +124,7 @@ $(document).ready(function () { <%
 <div class="langMenu"></div>
 </div>
 
-<h1><span>&nbsp;</span><em>&nbsp;</em></h1>
+<h1><a href="<s:property value="url_home"/>?sect=planner" ><span>&nbsp;</span></a><em>&nbsp;</em></h1>
 <span></span></div>
 <!-- begin: main navigation #nav -->
 <div id="nav" role="navigation">
