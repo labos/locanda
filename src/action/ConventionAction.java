@@ -96,7 +96,7 @@ public class ConventionAction extends ActionSupport implements SessionAware,User
 		oldConvention = this.getConventionService().findConventionById(this.getConvention().getId());
 		if(oldConvention == null){
 			//It's a new convention
-			//this.getConvention().setId(structure.nextKey());
+			
 			this.getConvention().setId_structure(this.getIdStructure());
 			this.getConventionService().insertConvention(this.getConvention());
 			//this.getStructureService().refreshPriceLists(structure);

@@ -13,6 +13,7 @@
  * See the Licence for the specific language governing permissions and limitations under the Licence.
  * In case of controversy the competent court is the Court of Cagliari (Italy).
  *******************************************************************************/
+// loads files in models folder 
 steal("models/roomFacility.js","models/roomType.js","models/guest.js","models/extra.js", "models/room.js", "models/facility.js").
 		then( "controllers/main_controller.js").then(
 		 "controllers/guest_controller.js",
@@ -26,5 +27,5 @@ steal("models/roomFacility.js","models/roomType.js","models/guest.js","models/ex
  		"controllers/online_controller.js").then(
  		"controllers/booking_controller.js"
 
-);					// loads files in models folder 
+);	
 

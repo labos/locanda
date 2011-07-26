@@ -33,7 +33,7 @@
 			<span>&nbsp;</span></p>
     		<span class="name_section"><s:text name="booking" /></span>
           </div>
-<div>
+		<div>
 <jsp:include page="jsp/contents/booking_form.jsp" />
             </div>     
           </div>

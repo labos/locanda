@@ -226,621 +226,609 @@
   * Locanda customization
   *
   */
- 
-div.hideform {
+div.hideform
+{
 	display: none;
 	height: 100%;
-} 
- 
-div.header_section {
-position: relative;
-height:	60px;
 }
-div.header_section span.name_section {
-float:left;
-font-size: 250%;
-font-weight: 600;
+div.header_section
+{
+	height: 60px;
+	position: relative;
 }
-div.header_section span.btn_right {
-float:right;
-background-image:url('../images/logo_add.png');
-background-position:0 0;
-
+div.header_section span.name_section
+{
+	float: left;
+	font-size: 250%;
+	font-weight: 600;
 }
-
-div.header_section a.btn_right_ {
-float:right;
-background:url('../../images/locanda_add.png') no-repeat scroll 0 0 transparent;
-width: 191px;
-height: 44px;
-
+div.header_section span.btn_right
+{
+	background-image: url('../images/logo_add.png');
+	background-position: 0 0;
+	float: right;
 }
-div.header_section a.btn_right_en {
-float:right;
-background:url('../../images/locanda_add.png') no-repeat scroll 0 0 transparent;
-width: 191px;
-height: 44px;
-
+div.header_section a.btn_right_
+{
+	background: url('../../images/locanda_add.png') no-repeat scroll 0 0 transparent;
+	float: right;
+	height: 44px;
+	width: 191px;
 }
-
-
-div.header_section a.btn_right_it {
-float:right;
-background:url('../../images/locanda_add.png') no-repeat scroll 0px -90px transparent;
-width: 191px;
-height: 44px;
-
+div.header_section a.btn_right_en
+{
+	background: url('../../images/locanda_add.png') no-repeat scroll 0 0 transparent;
+	float: right;
+	height: 44px;
+	width: 191px;
 }
-
-div.header_section a.btn_right_it:hover {
-
-background-position:0 -137px;
-
+div.header_section a.btn_right_it
+{
+	background: url('../../images/locanda_add.png') no-repeat scroll 0px -90px transparent;
+	float: right;
+	height: 44px;
+	width: 191px;
 }
-
-div.header_section a.btn_right_en:hover {
-
-background-position:0 -44px;
-
+div.header_section a.btn_right_it:hover
+{
+	background-position: 0 -137px;
 }
-
-
-a.btn_season {
-float:left;
-background:url('../../images/locanda_add_season.png') no-repeat scroll 0 0 transparent;
-width: 191px;
-height: 44px;
+div.header_section a.btn_right_en:hover
+{
+	background-position: 0 -44px;
 }
-a.btn_season:hover {
-
-background-position:0 -44px;
-
+a.btn_season
+{
+	background: url('../../images/locanda_add_season.png') no-repeat scroll 0 0 transparent;
+	float: left;
+	height: 44px;
+	width: 191px;
 }
-a.btn_save_all {
-float:left;
-background:url('../../images/btn_save_all.png') no-repeat scroll 0 0 transparent;
-width: 191px;
-height: 44px;
+a.btn_season:hover
+{
+	background-position: 0 -44px;
 }
-a.btn_save_all:hover {
-background-position:0 -44px;
+a.btn_save_all
+{
+	background: url('../../images/btn_save_all.png') no-repeat scroll 0 0 transparent;
+	float: left;
+	height: 44px;
+	width: 191px;
 }
-
+a.btn_save_all:hover
+{
+	background-position: 0 -44px;
+}
 a.btn_right_save_all
 {
-float:right;
-background:url('../../images/btn_save_all.png') no-repeat scroll 0 0 transparent;
-width: 129px;
-height: 44px;
+	background: url('../../images/btn_save_all.png') no-repeat scroll 0 0 transparent;
+	float: right;
+	height: 44px;
+	width: 129px;
 }
-a.btn_right_save_all:hover {
-background-position:0 -44px;
+a.btn_right_save_all:hover
+{
+	background-position: 0 -44px;
 }
-
 a.btn_right_add_new
 {
-float:right;
-background:url('../../images/btn_add_new.png') no-repeat scroll 0 0 transparent;
-width: 129px;
-height: 44px;
+	background: url('../../images/btn_add_new.png') no-repeat scroll 0 0 transparent;
+	float: right;
+	height: 44px;
+	width: 129px;
 }
-
-a.btn_right_add_new:hover {
-background-position:0 -44px;
+a.btn_right_add_new:hover
+{
+	background-position: 0 -44px;
 }
-
-ul.sub_menu{
-display: none;
-position: absolute;
-margin: 0;
-padding: 0;
-clear: both;
-margin-left: 0! important;
-margin-top: 0px;
-z-index:2000;
-left: 0;
+ul.sub_menu
+{
+	clear: both;
+	display: none;
+	left: 0;
+	margin: 0;
+	margin-left: 0! important;
+	margin-top: 0px;
+	padding: 0;
+	position: absolute;
+	z-index: 2000;
 }
-ul.sub_menu li, ul.sub_menu li a{
-background: none;
-border: none;
+ul.sub_menu li, ul.sub_menu li a
+{
+	background: none;
+	border: none;
 }
-
-ul.sub_menu li, ul.sub_menu li a{
--moz-border-radius: 6px;
-border-radius: 6px;
+ul.sub_menu li, ul.sub_menu li a
+{
+	border-radius: 6px;
+	moz-border-radius: 6px;
 }
-
-ul.sub_menu li:hover,ul.sub_menu li a:hover {
-background: none;
-background-color: #AFD775;
-
-
+ul.sub_menu li:hover,ul.sub_menu li a:hover
+{
+	background: none;
+	background-color: #AFD775;
 }
-#header {
-background: none;
-height: 45px;
+#header
+{
+	background: none;
+	height: 45px;
 }
-
-.hlist{
-background-color: #fff;
+.hlist
+{
+	background-color: #fff;
 }
-.yform {
-background: none;
-border: none;
-text-align: left;
+.yform
+{
+	background: none;
+	border: none;
+	text-align: left;
 }
-.yform div.chng_pwd{
-display: none;
+.yform div.chng_pwd
+{
+	display: none;
 }
-.yform .error {
-color: #880000;
-font-weight: 600;
+.yform .error
+{
+	color: #880000;
+	font-weight: 600;
 }
-
-.c10l {
-width:10%;
-float:left;
+.c10l
+{
+	float: left;
+	width: 10%;
 }
-.c5l {
-width:5%;
-float:left;
+.c5l
+{
+	float: left;
+	width: 5%;
 }
-
-.c45l {
-width:45%;
-float:left;
+.c45l
+{
+	float: left;
+	width: 45%;
 }
-.c10r {
-width:10%;
-float:right;
+.c10r
+{
+	float: right;
+	width: 10%;
 }
-
-span.title_season{
-font-size: 13px;
-font-weight:600;
+span.title_season
+{
+	font-size: 13px;
+	font-weight: 600;
 }
-span.title_season input{
-border: 1px solid #fff;
+span.title_season input
+{
+	border: 1px solid #fff;
 }
 #chng_season_name
 {
-display: none;
-float:left;
-background: none;
-margin-top: 6px;
-cursor: text;
-color: #000;
-font-weight: 600;
-font-size: 15px;
+	background: none;
+	color: #000;
+	cursor: text;
+	display: none;
+	float: left;
+	font-size: 15px;
+	font-weight: 600;
+	margin-top: 6px;
 }
-.type-button a:focus{
-text-decoration: none;
-outline: none;
+.type-button a:focus
+{
+	outline: none;
+	text-decoration: none;
 }
-.yform div.type-select {
-font-weight: 600;
+.yform div.type-select
+{
+	font-weight: 600;
 }
-
-div.type_rooms label{
-display: inline;
+div.type_rooms label
+{
+	display: inline;
 }
-
- .right {
-  	float:right;
-  }
-  
-  .left {
-  	float:left;
-  }
-  
-  .center {
-    text-align:center;
-  }
-  
-  #home {
-    font-size: 120%;
-    padding: 3%;
+.right
+{
+	float: right;
+}
+.left
+{
+	float: left;
+}
+.center
+{
 	text-align: center;
-  }
-  
-  
-  .radiogroup {
+}
+#home
+{
+	font-size: 120%;
+	padding: 3%;
+	text-align: center;
+}
+.radiogroup
+{
 	margin-left: 1.2em;
 	margin-right: 1.2em;
-  }
-  
- 
-  #price_room, #extra_room, #extras_room, .subtotal_room, .balance_room {
+}
+#price_room, #extra_room, #extras_room, .subtotal_room, .balance_room
+{
 	font-size: 20px;
-  }
-.extra_value_adjustment, #extra_adjustment, #per_value, #all_year, #next_thanks, #per_breakfast, #per_parking {
-width: 40px;
-display: inline;
 }
-
-  .clickable {
-  	cursor: pointer;
-	font-weight: 600;
+.extra_value_adjustment, #extra_adjustment, #per_value, #all_year, #next_thanks, #per_breakfast, #per_parking
+{
+	display: inline;
+	width: 40px;
+}
+.clickable
+{
 	color: blue;
-  }
-.yform div.type-text input.describe {
-border: none;
-font-weight: 600;
+	cursor: pointer;
+	font-weight: 600;
 }
-
+.yform div.type-text input.describe
+{
+	border: none;
+	font-weight: 600;
+}
 a.describe_edit:focus
 {
-text-decoration: none;
-outline: none;
+	outline: none;
+	text-decoration: none;
 }
-input[name="room_name"]{
-border: none;
-font-size: 17px;
-font-weight: 600;
+input[name="room_name"]
+{
+	border: none;
+	font-size: 17px;
+	font-weight: 600;
 }
-input[name="room_name"]:focus{
-border: 1px solid #000;
-
+input[name="room_name"]:focus
+{
+	border: 1px solid #000;
 }
-
-input[name="description"]:hover{
-border: none;
+input[name="description"]:hover
+{
+	border: none;
 }
-
-.edited_room_name {
-color: red;
+.edited_room_name
+{
+	color: red;
 }
-
-select[name="confirm"]{
-width: 120px;
+select[name="confirm"]
+{
+	width: 120px;
 }
-input.txt_guest_search{
-width: 320px;
-float:left;
-height: 25px;
-font-size: 17px;
-font-weight: 600;
+input.txt_guest_search
+{
+	float: left;
+	font-size: 17px;
+	font-weight: 600;
+	height: 25px;
+	width: 320px;
 }
-
-.btn_g_search{
-margin-left: 8px;
-margin-top: 0px;
+.btn_g_search
+{
+	margin-left: 8px;
+	margin-top: 0px;
 }
-div.search_links {
-clear: left;
-height: 30px;
-	
+div.search_links
+{
+	clear: left;
+	height: 30px;
 }
-div.search_links a, div.search_links span {
-	
+div.search_links a, div.search_links span
+{
 }
-
-.book_guest span {
-color: #333333;
-font-size: 14px;
+.book_guest span
+{
+	color: #333333;
+	font-size: 14px;
 }
-
-.book_guest span.link {
-color: blue;
-font-weight: 600;
+.book_guest span.link
+{
+	color: blue;
+	font-weight: 600;
 }
-
-ul.list_usable {
-display: none;
+ul.list_usable
+{
+	display: none;
 }
-.yform .type-text textarea.large {
-width:100%;
-height: 180px;
+.yform .type-text textarea.large
+{
+	height: 180px;
+	width: 100%;
 }
-
-.type_rooms {
-text-align: left;	
+.type_rooms
+{
+	text-align: left;
 }
-div.book_details{
-text-align: left;
+div.book_details
+{
+	text-align: left;
 }
-
-#change_rate {
-color:#4D87C7;
- background:transparent;
- text-decoration:none; 
+#change_rate
+{
+	background: transparent;
+	color: #4D87C7;
+	text-decoration: none;
 }
-
-#change_rate:hover, #change_rate:focus{
-outline: none;
-
+#change_rate:hover, #change_rate:focus
+{
+	outline: none;
 }
-
-.yform .type-text .small_input {
-width: 15%;
-display: inline;
+.yform .type-text .small_input
+{
+	display: inline;
+	width: 15%;
 }
-
-input[name="room.name"]{
-color: #595959;
-font-weight: 600;
+input[name="room.name"]
+{
+	color: #595959;
+	font-weight: 600;
 }
-
-.ui-widget-overlay {
-     position: absolute;
-     top: 0;
-     left: 0;
-     width: 100%;
-     height: 100%;
-     background-color:#000;
-     opacity: 0.7;
-	 display: none;
+.ui-widget-overlay
+{
+	background-color: #000;
+	display: none;
+	height: 100%;
+	left: 0;
+	opacity: 0.7;
+	position: absolute;
+	top: 0;
+	width: 100%;
 	z-index: 1500;
-     }
-
-.upload_loader {
-display:none;
- background: url("../../images/loading.gif"); 
-width:15px;
- height:15px;
- vertical-align:text-bottom;
 }
-
-div.facility {
-position: relative;
-border: 1px dotted grey;
-padding:2px;
-margin-bottom:2px;
-
+.upload_loader
+{
+	background: url("../../images/loading.gif");
+	display: none;
+	height: 15px;
+	vertical-align: text-bottom;
+	width: 15px;
 }
-.facility label{
-display: inline;
+div.facility
+{
+	border: 1px dotted grey;
+	margin-bottom: 2px;
+	padding: 2px;
+	position: relative;
 }
-
-
-
-div.beautify fieldset {
-display: block;
-background:none repeat scroll 0 0 #FAFAFA;
-border:1px solid #DDDDDD;
-margin:0 0 1em;
-padding:0.5em;
-
+.facility label
+{
+	display: inline;
 }
-
-.beautify .error {
-color:#880000;
-font-weight:600;
+div.beautify fieldset
+{
+	background: none repeat scroll 0 0 #FAFAFA;
+	border: 1px solid #DDDDDD;
+	display: block;
+	margin: 0 0 1em;
+	padding: 0.5em;
 }
-
-a.navigation-tab {
-float:left;
-width: 32px;
-height: 32px;
-background:url('../../images/go-back-icon.png') no-repeat scroll 0 0 transparent;
-		  }
-
-a.home {
-height:32px;
-line-height:50px;
-margin:5px 5px 0 0;
-width:32px;
-background:url('../../images/home_small.png') no-repeat scroll 0 0 transparent;
+.beautify .error
+{
+	color: #880000;
+	font-weight: 600;
 }
-
-
+a.navigation-tab
+{
+	background: url('../../images/go-back-icon.png') no-repeat scroll 0 0 transparent;
+	float: left;
+	height: 32px;
+	width: 32px;
+}
+a.home
+{
+	background: url('../../images/home_small.png') no-repeat scroll 0 0 transparent;
+	height: 32px;
+	line-height: 50px;
+	margin: 5px 5px 0 0;
+	width: 32px;
+}
 p.navigation
 {
-	line-height:2;
-	 display:inline;
+	display: inline;
 	font-weight: bold;
+	line-height: 2;
 }
 p.navigation a, p.navigation b, p.navigation span
 {
 	float: left;
 	font-size: 120%;
 }
-
 div.beautify
 {
-width: 100%;
-background:none repeat scroll 0 0 #FAFAFA;
-border:1px solid #DDDDDD;
-margin:-13px 0 1em;
-padding:0.5em;
-float:left;
+	background: none repeat scroll 0 0 #FAFAFA;
+	border: 1px solid #DDDDDD;
+	float: left;
+	margin: -13px 0 1em;
+	padding: 0.5em;
+	width: 100%;
 }
-
 div.beauty
 {
-background:none repeat scroll 0 0 #FAFAFA;
-border:1px solid #DDDDDD;
-margin:0px 0 1em;
-padding:0.5em;
+	background: none repeat scroll 0 0 #FAFAFA;
+	border: 1px solid #DDDDDD;
+	margin: 0px 0 1em;
+	padding: 0.5em;
 }
-#topnav a.logout {
-display: block;
-float: right;
-background:url('../../images/logout.png') no-repeat scroll 0 0 transparent;
-height: 32px;
-width: 32px;
+#topnav a.logout
+{
+	background: url('../../images/logout.png') no-repeat scroll 0 0 transparent;
+	display: block;
+	float: right;
+	height: 32px;
+	width: 32px;
 }
-
-.loaderback {
-background:url('../../images/booking_loader.gif') no-repeat scroll 0 0 transparent;
-background-position: center;
-
+.loaderback
+{
+	background: url('../../images/booking_loader.gif') no-repeat scroll 0 0 transparent;
+	background-position: center;
 }
-
-ul.thumbs, ul.thumbs_facility {
-float:left;
-margin:0;
-padding:0;
-position:relative;
+ul.thumbs, ul.thumbs_facility
+{
+	float: left;
+	margin: 0;
+	padding: 0;
+	position: relative;
 }
-
-ul.thumbs li, ul.thumbs_facility li {
-float:left;
-list-style:none outside none;
-margin:2px;
-padding:0;
-opacity: 0.67;
+ul.thumbs li, ul.thumbs_facility li
+{
+	float: left;
+	list-style: none outside none;
+	margin: 2px;
+	opacity: 0.67;
+	padding: 0;
 }
-
-ul.thumbs li:hover, ul.thumbs_facility li:hover  {
-opacity: 1.0;
+ul.thumbs li:hover, ul.thumbs_facility li:hover
+{
+	opacity: 1.0;
 }
-
-ul.thumbs li a.thumb img,ul.thumbs_facility li a.thumb img {
-border:medium none;
-display:block;
-width: 95px;
-height: 95px;
-
+ul.thumbs li a.thumb img,ul.thumbs_facility li a.thumb img
+{
+	border: medium none;
+	display: block;
+	height: 95px;
+	width: 95px;
 }
-
-ul.thumbs li  span,  ul.thumbs_facility li  span {
-background:none repeat scroll 0 0 rgba(0, 0, 0, 0.5);
-bottom:5px;
-right:5px;
-max-width:80px;
-max-height: 18px;
-padding:1px 5px;
-position:absolute;
-color: #fff;
-font-weight: 600;
-overflow: hidden;
+ul.thumbs li span, ul.thumbs_facility li span
+{
+	background: none repeat scroll 0 0 rgba(0, 0, 0, 0.5);
+	bottom: 5px;
+	color: #fff;
+	font-weight: 600;
+	max-height: 18px;
+	max-width: 80px;
+	overflow: hidden;
+	padding: 1px 5px;
+	position: absolute;
+	right: 5px;
 }
-
-ul.thumbs li  span a, ul.thumbs_facility li span a {
-top: 0px;
-right: 1px;
-position:absolute;
-
+ul.thumbs li span a, ul.thumbs_facility li span a
+{
+	position: absolute;
+	right: 1px;
+	top: 0px;
 }
-
-.noBorder {
+.noBorder
+{
+	background: none;
 	border: none;
-	background:none
 }
-
-input.static_small_input {
+input.static_small_input
+{
 	width: 40px;
 }
-
-#topnav a.login-top, a.login-bottom{
-color:#3B5998;
-background:url("../images/key-icon.png") no-repeat scroll 5px 5px #DEE8FC;
--webkit-border-radius: 5px 5px 5px 5px;
--moz-border-radius:5px 5px 5px 5px;
-border:1px solid #88A4D6;
-cursor:pointer;
-font-size:15px;
-font-weight:bold;
-left:690px;
-padding:2px 7px 2px 27px;
-text-decoration:none;
-top:24px;
-width: 130px;
-height: 32px;
-
+#topnav a.login-top, a.login-bottom
+{
+	background: url("../images/key-icon.png") no-repeat scroll 5px 5px #DEE8FC;
+	border: 1px solid #88A4D6;
+	color: #3B5998;
+	cursor: pointer;
+	font-size: 15px;
+	font-weight: bold;
+	height: 32px;
+	left: 690px;
+	-moz-border-radius: 5px 5px 5px 5px;
+	padding: 2px 7px 2px 27px;
+	text-decoration: none;
+	top: 24px;
+	webkit-border-radius: 5px 5px 5px 5px;
+	width: 130px;
 }
-
-#topnav a.login-top:hover{
-color:#fff;
-background:url("../images/key-icon.png") no-repeat scroll 5px 5px #88A4D6;
-
+#topnav a.login-top:hover
+{
+	background: url("../images/key-icon.png") no-repeat scroll 5px 5px #88A4D6;
+	color: #fff;
 }
-
-#topnav a.flag_it{
-display: block;
-background:url("../images/flags/it.png") no-repeat scroll;
-width: 16px;
-height: 16px;
-float:left;
-margin-right:3px;
+#topnav a.flag_it
+{
+	background: url("../images/flags/it.png") no-repeat scroll;
+	display: block;
+	float: left;
+	height: 16px;
+	margin-right: 3px;
+	width: 16px;
 }
-
-#topnav a.flag_en{
-display: block;
-background:url("../images/flags/en.png") no-repeat scroll;
-width: 16px;
-height: 16px;
-float: left;
-margin-right:3px;
-
+#topnav a.flag_en
+{
+	background: url("../images/flags/en.png") no-repeat scroll;
+	display: block;
+	float: left;
+	height: 16px;
+	margin-right: 3px;
+	width: 16px;
 }
-
-div.langMenu {
-float:left;
-height: 17px;
-}
-
-.yform .type-select select.confirm {
-width: 80%;
-
-}
-
-.facility img {
-cursor: pointer;
-}
-
-span.hov_edit {
-	display: none;
-	position: absolute;
-	width:24px;
+div.langMenu
+{
+	float: left;
 	height: 17px;
-	bottom:0px;
+}
+.yform .type-select select.confirm
+{
+	width: 80%;
+}
+.facility img
+{
+	cursor: pointer;
+}
+span.hov_edit
+{
 	background: url("../images/edit-icon.png") no-repeat scroll;
 	background-color: #3B3A3A;
+	bottom: 0px;
 	cursor: pointer;
-	
-	}
-
-input[name='facility_name'] {
-width: 180px;
+	display: none;
+	height: 17px;
+	position: absolute;
+	width: 24px;
 }
-
+input[name='facility_name']
+{
+	width: 180px;
+}
 #signup ul
 {
-margin: 0;
-padding: 0;
-list-style-type: none;
-text-align: center;
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	text-align: center;
 }
-
-#signup ul li { display: inline; }
-#signup ul li a{ text-decoration: none;
-padding: .2em 1em;
-color: #fff;
-background-color: #327E04;
-font-weight: 600;
- }
-
-.errorMessage{
-color: red;
+#signup ul li
+{
+	display: inline;
 }
-
-a.skype{
-	float: right;
-	width:24px;
-	height: 22px;
+#signup ul li a
+{
+	background-color: #327E04;
+	color: #fff;
+	font-weight: 600;
+	padding: .2em 1em;
+	text-decoration: none;
+}
+.errorMessage
+{
+	color: red;
+}
+a.skype
+{
 	background: url("../images/skype-icon.png") no-repeat scroll 0 0 transparent;
 	cursor: pointer;
-}
-
-a.gmaps{
 	float: right;
-	width:24px;
 	height: 22px;
+	width: 24px;
+}
+a.gmaps
+{
 	background: url("../images/maps-icon.png") no-repeat scroll 0 0 transparent;
 	cursor: pointer;
-}
-
-span.copy {
-	display: none;
-	width:24px;
+	float: right;
 	height: 22px;
+	width: 24px;
+}
+span.copy
+{
 	background: url("../images/copy.png") no-repeat scroll 0 0 transparent;
 	cursor: pointer;
+	display: none;
 	float: right;
+	height: 22px;
+	width: 24px;
 }
-
-/*.validationErrors{
-	border: 1px dotted red;
-}*/

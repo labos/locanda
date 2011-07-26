@@ -37,12 +37,13 @@
                 <input type="password" class="required" name="password" id="password" size="20"  aria-required="true"/>
               </div>
             </fieldset>
-            <div  id="signup" class="type-text">
-            <ul><li><strong><s:text name="notRegistered"/></strong></li><li><a href="<s:property value="url_account"/>"><s:text name="signup"/></a></li></ul>
-            </div>
+
             <div class="type-button">
           	  <button class="btn_submit" type="submit" role="button" aria-disabled="false"><s:text name="login"/></button>
             </div>
           </form>
+            <div  id="signup" class="type-text">
+            <ul><li><strong><s:text name="notRegistered"/></strong></li><li><a href="<s:property value="url_account"/>"><s:text name="signup"/></a></li></ul>
+            </div>
       </div><!-- end: #home -->
 <jsp:include page="jsp/layout/footer.jsp" />         
