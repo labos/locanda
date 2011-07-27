@@ -175,12 +175,12 @@ $(document).ready(function () { <%
 	</ul>
 	</li>
 	<li><a href="#"><s:text name="help" /></a>
-	<ul class="sub_menu ui-menu ui-widget ui-widget-content ui-corner-all">
+	<!--<ul class="sub_menu ui-menu ui-widget ui-widget-content ui-corner-all">
 		<li class="ui-menu-item"><a
 			href="<s:property value="url_download"/>?sect=help">Download</a></li>
 	</ul>
 
-	</li>
+	--></li>
 </ul>
 </div>
 </div>
