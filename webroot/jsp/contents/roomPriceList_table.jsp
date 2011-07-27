@@ -22,7 +22,7 @@
 <s:iterator value="priceList.items" var="eachPriceListItem" status="itemStatus">
           	  <tr>
           	  	<td>	
-				<input type="hidden" name="redirect_form" value="goFindAllRoomPriceLists.action?sect=settings" />
+				<input type="hidden" name="redirect_form" value="false" />
 				<input type="hidden" name="priceList.items[<s:property value="#itemStatus.index"/>].id" value="<s:property value="#eachPriceListItem.id"/>"/><s:property value="#eachPriceListItem.numGuests"/></td>
           	  	<td><input type="text" name="priceList.items[<s:property value="#itemStatus.index"/>].priceMonday" id="priceMonday" value="<s:property value="#eachPriceListItem.priceMonday"/>" class="required number noBorder static_small_input" readonly="readonly"/>
           	  	<span class="copy"></span></td>

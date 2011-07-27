@@ -134,9 +134,9 @@ width:80%;
                <h2><a href="#top_accordion"><s:text name="bookerDetails" /></a></h2>
                <div>
                   <div class="type-text"><label for="phone"><s:text name="phone" />:</sup> </label> 
-                  <input type="text" name="booking.booker.phone" id="phone" value="<s:property value="booking.booker.phone"/>"/></div>
+                  <input type="text" class="validPhone" name="booking.booker.phone" id="phone" value="<s:property value="booking.booker.phone"/>"/></div>
                		<div class="type-text"><label for="email">Email:</label> 
-                  <input type="text" name="booking.booker.email" id="email" value="<s:property value="booking.booker.email"/>" /></div>
+                  <input type="text" name="booking.booker.email"  class="email" id="email" value="<s:property value="booking.booker.email"/>" /></div>
                    <div class="type-text"><label for="notes">Note:</label> 
                   	  <textarea name="booking.notes" id="notes"><s:property value="booking.notes"/></textarea>
                     </div>
@@ -225,7 +225,7 @@ width:80%;
               		     <div  class="subcolumns payment_row">
               		     <input type="hidden" class="idPayment" name="booking.payments[<s:property value="#paymentStatus.index"/>].id" value="<s:property value="#eachPayment.id"/>"/>
               		    <div class="c40l"><div class="subcl type-text"><span><s:text name="name" />:</span><input type="text" name="booking.payments[<s:property value="#paymentStatus.index"/>].description" value="<s:property value="#eachPayment.description" />" class="require" style="width: 90%;" /></div></div>
-                  	  	<div class="c33l"><div class="subcl type-text"><span><s:text name="amount" />(&euro;):</span><input type="text" name="booking.payments[<s:property value="#paymentStatus.index"/>].amount"  value="<s:property value="#eachPayment.amount" />" class="extra_value_payment required validPrice"/></div></div>
+                  	  	<div class="c33l"><div class="subcl type-text"><span><s:text name="amount" />(&euro;):</span><input type="text" name="booking.payments[<s:property value="#paymentStatus.index"/>].amount"  value="<s:property value="#eachPayment.amount" />" class="extra_value_payment required validPricePositive"/></div></div>
                   	  	 <div class="c25r"><label>&nbsp;</label><a href="#bottom_anchor_payment" class="erase_payment" title="erase"><img src="images/delete.png" alt="Delete Payment" /><s:text name="deletePayment" /></a>
               			</div>
                   	  </div>
@@ -271,7 +271,7 @@ width:80%;
                   	  
                   	  <div  class="subcolumns payment_row" id="to_add_payment" style="display: none;" >
                   	     <div class="c40l"><div class="subcl type-text"><span><s:text name="name" />:</span><input type="text" name="booking.payments[__PVALUE__].description" class="require" style="width: 90%;" /></div></div>
-                  	  	<div class="c33l"><div class="subcl type-text"><span><s:text name="amount" />(&euro;):</span><input type="text" name="booking.payments[__PVALUE__].amount"  class="extra_value_payment validPrice"/></div></div>
+                  	  	<div class="c33l"><div class="subcl type-text"><span><s:text name="amount" />(&euro;):</span><input type="text" name="booking.payments[__PVALUE__].amount"  class="extra_value_payment validPricePositive"/></div></div>
                   	  	 <div class="c25r"><label>&nbsp;</label><a href="#bottom_anchor_payment" class="erase_payment" title="erase"><img src="images/delete.png" alt="Delete Payment" /><s:text name="deleteAdjustment" /></a>
               			</div>
                   	  </div>

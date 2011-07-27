@@ -284,11 +284,11 @@
               	  </div>
               	  <div class="type-text">
 					<label for="phone"><s:text name="phone"/><sup title="This field is mandatory.">*</sup></label>
-                	<input type="text" class="required" name="structure.phone" id="phone" value="<s:property value="structure.phone"/>" aria-required="true" />
+                	<input type="text" class="required validPhone"  name="structure.phone" id="phone" value="<s:property value="structure.phone"/>" aria-required="true" />
               	  </div>
               	  <div class="type-text">
 					<label for="fax"><s:text name="fax"/></label>
-                	<input type="text" name="structure.fax" id="fax" value="<s:property value="structure.fax"/>" aria-required="true" />
+                	<input type="text" class="required validPhone" name="structure.fax"  id="fax" value="<s:property value="structure.fax"/>" aria-required="true" />
               	  </div>
               	  <div class="type-text">
                   	<label for="notes"><s:text name="notes"/></label> 

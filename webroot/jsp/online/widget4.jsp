@@ -51,7 +51,7 @@
       </div>
       <div id="phoneNameDiv" data-role="fieldcontain">
         <label for="phoneNo"><s:text name="phone"/>*</label>
-        <input id="phoneNo" name="booking.booker.phone" type="text" class="required"/>
+        <input id="phoneNo" name="booking.booker.phone" type="text" class="required validPhone"/>
       </div>
       <div id="emailNameDiv" data-role="fieldcontain">
         <label for="emailNo"><s:text name="email"/>*</label>

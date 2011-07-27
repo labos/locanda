@@ -37,6 +37,7 @@ $.i18n.en.strings = {
     facilityTypeFileError: "File type not allowed. Only jpeg, gif or png are allowed",
     bookingOverlapping: "Error checking booking overlappings in server",
     validPriceAlert: "Please enter a valid price value",
+    validPhoneAlert: "Please enter a valid phone number",
     alertCancel: "Please note the changes you have made will not be saved. Do you want to quit anyway?",
     today: "Today",
     prev: "Prev",

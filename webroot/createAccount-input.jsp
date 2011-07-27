@@ -46,7 +46,7 @@
 <div class="type-text"><label for="phone"><s:text
 	name="phone" /> <sup title="This field is mandatory.">*</sup></label> <input
 	type="text" aria-required="true" size="20" id="phone" name="user.phone"
-	class="required" value="<s:property value="user.phone"/>" /></div>
+	class="required validPhone" value="<s:property value="user.phone"/>" /></div>
 <div class="type-text">
                 <label for="message"><s:text name="disclaimer" /></label><textarea
 	rows="5" cols="60">Ai sensi dell'articolo 13 del Dlgs. n. 196/2003, relativo alla tutela delle persone e di altri soggetti rispetto

@@ -66,7 +66,7 @@ $(document).ready(function () {
 
        	        $.jGrowl(description, {
        	            beforeClose: function (e, m) {
-       	                if (redirect) {
+       	                if (redirect && redirect !=='false') {
        	                    window.location.href = redirect;
        	                }
        	            },
@@ -88,7 +88,17 @@ $(document).ready(function () {
     	
     	init: function (){
     		
-        	
+        	/* Add validation rules */
+      
+            jQuery.validator.addMethod("validPricePositive", function (value, element) {
+                return this.optional(element) || /^[0-9]+[.]?[0-9]*([eE][0-9]+)?$/.test(value);
+            }, $.i18n("validPriceAlert"));
+            
+            // set decimal format validation
+            jQuery.validator.addMethod("validPhone", function (value, element) {
+                return this.optional(element) || /(^[\d\s\/\+]{5,})$/.test(value);
+            }, $.i18n("validPhoneAlert"));
+            
         	/* Add shared validators */
     		$.metadata.setType("attr", "validate");
             $(".yform").validate();

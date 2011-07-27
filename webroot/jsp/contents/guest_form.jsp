@@ -102,7 +102,7 @@
              	  </div>   
                   <div class="type-text">
                     <label for="phone"><s:text name="phone"/>:</label>
-                    <input type="text" name="guest.phone" id="phone" class="required" value="<s:property value="guest.phone"/>" />
+                    <input type="text" name="guest.phone" id="phone" class="required validPhone" value="<s:property value="guest.phone"/>" />
                   </div>
                   <div class="type-text">
                   	<label for="email"><s:text name="email"/>:</label>
