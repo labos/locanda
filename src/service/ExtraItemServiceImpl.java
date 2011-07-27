@@ -55,15 +55,13 @@ public class ExtraItemServiceImpl implements ExtraItemService{
 	public Integer deleteExtraItemsByIdBooking(Integer id_booking) {		
 		return this.getExtraItemMapper().deleteExtraItemsByIdBooking(id_booking);
 	}
-
+	
 	public ExtraItemMapper getExtraItemMapper() {
 		return extraItemMapper;
 	}
-
 	public void setExtraItemMapper(ExtraItemMapper extraItemMapper) {
 		this.extraItemMapper = extraItemMapper;
 	}
-
 	public ExtraMapper getExtraMapper() {
 		return extraMapper;
 	}

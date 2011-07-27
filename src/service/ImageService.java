@@ -37,10 +37,7 @@ public interface ImageService {
 	
 	public Integer deleteRoomImage(Integer id);
 	public Integer deleteAllImagesFromRoom(Integer id);
-	
 	public Integer deleteRoomTypeImage(Integer id);
 	public Integer deleteAllImagesFromRoomType(Integer id);
-	
 	public Integer deleteStructureImage(Integer id);
-
 }

@@ -25,5 +25,4 @@ public interface GuestMapper {
 	public Guest findGuestById(Integer id);
 	public Integer updateGuest(Guest guest);
 	public Integer deleteGuest(Integer id);
-
 }

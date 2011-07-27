@@ -32,7 +32,6 @@ public class FacilityServiceImpl implements FacilityService{
 	@Autowired
 	private FacilityMapper facilityMapper = null;
 	
-
 	@Override
 	public Integer insertUploadedFacility(Facility facility) {
 		return this.getFacilityMapper().insertUploadedFacility(facility);
@@ -66,11 +65,6 @@ public class FacilityServiceImpl implements FacilityService{
 		}
 		return ret;
 	}
-
-
-	
-	
-	
 	
 	@Override
 	public Integer insertRoomTypeFacilities(List<Integer> uploadedFacilitiesIds, Integer id_roomType) {
@@ -81,26 +75,20 @@ public class FacilityServiceImpl implements FacilityService{
 		return ret;
 	}
 
-
 	public Integer insertStructureFacility(Facility facility) {
 		return this.getFacilityMapper().insertStructureFacility(facility);
 	}
-	
-
 	
 	@Override
 	public List<Facility> findUploadedFacilitiesByIdStructure(Integer id_structure) {
 		return this.getFacilityMapper().findUploadedFacilitiesByIdStructure(id_structure);
 	}
 
-	
 	@Override
 	public Facility findUploadedFacilityById(Integer id) {
-		
 		return this.getFacilityMapper().findUploadedFacilityById(id);
 	}
 
-	
 	@Override
 	public Facility findUploadedFacilityByName(Integer id_structure, String name) {	
 		Map map = null;
@@ -132,46 +120,25 @@ public class FacilityServiceImpl implements FacilityService{
 		return ret;
 	}
 
-
 	@Override
 	public List<Facility> findStructureFacilitiesByIdStructure(	Integer id_structure) {
-		
 		return this.getFacilityMapper().findStructureFacilitiesByIdStructure(id_structure);
 	}
-	
-	
-	
-	
 
 	@Override
 	public List<Facility> findRoomFacilitiesByIdRoom(Integer id_room) {		
 		return this.getFacilityMapper().findRoomFacilitiesByIdRoom(id_room);
 	}
 
-	
-	
 	@Override
 	public List<Facility> findRoomTypeFacilitiesByIdRoomType(Integer id_roomType) {
 		return this.getFacilityMapper().findRoomTypeFacilitiesByIdRoomType(id_roomType);
 	}
 
-
-
-
-
-
 	@Override
 	public Integer deleteStructureFacility(Integer id) {
 		return this.getFacilityMapper().deleteStructureFacility(id);
 	}
-
-	
-
-	
-
-
-
-
 
 	@Override
 	public Integer deleteUploadedFacility(Integer id) {
@@ -183,35 +150,27 @@ public class FacilityServiceImpl implements FacilityService{
 		return ret;
 	}
 
-	
-
 	@Override
 	public Integer deleteAllFacilitiesFromRoom(Integer id_room) {		
 		return this.getFacilityMapper().deleteAllFacilitiesFromRoom(id_room);
 	}
-
-
+	
 	@Override
 	public Integer deleteAllFacilitiesFromRoomType(Integer id_roomType) {		
 		return this.getFacilityMapper().deleteAllFacilitiesFromRoomType(id_roomType);
 	}
 
-	
-	
 	@Override
 	public Integer updateUploadedFacility(Facility facility) {		
 		return this.getFacilityMapper().updateUploadedFacility(facility);
 	}
-
+	
 	public FacilityMapper getFacilityMapper() {
 		return facilityMapper;
 	}
-
-
 	public void setFacilityMapper(
 			FacilityMapper structureFacilityMapper) {
 		this.facilityMapper = structureFacilityMapper;
 	}
 	
-
 }

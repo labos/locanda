@@ -19,17 +19,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import model.Extra;
+import model.listini.ExtraPriceList;
+import model.listini.ExtraPriceListItem;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import persistence.mybatis.mappers.ExtraMapper;
 import persistence.mybatis.mappers.ExtraPriceListItemMapper;
 import persistence.mybatis.mappers.ExtraPriceListMapper;
-
-import model.Extra;
-import model.listini.ExtraPriceList;
-import model.listini.ExtraPriceListItem;
-import model.listini.RoomPriceList;
 
 @Service
 public class ExtraPriceListServiceImpl implements ExtraPriceListService{
@@ -40,7 +39,6 @@ public class ExtraPriceListServiceImpl implements ExtraPriceListService{
 	@Autowired
 	private ExtraMapper extraMapper = null;
 	
-
 	@Override
 	public Integer insertExtraPriceList(ExtraPriceList extraPriceList) {
 		Integer ret = 0;
@@ -53,8 +51,6 @@ public class ExtraPriceListServiceImpl implements ExtraPriceListService{
 		return ret;
 	}
 	
-	
-
 	@Override
 	public Integer insertExtraPriceListItem(ExtraPriceListItem extraPriceListItem) {
 		
@@ -98,8 +94,6 @@ public class ExtraPriceListServiceImpl implements ExtraPriceListService{
 		return ret;
 	}
 
-	
-
 	@Override
 	public ExtraPriceList findExtraPriceListById(Integer id) {
 		ExtraPriceList extraPriceList = null;
@@ -120,7 +114,6 @@ public class ExtraPriceListServiceImpl implements ExtraPriceListService{
 		return ret;
 	}
 	
-	
 	@Override
 	public Integer deleteExtraPriceListsByIdSeason(Integer id_season) {
 		Integer ret = 0;
@@ -130,7 +123,6 @@ public class ExtraPriceListServiceImpl implements ExtraPriceListService{
 		for(ExtraPriceList each: extraPriceLists){
 			this.deleteExtraPriceListById(each.getId());
 		}
-		
 		return ret;
 	}
 
@@ -143,7 +135,6 @@ public class ExtraPriceListServiceImpl implements ExtraPriceListService{
 		for(ExtraPriceList each: extraPriceLists){
 			this.deleteExtraPriceListById(each.getId());
 		}
-		
 		return ret;
 	}
 
@@ -156,25 +147,13 @@ public class ExtraPriceListServiceImpl implements ExtraPriceListService{
 		for(ExtraPriceList each: extraPriceLists){
 			this.deleteExtraPriceListById(each.getId());
 		}
-		
 		return ret;
 	}
-	
-	
-	
-	
-	
-	
-	
 
-	
 	@Override
 	public Integer updateExtraPriceListItem(ExtraPriceListItem extraPriceListItem) {
-		
 		return this.getExtraPriceListItemMapper().updateExtraPriceListItem(extraPriceListItem);
 	}
-
-
 
 	public ExtraPriceListItemMapper getExtraPriceListItemMapper() {
 		return extraPriceListItemMapper;
@@ -196,5 +175,4 @@ public class ExtraPriceListServiceImpl implements ExtraPriceListService{
 		this.extraMapper = extraMapper;
 	}
 	
-
 }

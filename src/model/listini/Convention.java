@@ -17,14 +17,15 @@ package model.listini;
 
 import java.io.Serializable;
 
-import org.springframework.core.serializer.Serializer;
-
 public class Convention implements Serializable{
+	
 	private Integer id;
+	
 	private String name;
 	private String description;
 	private String activationCode;
 	private Integer id_structure;
+	
 	
 	@Override
 	public int hashCode() {
@@ -81,7 +82,4 @@ public class Convention implements Serializable{
 		this.id_structure = id_structure;
 	}
 	
-	
-	
-
 }

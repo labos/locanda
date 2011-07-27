@@ -19,15 +19,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import model.Facility;
+import model.RoomType;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import persistence.mybatis.mappers.RoomTypeMapper;
-
-import model.Facility;
-import model.Room;
-import model.RoomType;
-import model.Structure;
 
 @Service
 public class RoomTypeServiceImpl implements RoomTypeService{
@@ -70,7 +68,7 @@ public class RoomTypeServiceImpl implements RoomTypeService{
 
 	@Override
 	public Integer deleteRoomType(Integer id) {
-		//Controllare se ci sono Room con id_roomType == id
+		//TODO - Check if there are rooms with id_roomType == id
 		this.getRoomPriceListService().deleteRoomPriceListsByIdRoomType(id);
 		this.getExtraPriceListService().deleteExtraPriceListsByIdRoomType(id);
 		this.getFacilityService().deleteAllFacilitiesFromRoomType(id);
@@ -81,13 +79,11 @@ public class RoomTypeServiceImpl implements RoomTypeService{
 
 	@Override
 	public List<RoomType> findRoomTypesByIdStructure(Integer id_structure) {
-		
 		return this.getRoomTypeMapper().findRoomTypesByIdStructure(id_structure);
 	}
 
 	@Override
 	public RoomType findRoomTypeById(Integer id) {
-		
 		return this.getRoomTypeMapper().findRoomTypeById(id);
 	}
 
@@ -101,56 +97,41 @@ public class RoomTypeServiceImpl implements RoomTypeService{
 		return this.getRoomTypeMapper().findRoomTypeByIdStructureAndName(map);
 	}
 
-	
 	public RoomTypeMapper getRoomTypeMapper() {
 		return roomTypeMapper;
 	}
-
 	public void setRoomTypeMapper(RoomTypeMapper roomTypeMapper) {
 		this.roomTypeMapper = roomTypeMapper;
 	}
-
 	public RoomPriceListService getRoomPriceListService() {
 		return roomPriceListService;
 	}
-
 	public void setRoomPriceListService(RoomPriceListService roomPriceListService) {
 		this.roomPriceListService = roomPriceListService;
 	}
-
 	public ExtraPriceListService getExtraPriceListService() {
 		return extraPriceListService;
 	}
-
 	public void setExtraPriceListService(ExtraPriceListService extraPriceListService) {
 		this.extraPriceListService = extraPriceListService;
 	}
-
 	public FacilityService getFacilityService() {
 		return facilityService;
 	}
-
 	public void setFacilityService(FacilityService facilityService) {
 		this.facilityService = facilityService;
 	}
-
 	public StructureService getStructureService() {
 		return structureService;
 	}
-
 	public void setStructureService(StructureService structureService) {
 		this.structureService = structureService;
 	}
-
 	public ImageService getImageService() {
 		return imageService;
 	}
-
 	public void setImageService(ImageService imageService) {
 		this.imageService = imageService;
 	}
 	
-	
-	
-
 }

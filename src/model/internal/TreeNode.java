@@ -29,6 +29,37 @@ public class TreeNode {
 	private List<TreeNode> children = new ArrayList<TreeNode>();
 	
 	
+	public Boolean addChild(TreeNode childNode) {
+		return this.getChildren().add(childNode);
+	}
+	
+	public static TreeNode buildNode(String title) {				//Creates a node setting the title
+		TreeData data = new TreeData();
+		data.setTitle(title);
+		TreeNode newNode = new TreeNode();
+		newNode.setData(data);
+		return newNode;
+	}
+	
+	public static TreeNode buildNode(String title, String href) {	//Creates a node setting the title and href
+		TreeData data = new TreeData();
+		Map<String, String> dataMap = new HashMap<String, String>();
+		dataMap.put("href", href);
+		data.setTitle(title);
+		data.setAttr(dataMap);
+		TreeNode newNode = new TreeNode();
+		newNode.setData(data);	
+		return newNode;
+	}
+	
+	public Boolean buildChild(String childTitle) {					//Adds a child node setting the title
+		return this.addChild(TreeNode.buildNode(childTitle));
+	}
+	
+	public Boolean buildChild(String childTitle, String href) {		//Adds a child node setting the title and href
+		return this.addChild(TreeNode.buildNode(childTitle, href));
+	}
+	
 	public TreeData getData() {
 		return data;
 	}
@@ -54,34 +85,4 @@ public class TreeNode {
 		this.children = children;
 	}
 	
-	public Boolean addChild(TreeNode childNode) {
-		return this.getChildren().add(childNode);
-	}
-	
-	public static TreeNode buildNode(String title) {		//crea un nodo settandone il title
-		TreeData data = new TreeData();
-		data.setTitle(title);
-		TreeNode newNode = new TreeNode();
-		newNode.setData(data);
-		return newNode;
-	}
-	
-	public static TreeNode buildNode(String title, String href) {		//crea un nodo settandone il title e l'href
-		TreeData data = new TreeData();
-		Map<String, String> dataMap = new HashMap<String, String>();
-		dataMap.put("href", href);
-		data.setTitle(title);
-		data.setAttr(dataMap);
-		TreeNode newNode = new TreeNode();
-		newNode.setData(data);	
-		return newNode;
-	}
-	
-	public Boolean buildChild(String childTitle) {	//aggiunge un nodo figlio settandone il title
-		return this.addChild(TreeNode.buildNode(childTitle));
-	}
-	
-	public Boolean buildChild(String childTitle, String href) {	//aggiunge un nodo figlio settandone il title e l'href
-		return this.addChild(TreeNode.buildNode(childTitle, href));
-	}
 }

@@ -21,5 +21,4 @@ public interface UserMapper {
 	public User findUserByEmail(String email);
 	public Integer updateUser(User user);
 	public Integer insertUser(User user);
-
 }

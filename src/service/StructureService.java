@@ -16,18 +16,15 @@
 package service;
 
 import java.util.Date;
-import java.util.List;
-
-import org.springframework.transaction.annotation.Transactional;
 
 import model.Booking;
 import model.Extra;
-import model.Facility;
 import model.RoomType;
 import model.Structure;
 import model.listini.Convention;
-import model.listini.Period;
 import model.listini.Season;
+
+import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
 public interface StructureService {
@@ -41,13 +38,8 @@ public interface StructureService {
 	public Boolean hasRoomFreeForBooking(Integer id_structure,Booking booking);
 	public Boolean hasPeriodFreeForSeason(Integer id_structure, Season aSeason);
 	
-	
-		
 	public Structure findStructureByIdUser(Integer id_user);
 	public Structure findStructureById(Integer id);
 	public Integer updateStructure(Structure structure);
 	public Integer insertStructure(Structure structure);
-	
-		
-
 }

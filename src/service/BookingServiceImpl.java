@@ -26,7 +26,6 @@ import model.ExtraItem;
 import model.Guest;
 import model.Payment;
 import model.Room;
-import model.Structure;
 import model.listini.Convention;
 import model.listini.RoomPriceList;
 import model.listini.Season;
@@ -69,7 +68,6 @@ public class BookingServiceImpl implements BookingService {
 		Convention convention = null;
 		Room room = null;
 		
-		
 		booking = this.getBookingMapper().findBookingById(id);
 		
 		id_guest = this.getBookerService().findIdBookerByIdBooking(id);
@@ -91,91 +89,64 @@ public class BookingServiceImpl implements BookingService {
 		convention = this.getConventionService().findConventionById(booking.getId_convention());
 		booking.setConvention(convention);
 		
-		
 		return booking;
 	}
 	
-	
-	
 	@Override
 	public List<Integer> findBookingIdsByIdStructure(Integer id_structure) {
-		
 		return this.getBookingMapper().findBookingIdsByIdStructure(id_structure);
 	}
-
-
 
 	@Override
 	public List<Booking> findBookingsByIdStructure(Integer id_structure) {
 		List<Booking> bookings = null;
 		Booking booking = null;
 		
-		
 		bookings = new ArrayList<Booking>();
 		for(Integer id: this.getBookingMapper().findBookingIdsByIdStructure(id_structure)){
 			booking = this.findBookingById(id);
 			bookings.add(booking);
-		}
-			
+		}	
 		return bookings;
 	}
 
-	
-
 	@Override
 	public List<Integer> findBookingIdsByIdBooker(Integer id_booker) {
-		
 		return this.getBookingMapper().findBookingIdsByIdBooker(id_booker);
 	}
-
-
 
 	@Override
 	public List<Booking> findBookingsByIdBooker(Integer id_booker) {
 		List<Booking> bookings = null;
 		Booking booking = null;
 		
-		
 		bookings = new ArrayList<Booking>();
 		for(Integer id: this.getBookingMapper().findBookingIdsByIdBooker(id_booker)){
 			booking = this.findBookingById(id);
 			bookings.add(booking);
 		}
-			
 		return bookings;
 	}	
 	
 	@Override
 	public Integer countBookingsByIdConvention(Integer id_convention) {
-		
 		return this.getBookingMapper().countBookingsByIdConvention(id_convention);
 	}
 
-
-
 	@Override
 	public Integer countBookingsByIdRoom(Integer id_room) {
-		
 		return this.getBookingMapper().countBookingsByIdRoom(id_room);
 	}
 
-
-
 	@Override
 	public Integer countBookingsByIdExtra(Integer id_extra) {
-		
 		return this.getBookingMapper().countBookingsByIdExtra(id_extra);
 	}
 
-
-
 	@Override
 	public Integer countBookingsByIdGuest(Integer id_guest) {
-		
 		return this.getBookingMapper().countBookingsByIdGuest(id_guest);
 	}
-
-
 
 	@Override
 	public Integer saveUpdateBooking(Booking booking) {	
@@ -186,7 +157,6 @@ public class BookingServiceImpl implements BookingService {
 		if(ret.equals(0)){
 			ret = this.getBookingMapper().insertBooking(booking);
 		}
-		
 		
 		this.getExtraItemService().deleteExtraItemsByIdBooking(booking.getId());
 		for(ExtraItem extraItem: booking.getExtraItems()){
@@ -209,19 +179,17 @@ public class BookingServiceImpl implements BookingService {
 		
 		oldBooker = this.getGuestService().findGuestById(booking.getBooker().getId());
 		if(oldBooker == null){
-			//Si tratta di un nuovo guest e devo aggiungerlo
+			//It's a new guest and must be added
 			this.getBookerService().insertBooker(booking.getBooker(), booking.getId());
 		}else{
-			//Si tratta di un guest esistente e devo fare l'update
+			//It's an existing guest and must be updated
 			this.getBookerService().updateBooker(booking.getBooker(),booking.getId());
-		}
-				
+		}	
 		return ret;
 	}
 
 	@Override
 	public Integer updateBooking(Booking booking) {		
-		
 		return this.getBookingMapper().updateBooking(booking);
 	}
 	
@@ -233,7 +201,6 @@ public class BookingServiceImpl implements BookingService {
 		this.getBookerService().deleteBookerByIdBooking(id);
 		return this.getBookingMapper().deleteBooking(id);
 	}
-	
 	
 	public Double calculateRoomSubtotalForBooking(Integer id_structure, Booking booking) {
 		Double ret = 0.0;
@@ -261,7 +228,6 @@ public class BookingServiceImpl implements BookingService {
 	
 	public Integer saveOnlineBooking(Booking booking) {
 		Integer ret = 0;
-		
 
 		ret = this.getBookingMapper().insertBooking(booking);
 
@@ -272,9 +238,8 @@ public class BookingServiceImpl implements BookingService {
 			this.getExtraItemService().insertExtraItem(extraItem);
 		}
 
-		// Il Booker online viene sempre considerato come un nuovo guest e devo
-		// sempre aggiungerlo
-		// DA MODIFICARE
+		// The Online Booker online is always a new guest and I have to add it every time
+		// TO BE FIXED
 		this.getBookerService().insertBooker(booking.getBooker(),booking.getId());
 		return ret;
 
@@ -283,112 +248,61 @@ public class BookingServiceImpl implements BookingService {
 	public RoomPriceListService getRoomPriceListService() {
 		return roomPriceListService;
 	}
-
 	public void setRoomPriceListService(RoomPriceListService roomPriceListService) {
 		this.roomPriceListService = roomPriceListService;
 	}
-
 	public SeasonService getSeasonService() {
 		return seasonService;
 	}
-
 	public void setSeasonService(SeasonService seasonService) {
 		this.seasonService = seasonService;
 	}
-
 	public BookingMapper getBookingMapper() {
 		return bookingMapper;
 	}
-
 	public void setBookingMapper(BookingMapper bookingMapper) {
 		this.bookingMapper = bookingMapper;
 	}
-
-
-
 	public BookerService getBookerService() {
 		return bookerService;
 	}
-
-
-
 	public void setBookerService(BookerService bookerService) {
 		this.bookerService = bookerService;
 	}
-
-
-
 	public GuestService getGuestService() {
 		return guestService;
 	}
-
-
-
 	public void setGuestService(GuestService guestService) {
 		this.guestService = guestService;
 	}
-
-
-
 	public ExtraItemService getExtraItemService() {
 		return extraItemService;
 	}
-
-
-
 	public void setExtraItemService(ExtraItemService extraItemService) {
 		this.extraItemService = extraItemService;
 	}
-
-
-
 	public AdjustmentService getAdjustmentService() {
 		return adjustmentService;
 	}
-
-
-
 	public void setAdjustmentService(AdjustmentService adjustmentService) {
 		this.adjustmentService = adjustmentService;
 	}
-
-
-
 	public PaymentService getPaymentService() {
 		return paymentService;
 	}
-
-
-
 	public void setPaymentService(PaymentService paymentService) {
 		this.paymentService = paymentService;
 	}
-
-
-
 	public RoomService getRoomService() {
 		return roomService;
 	}
-
-
-
 	public void setRoomService(RoomService roomService) {
 		this.roomService = roomService;
 	}
-
-
-
 	public ConventionService getConventionService() {
 		return conventionService;
 	}
-
-
-
 	public void setConventionService(ConventionService conventionService) {
 		this.conventionService = conventionService;
 	}
-
-
-	
-
 }

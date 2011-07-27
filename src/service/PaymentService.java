@@ -26,5 +26,4 @@ public interface PaymentService {
 	public Integer insertPayment(Payment payment);
 	public Integer deletePaymentsByIdBooking(Integer id_booking);
 	public List<Payment> findPaymentsByIdBooking(Integer id_booking);
-
 }

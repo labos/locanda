@@ -21,16 +21,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.commons.lang.time.DateUtils;
-
-import service.StructureServiceImpl;
-
-import model.internal.Message;
 import model.listini.Convention;
 
-import model.listini.ExtraPriceList;
-import model.listini.ExtraPriceListItem;
-import model.listini.Season;
+import org.apache.commons.lang.time.DateUtils;
 
 public class Booking implements Serializable{
 	
@@ -54,8 +47,6 @@ public class Booking implements Serializable{
 	private Integer id_structure = null;
 	private Integer id_convention = null;
 	private Integer id_room = null;
-	
-	
 	
 	
 	public Booking(){
@@ -105,7 +96,6 @@ public class Booking implements Serializable{
 		return ret;
 	}
 	
-	
 	public ExtraItem findExtraItem(Extra extra){
 		ExtraItem ret = null;
 		
@@ -128,16 +118,16 @@ public class Booking implements Serializable{
 			if (extra.getResourcePriceType().equals("per Room")) {
 				ret = numNights;
 			}
-			else ret = numNights * this.getNrGuests(); 			//per Person - per Item non può esistere
+			else ret = numNights * this.getNrGuests(); 			//per Person - "per Item" cannot exist
 		}
 		else if (extra.getTimePriceType().equals("per Week")) {
 			if (extra.getResourcePriceType().equals("per Room")) {
-				ret = numNights/7 + 1;						//assumendo l'extra per week come indivisibile
+				ret = numNights/7 + 1;						//per week extra cannot be "divided"
 			}
-			else ret = (numNights/7 + 1) * this.getNrGuests();	//per Person - per Item non può esistere
+			else ret = (numNights/7 + 1) * this.getNrGuests();	//per Person - "per Item" cannot exist
 		}else {												//per Booking
 			if (extra.getResourcePriceType().equals("per Room")) {
-				ret = 1;									//un Booking per ora è associato ad una sola Room!
+				ret = 1;									//So far, a Booking is associated with only one Room
 			}
 			else if (extra.getResourcePriceType().equals("per Person")) {
 				ret = this.getNrGuests();
@@ -147,7 +137,7 @@ public class Booking implements Serializable{
 		return ret;
 	}	
 	
-	public List<Date> calculateBookingDates(){	//crea un array di date, che corrispondono alla permanenza
+	public List<Date> calculateBookingDates(){	//Creates an array of dates, related with the stay
 		List<Date> bookingDates = null; 
 		Date current = null;
 		Integer i = 0;
@@ -192,47 +182,36 @@ public class Booking implements Serializable{
 		return ret;
 	}
 	
-	
 	public Boolean addExtra(Extra anExtra){
 		return this.getExtras().add(anExtra);
 	}
-	
 	public Boolean addExtras(List<Extra> extras){
 		return this.getExtras().addAll(extras);
 	}
-	
 	public Boolean addAdjustment(Adjustment anAdjustment){
 		return this.getAdjustments().add(anAdjustment);
 	}
-	
 	public Boolean removeAdjustment(Adjustment anAdjustment){
 		return this.getAdjustments().remove(anAdjustment);
 	}
-	
 	public Boolean addPayment(Payment aPayment){
 		return this.getPayments().add(aPayment);
 	}
-	
 	public Boolean removePayment(Payment aPayment){
 		return this.getPayments().remove(aPayment);
 	}
-	
 	public Boolean addGuest(Guest aGuest){
 		return this.getGuests().add(aGuest);
 	}
-	
 	public Boolean removeGuest(Guest aGuest){
 		return this.getGuests().remove(aGuest);
 	}
-	
 	public Boolean addExtraItem(ExtraItem anExtraItem){
 		return this.getExtraItems().add(anExtraItem);
 	}
-	
 	public Boolean removeExtraItem(Guest anExtraItem){
 		return this.getExtraItems().remove(anExtraItem);
 	}
-		
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -256,8 +235,6 @@ public class Booking implements Serializable{
 			return false;
 		return true;
 	}
-
-
 	public Integer getId() {
 		return id;
 	}
@@ -354,30 +331,23 @@ public class Booking implements Serializable{
 	public void setExtraItems(List<ExtraItem> extraItems) {
 		this.extraItems = extraItems;
 	}
-
 	public Integer getId_structure() {
 		return id_structure;
 	}
-
 	public void setId_structure(Integer id_structure) {
 		this.id_structure = id_structure;
 	}
-
 	public Integer getId_convention() {
 		return id_convention;
 	}
-
 	public void setId_convention(Integer id_convention) {
 		this.id_convention = id_convention;
 	}
-
 	public Integer getId_room() {
 		return id_room;
 	}
-
 	public void setId_room(Integer id_room) {
 		this.id_room = id_room;
 	}
 
-	
 }

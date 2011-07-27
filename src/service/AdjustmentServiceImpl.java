@@ -31,13 +31,11 @@ public class AdjustmentServiceImpl implements AdjustmentService{
 
 	@Override
 	public Integer insertAdjustment(Adjustment adjustment) {
-		
 		return this.getAdjustmentMapper().insertAdjustment(adjustment);
 	}
 
 	@Override
 	public Integer deleteAdjustmentsByIdBooking(Integer id_booking) {
-		
 		return this.getAdjustmentMapper().deleteAdjustmentsByIdBooking(id_booking);
 	}
 
@@ -56,7 +54,4 @@ public class AdjustmentServiceImpl implements AdjustmentService{
 	public void setAdjustmentMapper(AdjustmentMapper adjustmentMapper) {
 		this.adjustmentMapper = adjustmentMapper;
 	}
-	
-	
-
 }

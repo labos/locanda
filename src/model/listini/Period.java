@@ -21,14 +21,15 @@ import java.util.Date;
 import org.apache.commons.lang.time.DateUtils;
 
 public class Period implements Serializable{
+	
 	private Integer id = null;
+	
 	private Date startDate;
 	private Date endDate;
 	private Integer id_season;
 	
 	
 	public Boolean includesDate(Date date){
-		
 		if((DateUtils.truncatedCompareTo(date,startDate, Calendar.DAY_OF_MONTH) >= 0) &&
 				(DateUtils.truncatedCompareTo(date, endDate, Calendar.DAY_OF_MONTH) <= 0)	){
 			return true;
@@ -38,7 +39,6 @@ public class Period implements Serializable{
 	
 	public Boolean checkDates() {
 		Boolean ret = true;
-
 		if (DateUtils.truncatedCompareTo(this.getEndDate(), this.getStartDate(),
 				Calendar.DAY_OF_MONTH) <= 0) {
 			return false;
@@ -64,13 +64,9 @@ public class Period implements Serializable{
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
-
-
 	public Integer getId_season() {
 		return id_season;
 	}
-
-
 	public void setId_season(Integer id_season) {
 		this.id_season = id_season;
 	}	

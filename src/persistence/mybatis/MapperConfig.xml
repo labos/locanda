@@ -1,54 +1,50 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!--
-   
-     Copyright 2011 - Sardegna Ricerche, Distretto ICT, Pula, Italy
-   
-    Licensed under the EUPL, Version 1.1.
-    You may not use this work except in compliance with the Licence.
-    You may obtain a copy of the Licence at:
-   
-     http://www.osor.eu/eupl
-   
-    Unless required by applicable law or agreed to in  writing, software distributed under the Licence is distributed on an "AS IS" basis,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the Licence for the specific language governing permissions and limitations under the Licence.
-    In case of controversy the competent court is the Court of Cagliari (Italy).
- -->
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright 2011 - Sardegna Ricerche, Distretto ICT, Pula, Italy
+
+Licensed under the EUPL, Version 1.1.
+You may not use this work except in compliance with the Licence.
+You may obtain a copy of the Licence at:
+
+http://www.osor.eu/eupl
+
+Unless required by applicable law or agreed to in  writing, software distributed under the Licence is distributed on an "AS IS" basis,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the Licence for the specific language governing permissions and limitations under the Licence.
+In case of controversy the competent court is the Court of Cagliari (Italy).
+-->
 
 <!DOCTYPE configuration
-    PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
-    "http://mybatis.org/dtd/mybatis-3-config.dtd">
-    	
-    		
+ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
 <configuration>
-
-  <settings>
-    <setting name="cacheEnabled" value="true"/>
-    <setting name="lazyLoadingEnabled" value="false"/>
-    <setting name="multipleResultSetsEnabled" value="true"/>
-    <setting name="useColumnLabel" value="true"/>
-    <setting name="useGeneratedKeys" value="true"/>
-    <setting name="defaultExecutorType" value="SIMPLE"/>
-    <setting name="defaultStatementTimeout" value="25000"/>
-  </settings>
-
-<!--
-  <typeAliases>
-    <typeAlias alias="studente" type="model.Studente"/>   
-	<typeAlias alias="esame" type="model.Esame"/>    
-  </typeAliases>
--->
-
-<!--
-  <mappers>
+    
+    <settings>
+        <setting name="cacheEnabled" value="true"/>
+        <setting name="lazyLoadingEnabled" value="false"/>
+        <setting name="multipleResultSetsEnabled" value="true"/>
+        <setting name="useColumnLabel" value="true"/>
+        <setting name="useGeneratedKeys" value="true"/>
+        <setting name="defaultExecutorType" value="SIMPLE"/>
+        <setting name="defaultStatementTimeout" value="25000"/>
+    </settings>
+    
+    <!--
+    <typeAliases>
+    <typeAlias alias="studente" type="model.Studente"/>
+    <typeAlias alias="esame" type="model.Esame"/>
+    </typeAliases>
+    -->
+    
+    <!--
+    <mappers>
     <mapper resource="persistence/mybatis/mappers/StudenteMapper.xml"/>
     <mapper resource="persistence/mybatis/mappers/SeasonMapper.xml"/>
-     <mapper resource="persistence/mybatis/mappers/ExtraMapper.xml"/>
-      <mapper resource="persistence/mybatis/mappers/UserMapper.xml"/>
-       <mapper resource="persistence/mybatis/mappers/StructureMapper.xml"/>
-  </mappers>
--->
-
+    <mapper resource="persistence/mybatis/mappers/ExtraMapper.xml"/>
+    <mapper resource="persistence/mybatis/mappers/UserMapper.xml"/>
+    <mapper resource="persistence/mybatis/mappers/StructureMapper.xml"/>
+    </mappers>
+    -->
+    
 </configuration>
-
-

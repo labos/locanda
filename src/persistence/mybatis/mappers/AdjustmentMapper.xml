@@ -1,40 +1,40 @@
-<?xml version="1.0" encoding="UTF-8"?><!--
-   
-     Copyright 2011 - Sardegna Ricerche, Distretto ICT, Pula, Italy
-   
-    Licensed under the EUPL, Version 1.1.
-    You may not use this work except in compliance with the Licence.
-    You may obtain a copy of the Licence at:
-   
-     http://www.osor.eu/eupl
-   
-    Unless required by applicable law or agreed to in  writing, software distributed under the Licence is distributed on an "AS IS" basis,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the Licence for the specific language governing permissions and limitations under the Licence.
-    In case of controversy the competent court is the Court of Cagliari (Italy).
- -->
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright 2011 - Sardegna Ricerche, Distretto ICT, Pula, Italy
 
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+Licensed under the EUPL, Version 1.1.
+You may not use this work except in compliance with the Licence.
+You may obtain a copy of the Licence at:
 
-<mapper namespace="persistence.mybatis.mappers.AdjustmentMapper"> 
-  <cache />  
-  <insert id="insertAdjustment" parameterType="model.Adjustment" useGeneratedKeys="true" keyProperty="id" >
-  insert into adjustment (date,description,amount,id_booking) 
-  values (#{date}, #{description}, #{amount}, #{id_booking})
-  
-  </insert>
-  
-  <delete id="deleteAdjustmentsByIdBooking" parameterType="int">
-  	delete from adjustment where id_booking = #{id_booking}
-  </delete>
-  
-  <select id="findAdjustmentsByIdBooking" parameterType="int" resultType="model.Adjustment">
-  <include refid="selectAdjustment"/> where id_booking = #{id_booking}
-  </select>
-  
-  <sql id="selectAdjustment">
-  select id,date,description,amount,id_booking from adjustment  
-  </sql>
+http://www.osor.eu/eupl
+
+Unless required by applicable law or agreed to in  writing, software distributed under the Licence is distributed on an "AS IS" basis,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the Licence for the specific language governing permissions and limitations under the Licence.
+In case of controversy the competent court is the Court of Cagliari (Italy).
+-->
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="persistence.mybatis.mappers.AdjustmentMapper">
+    <cache/>
+	
+    <insert id="insertAdjustment" parameterType="model.Adjustment" useGeneratedKeys="true" keyProperty="id">
+        insert into adjustment (date,description,amount,id_booking)
+        values (#{date}, #{description}, #{amount}, #{id_booking})
+    </insert>
+    
+    <delete id="deleteAdjustmentsByIdBooking" parameterType="int">
+        delete from adjustment where id_booking = #{id_booking}
+    </delete>
+    
+    <select id="findAdjustmentsByIdBooking" parameterType="int" resultType="model.Adjustment">
+        <include refid="selectAdjustment"/>where id_booking = #{id_booking}
+    </select>
+    
+    <sql id="selectAdjustment">
+        select id,date,description,amount,id_booking from adjustment
+    </sql>
     
 </mapper>

@@ -20,6 +20,7 @@ import java.util.List;
 import org.springframework.transaction.annotation.Transactional;
 
 import model.Adjustment;
+
 @Transactional
 public interface AdjustmentService {
 	public Integer insertAdjustment(Adjustment adjustment);

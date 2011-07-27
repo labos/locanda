@@ -18,11 +18,13 @@ package model.internal;
 import java.util.List;
 
 public class Message {
+	
 	public static String SUCCESS = "success";
 	public static String ERROR = "error";
 	
 	private String result;
 	private String description;
+	
 	
 	public String getResult() {
 		return result;
@@ -37,8 +39,4 @@ public class Message {
 		this.description = description;
 	}
 	
-	
-	
-		
-
 }

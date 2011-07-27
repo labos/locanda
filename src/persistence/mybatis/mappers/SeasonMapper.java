@@ -33,5 +33,4 @@ public interface SeasonMapper {
 	public Integer deleteSeason(Integer seasonId);
 	public Integer deletePeriodsFromSeason(Integer seasonId);
 	public Integer deletePeriod(Integer periodId);
-
 }

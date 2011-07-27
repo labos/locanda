@@ -100,7 +100,4 @@ public class ExtraItem implements Serializable{
 		this.id_extra = id_extra;
 	}
 	
-	
-	
-	
 }

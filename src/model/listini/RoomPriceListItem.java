@@ -18,7 +18,9 @@ package model.listini;
 import java.io.Serializable;
 
 public class RoomPriceListItem implements Serializable{
+	
 	private Integer id;
+	
 	private Integer numGuests;
 	private Double priceSunday = 0.0;//dayOfWeek 1
 	private Double priceMonday = 0.0;//dayOfWeek 2
@@ -39,40 +41,15 @@ public class RoomPriceListItem implements Serializable{
 		this.setPriceSaturday(anotherItem.getPriceSaturday());
 	}
 	
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		return result;
-	}
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		RoomPriceListItem other = (RoomPriceListItem) obj;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		return true;
-	}
-	
-	
 	public Double getPrice(Integer dayOfWeek){
 		//dayOfWeek
-		//1 domenica
-		//2 lunedi
-		//3 martedi
-		//4 mercoledi
-		//5 giovedi
-		//6 venerdi
-		//7 sabato
+		//1 sunday
+		//2 monday
+		//3 tuesady
+		//4 wednesday
+		//5 thursady
+		//6 friday
+		//7 saturday
 		Double ret = 0.0;
 		
 		if(dayOfWeek.equals(1)){
@@ -99,6 +76,29 @@ public class RoomPriceListItem implements Serializable{
 		return ret;
 	}
 	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		RoomPriceListItem other = (RoomPriceListItem) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
+	}
 	public Integer getId() {
 		return id;
 	}
@@ -111,7 +111,6 @@ public class RoomPriceListItem implements Serializable{
 	public void setNumGuests(Integer numGuests) {
 		this.numGuests = numGuests;
 	}
-	
 	public Double getPriceSunday() {
 		return priceSunday;
 	}
@@ -154,16 +153,11 @@ public class RoomPriceListItem implements Serializable{
 	public void setPriceSaturday(Double priceSaturday) {
 		this.priceSaturday = priceSaturday;
 	}
-
 	public Integer getId_roomPriceList() {
 		return id_roomPriceList;
 	}
-
 	public void setId_roomPriceList(Integer id_roomPriceList) {
 		this.id_roomPriceList = id_roomPriceList;
 	}
 	
-	
-		
-
 }

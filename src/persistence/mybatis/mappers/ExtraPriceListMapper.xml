@@ -1,62 +1,59 @@
-<?xml version="1.0" encoding="UTF-8"?><!--
-   
-     Copyright 2011 - Sardegna Ricerche, Distretto ICT, Pula, Italy
-   
-    Licensed under the EUPL, Version 1.1.
-    You may not use this work except in compliance with the Licence.
-    You may obtain a copy of the Licence at:
-   
-     http://www.osor.eu/eupl
-   
-    Unless required by applicable law or agreed to in  writing, software distributed under the Licence is distributed on an "AS IS" basis,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the Licence for the specific language governing permissions and limitations under the Licence.
-    In case of controversy the competent court is the Court of Cagliari (Italy).
- -->
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright 2011 - Sardegna Ricerche, Distretto ICT, Pula, Italy
 
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+Licensed under the EUPL, Version 1.1.
+You may not use this work except in compliance with the Licence.
+You may obtain a copy of the Licence at:
 
-<mapper namespace="persistence.mybatis.mappers.ExtraPriceListMapper"> 
-  <cache />
-  <insert id="insertExtraPriceList" parameterType="model.listini.ExtraPriceList" useGeneratedKeys="true" keyProperty="id">
-  	INSERT INTO extraPriceList(id_roomType,id_season,id_convention,id_structure) values (#{id_roomType},#{id_season},#{id_convention},#{id_structure})
-  </insert>
-  
-  
-  <select id="findExtraPriceListByIdStructureAndIdSeasonAndIdRoomTypeAndIdConvention" parameterType="map" resultType="model.listini.ExtraPriceList">
-  	<include refid="selectExtraPriceList"/> WHERE id_structure = #{id_structure} AND id_season = #{id_season} AND id_roomType = #{id_roomType} AND id_convention = #{id_convention}
-  </select>
-  
-  <select id="findExtraPriceListsByIdStructure" parameterType="int" resultType="model.listini.ExtraPriceList">
-  	<include refid="selectExtraPriceList"/> WHERE id_structure = #{id_structure}
-  </select>
-  
-  <select id="findExtraPriceListsByIdSeason" parameterType="int" resultType="model.listini.ExtraPriceList">
-  	<include refid="selectExtraPriceList"/> WHERE id_season = #{id_season}
-  </select>
-  
-  <select id="findExtraPriceListsByIdRoomType" parameterType="int" resultType="model.listini.ExtraPriceList">
-  	<include refid="selectExtraPriceList"/> WHERE id_roomType = #{id_roomType}
-  </select>
-  
-  <select id="findExtraPriceListsByIdConvention" parameterType="int" resultType="model.listini.ExtraPriceList">
-  	<include refid="selectExtraPriceList"/> WHERE id_convention = #{id_convention}
-  </select>
-  
-  
-  <select id="findExtraPriceListById" parameterType="int" resultType="model.listini.ExtraPriceList">
-  	<include refid="selectExtraPriceList"/> WHERE id = #{id}
-  </select>
-  
-  <sql id="selectExtraPriceList">
-  	SELECT id,id_roomType,id_season,id_convention,id_structure FROM extraPriceList
-  </sql>
-  
-  <delete id="deleteExtraPriceListById" parameterType="int">
-  	DELETE FROM extraPriceList WHERE id = #{id}
-  </delete>
-  
-  
+http://www.osor.eu/eupl
+
+Unless required by applicable law or agreed to in  writing, software distributed under the Licence is distributed on an "AS IS" basis,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the Licence for the specific language governing permissions and limitations under the Licence.
+In case of controversy the competent court is the Court of Cagliari (Italy).
+-->
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="persistence.mybatis.mappers.ExtraPriceListMapper">
+    <cache/>
+	
+    <insert id="insertExtraPriceList" parameterType="model.listini.ExtraPriceList" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO extraPriceList(id_roomType,id_season,id_convention,id_structure) values (#{id_roomType},#{id_season},#{id_convention},#{id_structure})
+    </insert>
+    
+    <select id="findExtraPriceListByIdStructureAndIdSeasonAndIdRoomTypeAndIdConvention" parameterType="map" resultType="model.listini.ExtraPriceList">
+        <include refid="selectExtraPriceList"/>WHERE id_structure = #{id_structure} AND id_season = #{id_season} AND id_roomType = #{id_roomType} AND id_convention = #{id_convention}
+    </select>
+    
+    <select id="findExtraPriceListsByIdStructure" parameterType="int" resultType="model.listini.ExtraPriceList">
+        <include refid="selectExtraPriceList"/>WHERE id_structure = #{id_structure}
+    </select>
+    
+    <select id="findExtraPriceListsByIdSeason" parameterType="int" resultType="model.listini.ExtraPriceList">
+        <include refid="selectExtraPriceList"/>WHERE id_season = #{id_season}
+    </select>
+    
+    <select id="findExtraPriceListsByIdRoomType" parameterType="int" resultType="model.listini.ExtraPriceList">
+        <include refid="selectExtraPriceList"/>WHERE id_roomType = #{id_roomType}
+    </select>
+    
+    <select id="findExtraPriceListsByIdConvention" parameterType="int" resultType="model.listini.ExtraPriceList">
+        <include refid="selectExtraPriceList"/>WHERE id_convention = #{id_convention}
+    </select>
+    
+    <select id="findExtraPriceListById" parameterType="int" resultType="model.listini.ExtraPriceList">
+        <include refid="selectExtraPriceList"/>WHERE id = #{id}
+    </select>
+    
+    <sql id="selectExtraPriceList">
+        SELECT id,id_roomType,id_season,id_convention,id_structure FROM extraPriceList
+    </sql>
+    
+    <delete id="deleteExtraPriceListById" parameterType="int">
+        DELETE FROM extraPriceList WHERE id = #{id}
+    </delete>
     
 </mapper>

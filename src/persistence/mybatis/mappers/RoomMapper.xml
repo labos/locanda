@@ -1,58 +1,59 @@
-<?xml version="1.0" encoding="UTF-8"?><!--
-   
-     Copyright 2011 - Sardegna Ricerche, Distretto ICT, Pula, Italy
-   
-    Licensed under the EUPL, Version 1.1.
-    You may not use this work except in compliance with the Licence.
-    You may obtain a copy of the Licence at:
-   
-     http://www.osor.eu/eupl
-   
-    Unless required by applicable law or agreed to in  writing, software distributed under the Licence is distributed on an "AS IS" basis,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the Licence for the specific language governing permissions and limitations under the Licence.
-    In case of controversy the competent court is the Court of Cagliari (Italy).
- -->
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright 2011 - Sardegna Ricerche, Distretto ICT, Pula, Italy
 
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+Licensed under the EUPL, Version 1.1.
+You may not use this work except in compliance with the Licence.
+You may obtain a copy of the Licence at:
 
-<mapper namespace="persistence.mybatis.mappers.RoomMapper"> 
-  <cache />
-  <insert id="insertRoom" parameterType="model.Room" useGeneratedKeys="true" keyProperty="id">
-  	INSERT into room(name,notes,id_roomType,id_structure) values(#{name},#{notes},#{id_roomType},#{id_structure})  	
-  </insert>
-  
-  <update id="updateRoom" parameterType="model.Room">
-  	UPDATE room set name = #{name},notes = #{notes},id_roomType = #{id_roomType},id_structure = #{id_structure} where id = #{id}  
-  </update>
-  
-  <delete id="deleteRoom">
-  	DELETE from room where id = #{id}  
-  </delete>
-  
-  <select id="findRoomsByIdStructure" parameterType="int" resultType="model.Room">
-  	<include refid="selectRoom"/> WHERE id_structure = #{id_structure}   
-  </select>
-  
-  <select id="findRoomById" parameterType="int" resultType="model.Room">
-  	<include refid="selectRoom"/> WHERE id = #{id}   
-  </select>
-  
-  <select id="findRoomByIdStructureAndName" parameterType="map" resultType="model.Room">
-  	<include refid="selectRoom"/> WHERE id_structure = #{id_structure} and   name = #{name}   
-  </select>
-  
-   <select id="findRoomsByIdRoomType" parameterType="int" resultType="model.Room">
-  	<include refid="selectRoom"/> WHERE id_roomType = #{id_roomType}   
-  </select>
-  
-  <select id="countRoomsByIdRoomType" parameterType="int" resultType="int">
-  select count(id) from room where id_roomType = #{id_roomType}  
-  </select>
-  
-  <sql id="selectRoom">
-  	SELECT id,name,notes,id_roomType,id_structure FROM room
-  </sql>
+http://www.osor.eu/eupl
+
+Unless required by applicable law or agreed to in  writing, software distributed under the Licence is distributed on an "AS IS" basis,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the Licence for the specific language governing permissions and limitations under the Licence.
+In case of controversy the competent court is the Court of Cagliari (Italy).
+-->
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="persistence.mybatis.mappers.RoomMapper">
+    <cache/>
+	
+    <insert id="insertRoom" parameterType="model.Room" useGeneratedKeys="true" keyProperty="id">
+        INSERT into room(name,notes,id_roomType,id_structure) values(#{name},#{notes},#{id_roomType},#{id_structure})
+    </insert>
+    
+    <update id="updateRoom" parameterType="model.Room">
+        UPDATE room set name = #{name},notes = #{notes},id_roomType = #{id_roomType},id_structure = #{id_structure} where id = #{id}
+    </update>
+    
+    <delete id="deleteRoom">
+        DELETE from room where id = #{id}
+    </delete>
+    
+    <select id="findRoomsByIdStructure" parameterType="int" resultType="model.Room">
+        <include refid="selectRoom"/>WHERE id_structure = #{id_structure}
+    </select>
+    
+    <select id="findRoomById" parameterType="int" resultType="model.Room">
+        <include refid="selectRoom"/>WHERE id = #{id}
+    </select>
+    
+    <select id="findRoomByIdStructureAndName" parameterType="map" resultType="model.Room">
+        <include refid="selectRoom"/>WHERE id_structure = #{id_structure} and   name = #{name}
+    </select>
+    
+    <select id="findRoomsByIdRoomType" parameterType="int" resultType="model.Room">
+        <include refid="selectRoom"/>WHERE id_roomType = #{id_roomType}
+    </select>
+    
+    <select id="countRoomsByIdRoomType" parameterType="int" resultType="int">
+        select count(id) from room where id_roomType = #{id_roomType}
+    </select>
+    
+    <sql id="selectRoom">
+        SELECT id,name,notes,id_roomType,id_structure FROM room
+    </sql>
     
 </mapper>

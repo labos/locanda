@@ -18,7 +18,9 @@ package model;
 import java.io.Serializable;
 
 public class Facility implements Serializable{
+	
 	private Integer id;
+	
 	private String name;
 	private String fileName;
 	private Integer  id_structure;
@@ -26,13 +28,13 @@ public class Facility implements Serializable{
 	private Integer id_roomType;
 	private Integer id_uploadedFacility;
 	
+	
 	public Integer getId() {
 		return id;
 	}
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	
 	public String getName() {
 		return name;
 	}
@@ -69,7 +71,5 @@ public class Facility implements Serializable{
 	public void setId_uploadedFacility(Integer id_uploadedFacility) {
 		this.id_uploadedFacility = id_uploadedFacility;
 	}
-	
-	
 
 }

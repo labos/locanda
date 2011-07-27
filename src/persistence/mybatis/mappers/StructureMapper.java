@@ -22,5 +22,4 @@ public interface StructureMapper {
 	public Structure findStructureById(Integer id);
 	public Integer updateStructure(Structure structure);
 	public Integer insertStructure(Structure structure);
-
 }

@@ -22,7 +22,10 @@ import java.util.List;
 import model.RoomType;
 
 public class RoomPriceList implements Serializable{
+	
 	private Integer id;
+	
+	
 	private RoomType roomType;
 	private Season season;
 	private Convention convention;
@@ -56,7 +59,6 @@ public class RoomPriceList implements Serializable{
 	
 	public Boolean updateItem(RoomPriceListItem anItem){
 		RoomPriceListItem oldItem = null;
-		
 		oldItem = this.findItemById(anItem.getId());
 		if(oldItem == null){
 			return false;			
@@ -68,7 +70,6 @@ public class RoomPriceList implements Serializable{
 	
 	public Double findRoomPrice(Integer numGuests, Integer dayOfWeek){
 		Double ret = 0.0;
-		
 		for(RoomPriceListItem each: this.getItems()){
 			if(each.getNumGuests().equals(numGuests)){
 				return each.getPrice(dayOfWeek);
@@ -107,39 +108,29 @@ public class RoomPriceList implements Serializable{
 	public void setItems(List<RoomPriceListItem> items) {
 		this.items = items;
 	}
-
 	public Integer getId_roomType() {
 		return id_roomType;
 	}
-
 	public void setId_roomType(Integer id_roomType) {
 		this.id_roomType = id_roomType;
 	}
-
 	public Integer getId_season() {
 		return id_season;
 	}
-
 	public void setId_season(Integer id_season) {
 		this.id_season = id_season;
 	}
-
 	public Integer getId_convention() {
 		return id_convention;
 	}
-
 	public void setId_convention(Integer id_convention) {
 		this.id_convention = id_convention;
 	}
-
 	public Integer getId_structure() {
 		return id_structure;
 	}
-
 	public void setId_structure(Integer id_structure) {
 		this.id_structure = id_structure;
 	}
-	
-	
 	
 }

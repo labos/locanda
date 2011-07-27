@@ -19,7 +19,9 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Payment implements Serializable{
+	
 	private Integer id;
+	
 	private Date date;
 	private String description;
 	private Double amount;
@@ -80,5 +82,4 @@ public class Payment implements Serializable{
 		this.id_booking = id_booking;
 	}
 	
-
 }

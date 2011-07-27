@@ -20,7 +20,6 @@ import java.util.Map;
 import model.User;
 import model.UserAware;
 
-import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.Interceptor;
 
@@ -28,13 +27,10 @@ public class UserAwareInterceptor implements Interceptor{
 
 	@Override
 	public void destroy() {
-		
 	}
 
 	@Override
 	public void init() {
-		
-		
 	}
 
 	@Override
@@ -42,7 +38,6 @@ public class UserAwareInterceptor implements Interceptor{
 		UserAware action = null;
 		Map<String, Object> session = null;
 		User user = null;
-		
 		
 		if(invocation.getAction() instanceof UserAware){
 			session = invocation.getInvocationContext().getSession();
@@ -57,5 +52,4 @@ public class UserAwareInterceptor implements Interceptor{
 		return invocation.invoke();
 	}
 	
-
 }

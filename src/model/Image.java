@@ -18,33 +18,14 @@ package model;
 import java.io.Serializable;
 
 public class Image implements Serializable{
+	
 	private Integer id;
+	
 	private String name;
 	private String fileName;
 	private Integer id_structure;
 	private Integer id_room;
 	private Integer id_roomType;
-	
-	
-	public Integer getId() {
-		return id;
-	}
-	public void setId(Integer id) {
-		this.id = id;
-	}
-	
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public String getFileName() {
-		return fileName;
-	}
-	public void setFileName(String fileName) {
-		this.fileName = fileName;
-	}
 	
 	@Override
 	public int hashCode() {
@@ -69,6 +50,24 @@ public class Image implements Serializable{
 			return false;
 		return true;
 	}
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getFileName() {
+		return fileName;
+	}
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
 	public Integer getId_structure() {
 		return id_structure;
 	}
@@ -88,5 +87,4 @@ public class Image implements Serializable{
 		this.id_roomType = id_roomType;
 	}
 	
-
 }

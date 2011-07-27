@@ -19,7 +19,9 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Adjustment implements Serializable{
+	
 	private Integer id;
+	
 	private Date date;
 	private String description;
 	private Double amount;
@@ -79,6 +81,5 @@ public class Adjustment implements Serializable{
 	public void setId_booking(Integer id_booking) {
 		this.id_booking = id_booking;
 	}	
-	
 
 }

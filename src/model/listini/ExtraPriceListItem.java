@@ -20,7 +20,10 @@ import java.io.Serializable;
 import model.Extra;
 
 public class ExtraPriceListItem implements Serializable{
+	
 	private Integer id;
+	
+	
 	private Extra extra;
 	private Double price;
 	private Integer id_extra;
@@ -50,8 +53,6 @@ public class ExtraPriceListItem implements Serializable{
 			return false;
 		return true;
 	}
-	
-	
 	public Integer getId() {
 		return id;
 	}
@@ -81,8 +82,6 @@ public class ExtraPriceListItem implements Serializable{
 	}
 	public void setId_extraPriceList(Integer id_extraPriceList) {
 		this.id_extraPriceList = id_extraPriceList;
-	}	
-	
-	
+	}
 
 }

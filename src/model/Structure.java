@@ -27,7 +27,9 @@ import model.listini.RoomPriceList;
 import model.listini.Season;
 
 public class Structure implements Serializable {
+	
 	private Integer id;
+	
 	private String name;
 	private String email;
 	private String url;
@@ -38,7 +40,6 @@ public class Structure implements Serializable {
 	private String country;
 	private String zipCode;
 	private String notes;
-	
 	private List<Room> rooms;
 	private List<RoomType> roomTypes;	
 	private List<Facility> roomFacilities;
@@ -51,11 +52,9 @@ public class Structure implements Serializable {
 	private List<ExtraPriceList> extraPriceLists;
 	private List<Image> images;
 	private List<Convention> conventions;
-	
 	private TreeSet<Integer> keys;
 	private Integer id_user;
 
-	
 	
 	public Structure(){
 		this.setRooms(new ArrayList<Room>());
@@ -72,7 +71,6 @@ public class Structure implements Serializable {
 		this.setRoomTypes(new ArrayList<RoomType>());
 		this.setFacilities(new ArrayList<Facility>());
 		this.setConventions(new ArrayList<Convention>());
-		
 	}
 	
 	public Integer nextKey(){
@@ -178,7 +176,6 @@ public class Structure implements Serializable {
 	public void setKeys(TreeSet<Integer> keys) {
 		this.keys = keys;
 	}
-	
 	public List<Guest> getGuests() {
 		return guests;
 	}
@@ -191,14 +188,12 @@ public class Structure implements Serializable {
 	public void setBookings(List<Booking> bookings) {
 		this.bookings = bookings;
 	}
-	
 	public List<Extra> getExtras() {
 		return extras;
 	}
 	public void setExtras(List<Extra> extras) {
 		this.extras = extras;
 	}
-	
 	public List<Season> getSeasons() {
 		return seasons;
 	}
@@ -241,23 +236,17 @@ public class Structure implements Serializable {
 	public void setConventions(List<Convention> conventions) {
 		this.conventions = conventions;
 	}
-	
-
 	public Integer getId() {
 		return id;
 	}
-
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
 	public Integer getId_user() {
 		return id_user;
 	}
-
 	public void setId_user(Integer id_user) {
 		this.id_user = id_user;
 	}
-	
 	
 }

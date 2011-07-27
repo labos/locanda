@@ -1,51 +1,50 @@
-<?xml version="1.0" encoding="UTF-8"?><!--
-   
-     Copyright 2011 - Sardegna Ricerche, Distretto ICT, Pula, Italy
-   
-    Licensed under the EUPL, Version 1.1.
-    You may not use this work except in compliance with the Licence.
-    You may obtain a copy of the Licence at:
-   
-     http://www.osor.eu/eupl
-   
-    Unless required by applicable law or agreed to in  writing, software distributed under the Licence is distributed on an "AS IS" basis,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the Licence for the specific language governing permissions and limitations under the Licence.
-    In case of controversy the competent court is the Court of Cagliari (Italy).
- -->
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright 2011 - Sardegna Ricerche, Distretto ICT, Pula, Italy
 
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+Licensed under the EUPL, Version 1.1.
+You may not use this work except in compliance with the Licence.
+You may obtain a copy of the Licence at:
+
+http://www.osor.eu/eupl
+
+Unless required by applicable law or agreed to in  writing, software distributed under the Licence is distributed on an "AS IS" basis,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the Licence for the specific language governing permissions and limitations under the Licence.
+In case of controversy the competent court is the Court of Cagliari (Italy).
+-->
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="persistence.mybatis.mappers.StructureMapper">
 
-	<!--  
-<cache />
--->
-
-	<select id="findStructureByIdUser" parameterType="int" resultType="model.Structure">
-		<include refid="selectStructure" />
-		where id_user = #{id_user}
-	</select>
- 
-	<select id="findStructureById" parameterType="int" resultType="model.Structure">
-		<include refid="selectStructure" />
-		where id = #{id}
-	</select>
-	<sql id="selectStructure">
-		SELECT
-		id,name,email,url,phone,fax,address,city,country,zipCode,notes,id_user
-		FROM structure
- 	</sql>
- 	<update id="updateStructure" parameterType="model.Structure" >
- 		UPDATE structure 
- 		set name= #{name},email= #{email},url= #{url},phone= #{phone},fax= #{fax},address= #{address},city= #{city},country= #{country},zipCode= #{zipCode},notes= #{notes},id_user= #{id_user}
- 		where id = #{id}
-	</update>
-	<insert id="insertStructure" useGeneratedKeys="true" keyProperty="id" parameterType="model.Structure">
-		insert into 
-		structure(name,email,url,phone,fax,address,city,country,zipCode,notes,id_user) 
-		values(#{name}, #{email}, #{url}, #{phone}, #{fax}, #{address}, #{city}, #{country}, #{zipCode}, #{notes}, #{id_user})	
-	</insert>	
+    <select id="findStructureByIdUser" parameterType="int" resultType="model.Structure">
+        <include refid="selectStructure"/>
+        where id_user = #{id_user}
+    </select>
+    
+    <select id="findStructureById" parameterType="int" resultType="model.Structure">
+        <include refid="selectStructure"/>
+        where id = #{id}
+    </select>
 	
+    <sql id="selectStructure">
+        SELECT
+        id,name,email,url,phone,fax,address,city,country,zipCode,notes,id_user
+        FROM structure
+    </sql>
+	
+    <update id="updateStructure" parameterType="model.Structure">
+        UPDATE structure
+        set name= #{name},email= #{email},url= #{url},phone= #{phone},fax= #{fax},address= #{address},city= #{city},country= #{country},zipCode= #{zipCode},notes= #{notes},id_user= #{id_user}
+        where id = #{id}
+    </update>
+	
+    <insert id="insertStructure" useGeneratedKeys="true" keyProperty="id" parameterType="model.Structure">
+        insert into
+        structure(name,email,url,phone,fax,address,city,country,zipCode,notes,id_user)
+        values(#{name}, #{email}, #{url}, #{phone}, #{fax}, #{address}, #{city}, #{country}, #{zipCode}, #{notes}, #{id_user})
+    </insert>
+    
 </mapper>

@@ -15,10 +15,12 @@
  *******************************************************************************/
 package service;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import model.listini.RoomPriceList;
+import model.listini.RoomPriceListItem;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,22 +28,12 @@ import org.springframework.stereotype.Service;
 import persistence.mybatis.mappers.RoomPriceListItemMapper;
 import persistence.mybatis.mappers.RoomPriceListMapper;
 
-import model.RoomType;
-import model.Structure;
-import model.listini.Convention;
-import model.listini.RoomPriceList;
-import model.listini.RoomPriceListItem;
-import model.listini.Season;
-
 @Service
 public class RoomPriceListServiceImpl implements RoomPriceListService{
-	
 	@Autowired
 	private RoomPriceListMapper roomPriceListMapper;
-	
 	@Autowired
 	private RoomPriceListItemMapper roomPriceListItemMapper;
-	
 	
 	@Override
 	public Integer insertRoomPriceList(RoomPriceList roomPriceList) {
@@ -95,7 +87,6 @@ public class RoomPriceListServiceImpl implements RoomPriceListService{
 		ret = this.getRoomPriceListMapper().deleteRoomPriceListById(id);
 		return ret;
 	}	
-	
 
 	@Override
 	public Integer deleteRoomPriceListsByIdSeason(Integer id_season) {
@@ -106,7 +97,6 @@ public class RoomPriceListServiceImpl implements RoomPriceListService{
 		for(RoomPriceList each: roomPriceLists){
 			this.deleteRoomPriceListById(each.getId());
 		}
-		
 		return ret;
 	}
 
@@ -119,7 +109,6 @@ public class RoomPriceListServiceImpl implements RoomPriceListService{
 		for(RoomPriceList each: roomPriceLists){
 			this.deleteRoomPriceListById(each.getId());
 		}
-		
 		return ret;
 	}
 
@@ -132,33 +121,27 @@ public class RoomPriceListServiceImpl implements RoomPriceListService{
 		for(RoomPriceList each: roomPriceLists){
 			this.deleteRoomPriceListById(each.getId());
 		}
-		
 		return ret;
 	}
 
 	@Override
 	public Integer updateRoomPriceListItem(RoomPriceListItem roomPriceListItem) {
-		
 		return this.getRoomPriceListItemMapper().updateRoomPriceListItem(roomPriceListItem);
 	}
 
 	public RoomPriceListMapper getRoomPriceListMapper() {
 		return roomPriceListMapper;
 	}
-
 	public void setRoomPriceListMapper(RoomPriceListMapper roomPriceListMapper) {
 		this.roomPriceListMapper = roomPriceListMapper;
 	}
-	
 
 	public RoomPriceListItemMapper getRoomPriceListItemMapper() {
 		return roomPriceListItemMapper;
 	}
-
 	public void setRoomPriceListItemMapper(
 			RoomPriceListItemMapper roomPriceListItemMapper) {
 		this.roomPriceListItemMapper = roomPriceListItemMapper;
 	}
-
 
 }

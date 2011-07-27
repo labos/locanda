@@ -1,50 +1,49 @@
-<?xml version="1.0" encoding="UTF-8"?><!--
-   
-     Copyright 2011 - Sardegna Ricerche, Distretto ICT, Pula, Italy
-   
-    Licensed under the EUPL, Version 1.1.
-    You may not use this work except in compliance with the Licence.
-    You may obtain a copy of the Licence at:
-   
-     http://www.osor.eu/eupl
-   
-    Unless required by applicable law or agreed to in  writing, software distributed under the Licence is distributed on an "AS IS" basis,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the Licence for the specific language governing permissions and limitations under the Licence.
-    In case of controversy the competent court is the Court of Cagliari (Italy).
- -->
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright 2011 - Sardegna Ricerche, Distretto ICT, Pula, Italy
 
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+Licensed under the EUPL, Version 1.1.
+You may not use this work except in compliance with the Licence.
+You may obtain a copy of the Licence at:
 
-<mapper namespace="persistence.mybatis.mappers.ExtraPriceListItemMapper"> 
-  <cache />
-  
-  <insert id="insertExtraPriceListItem" parameterType="model.listini.ExtraPriceListItem" useGeneratedKeys="true" keyProperty="id">
-  	insert into extraPriceListItem(price,id_extra, id_extraPriceList) 
-  	values(#{price},#{id_extra},#{id_extraPriceList})  
-  </insert>
-  
-  <delete id="deleteExtraPriceListItemsByIdExtraPriceList" parameterType="int">
-  	delete from extraPriceListItem where id_extraPriceList = #{id_extraPriceList}
-  </delete>
-  
-  <delete id="deleteExtraPriceListItemsByIdExtra" parameterType="int">
-  	delete from extraPriceListItem where id_extra = #{id_extra}
-  </delete>
-  
-  <select id="findExtraPriceListItemsByIdExtraPriceList" resultType="model.listini.ExtraPriceListItem" parameterType="int">
-  select 
-  id,price,id_extra, id_extraPriceList  
-  from  extraPriceListItem 
-  where id_extraPriceList = #{id_extraPriceList}  
-  </select>
-  
-  
-  <update id="updateExtraPriceListItem" parameterType="model.listini.ExtraPriceListItem">
-  update extraPriceListItem 
-  set price = #{price}   
-  where id = #{id}	
-  </update>
-      
+http://www.osor.eu/eupl
+
+Unless required by applicable law or agreed to in  writing, software distributed under the Licence is distributed on an "AS IS" basis,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the Licence for the specific language governing permissions and limitations under the Licence.
+In case of controversy the competent court is the Court of Cagliari (Italy).
+-->
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="persistence.mybatis.mappers.ExtraPriceListItemMapper">
+    <cache/>
+    
+    <insert id="insertExtraPriceListItem" parameterType="model.listini.ExtraPriceListItem" useGeneratedKeys="true" keyProperty="id">
+        insert into extraPriceListItem(price,id_extra, id_extraPriceList)
+        values(#{price},#{id_extra},#{id_extraPriceList})
+    </insert>
+    
+    <delete id="deleteExtraPriceListItemsByIdExtraPriceList" parameterType="int">
+        delete from extraPriceListItem where id_extraPriceList = #{id_extraPriceList}
+    </delete>
+    
+    <delete id="deleteExtraPriceListItemsByIdExtra" parameterType="int">
+        delete from extraPriceListItem where id_extra = #{id_extra}
+    </delete>
+    
+    <select id="findExtraPriceListItemsByIdExtraPriceList" resultType="model.listini.ExtraPriceListItem" parameterType="int">
+        select
+        id,price,id_extra, id_extraPriceList
+        from  extraPriceListItem
+        where id_extraPriceList = #{id_extraPriceList}
+    </select>
+    
+    <update id="updateExtraPriceListItem" parameterType="model.listini.ExtraPriceListItem">
+        update extraPriceListItem
+        set price = #{price}
+        where id = #{id}
+    </update>
+    
 </mapper>

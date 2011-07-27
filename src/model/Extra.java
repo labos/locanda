@@ -20,6 +20,7 @@ import java.io.Serializable;
 public class Extra implements Serializable{
 	
 	private Integer id;
+	
 	private String name;
 	private String timePriceType;
 	private String resourcePriceType;

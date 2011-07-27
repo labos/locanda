@@ -28,6 +28,7 @@ import persistence.mybatis.mappers.ExtraMapper;
 import persistence.mybatis.mappers.ExtraPriceListItemMapper;
 
 import model.Extra;
+
 @Service
 public class ExtraServiceImpl implements ExtraService {
 	@Autowired
@@ -35,7 +36,6 @@ public class ExtraServiceImpl implements ExtraService {
 	@Autowired
 	private ExtraPriceListItemMapper extraPriceListItemMapper = null;
 	
-
 
 	public List<Extra> findExtrasByIdStructure(Integer id_structure) {
 		List<Extra> ret = null;
@@ -58,25 +58,19 @@ public class ExtraServiceImpl implements ExtraService {
 
 	@Override
 	public Integer insertExtra(Extra extra) {
-		
 		return this.getExtraMapper().insertExtra(extra);
 	}
 	
 	@Override
 	public Extra findExtraById(Integer id) {
-		
 		return this.getExtraMapper().findExtraById(id);
 	}
 	
-
-
 	@Override
 	public Integer updateExtra(Extra extra) {
 		return this.getExtraMapper().updateExtra(extra);
 	}
 	
-	
-
 	@Override
 	public Integer deleteExtra(Integer id) {
 		this.getExtraPriceListItemMapper().deleteExtraPriceListItemsByIdExtra(id);
@@ -96,21 +90,15 @@ public class ExtraServiceImpl implements ExtraService {
 	public ExtraMapper getExtraMapper() {
 		return extraMapper;
 	}
-
 	public void setExtraMapper(ExtraMapper extraMapper) {
 		this.extraMapper = extraMapper;
 	}
-
 	public ExtraPriceListItemMapper getExtraPriceListItemMapper() {
 		return extraPriceListItemMapper;
 	}
-
 	public void setExtraPriceListItemMapper(
 			ExtraPriceListItemMapper extraPriceListItemMapper) {
 		this.extraPriceListItemMapper = extraPriceListItemMapper;
 	}
-
-	
-	
 
 }

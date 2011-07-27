@@ -21,14 +21,30 @@ import java.util.Date;
 import java.util.List;
 
 public class Season implements Serializable{
+	
 	private Integer id;
+	
 	private String name;
 	private Integer year;	
 	private List<Period> periods;
 	private Integer id_structure;
 	
+	
 	public Season(){
 		this.setPeriods(new ArrayList<Period>());
+	}
+
+	public Boolean addPeriod(Period aPeriod){
+		return this.getPeriods().add(aPeriod);
+	}
+	
+	public Boolean includesDate(Date date){
+		for(Period each: this.getPeriods()){
+			if(each.includesDate(date)){
+				return true;
+			}
+		}		
+		return false;
 	}
 	
 	@Override
@@ -38,7 +54,6 @@ public class Season implements Serializable{
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -55,20 +70,6 @@ public class Season implements Serializable{
 			return false;
 		return true;
 	}
-
-	public Boolean addPeriod(Period aPeriod){
-		return this.getPeriods().add(aPeriod);
-	}
-	
-	public Boolean includesDate(Date date){
-		for(Period each: this.getPeriods()){
-			if(each.includesDate(date)){
-				return true;
-			}
-		}		
-		return false;
-	}
-	
 	public Integer getId() {
 		return id;
 	}

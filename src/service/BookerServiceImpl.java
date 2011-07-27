@@ -33,8 +33,6 @@ public class BookerServiceImpl implements BookerService{
 	@Autowired 
 	private BookerMapper bookerMapper = null;
 
-	
-
 	@Override
 	public Integer insertBooker(Guest booker, Integer id_booking) {
 		Integer ret = 0;
@@ -49,8 +47,6 @@ public class BookerServiceImpl implements BookerService{
 		return ret;
 	}
 	
-	
-
 	@Override
 	public Integer updateBooker(Guest booker, Integer id_booking) {
 		Integer ret = 0;
@@ -66,40 +62,28 @@ public class BookerServiceImpl implements BookerService{
 		return ret;
 	}
 
-	
-
 	@Override
 	public Integer deleteBookerByIdBooking(Integer id_booking) {
 		
 		return this.getBookerMapper().deleteBookerByIdBooking(id_booking);
 	}
 
-
-
 	@Override
 	public Integer findIdBookerByIdBooking(Integer id_booking) {
 		
 		return this.getBookerMapper().findIdBookerByIdBooking(id_booking);
 	}
-
-
-
+	
 	public GuestMapper getGuestMapper() {
 		return guestMapper;
 	}
-
 	public void setGuestMapper(GuestMapper guestMapper) {
 		this.guestMapper = guestMapper;
 	}
-
 	public BookerMapper getBookerMapper() {
 		return bookerMapper;
 	}
-
 	public void setBookerMapper(BookerMapper bookerMapper) {
 		this.bookerMapper = bookerMapper;
 	}
-	
-	
-
 }

@@ -41,12 +41,10 @@ public class SeasonServiceImpl implements SeasonService{
 	private ExtraPriceListService extraPriceListService = null;
 	
 	public List<Season> findSeasonsByIdStructure(Integer structureId) {
-		
 		return this.getSeasonMapper().findSeasonsByStructureId(structureId);
 	}
 	
 	public Season findSeasonById(Integer seasonId) {
-		
 		return this.getSeasonMapper().findSeasonById(seasonId);
 	}
 	
@@ -125,19 +123,18 @@ public class SeasonServiceImpl implements SeasonService{
 		if(ret>0){
 			for(Period each: season.getPeriods()){
 				if(each.getId()==null){
-					//Si tratta di un nuovo period quindi devo fare un insert
+					//It's a new period, so an insert is needed
 					each.setId_season(season.getId());
 					this.getSeasonMapper().insertPeriod(each);
 				}else{
-					//Si tratta di un period esistente quindi devo fare un update
+					//It's an existing period, so an update is needed
 					
 					oldPeriodIds.remove(each.getId());
 					each.setId_season(season.getId());
 					this.getSeasonMapper().updatePeriod(each);
 				}				
 			}
-			//La collezione oldPeriodIds in questo punto contiene gli Id dei periodi che
-			//devono essere rimossi
+			//The oldPeriodIds collection now contains the ids of all periods that must be removed
 			for(Integer oldPeriodId: oldPeriodIds){
 				this.getSeasonMapper().deletePeriod(oldPeriodId);
 			}
@@ -165,27 +162,20 @@ public class SeasonServiceImpl implements SeasonService{
 	public SeasonMapper getSeasonMapper() {
 		return seasonMapper;
 	}
-
 	public void setSeasonMapper(SeasonMapper seasonMapper) {
 		this.seasonMapper = seasonMapper;
 	}
-
 	public RoomPriceListService getRoomPriceListService() {
 		return roomPriceListService;
 	}
-
 	public void setRoomPriceListService(RoomPriceListService roomPriceListService) {
 		this.roomPriceListService = roomPriceListService;
 	}
-
 	public ExtraPriceListService getExtraPriceListService() {
 		return extraPriceListService;
 	}
-
 	public void setExtraPriceListService(ExtraPriceListService extraPriceListService) {
 		this.extraPriceListService = extraPriceListService;
 	}
 	
-	
-
 }
