@@ -441,7 +441,7 @@ $(function () {
                                 $("span.subtotal_room").text(subTotal);
                                 $("span.balance_room").text(subTotal);
                                 $("#booking_duration").val(numNights);
-                                Booking.updateSubtotal();
+                                Controllers.Booking.updateSubtotal();
      
                             } else if (data_action.message.result == "error") {
                                 $().notify($.i18n("warning"), data_action.message.description);
