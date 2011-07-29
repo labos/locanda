@@ -15,7 +15,7 @@
  *******************************************************************************/
 $(function () {
     //---  EXTRAS SECTION CODE   
-    $.Class.extend('Controller.Extra', /* @prototype */ {
+    $.Class.extend('Controllers.Extra', /* @prototype */ {
         init: function () {
              
         	/* Buttons rendering and event handler attachments */
@@ -62,5 +62,5 @@ $(function () {
         }
     });
     
-    new Controller.Extra();
+    new Controllers.Extra();
 });

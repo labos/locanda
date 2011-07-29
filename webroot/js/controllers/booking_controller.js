@@ -22,7 +22,7 @@ $(function () {
      * @tag controllers
      * @author LabOpenSource
      */
-    $.Class.extend('Booking', /* @static */ { 
+    $.Class.extend('Controllers.Booking', /* @static */ { 
     	/* update subtotal */
         updateSubtotal: function () {
             var subtotal = 0,
@@ -485,5 +485,5 @@ $(function () {
         }
         //---  END BOOK SECTION CODE  
     });
-    new Booking(I18NSettings.lang, I18NSettings.datePattern);
+    new Controllers.Booking(I18NSettings.lang, I18NSettings.datePattern);
 });

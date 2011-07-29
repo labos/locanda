@@ -15,7 +15,7 @@
  *******************************************************************************/
 $(function () {
     //---  PRICE LISTS SECTION CODE
-    $.Class.extend('Controller.Tree', /* @prototype */ {
+    $.Class.extend('Controllers.Tree', /* @prototype */ {
         init: function () {
         	
             $("#priceList_buttons").hide();
@@ -129,6 +129,6 @@ $(function () {
         }
     });
     
-    new Controller.Tree();
+    new Controllers.Tree();
     
 });

@@ -14,7 +14,7 @@
  * In case of controversy the competent court is the Court of Cagliari (Italy).
  *******************************************************************************/
 $(function () {
-    $.Class.extend('Controller.Online', /* @prototype */ {
+    $.Class.extend('Controllers.Online', /* @prototype */ {
         init: function () {
         	
             /* Hide/Show usable parameters */
@@ -42,5 +42,5 @@ $(function () {
         }
     });
     
-    new Controller.Online();
+    new Controllers.Online();
 });
