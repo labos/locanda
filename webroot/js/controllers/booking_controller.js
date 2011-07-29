@@ -42,7 +42,7 @@ $(function () {
                 });
                 // permanently update the subtotal
                 $(".subtotal_room").text(subtotal);
-                Booking.updateBalance();
+                Controllers.Booking.updateBalance();
             } catch (e) {
                 //nothing for now -- selector exceptions management
             }
@@ -109,7 +109,7 @@ $(function () {
                     
                     var selectedData = $(this).datepicker("getDate");
                     if (selectedData && otherData) {
-                        numNights = Booking.days_between_signed(otherData, selectedData);
+                        numNights = Controllers.Booking.days_between_signed(otherData, selectedData);
                         if (numNights == 0) $().notify(this.alertKO, $.i18n("dateInVsdateOut"));
                     }
                     $("#booking_duration").val(numNights);
@@ -141,13 +141,13 @@ $(function () {
                 var new_subtotal = null;
                 if ($(this).valid()) {
                     if ($(this).getSelector() == "adjustment") {
-                        Booking.updateSubtotal(); /* end code for subtotal calculation */
+                        Controllers.Booking.updateSubtotal(); /* end code for subtotal calculation */
                     } else {
-                        Booking.updateBalance();
+                        Controllers.Booking.updateBalance();
                     }
                 } else {
                     
-                    Booking.updateSubtotal();
+                	Controllers.Booking.updateSubtotal();
                 }
                
             });
@@ -156,7 +156,7 @@ $(function () {
             $(".erase_adjustment, .erase_payment").click(function () {
                 var selector = $(this).getSelector();
                 $(this).parents("." + selector + "_row").find(".extra_value_" + selector + "").val(0);
-                Booking.updateSubtotal();
+                Controllers.Booking.updateSubtotal();
                 $(this).closest("." + selector + "_row").remove();
             });
             
@@ -175,7 +175,7 @@ $(function () {
                 // attach erase click
                 added.find(".erase_" + selector + "").click(function () {
                     $(this).parents("." + selector + "_row").find(".extra_value_" + selector + "").val(0);
-                    Booking.updateSubtotal();
+                    Controllers.Booking.updateSubtotal();
                     $(this).closest("." + selector + "_row").remove();
                 });
                 added.find(".extra_value_" + selector + "").keyup(function () { 
@@ -185,13 +185,13 @@ $(function () {
                     var new_subtotal = null;
                     if ($(this).valid()) {
                         if ($(this).getSelector() == "adjustment") {
-                            Booking.updateSubtotal(); 
+                        	Controllers.Booking.updateSubtotal(); 
                         } else {
-                            Booking.updateBalance();
+                        	Controllers.Booking.updateBalance();
                         }
                     } else {
                         
-                        Booking.updateSubtotal();
+                    	Controllers.Booking.updateSubtotal();
                     }
                 });
             });
