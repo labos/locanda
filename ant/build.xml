@@ -47,7 +47,7 @@
 		<replaceregexp file="${webroot.path}/jdbc.properties" match="jdbc.password=.*" replace ="jdbc.password=${mysql.password}"/>
 	</target>
 	
-	<target name="resource_restore" description="restore resources folder">
+	<target name="resource_restore" depends="propertySetter" description="restore resources folder" if="resources">
 		<copy todir="${dist.path}">
 			<fileset dir="${tomcat.application.path}">
 				<include name="resources/"/>
@@ -114,7 +114,7 @@
 	</target>
 	
 	<taskdef name="undeploy" classname="org.apache.catalina.ant.UndeployTask"/>
-	<target name="undeploy" depends="propertySetter" description="Remove web application" if="deployed">
+	<target name="undeploy" depends="propertySetter,resource_restore" description="Remove web application" if="deployed">
 		<delete file="${tomcat.deploy.path}/${webappname}.war"></delete>
 		<undeploy url="${tomcat.manager.url}" username="${tomcat.username}" password="${tomcat.password}"
             path="/${webappname}"/>
