@@ -33,31 +33,55 @@ public class TreeNode {
 		return this.getChildren().add(childNode);
 	}
 	
-	public static TreeNode buildNode(String title) {				//Creates a node setting the title
+	public static TreeNode buildNode(String title) {							//Creates a node setting the title - just for years
 		TreeData data = new TreeData();
-		data.setTitle(title);
 		TreeNode newNode = new TreeNode();
+		
+		data.setTitle(title);
 		newNode.setData(data);
+		
 		return newNode;
 	}
 	
-	public static TreeNode buildNode(String title, String href) {	//Creates a node setting the title and href
+	public static TreeNode buildNode(String title, Integer id) {
+		Map<String, String> attrMap = new HashMap<String, String>();			//Creates a node setting the title and entity id
 		TreeData data = new TreeData();
+		TreeNode newNode = new TreeNode();
+		
+		attrMap.put("id", id.toString());
+		data.setTitle(title);
+		newNode.setData(data);
+		newNode.setAttr(attrMap);
+		
+		return newNode;
+	}
+	
+	public static TreeNode buildNode(String title, Integer id, String href) {   //Creates a node setting the title, entity id and href
+		Map<String, String> attrMap = new HashMap<String, String>();
 		Map<String, String> dataMap = new HashMap<String, String>();
+		TreeData data = new TreeData();
+		TreeNode newNode = new TreeNode();
+		
+		attrMap.put("id", id.toString());
 		dataMap.put("href", href);
 		data.setTitle(title);
 		data.setAttr(dataMap);
-		TreeNode newNode = new TreeNode();
-		newNode.setData(data);	
+		newNode.setAttr(attrMap);
+		newNode.setData(data);
+		
 		return newNode;
 	}
 	
-	public Boolean buildChild(String childTitle) {					//Adds a child node setting the title
+	public Boolean buildChild(String childTitle) {								//Adds a child node setting the title
 		return this.addChild(TreeNode.buildNode(childTitle));
 	}
 	
-	public Boolean buildChild(String childTitle, String href) {		//Adds a child node setting the title and href
-		return this.addChild(TreeNode.buildNode(childTitle, href));
+	public Boolean buildChild(String childTitle, Integer id) {                  //Adds a child node setting the title and id
+		return this.addChild(TreeNode.buildNode(childTitle, id));
+	}
+	      
+	public Boolean buildChild(String childTitle, Integer id, String href) {     //Adds a child node setting the title, id and href
+		return this.addChild(TreeNode.buildNode(childTitle, id, href));
 	}
 	
 	public TreeData getData() {

@@ -31,10 +31,10 @@
           <div class="header_section">
          	<p class="navigation"> <a class="home" href="<s:property value="url_home"/>?sect=planner">&nbsp;</a><b>»</b> 
 			<span>&nbsp;</span></p>
-    		<span class="name_section"><s:text name="booking" /></span>
+    		<span class="name_section"><s:text name="booking"/></span>
           </div>
 		<div>
-<jsp:include page="jsp/contents/booking_form.jsp" />
+<jsp:include page="jsp/contents/booking_form.jsp"/>
             </div>     
           </div>
-<jsp:include page="jsp/layout/footer.jsp" />     
+<jsp:include page="jsp/layout/footer.jsp"/>     

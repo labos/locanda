@@ -470,7 +470,7 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 	
 	@Actions({
 		@Action(value="/goAddNewBooking",results = {
-				@Result(name="success",location="/book.jsp")
+				@Result(name="success",location="/booking.jsp")
 		})
 	})
 	public String goAddNewBooking() {
@@ -494,7 +494,7 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 	
 	@Actions({
 		@Action(value="/goAddNewBookingFromGuest",results = {
-				@Result(name="success",location="/book.jsp")
+				@Result(name="success",location="/booking.jsp")
 		})
 	})
 	public String goAddNewBookingFromGuest() {
@@ -523,7 +523,7 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 	
 	@Actions({
 		@Action(value="/goUpdateBooking",results = {
-				@Result(name="success",location="/book.jsp")
+				@Result(name="success",location="/booking.jsp")
 		}),
 		@Action(value="/goUpdateBookingFromPlanner",results = {
 				@Result(name="success",location="/jsp/contents/booking_form.jsp")
@@ -558,9 +558,6 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 	}
 	
 	@Actions({
-		@Action(value="/findAllBookings",results = {
-				@Result(name="success",location="/bookings.jsp")
-		}),
 		@Action(value="/findAllBookingsJson",results = {
 				@Result(type ="json",name="success", params={"root","bookings"})
 		}) 

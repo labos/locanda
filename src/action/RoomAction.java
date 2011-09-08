@@ -79,7 +79,7 @@ public class RoomAction extends ActionSupport implements SessionAware,UserAware{
 	
 	@Actions({
 		@Action(value="/findAllRooms",results = {
-				@Result(name="success",location="/accomodation.jsp")
+				@Result(name="success",location="/rooms.jsp")
 		}),
 		@Action(value="/findAllRoomsJson",results = {
 				@Result(type ="json",name="success", params={"root","rooms"})
@@ -111,7 +111,7 @@ public class RoomAction extends ActionSupport implements SessionAware,UserAware{
 		//Setting tree node for rooms folding
 		for (RoomType eachRoomType : this.getRoomTypes()) {							
 			//build first level nodes - room types
-			this.treeNodes.add(TreeNode.buildNode(eachRoomType.getName().toString(), "?roomTypeId=" + eachRoomType.getId() + "&sect=accomodation"));
+			this.treeNodes.add(TreeNode.buildNode(eachRoomType.getName().toString(), eachRoomType.getId(), "?roomTypeId=" + eachRoomType.getId() + "&sect=accomodation"));
 		}
 		return SUCCESS;
 	}

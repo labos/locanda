@@ -114,27 +114,27 @@ public class ExtraPriceListAction extends ActionSupport implements SessionAware,
 			for (Season eachYearSeason : perYearSeasons) {
 				if (this.getRoomTypeService().findRoomTypesByIdStructure(this.getIdStructure()).size() == 0) {			//Without room types, click on a season node must link to a blank page
 					String href = "jsp/layout/blank.jsp";
-					eachNode1.buildChild(eachYearSeason.getName(), href);
+					eachNode1.buildChild(eachYearSeason.getName(), eachYearSeason.getId(), href);
 				} else {
-					eachNode1.buildChild(eachYearSeason.getName());
+					eachNode1.buildChild(eachYearSeason.getName(), eachYearSeason.getId());
 				}
 			}
 			for (TreeNode eachNode2 : eachNode1.getChildren()) {		//For each season, building level-3 nodes - room types
 				for (RoomType eachRoomType : this.getRoomTypeService().findRoomTypesByIdStructure(this.getIdStructure())) {
 					if (this.getConventionService().findConventionsByIdStructure(this.getIdStructure()).size() == 0) {	//Without conventions, click on a room type node must link to a blank page
 						String href = "jsp/layout/blank.jsp";
-						eachNode2.buildChild(eachRoomType.getName(), href);
+						eachNode2.buildChild(eachRoomType.getName(), eachRoomType.getId(), href);
 					}else {
-						eachNode2.buildChild(eachRoomType.getName());
+						eachNode2.buildChild(eachRoomType.getName(), eachRoomType.getId());
 						  }	
 					}
 					for (TreeNode eachNode3 : eachNode2.getChildren()) {//For each room type, building level-4 nodes - conventions
 						for (Convention aConvention : this.getConventionService().findConventionsByIdStructure(this.getIdStructure())) {
 							String href = webappPath + "/findExtraPriceListItems" +
-							"?seasonId=" + this.getSeasonService().findSeasonByName(this.getIdStructure(),eachNode2.getData().getTitle()).getId() + 
+							"?seasonId=" + eachNode2.getAttr().get("id") + 
 							"&roomTypeId=" + this.getRoomTypeService().findRoomTypeByIdStructureAndName(this.getIdStructure(),eachNode3.getData().getTitle()).getId() +
 							"&conventionId=" + aConvention.getId();
-							eachNode3.buildChild(aConvention.getName(), href);
+							eachNode3.buildChild(aConvention.getName(), aConvention.getId(), href);
 						}
 					}			
 			}

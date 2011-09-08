@@ -35,7 +35,7 @@
     <div id="col3" role="main">
       <div id="col3_content" class="clearfix">
         <div class="header_section yform">
-          <span class="name_section"><s:text name="accomodation"/></span>
+          <span class="name_section"><s:text name="rooms"/></span>
         </div>
         
         <div>
@@ -62,7 +62,7 @@
                   <div class="type_rooms">
                     <ul>
 				      <li><b><s:text name="roomType"/>: </b><a href="findAllRoomTypes.action?sect=accomodation#<s:property value="#eachRoom.roomType.name"/>" ><s:property value="#eachRoom.roomType.name"/></a></li>
-				      <li><b><s:text name="roomTypeMaxGuests"/>:</b> <s:property value="#eachRoom.roomType.maxGuests"/></li>
+				      <li><b><s:text name="maxGuests"/>:</b> <s:property value="#eachRoom.roomType.maxGuests"/></li>
 				      <li><b><s:text name="notes"/>:</b> <s:property value="#eachRoom.notes"/></li>
 				    </ul>
            			<fieldset> 
