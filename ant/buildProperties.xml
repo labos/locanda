@@ -19,11 +19,7 @@
 	<property name="webappname" value="locanda"/>
 	<property name="host" value="your_host"/>
 	
-<<<<<<< OURS
 	<property name="tomcat.home.path" value="your_path"/>
-=======
-	<property name="tomcat.home.path" value="/opt/java/apache-tomcat-7.0.2"/>
->>>>>>> THEIRS
 	<property name="tomcat.deploy.path" value="${tomcat.home.path}/webapps"/>
 	<property name="tomcat.application.path" value="${tomcat.deploy.path}/${webappname}"/>
 	<property name="tomcat.resource.path" value="${tomcat.application.path}/resources"/>
@@ -40,13 +36,8 @@
 	<property name="mysql.bin.path" location="/usr/bin"/>
 	<property name="mysql.host" value="${host}"/>
 	<property name="mysql.port" value="3306"/>
-<<<<<<< OURS
 	<property name="mysql.username" value="your_user"/>
 	<property name="mysql.password" value="your_pass"/>
-=======
-	<property name="mysql.username" value="root"/>
-	<property name="mysql.password" value="root"/>
->>>>>>> THEIRS
 	<property name="mysql.dump.path" value="sql"/>
 	
 </project>
