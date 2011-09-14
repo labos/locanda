@@ -17,15 +17,15 @@
 	<description>Properties file</description>
 	
 	<property name="webappname" value="locanda"/>
-	<property name="host" value="0.0.0.0"/>
+	<property name="host" value="your_host"/>
 	
-	<property name="tomcat.home.path" value="/opt/tomcat"/>
+	<property name="tomcat.home.path" value="your_path"/>
 	<property name="tomcat.deploy.path" value="${tomcat.home.path}/webapps"/>
 	<property name="tomcat.application.path" value="/"/>
 	<property name="tomcat.application.folder" value="${tomcat.deploy.path}/ROOT"/>
 	<property name="tomcat.resource.path" value="${tomcat.application.folder}/resources"/>
-	<property name="tomcat.username" value="tomcat"/>
-	<property name="tomcat.password" value="password"/>
+	<property name="tomcat.username" value="your_user"/>
+	<property name="tomcat.password" value="your_pass"/>
 	<property name="tomcat.manager.url" value="http://${host}/manager/text"/>
 	
 	<property name="dist.path" value="dist"/>
@@ -40,8 +40,8 @@
 	<property name="mysql.bin.path" location="/usr/bin"/>
 	<property name="mysql.host" value="${host}"/>
 	<property name="mysql.port" value="3306"/>
-	<property name="mysql.username" value="root"/>
-	<property name="mysql.password" value="password"/>
+	<property name="mysql.username" value="your_user"/>
+	<property name="mysql.password" value="your_pass"/>
 	<property name="mysql.dump.path" value="sql"/>
 	
 </project>
