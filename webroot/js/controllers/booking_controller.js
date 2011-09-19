@@ -124,6 +124,16 @@ $(function () {
                     primary: "ui-icon-trash"
                 }
             }); 
+            $(".invoice_booking").button({
+                icons: {
+                    primary: "ui-icon-arrowreturnthick-1-s"
+                }
+            }).click(function(event){
+            	if (!confirm($.i18n("invoiceConfirm"))) {
+            		 event.preventDefault();
+            	}
+            }); 
+            
             /* adjustment and payments*/
             $.fn.getSelector = function () {
                 var selector = "";

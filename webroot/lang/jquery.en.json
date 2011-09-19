@@ -55,6 +55,7 @@ $.i18n.en.strings = {
     bookerData: "Booker Data",
     phone: "Phone",
     address: "Address",
+    invoiceConfirm: "Be careful, the invoice you are downloading refers to the last saved booking.",
     sunday: "Sunday",
     monday: "Monday",
     tuesday: "Tuesday",

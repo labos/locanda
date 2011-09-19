@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.22" id="1">
+    <list-property name="configVars">
+        <structure>
+            <property name="name">__isdisplay__bookid_457_0</property>
+            <property name="value">3</property>
+        </structure>
+        <structure>
+            <property name="name">__isdisplay__structid_516_1</property>
+            <property name="value">1</property>
+        </structure>
+        <structure>
+            <property name="name">structid_516_2</property>
+            <property name="value">1</property>
+        </structure>
+        <structure>
+            <property name="name">structid_516_type_</property>
+            <property name="value">integer</property>
+        </structure>
+        <structure>
+            <property name="name">bookid_457_3</property>
+            <property name="value">3</property>
+        </structure>
+        <structure>
+            <property name="name">bookid_457_type_</property>
+            <property name="value">string</property>
+        </structure>
+    </list-property>
+</report>

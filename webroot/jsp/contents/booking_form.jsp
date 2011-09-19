@@ -18,7 +18,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="/struts-tags" prefix="s" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
+ <s:url action="birt" var="url_birt"></s:url>
 <style>
 .type_rooms{
 display: none;
@@ -257,6 +257,9 @@ width:80%;
               	  <div class="type-button">
                		<button class="btn_save"><s:text name="save" /></button>
                		<a class="canc_booking" href="<s:property value="url_home"/>?sect=planner"><s:text name="cancel" /></a>
+               		<s:if test="booking.id != null">
+               		<a class="invoice_booking" target="_blank" href="<s:property value="url_birt"/>?rp=bookinginvoice&bookid=${booking.id}"><s:text name="invoiceDownload" /></a>
+               		</s:if>
             	  </div>
                 </div>
               </div>
