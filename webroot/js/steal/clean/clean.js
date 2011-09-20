@@ -1,12 +1,8 @@
 // lets you know if your JS sucks and will try to clean it for you
 // using with jslint: js steal/cleanjs path/to/file -jslint
 
-steal('steal/build').then('steal/clean/beautify.js','steal/clean/jslint.js','steal/rhino/prompt.js', function(steal){
-	var extend = function( d, s ) {
-			for ( var p in s ) d[p] = s[p];
-			return d;
-		},
-		lintAndPrint = function(out, predefined){
+steal.plugins('steal/build').then('//steal/clean/beautify','//steal/clean/jslint','//steal/rhino/prompt', function(steal){
+	var lintAndPrint = function(out, predefined){
 		
 
 		JSLINT(out,{devel: true, forin: true, browser: true, windows: true, rhino: true, predefined : predefined});
@@ -97,7 +93,7 @@ steal('steal/build').then('steal/clean/beautify.js','steal/clean/jslint.js','ste
 	 * 
 	 */
 	steal.clean = function(url, options){
-		options = extend(
+		options = steal.extend(
 			{indent_size: 1, 
 			 indent_char: '\t', 
 			 space_statement_expression: true,
@@ -115,7 +111,7 @@ steal('steal/build').then('steal/clean/beautify.js','steal/clean/jslint.js','ste
 		//if it ends with js, just rewwrite
 		if(/\.js/.test(url)){
 			var text = readFile(url);
-			print('Beautifying '+url)
+			steal.print('Beautifying '+url)
 			var out = js_beautify(text, options);
 			if(options.print){
 				print(out)

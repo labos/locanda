@@ -1,4 +1,4 @@
-load('steal/rhino/rhino.js');
+load('steal/rhino/steal.js');
 
 steal.File('steal/js').copyTo('js')
 steal.File('js').setExecutable()

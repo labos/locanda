@@ -1,7 +1,7 @@
-load('steal/rhino/rhino.js')
+load('steal/rhino/steal.js')
+load('steal/rhino/test.js');
 
-steal('steal/test', "steal/generate")
-	.then('steal/generate/system.js').then(function(){
+(function(rhinoSteal){
 	_S = steal.test;
 	
 	//turn off printing
@@ -11,15 +11,18 @@ steal('steal/test', "steal/generate")
 	
 	print("-- generate basic foo app --");
 	
-	var	data = steal.extend({
-		path: "foo", 
-		application_name: "foo",
-		current_path: steal.File.cwdURL(),
-		path_to_steal: new steal.File("foo").pathToRoot()
-	}, steal.system);
-	steal.generate("steal/generate/templates/app","foo",data)
+	steal("//steal/generate/generate",'//steal/generate/system', function(steal){
+		var	data = steal.extend({
+			path: "foo", 
+			application_name: "foo",
+			current_path: steal.File.cwdURL(),
+			path_to_steal: new steal.File("foo").pathToRoot()
+		}, steal.system);
+		steal.generate("steal/generate/templates/app","foo",data)
+	})
 	
-	steal.File("foo").removeDir();
+	
+	rhinoSteal.File("foo").removeDir();
 	
 	print("== complete ==\n")
-})
+})(steal);

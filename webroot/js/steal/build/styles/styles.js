@@ -1,5 +1,5 @@
 
-steal('steal/build').then(function( steal ) {
+steal(function( steal ) {
 
 	/**
 	 * Builds and compresses CSS files.
@@ -14,18 +14,18 @@ steal('steal/build').then(function( steal ) {
 		var folder = options.to.substr(0, options.to.length - 1),
 			//where the page is
 			pageFolder = steal.File(opener.url).dir(),
-			scriptsConverted = [],
 			currentPackage = [];
 
-		opener.each('css', function( link, text, i ) {
-			steal.print(link.src)
-			scriptsConverted.push(link.src)
+		opener.each('link', function( link, text, i ) {
+			steal.print(link.type)
+			//let people know we are adding it
+			if ( link.href && steal.build.types[link.type] ) {
+				steal.print(link.href)
 
-			var loc = steal.File(pageFolder).join(link.src),
-				converted = convert(text, loc, folder);
-			
-			currentPackage.push(converted)
-
+				var loc = steal.File(pageFolder).join(link.href),
+					converted = convert(text, loc, folder);
+					currentPackage.push(converted);
+			}
 		});
 		steal.print("")
 		if ( currentPackage.length ) {
@@ -37,11 +37,6 @@ steal('steal/build').then(function( steal ) {
             steal.File(folder + "/production.css").save(minified_css);
 		} else {
 			steal.print("no styles\n")
-		}
-		
-		return {
-			name: folder+"/production.css",
-			dependencies: scriptsConverted
 		}
 	});
 
@@ -80,4 +75,4 @@ steal('steal/build').then(function( steal ) {
         var e = Math.floor(Math.log(bytes)/Math.log(1024));
         return (bytes/Math.pow(1024,Math.floor(e))).toFixed(1)+' '+s[e];
     };
-},'steal/build/styles/cssmin.js');
+},'//steal/build/styles/cssmin');

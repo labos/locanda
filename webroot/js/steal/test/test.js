@@ -63,8 +63,7 @@ steal.test =  {
 	testNamespace: function() {
 		var win = this.getWindow();
 		for(var n in win) {
-			// add parser for coffeescript ... boo!
-			if(n !== "_S" && n !== "STEALPRINT" && n !== "parser")
+			if(n !== "_S" && n !== "STEALPRINT")
 				throw "Namespace Pollution "+n;
 		}
 	},
@@ -98,10 +97,6 @@ steal.test =  {
 			logLevel: 2,
 			dontPrintUserAgent: true
 		});
-		//var newSteal = window.steal;
-		//newSteal.done(function(){});
-		//Envjs.wait();
-		
 	},
 	test : function(name, test){
 		assertions = []

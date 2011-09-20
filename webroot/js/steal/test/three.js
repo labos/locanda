@@ -1,2 +1,3 @@
-console.log(3)
+steal(function() {
 	order(3)
+});

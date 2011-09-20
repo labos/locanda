@@ -1385,7 +1385,7 @@ urlparse.normalizepath = function(path)
 //   %7e -> %7E
 // Nor, '+' <--> %20 translation
 //
-urlparse.urlnormalize = function(url, allow)
+urlparse.urlnormalize = function(url)
 {
     var parts = urlparse.urlsplit(url);
     switch (parts.scheme) {
@@ -1393,9 +1393,7 @@ urlparse.urlnormalize = function(url, allow)
         // files can't have query strings
         //  and we don't bother with fragments
         parts.query = '';
-        if(!allow){
-        	parts.fragment = '';
-        }
+        parts.fragment = '';
         break;
     case 'http':
     case 'https':
@@ -1594,10 +1592,8 @@ Envjs.getcwd = function() {
  *
  * @param {Object} path  Relative or absolute URL
  * @param {Object} base  (semi-optional)  The base url used in resolving "path" above
- 
  */
-Envjs.uri = function(path, base, allow) {
-
+Envjs.uri = function(path, base) {
 	path = path.replace(/\\/g, '/');
     //console.log('constructing uri from path %s and base %s', path, base);
 
@@ -1643,7 +1639,7 @@ Envjs.uri = function(path, base, allow) {
     }
     // handles all cases if path is abosulte or relative to base
     // 3rd arg is "false" --> remove fragments
-    var newurl = urlparse.urlnormalize(urlparse.urljoin(base, path, allow ||false), allow);
+    var newurl = urlparse.urlnormalize(urlparse.urljoin(base, path, false));
 	//console.log('uri %s %s = %s', base, path, newurl);
     return newurl;
 };
@@ -2003,9 +1999,7 @@ Envjs.runAsync = function(fn, onInterupt){
             	fn();
             }
             
-
             //Envjs.wait();
-
         });
         Envjs.spawn(run);
     }catch(e){
@@ -23985,6 +23979,9 @@ var __elementPopped__ = function(ns, name, node){
                                     doc.parsing = false;
                                     //DOMContentLoaded event
                                     try{
+										if ( Envjs.killTimersAfterLoad === true ) {
+											Envjs.clear();
+										}
 										if ( Envjs.fireLoad === false ) {
 											return;
 										}
@@ -24317,7 +24314,7 @@ Location = function(url, doc, history) {
         },
 
         assign: function(url, /*non-standard*/ method, data) {
-			var _this = this,
+            var _this = this,
                 xhr,
                 event;
 			method = method||"GET";
@@ -24352,7 +24349,7 @@ Location = function(url, doc, history) {
                        		default:
 								//console.log('status is good for assignment %s', xhr.status);
 	                        	if (xhr.readyState === 4) {// update closure upvars
-					            	$url = url;
+					            	$url = xhr.url;
 						            parts = Envjs.urlsplit($url);
 	                            	//console.log('new document baseURI %s', xhr.url);
 	                            	Envjs.exchangeHTMLDocument($document, xhr.responseText, xhr.url);
@@ -25223,7 +25220,7 @@ Window = function(scope, parent, opener){
         	//loop when creating a xml document
 			//console.log('setting window location %s', url);
         	if(url) {
-            	$location.assign(Envjs.uri(url, $location+'', true));
+            	$location.assign(Envjs.uri(url, $location+''));
 			}
         },
         get name(){

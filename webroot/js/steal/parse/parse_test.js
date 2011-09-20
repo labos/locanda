@@ -2,9 +2,9 @@
 /**
  * Tests compressing a very basic page and one that is using steal
  */
-load('steal/rhino/rhino.js');
+load('steal/rhino/steal.js');
 
-steal('steal/test','steal/parse').then( function( s ) {
+steal.plugins('steal/test','steal/parse').then( function( s ) {
 	STEALPRINT = false;
 	s.test.module("steal/parse")
 	

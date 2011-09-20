@@ -1,10 +1,10 @@
-steal("foo/bar",
+steal.plugins("foo/bar",
 /**
  * Comment
  * @param {Object} "something/else"
  */
 "abc/def").then(function(){
 	
-}).then("something/else");
+}).plugins("something/else");
 
-steal("one/two");
+steal.plugins("one/two");

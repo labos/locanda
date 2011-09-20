@@ -32,10 +32,8 @@ steal(function( steal ) {
 		}
 
 		var data = files[steel.path];
-		// don't add the same app more than once
-		if(data.apps.indexOf(app) == -1){
-			data.apps.push(app);
-		}
+
+		data.apps.push(app);
 		for ( var d = 0; d < steel.dependencies.length; d++ ) {
 			var dependency = steel.dependencies[d];
 			if ( dependency.dependencies ) { //this dependency was actually loaded
@@ -111,7 +109,8 @@ steal(function( steal ) {
 			return most;
 		}
 
-		steal.build.builders.apps = function( list, options ) {
+
+		steal.build.apps = function( list, options ) {
 			options = steal.opts(options || {}, {
 				//compress everything, regardless of what you find
 				depth: 1,
@@ -133,12 +132,6 @@ steal(function( steal ) {
 			//set defaults
 			options.depth = options.depth || 2;
 			options.to = options.to || "packages/"
-			// check if path exists
-			var dest = steal.File(options.to);
-			if(!dest.exists()){
-				var dir = dest.dir();
-				dest.mkdir();
-			}
 
 			//go through, open each app, and make dependency graph
 			for ( var i = 0; i < list.length; i++ ) {
