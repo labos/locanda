@@ -1,0 +1,5 @@
+<%for(var i = 0; i < adjustements.length ; i++){%>
+	<tr <%= adjustements[i]%>>
+		<%= $.View('//js/views/adjustement/show',adjustements[i])%>
+	</tr>
+<%}%>
