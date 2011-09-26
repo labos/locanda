@@ -104,6 +104,44 @@
         <value>global</value>
     </simple-property-list>
     <property name="units">in</property>
+    <list-property name="propertyBindings">
+        <structure>
+            <property name="name">odaDriverClass</property>
+            <property name="id">27</property>
+        </structure>
+        <structure>
+            <property name="name">odaURL</property>
+            <property name="id">27</property>
+        </structure>
+        <structure>
+            <property name="name">odaUser</property>
+            <property name="id">27</property>
+        </structure>
+        <structure>
+            <property name="name">odaAutoCommit</property>
+            <property name="id">27</property>
+        </structure>
+        <structure>
+            <property name="name">odaIsolationMode</property>
+            <property name="id">27</property>
+        </structure>
+        <structure>
+            <property name="name">odaPassword</property>
+            <property name="id">27</property>
+        </structure>
+        <structure>
+            <property name="name">odaJndiName</property>
+            <property name="id">27</property>
+        </structure>
+        <structure>
+            <property name="name">OdaConnProfileName</property>
+            <property name="id">27</property>
+        </structure>
+        <structure>
+            <property name="name">OdaConnProfileStorePath</property>
+            <property name="id">27</property>
+        </structure>
+    </list-property>
     <property name="iconFile">/templates/simple_listing.gif</property>
     <property name="cheatSheet">org.eclipse.birt.report.designer.ui.cheatsheet.simplelisting</property>
     <property name="bidiLayoutOrientation">ltr</property>
@@ -152,11 +190,8 @@
                 </ex-property>
             </list-property>
             <property name="odaDriverClass">com.mysql.jdbc.Driver</property>
-            <property name="odaURL">jdbc:mysql://localhost/locanda</property>
-            <property name="odaUser">root</property>
-            <encrypted-property name="odaPassword" encryptionID="base64">cm9vdA==</encrypted-property>
-            <property name="OdaConnProfileName">Locanda</property>
-            <property name="OdaConnProfileStorePath">/opt/Locanda</property>
+            <property name="odaURL">jdbc:mysql://localhost:3306/dummy</property>
+            <property name="odaJndiName">java:comp/env/jdbc/locanda</property>
         </oda-data-source>
     </data-sources>
     <data-sets>
@@ -1450,6 +1485,13 @@ adjustment WHERE adjustment.id_booking=?]]></xml-property>
         <grid id="741">
             <property name="height">10.135416666666666in</property>
             <property name="width">7.947916666666667in</property>
+            <list-property name="boundDataColumns">
+                <structure>
+                    <property name="name">Column Binding</property>
+                    <expression name="expression" type="javascript">reportContext.getDesignHandle().getResourceFolder()</expression>
+                    <property name="dataType">string</property>
+                </structure>
+            </list-property>
             <column id="742">
                 <property name="width">3.6666666666666665in</property>
             </column>
