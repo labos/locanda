@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+	"http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+	<script type='text/javascript' src='js/lib/jquery.min.js'></script>
+	<script type='text/javascript' src='js/lib/handlebars.1.0.0.beta.3.js'></script>
+<!-- 	<script type='text/javascript' src='js/lib/ICanHandlebarz.js'></script> -->
+	<script type='text/javascript' src='js/lib/ICanHaz.min.js'></script>
+	
+	<title>js</title>
+		
+	<script id="icantemplate" type="text/html">
+  <table>
+    <thead>
+      <th>Username</th>
+      <th>Real Name</th>
+      <th>Email</th>
+    </thead>
+    <tbody>
+      {{#users}}
+        <tr>
+          <td>{{username}}</td>
+          <td>{{firstName}} {{lastName}}</td>
+          <td>{{email}}</td>
+        </tr>
+      {{/users}}
+    </tbody>
+  </table>
+</script>
+
+<script id="hbtemplate" type="text/x-handlebars-template">
+  <table>
+    <thead>
+      <th>Username</th>
+      <th>Real Name</th>
+      <th>Email</th>
+    </thead>
+    <tbody>
+      {{#users}}
+        <tr>
+          <td>{{username}}</td>
+          <td>{{firstName}} {{lastName}}</td>
+          <td>{{email}}</td>
+        </tr>
+      {{/users}}
+    </tbody>
+  </table>
+</script>
+
+<script type="text/javascript">
+$(document).ready(function () {
+  	
+  	var data = { users: [
+    	{username: "alan", firstName: "Alan", lastName: "Johnson", email: "alan@test.com" },
+      	{username: "allison", firstName: "Allison", lastName: "House", email: "allison@test.com" },
+      	{username: "ryan", firstName: "Ryan", lastName: "Carson", email: "ryan@test.com" }
+    			]};
+  	var iCanHazTemplate = ich.icantemplate(data);
+  	$('#content-placeholder').html(iCanHazTemplate);
+  	
+  	var source  = $('#hbtemplate').html();
+  	var handlebarsCompiledTemplate = Handlebars.compile(source);
+  	var handlebarsTemplate = template(data);
+  	$('#content-placeholder').html(handlebarsTemplate);
+});
+</script>	
+
+	</head>
+	<body>
+	    
+
+
+	
+	    <h1>handlebars spike</h1>
+        <ul>
+			<li>bla.</li>
+			<li>bla</li>
+        </ul>
+        <div id="content-placeholder">erase me</div>
+	</body>
+</html>
