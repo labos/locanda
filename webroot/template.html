@@ -5,11 +5,13 @@
 	<script type='text/javascript' src='js/lib/jquery.min.js'></script>
 	<script type='text/javascript' src='js/lib/handlebars.1.0.0.beta.3.js'></script>
 <!-- 	<script type='text/javascript' src='js/lib/ICanHandlebarz.js'></script> -->
-	<script type='text/javascript' src='js/lib/ICanHaz.min.js'></script>
+	<script type='text/javascript' src='js/lib/ICanHaz.js'></script>
 	
 	<title>js</title>
+	
+	<script id="icanzremotetemplate" type="text/html" src="jsp/templates/icantemplate.html"></script>
 		
-	<script id="icantemplate" type="text/html">
+	<script id="icanztemplate" type="text/html">
   <table>
     <thead>
       <th>Username</th>
@@ -55,13 +57,22 @@ $(document).ready(function () {
       	{username: "allison", firstName: "Allison", lastName: "House", email: "allison@test.com" },
       	{username: "ryan", firstName: "Ryan", lastName: "Carson", email: "ryan@test.com" }
     			]};
-  	var iCanHazTemplate = ich.icantemplate(data);
-  	$('#content-placeholder').html(iCanHazTemplate);
+  	$('#icanhaz-placeholder').html(ich.icanztemplate(data));
+  	
+  	window.ich.grabTemplates(function() {
+  		$("#placeholder").html(ich.icanzremotetemplate(data));
+  	});
+  	
+  	
+  	$("#mybutton").click(function(){
+  		window.ich.grabTemplates();
+  	  	});
+  	})
   	
   	var source  = $('#hbtemplate').html();
   	var handlebarsCompiledTemplate = Handlebars.compile(source);
-  	var handlebarsTemplate = template(data);
-  	$('#content-placeholder').html(handlebarsTemplate);
+  	var handlebarsTemplate = handlebarsCompiledTemplate(data);
+  	$('#handlebars-placeholder').html(handlebarsTemplate);
 });
 </script>	
 
@@ -76,6 +87,9 @@ $(document).ready(function () {
 			<li>bla.</li>
 			<li>bla</li>
         </ul>
-        <div id="content-placeholder">erase me</div>
+        <div id="icanhaz-placeholder">erase me</div>
+        <div id="placeholder">erase me</div>
+        <div id="handlebars-placeholder">erase me</div>
+        <input type="button" id="mybutton" value="click">
 	</body>
 </html>
