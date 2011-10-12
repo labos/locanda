@@ -203,9 +203,19 @@ $(document).ready(function () {
             //make a new div overlay element
             $('body').append($('<div class="ui-widget-overlay"></div>'));
             $.jGrowl.defaults.position = 'center';
+<<<<<<< OURS
             $.ajaxSetup({cache: false});
+=======
+            $('.item_list').live("mouseover mouseout", function(event) {
+            	  if ( event.type == "mouseover" ) {
+                  	$(this).addClass("shadow_box");
+            		  } else {
+                        	$(this).removeClass("shadow_box");
+>>>>>>> THEIRS
 
-    		
+            		  }
+            		});
+   		
     		
     	}
     	

@@ -13,9 +13,10 @@
  * See the Licence for the specific language governing permissions and limitations under the Licence.
  * In case of controversy the competent court is the Court of Cagliari (Italy).
  *******************************************************************************/
-// loads files in models folder 
-steal("models/roomFacility.js","models/roomType.js","models/guest.js","models/extra.js", "models/room.js", "models/facility.js").
-		then( "controllers/main_controller.js").then(
+// load files in models folder. Please not wrape code into jquery ready function in model's file. 
+steal("models/convention.js","models/roomFacility.js","models/roomType.js","models/guest.js","models/extra.js", "models/room.js", "models/facility.js", "models/convention.js").
+//then load controllers		
+then( "controllers/main_controller.js").then(
 		 "controllers/guest_controller.js",
 		 "controllers/season_controller.js",
  		"controllers/calendar_controller.js",
@@ -25,7 +26,8 @@ steal("models/roomFacility.js","models/roomType.js","models/guest.js","models/ex
  		"controllers/room_controller.js",
  		"controllers/facility_controller.js",
  		"controllers/online_controller.js").then(
- 		"controllers/booking_controller.js"
+ 		"controllers/booking_controller.js",
+ 		"controllers/convention.js"
 
 );	
 

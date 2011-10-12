@@ -648,6 +648,14 @@ div.beauty
 	border: 1px solid #DDDDDD;
 	margin: 0px 0 1em;
 	padding: 0.5em;
+
+}
+
+.shadow_box{
+	-moz-box-shadow: 5px 0 6px #888;
+-webkit-box-shadow: 5px 0 6px#888;
+box-shadow: 5px 0 6px #888;
+	
 }
 #topnav a.logout
 {
@@ -837,3 +845,67 @@ span.copy
 	font-size: 11px;
 
 }
+
+#convention{
+	position:relative;
+	height: 250px;
+	overflow-y: scroll;
+}
+#conventions-list
+{
+	width: auto;
+	margin: 0;
+
+}
+#conventions-list li
+{
+
+	margin: 0;
+
+}
+.sidebox_edit
+{
+	position: absolute;
+	left:0;
+	top:0;
+	
+}
+div.item_list {
+    background: none repeat scroll 0 0 #FAFAFA;
+    border-top: 1px solid #DDDDDD;
+    border-bottom: 1px solid #DDDDDD;
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+}
+.item_list .sidebox_edit ul
+{
+	margin: 0;	
+}
+.sidebox_edit ul li
+{
+	display: inline;	
+}
+.item_list ul {
+	margin: 0px;
+}
+#item_list_container {
+	margin-top: 8px;
+ 	border-top: 1px solid #DDDDDD;
+}
+  .item-destroy {
+    position: absolute;
+    right: 5px;
+    top: 14px;
+    display: none;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    background: url('../../images/destroy.png')no-repeat 0 0;
+  }
+    .item-destroy{
+      display: block;
+    }
+    .item-destroy:hover {
+      background-position: 0 -20px;
+    }

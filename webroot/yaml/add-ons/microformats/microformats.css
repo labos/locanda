@@ -21,7 +21,7 @@
 .vcard,
 .vevent {
   border:2px solid #e0e7b8 !important;
-  padding:30px 5px 5px 5px !important;
+  padding:8px 5px 5px 5px !important;
   border-radius:8px;
   -moz-border-radius:8px;
   -webkit-border-radius:8px;
@@ -55,10 +55,11 @@ span.vevent {
 .vcard .email { 
 	font-family:Consolas, "Lucida Console", "Andale Mono", "Bitstream Vera Sans Mono", "Courier New", Courier;
 }
-
+/*
 .vevent { 
 	background:#f8f8ec url(images/hcalendar.png) 5px 5px no-repeat  !important;
 }
+*/
 
 .vevent a { 
 	padding-left:11px; 

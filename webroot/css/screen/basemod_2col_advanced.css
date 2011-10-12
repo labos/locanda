@@ -1,0 +1,52 @@
+/**
+ * "Yet Another Multicolumn Layout" - (X)HTML/CSS Framework
+ *
+ * (en) Variation of screen layout (basemod.css) for layout example "2col_left_seo"
+ * (de) Variation des Screenlayouts (basemod.css) für Layoutbeispiel "2col_left_seo"
+ *
+ * @copyright       Copyright 2005-2011, Dirk Jesse
+ * @license         CC-A 2.0 (http://creativecommons.org/licenses/by/2.0/),
+ *                  YAML-C (http://www.yaml.de/en/license/license-conditions.html)
+ * @link            http://www.yaml.de
+ * @package         yaml
+ * @version         3.3.1
+ * @revision        $Revision: 501 $
+ * @lastmodified    $Date: 2011-06-18 17:27:44 +0200 (Sa, 18 Jun 2011) $
+ */
+
+@media screen, projection
+{
+  /**
+   * (en) Repositioning content container
+   * (de) Neupositionierung der Content Container
+   *
+   * |-------------------------------|
+   * | #header                       |
+   * |-------------------------------|
+   * | #col3   | #col1               |
+   * | flexible| 75%                 |
+   * |-------------------------------|
+   * | #footer                       |
+   * |-------------------------------|
+   */
+
+  /* #col1 becomes the main column | #col1 wird zur Hauptinhaltsspalte */
+  #col1 { width: 75%; float:right}
+  #col1_content { padding: 10px 20px 10px 10px; }
+
+  /* #col2 is turned off | #col2 abschalten */
+  #col2 { display:none; }
+
+  /* #col3 becomes the left column | #col3 wird zur linken Spalte */
+  #col3 { margin-left: 0; margin-right: 75%; width: auto; }
+  #col3_content { padding: 10px 10px 10px 20px; }
+
+  /* Graphic-free column dividers between #col1 and #col3 | Grafikfreier Spaltentrenner zw. #col1 und #col3*/
+  #col3 {border-right: 1px #ddd solid;}
+  #main {padding: 1em 0}
+}
+
+/* locanda customization */
+  #col3 { width: auto; padding:0; }
+  #col3_content {  padding:0; }
+  #col1_content {  padding:5px; }
