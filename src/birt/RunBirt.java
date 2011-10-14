@@ -13,13 +13,16 @@ import org.eclipse.birt.report.engine.api.IReportEngine;
 import org.eclipse.birt.report.engine.api.HTMLServerImageHandler;
 import org.eclipse.birt.report.engine.api.PDFRenderOption;
 import org.eclipse.birt.report.engine.api.RenderOption;
-import org.apache.struts2.*;
 import com.ibm.icu.util.ULocale;
+import org.apache.struts2.*;
+
 
 import java.io.ByteArrayOutputStream;
 import java.util.Locale;
 
 public class RunBirt{
+	
+
 private IReportEngine birtReportEngine = null;
 protected String reportName = null;
 private Integer idStructure;

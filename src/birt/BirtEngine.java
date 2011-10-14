@@ -17,6 +17,7 @@ import org.eclipse.birt.report.engine.api.IReportEngineFactory;
 import javax.servlet.http.HttpServletRequest;
 
 public class BirtEngine {
+	
 
 	private static IReportEngine birtEngine = null;
 

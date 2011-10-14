@@ -25,6 +25,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
 import com.opensymphony.xwork2.ActionSupport;
+
 import birt.RunBirt;
 
 @ParentPackage(value = "default")
@@ -32,8 +33,7 @@ import birt.RunBirt;
 	@InterceptorRef("userAwareStack")    
 })
 @Result(name="notLogged", location="/homeNotLogged.jsp")
-public class BirtAction extends ActionSupport 
-implements ServletContextAware, ServletRequestAware, SessionAware, UserAware {
+public class BirtAction extends ActionSupport implements ServletContextAware, ServletRequestAware, SessionAware, UserAware {
 	
 	private Map<String, Object> session = null;
 	private Integer idStructure;
