@@ -99,8 +99,6 @@
 	<target name="WAR build" depends="" description="WAR build from dist to webapps folder">
 		<echo message="Packaging the WAR...."/>
 		<war destfile="${tomcat.deploy.path}/${webappname}.war" webxml="${webroot.path}/web.xml">
-			<webinf dir="${webroot.path}"/>
-			<lib dir="${webroot.path}/lib"/>
 			<fileset dir="${dist.path}">
 				<include name="**"/>
 			</fileset>
