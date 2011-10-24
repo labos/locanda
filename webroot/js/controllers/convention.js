@@ -86,18 +86,33 @@
 
 		    // The DOM events specific to an item.
 		    events: {
+<<<<<<< OURS
 		  	 "click .item_list": "edit",
 		      "click span.item-destroy" : "remove",
 		      "keypress .todo-input" : "updateOnEnter"
+=======
+		    			"click span.item-destroy" : "remove",
+		    			"click .item_list": "edit"
+
+>>>>>>> THEIRS
 		    },
 
 		    // The TodoView listens for changes to its model, re-rendering. Since there's
 		    // a one-to-one correspondence between a **Todo** and a **TodoView** in this
 		    // app, we set a direct reference on the model for convenience.
 		    initialize: function() {
+<<<<<<< OURS
 		      _.bindAll(this, 'render', 'close');
+=======
+		    	
+>>>>>>> THEIRS
 		      this.model.bind('change', this.render);
+<<<<<<< OURS
 		      this.model.view = this;
+=======
+		      this.model.bind('remove', this.unrender);
+
+>>>>>>> THEIRS
 		    },
 
 		    // Re-render the contents of the todo item.
@@ -107,6 +122,7 @@
 		      return this;
 		    },
 
+<<<<<<< OURS
 		    // To avoid XSS (not that it would be harmful in this particular app),
 		    // we use `jQuery.text` to set the contents of the todo item.
 		    setContent: function() {
@@ -122,17 +138,78 @@
 		      this.model.toggle();
 		    },
 
+=======
+>>>>>>> THEIRS
 		    // Switch this view into `"editing"` mode, displaying the input field.
+<<<<<<< OURS
 		    edit: function() {
 			 
 		      new ConventionEditView({model: this.model});
+=======
+		    edit: function(event) {
+		    	var $target = $(event.target);
+		    	  if( ! $target.is("span.item-destroy") ) {
+		    		  	//populate convention edit global view
+			    		ConventionEdit.resetModel(this.model);
+		    	  }
+
+
+
+>>>>>>> THEIRS
 		    
 		    },
 
+<<<<<<< OURS
 		    // Close the `"editing"` mode, saving changes to the todo.
 		    close: function() {
 		      this.model.save({content: this.input.val()});
 		      $(this.el).removeClass("editing");
+=======
+			
+
+		    unrender: function(){
+ 	    		//clean up events raised from the view
+	    		this.unbind();
+	    		//clean up events from the DOM
+	    		$(this.el).remove();
+		    },
+	
+		    // Remove this view from the DOM.
+		    remove: function() {
+		    	
+		    	
+		    	 var self = this;
+		    	
+		    	 //begin test
+		    	 //  delete this.model;
+		    	 //end test
+		    	 if(confirm($.i18n("alertDelete"))){
+		    		 
+		 	    	this.model.destroy({success: function(){
+			    	/*	
+		 	    		//clean up events raised from the view
+			    		self.unbind();
+			    		//clean up events from the DOM
+			    		$(self.el).remove();
+			    		
+*/
+			    		// now check if deleted model is in editing mode
+			    		if( ConventionEdit && ConventionEdit.get("id")==this.model.get("id") ){
+				    		ConventionEdit.clear();
+			    			
+			    		}
+			    	     //clean up events bound from the model
+			//    	     self.model.unbind("change", self.render);
+			    	},
+			    	error: function(){
+			    		
+			    		$().notify(this.alertKO, $.i18n("seriousErrorDescr"));
+			    					
+			    	}
+			    	});
+		    		 
+		    	 }		     
+>>>>>>> THEIRS
 		    },
 
 		    // If you hit `enter`, we're through editing the item.
@@ -273,7 +350,6 @@
 		    },
 		    
 		    initialize: function() {
-		        _.bindAll(this, 'render');
 		        this.model.bind('change', this.render);
 		        this.render();
 		    },
@@ -338,10 +414,122 @@
 		    }
 		});
 
+<<<<<<< OURS
 		window.ErrorView = NoticeView.extend({
 		    className: "error",
 		    defaultMessage: 'Uh oh! Something went wrong. Please try again.'
 		});
+=======
+	  //create a shareable conventionedit view for edit every model selected from the list
+	  window.ConventionEdit = new ConventionEditView({model: new Convention});
+	
+	
+	// Our overall **AppView** is the top-level piece of UI.
+	  window.AppView = Backbone.View.extend({
+
+	    // Instead of generating a new element, bind to the existing skeleton of
+	    // the App already present in the HTML.
+	    el: $("#main"),
+
+
+	    // Delegated events for creating new items, and clearing completed ones.
+	    events: {
+	      "click .btn_add_form": "addNew"
+	    },
+
+	    // At initialization we bind to the relevant events on the `this.collection`
+	    // collection, when items are added or changed. Kick things off by
+	    initialize: function() {
+	      this.collection.bind('add', this.addOne, this);
+	      this.collection.bind('remove', this.removeOne, this);
+	      this.collection.bind('reset', this.addAll, this);
+	      this.collection.bind('all', this.render, this);
+	      this.collection.fetch();
+	      //attach collection to ConventionEdit
+	      ConventionEdit.collection = this.collection;
+
+	    },
+
+	    // Re-rendering the App just means refreshing the view -- the rest
+	    // of the app doesn't change.
+	    render: function() {
+	    	
+	    	return this;
+	    },
+	    addNew: function() {
+	    	//--new ConventionEditView({ model: new Convention() });
+	    	ConventionEdit.resetModel(new Convention());
+		    },
+	    // Add a single todo item to the list by creating a view for it, and
+	    // appending its element to the `<ul>`.
+	    addOne: function(item) {
+	      var view = new ConventionRowView({model: item});
+	      this.$("#conventions-list").append(view.render().el);
+	    },
+
+	    // Add all items in the **Todos** collection at once.
+	    addAll: function() {
+	    	this.$("#conventions-list").empty();
+
+	      this.collection.each(this.addOne);
+	    },
+	    removeOne: function(item) {
+	    	this.addAll();
+		    },
+  
+
+	    // Clear all items, destroying their models.
+	    clearCompleted: function() {
+	      _.each(this.collection, function(item){ item.clear(); });
+	      return false;
+	    },
+
+
+	  });
+
+	  
+
+
+		
+		window.AppRouter = Backbone.Router.extend({
+	        routes: {
+	            "edit/:id": "editItem",
+	            "delete/:id": "deleteItem",
+	            "new": "newItem",
+	            "*actions": "defaultRoute" // Backbone will try match the route above first
+	        },
+	        editItem: function( id ) {
+	            // Note the variable in the route definition being passed in here
+	            var item = new Convention({ id: id });
+	            item.fetch({
+	                success: function(model, resp) {
+	                	ConventionEdit.resetModel(model);
+	                },
+	                error: function() {
+	                    new Error({ message: 'Could not find that document.' });
+	                    window.location.hash = '#';
+	                }
+	            });
+	        },
+	        deleteItem: function( id ){
+	        	//remove an item
+	        	
+	        },
+	        newItem: function( ){
+	        	new ConventionEditView({ model: new Convention() });
+	        },
+	        defaultRoute: function( actions ){
+	            ///nothing
+	        	
+	        }
+	    });
+		
+		window.myAppView =  new AppView({collection: new Conventions( null, { view: ConventionRowView })});
+	    // Instantiate the router
+	    var app_router = new AppRouter;
+	    // Start Backbone history a neccesary step for bookmarkable URL's
+	    Backbone.history.start();
+>>>>>>> THEIRS
 		
 		
 })(jQuery);

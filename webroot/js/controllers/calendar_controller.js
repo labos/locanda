@@ -62,7 +62,7 @@ $(function () {
             this.$calendar = $('#calendar');
             if (this.$calendar.length > 0) {
                 //get real rooms list
-                Models.Room.findAll({}, self.callback('listRoomsSuccess'), self.callback('listRoomsError'));
+                Models.Room.findAll({'rnd': Math.floor(Math.random()*10000)}, self.callback('listRoomsSuccess'), self.callback('listRoomsError'));
                 $(".type_rooms").hide();
             }
         },

@@ -212,6 +212,13 @@ $.fn.deprecatedBrowser = function () {
 		return deprecated;
 	};
 	$('#uploadFacility, #uploadImage, #uploadStructFacility').fileUploadUI({
+		forceIframeUpload: function(){
+			if ($().deprecatedBrowser()) {
+				return true;
+				
+			}
+			return false;
+		},
 		uploadTable: $('#result_facility_upload'),
 		downloadTable: $('#result_facility_upload'),
 		url: function (form) {
@@ -220,6 +227,7 @@ $.fn.deprecatedBrowser = function () {
 			splittedUrl = actionUrl.split(".");
 			if ($().deprecatedBrowser()) {
 				actionUrl = splittedUrl[0] + 'IF.' + splittedUrl[1];
+				
 			}
 			return actionUrl;
 		},
