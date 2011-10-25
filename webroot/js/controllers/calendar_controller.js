@@ -147,20 +147,23 @@ $(function () {
                             $dialogContent.hide();
                             $('#calendar').weekCalendar("removeUnsavedEvents");
                         },
-                        buttons: {
-                            save: function () {
-                                if (!$dialogContent.find(".yform.json").valid()) {
-                                    $("#accordion,#accordion2").accordion("option", "active", 0);
-                                }
-                                $dialogContent.find(".yform.json").submitForm();
-                            },
-                            cancel: function () {
-                                if (confirm($.i18n("alertCancel"))) {
-                                    $dialogContent.dialog("close");
-                                    self.$calendar.weekCalendar("removeEvent", calEvent.id);
-                                }
-                            }
-                        }
+                        buttons: [
+                                 {text: $.i18n("save"),
+                                  click: function() {
+                                	  if(!$dialogContent.find(".yform.json").valid()) {
+                                		  $("#accordion,#accordion2").accordion("option", "active", 0);
+                                	  }
+                                  $dialogContent.find(".yform.json").submitForm(); }
+                                 },
+                                 {text: $.i18n("erase"),
+                                  click: function() {      
+                                	  if(confirm($.i18n("alertCancel"))) {
+                                          $dialogContent.dialog("close");
+                                          self.$calendar.weekCalendar("removeEvent", calEvent.id);
+                                      }
+                                   }
+                                  }
+                                  ]
                     }).show();
                 },
                 eventDrop: function (calEvent, $event) {},
@@ -197,26 +200,37 @@ $(function () {
                             $dialogContent.dialog("destroy");
                             $dialogContent.hide();
                         },
-                        buttons: {
-                            save: function () {
-                                if (!$dialogContent.find(".yform.json").valid()) {
-                                    $("#accordion,#accordion2").accordion("option", "active", 0);
-                                }
-                                $dialogContent.find(".yform.json").submitForm();
-                            },
-                            "delete": function () {
-                                if (confirm($.i18n("alertDelete"))) {
-                                    $dialogContent.find(".yform.json").submitForm("deleteBooking.action");
-                                    $dialogContent.dialog("close");
-                                }
-                            },
-                            cancel: function () {
-                                if (confirm($.i18n("alertCancel"))) {
-                                    $dialogContent.dialog("close");
-                                    self.$calendar.weekCalendar("refresh");
-                                }
-                            }
-                        }
+                        buttons: [
+                                  {
+                                      text: $.i18n("save"),
+                                      click: function() {
+                                          if (!$dialogContent.find(".yform.json").valid()) {
+                                              $("#accordion,#accordion2").accordion("option", "active", 0);
+                                          }
+                                          $dialogContent.find(".yform.json").submitForm();
+                                      }
+                                  },
+                                  {
+                                      text: $.i18n("erase"),
+                                      click: function() {
+                                          if (confirm($.i18n("alertDelete"))) {
+                                              $dialogContent.find(".yform.json").submitForm("deleteBooking.action");
+                                              $dialogContent.dialog("close");
+                                          }
+                                      }
+                                  },
+                                  {
+                                      text: $.i18n("close"),
+                                      click: function() {
+                                          if (confirm($.i18n("alertCancel"))) {
+                                              $dialogContent.dialog("close");
+                                              self.$calendar.weekCalendar("refresh");
+                                          }
+                                      }
+                                  }
+                                  ]                        
+                        
+                      
                     }).show();
                     $(window).resize().resize(); //fixes a bug in modal overlay size ??
                 },

@@ -67,7 +67,7 @@ $(function() {
 							// get last subcolumns
 							var dd = formParent.siblings(".subcolumns:last");
 							// setup of cloned row to add
-							var added = new EJS({url: 'js/views/season/show.ejs'}).render({index: num_of_periods, labels:{to: $.i18n("to"),from: $.i18n("from"), erase: $.i18n("erase")}});
+							var added = new EJS({url: 'js/views/season/show.ejs'}).render({index: num_of_periods, labels:{to: $.i18n("from"),from: $.i18n("to"), erase: $.i18n("periodDelete")}});
 							var $added = $(added);
 							$added.insertAfter(dd);
 

@@ -20,6 +20,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="Cache-Control" content="no-cache" />
 <link type='text/css' href='css/south-street/jquery-ui-1.8.9.custom.css' rel='stylesheet' />
 <link type="text/css" href="css/layout_sliding_door.css" rel="stylesheet"  />
 <script type='text/javascript' src='js/lib/jquery.min.js'></script>
@@ -34,8 +35,7 @@
       $(document).ready(function() {
       
       I18NSettings = {};
-      I18NSettings.datePattern = '<s:property value="#session.datePattern"/>'.toLowerCase();
-      I18NSettings.ita = "ita";
+      I18NSettings.datePattern = '<s:property value="#session.datePattern"/>'.replace('yyyy', 'yy').toLowerCase();
       //to avoid undefined on pre-login phase..
       if (typeof I18NSettings.datePattern === 'undefined')
     	  {

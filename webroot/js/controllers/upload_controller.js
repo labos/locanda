@@ -228,6 +228,12 @@ $.fn.deprecatedBrowser = function () {
 				handler.progressbar.progressbar('value', parseInt(event.loaded / event.total * 100, 10));
 			}
 		},
+		forceIframeUpload: function(){
+             if ($().deprecatedBrowser()) {
+                     return true;
+             }
+             return false;
+		},
 		buildUploadRow: function (files, index) {
 			return $('<tr><td>' + files[index].name + '<\/td>' + '<td class="file_upload_progress"><div><\/div><\/td>' + '<td class="file_upload_cancel">' + '<button class="ui-state-default ui-corner-all" title="Cancel">' + '<span class="ui-icon ui-icon-cancel">Cancel<\/span>' + '<\/button><\/td><\/tr>');
 		},
@@ -268,7 +274,7 @@ $.fn.deprecatedBrowser = function () {
 			}
 		},
 		parseResponse: function (xhr, handler) {
-			//var prova = xhr.contents();
+			//var prova = xhr.contents().text();
 			if (typeof xhr.responseText !== 'undefined') {
 				return $.parseJSON(xhr.responseText);
 			} else {

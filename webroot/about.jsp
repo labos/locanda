@@ -14,19 +14,17 @@
  * In case of controversy the competent court is the Court of Cagliari (Italy).
 --%>
 <?xml version="1.0" encoding="UTF-8" ?>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="/struts-tags" prefix="s" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<jsp:include page="jsp/layout/header.jsp"/>
+		
+<jsp:include page="jsp/layout/header_menu.jsp"/>
       <div id="home">
       	<h1><s:text name="title"/></h1>
-      	<p><s:text name="homeWelcomeMessage"/>.</p>
-      	<p id="home_images">
-      	<img width="220" src="images/pan_small.jpg" alt="img_home1"/>
-        <img width="220" src="images/horse_small.jpg" alt="img_home2"/>
-        <img width="220" src="images/water_small.jpg" alt="img_home3"/>
-      	</p>
+      	<h3><s:text name="homeWelcomeMessage"/></h3>
+   		<p><s:text name="version"/> <s:text name="currentVersion"/></p>
+   		<p><b>Web:</b> <a href="http://locanda.sourceforge.net">http://locanda.sourceforge.net</a></p>
+   		<p><b>GitHub:</b> <a href="https://github.com/labos/locanda">https://github.com/labos/locanda</a></p>
       </div>
 <jsp:include page="jsp/layout/footer.jsp" />     

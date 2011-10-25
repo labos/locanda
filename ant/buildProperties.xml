@@ -33,9 +33,6 @@
 	<property name="build.path" value="${webroot.path}/classes"/>
 	<property name="src.path" value="src"/>
 	
-	<taskdef name="start" classname="org.apache.catalina.ant.StartTask"/>
-	<taskdef name="stop" classname="org.apache.catalina.ant.StopTask"/>
-	
 	<property name="mysql.bin.path" location="/usr/bin"/>
 	<property name="mysql.host" value="${host}"/>
 	<property name="mysql.port" value="3306"/>

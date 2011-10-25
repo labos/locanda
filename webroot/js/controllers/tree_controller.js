@@ -19,7 +19,7 @@ $(function () {
         init: function () {
         	
             $("#priceList_buttons").hide();
-            $("#priceList_buttons").html('<button class="btn_save">SAVE</button>' + '<button class="btn_reset">CANCEL</button>');
+            $("#priceList_buttons").html('<button class="btn_save">' + $.i18n("save") + '</button>' + '<button class="btn_reset">' + $.i18n("close") + '</button>');
 
         	
             $(".btn_save").button({

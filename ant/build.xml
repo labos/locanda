@@ -21,8 +21,19 @@
 	<path id="class.path">
 		<fileset dir="${webroot.path}/lib" includes="*.jar"/>
 		<fileset dir="${tomcat.home.path}/lib" includes="*.jar"/>
-	</path> 
+	</path>
 	
+	<path id="ant-class.path">
+	  <fileset dir="${tomcat.home.path}/lib">
+	    <include name="catalina-ant.jar"/>
+	    <include name="tomcat-coyote.jar"/>
+	    <include name="tomcat-util.jar"/>
+	  </fileset>
+	  <fileset dir="${tomcat.home.path}/bin">
+	    <include name="tomcat-juli.jar"/>
+	  </fileset>
+	</path>
+
 	<target name="propertySetter">
 		<available property="deployed" file="${tomcat.application.path}" type="dir"/>
 		<available property="resources" file="${tomcat.resource.path}" type="dir"/>
@@ -44,7 +55,8 @@
 				<include name="**"/>
 			</fileset>
 		</copy>
-		<replaceregexp file="${webroot.path}/jdbc.properties" match="jdbc.password=.*" replace ="jdbc.password=${mysql.password}"/>
+		<replaceregexp file="${dist.path}/META-INF/context.xml" match="username=.*" replace ='username="${mysql.username}"'/>
+		<replaceregexp file="${dist.path}/META-INF/context.xml" match="password=.*" replace ='password="${mysql.password}"'/>
 	</target>
 	
 	<target name="resource_restore" depends="propertySetter" description="restore resources folder" if="resources">
@@ -56,7 +68,7 @@
 	</target>
 	
 	<target name="compile" depends="init" description="compilation on bin folder">
-		<javac srcdir="${src.path}" destdir="${build.path}">
+		<javac srcdir="${src.path}" destdir="${build.path}" includeantruntime="false" optimize="true">
 			<classpath refid="class.path"/>
 		</javac>
 		<copy todir="${build.path}">
@@ -82,6 +94,7 @@
 	
 	<target name="fast_Build" depends="stop, undeploy, deploy, start"></target>
 	
+	<taskdef name="stop" classname="org.apache.catalina.ant.StopTask" classpathref="ant-class.path"/>
 	<target name="stop" depends="propertySetter" description="Stop Tomcat application" if="deployed">
 		<stop url="${tomcat.manager.url}"
 		      username="${tomcat.username}"
@@ -89,6 +102,7 @@
               path="/${webappname}"/>
 	</target>
 	
+	<taskdef name="start" classname="org.apache.catalina.ant.StartTask" classpathref="ant-class.path"/>
 	<target name="start" description="Start Tomcat application">
 		<start url="${tomcat.manager.url}"
  		       username="${tomcat.username}"
@@ -104,14 +118,14 @@
 			</fileset>
 		</war>
 	</target>
-			
-	<taskdef name="deploy" classname="org.apache.catalina.ant.DeployTask"/>
+				
+	<taskdef name="deploy" classname="org.apache.catalina.ant.DeployTask" classpathref="ant-class.path"/>
 	<target name="deploy" description="Install web application" depends="WAR build">
 		<deploy url="${tomcat.manager.url}" username="${tomcat.username}" password="${tomcat.password}"
 			path="/${webappname}" war="file:${tomcat.deploy.path}/${webappname}.war"/>
 	</target>
 	
-	<taskdef name="undeploy" classname="org.apache.catalina.ant.UndeployTask"/>
+	<taskdef name="undeploy" classname="org.apache.catalina.ant.UndeployTask" classpathref="ant-class.path"/>
 	<target name="undeploy" depends="propertySetter,resource_restore" description="Remove web application" if="deployed">
 		<delete file="${tomcat.deploy.path}/${webappname}.war"></delete>
 		<undeploy url="${tomcat.manager.url}" username="${tomcat.username}" password="${tomcat.password}"
@@ -163,6 +177,6 @@
 	
 	<target name="DB full update" depends="DB_drop, DB_create, DB_restore"></target>
 	
-	<target name="buildAll" depends="dist, resource_restore, stop, undeploy, compile, deploy, start"></target>
+	<target name="buildAll" depends="dist, resource_restore, stop, undeploy, compile, WAR build"></target>
 	
 </project>

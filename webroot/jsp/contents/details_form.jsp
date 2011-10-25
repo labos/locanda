@@ -288,7 +288,7 @@
               	  </div>
               	  <div class="type-text">
 					<label for="fax"><s:text name="fax"/></label>
-                	<input type="text" class="required validPhone" name="structure.fax"  id="fax" value="<s:property value="structure.fax"/>" aria-required="true" />
+                	<input type="text" class="validPhone" name="structure.fax"  id="fax" value="<s:property value="structure.fax"/>" aria-required="true" />
               	  </div>
               	  <div class="type-text">
                   	<label for="notes"><s:text name="notes"/></label> 
@@ -308,10 +308,10 @@
         <!-- CHANGING PASSWORD -->
         <form method="post" action="updateAccount.action" class="yform json full" role="application">
           <fieldset>
-          	<legend>Account Details</legend>
+          	<legend><s:text name="accountDetails"></s:text></legend>
           	<div class="c50l">
               <div class="type-text">
-              	<label for="password"><s:text name="password"></s:text> <sup title="This field is mandatory.">*</sup></label>
+              	<label for="password"><s:text name="password"></s:text><sup title="This field is mandatory.">*</sup></label>
                 <input type="password" class="required" name="password" id="password" aria-required="true" />
               </div>
               <div class="type-text">

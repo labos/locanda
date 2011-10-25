@@ -255,7 +255,7 @@ width:80%;
                   -->
                   </fieldset>
               	  <div class="type-button">
-               		<button class="btn_save"><s:text name="save" /></button>
+               		<button class="btn_save"><s:text name="save"/></button>
                		<a class="canc_booking" href="<s:property value="url_home"/>?sect=planner"><s:text name="cancel" /></a>
                		<s:if test="booking.id != null">
                		<a class="invoice_booking" target="_blank" href="<s:property value="url_birt"/>?rp=bookinginvoice&bookid=${booking.id}"><s:text name="invoiceDownload" /></a>

@@ -14,14 +14,25 @@
     In case of controversy the competent court is the Court of Cagliari (Italy).
  -->
 <project name="Locanda Server2" default="buildAll" basedir="..">
-	<description>Locanda build file for Localhost</description>
+	<description>Locanda build file for remote server</description>
 	
 	<import file="buildProperties_server2.xml"/>
 	
 	<path id="class.path">
 		<fileset dir="${webroot.path}/lib" includes="*.jar"/>
 		<fileset dir="${tomcat.home.path}/lib" includes="*.jar"/>
-	</path> 
+	</path>
+	
+	<path id="ant-class.path">
+	  <fileset dir="${tomcat.home.path}/lib">
+		<include name="catalina-ant.jar"/>
+		<include name="tomcat-coyote.jar"/>
+	    <include name="tomcat-util.jar"/>
+	  </fileset>
+	  <fileset dir="${tomcat.home.path}/bin">
+	  	<include name="tomcat-juli.jar"/>
+	  </fileset>
+	</path>
 	
 	<target name="propertySetter">
 		<available property="deployed" file="${tomcat.application.folder}" type="dir"/>
@@ -80,13 +91,15 @@
 	
 	<target name="fast_Build" depends="stop, undeploy, deploy, start"></target>
 	
-	<target name="stop"  description="Stop Tomcat application" if="deployed">
+	<taskdef name="stop" classname="org.apache.catalina.ant.StopTask" classpathref="ant-class.path"/>
+	<target name="stop" description="Stop Tomcat application" if="deployed">
 		<stop url="${tomcat.manager.url}"
 		      username="${tomcat.username}"
 		      password="${tomcat.password}"
               path="${tomcat.application.path}"/>
 	</target>
 	
+	<taskdef name="start" classname="org.apache.catalina.ant.StartTask" classpathref="ant-class.path"/>
 	<target name="start" description="Start Tomcat application">
 		<start url="${tomcat.manager.url}"
  		       username="${tomcat.username}"
@@ -105,13 +118,13 @@
 		</war>
 	</target>
 			
-	<taskdef name="deploy" classname="org.apache.catalina.ant.DeployTask"/>
+	<taskdef name="deploy" classname="org.apache.catalina.ant.DeployTask" classpathref="ant-class.path"/>
 	<target name="deploy" description="Install web application" depends="WAR build">
 		<deploy url="${tomcat.manager.url}" username="${tomcat.username}" password="${tomcat.password}"
 			path="${tomcat.application.path}" war="file:${tomcat.deploy.path}/${webappname}.war"/>
 	</target>
 	
-	<taskdef name="undeploy" classname="org.apache.catalina.ant.UndeployTask"/>
+	<taskdef name="undeploy" classname="org.apache.catalina.ant.UndeployTask" classpathref="ant-class.path"/>
 	<target name="undeploy" depends="propertySetter" description="Remove web application" if="deployed">
 		<delete file="${tomcat.deploy.path}/${webappname}.war"></delete>
 		<undeploy url="${tomcat.manager.url}" username="${tomcat.username}" password="${tomcat.password}"

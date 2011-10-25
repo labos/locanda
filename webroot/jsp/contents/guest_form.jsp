@@ -92,7 +92,7 @@
 					  <option value="sep"><s:text name="sep"/></option>
 					  <option value="oct"><s:text name="oct"/></option>
 					  <option value="nov"><s:text name="nov"/></option>
-					  <option value="dic"><s:text name="dic"/></option>
+					  <option value="dec"><s:text name="dec"/></option>
 					</select>
 					<s:select label="%{getText('guest.birthYear')}" name="guest.birthYear" headerKey="-1" list="years" required="true"/>
 					</div>
@@ -101,7 +101,7 @@
                     <input  type="text" name="guest.birthPlace" id="birthPlace" value="<s:property value="guest.birthPlace"/>" size="20"  aria-required="true"/>
              	  </div>   
                   <div class="type-text">
-                    <label for="phone"><s:text name="phone"/>:</label>
+                    <label for="phone"><s:text name="phone"/>:<sup title="This field is mandatory.">*</sup></label></label>
                     <input type="text" name="guest.phone" id="phone" class="required validPhone" value="<s:property value="guest.phone"/>" />
                   </div>
                   <div class="type-text">

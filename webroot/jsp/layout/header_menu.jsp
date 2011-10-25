@@ -22,6 +22,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="Cache-Control" content="no-cache" />
 <link rel='stylesheet' type='text/css' href='css/reset.css' />
 <!--
 <link rel='stylesheet' type='text/css' href='http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/start/jquery-ui.css' />
@@ -64,8 +65,7 @@ $(document).ready(function () { <%
     var text_tab = $("#" + section).children("a").hide().text();
     $("#" + section).addClass("active").prepend("<strong>" + text_tab + "</strong>");
     I18NSettings = {};
-    I18NSettings.datePattern = '<s:property value="#session.datePattern"/>'.toLowerCase();
-    I18NSettings.ita = "ita";
+    I18NSettings.datePattern = '<s:property value="#session.datePattern"/>'.replace('yyyy', 'yy').toLowerCase();
     //to avoid undefined warning on pre-login phase...
     if (typeof I18NSettings.datePattern === 'undefined') {
         I18NSettings.datePattern = "dd/mm/yy";
@@ -113,8 +113,7 @@ $(document).ready(function () { <%
 <s:url action="goUpdateDetails" var="url_details"></s:url>
 <s:url action="goFindAllRoomPriceLists" var="url_findallroompricelists"></s:url>
 <s:url action="goFindAllExtraPriceLists" var="url_findallextrapricelists"></s:url>
-<s:url action="goOnlineBookings" var="url_onlinebookings"></s:url>
-<s:url action="download" var="url_download"></s:url>
+<s:url action="goAboutInfo" var="url_about"></s:url>
 
 <div class="page_margins">
 <div class="page">
@@ -130,57 +129,41 @@ $(document).ready(function () { <%
 <div id="nav" role="navigation">
 <div class="hlist">
 <ul>
-	<li id="planner"><a
-		href="<s:property value="url_home"/>?sect=planner"><s:text
-		name="planner" /></a></li>
+	<li id="planner"><a href="<s:property value="url_home"/>?sect=planner"><s:text name="planner" /></a></li>
 	<li id="accomodation"><a href="#"><s:text name="accomodation"/></a>
 	<ul class="sub_menu ui-menu ui-widget ui-widget-content ui-corner-all">
 		<li class="ui-menu-item"><a
-			href="<s:property value="url_findallroom"/>?sect=accomodation"><s:text
-			name="rooms" /></a></li>
+			href="<s:property value="url_findallroom"/>?sect=accomodation"><s:text name="rooms" /></a></li>
 		<li class="ui-menu-item"><a
-			href="<s:property value="url_findallroomtypes"/>?sect=accomodation"><s:text
-			name="roomTypes" /></a></li>
+			href="<s:property value="url_findallroomtypes"/>?sect=accomodation"><s:text name="roomTypes" /></a></li>
 		<li class="ui-menu-item"><a
-			href="<s:property value="url_findallextra"/>?sect=accomodation"><s:text
-			name="extras" /></a></li>
+			href="<s:property value="url_findallextra"/>?sect=accomodation"><s:text name="extras" /></a></li>
 	</ul>
 	</li>
-	<li id="guests"><a
-		href="<s:property value="url_findallguest"/>?sect=guests"><s:text
-		name="guests" /></a></li>
-	<li id="reports"><a href="#"><s:text name="reports"/></a></li>
+	<li id="guests"><a href="<s:property value="url_findallguest"/>?sect=guests"><s:text name="guests" /></a></li>
+	<!--  <li id="reports"><a href="#"><s:text name="reports"/></a></li> -->
 	<li id="settings"><a href="#"><s:text name="settings"/></a>
 	<ul class="sub_menu ui-menu ui-widget ui-widget-content ui-corner-all">
 		<li class="ui-menu-item"><a
-			href="<s:property value="url_onlinebookings"/>?sect=settings"><s:text
-			name="onlineBooking"/></a></li>
+			href="<s:property value="url_onlinebookings"/>?sect=settings"><s:text name="onlineBooking"/></a></li>
 		<li class="ui-menu-item"><a
-			href="<s:property value="url_findallseasons"/>?sect=settings"><s:text
-			name="seasons" /></a></li>
+			href="<s:property value="url_findallseasons"/>?sect=settings"><s:text name="seasons" /></a></li>
 		<li class="ui-menu-item"><a
-			href="<s:property value="url_findallroompricelists"/>?sect=settings"><s:text
-			name="roomPriceList"/></a></li>
+			href="<s:property value="url_findallroompricelists"/>?sect=settings"><s:text name="roomPriceList"/></a></li>
 		<li class="ui-menu-item"><a
-			href="<s:property value="url_findallextrapricelists"/>?sect=settings"><s:text
-			name="extraPriceList"/></a></li>
+			href="<s:property value="url_findallextrapricelists"/>?sect=settings"><s:text name="extraPriceList"/></a></li>
 		<li class="ui-menu-item"><a
-			href="<s:property value="url_findallconventions"/>?sect=settings"><s:text
-			name="conventions"/></a></li>
+			href="<s:property value="url_findallconventions"/>?sect=settings"><s:text name="conventions"/></a></li>
 		<!--<li class="ui-menu-item"><a href="emails.jsp?sect=settings"><s:text name="email"/></a></li>
     			-->
-		<li class="ui-menu-item"><a
-			href="<s:property value="url_details"/>?sect=settings"><s:text
-			name="structureDetails"/></a></li>
+		<li class="ui-menu-item"><a href="<s:property value="url_details"/>?sect=settings"><s:text name="structureDetails"/></a></li>
 	</ul>
 	</li>
 	<li><a href="#"><s:text name="help"/></a>
-	<!--<ul class="sub_menu ui-menu ui-widget ui-widget-content ui-corner-all">
-		<li class="ui-menu-item"><a
-			href="<s:property value="url_download"/>?sect=help">Download</a></li>
-	</ul>
-
-	--></li>
+		<ul class="sub_menu ui-menu ui-widget ui-widget-content ui-corner-all">
+			<li class="ui-menu-item"><a href="<s:property value="url_about"/>?sect=help"><s:text name="about"/></a></li>
+		</ul>	
+	</li>
 </ul>
 </div>
 </div>
