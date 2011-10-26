@@ -113,6 +113,7 @@ $(document).ready(function () { <%
 <s:url action="goUpdateDetails" var="url_details"></s:url>
 <s:url action="goFindAllRoomPriceLists" var="url_findallroompricelists"></s:url>
 <s:url action="goFindAllExtraPriceLists" var="url_findallextrapricelists"></s:url>
+<s:url action="goOnlineBookings" var="url_onlinebookings"></s:url>
 <s:url action="goAboutInfo" var="url_about"></s:url>
 
 <div class="page_margins">
