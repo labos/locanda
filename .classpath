@@ -117,7 +117,7 @@
 	<classpathentry kind="lib" path="webroot/WEB-INF/lib/org.w3c.dom.svg_1.1.0.v201011041433.jar"/>
 	<classpathentry kind="lib" path="webroot/WEB-INF/lib/Tidy.jar"/>
 	<classpathentry kind="lib" path="webroot/WEB-INF/lib/ezmorph-1.0.6.jar"/>
-	<classpathentry kind="lib" path="/home/labos/git/locanda/webroot/WEB-INF/lib/commons-beanutils-1.8.3.jar"/>
-	<classpathentry kind="lib" path="/home/labos/git/locanda/webroot/WEB-INF/lib/commons-collections-3.2.1.jar"/>
+	<classpathentry kind="lib" path="webroot/WEB-INF/lib/commons-beanutils-1.8.3.jar"/>
+	<classpathentry kind="lib" path="webroot/WEB-INF/lib/commons-collections-3.2.1.jar"/>
 	<classpathentry kind="output" path="webroot/WEB-INF/classes"/>
 </classpath>
