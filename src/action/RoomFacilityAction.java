@@ -43,7 +43,7 @@ import com.opensymphony.xwork2.ActionSupport;
 @InterceptorRefs({
 	@InterceptorRef("userAwareStack")    
 })
-@Result(name="notLogged", location="/homeNotLogged.jsp")
+@Result(name="notLogged", location="/WEB-INF/jsp/homeNotLogged.jsp")
 public class RoomFacilityAction extends ActionSupport implements SessionAware,UserAware{
 	private Map<String, Object> session = null;
 	private List<Facility> roomFacilities = null;
@@ -62,7 +62,7 @@ public class RoomFacilityAction extends ActionSupport implements SessionAware,Us
 	
 	@Actions({
 		@Action(value="/goUpdateRoomFacilities",results = {
-				@Result(name="success",location="/roomFacilities_edit.jsp")
+				@Result(name="success",location="/WEB-INF/jsp/roomFacilities_edit.jsp")
 		})
 	})
 	public String goUpdateRoomFacilities() {

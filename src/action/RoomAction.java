@@ -49,7 +49,7 @@ import com.opensymphony.xwork2.ActionSupport;
 @InterceptorRefs({
 	@InterceptorRef("userAwareStack")    
 })
-@Result(name="notLogged", location="/homeNotLogged.jsp")
+@Result(name="notLogged", location="/WEB-INF/jsp/homeNotLogged.jsp")
 public class RoomAction extends ActionSupport implements SessionAware,UserAware{
 	private Map<String, Object> session = null;
 	private Room room = null;
@@ -79,7 +79,7 @@ public class RoomAction extends ActionSupport implements SessionAware,UserAware{
 	
 	@Actions({
 		@Action(value="/findAllRooms",results = {
-				@Result(name="success",location="/rooms.jsp")
+				@Result(name="success",location="/WEB-INF/jsp/rooms.jsp")
 		}),
 		@Action(value="/findAllRoomsJson",results = {
 				@Result(type ="json",name="success", params={"root","rooms"})
@@ -118,10 +118,10 @@ public class RoomAction extends ActionSupport implements SessionAware,UserAware{
 
 	@Actions({
 		@Action(value="/findRoomTypesForRoom",results = {
-				@Result(name="success",location="/jsp/contents/roomTypeFacility_table.jsp")
+				@Result(name="success",location="/WEB-INF/jsp/contents/roomTypeFacility_table.jsp")
 		}),
 		@Action(value="/findRoomTypesForRoomJson",results = {
-				@Result(name="input", location="/validationError.jsp"),
+				@Result(name="input", location="/WEB-INF/jsp/validationError.jsp"),
 				@Result(type ="json",name="success", params={"root","message"}),
 				@Result(type ="json",name="error", params={"root","message"})
 		})
@@ -139,7 +139,7 @@ public class RoomAction extends ActionSupport implements SessionAware,UserAware{
 	
 	@Actions({
 		@Action(value="/goUpdateRoom",results = {
-				@Result(name="success",location="/room_edit.jsp"),
+				@Result(name="success",location="/WEB-INF/jsp/room_edit.jsp"),
 				@Result(name = "nullpointer", type="redirect", location = "findAllRooms.action")
 		})
 	})
@@ -159,7 +159,7 @@ public class RoomAction extends ActionSupport implements SessionAware,UserAware{
 	
 	@Actions({
 		@Action(value="/saveUpdateRoom",results = {
-				@Result(name="input", location="/validationError.jsp"),
+				@Result(name="input", location="/WEB-INF/jsp/validationError.jsp"),
 				@Result(type ="json",name="success", params={"root","message"}),
 				@Result(type ="json",name="error", params={"root","message"})
 		})

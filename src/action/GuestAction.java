@@ -43,7 +43,7 @@ import com.opensymphony.xwork2.ActionSupport;
 @InterceptorRefs({
 	@InterceptorRef("userAwareStack")    
 })
-@Result(name="notLogged", location="/homeNotLogged.jsp")
+@Result(name="notLogged", location="/WEB-INF/jsp/homeNotLogged.jsp")
 public class GuestAction extends ActionSupport implements SessionAware,UserAware{
 	private Map<String, Object> session = null;
 	private List<Guest> guests = null;
@@ -61,7 +61,7 @@ public class GuestAction extends ActionSupport implements SessionAware,UserAware
 	
 	@Actions({
 		@Action(value="/findAllGuests",results = {
-				@Result(name="success",location="/guests.jsp")
+				@Result(name="success",location="/WEB-INF/jsp/guests.jsp")
 		}) 
 	})
 	public String findAllGuests(){
@@ -83,7 +83,7 @@ public class GuestAction extends ActionSupport implements SessionAware,UserAware
 				@Result(type ="json",name="success", params={"root","guests"})
 				}) ,
 				@Action(value="/findAllGuestsFiltered",results = {
-						@Result(name="success",location="/guests.jsp")
+						@Result(name="success",location="/WEB-INF/jsp/guests.jsp")
 				})
 	})
 	public String findAllGuestsFiltered() {
@@ -108,7 +108,7 @@ public class GuestAction extends ActionSupport implements SessionAware,UserAware
 	
 	@Actions({
 		@Action(value="/findAllGuestsByName",results = {
-				@Result(name="success",location="/guests.jsp")
+				@Result(name="success",location="/WEB-INF/jsp/guests.jsp")
 		}) 
 	})
 	public String findAllGuestsByName() {
@@ -157,7 +157,7 @@ public class GuestAction extends ActionSupport implements SessionAware,UserAware
 	
 	@Actions({
 		@Action(value="/goUpdateGuest",results = {
-				@Result(name="success",location="/guest_edit.jsp")
+				@Result(name="success",location="/WEB-INF/jsp/guest_edit.jsp")
 		})
 	})
 	public String goUpdateGuest() {

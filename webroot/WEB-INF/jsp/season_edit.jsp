@@ -14,28 +14,29 @@
  * In case of controversy the competent court is the Court of Cagliari (Italy).
 --%>
 <?xml version="1.0" encoding="UTF-8" ?>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="/struts-tags" prefix="s" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<jsp:include page="jsp/layout/header_menu.jsp" />
+<jsp:include page="layout/header_menu.jsp" />
       <div id="main">
         <!-- begin: #col1 - first float column -->
         <div id="col1" role="complementary">
-          <div id="col1_content" class="clearfix">
-          </div>
+          <div id="col1_content" class="clearfix"></div>
         </div><!-- end: #col1 -->
         <!-- begin: #col3 static column -->
         <div id="col3" role="main">
           <div id="col3_content" class="clearfix">
           	<div class="header_section yform">
-              <p class="navigation"> <a class="home" href="<s:property value="url_findallextra"/>?sect=extras">&nbsp;</a><b>»</b> 
-			  <span>&nbsp;</span></p>
-              <span class="name_section"><s:text name="extraDetails" /></span>
-            </div>      
+              <p class="navigation">
+                <a class="home" href="<s:property value="url_findallseasons"/>?sect=settings"></a>
+                <b>»</b> 
+			    <span>&nbsp;</span>
+			  </p>
+              <span class="name_section"><s:text name="seasonDetails"/></span>
+            </div>
             <div>
- 		  	  <jsp:include page="jsp/contents/extra_form.jsp" />    
+ 		  	  <jsp:include page="contents/season_form.jsp" />    
             </div>        
           </div>
-<jsp:include page="jsp/layout/footer.jsp" />     
+<jsp:include page="layout/footer.jsp" />    

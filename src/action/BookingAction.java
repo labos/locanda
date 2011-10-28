@@ -57,7 +57,7 @@ import com.opensymphony.xwork2.ActionSupport;
 @InterceptorRefs({
 	@InterceptorRef("userAwareStack")    
 })
-@Result(name="notLogged", location="/homeNotLogged.jsp")
+@Result(name="notLogged", location="/WEB-INF/jsp/homeNotLogged.jsp")
 public class BookingAction extends ActionSupport implements SessionAware,UserAware{
 	private Map<String, Object> session = null;
 	private List<Booking> bookings = null;
@@ -99,7 +99,7 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 				@Result(type ="json",name="error", params={
 						"excludeProperties","session,extraService,guestService,structureService,bookingService,roomService,conventionService,seasonService"
 				}),
-				@Result(name="input", location = "/validationError.jsp")
+				@Result(name="input", location = "/WEB-INF/jsp/validationError.jsp")
 		})
 	})	
 	public String updateBookingDates() {
@@ -137,7 +137,7 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 				@Result(type ="json",name="error", params={
 						"excludeProperties","session,extraService,guestService,structureService,bookingService,roomService,conventionService,seasonService"
 				}),
-				@Result(name="input", location = "/validationError.jsp")
+				@Result(name="input", location = "/WEB-INF/jsp/validationError.jsp")
 		})
 	})	
 	public String updateRoom() {
@@ -196,7 +196,7 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 				@Result(type ="json",name="error", params={
 						"excludeProperties","session,extraService,guestService,structureService,bookingService,roomService,conventionService,seasonService"
 				}),
-				@Result(name="input", location = "/validationError.jsp")
+				@Result(name="input", location = "/WEB-INF/jsp/validationError.jsp")
 		})
 	})	
 	public String updateNrGuests() {
@@ -227,7 +227,7 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 				@Result(type ="json",name="error", params={
 						"excludeProperties","session,extraService,guestService,structureService,bookingService,roomService,conventionService,seasonService"
 				}),
-				@Result(name="input", location = "/validationError.jsp")
+				@Result(name="input", location = "/WEB-INF/jsp/validationError.jsp")
 		})
 	})	
 	public String updateExtras() {
@@ -269,7 +269,7 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 				@Result(type ="json",name="error", params={
 						"excludeProperties","session,extraService,guestService,structureService,bookingService,roomService,conventionService,seasonService"
 				}),
-				@Result(name="input", location = "/validationError.jsp")
+				@Result(name="input", location = "/WEB-INF/jsp/validationError.jsp")
 		})
 	})	
 	public String updateConvention() {
@@ -359,7 +359,7 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 	
 	@Actions({
 		@Action(value="/displayQuantitySelect",results = {
-				@Result(name="success",location="/jsp/contents/extraQuantity_select.jsp")
+				@Result(name="success",location="/WEB-INF/jsp/contents/extraQuantity_select.jsp")
 				})
 	})
 	public String displayQuantitySelect() {
@@ -372,7 +372,7 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 	@Actions({
 		@Action(value="/saveUpdateBooking",results = {
 				@Result(type ="json",name="success", params={"root","message"}),
-				@Result(name="input", location="/validationError.jsp"),
+				@Result(name="input", location="/WEB-INF/jsp/validationError.jsp"),
 				@Result(type ="json",name="error", params={
 						"root","message"
 				})
@@ -429,8 +429,8 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 		
 	@Actions({
 		@Action(value="/goAddBookingFromPlanner",results = {
-				@Result(name="success",location="/jsp/contents/booking_form.jsp"),
-				@Result(name="input", location="/validationError.jsp")
+				@Result(name="success",location="/WEB-INF/jsp/contents/booking_form.jsp"),
+				@Result(name="input", location="/WEB-INF/jsp/validationError.jsp")
 		})
 	})
 	public String goAddNewBookingFromPlanner() {
@@ -470,7 +470,7 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 	
 	@Actions({
 		@Action(value="/goAddNewBooking",results = {
-				@Result(name="success",location="/booking.jsp")
+				@Result(name="success",location="/WEB-INF/jsp/booking.jsp")
 		})
 	})
 	public String goAddNewBooking() {
@@ -494,7 +494,7 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 	
 	@Actions({
 		@Action(value="/goAddNewBookingFromGuest",results = {
-				@Result(name="success",location="/booking.jsp")
+				@Result(name="success",location="/WEB-INF/jsp/booking.jsp")
 		})
 	})
 	public String goAddNewBookingFromGuest() {
@@ -523,10 +523,10 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 	
 	@Actions({
 		@Action(value="/goUpdateBooking",results = {
-				@Result(name="success",location="/booking.jsp")
+				@Result(name="success",location="/WEB-INF/jsp/booking.jsp")
 		}),
 		@Action(value="/goUpdateBookingFromPlanner",results = {
-				@Result(name="success",location="/jsp/contents/booking_form.jsp")
+				@Result(name="success",location="/WEB-INF/jsp/contents/booking_form.jsp")
 		})
 	})
 	public String goUpdateBooking() {
@@ -571,7 +571,7 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 	@Actions({
 		@Action(value="/checkBookingDates",results = {
 				@Result(type ="json",name="success", params={"root","message"}),
-				@Result(name="input", location="/validationError.jsp"),
+				@Result(name="input", location="/WEB-INF/jsp/validationError.jsp"),
 				@Result(type ="json",name="error", params={"root","message"})
 		})
 	})
@@ -587,7 +587,7 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 	@Actions({
 		@Action(value="/checkBookingDatesNotNull",results = {
 				@Result(type ="json",name="success", params={"root","message"}),
-				@Result(name="input", location="/validationError.jsp"),				
+				@Result(name="input", location="/WEB-INF/jsp/validationError.jsp"),				
 				@Result(type ="json",name="error", params={"root","message"})
 		})
 	})
@@ -728,7 +728,7 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 	
 	@Actions({
 		@Action(value="/goOnlineBookings",results = {
-				@Result(name="success",location="/onlineBookings.jsp")
+				@Result(name="success",location="/WEB-INF/jsp/onlineBookings.jsp")
 		}) 	
 	})
 	public String goOnlineBookings(){

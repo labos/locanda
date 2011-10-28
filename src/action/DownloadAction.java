@@ -38,7 +38,7 @@ import com.opensymphony.xwork2.ActionSupport;
 @InterceptorRefs({
 	@InterceptorRef("userAwareStack")    
 })
-@Result(name="notLogged", location="/homeNotLogged.jsp")
+@Result(name="notLogged", location="/WEB-INF/jsp/homeNotLogged.jsp")
 public class DownloadAction extends ActionSupport implements SessionAware,UserAware{
 	private Integer idStructure;
 	private Map<String, Object> session;

@@ -18,17 +18,22 @@
 <%@ taglib uri="/struts-tags" prefix="s" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-		
-
-<s:url action="createAccount" var="url_createAccount"></s:url>
-<jsp:include page="jsp/layout/header.jsp"/>
-      <div id="home">
-      	<h1>Locanda - <s:text name="createAccountSuccess"/></h1>
-      	<p><s:text name="createAccountSuccessMessage"/>:</p>
-      	<p>
-      	Email: <s:property value="user.email" /><br></br>
-      	Password: locanda
-      	</p>
-      	<p id="home_images"></p>
-      </div>
-<jsp:include page="jsp/layout/footer.jsp" />     
+<jsp:include page="layout/header_menu.jsp" />
+      <div id="main">
+        <!-- begin: #col1 - first float column -->
+        <div id="col1" role="complementary">
+          <div id="col1_content" class="clearfix">
+          </div>
+        </div><!-- end: #col1 -->
+        <!-- begin: #col3 static column -->
+        <div id="col3" role="main">
+          <div id="col3_content" class="clearfix">
+          	<div class="header_section yform">
+              <span class="name_section"><s:text name="structureDetails"/></span>
+            </div>
+          
+            <div>
+ 		  	  <jsp:include page="contents/details_form.jsp" />    
+            </div>        
+          </div>
+<jsp:include page="layout/footer.jsp" />         

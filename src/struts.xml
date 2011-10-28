@@ -19,9 +19,8 @@
 	<constant name="struts.i18n.encoding" value="UTF-8" />
 	<constant name="struts.custom.i18n.resources" value="global" />
 	<constant name="struts.multipart.maxSize" value="1000000" />
-	<package name="default" extends="struts-default,json-default"
-		namespace="/">
-
+	
+	<package name="default" extends="struts-default,json-default"	namespace="/">
 		<interceptors>
 			<interceptor name="userAwareInterceptor"
 				class="struts.interceptor.UserAwareInterceptor"></interceptor>
@@ -31,9 +30,9 @@
 			</interceptor-stack>
 		</interceptors>
 		<default-interceptor-ref name="userAwareStack"></default-interceptor-ref>
-
+	<default-action-ref name="home"></default-action-ref>
 		<global-results>
-			<result name="notLogged">/homeNotLogged.jsp</result>
+			<result name="notLogged">/WEB-INF/jsp/homeNotLogged.jsp</result>
 			<result name="nullpointer" type="redirect">home.action</result>
 		</global-results>
 
@@ -61,7 +60,6 @@
 				<param name="inputName">inputStream</param>
 				<param name="contentDisposition">attachment;filename="${fileName}"</param>
 			</result>
-		</action>	
-
+		</action>
 	</package>
 </struts>

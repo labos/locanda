@@ -43,7 +43,7 @@ import com.opensymphony.xwork2.ActionSupport;
 @InterceptorRefs({
 	@InterceptorRef("userAwareStack")    
 })
-@Result(name="notLogged", location="/homeNotLogged.jsp")
+@Result(name="notLogged", location="/WEB-INF/jsp/homeNotLogged.jsp")
 public class StructureAction extends ActionSupport implements SessionAware,UserAware {
 	
 	private Map<String, Object> session = null;
@@ -64,7 +64,7 @@ public class StructureAction extends ActionSupport implements SessionAware,UserA
 	
 	@Actions({
 		@Action(value="/goUpdateDetails",results = {
-				@Result(name="success",location="/details_edit.jsp")
+				@Result(name="success",location="/WEB-INF/jsp/details_edit.jsp")
 		})
 	})
 	public String goUpdateDetails() {

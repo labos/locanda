@@ -22,7 +22,7 @@
 
 
 <s:url action="createAccount" var="url_createAccount"></s:url>
-<jsp:include page="jsp/layout/header.jsp" />
+<jsp:include page="layout/header.jsp" />
 <div id="home">
 	<h1>Locanda - <s:text name="createAccount"/></h1>
 	<p><s:text name="homeWelcomeMessage"/>.</p>
@@ -55,4 +55,4 @@
 
 	<p id="home_images"></p>
 </div>
-<jsp:include page="jsp/layout/footer.jsp" />
+<jsp:include page="layout/footer.jsp" />

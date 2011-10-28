@@ -43,7 +43,7 @@ import com.opensymphony.xwork2.ActionSupport;
 @InterceptorRefs({
 	@InterceptorRef("userAwareStack")    
 })
-@Result(name="notLogged", location="/homeNotLogged.jsp")
+@Result(name="notLogged", location="/WEB-INF/jsp/homeNotLogged.jsp")
 public class ExtraAction extends ActionSupport implements SessionAware,UserAware {
 	private Map<String, Object> session = null;
 	private Message message = new Message();
@@ -60,7 +60,7 @@ public class ExtraAction extends ActionSupport implements SessionAware,UserAware
 	
 	@Actions({
 		@Action(value="/findAllExtras",results = {
-				@Result(name="success",location="/extras.jsp")
+				@Result(name="success",location="/WEB-INF/jsp/extras.jsp")
 		}) 
 	})
 	public String findAllExtras() {
@@ -74,7 +74,7 @@ public class ExtraAction extends ActionSupport implements SessionAware,UserAware
 	
 	@Actions({
 		@Action(value="/goUpdateExtra",results = {
-				@Result(name="success",location="/extra_edit.jsp")
+				@Result(name="success",location="/WEB-INF/jsp/extra_edit.jsp")
 		})		
 	})
 	public String goUpdateExtra() {
@@ -89,7 +89,7 @@ public class ExtraAction extends ActionSupport implements SessionAware,UserAware
 	@Actions({
 		@Action(value="/saveUpdateExtra",results = {
 				@Result(type ="json",name="success", params={"root","message"}),	
-				@Result(name = "input", location = "/validationError.jsp"),
+				@Result(name = "input", location = "/WEB-INF/jsp/validationError.jsp"),
 				@Result(type ="json",name="error", params={"root","message"})
 		})
 	})

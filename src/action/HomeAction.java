@@ -31,8 +31,8 @@ public class HomeAction extends ActionSupport implements SessionAware{
 	
 	@Actions(value={
 			@Action(value="/home", results={
-					@Result(name="logged",location="/homeLogged.jsp"),
-					@Result(name="notLogged", location="/homeNotLogged.jsp")				
+					@Result(name="logged",location="/WEB-INF/jsp/homeLogged.jsp"),
+					@Result(name="notLogged", location="/WEB-INF/jsp/homeNotLogged.jsp")				
 			})
 	})
 	public String execute(){
@@ -46,8 +46,8 @@ public class HomeAction extends ActionSupport implements SessionAware{
 
 	@Actions(value={
 			@Action(value="/goLogin", results={
-					@Result(name="logged",location="/homeLogged.jsp"),
-					@Result(name="notLogged",location="/login.jsp")				
+					@Result(name="logged",location="/WEB-INF/jsp/homeLogged.jsp"),
+					@Result(name="notLogged",location="/WEB-INF/jsp/login.jsp")				
 			})	
 	})
 	public String goLogin(){

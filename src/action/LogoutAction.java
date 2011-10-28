@@ -34,14 +34,14 @@ import com.opensymphony.xwork2.ActionSupport;
 @InterceptorRefs({
 	@InterceptorRef("userAwareStack")    
 })
-@Result(name="notLogged", location="/homeNotLogged.jsp")
+@Result(name="notLogged", location="/WEB-INF/jsp/homeNotLogged.jsp")
 public class LogoutAction extends ActionSupport implements SessionAware,UserAware{
 	private Map<String, Object> session = null;
 	private Integer idStructure;
 	
 	@Actions(value={
 			@Action(value="/logout", results={
-					@Result(name="success", location="/homeNotLogged.jsp")					
+					@Result(name="success", location="/WEB-INF/jsp/homeNotLogged.jsp")					
 			})	
 	})	
 	public String execute(){	

@@ -54,7 +54,7 @@ import com.opensymphony.xwork2.ActionSupport;
 @InterceptorRefs({
 	@InterceptorRef("userAwareStack")    
 })
-@Result(name="notLogged", location="/homeNotLogged.jsp")
+@Result(name="notLogged", location="/WEB-INF/jsp/homeNotLogged.jsp")
 public class ExtraPriceListAction extends ActionSupport implements SessionAware,UserAware{
 	private Map<String, Object> session = null;
 	private Message message = new Message();
@@ -79,7 +79,7 @@ public class ExtraPriceListAction extends ActionSupport implements SessionAware,
 	
 	@Actions({
 		@Action(value="/goFindAllExtraPriceLists",results = {
-				@Result(name="success",location="/extraPriceLists.jsp")
+				@Result(name="success",location="/WEB-INF/jsp/extraPriceLists.jsp")
 		}) 
 	})
 	public String goFindAllExtraPriceLists() {
@@ -90,7 +90,7 @@ public class ExtraPriceListAction extends ActionSupport implements SessionAware,
 		@Action(value="/findAllExtraPriceLists",results = {
 				@Result(type ="json",name="success", params={"root","treeNodes"}),
 				@Result(type ="json",name="error", params={"excludeProperties","session,seasonService"}),
-				@Result(name="input", location = "/validationError.jsp" )
+				@Result(name="input", location = "/WEB-INF/jsp/validationError.jsp" )
 		})
 	})
 	public String findAllExtraPriceLists() {
@@ -113,7 +113,7 @@ public class ExtraPriceListAction extends ActionSupport implements SessionAware,
 			List<Season> perYearSeasons = this.getSeasonService().findSeasonsByYear(this.getIdStructure(),Integer.parseInt(eachNode1.getData().getTitle()));	//All seasons for that particular year
 			for (Season eachYearSeason : perYearSeasons) {
 				if (this.getRoomTypeService().findRoomTypesByIdStructure(this.getIdStructure()).size() == 0) {			//Without room types, click on a season node must link to a blank page
-					String href = "jsp/layout/blank.jsp";
+					String href = "/WEB-INF/jsp/layout/blank.jsp";
 					eachNode1.buildChild(eachYearSeason.getName(), eachYearSeason.getId(), href);
 				} else {
 					eachNode1.buildChild(eachYearSeason.getName(), eachYearSeason.getId());
@@ -122,7 +122,7 @@ public class ExtraPriceListAction extends ActionSupport implements SessionAware,
 			for (TreeNode eachNode2 : eachNode1.getChildren()) {		//For each season, building level-3 nodes - room types
 				for (RoomType eachRoomType : this.getRoomTypeService().findRoomTypesByIdStructure(this.getIdStructure())) {
 					if (this.getConventionService().findConventionsByIdStructure(this.getIdStructure()).size() == 0) {	//Without conventions, click on a room type node must link to a blank page
-						String href = "jsp/layout/blank.jsp";
+						String href = "/WEB-INF/jsp/layout/blank.jsp";
 						eachNode2.buildChild(eachRoomType.getName(), eachRoomType.getId(), href);
 					}else {
 						eachNode2.buildChild(eachRoomType.getName(), eachRoomType.getId());
@@ -144,7 +144,7 @@ public class ExtraPriceListAction extends ActionSupport implements SessionAware,
 	
 	@Actions({
 		@Action(value="/findExtraPriceListItems",results = {
-				@Result(name="success",location="/jsp/contents/extraPriceList_table.jsp")
+				@Result(name="success",location="/WEB-INF/jsp/contents/extraPriceList_table.jsp")
 		}),
 		@Action(value="/findExtraPriceListItemsJson",results = {
 				@Result(type ="json",name="success", params={"root","priceList"})

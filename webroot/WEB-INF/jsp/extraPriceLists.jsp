@@ -18,7 +18,7 @@
 <%@ taglib uri="/struts-tags" prefix="s" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<jsp:include page="jsp/layout/header_menu.jsp" />
+<jsp:include page="layout/header_menu.jsp" />
 <link rel='stylesheet' type='text/css' href='css/screen/basemod_2col_left_tree.css'/>
 
   <div id="main">
@@ -65,4 +65,4 @@
 	  </div>
     </div>
   </div>	  
-<jsp:include page="jsp/layout/footer.jsp" />     
+<jsp:include page="layout/footer.jsp" />     

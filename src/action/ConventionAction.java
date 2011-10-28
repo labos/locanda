@@ -42,7 +42,7 @@ import com.opensymphony.xwork2.ActionSupport;
 @InterceptorRefs({
 	@InterceptorRef("userAwareStack")    
 })
-@Result(name="notLogged", location="/homeNotLogged.jsp")
+@Result(name="notLogged", location="/WEB-INF/jsp/homeNotLogged.jsp")
 public class ConventionAction extends ActionSupport implements SessionAware,UserAware{
 	private Map<String, Object> session = null;
 	private Message message = new Message();
@@ -58,7 +58,7 @@ public class ConventionAction extends ActionSupport implements SessionAware,User
 	
 	@Actions({
 		@Action(value="/findAllConventions",results = {
-				@Result(name="success",location="/conventions.jsp")
+				@Result(name="success",location="/WEB-INF/jsp/conventions.jsp")
 		})
 	})
 	public String findAllConventions(){
@@ -76,7 +76,7 @@ public class ConventionAction extends ActionSupport implements SessionAware,User
 	
 	@Actions({
 		@Action(value="/goUpdateConvention",results = {
-				@Result(name="success",location="/convention_edit.jsp")
+				@Result(name="success",location="/WEB-INF/jsp/convention_edit.jsp")
 		})
 	})
 	public String goUpdateConvention() {

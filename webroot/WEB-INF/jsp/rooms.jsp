@@ -19,7 +19,7 @@
 <%@ taglib uri="/struts-tags" prefix="s" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<jsp:include page="jsp/layout/header_menu.jsp" />
+<jsp:include page="layout/header_menu.jsp" />
 <link rel='stylesheet' type='text/css' href='css/screen/basemod_2col_left_tree.css' />
   <div id="main">
     <!-- begin: #col1 - first float column -->
@@ -42,7 +42,7 @@
           <button class="btn_add_form"><s:text name="addNew"/></button>
         </div>
         <div class="yform hideform">
-          <jsp:include page="jsp/contents/room_form.jsp" />
+          <jsp:include page="contents/room_form.jsp" />
         </div>
         
         <s:iterator value="rooms" var="eachRoom">
@@ -87,4 +87,4 @@
 		
       </div>
     </div>
-<jsp:include page="jsp/layout/footer.jsp" />     
+<jsp:include page="layout/footer.jsp" />     

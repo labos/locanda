@@ -18,7 +18,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="/struts-tags" prefix="s" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<jsp:include page="jsp/layout/header.jsp" />
+<jsp:include page="layout/header.jsp" />
       <div id="home">
       	<h1><s:text name="login"/></h1>
       	
@@ -46,4 +46,4 @@
             <ul><li><strong><s:text name="notRegistered"/></strong></li><li><a href="<s:property value="url_account"/>"><s:text name="signup"/></a></li></ul>
             </div>
       </div><!-- end: #home -->
-<jsp:include page="jsp/layout/footer.jsp" />         
+<jsp:include page="layout/footer.jsp" />         

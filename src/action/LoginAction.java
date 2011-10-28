@@ -72,10 +72,10 @@ public class LoginAction extends ActionSupport implements SessionAware {
 	private UserService userService = null;
 
 	@Actions(value = { @Action(value = "/login", results = {
-			@Result(name = "input", location = "/login.jsp"),
-			@Result(name = "loginSuccess", location = "/homeLogged.jsp"),
-			@Result(name = "loginError", location = "/login.jsp"),
-			@Result(name = "nullpointer", location = "/login.jsp") }) })
+			@Result(name = "input", location = "/WEB-INF/jsp/login.jsp"),
+			@Result(name = "loginSuccess", location = "/WEB-INF/jsp/homeLogged.jsp"),
+			@Result(name = "loginError", location = "/WEB-INF/jsp/login.jsp"),
+			@Result(name = "nullpointer", location = "/WEB-INF/jsp/login.jsp") }) })
 	public String execute() {
 		String ret = null;
 		User user = null;

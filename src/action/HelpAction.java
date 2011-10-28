@@ -27,15 +27,15 @@ import org.apache.struts2.interceptor.SessionAware;
 import com.opensymphony.xwork2.ActionSupport;
 
 @ParentPackage( value="default")
-@Result(name="notLogged", location="/homeNotLogged.jsp")
+@Result(name="notLogged", location="/WEB-INF/jsp/homeNotLogged.jsp")
 public class HelpAction extends ActionSupport implements SessionAware {
 	private Map<String, Object> session = null;
 	private Message message = new Message();
 	
 	
 	@Actions({
-		@Action(value="/goAboutInfo",results = {
-				@Result(name="success",location="/about.jsp")
+		@Action(value="/WEB-INF/jsp/goAboutInfo",results = {
+				@Result(name="success",location="/WEB-INF/jsp/about.jsp")
 		})		
 	})
 	public String goAboutInfo() {

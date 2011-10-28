@@ -21,7 +21,7 @@
 		
 
 <s:url action="download" var="url_download"></s:url>
-<jsp:include page="jsp/layout/header.jsp"/>
+<jsp:include page="layout/header.jsp"/>
       <div id="home">
       	<h1>Locanda - Download</h1>
       	<p><s:text name="homeWelcomeMessage"/>.</p>
@@ -54,4 +54,4 @@
       	<p id="home_images">
       	</p>
       </div>
-<jsp:include page="jsp/layout/footer.jsp" />     
+<jsp:include page="layout/footer.jsp" />     

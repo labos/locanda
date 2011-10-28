@@ -37,7 +37,7 @@ public class AccountAction extends ActionSupport {
 	
 	@Actions(
 		@Action(value = "/goCreateAccount", results = { 
-				@Result(name = "success", location = "/createAccount-input.jsp")}
+				@Result(name = "success", location = "/WEB-INF/jsp/createAccount-input.jsp")}
 		)
 	)
 	public String goCreateAccount() {
@@ -47,8 +47,8 @@ public class AccountAction extends ActionSupport {
 	
 	@Actions(
 			@Action(value = "/createAccount", results = { 
-					@Result(name = "success", location = "/createAccount-output.jsp"),
-					@Result(name = "input", location = "/createAccount-input.jsp")
+					@Result(name = "success", location = "/WEB-INF/jsp/createAccount-output.jsp"),
+					@Result(name = "input", location = "/WEB-INF/jsp/createAccount-input.jsp")
 			})
 	)
 	public String createAccount() {

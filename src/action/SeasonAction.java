@@ -43,7 +43,7 @@ import com.opensymphony.xwork2.ActionSupport;
 @InterceptorRefs({
 	@InterceptorRef("userAwareStack")    
 })
-@Result(name="notLogged", location="/homeNotLogged.jsp")
+@Result(name="notLogged", location="/WEB-INF/jsp/homeNotLogged.jsp")
 public class SeasonAction extends ActionSupport implements SessionAware,UserAware {
 	private Integer id;
 	private Map<String, Object> session = null;
@@ -60,7 +60,7 @@ public class SeasonAction extends ActionSupport implements SessionAware,UserAwar
 	
 	@Actions({ 
 		@Action(value = "/findAllSeasons", 
-				results = { @Result(name = "success", location = "/seasons.jsp") })
+				results = { @Result(name = "success", location = "/WEB-INF/jsp/seasons.jsp") })
 	})
 	public String findAllSeasons() {
 				
@@ -71,7 +71,7 @@ public class SeasonAction extends ActionSupport implements SessionAware,UserAwar
 
 	@Actions({ 
 		@Action(value = "/goUpdateSeason", 
-				results = { @Result(name = "success", location = "/season_edit.jsp") })
+				results = { @Result(name = "success", location = "/WEB-INF/jsp/season_edit.jsp") })
 	})
 	public String goUpdateSeason() {
 		Season theSeason = null;
@@ -83,7 +83,7 @@ public class SeasonAction extends ActionSupport implements SessionAware,UserAwar
 	
 	@Actions({ @Action(value = "/saveUpdateSeason", results = {
 			@Result(type = "json", name = "success", params = {"root","message"}),
-			@Result(name = "input", location = "/validationError.jsp"),
+			@Result(name = "input", location = "/WEB-INF/jsp/validationError.jsp"),
 			@Result(type = "json", name = "error", params = {"root", "message"}) 
 			}) 
 	})

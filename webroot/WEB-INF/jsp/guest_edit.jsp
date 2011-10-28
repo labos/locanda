@@ -19,7 +19,7 @@
 <%@ taglib uri="/struts-tags" prefix="s" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<jsp:include page="jsp/layout/header_menu.jsp" />
+<jsp:include page="layout/header_menu.jsp" />
       <div id="main">
         <!-- begin: #col1 - first float column -->
         <div id="col1" role="complementary">
@@ -40,7 +40,7 @@
             </div>
             
             <div>	
-			  <jsp:include page="jsp/contents/guest_form.jsp" />       
+			  <jsp:include page="contents/guest_form.jsp" />       
 		      <div class="beautify">
                 <legend><b><s:text name="guestBookings"/></b></legend>
                 <div class="subcolumns">
@@ -77,4 +77,4 @@
               </div>
             </div>        
           </div>
-<jsp:include page="jsp/layout/footer.jsp" />     
+<jsp:include page="layout/footer.jsp" />     

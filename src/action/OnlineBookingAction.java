@@ -74,12 +74,12 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 	
 	@Actions({
 		@Action(value="/mobile",results = {
-				@Result(name="success",location="/jsp/online/widget1.jsp"),
-				@Result(name="input", location="/jsp/online/validationError.jsp")
+				@Result(name="success",location="/WEB-INF/jsp/online/widget1.jsp"),
+				@Result(name="input", location="/WEB-INF/jsp/online/validationError.jsp")
 		}),
 		@Action(value="/goOnlineBookingCalendar",results = {
-				@Result(name="success",location="/jsp/online/widget1.jsp"),
-				@Result(name="input", location="/jsp/online/validationError.jsp")
+				@Result(name="success",location="/WEB-INF/jsp/online/widget1.jsp"),
+				@Result(name="input", location="/WEB-INF/jsp/online/validationError.jsp")
 		})
 	})
 	public String goOnlineBookingCalendar(){
@@ -107,8 +107,8 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 	
 	@Actions({
 		@Action(value="/goOnlineBookingRooms",results = {
-				@Result(name="success",location="/jsp/online/widget2.jsp"),
-				@Result(name="input", location="/jsp/online/validationError.jsp")
+				@Result(name="success",location="/WEB-INF/jsp/online/widget2.jsp"),
+				@Result(name="input", location="/WEB-INF/jsp/online/validationError.jsp")
 		})
 	})
 	public String goOnlineBookingRooms(){
@@ -157,8 +157,8 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 	
 	@Actions({
 		@Action(value="/goOnlineBookingExtras",results = {
-				@Result(name="success",location="/jsp/online/widget3.jsp"),
-				@Result(name="input", location="/jsp/online/validationError.jsp")
+				@Result(name="success",location="/WEB-INF/jsp/online/widget3.jsp"),
+				@Result(name="input", location="/WEB-INF/jsp/online/validationError.jsp")
 		})
 	})
 	public String goOnlineBookingExtras(){
@@ -187,8 +187,8 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 	
 	@Actions({
 		@Action(value="/goOnlineBookingGuest",results = {
-				@Result(name="success",location="/jsp/online/widget4.jsp"),
-				@Result(name="input", location="/jsp/online/validationError.jsp")
+				@Result(name="success",location="/WEB-INF/jsp/online/widget4.jsp"),
+				@Result(name="input", location="/WEB-INF/jsp/online/validationError.jsp")
 		})
 	})
 	public String goOnlineBookingGuest() {
@@ -221,9 +221,9 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 	
 	@Actions({
 		@Action(value="/goOnlineBookingFinal",results = {
-				@Result(name="success",location="/jsp/online/widget5.jsp"),
-				@Result(name="error",location="/jsp/online/validationError.jsp"),
-				@Result(name="input", location="/jsp/online/validationError.jsp")
+				@Result(name="success",location="/WEB-INF/jsp/online/widget5.jsp"),
+				@Result(name="error",location="/WEB-INF/jsp/online/validationError.jsp"),
+				@Result(name="input", location="/WEB-INF/jsp/online/validationError.jsp")
 		})
 	})
 	public String goOnlineBookingFinal() {
@@ -280,7 +280,7 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 	
 	@Actions({
 		@Action(value="/online",results = {
-				@Result(name="success",location="/onlineBookingsPreview.jsp")
+				@Result(name="success",location="/WEB-INF/jsp/onlineBookingsPreview.jsp")
 		}) 	
 	})
 	public String goOnlinePreviewBookings(){

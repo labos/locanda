@@ -32,7 +32,7 @@ import birt.RunBirt;
 @InterceptorRefs({
 	@InterceptorRef("userAwareStack")    
 })
-@Result(name="notLogged", location="/homeNotLogged.jsp")
+@Result(name="notLogged", location="/WEB-INF/jsp/homeNotLogged.jsp")
 public class BirtAction extends ActionSupport implements ServletContextAware, ServletRequestAware, SessionAware, UserAware {
 	
 	private Map<String, Object> session = null;
