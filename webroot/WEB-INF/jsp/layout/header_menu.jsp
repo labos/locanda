@@ -44,6 +44,9 @@
 <script type='text/javascript' src='js/jquery.fileupload-ui.js'></script>
 <script type='text/javascript' src="js/jquery.fileupload-uix.js"></script>
 <script type='text/javascript' src="js/jquery.i18n.js"></script>
+<script type='text/javascript' src="js/underscore-min.js"></script>
+<script type='text/javascript' src="js/backbone.js"></script>
+<script type='text/javascript' src="js/mustache.js"></script>
 <%
 //Locale locale = (locale)request.getSession().getAttribute(Globals.LOCALE_KEY);
 String lang ="en";

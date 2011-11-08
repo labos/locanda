@@ -44,7 +44,7 @@ window.Conventions = Backbone.Collection.extend({
     },
     setTo: function (end) {
         this.to =  (typeof end === "number")  ? '/' + end : '';
-<<<<<<< OURS
+
 
     },
     
@@ -55,10 +55,6 @@ window.Conventions = Backbone.Collection.extend({
     		
     	}
     	return this;
-
-        
-=======
->>>>>>> THEIRS
 
     },
     

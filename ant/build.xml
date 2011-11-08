@@ -16,7 +16,7 @@
 <project name="Locanda" default="buildAll" basedir="..">
 	<description>Locanda build file for Localhost</description>
 	
-	<import file="myBuildProperties.xml"/>
+	<import file="buildProperties.xml"/>
 	
 	<path id="class.path">
 		<fileset dir="${webroot.path}/lib" includes="*.jar"/>

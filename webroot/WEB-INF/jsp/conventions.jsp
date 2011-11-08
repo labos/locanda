@@ -19,53 +19,74 @@
 <%@ taglib uri="/struts-tags" prefix="s" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<jsp:include page="layout/header_menu.jsp" />
-  <div id="main">
-    <!-- begin: #col1 - first float column -->
-    <div id="col1" role="complementary">
-      <div id="col1_content" class="clearfix"></div>
-    </div><!-- end: #col1 -->
-    <!-- begin: #col3 static column -->
-    <div id="col3" role="main">
-      <div id="col3_content" class="clearfix">
-        <div class="header_section">
-          <span class="name_section"><s:text name="conventions"/></span>
-      	</div>
-        <div>
-          <button class="btn_add_form"><s:text name="addNew" /></button>
-        </div>
-        <div class="yform hideform">
-       	  <jsp:include page="contents/convention_form.jsp" />
-        </div>
-          
-        <s:iterator value="conventions" var="eachConvention" >
-          <div>
-		    <form method="post" action="deleteConvention.action" class="yform json full" role="application">
-              <fieldset>
-                <input type="hidden" name="redirect_form" value="findAllConventions.action?sect=settings"/>
-                 <input type="hidden" name="convention.id" value="<s:property value="#eachConvention.id"/>"/>
-                <legend class="title_season">
-                	<a href="goUpdateConvention.action?sect=settings&convention.id=<s:property value="#eachConvention.id"/>"><s:property value="#eachConvention.name"/></a>
-                	<a href="goUpdateConvention.action?sect=settings&convention.id=<s:property value="#eachConvention.id"/>"><img src="images/sign-up-icon.png" alt="edit"/></a>
-                </legend>
-		    	<div class="subcolumns">
-      		 	  <div class="c40l">
-                    <div class="type-text">
-					  <ul>
-				        <li><b><s:text name="name"/>:</b> <s:property value="#eachConvention.name"/></li>
-				        <li><b><s:text name="code"/>:</b> <s:property value="#eachConvention.activationCode"/></li>
-				        <li><b><s:text name="description"/>:</b> <s:property value="#eachConvention.description"/></li>
-				      </ul>
-                    </div>                  
+    <script id="container-template" type="text/x-handlebars-template">
+		<form class="yform json full" role="application">
+          	  <div class="c50l">
+              	<input type="hidden" name="redirect_form" value="findAllConventions.action?sect=settings" />
+                <input type="hidden" name="convention.id" value="<s:property value="convention.id"/>"/>
+                <div class="c50l">
+                  <div class="type-text">	
+                  	<label for="conventionFormName"><s:text name="name"/><sup title="This field is mandatory.">*</sup></label>
+                	<input type="text" class="required" name="convention.name" id="conventionFormName" value="{{name}}" aria-required="true"/>
                   </div>
+                  <div class="type-text">           
+       				<label for="conventionFormCode"><s:text name="code"/><sup title="This field is mandatory.">*</sup></label>
+                    <input type="text" class="required" name="convention.activationCode" id="conventionFormCode" value="{{activationCode}}" aria-required="true"/>
+      		      </div> 
+				  <div class="type-text">	
+                  	<label for="conventionFormDescr"><s:text name="description"/></label>
+					<textarea name="convention.description" id="conventionFormDescr">{{description}}</textarea>		 
+                  </div>
+                  <div class="type-button">
+					<input type="submit" value="<s:text name="save"/>">
+					<input type="reset" value="<s:text name="cancel"/>">
+                    </div>	
                 </div>
-             	<div class="type-button">
-             	  <button class="btn_delete"><s:text name="delete"/></button>
-                </div>
-           	  </fieldset>
-            </form>        
-		  </div>
-		</s:iterator>  
-		    
-      </div>  
+              </div>
+</form>
+</script>
+    <script id="first-template" type="text/x-handlebars-template">
+<li>
+<div class="item_list">
+<ul><li><b>Name: </b>{{name}}</li><li><b>Code: </b>{{activationCode}}</li><li><b>Description: </b>{{sub_description}}</li>
+<li><input type="hidden" name="id" value="{{id}}"/></li>
+</ul>
+<span class="item-destroy"></span>
+<a href="#edit/{{id}}">Edit</a>
+<a href="#delete/{{id}}">Erase</a>
+</div>
+</li>			 
+</script>
+<jsp:include page="layout/header_menu.jsp" />
+ <link rel='stylesheet' type='text/css' href='css/screen/basemod_2col_advanced.css' />   
+    <div id="main">
+      <!-- begin: #col1 - first float column -->
+      <div role="complementary" id="col1">
+        <div class="clearfix" id="col1_content">
+           <div>
+          <button class="btn_add_form"><s:text name="addNew" /></button>
+        </div> 
+        <div class="subcolumns" id="item_list_container">
+
+
+          </div>
+        </div>
+      </div>
+      <!-- end: #col1 -->
+      <!-- begin: #col3 static column -->
+      <div role="main" id="col3">
+        <div class="clearfix" id="col3_content"> 
+          <h2><s:text name="conventions"/></h2>
+		  <div id="conventionapp">
+			    <ul id="conventions-list">
+			    </ul>
+		  </div>	
+
+        </div>
+        <div id="ie_clearing">&nbsp;</div>
+        <!-- End: IE Column Clearing -->
+      </div>
+      <!-- end: #col3 -->
+    </div>
+    
 <jsp:include page="layout/footer.jsp" />   
