@@ -13,7 +13,7 @@
 
         //... is a list tag.
         tagName: "li",
-        indexTemplate: $("#first-template"),
+        indexTemplate: $("#row-template"),
 
         // The DOM events specific to an item.
         events: {
@@ -157,7 +157,7 @@
      */
     window.EditView = Backbone.View.extend({
         el: $("#item_list_container"),
-        indexTemplate: $("#container-template"),
+        indexTemplate: $("#edit-template"),
         events: {
             "submit form": "save",
             "keypress input:text": "updateOnEnter",
@@ -236,6 +236,111 @@
         }
     });
 
+    /*
+     * @class ToolBarView
+     * @parent Backbone.View
+     * @constructor
+     * View for item filtering.
+     * @tag views
+     * @author LabOpenSource
+     */
+    
+    window.ToolBarView = Backbone.View.extend({
+    	
+    	tagName: "ul",
+    	indexTemplate: $("#toolbar-template"),
+    	events: {},
+    	
+    	initialize: function (){
+    		
+    		this.render();
+    	},
+    	
+    	render: function (){
+    		$("#toolbar-container").append($(this.el).html(Mustache.to_html(this.indexTemplate.html())));
+
+    		$("#item-filter").button({
+                icons: {
+                    
+                    secondary: "ui-icon-triangle-1-s"
+                },
+                text: false
+            });
+            this.autoComplete("#item-autocomplete", null);
+            this.$("ul#filterAll").menu();  
+    		return this;
+    	},
+        autoComplete : function (selector, onselectToDo) {
+        	var self = this,
+                cache = {},
+                filteredModels = [],
+                lastXhr;
+            var toDo = onselectToDo || null;
+            $(selector).autocomplete({
+                minLength: 2,
+                source: function (request, response) {
+                    var term = request.term;
+                    if (term in cache) {
+                        response(cache[term]);
+                        return;
+                    }
+                    lastXhr = $.getJSON("findAllConventionsFilteredJson.action", request, function (data, status, xhr) {
+                        //--cache[ term ] = data;
+                        var result = new Array();
+                        filteredModels = data;
+                        try {
+                            $.each(data, function (key, value) {
+                                result.push({
+                                    "id": value.id,
+                                    "label": value.name + ' ' +  value.activationCode,
+                                    "value": value.name + value.activationCode
+                                });
+                            });
+                        }
+                        catch (e) {
+                            //nothing. result is empty
+                        }
+                        cache[term] = result;
+                        if (xhr === lastXhr) {
+                            response(result);
+                        }
+                    });
+                },
+                
+                // manage the selection of an item
+                select: function (event, ui) {
+                    if (ui.item) {
+                        if (toDo == "findAll") {
+                            var name = ui.item.value;
+                            //nothing
+                        }
+                        else {
+                        	$(selector).val(ui.item.id);
+                        	_.find(filteredModels, function (aModel){
+                        		if ( aModel.id == ui.item.id){
+                        			var selectedModel = self.editView.resetModel( new Convention(aModel) );
+                        			if(typeof self.listView.collection.get(aModel.id) == "undefined"){
+                        				self.listView.collection.add(selectedModel);
+                        			}
+                        			
+                        		}
+                        	});
+                        	
+                        	// fetch the listView collection with filtered results
+                        	
+                        } //END ELSE tODO
+                    }
+                }
+            });
+            
+            //end autocomplete
+            
+        }
+    	
+    	
+    });
+    
+    
 
 
     /*
@@ -393,12 +498,15 @@
                 }),
                 editView: this.editView
             });
+            
+            this.toolBarView = new ToolBarView();
             this.render();
-            this.autoComplete("#item-search", null);
+
 
         },
         render: function () {
             this.delegateEvents();
+ 
             return this;
         },
 
@@ -406,73 +514,6 @@
         addNew: function () {
 
             this.editView.resetModel(new Convention());
-        },
-        
-        autoComplete : function (selector, onselectToDo) {
-        	var self = this,
-                cache = {},
-                filteredModels = [],
-                lastXhr;
-            var toDo = onselectToDo || null;
-            $(selector).autocomplete({
-                minLength: 2,
-                source: function (request, response) {
-                    var term = request.term;
-                    if (term in cache) {
-                        response(cache[term]);
-                        return;
-                    }
-                    lastXhr = $.getJSON("findAllConventionsFilteredJson.action", request, function (data, status, xhr) {
-                        //--cache[ term ] = data;
-                        var result = new Array();
-                        filteredModels = data;
-                        try {
-                            $.each(data, function (key, value) {
-                                result.push({
-                                    "id": value.id,
-                                    "label": value.name + ' ' +  value.activationCode,
-                                    "value": value.name + value.activationCode
-                                });
-                            });
-                        }
-                        catch (e) {
-                            //nothing. result is empty
-                        }
-                        cache[term] = result;
-                        if (xhr === lastXhr) {
-                            response(result);
-                        }
-                    });
-                },
-                
-                // manage the selection of an item
-                select: function (event, ui) {
-                    if (ui.item) {
-                        if (toDo == "findAll") {
-                            var name = ui.item.value;
-                            //nothing
-                        }
-                        else {
-                        	$(selector).val(ui.item.id);
-                        	_.find(filteredModels, function (aModel){
-                        		if ( aModel.id == ui.item.id){
-                        			var selectedModel = self.editView.resetModel( new Convention(aModel) );
-                        			if(typeof self.listView.collection.get(aModel.id) == "undefined"){
-                        				self.listView.collection.add(selectedModel);
-                        			}
-                        			
-                        		}
-                        	});
-                        	
-                        	// fetch the listView collection with filtered results
-                        	
-                        } //END ELSE tODO
-                    }
-                }
-            });
-            
-            //end autocomplete
-            
         },
         
         filterAll : function( attribute, value ){

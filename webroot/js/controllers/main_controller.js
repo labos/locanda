@@ -145,12 +145,6 @@ $(document).ready(function () {
                 icons: {
                     primary: "ui-icon-circle-plus"
                 }
-            }).click(function () {
-                $("div.hideform").show("slide", {
-                    direction: "up"
-                }, 1000);
-                $(this).hide();
-                return false;
             });
             
             //button for form reset  
@@ -206,6 +200,14 @@ $(document).ready(function () {
             $.ajaxSetup({cache: false});
             		  }
             		});
+    $('.item_list').live("mouseover mouseout", function(event) {
+  	  if ( event.type == "mouseover" ) {
+        	$(this).addClass("shadow_box");
+  		  } else {
+              	$(this).removeClass("shadow_box");
+
+  		  }
+  		});
     
     new Main(I18NSettings.lang, I18NSettings.datePattern);
 });

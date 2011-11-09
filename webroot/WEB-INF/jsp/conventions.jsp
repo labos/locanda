@@ -19,7 +19,7 @@
 <%@ taglib uri="/struts-tags" prefix="s" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-    <script id="container-template" type="text/x-handlebars-template">
+    <script id="edit-template" type="text/x-handlebars-template">
 		<form class="yform json full" role="application">
           	  <div class="c50l">
               	<input type="hidden" name="redirect_form" value="findAllConventions.action?sect=settings" />
@@ -45,7 +45,7 @@
               </div>
 </form>
 </script>
-    <script id="first-template" type="text/x-handlebars-template">
+    <script id="row-template" type="text/x-handlebars-template">
 <li>
 <div class="item_list">
 <ul><li><b>Name: </b>{{name}}</li><li><b>Code: </b>{{activationCode}}</li><li><b>Description: </b>{{sub_description}}</li>
@@ -57,6 +57,13 @@
 </div>
 </li>			 
 </script>
+<script id="toolbar-template" type="text/x-handlebars-template">
+<li><input id="item-autocomplete" type="text" value=""/></li>
+<li>
+<button id="item-filter">&nbsp;</button>
+</li>
+</script>
+
 <jsp:include page="layout/header_menu.jsp" />
  <link rel='stylesheet' type='text/css' href='css/screen/basemod_2col_advanced.css' />   
     <div id="main">
@@ -77,6 +84,8 @@
       <div role="main" id="col3">
         <div class="clearfix" id="col3_content"> 
           <h2><s:text name="conventions"/></h2>
+          <div id="toolbar-container">
+          </div>
 		  <div id="conventionapp">
 			    <ul id="conventions-list">
 			    </ul>
