@@ -34,14 +34,13 @@ public class HelpAction extends ActionSupport implements SessionAware {
 	
 	
 	@Actions({
-		@Action(value="/WEB-INF/jsp/goAboutInfo",results = {
+		@Action(value="/goAboutInfo",results = {
 				@Result(name="success",location="/WEB-INF/jsp/about.jsp")
 		})		
 	})
 	public String goAboutInfo() {
 		return SUCCESS;
 	}
-
 
 
 	public Map<String, Object> getSession() {
