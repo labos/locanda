@@ -42,6 +42,7 @@ $.i18n.en.strings = {
     today: "Today",
     prev: "Prev",
     next: "Next",
+    search: "Search",
     rooms: "Rooms",
     guests: "Guests",
     newBookingForRoom: "New Booking for Room",

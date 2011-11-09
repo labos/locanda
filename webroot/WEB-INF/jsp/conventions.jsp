@@ -20,22 +20,21 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
     <script id="edit-template" type="text/x-handlebars-template">
-		<form class="yform json full" role="application">
+		<form id="edit-form" class="yform json full" role="application">
           	  <div class="c50l">
-              	<input type="hidden" name="redirect_form" value="findAllConventions.action?sect=settings" />
-                <input type="hidden" name="convention.id" value="<s:property value="convention.id"/>"/>
+              <input type="hidden" name="id" value="<s:property value="convention.id"/>"/>
                 <div class="c50l">
                   <div class="type-text">	
                   	<label for="conventionFormName"><s:text name="name"/><sup title="This field is mandatory.">*</sup></label>
-                	<input type="text" class="required" name="convention.name" id="conventionFormName" value="{{name}}" aria-required="true"/>
+                	<input type="text" class="required" name="name" id="conventionFormName" value="{{name}}" aria-required="true"/>
                   </div>
                   <div class="type-text">           
        				<label for="conventionFormCode"><s:text name="code"/><sup title="This field is mandatory.">*</sup></label>
-                    <input type="text" class="required" name="convention.activationCode" id="conventionFormCode" value="{{activationCode}}" aria-required="true"/>
+                    <input type="text" class="required" name="activationCode" id="conventionFormCode" value="{{activationCode}}" aria-required="true"/>
       		      </div> 
 				  <div class="type-text">	
                   	<label for="conventionFormDescr"><s:text name="description"/></label>
-					<textarea name="convention.description" id="conventionFormDescr">{{description}}</textarea>		 
+					<textarea name="description" id="conventionFormDescr">{{description}}</textarea>		 
                   </div>
                   <div class="type-button">
 					<input type="submit" value="<s:text name="save"/>">
@@ -53,16 +52,38 @@
 </ul>
 <span class="item-destroy"></span>
 <a href="#edit/{{id}}">Edit</a>
-<a href="#delete/{{id}}">Erase</a>
 </div>
 </li>			 
 </script>
 <script id="toolbar-template" type="text/x-handlebars-template">
-<li><input id="item-autocomplete" type="text" value=""/></li>
+<li><input id="item-autocomplete" type="text" value=""/>
+<div id="form-filter-container"></div>
+</li>
 <li>
 <button id="item-filter">&nbsp;</button>
 </li>
 </script>
+
+
+    <script id="form-filter-template" type="text/x-handlebars-template">
+		<form class="yform json full" role="application">
+          	  <div class="c80l">
+
+                  <div class="type-text">	
+                  	<label for="conventionFormName"><s:text name="name"/></label>
+                	<input type="text"  name="name" id="conventionFormName" value="{{name}}" aria-required="true"/>
+                  </div>
+                  <div class="type-text">           
+       				<label for="conventionFormCode"><s:text name="code"/></label>
+                    <input type="text"  name="activationCode" id="conventionFormCode" value="{{activationCode}}" aria-required="true"/>
+      		      </div>
+                  <div class="type-button">
+					<input type="submit" value="<s:text name="search"/>">
+                </div>
+              </div>
+</form>
+</script>
+
 
 <jsp:include page="layout/header_menu.jsp" />
  <link rel='stylesheet' type='text/css' href='css/screen/basemod_2col_advanced.css' />   
@@ -87,7 +108,7 @@
           <div id="toolbar-container">
           </div>
 		  <div id="conventionapp">
-			    <ul id="conventions-list">
+			    <ul id="items-list">
 			    </ul>
 		  </div>	
 

@@ -176,10 +176,7 @@
             is_new = this.model.isNew() ? true : false,
             item = this.model.clone();
             
-            item.save({
-                name: this.$('input[name="convention.name"]').val(),
-                activationCode: this.$('input[name="convention.activationCode"]').val()
-            }, {
+            item.save($("#edit-form").serializeObject(), {
                 success: function (model, resp) {
                     //--- Backbone.history.saveLocation('documents/' + model.id);
                     self.model.set(model);
@@ -258,18 +255,24 @@
     	
     	render: function (){
     		$("#toolbar-container").append($(this.el).html(Mustache.to_html(this.indexTemplate.html())));
-
+    		$("#form-filter-container").html(Mustache.to_html($("#form-filter-template").html()));
     		$("#item-filter").button({
                 icons: {
                     
                     secondary: "ui-icon-triangle-1-s"
                 },
                 text: false
-            });
+            }).click( function (){
+            	$("#form-filter-container").toggle();
+            	});
+            	
+   
             this.autoComplete("#item-autocomplete", null);
-            this.$("ul#filterAll").menu();  
+            
     		return this;
     	},
+    	
+    	
         autoComplete : function (selector, onselectToDo) {
         	var self = this,
                 cache = {},
@@ -311,24 +314,22 @@
                 select: function (event, ui) {
                     if (ui.item) {
                         if (toDo == "findAll") {
-                            var name = ui.item.value;
+                            
                             //nothing
                         }
                         else {
                         	$(selector).val(ui.item.id);
                         	_.find(filteredModels, function (aModel){
                         		if ( aModel.id == ui.item.id){
-                        			var selectedModel = self.editView.resetModel( new Convention(aModel) );
-                        			if(typeof self.listView.collection.get(aModel.id) == "undefined"){
-                        				self.listView.collection.add(selectedModel);
-                        			}
-                        			
+                        			                        			
+                        			self.trigger("toolBar:autocomplete", aModel);
+                        			                        			
                         		}
                         	});
                         	
                         	// fetch the listView collection with filtered results
                         	
-                        } //END ELSE tODO
+                        } //END ELSE
                     }
                 }
             });
@@ -355,7 +356,7 @@
 
         // Instead of generating a new element, bind to the existing skeleton of
         // the App already present in the HTML.
-        id: "conventions-list",
+        id: "items-list",
         editView: null,
         currentIndex: null,
 
@@ -363,9 +364,11 @@
         // At initialization we bind to the relevant events on the `this.collection`
         // collection, when items are added or changed. Kick things off by
         initialize: function (options) {
-            options['editView'] || (options['editView'] = new EditView({
+            /*
+        	options['editView'] || (options['editView'] = new EditView({
                 model: new Convention
             }));
+            */
             this.editView = options['editView'];
             
             //add collection to editView for increase this collection when a new model was saved
@@ -407,12 +410,12 @@
             });
             view.bind("row:edit", this.editOne);
             view.model.collection = this.collection;
-            $("#conventions-list").append(view.render().el);
+            $("#items-list").append(view.render().el);
         },
 
         // Add all items in the collection at once.
         addAll: function () {
-            this.$("#conventions-list").empty();
+            this.$("#items-list").empty();
 
             this.collection.each(this.addOne);
         },
@@ -500,6 +503,7 @@
             });
             
             this.toolBarView = new ToolBarView();
+            this.toolBarView.bind("toolBar:autocomplete", this.selectAutocomplete, this)
             this.render();
 
 
@@ -510,7 +514,7 @@
             return this;
         },
 
-
+        
         addNew: function () {
 
             this.editView.resetModel(new Convention());
@@ -520,6 +524,15 @@
         	
         	self.listView.collection.setFilter(attribute, value).fetch();
         	
+        },
+        
+        selectAutocomplete: function (aModel) {
+        	
+			var selectedModel = this.editView.resetModel( new Convention(aModel) );
+			
+			if(typeof this.listView.collection.get(aModel.id) == "undefined"){
+				this.listView.collection.add(selectedModel);
+			}
         }
         
         

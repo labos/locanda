@@ -951,10 +951,14 @@ background-image: url("../../images/more-down.png");
 	left: 0;
 
 }
-
+#toolbar-container, #conventionapp{
+	width: 100%;
+	float: left;
+	margin: 0;
+}
 #item-autocomplete{
-	width: 70%;
-
+	width: 180px;
+height: 24px;
   border: 1px solid #ccc;
    
   /* Safari 5, Chrome support border-radius without vendor prefix.
@@ -970,10 +974,10 @@ background-image: url("../../images/more-down.png");
    * No support in FF 3.0, IE 6/7/8, Opera 10.0, iPhone 3.
    * change the offsets, blur and color to suit your design.
    */
-  -moz-box-shadow: 1px 1px 2px #666;
+ /* -moz-box-shadow: 1px 1px 2px #666;
   -webkit-box-shadow: 1px 1px 2px #666;
   box-shadow: 1px 1px 2px #666;
-  
+  */
   /* using a bigger font for demo purposes so the box isn't too small */
   font-size: 20px;
   
@@ -1000,12 +1004,38 @@ background-image: url("../../images/more-down.png");
 	
 }
 
-#toolbar-container ul, #toolbar-container ul li{
+#toolbar-container ul{
+	margin: 0;
+}
+ #toolbar-container ul li{
 		margin: 0;
-		display: inline;
+		float: left;
 	
 }
 
 #item-filter {
+	margin: 0;
 	border-radius: 0px 6px 6px 0px;
+	height: 34px;
 }
+
+#form-filter-container{
+	display: none;
+	width: 180px;
+	position: absolute;
+	top:33px;
+	left: 0;
+	background-color: #fff;
+	z-index: 1;
+	  border: 1px solid #ccc;
+   
+  -moz-border-radius: 6px 0px 6px 6px;
+  -webkit-border-radius: 6px 0px 6px 6px;
+  border-radius: 6px 0px 6px 6px;
+  
+  -moz-box-shadow: 1px 1px 2px #666;
+  -webkit-box-shadow: 1px 1px 2px #666;
+  box-shadow: 1px 1px 2px #666;
+}
+
+

@@ -42,6 +42,7 @@ $.i18n.it.strings = {
     today: "Oggi",
     prev: "Precedente",
     next: "Successivo",
+    search: "Cerca",
     rooms: "Camere",
     guests: "Ospiti",
     newBookingForRoom: "Nuova prenotazione per la camera",
