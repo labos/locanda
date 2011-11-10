@@ -45,7 +45,6 @@
 </form>
 </script>
     <script id="row-template" type="text/x-handlebars-template">
-<li>
 <div class="item_list">
 <ul><li><b>Name: </b>{{name}}</li><li><b>Code: </b>{{activationCode}}</li><li><b>Description: </b>{{sub_description}}</li>
 <li><input type="hidden" name="id" value="{{id}}"/></li>
@@ -53,7 +52,6 @@
 <span class="item-destroy"></span>
 <a href="#edit/{{id}}">Edit</a>
 </div>
-</li>			 
 </script>
 <script id="toolbar-template" type="text/x-handlebars-template">
 <li><input id="item-autocomplete" type="text" value=""/>

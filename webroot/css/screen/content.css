@@ -956,6 +956,11 @@ background-image: url("../../images/more-down.png");
 	float: left;
 	margin: 0;
 }
+
+#conventionapp ul, #conventionapp ul li{
+	margin: 0;
+}
+
 #item-autocomplete{
 	width: 180px;
 height: 24px;

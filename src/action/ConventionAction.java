@@ -110,6 +110,10 @@ public class ConventionAction extends ActionSupport implements SessionAware,User
 		@Action(value="/goUpdateConvention",results = {
 				@Result(name="success",location="/WEB-INF/jsp/convention_edit.jsp")
 		})
+		,
+		@Action(value="/goUpdateConventionJson",results = {
+				@Result(type="json", params={"root", "convention"})
+		})
 	})
 	public String goUpdateConvention() {
 				
