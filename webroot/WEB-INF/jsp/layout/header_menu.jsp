@@ -36,17 +36,17 @@
 <script type='text/javascript' src='js/lib/jquery.min.js'></script>
 <!--<script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js'></script>-->
 <script type='text/javascript' src='js/lib/jquery-ui-1.8.9.custom.min.js'></script>
-<script type='text/javascript' src="js/jquerymx-1.0.custom.js"></script>
-<script type='text/javascript' src='js/ftod.js'></script>
-<script type="text/javascript" src="js/jstree/jquery.jstree.js"></script>
-<script type='text/javascript' src='js/jquery.form.js'></script>
-<script type='text/javascript' src='js/jquery.fileupload.js'></script>
-<script type='text/javascript' src='js/jquery.fileupload-ui.js'></script>
-<script type='text/javascript' src="js/jquery.fileupload-uix.js"></script>
-<script type='text/javascript' src="js/jquery.i18n.js"></script>
-<script type='text/javascript' src="js/underscore-min.js"></script>
-<script type='text/javascript' src="js/backbone.js"></script>
-<script type='text/javascript' src="js/mustache.js"></script>
+<script type='text/javascript' src="js/lib/jquerymx-1.0.custom.js"></script>
+<script type='text/javascript' src='js/lib/ftod.js'></script>
+<script type="text/javascript" src="js/lib/jstree/jquery.jstree.js"></script>
+<script type='text/javascript' src='js/lib/jquery.form.js'></script>
+<script type='text/javascript' src='js/lib/jquery.fileupload.js'></script>
+<script type='text/javascript' src='js/lib/jquery.fileupload-ui.js'></script>
+<script type='text/javascript' src="js/lib/jquery.fileupload-uix.js"></script>
+<script type='text/javascript' src="js/lib/jquery.i18n.js"></script>
+<script type='text/javascript' src="js/lib/underscore-min.js"></script>
+<script type='text/javascript' src="js/lib/backbone.js"></script>
+<script type='text/javascript' src="js/lib/mustache.js"></script>
 <%
 //Locale locale = (locale)request.getSession().getAttribute(Globals.LOCALE_KEY);
 String lang ="en";
@@ -56,7 +56,7 @@ if (locale != null){
 	lang = locale.getLanguage();
 }
 %>
-<script type='text/javascript' src='lang/jquery.<s:property value="#request.locale.getLanguage()" />.json'></script>
+<script type='text/javascript' src='js/lang/jquery.<s:property value="#request.locale.getLanguage()" />.json'></script>
 <script>
 $(document).ready(function () { <%
     //code for menu tabs activation
@@ -79,16 +79,16 @@ $(document).ready(function () { <%
   
 });
 </script>
-<script type='text/javascript' src='js/jquery.weekcalendar.js'></script>
-<script type='text/javascript' src='js/jquery.validate.min.js'></script>
-<script type='text/javascript' src='js/jquery.metadata.js'></script>
+<script type='text/javascript' src='js/lib/jquery.weekcalendar.js'></script>
+<script type='text/javascript' src='js/lib/jquery.validate.min.js'></script>
+<script type='text/javascript' src='js/lib/jquery.metadata.js'></script>
 <s:if test="#request.locale.getLanguage() != 'en'">
-<script type="text/javascript" src="lang/messages_<s:property value="#request.locale.getLanguage()" />.js"></script>
+<script type="text/javascript" src="js/lang/messages_<s:property value="#request.locale.getLanguage()" />.js"></script>
 </s:if>
-<script type='text/javascript' src="js/steal/steal.js?loader.js"></script>
-<script type='text/javascript' src='js/jquery.jgrowl_minimized.js'></script>
-<script type='text/javascript' src='js/ejs_production.js'></script>
-<script type='text/javascript' src='js/view.js'></script>    
+<script type='text/javascript' src="js/lib/steal/steal.js?loader.js"></script>
+<script type='text/javascript' src='js/lib/jquery.jgrowl_minimized.js'></script>
+<script type='text/javascript' src='js/lib/ejs_production.js'></script>
+<script type='text/javascript' src='js/lib/view.js'></script>    
   <title>LOCANDA - Open Source Booking Tool</title><!-- (en) Add your meta data here -->
   <!-- (de) Fuegen Sie hier ihre Meta-Daten ein -->
   <link href="css/layout_sliding_door.css" rel="stylesheet" type="text/css" />

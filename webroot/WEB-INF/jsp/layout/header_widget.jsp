@@ -32,6 +32,7 @@
 <link rel='stylesheet' type='text/css' href='css/jquery.jgrowl.css' />
 <link rel="stylesheet" type='text/css' href="css/jquery.fileupload-ui.css" />
 <link href="css/layout_sliding_door.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="css/jquery.mobile-1.0a4.1.css" />
    <!--[if lte IE 7]>
 	<link href="css/patches/patch_sliding_door.css" rel="stylesheet" type="text/css" />
   <![endif]-->   
@@ -40,10 +41,10 @@
 <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js'></script>
 -->
 <script type='text/javascript' src='js/lib/jquery-ui-1.8.9.custom.min.js'></script>
-<script type='text/javascript' src='js/jquery.fileupload.js'></script>
-<script type='text/javascript' src='js/jquery.fileupload-ui.js'></script>
-<script type='text/javascript' src="js/jquery.i18n.js"></script>
-<script type='text/javascript' src='lang/jquery.<s:property value="#request.locale.getLanguage()" />.json'></script>
+<script type='text/javascript' src='js/lib/jquery.fileupload.js'></script>
+<script type='text/javascript' src='js/lib/jquery.fileupload-ui.js'></script>
+<script type='text/javascript' src="js/lib/jquery.i18n.js"></script>
+<script type='text/javascript' src='js/lang/jquery.<s:property value="#request.locale.getLanguage()" />.json'></script>
       <script>
       $(document).ready(function() {
       I18NSettings = {};
@@ -105,15 +106,14 @@
 
       });
 </script>
-<script type='text/javascript' src='js/ftod.js'></script>
-<script type='text/javascript' src='js/jquery.validate.min.js'></script>
-<script type='text/javascript' src='js/jquery.metadata.js'></script>
+<script type='text/javascript' src='js/lib/ftod.js'></script>
+<script type='text/javascript' src='js/lib/jquery.validate.min.js'></script>
+<script type='text/javascript' src='js/lib/jquery.metadata.js'></script>
 <s:if test="#request.locale.getLanguage() != 'en'">
-<script type="text/javascript" src="lang/messages_<s:property value="#request.locale.getLanguage()" />.js"></script>
+<script type="text/javascript" src="js/lang/messages_<s:property value="#request.locale.getLanguage()" />.js"></script>
 </s:if>
-<script type='text/javascript' src='js/jquery.form.js'></script>
-<link rel="stylesheet" href="css/jquery.mobile-1.0a4.1.css" />
-<script type="text/javascript" src="js/jquery.mobile-1.0a4.1.js"></script>
+<script type='text/javascript' src='js/lib/jquery.form.js'></script>
+<script type="text/javascript" src="js/lib/jquery.mobile-1.0a4.1.js"></script>
 <style>
 body {
 background:#4D87C7;
