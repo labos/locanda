@@ -66,6 +66,21 @@
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
 	
+	<servlet>
+   	 	<servlet-name>Jersey Web Application</servlet-name>
+    	<servlet-class>
+        	com.sun.jersey.spi.spring.container.servlet.SpringServlet
+    	</servlet-class>
+    	<init-param>
+              <param-name>com.sun.jersey.api.json.POJOMappingFeature</param-name>
+              <param-value>true</param-value>
+        </init-param>
+	</servlet>
+
+	<servlet-mapping>
+    	<servlet-name>Jersey Web Application</servlet-name>
+    	<url-pattern>/resources/*</url-pattern>
+	</servlet-mapping>
 	 
     <welcome-file-list>
         <welcome-file>/home.action</welcome-file>

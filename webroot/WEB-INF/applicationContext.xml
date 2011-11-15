@@ -47,6 +47,7 @@
     <!-- enable component scanning (beware that this does not enable mapper scanning!) -->    
     
 	<context:component-scan base-package="service" />
+	<context:component-scan base-package="resources" />
 
     <!-- enable autowire -->
     <context:annotation-config />
