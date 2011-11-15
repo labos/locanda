@@ -14,9 +14,12 @@
  * In case of controversy the competent court is the Court of Cagliari (Italy).
  *******************************************************************************/
 // load files in models folder. Please not wrape code into jquery ready function in model's file. 
-steal("../models/convention.js","../models/roomFacility.js","../models/roomType.js","../models/guest.js","../models/extra.js", "../models/room.js", "../models/facility.js", "../models/convention.js").
-//then load controllers		
-then( "../controllers/main_controller.js").then(
+steal("../helpers/main.js","../helpers/autocomplete.js","../models/roomFacility.js","../models/roomType.js","../models/guest.js","../models/extra.js", "../models/room.js", "../models/facility.js", "../models/convention.js").
+//then load views, model, collections and routers		
+then(
+ 		"../models/" + Entity.name + ".js","../collections/" + Entity.name + ".js").
+then(
+		"../helpers/views.js",
 		 "../controllers/guest_controller.js",
 		 "../controllers/season_controller.js",
  		"../controllers/calendar_controller.js",
@@ -26,8 +29,6 @@ then( "../controllers/main_controller.js").then(
  		"../controllers/room_controller.js",
  		"../controllers/facility_controller.js",
  		"../controllers/online_controller.js").then(
- 		"../controllers/booking_controller.js",
- 		"../controllers/convention.js"
-
-);	
+ 		"../controllers/booking_controller.js").
+ 		then("../helpers/routers.js");	
 
