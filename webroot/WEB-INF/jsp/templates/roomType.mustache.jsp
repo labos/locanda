@@ -29,12 +29,12 @@
                 	<input type="text" class="required" name="name" id="FormName" value="{{name}}" aria-required="true"/>
                   </div>
                   <div class="type-text">           
-       				<label for="FormCode"><s:text name="code"/><sup title="This field is mandatory.">*</sup></label>
-                    <input type="text" class="required" name="activationCode" id="FormCode" value="{{activationCode}}" aria-required="true"/>
+       				<label for="FormMax"><s:text name="maxGuests"/><sup title="This field is mandatory.">*</sup></label>
+                    <input type="text" class="required" name="activationCode" id="FormMax" value="{{maxGuests}}" aria-required="true"/>
       		      </div> 
 				  <div class="type-text">	
-                  	<label for="FormDescr"><s:text name="description"/></label>
-					<textarea name="description" id="FormDescr">{{description}}</textarea>		 
+                  	<label for="FormNotes"><s:text name="notes"/></label>
+					<textarea name="description" id="FormNotes">{{notes}}</textarea>		 
                   </div>
                   <div class="type-button">
 					<input type="submit" value="<s:text name="save"/>">
@@ -46,7 +46,7 @@
 </script>
     <script id="row-template" type="text/x-handlebars-template">
 <div class="item_list">
-<ul><li><b>Name: </b>{{name}}</li><li><b>Code: </b>{{activationCode}}</li><li><b>Description: </b>{{sub_description}}</li>
+<ul><li><b>Name: </b>{{name}}</li><li><b>Max Guests: </b>{{maxGuests}}</li><li><b>Notes: </b>{{sub_description}}</li>
 <li><input type="hidden" name="id" value="{{id}}"/></li>
 </ul>
 <span class="item-destroy"></span>
@@ -72,8 +72,8 @@
                 	<input type="text"  name="name" id="fFormName" value="{{name}}" aria-required="true"/>
                   </div>
                   <div class="type-text">           
-       				<label for="fFormCode"><s:text name="code"/></label>
-                    <input type="text"  name="activationCode" id="fFormCode" value="{{activationCode}}" aria-required="true"/>
+       				<label for="fFormMax"><s:text name="maxGuests"/></label>
+                    <input type="text"  name="maxGuests" id="fFormMax" value="{{maxGuests}}" aria-required="true"/>
       		      </div>
                   <div class="type-button">
 					<input type="submit" value="<s:text name="search"/>">

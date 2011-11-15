@@ -13,7 +13,7 @@ window.AppRouter = Backbone.Router.extend({
         },
         editItem: function (id) {
             // Note the variable in the route definition being passed in here
-            var item = new Convention({
+            var item = Entity.model({
                 id: id
             });
             item.fetch({
@@ -28,7 +28,7 @@ window.AppRouter = Backbone.Router.extend({
         },
         newItem: function () {
             new EditView({
-                model: new Convention()
+                model: Entity.model()
             });
         },
         defaultRoute: function (actions) {

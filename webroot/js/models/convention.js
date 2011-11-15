@@ -43,5 +43,21 @@ window.Convention = Backbone.Model.extend({
     validate: function (attrs) {},
 });
 
+window.Autocompletes = AutocompleteCollection.extend({
 
+    url: function () {
+        return 'findAllConventionsJson.action' + this.term;
+    },
+    parse: function (response) {
+        var parsedResponse = [];
+        $.each(response, function (index, value) {
+            parsedResponse.push({
+                "id": value.id,
+                "label": value.name,
+                "value": value.name
+            });
+        });
+        return parsedResponse;
+    }
+});
 

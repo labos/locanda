@@ -14,10 +14,11 @@
  * In case of controversy the competent court is the Court of Cagliari (Italy).
  *******************************************************************************/
 // load files in models folder. Please not wrape code into jquery ready function in model's file. 
-steal("../helpers/main.js","../helpers/autocomplete.js","../models/roomFacility.js","../models/roomType.js","../models/guest.js","../models/extra.js", "../models/room.js", "../models/facility.js", "../models/convention.js").
-//then load views, model, collections and routers		
+steal("../helpers/main.js","../helpers/autocomplete.js","../models/roomFacility.js","../models/guest.js","../models/extra.js", "../models/room.js", "../models/facility.js").
+//then load views, model, collections and routers
+then("../models/" + Entity.name + ".js").
 then(
- 		"../models/" + Entity.name + ".js","../collections/" + Entity.name + ".js").
+	 "../collections/" + Entity.name + ".js").
 then(
 		"../helpers/views.js",
 		 "../controllers/guest_controller.js",

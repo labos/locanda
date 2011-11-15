@@ -42,13 +42,10 @@ window.Autocomplete = Backbone.Model.extend({
  * @author LabOpenSource
  */
 
-window.Autocompletes = Backbone.Collection.extend({
+AutocompleteCollection = Backbone.Collection.extend({
     model: Autocomplete,
     initialize: function (term) {
         this.setTerm(term);
-    },
-    "url": function () {
-        return 'findAllConventionsJson.action' + this.term;
     },
     setTerm: function (aTerm) {
         this.term = (typeof aTerm !== 'undefined' && aTerm) ? '?term=' + aTerm : "";
