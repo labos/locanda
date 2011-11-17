@@ -43,6 +43,28 @@
                 </div>
               </div>
 </form>
+          <div class="subcolumns">
+		   	<div class="result_facility_upload" id="result_facility_upload" ></div>
+		   	<div class="upload_loader">&nbsp;</div>
+		   	<div class="image_preview"></div>
+		  </div>
+          <div class="beauty">
+     	  	<div class="subcolumns">
+           	  <div class="c33l">
+    			<label for="name_facility"><s:text name="facilityName"/>:</label>&nbsp;<input type="text" name="facility_name" value="" id="name_facility" class="require"/>
+ 			  </div>
+ 			  <div class="c20l">
+ 				<br/>
+ 				<form id="uploadFacility" action="uploadRoomTypeFacility.action" method="post" enctype="multipart/form-data">
+   				  <input type="hidden" name="name" value=""/>
+   				    <input type="hidden" name="roomType.id" value="{{id}}"/>
+     			  <input type="file" name="upload" multiple/>
+    			  <button>Upload</button> 
+    			  <div><s:text name="uploadFacility" /></div>  
+				</form> 
+		   	  </div>
+		   	</div>      
+          </div>	 
 </script>
     <script id="row-template" type="text/x-handlebars-template">
 <div class="item_list">

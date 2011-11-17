@@ -39,7 +39,7 @@ window.Convention = Backbone.Model.extend({
             sub_description: null
         });
     },
-    urlRoot: "goUpdateConventionJson.action",
+    urlRoot: "resources/conventions/",
     validate: function (attrs) {},
 });
 

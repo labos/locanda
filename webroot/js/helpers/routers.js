@@ -16,9 +16,11 @@ window.AppRouter = Backbone.Router.extend({
             var item = Entity.model({
                 id: id
             });
+            var self = this;
+            typeof this.appView !== undefined || (this.appView = new AppView() );
             item.fetch({
                 success: function (model, resp) {
-                    this.appView.editView.resetModel(model);
+                    self.appView.editView.resetModel(model);
                 },
                 error: function () {
                     alert("Error");

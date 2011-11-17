@@ -375,7 +375,7 @@
                 model: Entity.model()
             });
             this.listView = new ListView({
-                collection: Entity.collection(null, {
+                collection: Entity.collection(Entity.idStructure, {
                     view: RowView
                 }),
                 editView: this.editView

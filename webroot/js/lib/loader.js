@@ -13,23 +13,22 @@
  * See the Licence for the specific language governing permissions and limitations under the Licence.
  * In case of controversy the competent court is the Court of Cagliari (Italy).
  *******************************************************************************/
-// load files in models folder. Please not wrape code into jquery ready function in model's file. 
-steal("../helpers/main.js","../helpers/autocomplete.js","../models/roomFacility.js","../models/guest.js","../models/extra.js", "../models/room.js", "../models/facility.js").
+// load files in models folder. Please not wrape code into jquery ready function in model's file.
+ 
+typeof Entity.name !== "undefined" || ( Entity = {name:"planner"} );
+// conditional file loading section
+if (Entity.name == "roomType" || Entity.name == "room" || Entity.name == "structure") {
+    steal("jquery.fileupload.js", "jquery.fileupload-ui.js", "jquery.fileupload-uix.js").then("../helpers/upload.js");
+}
+if (Entity.name == "planner") {
+    steal("jquery.weekcalendar.js");
+}
+// end conditional file loading section
+
+// load common js scripts
+steal("../helpers/main.js", "../helpers/autocomplete.js").
 //then load views, model, collections and routers
 then("../models/" + Entity.name + ".js").
-then(
-	 "../collections/" + Entity.name + ".js").
-then(
-		"../helpers/views.js",
-		 "../controllers/guest_controller.js",
-		 "../controllers/season_controller.js",
- 		"../controllers/calendar_controller.js",
- 		"../controllers/extra_controller.js",
- 		"../controllers/upload_controller.js",
- 		"../controllers/tree_controller.js",
- 		"../controllers/room_controller.js",
- 		"../controllers/facility_controller.js",
- 		"../controllers/online_controller.js").then(
- 		"../controllers/booking_controller.js").
- 		then("../helpers/routers.js");	
-
+then("../collections/" + Entity.name + ".js").
+then("../helpers/views.js").
+then("../helpers/routers.js");

@@ -120,11 +120,12 @@ $(document).ready(function () {
             $(".yform.json").validate();
             
             /* Add shared submit event listener */
-            $(".yform.json").submit(function (event) {
+            /*
+             $(".yform.json").submit(function (event) {
                 $(this).submitForm();
                 return false;
             });
-            
+            */
             /* Add shared UI components */
             $("#accordion").accordion({
                 collapsible: true,

@@ -10,12 +10,16 @@
 window.Conventions = Backbone.Collection.extend({
     model: Convention,
     //This is our Conventions collection and holds our Convention models
-    initialize: function (from, to) {
-        this.setFrom(from);
-        this.setTo(to);
+    initialize: function (idStructure) {
+    	this.setId(idStructure);
+    	this.setFrom(null);
+    	this.setTo(null);
     },
     "url": function () {
-        return 'findAllConventionsJson.action' + this.from + this.to;
+        return 'resources/conventions/structure' + this.idWrapper  + this.from + this.to;
+    },
+    setId: function (id) {
+        this.idWrapper = (typeof id === "number") ? '/' + id : '';
     },
     setFrom: function (begin) {
         this.from = (typeof begin === "number") ? '/' + begin : '';
