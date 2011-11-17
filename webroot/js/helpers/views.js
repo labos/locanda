@@ -372,7 +372,7 @@
         },
         initialize: function () {
             this.editView = new EditView({
-                model: Entity.model()
+                model: Entity.model({id_structure: Entity.idStructure})
             });
             this.listView = new ListView({
                 collection: Entity.collection(Entity.idStructure, {
@@ -389,7 +389,7 @@
             return this;
         },
         addNew: function () {
-            this.editView.resetModel(Entity.model());
+            this.editView.resetModel(Entity.model({id_structure: Entity.idStructure}));
         },
         filterAll: function (attribute, value) {
             self.listView.collection.setFilter(attribute, value).fetch();

@@ -39,7 +39,11 @@ window.Convention = Backbone.Model.extend({
         });
     },
     url: function () {
-    	return this.urlRoot;
+    	
+        var base = this.urlRoot;
+        if (this.isNew()) return base;
+        return base + (base.charAt(base.length - 1) == '/' ? '' : '/') + encodeURIComponent(this.id);
+
     },
     urlRoot: "resources/conventions/",
     validate: function (attrs) {},

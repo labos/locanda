@@ -11,14 +11,14 @@ window.Conventions = Backbone.Collection.extend({
     model: Convention,
     //This is our Conventions collection and holds our Convention models
     initialize: function (idStructure) {
-    	this.setId(idStructure);
+    	this.setIdWrapper(idStructure);
     	this.setFrom(null);
     	this.setTo(null);
     },
     "url": function () {
         return 'resources/conventions/structure' + this.idWrapper  + this.from + this.to;
     },
-    setId: function (id) {
+    setIdWrapper: function (id) {
         this.idWrapper = (typeof id === "number") ? '/' + id : '';
     },
     setFrom: function (begin) {
