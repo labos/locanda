@@ -25,7 +25,6 @@
 window.RoomType = Backbone.Model.extend({
 	
     defaults: {
-        id: null,
         name: "insert name",
         maxGuests: 0,
         sub_description: null
@@ -37,6 +36,9 @@ window.RoomType = Backbone.Model.extend({
             sub_description: null
         });
 
+    },
+    url: function () {
+    	return this.urlRoot;
     },
     urlRoot: "goUpdateRoomTypeJson.action",
     validate: function (attrs) {},

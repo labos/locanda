@@ -22,7 +22,6 @@
     <script id="edit-template" type="text/x-handlebars-template">
 		<form id="edit-form" class="yform json full" role="application">
           	  <div class="c50l">
-              <input type="hidden" name="id" value="<s:property value="convention.id"/>"/>
                 <div class="c50l">
                   <div class="type-text">	
                   	<label for="FormName"><s:text name="name"/><sup title="This field is mandatory.">*</sup></label>

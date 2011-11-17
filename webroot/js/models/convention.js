@@ -25,7 +25,6 @@
 window.Convention = Backbone.Model.extend({
 	
     defaults: {
-        id: null,
         name: "insert name",
         description: null,
         activationCode: "insert own code",
@@ -38,6 +37,9 @@ window.Convention = Backbone.Model.extend({
         }) : this.set({
             sub_description: null
         });
+    },
+    url: function () {
+    	return this.urlRoot;
     },
     urlRoot: "resources/conventions/",
     validate: function (attrs) {},
