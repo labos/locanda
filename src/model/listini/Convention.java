@@ -19,7 +19,11 @@ import java.io.Serializable;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 @XmlRootElement
+@JsonIgnoreProperties(ignoreUnknown = true)
+
 public class Convention implements Serializable{
 	
 	private Integer id;
