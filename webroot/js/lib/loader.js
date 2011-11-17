@@ -15,7 +15,7 @@
  *******************************************************************************/
 // load files in models folder. Please not wrape code into jquery ready function in model's file.
  
-typeof Entity !== "undefined" || ( Entity = {name:"planner"} );
+typeof Entity !== "undefined" || ( Entity = {name:"default"} );
 // conditional file loading section
 if (Entity.name == "roomType" || Entity.name == "room" || Entity.name == "structure") {
     steal("jquery.fileupload.js", "jquery.fileupload-ui.js", "jquery.fileupload-uix.js").then("../helpers/upload.js");

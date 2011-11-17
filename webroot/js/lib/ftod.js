@@ -52,7 +52,7 @@ return(Math.floor(Math.random()*(n2-n1))+n1);
 $().ready(function() {
 
 	$(".hlist ul li").bind({"mouseover click":function(){
-		$(this).children(".sub_menu").show();
-	}, "mouseout": function(){$(this).children(".sub_menu").hide();}});
+		$(this).children(".sub_menu").show().mouseleave(function(){$(".sub_menu").hide();});
+	}, "mouseleave": function(){$(this).children(".sub_menu").hide();}});
 		
 });

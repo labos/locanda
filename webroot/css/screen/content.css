@@ -328,13 +328,14 @@ ul.sub_menu
 	left: 0;
 	margin: 0;
 	margin-left: 0! important;
-	margin-top: 0px;
 	padding: 0;
 	position: absolute;
 	z-index: 2000;
+	border: 1px solid #B3EB86;
+	
 }
 ul.sub_menu li, ul.sub_menu li a
-{
+{	clear: both;
 	background: none;
 	border: none;
 }
@@ -900,11 +901,12 @@ div.item_list {
     position: absolute;
     right: 5px;
     top: 14px;
-    display: none;
     cursor: pointer;
     width: 20px;
     height: 20px;
-    background: url('../../images/destroy.png')no-repeat 0 0;
+    background-image: url('../../images/destroy.png');
+    background-position: 0px 0px;
+    backgound-repeat: no-repeat;
   }
     .item-destroy{
       display: block;

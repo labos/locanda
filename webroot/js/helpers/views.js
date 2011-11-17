@@ -124,10 +124,12 @@
      */
     window.EditView = Backbone.View.extend({
         el: $("#item_list_container"),
-        indexTemplate: $("#edit-template"),
+        indexTemplate: $("#view-template"),
         events: {
             "submit form": "save",
             "keypress input:text": "updateOnEnter",
+            "dblclick span" : "switchMode"
+            
         },
         initialize: function () {
             this.model.bind('change', this.render, this);
@@ -143,6 +145,7 @@
                 success: function (model, resp) {
                     //--- Backbone.history.saveLocation('documents/' + model.id);
                     self.model.set(model);
+                    self.model.initialize();
                     if (is_new) {
                         self.collection.add(self.model);
                     }
@@ -170,6 +173,7 @@
         },
         //unbind all callbacks from the current model  
         resetModel: function (amodel) {
+        	this.indexTemplate = $("#view-template");
             this.model.unbind("change", this.render, this);
             this.model = amodel;
             this.model.bind('change', this.render, this);
@@ -182,6 +186,11 @@
             this.unbind();
             //clean up events bound from the model
             this.model.unbind("change", this.render);
+        },
+        switchMode: function () {
+        	
+        	this.indexTemplate = ( this.indexTemplate.attr("id") == "edit-template" ) ? $("#view-template") : $("#edit-template") ;
+        	this.render( );
         }
     });
     /*

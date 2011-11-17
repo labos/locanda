@@ -70,6 +70,7 @@ $(document).ready(function () { <%
     %>
     var text_tab = $("#" + section).children("a").hide().text();
     $("#" + section).addClass("active").prepend("<strong>" + text_tab + "</strong>");
+    $("#" + section + " ul").menu();
     I18NSettings = {};
     I18NSettings.datePattern = '<s:property value="#session.datePattern"/>'.replace('yyyy', 'yy').toLowerCase();
     //to avoid undefined warning on pre-login phase...
