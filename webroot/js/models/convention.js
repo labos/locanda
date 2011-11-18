@@ -25,10 +25,6 @@
 window.Convention = Backbone.Model.extend({
 	
     defaults: {
-        name: "insert name",
-        description: null,
-        activationCode: "insert own code",
-        id_structure: null,
         sub_description: null
     },
     initialize: function () {

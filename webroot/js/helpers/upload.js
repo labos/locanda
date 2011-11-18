@@ -211,7 +211,11 @@ $.fn.deprecatedBrowser = function () {
 		}
 		return deprecated;
 	};
-	$('#uploadFacility, #uploadImage, #uploadStructFacility').fileUploadUI({
+	
+	
+	$.fn.uploadImage =  function (){
+		$(this).fileUploadUI({
+
 		forceIframeUpload: function(){
 			if ($().deprecatedBrowser()) {
 				return true;
@@ -323,11 +327,15 @@ $.fn.deprecatedBrowser = function () {
 		previewSelector: ".image_preview",
 		imageTypes: '/^image\/(gif|jpeg|png)$/'
 	});
-	
+	}
 	
 	$("a.erase_image").click(function (event) {
-		addEventDeleteImage(event)
+		addEventDeleteImage(event);
 	});
+	
+	// attach uploader to existing DOM
+	// $('#uploadFacility, #uploadImage, #uploadStructFacility').uploadImage( );
+	
 	
 	
 

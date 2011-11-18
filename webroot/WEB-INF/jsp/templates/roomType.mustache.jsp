@@ -56,7 +56,7 @@
  				<br/>
  				<form id="uploadFacility" action="uploadRoomTypeFacility.action" method="post" enctype="multipart/form-data">
    				  <input type="hidden" name="name" value=""/>
-   				    <input type="hidden" name="roomType.id" value="{{id}}"/>
+   				    <input type="hidden" name="id" value="{{id}}"/>
      			  <input type="file" name="upload" multiple/>
     			  <button>Upload</button> 
     			  <div><s:text name="uploadFacility" /></div>  
@@ -65,6 +65,29 @@
 		   	</div>      
           </div>	 
 </script>
+    <script id="view-template" type="text/x-handlebars-template">
+		<form id="edit-form" class="yform json full" role="application">
+          	  <div class="c50l">
+                <div class="c50l">
+                  <div class="type-text">	
+                  	<strong><s:text name="name"/></strong>
+					<span>{{name}}</span>
+                  </div>
+                  <div class="type-text">           
+       				<strong><s:text name="maxGuests"/></strong>
+					<span>{{maxGuests}}</span>
+      		      </div> 
+				  <div class="type-text">	
+                  	<strong><s:text name="notes"/></strong>
+					<span>{{notes}}</span> 
+                  </div>
+                </div>
+              </div>
+</form> 
+</script>
+
+
+
     <script id="row-template" type="text/x-handlebars-template">
 <div class="item_list">
 <ul><li><b>Name: </b>{{name}}</li><li><b>Max Guests: </b>{{maxGuests}}</li><li><b>Notes: </b>{{sub_description}}</li>

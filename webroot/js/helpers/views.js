@@ -61,9 +61,10 @@
                     success: function () {
                         $().notify(this.alertOK, $.i18n("congratulation"));
                     },
-                    error: function () {
-                        $().notify(this.alertKO, $.i18n("seriousErrorDescr"));
-                        //handle moreViews"));
+                    error: function ( jqXHR, textStatus, errorThrown ) {
+                    	textStatus.responseText || ( textStatus.responseText = $.i18n("seriousErrorDescr") );
+                        $().notify(this.alertKO, textStatus.responseText);
+                      
                     }
                 });
             }
@@ -151,7 +152,7 @@
                     }
                     $().notify(self.alertOK, "Ok");
                 },
-                error: function () {
+                error: function ( ) {
                     $().notify(this.alertKO, $.i18n("seriousErrorDescr") + ' ');
                 }
             });
@@ -160,6 +161,7 @@
         render: function () {
             $(this.el).html(Mustache.to_html(this.indexTemplate.html(), this.model.toJSON()));
             this.$(".yform.json.full").validate();
+           // $("#uploadFacility").uploadImage( );
             this.delegateEvents();
             return this;
         },
@@ -173,7 +175,7 @@
         },
         //unbind all callbacks from the current model  
         resetModel: function (amodel) {
-        	this.indexTemplate = $("#view-template");
+        	this.indexTemplate = amodel.isNew()? $("#edit-template") : $("#view-template") ;
             this.model.unbind("change", this.render, this);
             this.model = amodel;
             this.model.bind('change', this.render, this);
@@ -322,6 +324,9 @@
         addAll: function () {
             this.$("#items-list").empty();
             this.collection.each(this.addOne);
+            if( this.collection.length ){
+            	this.editView.resetModel(this.collection.at( 0 ));
+            }
         },
         removeOne: function (aModel) {
             // now check if deleted model is in editing mode

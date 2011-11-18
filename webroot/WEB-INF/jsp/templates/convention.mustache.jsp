@@ -49,11 +49,14 @@
           	  <div class="c50l">
                 <div class="c50l">
                   <div class="type-text">	
-                  	<strong><s:text name="name"/><sup title="This field is mandatory."></strong>
+                	<span class="inplace-edit"></span>
+                  </div>
+                  <div class="type-text">	
+                  	<strong><s:text name="name"/></strong>
                 	<span>{{name}}</span>
                   </div>
                   <div class="type-text">           
-       				<strong><s:text name="code"/><sup title="This field is mandatory."></strong>
+       				<strong><s:text name="code"/></strong>
                     <span>{{activationCode}}</span>
       		      </div> 
 				  <div class="type-text">	
@@ -64,13 +67,12 @@
 </form>
 </script>
 
-    <script id="row-template" type="text/x-handlebars-template">
+<script id="row-template" type="text/x-handlebars-template">
 <div class="item_list">
 <ul><li><b>Name: </b>{{name}}</li><li><b>Code: </b>{{activationCode}}</li><li><b>Description: </b>{{sub_description}}</li>
 <li><input type="hidden" name="id" value="{{id}}"/></li>
 </ul>
 <span class="item-destroy"></span>
-<a href="#edit/{{id}}">Edit</a>
 </div>
 </script>
 <script id="toolbar-template" type="text/x-handlebars-template">
