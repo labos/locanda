@@ -125,13 +125,14 @@ public class ConventionAction extends ActionSupport implements SessionAware,User
 		Integer id_convention;
 		
 		id_convention = this.getConvention().getId();
-		count = this.getConventionService().deleteConvention(id_convention);
+		
 		
 		if(this.getBookingService().countBookingsByIdConvention(id_convention) > 0){
 			this.getMessage().setResult(Message.ERROR);
 			this.getMessage().setDescription(getText("conventionDeleteBookingError"));
 			return ERROR;
 		}
+		count = this.getConventionService().deleteConvention(id_convention);
 		if(count > 0){
 			this.getMessage().setResult(Message.SUCCESS);
 			this.getMessage().setDescription(getText("conventionDeleteSuccessAction"));
