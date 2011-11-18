@@ -15,7 +15,9 @@
  *******************************************************************************/
 package service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import model.listini.Convention;
 
@@ -55,6 +57,17 @@ public class ConventionServiceImpl implements ConventionService{
 	public List<Convention> findConventionsByIdStructure(Integer id_structure) {
 		return this.getConventionMapper().findConventionsByIdStructure(id_structure);
 	}
+	
+	@Override
+	public List<Convention> findConventionsByIdStructure(Integer id_structure, Integer offset, Integer rownum) {
+		Map map = null;
+		
+		map = new HashMap();
+		map.put("id_structure", id_structure );
+		map.put("offset", offset );
+		map.put("rownum", rownum );
+		return this.getConventionMapper().findConventionsByIdStructureAndOffsetAndRownum(map);
+	}
 
 	@Override
 	public Convention findConventionById(Integer id) {
@@ -79,5 +92,7 @@ public class ConventionServiceImpl implements ConventionService{
 	public void setExtraPriceListService(ExtraPriceListService extraPriceListService) {
 		this.extraPriceListService = extraPriceListService;
 	}
+
+	
 	
 }

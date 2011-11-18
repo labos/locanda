@@ -16,6 +16,7 @@
 package persistence.mybatis.mappers;
 
 import java.util.List;
+import java.util.Map;
 
 import model.listini.Convention;
 
@@ -24,5 +25,6 @@ public interface ConventionMapper {
 	public Integer updateConvention(Convention convention);
 	public Integer deleteConvention(Integer id);
 	public List<Convention> findConventionsByIdStructure(Integer id_structure);
+	public List<Convention> findConventionsByIdStructureAndOffsetAndRownum(Map map);	
 	public Convention findConventionById(Integer id);
 }

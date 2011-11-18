@@ -35,6 +35,10 @@ In case of controversy the competent court is the Court of Cagliari (Italy).
         <include refid="selectConvention"/>where id_structure = #{id_structure}
     </select>
     
+    <select id="findConventionsByIdStructureAndOffsetAndRownum" parameterType="map" resultType="model.listini.Convention">
+        <include refid="selectConvention"/>where id_structure = #{id_structure} LIMIT #{offset}, #{rownum}
+    </select>
+    
     <select id="findConventionById" parameterType="int" resultType="model.listini.Convention">
         <include refid="selectConvention"/>where id = #{id}
     </select>
