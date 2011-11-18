@@ -56,6 +56,23 @@ public class ConventionResource {
                 filteredConventions.add(each);
             }           
         }       
+        return filteredConventions;          
+    }
+    
+    @GET
+    @Path("structure/{idStructure}/{offset}/{rownum}")
+    @Produces({MediaType.APPLICATION_JSON})
+   
+    public List<Convention> getConventions(@PathParam("idStructure") Integer idStructure,@PathParam("offset") Integer offset,@PathParam("rownum") Integer rownum){
+        List<Convention> filteredConventions = null;
+       
+        filteredConventions = new ArrayList<Convention>();
+        
+        for(Convention each: this.getConventionService().findConventionsByIdStructure(idStructure,offset,rownum)){           
+            if(!each.getActivationCode().equals("thisconventionshouldntneverberemoved")){
+                filteredConventions.add(each);
+            }           
+        }       
         return filteredConventions;   
        
     }
@@ -70,7 +87,6 @@ public class ConventionResource {
        
         ret = this.getConventionService().findConventionById(id);
         return ret;
-
        
     }
   
@@ -90,9 +106,9 @@ public class ConventionResource {
     @Path("{id}")
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
-    public Convention update(Convention convention) {
+    public Convention update(Convention convention) {        
         
-        this.getConventionService().updateConvention(convention);
+    	this.getConventionService().updateConvention(convention);
        
         return convention;
     }
@@ -146,10 +162,6 @@ public class ConventionResource {
 
 	public void setBookingService(BookingService bookingService) {
 		this.bookingService = bookingService;
-	}
-   
-   
-   
-   
+	}   
 
 }
