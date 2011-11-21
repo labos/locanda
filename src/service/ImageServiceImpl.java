@@ -60,6 +60,13 @@ public class ImageServiceImpl implements ImageService{
 	@Override
 	public List<Image> findImagesByIdStructure(Integer id_structure) {		
 		return this.getImageMapper().findImagesByIdStructure(id_structure);
+	}	
+	
+
+	@Override
+	public Image findStructureImageById(Integer id) {
+		
+		return this.getImageMapper().findStructureImageById(id);
 	}
 
 	@Override
