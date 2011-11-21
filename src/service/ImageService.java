@@ -32,6 +32,7 @@ public interface ImageService {
 	public List<Image> findImagesByIdStructure(Integer id_structure);
 	
 	public Image findStructureImageByName(Integer id_structure, String name);
+	public Image findStructureImageById(Integer id);
 	public Image findRoomImageByName(Integer id_structure, String name);
 	public Image findRoomTypeImageByName(Integer id_structure, String name);
 	

@@ -41,6 +41,10 @@ In case of controversy the competent court is the Court of Cagliari (Italy).
         <include refid="selectStructureImages"/>where id_structure = #{id_structure} and name = #{name}
     </select>
     
+    <select id="findStructureImageById" parameterType="int" resultType="model.Image">
+        <include refid="selectStructureImages"/>where id = #{id}
+    </select>
+    
     <select id="findRoomImageByName" parameterType="map" resultType="model.Image">
         <include refid="selectRoomImages"/>where  name = #{name} and id_room IN (select id from room where id_structure = #{id_structure} )
     </select>

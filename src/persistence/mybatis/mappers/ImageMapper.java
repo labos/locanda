@@ -28,6 +28,7 @@ public interface ImageMapper {
 	public List<Image> findImagesByIdRoomType(Integer id_roomType);
 	public List<Image> findImagesByIdStructure(Integer id_structure);
 	public Image findStructureImageByName(Map map);
+	public Image findStructureImageById(Integer id);
 	public Image findRoomImageByName(Map map);
 	public Image findRoomTypeImageByName(Map map);
 	public Integer deleteRoomImage(Integer id);
