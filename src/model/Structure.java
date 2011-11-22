@@ -21,11 +21,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeSet;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 import model.listini.Convention;
 import model.listini.ExtraPriceList;
 import model.listini.RoomPriceList;
 import model.listini.Season;
 
+@XmlRootElement
+@JsonIgnoreProperties({"rooms","roomTypes","roomFacilities","facilities","guests","bookings","extras","seasons","roomPriceLists","extraPriceLists","images","conventions","keys"})
 public class Structure implements Serializable {
 	
 	private Integer id;
@@ -40,21 +47,22 @@ public class Structure implements Serializable {
 	private String country;
 	private String zipCode;
 	private String notes;
-	private List<Room> rooms;
-	private List<RoomType> roomTypes;	
-	private List<Facility> roomFacilities;
-	private List<Facility> facilities;
-	private List<Guest> guests;
-	private List<Booking> bookings;
-	private List<Extra> extras;
-	private List<Season> seasons;
-	private List<RoomPriceList> roomPriceLists;
-	private List<ExtraPriceList> extraPriceLists;
-	private List<Image> images;
-	private List<Convention> conventions;
-	private TreeSet<Integer> keys;
 	private Integer id_user;
-
+	
+	
+	private List<Room> rooms;	
+	private List<RoomType> roomTypes;	
+	private List<Facility> roomFacilities;	
+	private List<Facility> facilities;		
+	private List<Guest> guests;	
+	private List<Booking> bookings;	
+	private List<Extra> extras;	
+	private List<Season> seasons;	
+	private List<RoomPriceList> roomPriceLists;	
+	private List<ExtraPriceList> extraPriceLists;	
+	private List<Image> images;	
+	private List<Convention> conventions;	
+	private TreeSet<Integer> keys;
 	
 	public Structure(){
 		this.setRooms(new ArrayList<Room>());

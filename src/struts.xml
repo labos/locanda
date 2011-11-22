@@ -52,8 +52,7 @@
 				<param name="contentDisposition">attachment;filename="${fileName}"</param>
 				<param name="bufferSize">1024</param>
 			</result>
-		</action>
-		
+		</action>		
 		
 		<action name="birt" class="action.BirtAction">
 			<result type="stream">
