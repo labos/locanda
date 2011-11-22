@@ -16,10 +16,13 @@ window.Conventions = Backbone.Collection.extend({
     	this.setTo(null);
     },
     "url": function () {
-        return 'rest/conventions/structure' + this.idWrapper  + this.from + this.to;
+        return 'rest/conventions/structure/' + this.idWrapper  + this.from + this.to;
     },
     setIdWrapper: function (id) {
-        this.idWrapper = (typeof id === "number") ? '/' + id : '';
+        this.idWrapper = (typeof id === "number") ? id : '';
+    },
+    getIdWrapper: function () {
+        return this.idWrapper;
     },
     setFrom: function (begin) {
         this.from = (typeof begin === "number") ? '/' + begin : '';
@@ -33,5 +36,10 @@ window.Conventions = Backbone.Collection.extend({
             this.filter = (attribute && value) ? '/' + attribute + '/' + value : "";
         }
         return this;
+    },
+    search: function ( aModel ){
+    	this.url = 'rest/conventions/structure/' + this.idWrapper + '/advancedSearch';
+    	this.fetch( { data: aModel} );
+    	
     }
 });

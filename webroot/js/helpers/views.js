@@ -223,7 +223,9 @@
  window.ToolBarView = Backbone.View.extend({
      tagName: "ul",
      indexTemplate: $("#toolbar-template"),
-     events: {},
+      events: {
+         "submit form": "search"
+     },
      initialize: function () {
          this.render();
      },
@@ -248,6 +250,15 @@
          this.autoComplete("#item-autocomplete", null);
          return this;
      },
+     // save new item or update existing item.
+     search: function (e) {
+         e.preventDefault();
+         var self = this,
+         searched = $("#filter-form").serializeObject();
+         this.collection.search(searched);
+         return false;
+     },
+        
      autoComplete: function (selector, onselectToDo) {
          var self = this,
              cache = {};
@@ -260,7 +271,7 @@
                      response(cache[term]);
                      return;
                  }
-                 var autocompletes = new Autocompletes(term);
+                 var autocompletes = new Autocompletes(term, self.collection.getIdWrapper());
                  autocompletes.fetch({
                      success: function () {
                          var result = new Array();
@@ -429,7 +440,7 @@
              }),
              editView: this.editView
          });
-         this.toolBarView = new ToolBarView();
+         this.toolBarView = new ToolBarView({ collection: this.listView.collection });
          this.toolBarView.bind("toolBar:autocomplete", this.selectAutocomplete, this);
          this.render();
      },

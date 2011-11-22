@@ -113,7 +113,7 @@
 
 
     <script id="form-filter-template" type="text/x-handlebars-template">
-		<form class="yform json full" role="application">
+		<form  id="filter-form" class="yform json full" role="application">
           	  <div class="c80l">
 
                   <div class="type-text">	

@@ -44,11 +44,15 @@ window.Autocomplete = Backbone.Model.extend({
 
 AutocompleteCollection = Backbone.Collection.extend({
     model: Autocomplete,
-    initialize: function (term) {
+    initialize: function (term, wrapper) {
         this.setTerm(term);
+        this.setIdWrapper(wrapper);
     },
     setTerm: function (aTerm) {
         this.term = (typeof aTerm !== 'undefined' && aTerm) ? '?term=' + aTerm : "";
+    },
+    setIdWrapper: function (id) {
+        this.idWrapper = (typeof id === "number") ?  id : '';
     },
     parse: function (response) {
         var parsedResponse = [];
