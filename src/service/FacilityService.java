@@ -34,7 +34,10 @@ public interface FacilityService {
 	public Facility findUploadedFacilityById(Integer id);
 	public List<Facility> findUploadedFacilitiesByIds(List<Integer> ids);
 	public List<Facility> findStructureFacilitiesByIdStructure(Integer id_structure);
+	
 	public Facility findUploadedFacilityByName(Integer id_structure, String name);	
+	
+	public Facility findStructureFacilityById(Integer id);
 	public Facility findStructureFacilityByName(Integer id_structure, String name);
 	public List<Facility> findRoomFacilitiesByIdRoom(Integer id_room);
 	public List<Facility> findRoomTypeFacilitiesByIdRoomType(Integer id_roomType);

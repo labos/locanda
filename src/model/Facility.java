@@ -17,6 +17,9 @@ package model;
 
 import java.io.Serializable;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class Facility implements Serializable{
 	
 	private Integer id;

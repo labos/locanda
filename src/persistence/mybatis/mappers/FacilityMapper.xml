@@ -53,6 +53,10 @@ In case of controversy the competent court is the Court of Cagliari (Italy).
         <include refid="findStructureFacilities"/>where id_structure = #{id_structure}
     </select>
     
+    <select id="findStructureFacilityById" parameterType="int" resultType="model.Facility">
+        <include refid="findStructureFacilities"/>where id = #{id}
+    </select>
+    
     <select id="findStructureFacilityByName" parameterType="map" resultType="model.Facility">
         <include refid="findStructureFacilities"/>where id_structure = #{id_structure} and name = #{name}
     </select>
