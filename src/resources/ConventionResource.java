@@ -60,6 +60,60 @@ public class ConventionResource {
     }
     
     @GET
+    @Path("structure/{idStructure}/simpleSearch")
+    @Produces({MediaType.APPLICATION_JSON})
+   
+    public List<Convention> simpleSearch(@PathParam("idStructure") Integer idStructure, @QueryParam("term") String term){
+        List<Convention> filteredConventions = null;
+       
+        filteredConventions = new ArrayList<Convention>();
+        
+        for(Convention each: this.getConventionService().findConventionsByIdStructure(idStructure)){           
+            if(!each.getActivationCode().equals("thisconventionshouldntneverberemoved")){  
+            	if(this.simpleSearchFilter(each, term)){
+            		filteredConventions.add(each);            		
+            	}                
+            }           
+        }       
+        return filteredConventions;          
+    }
+    
+    private boolean simpleSearchFilter(Convention convention, String term){
+    	boolean ret = false;
+    	
+    	ret = convention.getName().contains(term) || convention.getDescription().contains(term) || convention.getActivationCode().toString().contains(term);
+    	return ret;
+    }   
+    
+    @POST
+    @Path("structure/{idStructure}/advancedSearch")
+    @Consumes({MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_JSON})
+   
+    public List<Convention> advancedSearch(@PathParam("idStructure") Integer idStructure,Convention example){
+        List<Convention> filteredConventions = null;
+       
+        filteredConventions = new ArrayList<Convention>();
+        
+        for(Convention each: this.getConventionService().findConventionsByIdStructure(idStructure)){           
+            if(!each.getActivationCode().equals("thisconventionshouldntneverberemoved")){  
+            	if(this.advancedSearchFilter(each, example)){
+            		filteredConventions.add(each);            		
+            	}                
+            }           
+        }       
+        return filteredConventions;          
+    }
+    
+    private boolean advancedSearchFilter(Convention each, Convention example){
+    	boolean ret = false;
+    	
+    	ret = each.getName().contains(example.getName()) || each.getDescription().contains(example.getDescription()) || each.getActivationCode().toString().contains(example.getActivationCode().toString());
+    	return ret;
+    }   
+    
+    
+    @GET
     @Path("structure/{idStructure}/{offset}/{rownum}")
     @Produces({MediaType.APPLICATION_JSON})
    
