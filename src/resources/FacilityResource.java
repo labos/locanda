@@ -22,7 +22,7 @@ import org.springframework.stereotype.Component;
 
 import service.FacilityService;
 
-@Path("/facilites/")
+@Path("/facilities/")
 @Component
 @Scope("prototype")
 public class FacilityResource {
