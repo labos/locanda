@@ -99,6 +99,15 @@ public class FacilityServiceImpl implements FacilityService{
 		return this.getFacilityMapper().findUploadedFacilityByName(map);
 	}
 	
+	
+	
+	
+	@Override
+	public Facility findStructureFacilityById(Integer id) {
+		
+		return this.getFacilityMapper().findStructureFacilityById(id);
+	}
+
 	@Override
 	public Facility findStructureFacilityByName(Integer id_structure, String name) {
 		Map map = null;
