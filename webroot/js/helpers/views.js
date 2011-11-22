@@ -149,6 +149,8 @@
                  if (is_new) {
                      self.collection.add(self.model);
                  }
+                 
+                 self.switchMode();
                  $().notify(self.alertOK, "Ok");
              },
              error: function () {
@@ -170,6 +172,10 @@
              icons: {
                  primary: "ui-icon-trash"
              }
+         }).click(function (event) {
+             var validator = $(this).parents(".yform.json").validate();
+             validator.resetForm();
+             return false;
          });
          if($("#uploadFacility").length){
         	 $("#uploadFacility").uploadImage( );
@@ -232,6 +238,13 @@
          }).click(function () {
              $("#form-filter-container").toggle();
          });
+         
+         $(".btn_submit").button({
+             icons: {
+                 primary: "ui-icon-triangle-1-e"
+             }
+         });
+         
          this.autoComplete("#item-autocomplete", null);
          return this;
      },
