@@ -36,8 +36,8 @@
 					<textarea name="description" id="FormDescr">{{description}}</textarea>		 
                   </div>
                   <div class="type-button">
-					<input type="submit" value="<s:text name="save"/>">
-					<input type="reset" value="<s:text name="cancel"/>">
+                <button class="btn_save"><s:text name="save"/></button>
+                <button class="btn_reset btn_cancel_form"><s:text name="cancel"/></button>
                     </div>	
                 </div>
               </div>
@@ -48,9 +48,6 @@
 		<form id="view-form" class="yform json full" role="application">
           	  <div class="c50l">
                 <div class="c50l">
-                  <div class="type-text">	
-                	<span class="inplace-edit"></span>
-                  </div>
                   <div class="type-text">	
                   	<strong><s:text name="name"/></strong>
                 	<span>{{name}}</span>
@@ -64,15 +61,21 @@
 					<span>{{description}}</span>		 
                   </div>
               </div>
+                <div class="c50l">
+                  <div class="type-text">	
+                	<span class="inplace-edit"></span>
+                  </div>
+				</div>
+</div>
 </form>
 </script>
 
 <script id="row-template" type="text/x-handlebars-template">
-<div class="item_list">
+<div class="row-item">
 <ul><li><b>Name: </b>{{name}}</li><li><b>Code: </b>{{activationCode}}</li><li><b>Description: </b>{{sub_description}}</li>
 <li><input type="hidden" name="id" value="{{id}}"/></li>
 </ul>
-<span class="item-destroy"></span>
+<span class="row-item-destroy"></span>
 </div>
 </script>
 <script id="toolbar-template" type="text/x-handlebars-template">
@@ -98,7 +101,7 @@
                     <input type="text"  name="activationCode" id="fFormCode" value="{{activationCode}}" aria-required="true"/>
       		      </div>
                   <div class="type-button">
-					<input type="submit" value="<s:text name="search"/>">
+					<button class="btn_submit"><s:text name="search"/></button>
                 </div>
               </div>
 </form>

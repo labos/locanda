@@ -16,7 +16,7 @@ window.Conventions = Backbone.Collection.extend({
     	this.setTo(null);
     },
     "url": function () {
-        return 'resources/conventions/structure' + this.idWrapper  + this.from + this.to;
+        return 'rest/conventions/structure' + this.idWrapper  + this.from + this.to;
     },
     setIdWrapper: function (id) {
         this.idWrapper = (typeof id === "number") ? '/' + id : '';

@@ -41,7 +41,7 @@ window.Convention = Backbone.Model.extend({
         return base + (base.charAt(base.length - 1) == '/' ? '' : '/') + encodeURIComponent(this.id);
 
     },
-    urlRoot: "resources/conventions/",
+    urlRoot: "rest/conventions/",
     validate: function (attrs) {},
 });
 

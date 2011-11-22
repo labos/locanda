@@ -874,7 +874,7 @@ span.copy
 	top:0;
 	
 }
-div.item_list {
+div.row-item {
     background: none repeat scroll 0 0 #FAFAFA;
     border-top: 1px solid #DDDDDD;
     border-bottom: 1px solid #DDDDDD;
@@ -882,7 +882,7 @@ div.item_list {
     padding: 0;
     cursor: pointer;
 }
-.item_list .sidebox_edit ul
+.row-item .sidebox_edit ul
 {
 	margin: 0;	
 }
@@ -890,14 +890,14 @@ div.item_list {
 {
 	display: inline;	
 }
-.item_list ul {
+.row-item ul {
 	margin: 0px;
 }
-#item_list_container {
+#row-edit-container {
 	margin-top: 8px;
  	border-top: 1px solid #DDDDDD;
 }
-  .item-destroy {
+  .row-item-destroy {
     position: absolute;
     right: 5px;
     top: 14px;
@@ -908,10 +908,10 @@ div.item_list {
     background-position: 0px 0px;
     backgound-repeat: no-repeat;
   }
-    .item-destroy{
+    .row-item-destroy{
       display: block;
     }
-    .item-destroy:hover {
+    .row-item-destroy:hover {
       background-position: 0 -20px;
     }
     		#nav-bottom, #nav-top {
@@ -940,6 +940,24 @@ background-image: url("../../images/more-down.png");
 
 	}
 	
+				#nav-bottom:hover{
+background-color: #DCF299;
+-moz-border-radius-topleft: 0px;
+-moz-border-radius-topright: 0px;
+-moz-border-radius-bottomright: 5px;
+-moz-border-radius-bottomleft: 5px;
+-webkit-border-radius: 0px 0px 5px 5px;
+}
+
+			#nav-top:hover {
+background-color: #DCF299;
+-moz-border-radius-topleft: 5px;
+-moz-border-radius-topright: 5px;
+-moz-border-radius-bottomright: 0px;
+-moz-border-radius-bottomleft: 0px;
+-webkit-border-radius: 5px 5px 0px 0px;
+}
+	
 	.backg {
 	display: none;
     background-image: url("../../images/loading.gif");
@@ -959,9 +977,14 @@ background-image: url("../../images/more-down.png");
 	margin: 0;
 }
 
+#conventionapp{
+padding-top: 5px;
+}
+
 #conventionapp ul, #conventionapp ul li{
 	margin: 0;
 }
+
 
 #item-autocomplete{
 	width: 180px;
@@ -1045,5 +1068,9 @@ height: 24px;
   box-shadow: 1px 1px 2px #666;
 }
 span.inplace-edit{
-	6
+	float: left;
+	background: url('../../images/sign-up-icon.png') no-repeat;
+	width: 24px;
+	height: 24px;
+	cursor: pointer;
 }
