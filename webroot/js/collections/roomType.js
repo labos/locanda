@@ -10,12 +10,16 @@
 window.RoomTypes = Backbone.Collection.extend({
     model: RoomType,
     //This is our Conventions collection and holds our Convention models
-    initialize: function (from, to) {
-        this.setFrom(from);
-        this.setTo(to);
+    initialize: function (idStructure) {
+    	this.setIdWrapper(idStructure);
+    	this.setFrom(null);
+    	this.setTo(null);
     },
     "url": function () {
-        return 'findAllRoomTypesJson.action' + this.from + this.to;
+        return 'findAllRoomTypesJson.action' + this.idWrapper + this.from + this.to;
+    },
+    setIdWrapper: function (id) {
+        this.idWrapper = (typeof id === "number") ? '/' + id : '';
     },
     setFrom: function (begin) {
         this.from = (typeof begin === "number") ? '/' + begin : '';

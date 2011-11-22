@@ -18,8 +18,8 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="/struts-tags" prefix="s" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-   
-    <script id="edit-template" type="text/x-handlebars-template">
+
+	<script id="edit-template" type="text/x-handlebars-template">
 		<form id="edit-form" class="yform json full" role="application">
           	  <div class="c50l">
                 <div class="c50l">
@@ -36,12 +36,12 @@
 					<textarea name="description" id="FormNotes">{{notes}}</textarea>		 
                   </div>
                   <div class="type-button">
-					<input type="submit" value="<s:text name="save"/>">
-					<input type="reset" value="<s:text name="cancel"/>">
+					<button class="btn_save"><s:text name="save"/></button>
+                	<button class="btn_reset btn_cancel_form"><s:text name="cancel"/></button>
                     </div>	
                 </div>
               </div>
-</form>
+		</form>
           <div class="subcolumns">
 		   	<div class="result_facility_upload" id="result_facility_upload" ></div>
 		   	<div class="upload_loader">&nbsp;</div>
@@ -64,9 +64,10 @@
 		   	  </div>
 		   	</div>      
           </div>	 
-</script>
-    <script id="view-template" type="text/x-handlebars-template">
-		<form id="edit-form" class="yform json full" role="application">
+	</script>
+
+	<script id="view-template" type="text/x-handlebars-template">
+		<form id="view-form" class="yform json full" role="application">
           	  <div class="c50l">
                 <div class="c50l">
                   <div class="type-text">	
@@ -82,19 +83,23 @@
 					<span>{{notes}}</span> 
                   </div>
                 </div>
+				<div class="c50l">
+                <div class="type-text">	
+                  <span class="inplace-edit"></span>
+                </div>
+			  </div>
               </div>
-</form> 
-</script>
+		</form> 
+	</script>
 
 
 
-    <script id="row-template" type="text/x-handlebars-template">
-<div class="item_list">
+<script id="row-template" type="text/x-handlebars-template">
+<div class="row-item">
 <ul><li><b>Name: </b>{{name}}</li><li><b>Max Guests: </b>{{maxGuests}}</li><li><b>Notes: </b>{{sub_description}}</li>
 <li><input type="hidden" name="id" value="{{id}}"/></li>
 </ul>
-<span class="item-destroy"></span>
-<a href="#edit/{{id}}">Edit</a>
+<span class="row-item-destroy"></span>
 </div>
 </script>
 <script id="toolbar-template" type="text/x-handlebars-template">
@@ -120,7 +125,7 @@
                     <input type="text"  name="maxGuests" id="fFormMax" value="{{maxGuests}}" aria-required="true"/>
       		      </div>
                   <div class="type-button">
-					<input type="submit" value="<s:text name="search"/>">
+					<button class="btn_submit"><s:text name="search"/></button>
                 </div>
               </div>
 </form>

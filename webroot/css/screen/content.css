@@ -971,17 +971,17 @@ background-color: #DCF299;
 	left: 0;
 
 }
-#toolbar-container, #conventionapp{
+#toolbar-container, #main-app{
 	width: 100%;
 	float: left;
 	margin: 0;
 }
 
-#conventionapp{
+#main-app{
 padding-top: 5px;
 }
 
-#conventionapp ul, #conventionapp ul li{
+#main-app ul, #main-app ul li{
 	margin: 0;
 }
 

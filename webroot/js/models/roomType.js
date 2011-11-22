@@ -25,8 +25,6 @@
 window.RoomType = Backbone.Model.extend({
 	
     defaults: {
-        name: "insert name",
-        maxGuests: 0,
         sub_description: null
     },
     initialize: function () {
@@ -38,11 +36,14 @@ window.RoomType = Backbone.Model.extend({
 
     },
     url: function () {
-    	return this.urlRoot;
+    	var base = this.urlRoot;
+        if (this.isNew()) return base;
+        return base + (base.charAt(base.length - 1) == '/' ? '' : '/') + encodeURIComponent(this.id);
     },
     urlRoot: "goUpdateRoomTypeJson.action",
     validate: function (attrs) {},
 });
+
 
 window.Autocompletes = AutocompleteCollection.extend({
 

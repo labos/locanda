@@ -47,7 +47,7 @@ Entity = {name: "convention",
           <h2><s:text name="conventions"/></h2>
           <div id="toolbar-container">
           </div>
-		  <div id="conventionapp">
+		  <div id="main-app">
 		  <div id="nav-top"></div>
 		  <div id="row-list"></div>
 	      <div id="nav-bottom"></div>

@@ -36,13 +36,13 @@
 					<textarea name="description" id="FormDescr">{{description}}</textarea>		 
                   </div>
                   <div class="type-button">
-                <button class="btn_save"><s:text name="save"/></button>
-                <button class="btn_reset btn_cancel_form"><s:text name="cancel"/></button>
+                	<button class="btn_save"><s:text name="save"/></button>
+                	<button class="btn_reset"><s:text name="cancel"/></button>
                     </div>	
                 </div>
               </div>
-</form>
-</script>
+		</form>
+	</script>
 
     <script id="view-template" type="text/x-handlebars-template">
 		<form id="view-form" class="yform json full" role="application">
@@ -61,14 +61,14 @@
 					<span>{{description}}</span>		 
                   </div>
               </div>
-                <div class="c50l">
-                  <div class="type-text">	
-                	<span class="inplace-edit"></span>
-                  </div>
-				</div>
-</div>
-</form>
-</script>
+              <div class="c50l">
+                <div class="type-text">	
+                  <span class="inplace-edit"></span>
+                </div>
+			  </div>
+			</div>
+		</form>
+	</script>
 
 <script id="row-template" type="text/x-handlebars-template">
 <div class="row-item">

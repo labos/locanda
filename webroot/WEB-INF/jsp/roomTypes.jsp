@@ -33,7 +33,7 @@ Entity = {name: "roomType",
            <div>
           <button class="btn_add_form"><s:text name="addNew" /></button>
         </div> 
-        <div class="subcolumns" id="item_list_container">
+        <div class="subcolumns" id="row-edit-container">
 
 
           </div>
@@ -46,12 +46,12 @@ Entity = {name: "roomType",
           <h2><s:text name="roomTypes"/></h2>
           <div id="toolbar-container">
           </div>
-		  <div id="conventionapp">
-			    <ul id="items-list">
-			    </ul>
-		  </div>	
-
+		  <div id="main-app">
+		  <div id="nav-top"></div>
+		  <div id="row-list"></div>
+	      <div id="nav-bottom"></div>
         </div>
+       </div>
         <div id="ie_clearing">&nbsp;</div>
         <!-- End: IE Column Clearing -->
       </div>

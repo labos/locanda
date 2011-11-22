@@ -171,8 +171,10 @@
                  primary: "ui-icon-trash"
              }
          });
-         // $("#uploadFacility").uploadImage( );
-       //  this.delegateEvents();
+         if($("#uploadFacility").length){
+        	 $("#uploadFacility").uploadImage( );
+         }
+         this.delegateEvents();
          return this;
      },
      updateOnEnter: function (e) {
