@@ -38,8 +38,9 @@ window.Conventions = Backbone.Collection.extend({
         return this;
     },
     search: function ( aModel ){
-    	this.url = 'rest/conventions/structure/' + this.idWrapper + '/advancedSearch';
-    	this.fetch( { data: aModel} );
+    	searchUrl = 'rest/conventions/structure/' + this.idWrapper + '/advancedSearch';
+    	this.fetch( { url: searchUrl,  data: aModel, contentType: 'application/json', type: 'POST'} );
+    	
     	
     }
 });

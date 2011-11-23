@@ -255,7 +255,8 @@
          e.preventDefault();
          var self = this,
          searched = $("#filter-form").serializeObject();
-         this.collection.search(searched);
+         this.collection.search( JSON.stringify( searched ) );
+         $("#form-filter-container").hide( );
          return false;
      },
         

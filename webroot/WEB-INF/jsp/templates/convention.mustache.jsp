@@ -100,6 +100,10 @@
        				<label for="fFormCode"><s:text name="code"/></label>
                     <input type="text"  name="activationCode" id="fFormCode" value="{{activationCode}}" aria-required="true"/>
       		      </div>
+                  <div class="type-text">           
+       				<label for="fFormDescr"><s:text name="description"/></label>
+                    <input type="text"  name="description" id="fFormDescr" value="{{description}}" aria-required="true"/>
+      		      </div>
                   <div class="type-button">
 					<button class="btn_submit"><s:text name="search"/></button>
                 </div>
