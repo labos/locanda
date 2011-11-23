@@ -23,7 +23,10 @@ public interface RoomTypeMapper {
 	public Integer insertRoomType(RoomType roomType);
 	public Integer updateRoomType(RoomType roomType);
 	public Integer deleteRoomType(Integer id);
+	
 	public List<RoomType> findRoomTypesByIdStructure(Integer id_structure);
+	public List<RoomType> findRoomTypesByIdStructureAndOffsetAndRownum(Map map);
+	
 	public RoomType findRoomTypeById(Integer id);
 	public RoomType findRoomTypeByIdStructureAndName(Map map);
 }

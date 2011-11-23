@@ -29,6 +29,7 @@ public interface RoomTypeService {
 	public Integer deleteRoomType(Integer id);
 	
 	public List<RoomType> findRoomTypesByIdStructure(Integer id_structure);
+	public List<RoomType> findRoomTypesByIdStructure(Integer id_structure,Integer offset,Integer rownum);
 	public RoomType findRoomTypeById(Integer id);
 	public RoomType findRoomTypeByIdStructureAndName(Integer id_structure, String name);
 }

@@ -43,6 +43,42 @@ public class RoomTypeServiceImpl implements RoomTypeService{
 	private ImageService imageService = null;
 
 	@Override
+	public List<RoomType> findRoomTypesByIdStructure(Integer id_structure) {
+		List<RoomType> ret = null;
+		
+		ret =  this.getRoomTypeMapper().findRoomTypesByIdStructure(id_structure);
+		
+		return ret;
+	}
+	
+	@Override
+	public List<RoomType> findRoomTypesByIdStructure(Integer id_structure, Integer offset, Integer rownum) {
+		Map map = null;
+		
+		map = new HashMap();
+		map.put("id_structure",id_structure );
+		map.put("offset", offset);
+		map.put("rownum",rownum );
+		return this.getRoomTypeMapper().findRoomTypesByIdStructureAndOffsetAndRownum(map);
+	}
+
+	@Override
+	public RoomType findRoomTypeById(Integer id) {
+		return this.getRoomTypeMapper().findRoomTypeById(id);
+	}
+
+	@Override
+	public RoomType findRoomTypeByIdStructureAndName(Integer id_structure, String name){
+		Map map = null;
+		
+		map = new HashMap();
+		map.put("id_structure", id_structure);
+		map.put("name", name);
+		return this.getRoomTypeMapper().findRoomTypeByIdStructureAndName(map);
+	}
+	
+	
+	@Override
 	public Integer insertRoomType(RoomType roomType) {
 		Integer ret = 0;
 		
@@ -75,27 +111,7 @@ public class RoomTypeServiceImpl implements RoomTypeService{
 		this.getImageService().deleteAllImagesFromRoomType(id);
 		
 		return this.getRoomTypeMapper().deleteRoomType(id);
-	}
-
-	@Override
-	public List<RoomType> findRoomTypesByIdStructure(Integer id_structure) {
-		return this.getRoomTypeMapper().findRoomTypesByIdStructure(id_structure);
-	}
-
-	@Override
-	public RoomType findRoomTypeById(Integer id) {
-		return this.getRoomTypeMapper().findRoomTypeById(id);
-	}
-
-	@Override
-	public RoomType findRoomTypeByIdStructureAndName(Integer id_structure, String name){
-		Map map = null;
-		
-		map = new HashMap();
-		map.put("id_structure", id_structure);
-		map.put("name", name);
-		return this.getRoomTypeMapper().findRoomTypeByIdStructureAndName(map);
-	}
+	}	
 
 	public RoomTypeMapper getRoomTypeMapper() {
 		return roomTypeMapper;
