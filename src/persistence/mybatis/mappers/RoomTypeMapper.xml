@@ -20,21 +20,15 @@ In case of controversy the competent court is the Court of Cagliari (Italy).
 <mapper namespace="persistence.mybatis.mappers.RoomTypeMapper">
     <cache/>
 	
-    <insert id="insertRoomType" parameterType="model.RoomType" useGeneratedKeys="true" keyProperty="id">
-        INSERT into roomType(name,maxGuests,notes,id_structure) values(#{name},#{maxGuests},#{notes},#{id_structure})
-    </insert>
-    
-    <update id="updateRoomType" parameterType="model.RoomType">
-        UPDATE roomType set name = #{name},maxGuests = #{maxGuests}, notes = #{notes},id_structure = #{id_structure} where id = #{id}
-    </update>
-    
-    <delete id="deleteRoomType">
-        DELETE from roomType where id = #{id}
-    </delete>
-    
-    <select id="findRoomTypesByIdStructure" parameterType="int" resultType="model.RoomType">
+	 <select id="findRoomTypesByIdStructure" parameterType="int" resultType="model.RoomType">
         <include refid="selectRoomType"/>WHERE id_structure = #{id_structure}
     </select>
+    
+    <select id="findRoomTypesByIdStructureAndOffsetAndRownum" parameterType="map" resultType="model.RoomType">
+        <include refid="selectRoomType"/>WHERE id_structure = #{id_structure} LIMIT #{offset}, #{rownum}
+    </select>
+    
+    
     
     <select id="findRoomTypeById" parameterType="int" resultType="model.RoomType">
         <include refid="selectRoomType"/>WHERE id = #{id}
@@ -47,5 +41,19 @@ In case of controversy the competent court is the Court of Cagliari (Italy).
     <sql id="selectRoomType">
         SELECT id,name,maxGuests,notes,id_structure FROM roomType
     </sql>
+	
+    <insert id="insertRoomType" parameterType="model.RoomType" useGeneratedKeys="true" keyProperty="id">
+        INSERT into roomType(name,maxGuests,notes,id_structure) values(#{name},#{maxGuests},#{notes},#{id_structure})
+    </insert>
+    
+    <update id="updateRoomType" parameterType="model.RoomType">
+        UPDATE roomType set name = #{name},maxGuests = #{maxGuests}, notes = #{notes},id_structure = #{id_structure} where id = #{id}
+    </update>
+    
+    <delete id="deleteRoomType">
+        DELETE from roomType where id = #{id}
+    </delete>
+    
+   
     
 </mapper>
