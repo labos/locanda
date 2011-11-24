@@ -55,7 +55,7 @@ window.Autocompletes = AutocompleteCollection.extend({
         $.each(response, function (index, value) {
             parsedResponse.push({
                 "id": value.id,
-                "label": value.name,
+                "label": value.name + ' (' + value.activationCode + ' )',
                 "value": value.name
             });
         });

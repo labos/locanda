@@ -1074,3 +1074,18 @@ span.inplace-edit{
 	height: 24px;
 	cursor: pointer;
 }
+
+#row-list{
+	min-height: 200px;
+}
+
+
+.back{
+background: url("../../images/loading.gif") no-repeat center center;
+
+	}
+	
+	.notify-error{
+    background-color:       red !important;
+}
+	

@@ -49,7 +49,7 @@ Entity = {name: "convention",
           </div>
 		  <div id="main-app">
 		  <div id="nav-top"></div>
-		  <div id="row-list"></div>
+		  <div id="row-list" class="back"></div>
 	      <div id="nav-bottom"></div>
 		  </div>	
 

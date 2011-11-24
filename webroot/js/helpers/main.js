@@ -213,6 +213,7 @@ $(document).ready(function () {
             //make a new div overlay element
             $('body').append($('<div class="ui-widget-overlay"></div>'));
             $.jGrowl.defaults.position = 'center';
+            $.jGrowl.defaults.life = 300;
             $.ajaxSetup({cache: false});
             		  }
             		});

@@ -14,9 +14,13 @@ window.Conventions = Backbone.Collection.extend({
     	this.setIdWrapper(idStructure);
     	this.setFrom(null);
     	this.setTo(null);
+    	this.setTerm(null);
     },
-    "url": function () {
-        return 'rest/conventions/structure/' + this.idWrapper  + this.from + this.to;
+    url: function () {
+        return 'rest/conventions/structure/' + this.idWrapper  + this.from + this.to + '/simpleSearch?term=' + this.term ;
+    },
+    setTerm: function (aTerm) {
+        this.term = (typeof aTerm !== "undefined" && aTerm) ? aTerm : '';
     },
     setIdWrapper: function (id) {
         this.idWrapper = (typeof id === "number") ? id : '';

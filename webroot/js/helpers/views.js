@@ -59,11 +59,13 @@
          if (confirm($.i18n("alertDelete"))) {
              this.model.destroy({
                  success: function () {
-                     $().notify(this.alertOK, $.i18n("congratulation"));
+                    
+                     $.jGrowl($.i18n("congratulation"), { header: this.alertOK });
                  },
                  error: function (jqXHR, textStatus, errorThrown) {
                      textStatus.responseText || (textStatus.responseText = $.i18n("seriousErrorDescr"));
-                     $().notify(this.alertKO, textStatus.responseText);
+                     $.jGrowl(textStatus.responseText, { header: this.alertKO, theme: "notify-error"  });
+                     
                  }
              });
          }
@@ -151,7 +153,7 @@
                  }
                  
                  self.switchMode();
-                 $().notify(self.alertOK, "Ok");
+                 $.jGrowl($.i18n("congratulation"), { header: this.alertOK });
              },
              error: function () {
                  $().notify(this.alertKO, $.i18n("seriousErrorDescr") + ' ');
@@ -254,8 +256,18 @@
      search: function (e) {
          e.preventDefault();
          var self = this,
-         searched = $("#filter-form").serializeObject();
-         this.collection.search( JSON.stringify( searched ) );
+           searched = $("#filter-form").serializeObject(),
+           stringTerm = '';
+         $.each(searched, function(key, value){
+        	 
+        	 stringTerm = stringTerm + key + ':(' + value + ') ';
+        	 
+         });
+        // searched = $("#filter-form").serialize();
+         $("#item-autocomplete").val( stringTerm );
+    	 self.collection.setTerm(  stringTerm  );
+    	 self.collection.fetch(); 
+        // this.collection.search( JSON.stringify( searched ) );
          $("#form-filter-container").hide( );
          return false;
      },
@@ -265,7 +277,20 @@
              cache = {};
          var toDo = onselectToDo || null;
          $(selector).autocomplete({
-             minLength: 2,
+        	 disabled: false,
+        	 minLength: 0,
+             search: function (event, ui){
+            	 var term  = $("#item-autocomplete").val();
+            	 if ( term.length !== 1){
+                	 self.collection.setTerm( $("#item-autocomplete").val() );
+                     self.collection.setFrom(null);
+                     self.collection.setTo(null);
+                	 self.collection.fetch(); 
+                	 $("#filter-form").find("input").val("");
+            	 }
+
+            	 return false;
+             },
              source: function (request, response) {
                  var term = request.term;
                  if (term in cache) {
