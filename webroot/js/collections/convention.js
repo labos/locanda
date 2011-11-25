@@ -12,12 +12,12 @@ window.Conventions = Backbone.Collection.extend({
     //This is our Conventions collection and holds our Convention models
     initialize: function (idStructure) {
     	this.setIdWrapper(idStructure);
-    	this.setFrom(null);
-    	this.setTo(null);
+    	this.setFrom(0);
+    	this.setTo(10);
     	this.setTerm(null);
     },
     url: function () {
-        return 'rest/conventions/structure/' + this.idWrapper  + this.from + this.to + '/simpleSearch?term=' + this.term ;
+        return 'rest/conventions/structure/' + this.idWrapper +  '/search' + this.from + this.to + '?term=' + this.term ;
     },
     setTerm: function (aTerm) {
         this.term = (typeof aTerm !== "undefined" && aTerm) ? aTerm : '';
@@ -41,10 +41,5 @@ window.Conventions = Backbone.Collection.extend({
         }
         return this;
     },
-    search: function ( aModel ){
-    	searchUrl = 'rest/conventions/structure/' + this.idWrapper + '/advancedSearch';
-    	this.fetch( { url: searchUrl,  data: aModel, contentType: 'application/json', type: 'POST'} );
-    	
-    	
-    }
+
 });

@@ -90,8 +90,8 @@
 
     <script id="form-filter-template" type="text/x-handlebars-template">
 		<form id="filter-form" class="yform json full" role="application">
+			  <span class="filter-close"></span>
           	  <div class="c80l">
-
                   <div class="type-text">	
                   	<label for="fFormName"><s:text name="name"/></label>
                 	<input type="text"  name="name" id="fFormName" value="{{name}}" aria-required="true"/>

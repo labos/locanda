@@ -616,7 +616,7 @@ a.navigation-tab
 	width: 32px;
 }
 a.home
-{
+{notify-error
 	background: url('../../images/home_small.png') no-repeat scroll 0 0 transparent;
 	height: 32px;
 	line-height: 50px;
@@ -645,7 +645,7 @@ div.beautify
 }
 div.beauty
 {
-	background: none repeat scroll 0 0 #FAFAFA;
+	background: none repeat scroll 0notify-error 0 #FAFAFA;
 	border: 1px solid #DDDDDD;
 	margin: 0px 0 1em;
 	padding: 0.5em;
@@ -1009,7 +1009,7 @@ height: 24px;
   box-shadow: 1px 1px 2px #666;
   */
   /* using a bigger font for demo purposes so the box isn't too small */
-  font-size: 20px;
+  font-size: 14px;
   
   /* with a big radius/font there needs to be padding left and right
    * otherwise the text is too close to the radius.
@@ -1089,3 +1089,18 @@ background: url("../../images/loading.gif") no-repeat center center;
     background-color:       red !important;
 }
 	
+	.filter-close{
+        position: absolute;
+    right: 5px;
+    top: 5px;
+    cursor: pointer;
+    width: 18px;
+    height: 18px;
+    background-image: url('../../images/close.png');
+    background-position: 0px 0px;
+    backgound-repeat: no-repeat;
+}
+
+    .filter-close:hover {
+      background-position: 0 -18px;
+    }

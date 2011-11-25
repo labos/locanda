@@ -226,7 +226,8 @@
      tagName: "ul",
      indexTemplate: $("#toolbar-template"),
       events: {
-         "submit form": "search"
+         "submit form": "search",
+         "click .filter-close": "closeFilter"
      },
      initialize: function () {
          this.render();
@@ -240,7 +241,7 @@
              },
              text: false
          }).click(function () {
-             $("#form-filter-container").toggle();
+             $("#form-filter-container").slideToggle();
          });
          
          $(".btn_submit").button({
@@ -264,11 +265,14 @@
         	 
          });
         // searched = $("#filter-form").serialize();
-         $("#item-autocomplete").val( stringTerm );
+         var alreadyTyped =  $("#item-autocomplete").val();
+         $("#item-autocomplete").val( stringTerm + ' ' + alreadyTyped);
     	 self.collection.setTerm(  stringTerm  );
+         self.collection.setFrom(0);
+         self.collection.setTo(10);
     	 self.collection.fetch(); 
         // this.collection.search( JSON.stringify( searched ) );
-         $("#form-filter-container").hide( );
+         self.closeFilter( );
          return false;
      },
         
@@ -276,6 +280,7 @@
          var self = this,
              cache = {};
          var toDo = onselectToDo || null;
+         $(selector).focus();
          $(selector).autocomplete({
         	 disabled: false,
         	 minLength: 0,
@@ -283,8 +288,8 @@
             	 var term  = $("#item-autocomplete").val();
             	 if ( term.length !== 1){
                 	 self.collection.setTerm( $("#item-autocomplete").val() );
-                     self.collection.setFrom(null);
-                     self.collection.setTo(null);
+                     self.collection.setFrom(0);
+                     self.collection.setTo(10);
                 	 self.collection.fetch(); 
                 	 $("#filter-form").find("input").val("");
             	 }
@@ -327,6 +332,11 @@
              }
          });
          //end autocomplete
+     },
+     
+     closeFilter: function(){
+    	 
+    	 $("#form-filter-container").slideUp()( );
      }
  });
  /*

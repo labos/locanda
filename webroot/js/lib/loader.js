@@ -14,7 +14,7 @@
  * In case of controversy the competent court is the Court of Cagliari (Italy).
  *******************************************************************************/
 // load files in models folder. Please not wrape code into jquery ready function in model's file.
- 
+// set defaults for pages not managed by entities
 typeof Entity !== "undefined" || ( Entity = {name:"default"} );
 // conditional file loading section
 if (Entity.name == "roomType" || Entity.name == "room" || Entity.name == "structure") {

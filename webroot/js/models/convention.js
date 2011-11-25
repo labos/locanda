@@ -46,7 +46,7 @@ window.Convention = Backbone.Model.extend({
 window.Autocompletes = AutocompleteCollection.extend({
 
     url: function () {
-        return 'rest/conventions/structure/' + this.idWrapper + '/simpleSearch' + this.term;
+        return 'rest/conventions/structure/' + this.idWrapper + '/search/0/10/' + this.term;
     },
     parse: function (response) {
         var parsedResponse = [];
