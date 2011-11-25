@@ -29,11 +29,11 @@
                   </div>
                   <div class="type-text">           
        				<label for="FormMax"><s:text name="maxGuests"/><sup title="This field is mandatory.">*</sup></label>
-                    <input type="text" class="required" name="activationCode" id="FormMax" value="{{maxGuests}}" aria-required="true"/>
+                    <input type="text" class="required" name="maxGuests" id="FormMax" value="{{maxGuests}}" aria-required="true"/>
       		      </div> 
 				  <div class="type-text">	
                   	<label for="FormNotes"><s:text name="notes"/></label>
-					<textarea name="description" id="FormNotes">{{notes}}</textarea>		 
+					<textarea name="notes" id="FormNotes">{{notes}}</textarea>		 
                   </div>
                   <div class="type-button">
 					<button class="btn_save"><s:text name="save"/></button>
@@ -82,6 +82,18 @@
                   	<strong><s:text name="notes"/></strong>
 					<span>{{notes}}</span> 
                   </div>
+
+
+				<fieldset> 
+           		      <legend><s:text name="facilities"/></legend>
+           		  	  <s:iterator value="#eachRoomType.facilities" var="eachFacility">
+           		  	   <img width="24" height="24"
+           		  	   	 src="resources/<s:property value="idStructure"/>/facilities/roomOrRoomType/<s:property value="fileName"/>" 
+           		  	   	 alt="<s:property value="#eachFacility.name"/>"/>
+           		  	  </s:iterator>
+    				</fieldset>
+
+
                 </div>
 				<div class="c50l">
                 <div class="type-text">	

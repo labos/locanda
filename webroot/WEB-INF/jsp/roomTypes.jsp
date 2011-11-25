@@ -21,7 +21,8 @@
 <script>
 Entity = {name: "roomType", 
 		model: function(options){ return new RoomType( options );},
-		collection: function(options){ return new RoomTypes( options );} 
+		collection: function(options){ return new RoomTypes( options );},
+		idStructure : <s:property value="#session.user.structure.id"/>
 		};
 </script>
 <jsp:include page="layout/header_menu.jsp" />

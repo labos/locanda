@@ -9,17 +9,24 @@
 
 window.RoomTypes = Backbone.Collection.extend({
     model: RoomType,
-    //This is our Conventions collection and holds our Convention models
+    //This is our RoomTypes collection and holds our RoomType models
     initialize: function (idStructure) {
     	this.setIdWrapper(idStructure);
     	this.setFrom(null);
     	this.setTo(null);
+    	this.setTerm(null);
     },
-    "url": function () {
-        return 'findAllRoomTypesJson.action' + this.idWrapper + this.from + this.to;
+    url: function () {
+        return 'rest/roomTypes/structure/' + this.idWrapper + this.from + this.to + '/simpleSearch?term=' + this.term;
+    },
+    setTerm: function (aTerm) {
+        this.term = (typeof aTerm !== "undefined" && aTerm) ? aTerm : '';
     },
     setIdWrapper: function (id) {
-        this.idWrapper = (typeof id === "number") ? '/' + id : '';
+    	this.idWrapper = (typeof id === "number") ? id : '';
+    },
+    getIdWrapper: function () {
+        return this.idWrapper;
     },
     setFrom: function (begin) {
         this.from = (typeof begin === "number") ? '/' + begin : '';
@@ -33,5 +40,9 @@ window.RoomTypes = Backbone.Collection.extend({
             this.filter = (attribute && value) ? '/' + attribute + '/' + value : "";
         }
         return this;
+    },
+    search: function ( aModel ){
+    	searchUrl = 'rest/conventions/structure/' + this.idWrapper + '/advancedSearch';
+    	this.fetch( { url: searchUrl,  data: aModel, contentType: 'application/json', type: 'POST'} );
     }
 });

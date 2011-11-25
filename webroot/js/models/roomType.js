@@ -33,22 +33,20 @@ window.RoomType = Backbone.Model.extend({
         }) : this.set({
             sub_description: null
         });
-
     },
     url: function () {
     	var base = this.urlRoot;
         if (this.isNew()) return base;
         return base + (base.charAt(base.length - 1) == '/' ? '' : '/') + encodeURIComponent(this.id);
     },
-    urlRoot: "goUpdateRoomTypeJson.action",
+    urlRoot: "rest/roomTypes/",
     validate: function (attrs) {},
 });
-
 
 window.Autocompletes = AutocompleteCollection.extend({
 
     url: function () {
-        return 'findAllRoomTypesJson.action' + this.term;
+    	return 'rest/roomTypes/structure/' + this.idWrapper + '/simpleSearch' + this.term;
     },
     parse: function (response) {
         var parsedResponse = [];
@@ -62,4 +60,3 @@ window.Autocompletes = AutocompleteCollection.extend({
         return parsedResponse;
     }
 });
-
