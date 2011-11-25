@@ -19,6 +19,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
+@XmlRootElement
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class RoomType implements Serializable{
 	
 	private Integer id;

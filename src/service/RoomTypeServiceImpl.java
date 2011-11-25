@@ -86,7 +86,6 @@ public class RoomTypeServiceImpl implements RoomTypeService{
 		for(Facility each: roomType.getFacilities()){
 			this.getFacilityService().insertRoomTypeFacility(each.getId(), roomType.getId());
 		}
-		this.getStructureService().addPriceListsForRoomType(roomType.getId_structure(), roomType.getId());
 		return ret ;
 	}
 
