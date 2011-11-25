@@ -62,19 +62,17 @@ public class ConventionResource {
     }
     
     @GET
-    @Path("structure/{idStructure}/simpleSearch")
+    @Path("structure/{idStructure}/search/{offset}/{rownum}")
     @Produces({MediaType.APPLICATION_JSON})
    
-    public List<Convention> simpleSearch(@PathParam("idStructure") Integer idStructure, @QueryParam("term") String term){
+    public List<Convention> simpleSearch(@PathParam("idStructure") Integer idStructure,@PathParam("offset") Integer offset,@PathParam("rownum") Integer rownum, @QueryParam("term") String term){
         List<Convention> filteredConventions = null;
        
         filteredConventions = new ArrayList<Convention>();
         
-        for(Convention each: this.getConventionService().findConventionsByIdStructure(idStructure)){           
+        for(Convention each: this.getConventionService().search(idStructure,offset,rownum, term)){           
             if(!each.getActivationCode().equals("thisconventionshouldntneverberemoved")){  
-            	if(this.simpleSearchFilter(each, term)){
-            		filteredConventions.add(each);            		
-            	}                
+            	filteredConventions.add(each);            		
             }           
         }       
         return filteredConventions;          

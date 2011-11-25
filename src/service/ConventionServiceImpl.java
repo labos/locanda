@@ -24,6 +24,7 @@ import model.listini.Convention;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import parser.SearchParser;
 import persistence.mybatis.mappers.ConventionMapper;
 
 @Service
@@ -66,8 +67,26 @@ public class ConventionServiceImpl implements ConventionService{
 		map.put("id_structure", id_structure );
 		map.put("offset", offset );
 		map.put("rownum", rownum );
+		
 		return this.getConventionMapper().findConventionsByIdStructureAndOffsetAndRownum(map);
 	}
+	
+	@Override
+	public List<Convention> search(Integer id_structure, Integer offset, Integer rownum, String term) {
+		Map map = null;
+		SearchParser< Convention> parser;
+		
+		parser = new SearchParser<Convention>(Convention.class);
+		
+		map = new HashMap();
+		map.put("id_structure", id_structure );
+		map.put("offset", offset );
+		map.put("rownum", rownum );
+				
+		map.putAll(parser.parse(term));
+		return this.getConventionMapper().search(map);
+	}
+	
 
 	@Override
 	public Convention findConventionById(Integer id) {
