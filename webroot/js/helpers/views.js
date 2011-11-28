@@ -230,6 +230,8 @@
          "click .filter-close": "closeFilter"
      },
      initialize: function () {
+    	
+         this.cachedSearch = '';
          this.render();
      },
      render: function () {
@@ -266,7 +268,13 @@
          });
         // searched = $("#filter-form").serialize();
          var alreadyTyped =  $("#item-autocomplete").val();
-         $("#item-autocomplete").val( stringTerm + ' ' + alreadyTyped);
+         if( alreadyTyped == this.cachedSearch){
+        	 
+        	 alreadyTyped ='';
+         }
+         this.cachedSearch = stringTerm + ' ' + alreadyTyped;
+         $("#item-autocomplete").val( this.cachedSearch );
+
     	 self.collection.setTerm(  stringTerm  );
          self.collection.setFrom(0);
          self.collection.setTo(10);

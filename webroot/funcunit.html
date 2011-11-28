@@ -16,9 +16,11 @@
 	
 		test("check edit click from list", function(){
 			
-			S(".item_list").first().click();
+			S("#row-list ul li").first().click();
+			S(".inplace-edit").click(function() {
+				equal(S('input[name="name"]').val(), S._window.appRouter.appView.editView.model.get("name"), "Convention edit OK?")
+			});
 			
-			equal(S('input[name="convention.name"]').val(), S._window.myAppView.editView.model.get("name"), "Convention edit OK?")
 		  //ok( S(".item-destroy").first().click().size(), "There be elements in that there body")
 		});
 	
@@ -30,9 +32,9 @@
 	test("add model to collection", function(){
 		
 		//remove last model
-		var sizeCollection = S._window.myAppView.listView.collection.size();
-		S._window.myAppView.listView.collection.add({ name: "my convention", activationCode: "dafs6ds7" });
-		ok((S._window.myAppView.listView.collection.size() == sizeCollection+1),"Collection increased successfully?");
+		var sizeCollection = S._window.appRouter.appView.listView.collection.size();
+		S._window.appRouter.appView.listView.collection.add({ name: "my convention", activationCode: "dafs6ds7" });
+		ok((S._window.appRouter.appView.listView.collection.size() == sizeCollection+1),"Collection increased successfully?");
 		
 	});
 	
@@ -43,31 +45,31 @@
 	test("check delete model from collection", function(){
 		
 		//remove last model
-		var sizeCollection = S._window.myAppView.listView.collection.size();
-		var lastModel = S._window.myAppView.listView.collection.last();
-		S._window.myAppView.listView.collection.remove(lastModel);
-		ok((S._window.myAppView.listView.collection.size() == sizeCollection-1),"Collection truncated successfully?");
+		var sizeCollection = S._window.appRouter.appView.listView.collection.size();
+		var lastModel = S._window.appRouter.appView.listView.collection.last();
+		S._window.appRouter.appView.listView.collection.remove(lastModel);
+		ok((S._window.appRouter.appView.listView.collection.size() == sizeCollection-1),"Collection truncated successfully?");
 		
 	});
 	
 	test("check destroy model contained in  collection and size collection", function(){
 		
 		//remove last model
-		var sizeCollection = S._window.myAppView.listView.collection.size();
-		var lastModel = S._window.myAppView.listView.collection.last();
+		var sizeCollection = S._window.appRouter.appView.listView.collection.size();
+		var lastModel = S._window.appRouter.appView.listView.collection.last();
 	
 		 lastModel.trigger('destroy', lastModel);
 		 // lastModel.trigger('destroy', lastModel);
 		  delete lastModel;
-		ok((S._window.myAppView.listView.collection.size() == sizeCollection-1),"Collection truncated successfully?");
+		ok((S._window.appRouter.appView.listView.collection.size() == sizeCollection-1),"Collection truncated successfully?");
 		
 	});
 	
 	test("check destroy model contained in  collection and presence in collection", function(){
 		
 		//remove last model
-		var myCollection = S._window.myAppView.listView.collection;
-		var lastModel = S._window.myAppView.listView.collection.last();
+		var myCollection = S._window.appRouter.appView.listView.collection;
+		var lastModel = S._window.appRouter.appView.listView.collection.last();
 		var idModel = lastModel.id;
 		
 		lastModel.trigger('destroy', lastModel);
@@ -80,8 +82,8 @@
 	test("check update model in collection", function(){
 		
 	
-		var myCollection = S._window.myAppView.listView.collection;
-		var lastModel = S._window.myAppView.listView.collection.last();
+		var myCollection = S._window.appRouter.appView.listView.collection;
+		var lastModel = S._window.appRouter.appView.listView.collection.last();
 		var idModel = lastModel.id;
 		
 		 lastModel.set({'name': 'My Name'});
@@ -92,27 +94,30 @@
 	});
 	
 	test("check delete REST", function(){
-		var sizeCollection = S._window.myAppView.listView.collection.size();
-		S(".item-destroy").last().click();
-		ok((S._window.myAppView.listView.collection.size() == sizeCollection-1),"Collection decreased successfully?");
+		var sizeCollection = S._window.appRouter.appView.listView.collection.size();
+		S(".row-item-destroy").last().click();
+		ok((S._window.appRouter.appView.listView.collection.size() == sizeCollection-1),"Collection decreased successfully?");
 		
 	});
 	
 	test("check update REST", function(){
-		var myCollection = S._window.myAppView.listView.collection;
-		S(".item_list").first().click(function() {
-			S('input[name="convention.name"]').type("[shift]"+
+		var myCollection = S._window.appRouter.appView.listView.collection;
+		S("#row-list ul li").first().click(function() {
+			
+			S(".inplace-edit").click(function() {
+			
+			S('input[name="name"]').type("[shift]"+
             "[left][left][left][left][left][left][left][left][left][left][left][left][left]"+
             "[shift-up][delete]");
 			S('input[name="convention.name"]').type("new name1");
-			var idModel = S._window.myAppView.editView.model.id;
+			var idModel = S._window.appRouter.appView.editView.model.id;
 			
 			
 		});
 		//wait for input val to be new name1
 		S("input:submit").click();
-		S('input[name="convention.name"]').val(/new name1/ , function(){
-			var idModel = S._window.myAppView.editView.model.id;
+		S('input[name="name"]').val(/new name1/ , function(){
+			var idModel = S._window.appRouter.appView.editView.model.id;
 			//S._window.myAppView.editView.trigger("submit form", S._window.myAppView.editView);
 			
 			//S.wait(500);
@@ -120,7 +125,7 @@
 			
 		});
 		
-
+		});
 		
 	});
 	

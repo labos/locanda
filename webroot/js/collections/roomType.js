@@ -17,7 +17,7 @@ window.RoomTypes = Backbone.Collection.extend({
     	this.setTerm(null);
     },
     url: function () {
-        return 'rest/roomTypes/structure/' + this.idWrapper + this.from + this.to + '/simpleSearch?term=' + this.term;
+        return 'rest/roomTypes/structure/' + this.idWrapper + '/search' + this.from + this.to + '/?term=' + this.term;
     },
     setTerm: function (aTerm) {
         this.term = (typeof aTerm !== "undefined" && aTerm) ? aTerm : '';
@@ -40,9 +40,6 @@ window.RoomTypes = Backbone.Collection.extend({
             this.filter = (attribute && value) ? '/' + attribute + '/' + value : "";
         }
         return this;
-    },
-    search: function ( aModel ){
-    	searchUrl = 'rest/conventions/structure/' + this.idWrapper + '/advancedSearch';
-    	this.fetch( { url: searchUrl,  data: aModel, contentType: 'application/json', type: 'POST'} );
     }
+    
 });

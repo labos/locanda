@@ -86,11 +86,11 @@
 
 				<fieldset> 
            		      <legend><s:text name="facilities"/></legend>
-           		  	  <s:iterator value="#eachRoomType.facilities" var="eachFacility">
+           		  	  {{#facilities}}
            		  	   <img width="24" height="24"
-           		  	   	 src="resources/<s:property value="idStructure"/>/facilities/roomOrRoomType/<s:property value="fileName"/>" 
-           		  	   	 alt="<s:property value="#eachFacility.name"/>"/>
-           		  	  </s:iterator>
+           		  	   	 src="resources/<s:property value="idStructure"/>/facilities/roomOrRoomType/{id}" 
+           		  	   	 alt="{name}"/>
+           		  	  {{/facilities}}
     				</fieldset>
 
 
@@ -126,8 +126,8 @@
 
     <script id="form-filter-template" type="text/x-handlebars-template">
 		<form  id="filter-form" class="yform json full" role="application">
-          	  <div class="c80l">
-
+			  <span class="filter-close"></span>          	
+  				<div class="c80l">
                   <div class="type-text">	
                   	<label for="fFormName"><s:text name="name"/></label>
                 	<input type="text"  name="name" id="fFormName" value="{{name}}" aria-required="true"/>

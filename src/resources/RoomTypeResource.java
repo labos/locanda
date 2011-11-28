@@ -59,7 +59,7 @@ public class RoomTypeResource {
 	}
 	
 	@GET
-    @Path("structure/{idStructure}/simpleSearch")
+    @Path("structure/{idStructure}/search")
     @Produces({MediaType.APPLICATION_JSON})
 	public List<RoomType> simpleSearch(@PathParam("idStructure") Integer idStructure, @QueryParam("term") String term){
 		List<RoomType> ret = null;
