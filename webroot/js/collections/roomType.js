@@ -12,8 +12,8 @@ window.RoomTypes = Backbone.Collection.extend({
     //This is our RoomTypes collection and holds our RoomType models
     initialize: function (idStructure) {
     	this.setIdWrapper(idStructure);
-    	this.setFrom(null);
-    	this.setTo(null);
+    	this.setFrom(0);
+    	this.setTo(10);
     	this.setTerm(null);
     },
     url: function () {
