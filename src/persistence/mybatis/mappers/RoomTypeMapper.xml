@@ -28,14 +28,28 @@ In case of controversy the competent court is the Court of Cagliari (Italy).
         <include refid="selectRoomType"/>WHERE id_structure = #{id_structure} LIMIT #{offset}, #{rownum}
     </select>
     
-    
-    
     <select id="findRoomTypeById" parameterType="int" resultType="model.RoomType">
         <include refid="selectRoomType"/>WHERE id = #{id}
     </select>
     
     <select id="findRoomTypeByIdStructureAndName" parameterType="map" resultType="model.RoomType">
         <include refid="selectRoomType"/>WHERE id_structure = #{id_structure} and   name = #{name}
+    </select>
+    
+    <select id="search" parameterType="map" resultType="model.RoomType">
+        <include refid="selectRoomType"/> 
+        WHERE 
+        id_structure = #{id_structure}
+        <if test="name != null">
+        AND name LIKE CONCAT('%',#{name},'%')
+        </if>
+        <if test="description != null">
+        AND maxGuests LIKE CONCAT('%',#{maxGuests},'%')
+        </if>
+        <if test="activationCode != null">
+        AND notes LIKE CONCAT('%',#{notes},'%')
+        </if>  
+        LIMIT #{offset}, #{rownum}
     </select>
     
     <sql id="selectRoomType">
@@ -53,7 +67,5 @@ In case of controversy the competent court is the Court of Cagliari (Italy).
     <delete id="deleteRoomType">
         DELETE from roomType where id = #{id}
     </delete>
-    
-   
     
 </mapper>

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -20,8 +21,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import com.sun.jersey.api.NotFoundException;
+
 import service.FacilityService;
 import service.ImageService;
+import service.RoomService;
 import service.RoomTypeService;
 import service.StructureService;
 
@@ -34,6 +38,8 @@ public class RoomTypeResource {
 	private RoomTypeService roomTypeService = null;
 	@Autowired
     private StructureService structureService = null;
+	@Autowired
+    private RoomService roomService = null;
 	@Autowired
 	private FacilityService facilityService = null;
 	@Autowired
@@ -59,25 +65,23 @@ public class RoomTypeResource {
 	}
 	
 	@GET
-    @Path("structure/{idStructure}/simpleSearch")
+    @Path("structure/{idStructure}/search/{offset}/{rownum}")
     @Produces({MediaType.APPLICATION_JSON})
-	public List<RoomType> simpleSearch(@PathParam("idStructure") Integer idStructure, @QueryParam("term") String term){
-		List<RoomType> ret = null;
-		List<Image> images = null;
+    public List<RoomType> simpleSearch(@PathParam("idStructure") Integer idStructure,@PathParam("offset") Integer offset,@PathParam("rownum") Integer rownum, @QueryParam("term") String term){
+        List<RoomType> filteredRoomTypes = null;
+        List<Image> images = null;
 		List<Facility> facilities = null;
-		
-		ret = new ArrayList<RoomType>();
-		for(RoomType each: this.getRoomTypeService().findRoomTypesByIdStructure(idStructure)){
-			if(this.simpleSearchFilter(each, term)){
-				images = this.getImageService().findImagesByIdRoomType(each.getId());
-				each.setImages(images);
-				facilities = this.getFacilityService().findRoomTypeFacilitiesByIdRoomType(each.getId());
-				each.setFacilities(facilities);
-				ret.add(each);
-			}
-		}
-		return ret;
-	}
+       
+        filteredRoomTypes = new ArrayList<RoomType>();
+        
+        for(RoomType each: this.getRoomTypeService().search(idStructure,offset,rownum, term)){           
+        	images = this.getImageService().findImagesByIdRoomType(each.getId());
+			each.setImages(images);
+			facilities = this.getFacilityService().findRoomTypeFacilitiesByIdRoomType(each.getId());
+            filteredRoomTypes.add(each);            		   
+        }       
+        return filteredRoomTypes;          
+    }
 	
 	public boolean simpleSearchFilter(RoomType roomType, String term){
 		boolean ret = false;
@@ -86,30 +90,7 @@ public class RoomTypeResource {
 			(roomType.getNotes() != null && roomType.getNotes().contains(term) )|| 
 			(roomType.getMaxGuests() != null && roomType.getMaxGuests().toString().contains(term));
 		return ret;
-	}
-	
-	@POST
-    @Path("structure/{idStructure}/advancedSearch")
-    @Consumes({MediaType.APPLICATION_JSON})
-    @Produces({MediaType.APPLICATION_JSON})
-    public List<RoomType> advancedSearch(@PathParam("idStructure") Integer idStructure,RoomType example){
-        List<RoomType> filteredRoomTypes = null;
-       
-        filteredRoomTypes = new ArrayList<RoomType>();
-        for(RoomType each: this.getRoomTypeService().findRoomTypesByIdStructure(idStructure)){             
-            	if(this.advancedSearchFilter(each, example)){
-            		filteredRoomTypes.add(each);            		
-            	}                       
-        }       
-        return filteredRoomTypes;          
-    }
-	
-	private boolean advancedSearchFilter(RoomType each, RoomType example){
-    	boolean ret = false;
-    	
-    	ret = each.getName().contains(example.getName()) || each.getMaxGuests().equals(example.getMaxGuests()) || each.getNotes().contains(example.getNotes());
-    	return ret;
-    } 
+	} 
 	
 	@GET
 	@Path("{id}")
@@ -133,10 +114,7 @@ public class RoomTypeResource {
     public RoomType save(RoomType roomType) {
        
         this.getRoomTypeService().insertRoomType(roomType);
-        System.out.println("id:"+roomType.getId());
-        System.out.println("idstruct:"+roomType.getId_structure());
-        System.out.println("maxG:"+roomType.getMaxGuests());
-        this.getStructureService().addPriceListsForRoomType(roomType.getId_structure(),roomType.getId() );
+        this.getStructureService().addPriceListsForRoomType(roomType.getId_structure(), roomType.getId());
         return roomType;
     }
    
@@ -148,6 +126,23 @@ public class RoomTypeResource {
         
     	this.getRoomTypeService().updateRoomType(roomType);
         return roomType;
+    }
+    
+    @DELETE
+    @Path("{id}")
+    @Produces({MediaType.APPLICATION_JSON})   
+    public  Integer delete(@PathParam("id") Integer id){
+    	Integer count = 0;		
+		
+		if(this.getRoomService().countRoomsByIdRoomType(id) > 0){
+			throw new NotFoundException("The room type you are trying to delete has links to one or more room types." +
+					" Please try to delete the associated rooms before.");
+		}
+		count = this.getRoomTypeService().deleteRoomType(id);
+		if(count == 0){
+			throw new NotFoundException("Error: the room type has NOT been deleted");
+		}
+		return count;
     }
 	
 	public RoomTypeService getRoomTypeService() {
@@ -161,6 +156,12 @@ public class RoomTypeResource {
 	}
 	public void setStructureService(StructureService structureService) {
 		this.structureService = structureService;
+	}
+	public RoomService getRoomService() {
+		return roomService;
+	}
+	public void setRoomService(RoomService roomService) {
+		this.roomService = roomService;
 	}
 	public FacilityService getFacilityService() {
 		return facilityService;

@@ -21,10 +21,12 @@ import java.util.Map;
 
 import model.Facility;
 import model.RoomType;
+import model.listini.Convention;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import parser.SearchParser;
 import persistence.mybatis.mappers.RoomTypeMapper;
 
 @Service
@@ -77,7 +79,6 @@ public class RoomTypeServiceImpl implements RoomTypeService{
 		return this.getRoomTypeMapper().findRoomTypeByIdStructureAndName(map);
 	}
 	
-	
 	@Override
 	public Integer insertRoomType(RoomType roomType) {
 		Integer ret = 0;
@@ -112,6 +113,21 @@ public class RoomTypeServiceImpl implements RoomTypeService{
 		return this.getRoomTypeMapper().deleteRoomType(id);
 	}	
 
+	@Override
+	public List<RoomType> search(Integer id_structure, Integer offset, Integer rownum, String term) {
+		Map map = null;
+		SearchParser<RoomType> parser;
+		
+		parser = new SearchParser<RoomType>(RoomType.class);
+		map = new HashMap();
+		map.put("id_structure", id_structure );
+		map.put("offset", offset );
+		map.put("rownum", rownum );
+		map.putAll(parser.parse(term));
+		
+		return this.getRoomTypeMapper().search(map);
+	}
+	
 	public RoomTypeMapper getRoomTypeMapper() {
 		return roomTypeMapper;
 	}

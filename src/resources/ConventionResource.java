@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
-import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -13,11 +12,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
-import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-
-import model.internal.Message;
 import model.listini.Convention;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,30 +41,25 @@ public class ConventionResource {
     @GET
     @Path("structure/{idStructure}/{offset}/{rownum}")
     @Produces({MediaType.APPLICATION_JSON})
-   
     public List<Convention> getConventions(@PathParam("idStructure") Integer idStructure,@PathParam("offset") Integer offset,@PathParam("rownum") Integer rownum){
         List<Convention> filteredConventions = null;
        
         filteredConventions = new ArrayList<Convention>();
-        
         for(Convention each: this.getConventionService().findConventionsByIdStructure(idStructure,offset,rownum)){           
             if(!each.getActivationCode().equals("thisconventionshouldntneverberemoved")){
                 filteredConventions.add(each);
             }           
         }       
         return filteredConventions;   
-       
     }
     
     @GET
     @Path("structure/{idStructure}/search/{offset}/{rownum}")
     @Produces({MediaType.APPLICATION_JSON})
-   
     public List<Convention> simpleSearch(@PathParam("idStructure") Integer idStructure,@PathParam("offset") Integer offset,@PathParam("rownum") Integer rownum, @QueryParam("term") String term){
         List<Convention> filteredConventions = null;
        
         filteredConventions = new ArrayList<Convention>();
-        
         for(Convention each: this.getConventionService().search(idStructure,offset,rownum, term)){           
             if(!each.getActivationCode().equals("thisconventionshouldntneverberemoved")){  
             	filteredConventions.add(each);            		
@@ -78,54 +68,16 @@ public class ConventionResource {
         return filteredConventions;          
     }
     
-    private boolean simpleSearchFilter(Convention convention, String term){
-    	boolean ret = false;
-    	
-    	ret = convention.getName().contains(term) || convention.getDescription().contains(term) || convention.getActivationCode().toString().contains(term);
-    	return ret;
-    }   
-    
-    @POST
-    @Path("structure/{idStructure}/advancedSearch")
-    @Consumes({MediaType.APPLICATION_JSON})
-    @Produces({MediaType.APPLICATION_JSON})
-   
-    public List<Convention> advancedSearch(@PathParam("idStructure") Integer idStructure,Convention example){
-        List<Convention> filteredConventions = null;
-       
-        filteredConventions = new ArrayList<Convention>();
-        
-        for(Convention each: this.getConventionService().findConventionsByIdStructure(idStructure)){           
-            if(!each.getActivationCode().equals("thisconventionshouldntneverberemoved")){  
-            	if(this.advancedSearchFilter(each, example)){
-            		filteredConventions.add(each);            		
-            	}                
-            }           
-        }       
-        return filteredConventions;          
-    }
-    
-    private boolean advancedSearchFilter(Convention each, Convention example){
-    	boolean ret = false;
-    	
-    	ret = each.getName().contains(example.getName()) || each.getDescription().contains(example.getDescription()) || each.getActivationCode().toString().contains(example.getActivationCode().toString());
-    	return ret;
-    }   
-    
-    
     @GET
     @Path("{id}")
     @Produces({MediaType.APPLICATION_JSON})
-   
     public Convention getConvention(@PathParam("id") Integer id){
         Convention ret = null;
        
         ret = this.getConventionService().findConventionById(id);
-        return ret;
-       
+        return ret;   
     }
   
-    
     @POST
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
@@ -133,7 +85,6 @@ public class ConventionResource {
        
         this.getConventionService().insertConvention(convention);
         this.getStructureService().addPriceListsForConvention(convention.getId_structure(),convention.getId() );
-       
         return convention;
     }
    
@@ -144,57 +95,41 @@ public class ConventionResource {
     public Convention update(Convention convention) {        
         
     	this.getConventionService().updateConvention(convention);
-       
         return convention;
     }
    
-    
     @DELETE
     @Path("{id}")
     @Produces({MediaType.APPLICATION_JSON})   
-    public  Integer delete(@PathParam("id") Integer id){
-    	
+    public Integer delete(@PathParam("id") Integer id){
     	Integer count = 0;		
 		
 		if(this.getBookingService().countBookingsByIdConvention(id) > 0){
 			throw new NotFoundException("The convention you are trying to delete has links to one or more bookings." +
 					" Please try to delete the associated bookings before.");
 		}
-		
 		count = this.getConventionService().deleteConvention(id);
-		
 		if(count == 0){
 			throw new NotFoundException("Error: the convention has NOT been deleted");
 		}
-		
 		return count;
-       
     }   
    
     public ConventionService getConventionService() {
         return conventionService;
     }
-
     public void setConventionService(ConventionService conventionService) {
         this.conventionService = conventionService;
     }
-
-
     public StructureService getStructureService() {
         return structureService;
     }
-
-
     public void setStructureService(StructureService structureService) {
         this.structureService = structureService;
     }
-
-
 	public BookingService getBookingService() {
 		return bookingService;
 	}
-
-
 	public void setBookingService(BookingService bookingService) {
 		this.bookingService = bookingService;
 	}   

@@ -18,6 +18,7 @@ package persistence.mybatis.mappers;
 import java.util.List;
 import java.util.Map;
 import model.RoomType;
+import model.listini.Convention;
 
 public interface RoomTypeMapper {
 	public Integer insertRoomType(RoomType roomType);
@@ -29,4 +30,6 @@ public interface RoomTypeMapper {
 	
 	public RoomType findRoomTypeById(Integer id);
 	public RoomType findRoomTypeByIdStructureAndName(Map map);
+	
+	public List<RoomType> search(Map map);
 }
