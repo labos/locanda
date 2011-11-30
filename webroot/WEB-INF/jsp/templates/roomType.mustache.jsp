@@ -42,25 +42,31 @@
                 </div>
               </div>
 		</form>
+<div id="carousel-small" class="rcarousel">
+</div>
+<div id="carousel-large" class="rcarousel">
+</div>
           <div class="subcolumns">
 		   	<div class="result_facility_upload" id="result_facility_upload" ></div>
 		   	<div class="upload_loader">&nbsp;</div>
 		   	<div class="image_preview"></div>
 		  </div>
+
+    			 </div>
           <div class="beauty">
      	  	<div class="subcolumns">
            	  <div class="c33l">
-    			<label for="name_facility"><s:text name="facilityName"/>:</label>&nbsp;<input type="text" name="facility_name" value="" id="name_facility" class="require"/>
+    			<label for="name_facility"><s:text name="imageName"/>:</label>&nbsp;<input type="text" name="facility_name" value="" id="name_facility" class="require"/>
  			  </div>
  			  <div class="c20l">
  				<br/>
- 				<form id="uploadFacility" action="uploadRoomTypeFacility.action" method="post" enctype="multipart/form-data">
+ 				<form id="uploadFacility" action="uploadRoomTypeImage.action" method="post" enctype="multipart/form-data">
    				  <input type="hidden" name="name" value=""/>
    				    <input type="hidden" name="id" value="{{id}}"/>
      			  <input type="file" name="upload" multiple/>
     			  <button>Upload</button> 
     			  <div><s:text name="uploadFacility" /></div>  
-				</form> 
+				</form>
 		   	  </div>
 		   	</div>      
           </div>	 
@@ -82,18 +88,10 @@
                   	<strong><s:text name="notes"/></strong>
 					<span>{{notes}}</span> 
                   </div>
-
-
-				<fieldset> 
-           		      <legend><s:text name="facilities"/></legend>
-           		  	  {{#facilities}}
-           		  	   <img width="24" height="24"
-           		  	   	 src="resources/<s:property value="idStructure"/>/facilities/roomOrRoomType/{id}" 
-           		  	   	 alt="{name}"/>
-           		  	  {{/facilities}}
-    				</fieldset>
-
-
+<div id="carousel-small" class="rcarousel">
+</div>
+<div id="carousel-large" class="rcarousel">
+</div>
                 </div>
 				<div class="c50l">
                 <div class="type-text">	
@@ -141,4 +139,75 @@
                 </div>
               </div>
 </form>
+</script>
+
+<script id="carousel-view-small-template" type="text/x-handlebars-template" >
+<div class="wrapper">
+	<ul>
+       
+		<li><img src="images/hotel-demo.jpeg" /></li>
+		<li><img src="images/hotel-demo.jpeg" /></li>
+		<li><img src="images/hotel-demo.jpeg" /></li>
+		<li><img src="images/hotel-demo.jpeg" /></li>
+		<li><img src="images/hotel-demo.jpeg" /></li>
+		<li><img src="images/hotel-demo.jpeg" /></li>
+		<li><img src="images/horse_small.jpg" /></li>
+	</ul>
+</div>
+<span id="ui-rcarousel-next" class="ui-rcarousel-next"></span>
+<span id="ui-rcarousel-prev" class="ui-rcarousel-prev disable"></span>
+</script>
+
+<script id="carousel-view-large-template" type="text/x-handlebars-template" >
+<div class="wrapper">
+	<ul>
+       
+		<li><img src="images/hotel-demo.jpeg" /></li>
+		<li><img src="images/hotel-demo.jpeg" /></li>
+		<li><img src="images/hotel-demo.jpeg" /></li>
+		<li><img src="images/hotel-demo.jpeg" /></li>
+		<li><img src="images/hotel-demo.jpeg" /></li>
+		<li><img src="images/hotel-demo.jpeg" /></li>
+		<li><img src="images/horse_small.jpg" /></li>
+	</ul>
+</div>
+<span id="ui-rcarousel-next" class="ui-rcarousel-next"></span>
+<span id="ui-rcarousel-prev" class="ui-rcarousel-prev disable"></span>
+</script>
+
+
+
+
+<script id="carousel-edit-small-template" type="text/x-handlebars-template" >
+<div class="wrapper">
+	<ul>
+       
+		<li><input type="checkbox" name="{{}}" value="" /><img src="images/hotel-demo.jpeg" /></li>
+		<li><input type="checkbox" name="{{}}" value="" /><img src="images/hotel-demo.jpeg" /></li>
+		<li><input type="checkbox" name="{{}}" value="" /><img src="images/hotel-demo.jpeg" /></li>
+		<li><input type="checkbox" name="{{}}" value="" /><img src="images/hotel-demo.jpeg" /></li>
+		<li><input type="checkbox" name="{{}}" value="" /><img src="images/hotel-demo.jpeg" /></li>
+		<li><input type="checkbox" name="{{}}" value="" /><img src="images/hotel-demo.jpeg" /></li>
+		<li><input type="checkbox" name="{{}}" value="" /><img src="images/horse_small.jpg" /></li>
+	</ul>
+</div>
+<span id="ui-rcarousel-next" class="ui-rcarousel-next"></span>
+<span id="ui-rcarousel-prev" class="ui-rcarousel-prev disable"></span>
+</script>
+
+<script id="carousel-edit-large-template" type="text/x-handlebars-template" >
+<div class="wrapper">
+	<ul>
+       
+		<li><span class="delete-img"></span><img src="images/hotel-demo.jpeg" /></li>
+		<li><span class="delete-img"></span><img src="images/hotel-demo.jpeg" /></li>
+		<li><span class="delete-img"></span><img src="images/hotel-demo.jpeg" /></li>
+		<li><span class="delete-img"></span><img src="images/hotel-demo.jpeg" /></li>
+		<li><span class="delete-img"></span><img src="images/hotel-demo.jpeg" /></li>
+		<li><span class="delete-img"></span><img src="images/hotel-demo.jpeg" /></li>
+		<li><span class="delete-img"></span><img src="images/horse_small.jpg" /></li>
+	</ul>
+</div>
+<span id="ui-rcarousel-next" class="ui-rcarousel-next"></span>
+<span id="ui-rcarousel-prev" class="ui-rcarousel-prev disable"></span>
 </script>

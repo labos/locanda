@@ -1104,3 +1104,37 @@ background: url("../../images/loading.gif") no-repeat center center;
     .filter-close:hover {
       background-position: 0 -18px;
     }
+    div.img-view-facilities, div.img-view-images{
+    margin: 0;
+    height: 120px;
+    overflow-y: scroll;
+    }
+    div.img-view-facilities ul, div.img-view-images ul{
+    margin: 0;
+    height: 40px;
+    }
+    div.img-view-images ul{
+    margin: 0;
+    height: 80px;
+    }
+    div.img-view-facilities ul li,div.img-view-images ul li{
+    border-bottom:1px solid grey;
+    margin-left: 5px;
+    float: left;
+    text-align: center;
+    padding:3px;
+    }
+
+        div.img-view-facilities ul li img, div.img-view-images ul li img{
+		display: block;
+    }
+    
+     span.delete-img{
+     position: absolute;
+     top: 0;
+     right:0;
+     width:16px;
+     height:16px;
+    background: url('../../images/delete.png') no-repeat 0px 0px;
+    cursor: pointer;
+    }

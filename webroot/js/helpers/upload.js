@@ -336,8 +336,6 @@ $.fn.deprecatedBrowser = function () {
 	// attach uploader to existing DOM
 	// $('#uploadFacility, #uploadImage, #uploadStructFacility').uploadImage( );
 	
-	
-	
 
 	//---  DETAILS SECTION CODE   
 	var addEventDeleteImage = function (event) {

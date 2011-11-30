@@ -18,7 +18,7 @@
 typeof Entity !== "undefined" || ( Entity = {name:"default"} );
 // conditional file loading section
 if (Entity.name == "roomType" || Entity.name == "room" || Entity.name == "structure") {
-    steal("jquery.fileupload.js", "jquery.fileupload-ui.js", "jquery.fileupload-uix.js").then("../helpers/upload.js");
+    steal("../../css/rcarousel.css","jquery.fileupload.js", "jquery.fileupload-ui.js", "jquery.fileupload-uix.js").then("../helpers/upload.js");
 }
 if (Entity.name == "planner") {
     steal("jquery.weekcalendar.js");
