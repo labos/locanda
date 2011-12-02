@@ -21,7 +21,8 @@
 <script>
 Entity = {name: "convention", 
 		model: function(options){ return new Convention( options );},
-		collection: function(options){ return new Conventions( options );} ,
+		collection: function(options){ return new Conventions( options );},
+		editView: function(options){ return new EditView( options );},
 		idStructure : <s:property value="#session.user.structure.id"/>
 		};
 </script>

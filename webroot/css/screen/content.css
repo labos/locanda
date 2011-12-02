@@ -1067,7 +1067,7 @@ height: 24px;
   -webkit-box-shadow: 1px 1px 2px #666;
   box-shadow: 1px 1px 2px #666;
 }
-span.inplace-edit{
+span.inplace-edit, span.sub-edit{
 	float: left;
 	background: url('../../images/sign-up-icon.png') no-repeat;
 	width: 24px;

@@ -22,6 +22,7 @@
 Entity = {name: "roomType", 
 		model: function(options){ return new RoomType( options );},
 		collection: function(options){ return new RoomTypes( options );},
+		editView: function(options){ return new EditImagesFacilitiesView( options );},
 		idStructure : <s:property value="#session.user.structure.id"/>
 		};
 </script>

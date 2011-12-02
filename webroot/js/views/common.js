@@ -118,92 +118,7 @@
      }
  });
  
- window.CarouselView = Backbone.View.extend({
-     el: $("#carousel-small"),
-     template: $("#carousel-view-template"),
-     events: {
-         "click .ui-rcarousel-next": "next",
-         "click .ui-rcarousel-prev": "prev",
-         "click span.delete-img": "edit"
-     },
-     initialize: function () {
-    	 _.bindAll(this, "next", "prev");
-    	 this.page = 0;
-         this.render();
-     },
-     render: function () {
-         this.el.html(this.template.html());
-         this.delegateEvents();
-         return this;
-     },
-     next: function () {
-    	 this.page--;
-			var slideAmount =  this.page * $(".wrapper").width() / 2 ;
-	    	// $(".wrapper ul",this.el).css("left", + this.page + "px");
-	    	 
-	    	 $(".wrapper ul",this.el).animate({
-	    		    opacity: 0.25,
-	    		    left: '+='+slideAmount
-	    		  }, 1000, 'linear', function() {
-	    		   
-	    			  $(this).css("opacity", 1);
-	    			  $(".ui-rcarousel-prev").removeClass("disable");
-	    		  });
-     },
-     prev: function (event) {
-    	    if(this.page < 0 ){
-    	    		var self = this,
-    				slideAmount =  this.page * $(".wrapper").width() / 2 ;
-    		    	// $(".wrapper ul",this.el).css("left", + this.page + "px");
-    				 
-    		    	 $(".wrapper ul",this.el).animate({
-    		    		    opacity: 0.25,
-    		    		    left: '-='+slideAmount
-    		    		  }, 1000, 'linear', function() {
-    		    		   
-    		    			  $(this).css("opacity", 1);
-    		    			  ( self.page < 0 )? $(".ui-rcarousel-prev").removeClass("disable") : $(".ui-rcarousel-prev").addClass("disable");
-    		    			  self.page++;
-    		    		  });
-    	    }
 
-    	 
-     },
-     edit: function(){
-    	 //nothing
-    	 
-     }
-
- });
- 
- window.CarouselSmallView = CarouselView.extend({
-     initialize: function (mode) {
-    	 mode || ( mode = "view");
-    	 this.template  = $("#carousel-" + mode + "-small-template");
-    	 _.bindAll(this, "next", "prev");
-    	 this.page = 0;
-    	 this.el = $("#carousel-small");
-         this.render();
-     }
- });
- 
- window.CarouselLargeView = CarouselView.extend({
-     initialize: function (mode) {
-    	 mode || ( mode = "view");
-    	 this.template  = $("#carousel-" + mode + "-large-template");
-    	 _.bindAll(this, "next", "prev","edit");
-    	 this.page = 0;
-    	 this.el = $("#carousel-large");
-         this.render();
-     },
-     edit: function(){
-         if (confirm($.i18n("alertDelete"))) {
-        	 this.trigger("carousel-large:edit", this);
-         }
-    	
-    	 
-     }
- });
  /*
   * @class EditView
   * @parent Backbone.View
@@ -222,7 +137,7 @@
          "click span.inplace-edit": "switchMode"
      },
      initialize: function () {
-         this.model.bind('change', this.render, this);
+         this.model.bind('change', this.render, this);         
          this.render();
      },
      // save new item or update existing item.
@@ -266,19 +181,7 @@
              validator.resetForm();
              return false;
          });
-         this.page = 0;
-         var self = this;
-         if($(".rcarousel").length){ 
-         if($("#uploadFacility").length){
-        	 $("#uploadFacility").uploadImage( );
-        	 new CarouselSmallView("edit");
-        	 new CarouselLargeView("edit");
-         }
-         else{
-        	 new CarouselSmallView();
-        	 new CarouselLargeView(); 
-         }
-         }
+
          this.delegateEvents();
          return this;
      },
@@ -311,6 +214,9 @@
          this.render();
      }
  });
+ 
+
+ 
  /*
   * @class ToolBarView
   * @parent Backbone.View
@@ -570,7 +476,7 @@
          "click .btn_add_form": "addNew"
      },
      initialize: function () {
-         this.editView = new EditView({
+         this.editView = Entity.editView({
              model: Entity.model({
                  id_structure: Entity.idStructure
              })

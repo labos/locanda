@@ -26,9 +26,10 @@ if (Entity.name == "planner") {
 // end conditional file loading section
 
 // load common js scripts
-steal("../helpers/main.js", "../helpers/autocomplete.js").
+steal("../helpers/common.js", "../helpers/autocomplete.js").
 //then load views, model, collections and routers
 then("../models/" + Entity.name + ".js").
 then("../collections/" + Entity.name + ".js").
-then("../helpers/views.js").
-then("../helpers/routers.js");
+then("../views/common.js").
+then("../views/" + Entity.name + ".js").
+then("../routers/common.js");

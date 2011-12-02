@@ -1,9 +1,9 @@
-.rcarousel {
+.rcarousel div{
 	margin: 0;
 	padding: 0;
 }
 
-.rcarousel .wrapper {
+.rcarousel div .wrapper {
 	height: 121px;
 	margin: 0 auto;
 	overflow: hidden;
@@ -12,14 +12,18 @@
 	width: 90%;
 }
 
-.rcarousel .wrapper ul li img {
+.rcarousel span.sub-edit  {
+float: right;
+}
+
+.rcarousel div .wrapper ul li img {
 	border: 0;
 	clear: left;
 	display: block;
 	float: left;
 }
 
-.rcarousel .wrapper ul {
+.rcarousel div .wrapper ul {
 	list-style: none;
 	margin: 0;
 	padding: 0;
@@ -27,7 +31,7 @@
 	width: 9999px;
 }
 
-.rcarousel .wrapper ul li {
+.rcarousel div .wrapper ul li {
 	display: block;
 	float: left;
 	height: 100px;
@@ -37,7 +41,7 @@
 	text-align: center;
 }
 
-.rcarousel .wrapper ul li input {
+.rcarousel div .wrapper ul li input {
 	display: block;
 }
 
@@ -49,12 +53,12 @@
     top: 0;
     width: 100%;
 }
-			#carousel-small {
+			#facilities {
 				width: 480px;
 				position: relative;
 			}
 			
-			#carousel-large {
+			#images {
 				width: 580px;
 				position: relative;
 			}
@@ -63,7 +67,7 @@
 				border: 0;
 			}
 
-			.ui-rcarousel-next, #ui-rcarousel-prev {
+			.ui-rcarousel-next, .ui-rcarousel-prev {
 				display: block;
 				position: absolute;
 			}
@@ -96,12 +100,13 @@
 filter:alpha(opacity=20);
 filter:”alpha(opacity=20)”;
 }
-#carousel-small img{
+#facilities img{
 	width:45px;
 	height:45px;
 }
 
-#carousel-large img{
+#images img{
 	width:85px;
 	height:85px;
 }
+
