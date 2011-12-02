@@ -37,21 +37,6 @@ public class ConventionResource {
     @Autowired
     private BookingService bookingService = null;
    
-       
-    @GET
-    @Path("structure/{idStructure}/{offset}/{rownum}")
-    @Produces({MediaType.APPLICATION_JSON})
-    public List<Convention> getConventions(@PathParam("idStructure") Integer idStructure,@PathParam("offset") Integer offset,@PathParam("rownum") Integer rownum){
-        List<Convention> filteredConventions = null;
-       
-        filteredConventions = new ArrayList<Convention>();
-        for(Convention each: this.getConventionService().findConventionsByIdStructure(idStructure,offset,rownum)){           
-            if(!each.getActivationCode().equals("thisconventionshouldntneverberemoved")){
-                filteredConventions.add(each);
-            }           
-        }       
-        return filteredConventions;   
-    }
     
     @GET
     @Path("structure/{idStructure}/search/{offset}/{rownum}")

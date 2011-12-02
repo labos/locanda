@@ -16,30 +16,32 @@ import javax.ws.rs.core.MediaType;
 
 import model.Facility;
 import model.Image;
+import model.Room;
 import model.RoomType;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.sun.jersey.api.NotFoundException;
 
+import service.BookingService;
 import service.FacilityService;
 import service.ImageService;
 import service.RoomService;
 import service.RoomTypeService;
-import service.StructureService;
 
-@Path("/roomTypes/")
+@Path("/rooms/")
 @Component
 @Scope("prototype")
-public class RoomTypeResource {
+public class RoomResource {
 	
 	@Autowired
-	private RoomTypeService roomTypeService = null;
-	@Autowired
-    private StructureService structureService = null;
-	@Autowired
     private RoomService roomService = null;
+	@Autowired
+    private RoomTypeService roomTypeService = null;
+	@Autowired
+    private BookingService bookingService = null;
 	@Autowired
 	private FacilityService facilityService = null;
 	@Autowired
@@ -49,34 +51,37 @@ public class RoomTypeResource {
 	@GET
     @Path("structure/{idStructure}/search/{offset}/{rownum}")
     @Produces({MediaType.APPLICATION_JSON})
-    public List<RoomType> simpleSearch(@PathParam("idStructure") Integer idStructure,@PathParam("offset") Integer offset,@PathParam("rownum") Integer rownum, @QueryParam("term") String term){
-        List<RoomType> filteredRoomTypes = null;
+    public List<Room> simpleSearch(@PathParam("idStructure") Integer idStructure,@PathParam("offset") Integer offset,@PathParam("rownum") Integer rownum, @QueryParam("term") String term){
+        List<Room> filteredRooms = null;
         List<Image> images = null;
 		List<Facility> facilities = null;
+		RoomType roomType = null;
        
-        filteredRoomTypes = new ArrayList<RoomType>();
+        filteredRooms = new ArrayList<Room>();
         
-        for(RoomType each: this.getRoomTypeService().search(idStructure,offset,rownum, term)){           
-        	images = this.getImageService().findImagesByIdRoomType(each.getId());
+        for(Room each: this.getRoomService().search(idStructure,offset,rownum, term)){
+        	roomType = this.getRoomTypeService().findRoomTypeById(each.getId_roomType());
+        	each.setRoomType(roomType);
+        	images = this.getImageService().findImagesByIdRoom(each.getId());
 			each.setImages(images);
-			facilities = this.getFacilityService().findRoomTypeFacilitiesByIdRoomType(each.getId());
-            filteredRoomTypes.add(each);            		   
+			facilities = this.getFacilityService().findRoomFacilitiesByIdRoom(each.getId());
+			filteredRooms.add(each);            		   
         }       
-        return filteredRoomTypes;          
-    }
+        return filteredRooms;          
+    } 
 	
 	@GET
 	@Path("{id}")
 	@Produces({MediaType.APPLICATION_JSON})
-	public RoomType getRoomType(@PathParam("id") Integer id){
-		RoomType ret = null;
+	public Room getRoom(@PathParam("id") Integer id){
+		Room ret = null;
 		List<Image> images = null;
 		List<Facility> facilities = null;
 		
-		ret = this.getRoomTypeService().findRoomTypeById(id);
-		images = this.getImageService().findImagesByIdRoomType(id);
+		ret = this.getRoomService().findRoomById(id);
+		images = this.getImageService().findImagesByIdRoom(id);
 		ret.setImages(images);
-		facilities = this.getFacilityService().findRoomTypeFacilitiesByIdRoomType(id);
+		facilities = this.getFacilityService().findRoomFacilitiesByIdRoom(id);
 		ret.setFacilities(facilities);
 		return ret;
 	}
@@ -84,57 +89,56 @@ public class RoomTypeResource {
 	@POST
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
-    public RoomType save(RoomType roomType) {
+    public Room save(Room room) {
        
-        this.getRoomTypeService().insertRoomType(roomType);
-        this.getStructureService().addPriceListsForRoomType(roomType.getId_structure(), roomType.getId());
-        return roomType;
+        this.getRoomService().insertRoom(room);
+        return room;
     }
    
     @PUT
     @Path("{id}")
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
-    public RoomType update(RoomType roomType) {        
+    public Room update(Room room) {        
         
-    	this.getRoomTypeService().updateRoomType(roomType);
-        return roomType;
+    	this.getRoomService().updateRoom(room);
+        return room;
     }
     
     @DELETE
     @Path("{id}")
     @Produces({MediaType.APPLICATION_JSON})   
     public  Integer delete(@PathParam("id") Integer id){
-    	Integer count = 0;		
+    	Integer count = 0;
 		
-		if(this.getRoomService().countRoomsByIdRoomType(id) > 0){
-			throw new NotFoundException("The room type you are trying to delete has links to one or more room types." +
-					" Please try to delete the associated rooms before.");
+    	if(this.getBookingService().countBookingsByIdRoom(id)>0){
+    		throw new NotFoundException("The room you are trying to delete has links to one or more bookings." +
+					" Please try to delete the associated bookings before.");
 		}
-		count = this.getRoomTypeService().deleteRoomType(id);
+		count = this.getRoomService().deleteRoom(id);
 		if(count == 0){
-			throw new NotFoundException("Error: the room type has NOT been deleted");
+			throw new NotFoundException("Error: the room has NOT been deleted");
 		}
 		return count;
     }
 	
+	public RoomService getRoomService() {
+		return roomService;
+	}
+	public void setRoomService(RoomService roomService) {
+		this.roomService = roomService;
+	}
 	public RoomTypeService getRoomTypeService() {
 		return roomTypeService;
 	}
 	public void setRoomTypeService(RoomTypeService roomTypeService) {
 		this.roomTypeService = roomTypeService;
 	}
-	public StructureService getStructureService() {
-		return structureService;
+	public BookingService getBookingService() {
+		return bookingService;
 	}
-	public void setStructureService(StructureService structureService) {
-		this.structureService = structureService;
-	}
-	public RoomService getRoomService() {
-		return roomService;
-	}
-	public void setRoomService(RoomService roomService) {
-		this.roomService = roomService;
+	public void setBookingService(BookingService bookingService) {
+		this.bookingService = bookingService;
 	}
 	public FacilityService getFacilityService() {
 		return facilityService;

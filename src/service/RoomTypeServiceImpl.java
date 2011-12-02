@@ -49,7 +49,6 @@ public class RoomTypeServiceImpl implements RoomTypeService{
 		List<RoomType> ret = null;
 		
 		ret =  this.getRoomTypeMapper().findRoomTypesByIdStructure(id_structure);
-		
 		return ret;
 	}
 	

@@ -43,10 +43,10 @@ In case of controversy the competent court is the Court of Cagliari (Italy).
         <if test="name != null">
         AND name LIKE CONCAT('%',#{name},'%')
         </if>
-        <if test="description != null">
+        <if test="maxGuests != null">
         AND maxGuests LIKE CONCAT('%',#{maxGuests},'%')
         </if>
-        <if test="activationCode != null">
+        <if test="notes != null">
         AND notes LIKE CONCAT('%',#{notes},'%')
         </if>  
         LIMIT #{offset}, #{rownum}
