@@ -36,6 +36,10 @@ In case of controversy the competent court is the Court of Cagliari (Italy).
         <include refid="selectRoom"/>WHERE id_structure = #{id_structure}
     </select>
     
+    <select id="findRoomsByIdStructureAndOffsetAndRownum" parameterType="map" resultType="model.Room">
+        <include refid="selectRoom"/>WHERE id_structure = #{id_structure} LIMIT #{offset}, #{rownum}
+    </select>
+    
     <select id="findRoomById" parameterType="int" resultType="model.Room">
         <include refid="selectRoom"/>WHERE id = #{id}
     </select>
@@ -50,6 +54,19 @@ In case of controversy the competent court is the Court of Cagliari (Italy).
     
     <select id="countRoomsByIdRoomType" parameterType="int" resultType="int">
         select count(id) from room where id_roomType = #{id_roomType}
+    </select>
+    
+    <select id="search" parameterType="map" resultType="model.Room">
+        <include refid="selectRoom"/> 
+        WHERE 
+        id_structure = #{id_structure}
+        <if test="name != null">
+        AND name LIKE CONCAT('%',#{name},'%')
+        </if>
+        <if test="notes != null">
+        AND notes LIKE CONCAT('%',#{notes},'%')
+        </if>  
+        LIMIT #{offset}, #{rownum}
     </select>
     
     <sql id="selectRoom">

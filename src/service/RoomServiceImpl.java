@@ -26,6 +26,7 @@ import model.RoomType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import parser.SearchParser;
 import persistence.mybatis.mappers.ImageMapper;
 import persistence.mybatis.mappers.RoomMapper;
 import persistence.mybatis.mappers.RoomTypeMapper;
@@ -99,6 +100,17 @@ public class RoomServiceImpl implements RoomService{
 		return rooms;
 	}
 	
+	@Override
+	public List<Room> findRoomsByIdStructure(Integer id_structure, Integer offset, Integer rownum) {
+		Map map = null;
+		
+		map = new HashMap();
+		map.put("id_structure",id_structure );
+		map.put("offset", offset);
+		map.put("rownum",rownum );
+		return this.getRoomMapper().findRoomsByIdStructureAndOffsetAndRownum(map);
+	}
+	
 	public List<Room> findRoomsByIdRoomType(Integer id_roomType){
 		List<Room> rooms = null;
 		RoomType roomType = null;
@@ -138,6 +150,21 @@ public class RoomServiceImpl implements RoomService{
 		return ret;
 	}
 
+	@Override
+	public List<Room> search(Integer id_structure, Integer offset, Integer rownum, String term) {
+		Map map = null;
+		SearchParser<Room> parser;
+		
+		parser = new SearchParser<Room>(Room.class);
+		map = new HashMap();
+		map.put("id_structure", id_structure );
+		map.put("offset", offset );
+		map.put("rownum", rownum );
+		map.putAll(parser.parse(term));
+		
+		return this.getRoomMapper().search(map);
+	}
+	
 	public RoomMapper getRoomMapper() {
 		return roomMapper;
 	}

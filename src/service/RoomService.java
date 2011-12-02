@@ -18,7 +18,6 @@ package service;
 import java.util.List;
 
 import model.Room;
-
 import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
@@ -29,8 +28,11 @@ public interface RoomService {
 	public Integer deleteRoom(Integer id);
 	public Integer countRoomsByIdRoomType(Integer id_roomType);
 	
-	public Room findRoomById(Integer id);
-	public Room findRoomByIdStructureAndName(Integer id_structure, String name );
 	public List<Room> findRoomsByIdStructure(Integer id_structure);
+	public List<Room> findRoomsByIdStructure(Integer id_structure,Integer offset,Integer rownum);
+	public List<Room> search(Integer id_structure, Integer offset, Integer rownum, String term);
 	public List<Room> findRoomsByIdRoomType(Integer id_roomType);
+	
+	public Room findRoomById(Integer id);
+	public Room findRoomByIdStructureAndName(Integer id_structure, String name);
 }
