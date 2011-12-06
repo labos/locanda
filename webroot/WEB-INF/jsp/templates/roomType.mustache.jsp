@@ -117,18 +117,26 @@
 </form>
 </script>
 
+<script id="facility-row-template" type="text/x-handlebars-template" >
+<li><li>{{name}}<img src="images/{{fileName}}" /></li></li>
+</script>
+
+<script id="facility-row-edit-template" type="text/x-handlebars-template" >
+<li><li><input class="save-elem" type="checkbox" name="{{}}" value="" />}<img src="images/{{fileName}}" /></li></li>
+</script>
+
+<script id="image-row-template" type="text/x-handlebars-template" >
+<li>{{name}}<img src="images/hotel-demo.jpeg" /></li>
+</script>
+
+<script id="image-row-edit-template" type="text/x-handlebars-template" >
+<li><span class="delete-elem"></span><img src="images/hotel-demo.jpeg" /></li>
+</script>
+
 <script id="facilities-view-template" type="text/x-handlebars-template" >
 <span class="sub-edit"></span>
 <div class="wrapper">
 	<ul>
-       
-		<li><img src="images/hotel-demo.jpeg" /></li>
-		<li><img src="images/hotel-demo.jpeg" /></li>
-		<li><img src="images/hotel-demo.jpeg" /></li>
-		<li><img src="images/hotel-demo.jpeg" /></li>
-		<li><img src="images/hotel-demo.jpeg" /></li>
-		<li><img src="images/hotel-demo.jpeg" /></li>
-		<li><img src="images/horse_small.jpg" /></li>
 	</ul>
 </div>
 <span class="ui-rcarousel-next"></span>
@@ -139,14 +147,6 @@
 <span class="sub-edit"></span>
 <div class="wrapper">
 	<ul>
-       
-		<li><img src="images/hotel-demo.jpeg" /></li>
-		<li><img src="images/hotel-demo.jpeg" /></li>
-		<li><img src="images/hotel-demo.jpeg" /></li>
-		<li><img src="images/hotel-demo.jpeg" /></li>
-		<li><img src="images/hotel-demo.jpeg" /></li>
-		<li><img src="images/hotel-demo.jpeg" /></li>
-		<li><img src="images/horse_small.jpg" /></li>
 	</ul>
 </div>
 <span class="ui-rcarousel-next"></span>

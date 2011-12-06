@@ -109,4 +109,14 @@ filter:”alpha(opacity=20)”;
 	width:85px;
 	height:85px;
 }
+     span.delete-elem{
+     position: absolute;
+     top: 0;
+     right:0;
+     width:16px;
+     height:16px;
+    background: url('../images/delete.png') no-repeat 0px 0px;
+    cursor: pointer;
+    }
+    
 

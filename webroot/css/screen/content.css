@@ -1129,12 +1129,3 @@ background: url("../../images/loading.gif") no-repeat center center;
 		display: block;
     }
     
-     span.delete-img{
-     position: absolute;
-     top: 0;
-     right:0;
-     width:16px;
-     height:16px;
-    background: url('../../images/delete.png') no-repeat 0px 0px;
-    cursor: pointer;
-    }
