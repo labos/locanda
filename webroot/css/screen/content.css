@@ -564,6 +564,7 @@ input[name="room.name"]
 	color: #595959;
 	font-weight: 600;
 }
+/*
 .ui-widget-overlay
 {
 	background-color: #000;
@@ -576,6 +577,7 @@ input[name="room.name"]
 	width: 100%;
 	z-index: 1500;
 }
+*/
 .upload_loader
 {
 	background: url("../../images/loading.gif");
@@ -792,6 +794,9 @@ span.hov_edit
 input[name='facility_name']
 {
 	width: 180px;
+	padding: 4px;
+	font-size:16px;
+	font-weight: bold;
 }
 #signup ul
 {
@@ -1128,4 +1133,12 @@ background: url("../../images/loading.gif") no-repeat center center;
         div.img-view-facilities ul li img, div.img-view-images ul li img{
 		display: block;
     }
+    .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset {
+    clear:both;
+    text-align: center;
+}
+.ui-dialog .ui-dialog-title {
+	font-size: 20px;
+
+	}
     

@@ -78,7 +78,7 @@ window.ImageRowView = Backbone.View.extend({
      indexTemplate: $("#image-row-template"),
      // The DOM events specific to an row.
      events: {
-         "click span.row-item-destroy": "remove",
+         "click span.delete-elem": "remove",
          "click .row-item": "edit"
      },
      initialize: function () {
@@ -141,14 +141,14 @@ window.ImageRowView = Backbone.View.extend({
  * @author LabOpenSource
  */
 window.ImagesFacilitiesView = Backbone.View.extend({
-
+     
      indexTemplate: null,
      events: {
          "click .ui-rcarousel-next": "next",
          "click .ui-rcarousel-prev": "prev",
          "click .save-elem": "saveElement",
-         "click span.delete-elem": "removeOne",
-         "click span.sub-edit" :"switchMode"
+        // "click span.sub-edit" :"switchMode",
+         "click div" :"switchMode"
      },
      initialize: function (options) {
     	 _.bindAll(this, "next", "prev", "removeOne","addOne");
@@ -232,7 +232,15 @@ window.ImagesFacilitiesView = Backbone.View.extend({
      switchMode: function () {
      }
  });
- 
+
+/*
+ * @class FacilitiesListView
+ * @parent Backbone.View
+ * @constructor
+ * Class to show list of facilities.
+ * @tag views
+ * @author LabOpenSource
+ */
  window.FacilitiesListView = ImagesFacilitiesView.extend({
      initialize: function (options) {
     	 options['mode'] || ( options['mode'] = "view");
@@ -244,7 +252,7 @@ window.ImagesFacilitiesView = Backbone.View.extend({
     	 this.page = 0;
      },
      
-     saveElement: function(){ 	 
+     saveElement: function(){ 	reset 
     	 
      },
      addOne: function (item) {
@@ -263,20 +271,32 @@ window.ImagesFacilitiesView = Backbone.View.extend({
 }
  });
  
+ /*
+  * @class ImagesListView
+  * @parent Backbone.View
+  * @constructor
+  * Class to show list of images.
+  * @tag views
+  * @author LabOpenSource
+  */
  window.ImagesListView = ImagesFacilitiesView.extend({
      initialize: function (options) {
     	 options['mode'] || ( options['mode'] = "view");
     	 this.indexTemplate  = $("#images-" + options['mode'] + "-template");
     	 _.bindAll(this, "next", "prev","addOne");
          this.collection.bind('reset', this.render, this);
-         this.collection.bind('remove', this.render, this);
+         this.collection.bind('remove', this.removeOne, this);
          this.rowViews = [];
     	 this.page = 0;
      },
      removeOne: function(){
-         if (confirm($.i18n("alertDelete"))) {
+         if (confirm($.i18n("alresetertDelete"))) {
         	 this.trigger("image:remove", this);
          } 
+     },
+     
+     removeOne: function (aModel) {
+         this.collection.remove(aModel);
      },
      saveElement: function(){
     	 //save element
@@ -293,6 +313,33 @@ window.ImagesFacilitiesView = Backbone.View.extend({
      },
      
      switchMode: function () {
+    	 // change in edit mode template
+         this.indexTemplate = (this.indexTemplate.attr("id") == "images-view-template") ? $("#images-edit-template") : $("#images-view-template");
+         this.render();
+         var self = this;
+         //$(this.el).unbind("click div");
+         $(this.el).undelegate("div", "click");
+         $("#images").dialog({
+			modal: true ,
+			width: 800,
+			title: 'Edit Images',
+			show:"scale",
+			hide:"scale",
+			autoResize:false,
+			autoOpen:true,
+			buttons: {
+				"Save": function() {
+					$( this ).dialog( "close" );
+				},
+				"Cancel": function() {
+					self.indexTemplate = $("#images-view-template");
+					self.render();
+					$( this ).dialog( "close" );
+					
+				}
+			}
+		});
+         //change list of rows in edit mode
     	 $.each(this.rowViews, function(index,aView){
     		 aView.switchMode();
     	 });

@@ -12,8 +12,8 @@
   width: 200px;
   height: 30px;
   line-height: 30px;
-  background: palegreen;
-  border: 1px solid limegreen;
+  background: #81C211;
+  border: 1px solid grey;
 }
 
 .file_upload_small {

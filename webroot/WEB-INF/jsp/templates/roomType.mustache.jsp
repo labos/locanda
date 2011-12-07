@@ -49,7 +49,7 @@
 	</script>
 
 	<script id="view-template" type="text/x-handlebars-template">
-		<form id="view-form" class="yform json full" role="application">
+		<form id="view-form" class="yform json inview" role="application">
           	  <div class="c50l">
                 <div class="c50l">
                   <div class="type-text">	
@@ -64,18 +64,17 @@
                   	<strong><s:text name="notes"/></strong>
 					<span>{{notes}}</span> 
                   </div>
-<div id="facilities" class="rcarousel">
-</div>
-<div id="images" class="rcarousel">
-</div>
                 </div>
 				<div class="c50l">
                 <div class="type-text">	
-                  <span class="inplace-edit"></span>
                 </div>
 			  </div>
               </div>
-		</form> 
+		</form>
+<div id="facilities" class="rcarousel">
+</div>
+<div id="images" class="rcarousel">
+</div> 
 	</script>
 
 
@@ -118,24 +117,23 @@
 </script>
 
 <script id="facility-row-template" type="text/x-handlebars-template" >
-<li><li>{{name}}<img src="images/{{fileName}}" /></li></li>
+{{name}}<img src="images/{{fileName}}" />
 </script>
 
 <script id="facility-row-edit-template" type="text/x-handlebars-template" >
-<li><li><input class="save-elem" type="checkbox" name="{{}}" value="" />}<img src="images/{{fileName}}" /></li></li>
+<input class="save-elem" type="checkbox" name="{{}}" value="" />}<img src="images/{{fileName}}" />
 </script>
 
 <script id="image-row-template" type="text/x-handlebars-template" >
-<li>{{name}}<img src="images/hotel-demo.jpeg" /></li>
+{{name}}<img src="images/hotel-demo.jpeg" />
 </script>
 
 <script id="image-row-edit-template" type="text/x-handlebars-template" >
-<li><span class="delete-elem"></span><img src="images/hotel-demo.jpeg" /></li>
+<span class="delete-elem"></span><img src="images/hotel-demo.jpeg" />
 </script>
 
 <script id="facilities-view-template" type="text/x-handlebars-template" >
-<span class="sub-edit"></span>
-<div class="wrapper">
+<div class="wrapper inview">
 	<ul>
 	</ul>
 </div>
@@ -144,8 +142,7 @@
 </script>
 
 <script id="images-view-template" type="text/x-handlebars-template" >
-<span class="sub-edit"></span>
-<div class="wrapper">
+<div class="wrapper inview">
 	<ul>
 	</ul>
 </div>
@@ -176,14 +173,6 @@
 <script id="images-edit-template" type="text/x-handlebars-template" >
 <div class="wrapper">
 	<ul>
-       
-		<li><span class="delete-elem"></span><img src="images/hotel-demo.jpeg" /></li>
-		<li><span class="delete-elem"></span><img src="images/hotel-demo.jpeg" /></li>
-		<li><span class="delete-elem"></span><img src="images/hotel-demo.jpeg" /></li>
-		<li><span class="delete-elem"></span><img src="images/hotel-demo.jpeg" /></li>
-		<li><span class="delete-elem"></span><img src="images/hotel-demo.jpeg" /></li>
-		<li><span class="delete-elem"></span><img src="images/hotel-demo.jpeg" /></li>
-		<li><span class="delete-elem"></span><img src="images/horse_small.jpg" /></li>
 	</ul>
 </div>
 <span class="ui-rcarousel-next"></span>
@@ -193,14 +182,13 @@
 		   	<div class="upload_loader">&nbsp;</div>
 		   	<div class="image_preview"></div>
 		  </div>
-    
           <div class="beauty">
      	  	<div class="subcolumns">
            	  <div class="c33l">
     			<label for="name_facility"><s:text name="imageName"/>:</label>&nbsp;<input type="text" name="facility_name" value="" id="name_facility" class="require"/>
  			  </div>
  			  <div class="c20l">
- 				<br/><br/>
+ 				<br/>
  				<form id="uploadFacility" action="uploadRoomTypeImage.action" method="post" enctype="multipart/form-data">
    				  <input type="hidden" name="name" value=""/>
    				    <input type="hidden" name="id" value="{{id}}"/>

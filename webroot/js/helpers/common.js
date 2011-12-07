@@ -89,8 +89,8 @@ $(document).ready(function () {
        	                height: 'show'
        	            },
        	            position: "center",
-       	            speed: 1000,
-       	            life: 20,
+       	            speed: 2000,
+       	            life: 80,
        	            closeDuration: "fast",
        	            header: title,
        	            close: function () {
@@ -211,7 +211,7 @@ $(document).ready(function () {
             
             /* General settings */
             //make a new div overlay element
-            $('body').append($('<div class="ui-widget-overlay"></div>'));
+          //---  $('body').append($('<div class="ui-widget-overlay"></div>'));
             $.jGrowl.defaults.position = 'center';
             $.jGrowl.defaults.life = 300;
             $.ajaxSetup({cache: false});
