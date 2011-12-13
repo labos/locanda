@@ -153,9 +153,9 @@
                  if (is_new) {
                      self.collection.add(self.model);
                  }
-                 
-                 self.switchMode();
                  $.jGrowl($.i18n("congratulation"), { header: this.alertOK });
+                 self.switchMode();
+                 
              },
              error: function () {
                  $().notify(this.alertKO, $.i18n("seriousErrorDescr") + ' ');
@@ -210,13 +210,37 @@
          this.model.unbind("change", this.render);
      },
      switchMode: function () {
-         this.indexTemplate = (this.indexTemplate.attr("id") == "edit-template") ? $("#view-template") : $("#edit-template");
+         if( this.indexTemplate.attr("id") == "edit-template" ){
+        	 this.indexTemplate =  $("#view-template");
+        	 $(".overlay").remove();
+        	 $(this.el).removeClass("edit-state-box");
+        	 this.render();
+        	 $($.fn.overlay.defaults.container).css('overflow', 'auto');
+         }
+         else{
+        	 this.indexTemplate =  $("#edit-template");
          this.render();
+    	 var self = this;
+         $('<div></div>').overlay({
+             effect: 'fade',
+             onShow: function() {
+            	 var overlay = this;
+            	 $(self.el).addClass("edit-state-box");
+                 $(this).click( function (){
+              	   if(confirm($.i18n( "alertExitEditState" ))){
+              		 $(self.el).removeClass("edit-state-box");
+   					self.indexTemplate = $("#view-template");
+   					self.render();
+   					$(overlay).remove();
+   					$($.fn.overlay.defaults.container).css('overflow', 'auto');
+
+               	   }
+                	 
+                 });}
+           });
+     }
      }
  });
- 
-
- 
  /*
   * @class ToolBarView
   * @parent Backbone.View
@@ -499,6 +523,8 @@
          this.editView.resetModel(Entity.model({
              id_structure: Entity.idStructure
          }));
+         $(this.editView.el).undelegate("div", "click");
+        // this.editView.switchMode();
      },
      filterAll: function (attribute, value) {
          self.listView.collection.setFilter(attribute, value).fetch();

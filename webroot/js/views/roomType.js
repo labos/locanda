@@ -13,7 +13,8 @@ window.FacilityRowView = Backbone.View.extend({
      // The DOM events specific to an row.
      events: {
          "click span.row-item-destroy": "remove",
-         "click .row-item": "edit"
+         "click .row-item": "edit",
+         "click add-elem": "add"
      },
      initialize: function () {
          this.model.bind('change', this.render, this);
@@ -29,7 +30,12 @@ window.FacilityRowView = Backbone.View.extend({
          var $target = $(event.target);
          if (!$target.is("span.row-item-destroy")) {
              this.trigger("row:edit", this);
-         }
+         }},
+         // add a facility to the parent model
+         add: function (event) {
+        	 //send array of checked facilities
+        	 $(this.el).serializeObject();
+
      },
      unrender: function () {
          //clean up events raised from the view
@@ -161,6 +167,11 @@ window.ImagesFacilitiesView = Backbone.View.extend({
          if(this.$("#uploadFacility").length){
              	 this.$("#uploadFacility").uploadImage( );
          }
+         $(".btn_add").button({
+             icons: {
+                 primary: "ui-icon-plusthick"
+             }
+         });
          this.addAll();
          this.delegateEvents();
          return this;
@@ -252,7 +263,7 @@ window.ImagesFacilitiesView = Backbone.View.extend({
     	 this.page = 0;
      },
      
-     saveElement: function(){ 	reset 
+     saveElement: function(){ 
     	 
      },
      addOne: function (item) {
@@ -265,9 +276,31 @@ window.ImagesFacilitiesView = Backbone.View.extend({
          this.$("ul").append(view.render().el);
      },
      switchMode: function () {
+         this.indexTemplate = (this.indexTemplate.attr("id") == "facilities-view-template") ? $("#facilities-edit-template") : $("#facilities-view-template");
+         this.render();
+         var self = this;
     	 $.each(this.rowViews, function(index,aView){
     		 aView.switchMode();
     	 });
+         $(this.el).undelegate("div", "click");
+         $('<div></div>').overlay({
+             effect: 'fade',
+             onShow: function() {
+            	 var overlay = this;
+                 $(self.el).addClass("edit-state-box");
+                 $(this).click( function (){
+              	   if(confirm($.i18n( "alertExitEditState" ))){
+              		 $(self.el).removeClass("edit-state-box");
+              		self.indexTemplate = $("#facilities-view-template");
+   					self.render();
+   					$(overlay).remove();
+   					$($.fn.overlay.defaults.container).css('overflow', 'auto');
+
+               	   }
+                	 
+                 });
+               }
+           });
 }
  });
  
@@ -317,32 +350,33 @@ window.ImagesFacilitiesView = Backbone.View.extend({
          this.indexTemplate = (this.indexTemplate.attr("id") == "images-view-template") ? $("#images-edit-template") : $("#images-view-template");
          this.render();
          var self = this;
-         //$(this.el).unbind("click div");
+         // unbind div click event in edit mode in the current div overlapped
          $(this.el).undelegate("div", "click");
-         $("#images").dialog({
-			modal: true ,
-			width: 800,
-			title: 'Edit Images',
-			show:"scale",
-			hide:"scale",
-			autoResize:false,
-			autoOpen:true,
-			buttons: {
-				"Save": function() {
-					$( this ).dialog( "close" );
-				},
-				"Cancel": function() {
-					self.indexTemplate = $("#images-view-template");
-					self.render();
-					$( this ).dialog( "close" );
-					
-				}
-			}
-		});
          //change list of rows in edit mode
     	 $.each(this.rowViews, function(index,aView){
     		 aView.switchMode();
     	 });
+         
+         $('<div></div>').overlay({
+             effect: 'fade',
+             onShow: function() {
+            	 var overlay = this;
+                 $(self.el).addClass("edit-state-box");
+                 $(this).click( function (){
+              	   if(confirm($.i18n( "alertExitEditState" ))){
+              		 $(self.el).removeClass("edit-state-box");
+      					self.indexTemplate = $("#images-view-template");
+   					self.render();
+   					$(overlay).remove();
+   					$($.fn.overlay.defaults.container).css('overflow', 'auto');
+
+               	   }
+                	 
+                 });
+               }
+           });
+
+
     
      }
  });
@@ -357,6 +391,10 @@ window.ImagesFacilitiesView = Backbone.View.extend({
   * @author LabOpenSource
   */
  window.EditImagesFacilitiesView = EditView.extend({
+     events: {
+         "submit form": "save",
+         "click div": "switchMode"
+     },
      initialize: function () {
          this.model.bind('change', this.render, this);
         	 this.facilitiesListView = new FacilitiesListView( { collection: new Facilities( )});
@@ -396,17 +434,53 @@ window.ImagesFacilitiesView = Backbone.View.extend({
              this.facilitiesListView.collection.reset(this.model.get("facilities") );
              this.imagesListView.collection.reset( this.model.get("images"));
              this.id = this.model.get("id");
-    		 
+             // now render associated views
+             if( $("#facilities").is(':empty') ) {
+                 $("#facilities").html( this.facilitiesListView.el ) ;
+                 $("#images").html( this.imagesListView.el);
+             }
+
     	 }
-         // now render associated views
-         $("#facilities").html( this.facilitiesListView.el ) ;
-         $("#images").html( this.imagesListView.el);
+
 
     	 
      },
      switchMode: function () {
-         this.indexTemplate = (this.indexTemplate.attr("id") == "edit-template") ? $("#view-template") : $("#edit-template");
-         this.render();
+
+         if( this.indexTemplate.attr("id") == "edit-template" ){
+        	 this.indexTemplate =  $("#view-template");
+        	 $(".overlay").remove();
+        	 $(this.el).removeClass("edit-state-box");
+        	 this.render();
+        	 $($.fn.overlay.defaults.container).css('overflow', 'auto');
+         }
+         else{
+        	 this.indexTemplate =  $("#edit-template");
+        	 this.render();
+        	 $(this.el).undelegate("div", "click");
+        	 var self = this;
+             $('<div></div>').overlay({
+                 effect: 'fade',
+                 onShow: function() {
+                	 var overlay = this;
+                	 $(self.el).addClass("edit-state-box");
+                     $(this).click( function (){
+                  	   if(confirm($.i18n( "alertExitEditState" ))){
+                  		 $(self.el).removeClass("edit-state-box");
+       					self.indexTemplate = $("#view-template");
+       					self.render();
+       					$(overlay).remove();
+       					$($.fn.overlay.defaults.container).css('overflow', 'auto');
+
+                   	   }
+                    	 
+                     });
+                   }
+               });
+        	 
+         }
+
+         
      }
 	 
  });

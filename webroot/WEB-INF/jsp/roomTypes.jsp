@@ -36,9 +36,9 @@ Entity = {name: "roomType",
           <button class="btn_add_form"><s:text name="addNew" /></button>
         </div> 
         <div class="subcolumns" id="row-edit-container">
-
-
           </div>
+          <div id="facilities" class="rcarousel"></div>
+		  <div id="images" class="rcarousel"></div>
         </div>
       </div>
       <!-- end: #col1 -->

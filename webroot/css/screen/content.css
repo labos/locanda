@@ -1141,4 +1141,10 @@ background: url("../../images/loading.gif") no-repeat center center;
 	font-size: 20px;
 
 	}
+	.edit-state-box{
+	z-index:3000;
+	background-color:white;
+	position:relative;
+	box-shadow:0px 0px 10px #000000;
+	}
     

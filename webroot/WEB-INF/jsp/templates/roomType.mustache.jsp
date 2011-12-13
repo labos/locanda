@@ -42,10 +42,6 @@
                 </div>
               </div>
 		</form>
-<div id="facilities" class="rcarousel">
-</div>
-<div id="images" class="rcarousel">
-</div>
 	</script>
 
 	<script id="view-template" type="text/x-handlebars-template">
@@ -71,10 +67,6 @@
 			  </div>
               </div>
 		</form>
-<div id="facilities" class="rcarousel">
-</div>
-<div id="images" class="rcarousel">
-</div> 
 	</script>
 
 
@@ -121,7 +113,7 @@
 </script>
 
 <script id="facility-row-edit-template" type="text/x-handlebars-template" >
-<input class="save-elem" type="checkbox" name="{{}}" value="" />}<img src="images/{{fileName}}" />
+<input class="add-elem" type="checkbox" name="facilities[]" value="{{id}}" />}<img src="images/{{fileName}}" />
 </script>
 
 <script id="image-row-template" type="text/x-handlebars-template" >
@@ -155,19 +147,13 @@
 
 <script id="facilities-edit-template" type="text/x-handlebars-template" >
 <div class="wrapper">
+<button class="btn_add">Add new Facility</button>
 	<ul>
-       
-		<li><input class="save-elem" type="checkbox" name="{{}}" value="" /><img src="images/hotel-demo.jpeg" /></li>
-		<li><input class="save-elem" type="checkbox" name="{{}}" value="" /><img src="images/hotel-demo.jpeg" /></li>
-		<li><input class="save-elem" type="checkbox" name="{{}}" value="" /><img src="images/hotel-demo.jpeg" /></li>
-		<li><input class="save-elem" type="checkbox" name="{{}}" value="" /><img src="images/hotel-demo.jpeg" /></li>
-		<li><input class="save-elem" type="checkbox" name="{{}}" value="" /><img src="images/hotel-demo.jpeg" /></li>
-		<li><input class="save-elem" type="checkbox" name="{{}}" value="" /><img src="images/hotel-demo.jpeg" /></li>
-		<li><input class="save-elem" type="checkbox" name="{{}}" value="" /><img src="images/horse_small.jpg" /></li>
 	</ul>
 </div>
 <span class="ui-rcarousel-next"></span>
 <span class="ui-rcarousel-prev disable"></span>
+</div>
 </script>
 
 <script id="images-edit-template" type="text/x-handlebars-template" >
