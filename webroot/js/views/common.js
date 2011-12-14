@@ -438,6 +438,7 @@
      // Add all items in the collection at once.
      addAll: function () {
          //$(this.el).empty();
+    	 $("#row-list").addClass("back");
          $.each(this.rowViews, function (index, value) {
              this.unrender();
          });
@@ -446,6 +447,7 @@
          if (this.collection.length) {
              this.editView.resetModel(this.collection.at(0));
          }
+    	 $("#row-list").removeClass("back");
      },
      removeOne: function (aModel) {
          // now check if deleted model is in editing mode

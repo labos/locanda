@@ -113,7 +113,7 @@
 </script>
 
 <script id="facility-row-edit-template" type="text/x-handlebars-template" >
-<input class="add-elem" type="checkbox" name="facilities[]" value="{{id}}" />}<img src="images/{{fileName}}" />
+<input class="choose-elem" checked="checked" type="checkbox" name="facilities[]" value="{{id}}" /><img src="images/{{fileName}}" />
 </script>
 
 <script id="image-row-template" type="text/x-handlebars-template" >
@@ -147,7 +147,9 @@
 
 <script id="facilities-edit-template" type="text/x-handlebars-template" >
 <div class="wrapper">
+<div class="add-new">
 <button class="btn_add">Add new Facility</button>
+</div>
 	<ul>
 	</ul>
 </div>

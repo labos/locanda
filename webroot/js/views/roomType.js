@@ -14,7 +14,7 @@ window.FacilityRowView = Backbone.View.extend({
      events: {
          "click span.row-item-destroy": "remove",
          "click .row-item": "edit",
-         "click add-elem": "add"
+         "click input.choose-elem": "choose"
      },
      initialize: function () {
          this.model.bind('change', this.render, this);
@@ -32,9 +32,37 @@ window.FacilityRowView = Backbone.View.extend({
              this.trigger("row:edit", this);
          }},
          // add a facility to the parent model
-         add: function (event) {
-        	 //send array of checked facilities
-        	 $(this.el).serializeObject();
+     choose: function (event) {
+        	 //send cheched/unchecked roomTypeFacility
+         var $target = $(event.target);
+         if (!$target.is(":checked")) {
+        	  this.model.destroy({
+                  success: function () {
+                     
+                      $.jGrowl($.i18n("congratulation"), { header: this.alertOK });
+                  },
+                  error: function (jqXHR, textStatus, errorThrown) {
+                      textStatus.responseText || (textStatus.responseText = $.i18n("seriousErrorDescr"));
+                      $.jGrowl(textStatus.responseText, { header: this.alertKO, theme: "notify-error"  });
+                      
+                  }
+              });
+         }
+         else{
+       	  this.model.save({
+              success: function () {
+                 
+                  $.jGrowl($.i18n("congratulation"), { header: this.alertOK });
+              },
+              error: function (jqXHR, textStatus, errorThrown) {
+                  textStatus.responseText || (textStatus.responseText = $.i18n("seriousErrorDescr"));
+                  $.jGrowl(textStatus.responseText, { header: this.alertKO, theme: "notify-error"  });
+                  
+              }
+          }); 
+        	 
+         }
+           
 
      },
      unrender: function () {
@@ -397,7 +425,7 @@ window.ImagesFacilitiesView = Backbone.View.extend({
      },
      initialize: function () {
          this.model.bind('change', this.render, this);
-        	 this.facilitiesListView = new FacilitiesListView( { collection: new Facilities( )});
+        	 this.facilitiesListView = new FacilitiesListView( { collection: new RoomTypeFacilities( )});
         	 this.imagesListView = new ImagesListView( { collection: new Images( ) } );
         	 this.id = null;
      },
@@ -431,7 +459,7 @@ window.ImagesFacilitiesView = Backbone.View.extend({
     	 // check if model has changed, then update collections in associated views
     	 if (this.model.get("id")  != this.id){
              //set collection for associated views
-             this.facilitiesListView.collection.reset(this.model.get("facilities") );
+             this.facilitiesListView.collection.reset(this.model.get("images") );
              this.imagesListView.collection.reset( this.model.get("images"));
              this.id = this.model.get("id");
              // now render associated views
