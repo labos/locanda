@@ -355,10 +355,6 @@ window.ImagesFacilitiesView = Backbone.View.extend({
         	 this.trigger("image:remove", this);
          } 
      },
-     
-     removeOne: function (aModel) {
-         this.collection.remove(aModel);
-     },
      saveElement: function(){
     	 //save element
     	 
