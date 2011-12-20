@@ -20,22 +20,43 @@ In case of controversy the competent court is the Court of Cagliari (Italy).
 <mapper namespace="persistence.mybatis.mappers.SeasonMapper">
     <cache/>
   
-    <select id="findSeasonsByStructureId" parameterType="int" resultMap="seasonWithPeriodsUsingJoin">
-        <include refid="selectSeasonWithPeriodsUsingJoin"/>where s.id_structure = #{id_structure}
+    <select id="findSeasonsByStructureId" parameterType="int" resultType="model.listini.Season">
+        <include refid="selectSeason"/> WHERE id_structure = #{id_structure}
     </select>
     
-    <select id="findSeasonById" parameterType="int" resultMap="seasonWithPeriodsUsingJoin">
-        <include refid="selectSeasonWithPeriodsUsingJoin"/>where s.id = #{id}
+    <select id="findSeasonById" parameterType="int" resultType="model.listini.Season">
+        <include refid="selectSeason"/> WHERE id = #{id}
     </select>
     
-    <select id="findSeasonByName" parameterType="map" resultMap="seasonWithPeriodsUsingJoin">
-        <include refid="selectSeasonWithPeriodsUsingJoin"/>where s.name = #{name} and s.id_structure = #{structureId}
+    <select id="findSeasonByName" parameterType="map" resultType="model.listini.Season">
+        <include refid="selectSeason"/> WHERE name = #{name} AND id_structure = #{id_structure}
     </select>
     
-    <select id="findSeasonsByYear" parameterType="map" resultMap="seasonWithPeriodsUsingJoin">
-        <include refid="selectSeasonWithPeriodsUsingJoin"/>where s.year = #{year} and s.id_structure = #{structureId}
+    <select id="findSeasonsByYear" parameterType="map" resultType="model.listini.Season">
+        <include refid="selectSeason"/> WHERE year = #{year} AND id_structure = #{id_structure}
     </select>
     
+    <select id="search" parameterType="map" resultType="model.listini.Season">
+        <include refid="selectSeason"/> 
+         
+        WHERE 
+        id_structure = #{id_structure}
+        
+        <if test="name != null">
+        AND name LIKE CONCAT('%',#{name},'%')
+        </if>
+        <if test="year != null">
+        AND year LIKE CONCAT('%',#{year},'%')
+        </if> 
+              
+        LIMIT #{offset}, #{rownum}
+    </select>
+    
+    <sql id="selectSeason">
+        SELECT id,name,year,id_structure FROM season
+    </sql>
+    
+    <!-- 
     <sql id="selectSeasonWithPeriodsUsingJoin">
         select s.id as season_id, s.name as season_name, s.year as season_year, s.id_structure as season_id_structure,
         p.id as period_id, p.startDate as period_startDate, p.endDate as period_endDate, p.id_season as period_id_season
@@ -55,34 +76,19 @@ In case of controversy the competent court is the Court of Cagliari (Italy).
         <result property="startDate" column="period_startDate"/>
         <result property="endDate" column="period_endDate"/>
         <result property="id_season" column="period_id_season"/>
-    </resultMap>
+    </resultMap> 
+    -->
     
     <insert id="insertSeason" parameterType="model.listini.Season" useGeneratedKeys="true" keyProperty="id">
-        insert into season(name,year,id_structure) values (#{name},#{year},#{id_structure})
+        INSERT INTO season(name,year,id_structure) VALUES (#{name},#{year},#{id_structure})
     </insert>
-    
-    <insert id="insertPeriod" parameterType="model.listini.Period" useGeneratedKeys="true" keyProperty="id">
-        insert into period(startDate,endDate,id_season) values(#{startDate},#{endDate},#{id_season})
-    </insert>
-    
+   
     <update id="updateSeason" parameterType="model.listini.Season">
-        update season set name = #{name}, year = #{year}, id_structure = #{id_structure} where id = #{id}
-    </update>
-    
-    <update id="updatePeriod" parameterType="model.listini.Period">
-        update period set startDate = #{startDate}, endDate = #{endDate}, id_season = #{id_season} where id = #{id}
+        UPDATE season SET name = #{name}, year = #{year}, id_structure = #{id_structure} WHERE id = #{id}
     </update>
     
     <delete id="deleteSeason" parameterType="int">
-        delete from season where id = #{id}
+        DELETE FROM season WHERE id = #{id}
     </delete>
-    
-    <delete id="deletePeriodsFromSeason" parameterType="int">
-        delete from period where id_season = #{id_season}
-    </delete>
-    
-    <delete id="deletePeriod" parameterType="int">
-        delete from period where id = #{id}
-    </delete>
-    
+
 </mapper>

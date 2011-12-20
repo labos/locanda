@@ -87,7 +87,6 @@ public class ConventionServiceImpl implements ConventionService{
 		return this.getConventionMapper().search(map);
 	}
 	
-
 	@Override
 	public Convention findConventionById(Integer id) {
 		return this.getConventionMapper().findConventionById(id);
@@ -111,7 +110,5 @@ public class ConventionServiceImpl implements ConventionService{
 	public void setExtraPriceListService(ExtraPriceListService extraPriceListService) {
 		this.extraPriceListService = extraPriceListService;
 	}
-
-	
 	
 }
