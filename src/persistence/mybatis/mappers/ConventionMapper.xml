@@ -31,39 +31,21 @@ In case of controversy the competent court is the Court of Cagliari (Italy).
         delete from convention where id = #{id}
     </delete>
     
-    <select id="findConventionsByIdStructure" parameterType="int" resultType="model.listini.Convention">
-        <include refid="selectConvention"/>where id_structure = #{id_structure}
-    </select>
-    
-    <select id="findConventionsByIdStructureAndOffsetAndRownum" parameterType="map" resultType="model.listini.Convention">
-        <include refid="selectConvention"/>where id_structure = #{id_structure} LIMIT #{offset}, #{rownum}
-    </select>
-    
-    <select id="search" parameterType="map" resultType="model.listini.Convention">
+     <select id="findAll" resultType="model.listini.Convention">
         <include refid="selectConvention"/> 
-         
-        where 
-        id_structure = #{id_structure}
-        
-        <if test="name != null">
-        AND  name LIKE CONCAT('%',#{name},'%')
-        </if>
-        <if test="description != null">
-        AND  description LIKE CONCAT('%',#{description},'%')
-        </if>
-        <if test="activationCode != null">
-        AND  activationCode LIKE CONCAT('%',#{activationCode},'%')
-        </if>  
-              
-        LIMIT #{offset}, #{rownum}
     </select>
     
+    <select id="findConventionsByIdStructure" parameterType="int" resultType="model.listini.Convention">
+        <include refid="selectConvention"/>AND id_structure = #{id_structure}
+    </select>
+    
+        
     <select id="findConventionById" parameterType="int" resultType="model.listini.Convention">
-        <include refid="selectConvention"/>where id = #{id}
+        <include refid="selectConvention"/>AND id = #{id}
     </select>
     
     <sql id="selectConvention">
-        select id,name,description,activationCode,id_structure from convention
+        select id,name,description,activationCode,id_structure from convention where activationCode != 'thisconventionshouldntneverberemoved'
     </sql>
     
 </mapper>

@@ -25,6 +25,7 @@ import persistence.mybatis.mappers.AdjustmentMapper;
 import model.Adjustment;
 
 @Service
+
 public class AdjustmentServiceImpl implements AdjustmentService{
 	@Autowired
 	private AdjustmentMapper adjustmentMapper = null;

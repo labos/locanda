@@ -65,6 +65,9 @@
 	<listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
+    <listener>
+        <listener-class>solr.SolrListener</listener-class>
+    </listener>
 	
 	<servlet>
    	 	<servlet-name>Jersey Web Application</servlet-name>
