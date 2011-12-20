@@ -19,6 +19,7 @@ import java.io.Serializable;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.solr.client.solrj.beans.Field;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 @XmlRootElement
@@ -26,11 +27,15 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 public class Convention implements Serializable{
 	
-	private Integer id;
-	
+	@Field
+	private Integer id;	
+	@Field
 	private String name;
+	@Field
 	private String description;
+	@Field
 	private String activationCode;
+	@Field
 	private Integer id_structure;
 	
 	

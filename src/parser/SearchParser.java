@@ -25,13 +25,13 @@ public class SearchParser<T> {
 		fields = this.getClazz().getDeclaredFields();
 		for(Integer i=0; i<fields.length;i++){
 			key = fields[i].getName();			
-			System.out.println("key:" + key);
+			//System.out.println("key:" + key);
 			start = term.indexOf(key + ":(");
-			System.out.println("start:" + start);
+			//System.out.println("start:" + start);
 			if(start>-1){
 				end = term.indexOf(")", start);
 				if(end>-1){
-					System.out.println("end: " + end);
+					//System.out.println("end: " + end);
 					value = term.substring(start + key.length() + ":(".length(), end);
 					
 					value = value.trim();
@@ -53,11 +53,4 @@ public class SearchParser<T> {
 	public void setClazz(Class<T> clazz) {
 		this.clazz = clazz;
 	}
-	
-	
-	
-	
-	
-	
-
 }
