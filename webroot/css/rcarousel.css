@@ -115,13 +115,4 @@ filter:”alpha(opacity=20)”;
     cursor: pointer;
     }
     
-.inview:hover {
-/*	background-color: #D7F099;*/
-	cursor: pointer;
-	opacity:.70;
-filter:alpha(opacity=70);
-filter:”alpha(opacity=70)”;
--webkit-box-shadow: 0px 0px 16px rgba(50, 50, 50, 0.83);
--moz-box-shadow:    0px 0px 16px rgba(50, 50, 50, 0.83);
-box-shadow:         0px 0px 16px rgba(50, 50, 50, 0.83);
-}
+

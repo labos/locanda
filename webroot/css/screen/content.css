@@ -1152,4 +1152,16 @@ background: url("../../images/loading.gif") no-repeat center center;
     right: 0;
     text-align: right;
 }
+#periods{
+	border-top:1px solid #DDDDDD;
+}
+.inview:hover {
+	cursor: pointer;
+	opacity:.70;
+filter:alpha(opacity=70);
+filter:”alpha(opacity=70)”;
+-webkit-box-shadow: 0px 0px 16px rgba(50, 50, 50, 0.83);
+-moz-box-shadow:    0px 0px 16px rgba(50, 50, 50, 0.83);
+box-shadow:         0px 0px 16px rgba(50, 50, 50, 0.83);
+}
     

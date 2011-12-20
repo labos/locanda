@@ -20,12 +20,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
    
     <script id="edit-template" type="text/x-handlebars-template">
-		<form id="edit-form" class="yform json full" role="application">
+		<form id="edit-form" class="yform" role="application">
           	  <div class="c50l">
                 <div class="c50l">
                   <div class="type-text">           
        				<label for="FormYear"><s:text name="year"/><sup title="This field is mandatory.">*</sup></label>
-                    <input type="text" class="required" name="year" id="FormYear" value="{{year}}" aria-required="true"/>
+					<select name="year">
+					{{#availableYears}}
+					<option name="{{value}}" {{#selected}}selected="selected"{{/selected}}>{{value}}</option>
+					{{/availableYears}}
+					</select>
       		      </div> 
                   <div class="type-text">	
                   	<label for="FormName"><s:text name="name"/><sup title="This field is mandatory.">*</sup></label>
@@ -41,15 +45,15 @@
 	</script>
 
     <script id="view-template" type="text/x-handlebars-template">
-		<form id="view-form" class="yform json full" role="application">
+		<form id="view-form" class="yform inview" role="application">
           	  <div class="c50l">
                 <div class="c50l">
                   <div class="type-text">           
-       				<strong><s:text name="year"/></strong>
+       				<strong><s:text name="year"/>:</strong>
                     <span>{{year}}</span>
       		      </div> 
                   <div class="type-text">	
-                  	<strong><s:text name="name"/></strong>
+                  	<strong><s:text name="name"/>:</strong>
                 	<span>{{name}}</span>
                   </div>
               </div>
@@ -74,7 +78,7 @@
 </li>
 </script>
     <script id="form-filter-template" type="text/x-handlebars-template">
-		<form id="filter-form" class="yform json full" role="application">
+		<form id="filter-form" class="yform" role="application">
 			  <span class="filter-close"></span>
           	  <div class="c80l">
                   <div class="type-text">	
@@ -82,7 +86,7 @@
                 	<input type="text"  name="name" id="fFormName" value="{{name}}" aria-required="true"/>
                   </div>
                   <div class="type-text">           
-       				<label for="fFormYear"><s:text name="code"/></label>
+       				<label for="fFormYear"><s:text name="year"/></label>
                     <input type="text"  name="year" id="fFormYear" value="{{year}}" aria-required="true"/>
       		      </div>
                   <div class="type-button">
@@ -92,35 +96,59 @@
 </form>
 </script>
 <script id="period-row-template" type="text/x-handlebars-template" >
-	<div class="subcolumns period">
+	<div class="subcolumns inview">
+		<div class="c25l">
 		    <div class="subcl type-text">
 		      <strong>{{startDate}}</strong>
 		    </div>
+		</div>
+		<div class="c25l">
 		    <div class="subcl type-text">
 		      <strong>{{endDate}}</strong>
 		    </div>
-</div>
-<strong>{{startDate}}</strong><strong>{{endDate}}</strong>
+		</div>
+	</div>
 </script>
 
 <script id="period-row-edit-template" type="text/x-handlebars-template" >
+<form id="edit-form" class="yform" role="application">
 	<div class="subcolumns period">
+		<div class="type-text">
+		<span class="delete-elem"></span>
+		<div class="c33l">
 		    <div class="subcl type-text">
 		      <span><s:text name="from"/>:</span> 
-		      <input type="text" class="datepicker required" name="startDate" value="{{startDate}}" format="%{#session.datePattern}"/>" style="display: inline;"/>
+		      <input type="text" class="datepicker required" name="startDate" value="{{startDate}}" format="%{#session.datePattern}" style="display: inline;"/>
 		    </div>
+		</div>
+		<div class="c33l">
 		    <div class="subcl type-text">
 		      <span><s:text name="to"/>:</span> 
-		      <input type="text" class="datepicker required" name="endDate" value="{{endDate}}" format="%{#session.datePattern}"/>"style="display: inline;"/>
+		      <input type="text" class="datepicker required" name="endDate" value="{{endDate}}" format="%{#session.datePattern}"style="display: inline;"/>
 		    </div>
+		</div>
+	</div>
+            <div class="type-button">
+					<button class="btn_save"><s:text name="save"/></button>
+                	<button class="btn_reset btn_cancel_form"><s:text name="cancel"/></button>
+           </div>
 </div>
+</form>
 </script>
 <script id="periods-view-template" type="text/x-handlebars-template" >
-<div class="wrapper inview">
+	<div class="subcolumns period">
+		<div class="c33l">
+		      <strong><s:text name="from"/>:</strong>
+		</div>
+		<div class="c33l">
+		      <strong><s:text name="to"/>:</strong>
+		</div>
+	</div>
+<div class="wrapper">
+	<ul>
+	</ul>
 <div class="add-new">
 <button class="btn_add">Add new Period</button>
 </div>
-	<ul>
-	</ul>
 </div>
 </script>

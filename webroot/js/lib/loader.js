@@ -23,6 +23,10 @@ if (Entity.name == "roomType" || Entity.name == "room" || Entity.name == "struct
 if (Entity.name == "planner") {
     steal("jquery.weekcalendar.js");
 }
+if (Entity.name == "season") {
+    steal("../models/period.js").
+    then("../collections/period.js");
+}
 // end conditional file loading section
 
 // load common js scripts
