@@ -25,41 +25,14 @@
 window.Season = Backbone.Model.extend({
 
     defaults: {
-    		year: (new Date).getFullYear(),
-    		availableYears: [{value: (new Date).getFullYear(), selected:true}]
+        year: (new Date).getFullYear()
     },
-    
-    initialize: function() {
-        this.set({availableYears: []});
-        initYear = (new Date).getFullYear(),
-        currYear =(new Date).getFullYear();
 
-    for (var i = -10; i < 20; i++) {
-        this.get("availableYears").push({
-            value: initYear + i,
-            selected: (initYear + i == currYear) ? true : false
-        });
-    }
-    	
-    },
-    
     url: function () {
         var base = this.urlRoot;
         if (this.isNew()) return base;
         return base + (base.charAt(base.length - 1) == '/' ? '' : '/') + encodeURIComponent(this.id);
     },
     urlRoot: "rest/seasons/",
-    setYears: function () {
-    	var self = this;
-        _.each(this.get("availableYears"), function (val) {
-            val.selected = false;
-            if (val.value == self.get("year")) {
-
-                val.selected = true;
-            }
-
-        });
-
-    },
 });
 

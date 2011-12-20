@@ -221,12 +221,37 @@ window.PeriodRowView = Backbone.View.extend({
          this.model.bind('change', this.render, this);
         	 this.periodsListView = new PeriodsListView( { collection: new Periods( )});
         	 this.id = null;
+        	 this.availableYears = [];
+        	 initYear = (new Date).getFullYear(),
+             currYear =(new Date).getFullYear();
+
+         for (var i = -10; i < 20; i++) {
+             this.availableYears.push({
+                 value: initYear + i,
+                 selected: (initYear + i == currYear) ? true : false
+             });
+         }
      },
-     
+     setYears: function (aYear) {
+         _.each(this.availableYears, function (val) {
+             val.selected = false;
+             if (val.value == aYear) {
+
+                 val.selected = true;
+             }
+
+         });
+         
+         return this.availableYears;
+
+     },
      render: function () {
     	 // render main edit view
-    	 this.model.setYears();
-         $(this.el).html(Mustache.to_html(this.indexTemplate.html(), this.model.toJSON()));
+
+    	 var modelToRender = this.model.toJSON();
+    	 modelToRender.availableYears = this.setYears(this.model.get("year"));
+    	 
+         $(this.el).html(Mustache.to_html(this.indexTemplate.html(), modelToRender ));
          this.$(".yform").validate();
          $(".btn_save").button({
              icons: {

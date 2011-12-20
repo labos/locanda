@@ -290,7 +290,7 @@
            stringTerm = '';
          $.each(searched, function(key, value){
         	 
-        	 stringTerm = stringTerm + key + ':(' + value + ') ';
+        	 stringTerm = stringTerm + key + ':' + value + ' ';
         	 
          });
         // searched = $("#filter-form").serialize();
