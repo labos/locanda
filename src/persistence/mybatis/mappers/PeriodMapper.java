@@ -16,21 +16,17 @@
 package persistence.mybatis.mappers;
 
 import java.util.List;
-import java.util.Map;
 
-import model.listini.Season;
+import model.listini.Period;
 
-public interface SeasonMapper {
-	public Season findSeasonById(Integer seasonId);
-	public Season findSeasonByName(Map params);
+public interface PeriodMapper {
+	public List<Period> findPeriodsByIdSeason(Integer id_season);
 	
-	public List<Season> findSeasonsByStructureId(Integer structureId);	
-	public List<Season> findSeasonsByYear(Map params);
-	public List<Season> search(Map map);
+	public Integer insertPeriod(Period period);
+	public Integer updatePeriod(Period period);
 	
-	public Integer insertSeason(Season season);
-	public Integer updateSeason(Season season);
-	
-	public Integer deleteSeason(Integer seasonId);
+	public Integer deletePeriodsFromSeason(Integer seasonId);
+	public Integer deletePeriod(Integer periodId);
+	public Integer deletePeriodsByIdSeason(Integer id_season);
 	
 }

@@ -26,6 +26,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import parser.SearchParser;
+import persistence.mybatis.mappers.PeriodMapper;
 import persistence.mybatis.mappers.SeasonMapper;
 
 import model.listini.Period;
@@ -35,6 +37,8 @@ import model.listini.Season;
 public class SeasonServiceImpl implements SeasonService{
 	@Autowired
 	private SeasonMapper seasonMapper = null;
+	@Autowired
+	private PeriodMapper periodMapper = null;
 	@Autowired
 	private RoomPriceListService roomPriceListService = null;
 	@Autowired
@@ -75,6 +79,20 @@ public class SeasonServiceImpl implements SeasonService{
 		return ret;
 	}
 	
+	@Override
+	public List<Season> search(Integer id_structure, Integer offset, Integer rownum, String term) {
+		Map map = null;
+		SearchParser< Season> parser;
+		
+		parser = new SearchParser<Season>(Season.class);
+		map = new HashMap();
+		map.put("id_structure", id_structure );
+		map.put("offset", offset );
+		map.put("rownum", rownum );			
+		map.putAll(parser.parse(term));
+		return this.getSeasonMapper().search(map);
+	}
+	
 	public Boolean checkYears(Season season) {
 		Integer year = null;
 		List<Period> periods = new ArrayList<Period>();
@@ -102,7 +120,7 @@ public class SeasonServiceImpl implements SeasonService{
 		if(ret > 0){
 			for(Period each: season.getPeriods()){
 				each.setId_season(season.getId());
-				this.getSeasonMapper().insertPeriod(each);
+				this.getPeriodMapper().insertPeriod(each);
 			}
 		}		
 		return ret;
@@ -125,18 +143,18 @@ public class SeasonServiceImpl implements SeasonService{
 				if(each.getId()==null){
 					//It's a new period, so an insert is needed
 					each.setId_season(season.getId());
-					this.getSeasonMapper().insertPeriod(each);
+					this.getPeriodMapper().insertPeriod(each);
 				}else{
 					//It's an existing period, so an update is needed
 					
 					oldPeriodIds.remove(each.getId());
 					each.setId_season(season.getId());
-					this.getSeasonMapper().updatePeriod(each);
+					this.getPeriodMapper().updatePeriod(each);
 				}				
 			}
 			//The oldPeriodIds collection now contains the ids of all periods that must be removed
 			for(Integer oldPeriodId: oldPeriodIds){
-				this.getSeasonMapper().deletePeriod(oldPeriodId);
+				this.getPeriodMapper().deletePeriod(oldPeriodId);
 			}
 		}
 		return ret;
@@ -145,17 +163,10 @@ public class SeasonServiceImpl implements SeasonService{
 	public Integer deleteSeason(Integer seasonId) {
 		Integer ret = 0;
 		
-		this.getSeasonMapper().deletePeriodsFromSeason(seasonId);
+		this.getPeriodMapper().deletePeriodsFromSeason(seasonId);
 		this.getRoomPriceListService().deleteRoomPriceListsByIdSeason(seasonId);
 		this.getExtraPriceListService().deleteExtraPriceListsByIdSeason(seasonId);
 		ret = this.getSeasonMapper().deleteSeason(seasonId);
-		return ret;
-	}
-
-	public Integer deletePeriod(Integer periodId) {
-		Integer ret = 0;
-		
-		ret = this.getSeasonMapper().deletePeriod(periodId);
 		return ret;
 	}
 
@@ -164,6 +175,12 @@ public class SeasonServiceImpl implements SeasonService{
 	}
 	public void setSeasonMapper(SeasonMapper seasonMapper) {
 		this.seasonMapper = seasonMapper;
+	}
+	public PeriodMapper getPeriodMapper() {
+		return periodMapper;
+	}
+	public void setPeriodMapper(PeriodMapper periodMapper) {
+		this.periodMapper = periodMapper;
 	}
 	public RoomPriceListService getRoomPriceListService() {
 		return roomPriceListService;

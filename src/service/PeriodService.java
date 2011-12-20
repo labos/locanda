@@ -13,24 +13,17 @@
  * See the Licence for the specific language governing permissions and limitations under the Licence.
  * In case of controversy the competent court is the Court of Cagliari (Italy).
  *******************************************************************************/
-package persistence.mybatis.mappers;
+package service;
 
 import java.util.List;
-import java.util.Map;
 
-import model.listini.Season;
+import org.springframework.transaction.annotation.Transactional;
 
-public interface SeasonMapper {
-	public Season findSeasonById(Integer seasonId);
-	public Season findSeasonByName(Map params);
-	
-	public List<Season> findSeasonsByStructureId(Integer structureId);	
-	public List<Season> findSeasonsByYear(Map params);
-	public List<Season> search(Map map);
-	
-	public Integer insertSeason(Season season);
-	public Integer updateSeason(Season season);
-	
-	public Integer deleteSeason(Integer seasonId);
-	
+import model.listini.Period;
+
+@Transactional
+public interface PeriodService {
+	public Integer insertPeriod(Period period);
+	public Integer deletePeriodsByIdSeason(Integer id_season);
+	public List<Period> findPeriodsByIdSeason(Integer id_season);	
 }

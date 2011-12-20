@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright 2011 - Sardegna Ricerche, Distretto ICT, Pula, Italy
+
+Licensed under the EUPL, Version 1.1.
+You may not use this work except in compliance with the Licence.
+You may obtain a copy of the Licence at:
+
+http://www.osor.eu/eupl
+
+Unless required by applicable law or agreed to in  writing, software distributed under the Licence is distributed on an "AS IS" basis,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the Licence for the specific language governing permissions and limitations under the Licence.
+In case of controversy the competent court is the Court of Cagliari (Italy).
+-->
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="persistence.mybatis.mappers.PeriodMapper">
+    
+    <select id="findPeriodsByIdSeason" parameterType="int" resultType="model.listini.Period">
+        <include refid="selectPeriod"/>where id_season = #{id_season}
+    </select>
+    
+    <sql id="selectPeriod">
+        select id,startDate,endDate,id_season from period
+    </sql>
+    
+    <insert id="insertPeriod" parameterType="model.listini.Period" useGeneratedKeys="true" keyProperty="id">
+        insert into period(startDate,endDate,id_season) values (#{startDate},#{endDate},#{id_season})
+    </insert>
+    
+    <update id="updatePeriod" parameterType="model.listini.Period">
+        update period set startDate = #{startDate}, endDate = #{endDate}, id_season = #{id_season} where id = #{id}
+    </update>
+    
+    <delete id="deletePeriodsByIdSeason" parameterType="int">
+        delete from period where id_season = #{id_season}
+    </delete>
+    
+    <delete id="deletePeriodsFromSeason" parameterType="int">
+        delete from period where id_season = #{id_season}
+    </delete>
+    
+    <delete id="deletePeriod" parameterType="int">
+        delete from period where id = #{id}
+    </delete>
+    
+</mapper>
