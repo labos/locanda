@@ -287,10 +287,16 @@
          e.preventDefault();
          var self = this,
            searched = $("#filter-form").serializeObject(),
-           stringTerm = '';
+           stringTerm = '',
+           count = 0;
          $.each(searched, function(key, value){
-        	 
-        	 stringTerm = stringTerm + key + ':' + value + ' ';
+        	 if( value !=='' && value !==' '){
+        		 
+        		 var operator = ( count > 0 )? 'AND ' : '';
+            	 stringTerm = stringTerm  + operator + key + ':' + value + '* ';
+            	 count++;
+        	 }
+
         	 
          });
         // searched = $("#filter-form").serialize();
