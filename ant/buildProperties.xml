@@ -27,6 +27,8 @@
 	<property name="tomcat.password" value="your_pass"/>
 	<property name="tomcat.manager.url" value="http://${host}:8080/manager/text"/>
 	
+	<property name="solr.folder" value="solr"/>
+	<property name="solr.dist.path" value="your_webapp-external_solr_folder"/>
 	<property name="dist.path" value="dist"/>
 	<property name="workdir.path" value="webroot"/>
 	<property name="webroot.path" value="${dist.path}/WEB-INF"/>

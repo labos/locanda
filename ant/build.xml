@@ -40,13 +40,15 @@
 	</target>
 	
 	<target name="clean" description="clean up build directory">
-			<delete dir="${build.path}"/>
-			<delete dir="${dist.path}"/>
+		<delete dir="${build.path}"/>
+		<delete dir="${dist.path}"/>
+		<delete dir="${solr.dist.path}"/>
 	</target>
 	
 	<target name="init" depends="clean" description="initialization tasks">
 		<mkdir dir="${build.path}"/>
 		<mkdir dir="${dist.path}"/>
+		<mkdir dir="${solr.dist.path}"/>
 	</target>
 	
 	<target name="dist" depends="init" description="initialization tasks">
@@ -55,8 +57,15 @@
 				<include name="**"/>
 			</fileset>
 		</copy>
+		<copy todir="${solr.dist.path}">
+			<fileset dir="${solr.folder}">
+				<include name="**"/>
+			</fileset>
+		</copy>
 		<replaceregexp file="${dist.path}/META-INF/context.xml" match="username=.*" replace ='username="${mysql.username}"'/>
 		<replaceregexp file="${dist.path}/META-INF/context.xml" match="password=.*" replace ='password="${mysql.password}"'/>
+		<replaceregexp file="${dist.path}/WEB-INF/solr.properties" match="homeDir=.*" replace ='homeDir=${solr.dist.path}'/>
+		<replaceregexp file="${dist.path}/WEB-INF/solr.properties" match="configFile=.*" replace ='configFile=${solr.dist.path}/solr.xml'/>	
 	</target>
 	
 	<target name="resource_restore" depends="propertySetter" description="restore resources folder" if="resources">
