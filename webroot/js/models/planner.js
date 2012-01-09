@@ -22,15 +22,9 @@
  * @author LabOpenSource
  */
 
-window.Period = Backbone.Model.extend({
+window.Planner = Backbone.Model.extend({
 	
     initialize: function () {
-    },
-    url: function () {
-        var base = this.urlRoot;
-        if (this.isNew()) return base;
-        return base + (base.charAt(base.length - 1) == '/' ? '' : '/') + encodeURIComponent(this.id);
-    },
-    urlRoot: "rest/periods/"
+    }
 });
 

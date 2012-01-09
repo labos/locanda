@@ -887,6 +887,9 @@ div.row-item {
     padding: 0;
     cursor: pointer;
 }
+div.row-item:hover{
+    background: none repeat scroll 0 0 #EDE8EA;
+}
 .row-item .sidebox_edit ul
 {
 	margin: 0;	
@@ -1039,6 +1042,12 @@ height: 24px;
 	
 }
 
+#item-autocomplete:focus {  
+        -webkit-box-shadow: 0px 0px 5px #007eff;  
+        -moz-box-shadow: 0px 0px 5px #007eff;  
+        box-shadow: 0px 0px 5px #007eff;  
+    }  
+
 #toolbar-container ul{
 	margin: 0;
 }
@@ -1155,6 +1164,9 @@ background: url("../../images/loading.gif") no-repeat center center;
 #periods{
 	border-top:1px solid #DDDDDD;
 }
+.inview {
+	padding:5px;
+}
 .inview:hover {
 	cursor: pointer;
 	opacity:.70;
@@ -1164,4 +1176,16 @@ filter:”alpha(opacity=70)”;
 -moz-box-shadow:    0px 0px 16px rgba(50, 50, 50, 0.83);
 box-shadow:         0px 0px 16px rgba(50, 50, 50, 0.83);
 }
+
+	span.row-sub-item-destroy {
+    background: url('../../images/trash_can_delete.png') 0 0 no-repeat;
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    position: absolute;
+    right: 5px;
+    top: 14px;
+
+}
+
     

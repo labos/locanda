@@ -65,6 +65,7 @@
 <div class="row-item">
 <ul><li><b><s:text name="name"/>: </b>{{name}}</li><li><b><s:text name="name"/>: </b>{{year}}</li>
 <li><input type="hidden" name="id" value="{{id}}"/></li>
+<li>&nbsp;</li>
 </ul>
 <span class="row-item-destroy"></span>
 </div>
@@ -114,7 +115,7 @@
 <form id="edit-form" class="yform" role="application">
 	<div class="subcolumns period">
 		<div class="type-text">
-		<span class="delete-elem"></span>
+		<span class="row-sub-item-destroy"></span>
 		<div class="c33l">
 		    <div class="subcl type-text">
 		      <span><s:text name="from"/>:</span> 

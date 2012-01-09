@@ -12,7 +12,7 @@ window.PeriodRowView = Backbone.View.extend({
      indexTemplate: $("#period-row-template"),
      // The DOM events specific to an row.
      events: {
-         "click span.delete-elem": "remove",
+         "click span.row-sub-item-destroy": "remove",
          "click div": "switchMode",
          "submit form": "save"
      },
@@ -77,7 +77,7 @@ window.PeriodRowView = Backbone.View.extend({
                  
              },
              error: function () {
-                 $().notify(this.alertKO, $.i18n("seriousErrorDescr") + ' ');
+            	 $.jGrowl($.i18n("seriousErrorDescr"), { header: this.alertKO, theme: "notify-error"  });
              }
          });
          return false;
@@ -124,11 +124,17 @@ window.PeriodRowView = Backbone.View.extend({
                  $(self.el).addClass("edit-state-box");
                  $(this).click( function (){
               	   if( confirm($.i18n( "alertExitEditState" )) ){
-              		 $(self.el).removeClass("edit-state-box");
-      					self.indexTemplate = $("#period-row-template");
-   					self.render();
+
    					$(overlay).remove();
-   					$($.fn.overlay.defaults.container).css('overflow', 'auto');
+   					if( self.model.isNew()){
+   						self.unrender();
+   					}
+   					else{
+   	              		$(self.el).removeClass("edit-state-box");
+   	      				self.indexTemplate = $("#period-row-template");
+   	   					$($.fn.overlay.defaults.container).css('overflow', 'auto');
+   	   					self.render();
+   					}
 
                	   }
                 	 
@@ -188,7 +194,6 @@ window.PeriodRowView = Backbone.View.extend({
          var view = new PeriodRowView({
              model: item
          });
-         view.bind("row:edit", this.editOne);
          view.model.collection = this.collection;
          this.rowViews.push(view);
          this.$("ul").append(view.render().el);
@@ -222,15 +227,20 @@ window.PeriodRowView = Backbone.View.extend({
         	 this.periodsListView = new PeriodsListView( { collection: new Periods( )});
         	 this.id = null;
         	 this.availableYears = [];
-        	 initYear = (new Date).getFullYear(),
-             currYear =(new Date).getFullYear();
+        	 this.initializeYears( );
+        	 
+     },
+     initializeYears: function () {
+    	 
+    	 var initYear = (new Date).getFullYear(),
+         currYear =(new Date).getFullYear();
 
-         for (var i = -10; i < 20; i++) {
-             this.availableYears.push({
-                 value: initYear + i,
-                 selected: (initYear + i == currYear) ? true : false
-             });
-         }
+     for (var i = -10; i < 20; i++) {
+         this.availableYears.push({
+             value: initYear + i,
+             selected: (initYear + i == currYear) ? true : false
+         });
+     }
      },
      setYears: function (aYear) {
          _.each(this.availableYears, function (val) {
@@ -247,8 +257,8 @@ window.PeriodRowView = Backbone.View.extend({
      },
      render: function () {
     	 // render main edit view
-
     	 var modelToRender = this.model.toJSON();
+    	 // set additional attribute to display years. Only for the view.
     	 modelToRender.availableYears = this.setYears(this.model.get("year"));
     	 
          $(this.el).html(Mustache.to_html(this.indexTemplate.html(), modelToRender ));
@@ -261,7 +271,7 @@ window.PeriodRowView = Backbone.View.extend({
          //button for form reset  
          $(".btn_reset").button({
              icons: {
-                 primary: "ui-icon-trash"
+                 primary: "ui-icon-arrowreturnthick-1-w"
              }
          }).click(function (event) {
              var validator = $(this).parents(".yform").validate();
@@ -275,7 +285,7 @@ window.PeriodRowView = Backbone.View.extend({
          return this;
      },
      renderAssociated: function (){
-    	 // check if model has changed, then update collections in associated views
+    	 // check if model has changed or is new, then update collections in associated views
     	 if (this.model.isNew() || this.model.get("id")  != this.id){
              //set collection for associated views
              this.periodsListView.collection.reset(this.model.get("periods") );
@@ -289,43 +299,6 @@ window.PeriodRowView = Backbone.View.extend({
 
 
     	 
-     },
-     switchMode: function () {
-
-         if( this.indexTemplate.attr("id") == "edit-template" ){
-        	 this.indexTemplate =  $("#view-template");
-        	 $(".overlay").remove();
-        	 $(this.el).removeClass("edit-state-box");
-        	 this.render();
-        	 $($.fn.overlay.defaults.container).css('overflow', 'auto');
-         }
-         else{
-        	 this.indexTemplate =  $("#edit-template");
-        	 this.render();
-        	 $(this.el).undelegate("div", "click");
-        	 var self = this;
-             $('<div></div>').overlay({
-                 effect: 'fade',
-                 onShow: function() {
-                	 var overlay = this;
-                	 $(self.el).addClass("edit-state-box");
-                     $(this).click( function (){
-                  	   if(confirm($.i18n( "alertExitEditState" ))){
-                  		 $(self.el).removeClass("edit-state-box");
-       					self.indexTemplate = $("#view-template");
-       					self.render();
-       					$(overlay).remove();
-       					$($.fn.overlay.defaults.container).css('overflow', 'auto');
-
-                   	   }
-                    	 
-                     });
-                   }
-               });
-        	 
-         }
-
-         
      }
 	 
  });

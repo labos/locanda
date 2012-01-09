@@ -174,7 +174,7 @@
          //button for form reset  
          $(".btn_reset").button({
              icons: {
-                 primary: "ui-icon-trash"
+                 primary: "ui-icon-arrowreturnthick-1-w"
              }
          }).click(function (event) {
              var validator = $(this).parents(".yform.json").validate();
@@ -299,6 +299,10 @@
 
         	 
          });
+         
+         // add id structure
+         
+         stringTerm+= 'AND structure:' + Entity.idStructure;
         // searched = $("#filter-form").serialize();
          var alreadyTyped =  $("#item-autocomplete").val();
          if( alreadyTyped == this.cachedSearch){
@@ -335,7 +339,7 @@
                 	 $("#filter-form").find("input").val("");
             	 }
 
-            	 return false;
+            	 return true;
              },
              source: function (request, response) {
                  var term = request.term;
