@@ -21,7 +21,6 @@
 	<fieldType name="int" class="solr.TrieIntField" precisionStep="0" omitNorms="true" positionIncrementGap="0"/>
    	<fieldtype name="string"  class="solr.StrField" sortMissingLast="true" omitNorms="true"/>
 	<fieldType name="text_general" class="solr.TextField" positionIncrementGap="100"/>
-
   </types>
 
  <fields>   
@@ -31,7 +30,7 @@
   	<field name="description"    type="string"   indexed="true"  stored="false"  multiValued="false" /> 
 	<field name="activationCode"    type="string"   indexed="true"  stored="false"  multiValued="false" /> 
 	<field name="id_structure"      type="int"   indexed="true"  stored="false"  multiValued="false"/>
-  	<field name="text" type="text_general" indexed="true" stored="false" multiValued="true"/>
+  	<field name="text" type="text_general" indexed="true" stored="true" multiValued="true"/>
  </fields>
 
  <!-- field to use to determine and enforce document uniqueness. -->

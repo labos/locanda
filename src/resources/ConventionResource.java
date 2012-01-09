@@ -20,9 +20,15 @@ import model.listini.Convention;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServer;
 import org.apache.solr.client.solrj.SolrServerException;
+import org.apache.solr.client.solrj.request.CoreAdminRequest;
 import org.apache.solr.client.solrj.response.QueryResponse;
+import org.apache.solr.client.solrj.response.TermsResponse;
+import org.apache.solr.client.solrj.response.TermsResponse.Term;
 import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
+import org.apache.solr.core.CoreContainer;
+import org.apache.solr.core.CoreDescriptor;
+import org.apache.solr.core.SolrCore;
 import org.apache.solr.update.SolrIndexWriter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -65,22 +71,28 @@ public class ConventionResource {
     
     
     @GET
-    @Path("structure/{idStructure}/search/{offset}/{rownum}")
+    @Path("structure/{idStructure}/search/{start}/{rows}")
     @Produces({MediaType.APPLICATION_JSON})
-    public List<Convention> simpleSearch(@PathParam("idStructure") Integer idStructure,@PathParam("offset") Integer offset,@PathParam("rownum") Integer rownum, @QueryParam("term") String term){
+    public List<Convention> search(@PathParam("idStructure") Integer idStructure,@PathParam("start") Integer start,@PathParam("rows") Integer rows, @QueryParam("term") String term){
         List<Convention> conventions = null;
         SolrQuery query = null;
         QueryResponse rsp = null;
         SolrDocumentList solrDocumentList = null;
         SolrDocument solrDocument = null;
         Convention aConvention = null;
-        Integer id;                
-        
-        query = new SolrQuery();
+        Integer id;             
+       
         if(term.trim().equals("")){
         	term = "*:*";
         }
-        query.setQuery( term );
+        
+        term = term + " AND id_structure:" + idStructure.toString();
+        
+        query = new SolrQuery();   		
+        query.setQuery( term);
+        query.setStart(start);
+        query.setRows(rows);
+              
         try {
 			rsp = this.getSolrServerConvention().query( query );
 			
@@ -89,16 +101,55 @@ public class ConventionResource {
 		}
 
        conventions = new ArrayList<Convention>();
-        
-       solrDocumentList = rsp.getResults();
-       for(int i = 0; i <solrDocumentList.size(); i++){
-    	   solrDocument = solrDocumentList.get(i);
-    	   id = (Integer)solrDocument.getFieldValue("id");
-    	   aConvention = this.getConventionService().findConventionById(id);
-    	   conventions.add(aConvention);
-       }
+       if(rsp!=null){
+    	   solrDocumentList = rsp.getResults();
+           for(int i = 0; i <solrDocumentList.size(); i++){
+        	   solrDocument = solrDocumentList.get(i);
+        	   id = (Integer)solrDocument.getFieldValue("id");
+        	  // System.out.println("----> "+solrDocument.getFieldValues("text")+" <-----");
+        	   aConvention = this.getConventionService().findConventionById(id);
+        	   conventions.add(aConvention);
+           }  
+       }       
+       
        return conventions;          
     }
+    
+    @GET
+    @Path("structure/{idStructure}/suggest")
+    @Produces({MediaType.APPLICATION_JSON})
+    public List<String> suggest(@PathParam("idStructure") Integer idStructure,@QueryParam("term") String term){        
+        SolrQuery query = null;
+        QueryResponse rsp = null;
+        List<String> ret = null;
+        TermsResponse termsResponse = null;
+        List<Term> terms;
+        
+        query = new SolrQuery();         
+        query.setQueryType("/terms");
+        query.addTermsField("text");
+        query.setParam("terms.prefix", term); 
+       // query.setParam("id_structure", idStructure.toString());
+        
+        try {
+			rsp = this.getSolrServerConvention().query( query );
+			
+		} catch (SolrServerException e) {
+			e.printStackTrace();			
+		} 
+        
+        ret = new ArrayList<String>(); 
+        
+        if(rsp!=null){
+        	termsResponse = rsp.getTermsResponse();
+            terms = termsResponse.getTerms("text");
+            for(int i = 0; i <terms.size(); i++){
+            	ret.add(terms.get(i).getTerm());
+            } 
+        }         
+        return ret; 
+     }
+    
     
     @GET
     @Path("{id}")
