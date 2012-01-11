@@ -21,6 +21,7 @@ import model.listini.Period;
 
 public interface PeriodMapper {
 	public List<Period> findPeriodsByIdSeason(Integer id_season);
+	public Period findPeriodById(Integer id_period);
 	
 	public Integer insertPeriod(Period period);
 	public Integer updatePeriod(Period period);

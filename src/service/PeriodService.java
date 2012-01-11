@@ -24,6 +24,9 @@ import model.listini.Period;
 @Transactional
 public interface PeriodService {
 	public Integer insertPeriod(Period period);
+	public Integer updatePeriod(Period period);
+	public Integer deletePeriod(Integer id_period);
 	public Integer deletePeriodsByIdSeason(Integer id_season);
+	public Period findPeriodById(Integer id_period);
 	public List<Period> findPeriodsByIdSeason(Integer id_season);	
 }
