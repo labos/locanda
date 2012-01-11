@@ -23,6 +23,10 @@ In case of controversy the competent court is the Court of Cagliari (Italy).
         <include refid="selectPeriod"/>where id_season = #{id_season}
     </select>
     
+    <select id="findPeriodById" parameterType="int" resultType="model.listini.Period">
+        <include refid="selectPeriod"/>where id = #{id}
+    </select>
+    
     <sql id="selectPeriod">
         select id,startDate,endDate,id_season from period
     </sql>

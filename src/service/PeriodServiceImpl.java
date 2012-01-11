@@ -33,12 +33,26 @@ public class PeriodServiceImpl implements PeriodService{
 	public Integer insertPeriod(Period period) {
 		return this.getPeriodMapper().insertPeriod(period);
 	}
+	
+	@Override
+	public Integer updatePeriod(Period period) {
+		return this.getPeriodMapper().updatePeriod(period);
+	}
 
+	@Override
+	public Integer deletePeriod(Integer id_period) {
+		return this.getPeriodMapper().deletePeriod(id_period);
+	}
+	
 	@Override
 	public Integer deletePeriodsByIdSeason(Integer id_season) {
 		return this.getPeriodMapper().deletePeriodsByIdSeason(id_season);
 	}
 
+	public Period findPeriodById(Integer periodId) {
+		return this.getPeriodMapper().findPeriodById(periodId);
+	}
+	
 	@Override
 	public List<Period> findPeriodsByIdSeason(Integer id_season) {
 		List<Period> periods = null;
