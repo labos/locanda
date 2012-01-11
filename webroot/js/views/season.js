@@ -56,7 +56,7 @@ window.PeriodRowView = Backbone.View.extend({
         $(this.el).remove();
     },
     convertDate: function (aStringDate) {
-        var dateDate = new Date(aStringDate);
+        var dateDate = new Date(parseInt(aStringDate));
         return $.datepicker.formatDate(I18NSettings.datePattern, dateDate);
     },
     save: function (e) {
@@ -72,7 +72,7 @@ window.PeriodRowView = Backbone.View.extend({
                 self.model.set(model);
                 self.model.initialize();
                 if (is_new) {
-                    self.collection.add(self.model);
+                    self.model.collection.add(self.model);
                 }
                 $.jGrowl($.i18n("congratulation"), {
                     header: this.alertOK
@@ -86,16 +86,18 @@ window.PeriodRowView = Backbone.View.extend({
                 });
             }
         });
-        return false;
+        return false;alresetertDelete
     },
     // Remove this view from the DOM.
     remove: function () {
         if (confirm($.i18n("alertDelete"))) {
+        	var self = this;
             this.model.destroy({
                 success: function () {
                     $.jGrowl($.i18n("congratulation"), {
                         header: this.alertOK
                     });
+                    self.switchMode();
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     textStatus.responseText || (textStatus.responseText = $.i18n("seriousErrorDescr"));
@@ -164,6 +166,7 @@ window.PeriodsListView = Backbone.View.extend({
         _.bindAll(this, "addOne");
         this.collection.bind('reset', this.render, this);
         this.collection.bind('remove', this.removeOne, this);
+        this.idSeason = null;
         this.rowViews = [];
         this.page = 0;
     },
@@ -175,6 +178,7 @@ window.PeriodsListView = Backbone.View.extend({
             }
         });
         this.addAll();
+        (typeof this.idSeason !== 'undefined' && this.idSeason )? $(this.el).show() : $(this.el).hide();
         this.delegateEvents();
         return this;
     },
@@ -187,9 +191,9 @@ window.PeriodsListView = Backbone.View.extend({
         this.collection.each(this.addOne);
     },
     removeOne: function () {
-        if (confirm($.i18n("alresetertDelete"))) {
+/*        if (confirm($.i18n("alresetertDelete"))) {
             this.trigger("period:remove", this);
-        }
+        }*/
     },
     addOne: function (item) {
         var view = new PeriodRowView({
@@ -201,7 +205,7 @@ window.PeriodsListView = Backbone.View.extend({
     },
     // Add all items in the collection at once.
     addNew: function () {
-        this.addOne(new Period());
+        this.addOne(new Period({id_season:this.idSeason }));
         _.last(this.rowViews).switchMode();
     }
 });
@@ -223,6 +227,7 @@ window.EditSeasonView = EditView.extend({
         this.periodsListView = new PeriodsListView({
             collection: new Periods()
         });
+       // this.periodsListView.bind("associated:change", this.model.fetch() );
         this.id = null;
         this.availableYears = [];
         this.initializeYears();
@@ -276,9 +281,14 @@ window.EditSeasonView = EditView.extend({
     renderAssociated: function () {
         // check if model has changed or is new, then update collections in associated views
         if (this.model.isNew() || this.model.get("id") != this.id) {
+        	
+            this.id = this.model.get("id");
+            //set id season for new periods to add in periods list
+            this.periodsListView.idSeason= this.id;
+            
             //set collection for associated views
             this.periodsListView.collection.reset(this.model.get("periods"));
-            this.id = this.model.get("id");
+
             // now render associated views
             if ($("#periods").is(':empty')) {
                 $("#periods").html(this.periodsListView.el);
