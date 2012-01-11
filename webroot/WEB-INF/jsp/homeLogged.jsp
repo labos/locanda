@@ -22,7 +22,7 @@
 Entity = {name: "planner", 
 		model: function(options){ return new Planner( options );},
 		collection: function(options){ return new Planner( options );},
-		editView: function(options){ return new EditPlannerView( options );},
+		editView: null,
 		idStructure : <s:property value="#session.user.structure.id"/>
 		};
 </script>

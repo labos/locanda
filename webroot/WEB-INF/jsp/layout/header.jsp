@@ -23,36 +23,6 @@
 <meta http-equiv="Cache-Control" content="no-cache" />
 <link type='text/css' href='css/south-street/jquery-ui-1.8.9.custom.css' rel='stylesheet' />
 <link type="text/css" href="css/layout_sliding_door.css" rel="stylesheet"  />
-<script type='text/javascript' src='js/lib/jquery.min.js'></script>
-<!--<script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js'></script>-->
-<script type='text/javascript' src='js/lib/jquery-ui-1.8.9.custom.min.js'></script>
-<script type='text/javascript' src="js/lib/jquerymx-1.0.custom.js"></script>
-<script type="text/javascript" src="js/lib/jstree/jquery.jstree.js"></script>
-<script type='text/javascript' src='js/lib/jquery.fileupload.js'></script>
-<script type='text/javascript' src='js/lib/jquery.fileupload-ui.js'></script>
-<script type='text/javascript' src="js/lib/jquery.i18n.js"></script>
-<script>
-      $(document).ready(function() {
-      
-      I18NSettings = {};
-      I18NSettings.datePattern = '<s:property value="#session.datePattern"/>'.replace('yyyy', 'yy').toLowerCase();
-      //to avoid undefined on pre-login phase..
-      if (typeof I18NSettings.datePattern === 'undefined')
-    	  {
-    	  I18NSettings.datePattern ="dd/mm/yy";
-    	  }
-
-      });
-</script>
-<script type='text/javascript' src='js/lib/jquery.weekcalendar.js'></script>
-<script type='text/javascript' src='js/lib/jquery.validate.min.js'></script>
-<script type='text/javascript' src='js/lib/jquery.metadata.js'></script>
-<s:if test="#request.locale.getLanguage() != 'en'">
-<script type="text/javascript" src="js/lang/lib/messages_<s:property value="#request.locale.getLanguage()" />.js"></script>
-</s:if>
-<script type='text/javascript' src="js/lib/steal/steal.js?loader.js"></script>
-<script type='text/javascript' src='js/lib/jquery.jgrowl_minimized.js'></script>
-
   <title>LOCANDA - Open Source Booking Tool</title><!-- (en) Add your meta data here -->
   <!-- (de) Fuegen Sie hier ihre Meta-Daten ein -->
   <!--[if lte IE 7]>

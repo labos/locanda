@@ -164,7 +164,7 @@
          return false;
      },
      render: function () {
-         $(this.el).html(Mustache.to_html(this.indexTemplate.html(), this.model.toJSON()));
+         $(this.el).hide().html(Mustache.to_html(this.indexTemplate.html(), this.model.toJSON())).slideDown("slow");
          this.$(".yform.json.full").validate();
          $(".btn_save").button({
              icons: {
@@ -220,6 +220,7 @@
          else{
         	 this.indexTemplate =  $("#edit-template");
          this.render();
+    	 $(this.el).undelegate("div", "click");
     	 var self = this;
          $('<div></div>').overlay({
              effect: 'fade',
@@ -300,9 +301,6 @@
         	 
          });
          
-         // add id structure
-         
-         stringTerm+= 'AND structure:' + Entity.idStructure;
         // searched = $("#filter-form").serialize();
          var alreadyTyped =  $("#item-autocomplete").val();
          if( alreadyTyped == this.cachedSearch){
@@ -335,7 +333,7 @@
                 	 self.collection.setTerm( $("#item-autocomplete").val() );
                      self.collection.setFrom(0);
                      self.collection.setTo(10);
-                	 self.collection.fetch(); 
+                	 self.collection.fetch();
                 	 $("#filter-form").find("input").val("");
             	 }
 
@@ -343,7 +341,7 @@
              },
              source: function (request, response) {
                  var term = request.term;
-                 if (term in cache) {
+                 if (term in cache || term =='') {
                      response(cache[term]);
                      return;
                  }
@@ -369,7 +367,6 @@
                      } else {
                          $(selector).val(ui.item.id);
                          self.trigger("toolBar:autocomplete", {
-                             id: ui.item.id,
                              value: ui.item.value
                          });
                      } //END ELSE
@@ -496,7 +493,7 @@
              success: function () {
                  $(self.el).fadeTo("slow", 1);
                  self.moreViewTop.show();
-                 self.collection.length ? self.moreViewBottom.show() : self.moreViewBottom.hide();
+                ( self.collection.length >= self.perPageResults ) ? self.moreViewBottom.show() : self.moreViewBottom.hide();
                  if (self.currentIndex == 0) {
                      self.moreViewTop.hide();
                  }
@@ -512,20 +509,24 @@
          "click .btn_add_form": "addNew"
      },
      initialize: function () {
-         this.editView = Entity.editView({
-             model: Entity.model({
-                 id_structure: Entity.idStructure
-             })
-         });
-         this.listView = new ListView({
-             collection: Entity.collection(Entity.idStructure, {
-                 view: RowView
-             }),
-             editView: this.editView
-         });
-         this.toolBarView = new ToolBarView({ collection: this.listView.collection });
-         this.toolBarView.bind("toolBar:autocomplete", this.selectAutocomplete, this);
-         this.render();
+    	 if( Entity && Entity.editView!==null ){
+             this.editView = Entity.editView({
+                 model: Entity.model({
+                     id_structure: Entity.idStructure
+                 })
+             });
+             this.listView = new ListView({
+                 collection: Entity.collection(Entity.idStructure, {
+                     view: RowView
+                 }),
+                 editView: this.editView
+             });
+             this.toolBarView = new ToolBarView({ collection: this.listView.collection });
+             this.toolBarView.bind("toolBar:autocomplete", this.selectAutocomplete, this);
+             this.render();
+    		 
+    	 }
+
      },
      render: function () {
          this.delegateEvents();
@@ -541,7 +542,13 @@
      filterAll: function (attribute, value) {
          self.listView.collection.setFilter(attribute, value).fetch();
      },
-     selectAutocomplete: function (aResult) {
+     selectAutocomplete: function (aSelection) {
+    	 
+    	 this.listView.collection.setTerm(  '"' + aSelection.value + '"' );
+    	 this.listView.collection.setFrom(0);
+    	 this.listView.collection.setTo(10);
+    	 this.listView.collection.fetch(); 
+    	 /*
          var aModel = Entity.model({
              id: aResult.id
          });
@@ -550,5 +557,6 @@
          if (typeof this.listView.collection.get(aModel.id) == "undefined") {
              this.listView.collection.add(selectedModel);
          }
+         */
      }
  });

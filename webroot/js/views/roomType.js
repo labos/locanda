@@ -438,7 +438,7 @@ window.ImagesFacilitiesView = Backbone.View.extend({
          //button for form reset  
          $(".btn_reset").button({
              icons: {
-                 primary: "ui-icon-trash"
+                 primary: "ui-icon-arrowreturnthick-1-w"
              }
          }).click(function (event) {
              var validator = $(this).parents(".yform.json").validate();

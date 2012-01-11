@@ -119,13 +119,13 @@
 		<div class="c33l">
 		    <div class="subcl type-text">
 		      <span><s:text name="from"/>:</span> 
-		      <input type="text" class="datepicker required" name="startDate" value="{{startDate}}" format="%{#session.datePattern}" style="display: inline;"/>
+		      <input type="text" class="datepicker required" name="startDate" value="{{startDate}}" style="display: inline;"/>
 		    </div>
 		</div>
 		<div class="c33l">
 		    <div class="subcl type-text">
 		      <span><s:text name="to"/>:</span> 
-		      <input type="text" class="datepicker required" name="endDate" value="{{endDate}}" format="%{#session.datePattern}"style="display: inline;"/>
+		      <input type="text" class="datepicker required" name="endDate" value="{{endDate}}" style="display: inline;"/>
 		    </div>
 		</div>
 	</div>

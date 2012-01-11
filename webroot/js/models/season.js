@@ -36,3 +36,11 @@ window.Season = Backbone.Model.extend({
     urlRoot: "rest/seasons/",
 });
 
+window.Autocompletes = AutocompleteCollection.extend({
+
+    url: function () {
+        return 'rest/seasons/structure/' + this.idWrapper + '/suggest' + this.term;
+    }
+});
+
+

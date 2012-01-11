@@ -933,14 +933,26 @@ div.row-item:hover{
 
 		#nav-bottom{
 background-image: url("../../images/more-down.png");
+	 	background-color:#E6E6E6;
 	bottom: 0;
 	left:0;
+	-moz-border-radius-topleft: 0px;
+-moz-border-radius-topright: 0px;
+-moz-border-radius-bottomright: 5px;
+-moz-border-radius-bottomleft: 5px;
+-webkit-border-radius: 0px 0px 5px 5px;
 	}
 	 #nav-top{
 	 	display: none;
 	 	background-image: url("../../images/more-up.png");
+	 	background-color:#E6E6E6;
 		top: 0;
 		left:0;
+		-moz-border-radius-topleft: 5px;
+-moz-border-radius-topright: 5px;
+-moz-border-radius-bottomright: 0px;
+-moz-border-radius-bottomleft: 0px;
+-webkit-border-radius: 5px 5px 0px 0px;
 	
 	}
 	#nav-bottom:hover, #nav-top:hover{
@@ -948,23 +960,6 @@ background-image: url("../../images/more-down.png");
 
 	}
 	
-				#nav-bottom:hover{
-background-color: #DCF299;
--moz-border-radius-topleft: 0px;
--moz-border-radius-topright: 0px;
--moz-border-radius-bottomright: 5px;
--moz-border-radius-bottomleft: 5px;
--webkit-border-radius: 0px 0px 5px 5px;
-}
-
-			#nav-top:hover {
-background-color: #DCF299;
--moz-border-radius-topleft: 5px;
--moz-border-radius-topright: 5px;
--moz-border-radius-bottomright: 0px;
--moz-border-radius-bottomleft: 0px;
--webkit-border-radius: 5px 5px 0px 0px;
-}
 	
 	.backg {
 	display: none;

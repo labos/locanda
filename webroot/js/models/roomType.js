@@ -46,17 +46,6 @@ window.RoomType = Backbone.Model.extend({
 window.Autocompletes = AutocompleteCollection.extend({
 
     url: function () {
-    	return 'rest/roomTypes/structure/' + this.idWrapper + '/search/0/10/' + this.term;
-    },
-    parse: function (response) {
-        var parsedResponse = [];
-        $.each(response, function (index, value) {
-            parsedResponse.push({
-                "id": value.id,
-                "label": value.name + " (" + value.maxGuests + ")",
-                "value": value.name
-            });
-        });
-        return parsedResponse;
+    	return 'rest/roomTypes/structure/' + this.idWrapper + '/suggest' + this.term;
     }
 });

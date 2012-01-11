@@ -58,9 +58,9 @@ AutocompleteCollection = Backbone.Collection.extend({
         var parsedResponse = [];
         $.each(response, function (index, value) {
             parsedResponse.push({
-                "id": value.id,
-                "label": value.name,
-                "value": value.name
+               // "id": null,
+                 "label": value,
+                "value": value
             });
         });
         return parsedResponse;
