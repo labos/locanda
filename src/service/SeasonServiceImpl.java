@@ -117,12 +117,12 @@ public class SeasonServiceImpl implements SeasonService{
 		Integer ret = 0;
 		
 		ret = this.getSeasonMapper().insertSeason(season);
-		if(ret > 0){
-			for(Period each: season.getPeriods()){
-				each.setId_season(season.getId());
-				this.getPeriodMapper().insertPeriod(each);
-			}
-		}		
+//		if(ret > 0){
+//			for(Period each: season.getPeriods()){
+//				each.setId_season(season.getId());
+//				this.getPeriodMapper().insertPeriod(each);
+//			}
+//		}		
 		return ret;
 	}
 	
@@ -138,25 +138,25 @@ public class SeasonServiceImpl implements SeasonService{
 		}
 		
 		ret = this.getSeasonMapper().updateSeason(season);
-		if(ret>0){
-			for(Period each: season.getPeriods()){
-				if(each.getId()==null){
-					//It's a new period, so an insert is needed
-					each.setId_season(season.getId());
-					this.getPeriodMapper().insertPeriod(each);
-				}else{
-					//It's an existing period, so an update is needed
-					
-					oldPeriodIds.remove(each.getId());
-					each.setId_season(season.getId());
-					this.getPeriodMapper().updatePeriod(each);
-				}				
-			}
-			//The oldPeriodIds collection now contains the ids of all periods that must be removed
-			for(Integer oldPeriodId: oldPeriodIds){
-				this.getPeriodMapper().deletePeriod(oldPeriodId);
-			}
-		}
+//		if(ret>0){
+//			for(Period each: season.getPeriods()){
+//				if(each.getId()==null){
+//					//It's a new period, so an insert is needed
+//					each.setId_season(season.getId());
+//					this.getPeriodMapper().insertPeriod(each);
+//				}else{
+//					//It's an existing period, so an update is needed
+//					
+//					oldPeriodIds.remove(each.getId());
+//					each.setId_season(season.getId());
+//					this.getPeriodMapper().updatePeriod(each);
+//				}				
+//			}
+//			//The oldPeriodIds collection now contains the ids of all periods that must be removed
+//			for(Integer oldPeriodId: oldPeriodIds){
+//				this.getPeriodMapper().deletePeriod(oldPeriodId);
+//			}
+//		}
 		return ret;
 	}
 
