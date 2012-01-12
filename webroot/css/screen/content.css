@@ -1146,6 +1146,7 @@ background: url("../../images/loading.gif") no-repeat center center;
 
 	}
 	.edit-state-box{
+	padding:5px;
 	z-index:3000;
 	background-color:white;
 	position:relative;

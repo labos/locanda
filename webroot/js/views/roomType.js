@@ -187,6 +187,7 @@ window.ImagesFacilitiesView = Backbone.View.extend({
      initialize: function (options) {
     	 _.bindAll(this, "next", "prev", "removeOne","addOne");
     	 this.page = 0;
+    	 this.idParent = null;
     	 this.rowViews = [];
          this.render();
      },
@@ -201,6 +202,8 @@ window.ImagesFacilitiesView = Backbone.View.extend({
              }
          });
          this.addAll();
+         (typeof this.idParent !== 'undefined' && this.idParent )? $(this.el).show() : $(this.el).hide();
+
          this.delegateEvents();
          return this;
      },
@@ -289,6 +292,7 @@ window.ImagesFacilitiesView = Backbone.View.extend({
          this.collection.bind('remove', this.render, this);
     	 this.rowViews = [];
     	 this.page = 0;
+    	 this.idParent = null;
      },
      
      saveElement: function(){ 
@@ -349,6 +353,7 @@ window.ImagesFacilitiesView = Backbone.View.extend({
          this.collection.bind('remove', this.removeOne, this);
          this.rowViews = [];
     	 this.page = 0;
+    	 this.idParent = null;
      },
      removeOne: function(){
          if (confirm($.i18n("alresetertDelete"))) {
@@ -453,9 +458,13 @@ window.ImagesFacilitiesView = Backbone.View.extend({
      },
      renderAssociated: function (){
     	 // check if model has changed, then update collections in associated views
-    	 if (this.model.get("id")  != this.id){
+    	 if (this.model.isNew() || this.model.get("id")  != this.id){
+             this.id = this.model.get("id");
+    	        //set id season for new periods to add in periods list
+             this.facilitiesListView.idParent= this.id;
+             this.imagesListView.idParent= this.id;
              //set collection for associated views
-             this.facilitiesListView.collection.reset(this.model.get("images") );
+             this.facilitiesListView.collection.reset(this.model.get("facilities") );
              this.imagesListView.collection.reset( this.model.get("images"));
              this.id = this.model.get("id");
              // now render associated views

@@ -459,7 +459,8 @@
      removeOne: function (aModel) {
          // now check if deleted model is in editing mode
          if (this.editView && this.editView.model.get("id") == aModel.get("id")) {
-             this.editView.clear();
+             //this.editView.clear();
+        	 this.editView.resetModel(this.collection.at(0));
          }
          this.collection.remove(aModel);
      },

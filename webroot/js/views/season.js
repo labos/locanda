@@ -74,6 +74,7 @@ window.PeriodRowView = Backbone.View.extend({
                 if (is_new) {
                     self.model.collection.add(self.model);
                 }
+                self.trigger("period:update", self);
                 $.jGrowl($.i18n("congratulation"), {
                     header: this.alertOK
                 });
@@ -86,7 +87,7 @@ window.PeriodRowView = Backbone.View.extend({
                 });
             }
         });
-        return false;alresetertDelete
+        return false;
     },
     // Remove this view from the DOM.
     remove: function () {
@@ -94,6 +95,7 @@ window.PeriodRowView = Backbone.View.extend({
         	var self = this;
             this.model.destroy({
                 success: function () {
+                	 self.trigger("period:update", self);
                     $.jGrowl($.i18n("congratulation"), {
                         header: this.alertOK
                     });
@@ -196,9 +198,11 @@ window.PeriodsListView = Backbone.View.extend({
         }*/
     },
     addOne: function (item) {
+    	var self = this;
         var view = new PeriodRowView({
             model: item
         });
+        view.bind("period:update",function(){self.trigger("period:update",this);},self);
         view.model.collection = this.collection;
         this.rowViews.push(view);
         this.$("ul").append(view.render().el);
@@ -281,14 +285,17 @@ window.EditSeasonView = EditView.extend({
     renderAssociated: function () {
         // check if model has changed or is new, then update collections in associated views
         if (this.model.isNew() || this.model.get("id") != this.id) {
-        	
+        	var self = this;
             this.id = this.model.get("id");
             //set id season for new periods to add in periods list
             this.periodsListView.idSeason= this.id;
             
             //set collection for associated views
             this.periodsListView.collection.reset(this.model.get("periods"));
-
+            
+            // listen for changes in model on editing
+            this.periodsListView.bind("period:update", function (){ alert("cassato"); 
+            self.model.fetch();});
             // now render associated views
             if ($("#periods").is(':empty')) {
                 $("#periods").html(this.periodsListView.el);
