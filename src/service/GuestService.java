@@ -23,7 +23,7 @@ import model.Guest;
 public interface GuestService {
 	public Guest findGuestById(Integer id);
 	public List<Guest> findGuestsByIdStructure(Integer id_structure);
-	
+	public List<Guest> findAll();
 	public Integer insertGuest(Guest guest);
 	public Integer updateGuest(Guest guest);
 	public Integer deleteGuest(Integer id);

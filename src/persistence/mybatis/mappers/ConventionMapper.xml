@@ -31,15 +31,14 @@ In case of controversy the competent court is the Court of Cagliari (Italy).
         delete from convention where id = #{id}
     </delete>
     
-     <select id="findAll" resultType="model.listini.Convention">
+    <select id="findAll" resultType="model.listini.Convention">
         <include refid="selectConvention"/> 
     </select>
     
     <select id="findConventionsByIdStructure" parameterType="int" resultType="model.listini.Convention">
         <include refid="selectConvention"/>AND id_structure = #{id_structure}
     </select>
-    
-        
+     
     <select id="findConventionById" parameterType="int" resultType="model.listini.Convention">
         <include refid="selectConvention"/>AND id = #{id}
     </select>

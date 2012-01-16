@@ -17,24 +17,36 @@ package model;
 
 import java.io.Serializable;
 
+import org.apache.solr.client.solrj.beans.Field;
+
 public class Guest implements Serializable{
 	
+	@Field
 	private Integer id;
-	
+	@Field
 	private String firstName;
+	@Field
 	private String lastName;
 	private String gender;
 	private Integer birthDay;
 	private String birthMonth;
 	private Integer birthYear;
 	private String birthPlace;
+	@Field
 	private String email;
+	@Field
 	private String phone;
+	@Field
 	private String address;
+	@Field
 	private String country;
+	@Field
 	private String zipCode;
+	@Field
 	private String notes;
-	private String idNumber;	
+	@Field
+	private String idNumber;
+	@Field
 	private Integer id_structure;
 	
 	

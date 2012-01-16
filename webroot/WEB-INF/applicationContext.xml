@@ -52,13 +52,19 @@
 	</bean>
 
 	<bean id="solrServerConvention"
-			class="org.apache.solr.client.solrj.embedded.EmbeddedSolrServer">
+		class="org.apache.solr.client.solrj.embedded.EmbeddedSolrServer">
 		<constructor-arg ref="multiCoreContainer" />
 		<constructor-arg value="convention" />
 	</bean>
+	
+	<bean id="solrServerGuest"
+		class="org.apache.solr.client.solrj.embedded.EmbeddedSolrServer">
+		<constructor-arg ref="multiCoreContainer" />
+		<constructor-arg value="guest" />
+	</bean>
 
 	<bean id="solrServerCore1"
-			class="org.apache.solr.client.solrj.embedded.EmbeddedSolrServer">
+		class="org.apache.solr.client.solrj.embedded.EmbeddedSolrServer">
 		<constructor-arg ref="multiCoreContainer" />
 		<constructor-arg value="core1" />
 	</bean>

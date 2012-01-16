@@ -28,6 +28,10 @@ In case of controversy the competent court is the Court of Cagliari (Italy).
         <include refid="selectGuests"/>where id = #{id}
     </select>
     
+    <select id="findAll" resultType="model.Guest">
+        <include refid="selectGuests"/> 
+    </select>
+    
     <sql id="selectGuests">
         SELECT id,firstName,lastName,gender,birthDay,birthMonth,birthYear,birthPlace,email,phone,address,country,zipCode,notes,idNumber,id_structure from guest
     </sql>
