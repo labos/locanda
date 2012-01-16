@@ -18,6 +18,7 @@ package service;
 import java.util.List;
 
 import model.Guest;
+import model.listini.Convention;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,6 +37,11 @@ public class GuestServiceImpl implements GuestService{
 	@Override
 	public Integer insertGuest(Guest guest) {
 		return this.getGuestMapper().insertGuest(guest);
+	}
+	
+	@Override
+	public List<Guest> findAll() {
+		return this.getGuestMapper().findAll();
 	}
 	
 	@Override

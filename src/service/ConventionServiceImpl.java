@@ -54,11 +54,8 @@ public class ConventionServiceImpl implements ConventionService{
 		return this.getConventionMapper().deleteConvention(id);
 	}
 
-	
-	
 	@Override
 	public List<Convention> findAll() {
-		
 		return this.getConventionMapper().findAll();
 	}
 
