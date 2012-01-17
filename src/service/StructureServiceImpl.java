@@ -308,6 +308,18 @@ public class StructureServiceImpl implements StructureService{
 		}
 	}
 	
+	public void addPriceListsForExtra(Integer id_structure, Integer id_extra) {
+		ExtraPriceListItem newExtraPriceListItem = null;
+		
+		for (ExtraPriceList eachPriceList : this.getExtraPriceListService().findExtraPriceListsByIdStructure(id_structure)) {
+			newExtraPriceListItem = new ExtraPriceListItem();
+			newExtraPriceListItem.setId_extra(id_extra);
+			newExtraPriceListItem.setPrice(0.0);
+			newExtraPriceListItem.setId_extraPriceList(eachPriceList.getId());
+			this.getExtraPriceListService().insertExtraPriceListItem(newExtraPriceListItem);
+		}
+	}
+	
 	@Override
 	public Boolean hasRoomFreeInPeriod(Integer id_structure, Integer roomId, Date dateIn, Date dateOut) {
 		//Extracts all bookings related with the room with that roomId

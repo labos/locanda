@@ -21,31 +21,35 @@ In case of controversy the competent court is the Court of Cagliari (Italy).
     <cache/>
     
     <select id="findExtrasByIdStructure" parameterType="int" resultType="model.Extra">
-        <include refid="selectExtra"/>FROM extra where id_structure = #{id}
+        <include refid="selectExtras"/> WHERE id_structure = #{id}
     </select>
     
     <select id="findExtrasByIdStructureAndAvailableOnline" parameterType="map" resultType="model.Extra">
-        <include refid="selectExtra"/>FROM extra where id_structure = #{id_structure} and availableOnline = #{availableOnline}
+        <include refid="selectExtras"/> WHERE id_structure = #{id_structure} AND availableOnline = #{availableOnline}
     </select>
     
     <select id="findExtraById" parameterType="int" resultType="model.Extra">
-        <include refid="selectExtra"/>FROM extra where id = #{id}
+        <include refid="selectExtras"/> WHERE id = #{id}
     </select>
     
-    <sql id="selectExtra">
-        SELECT id,name,timePriceType,resourcePriceType,description,id_structure,availableOnline
+    <select id="findAll" resultType="model.Extra">
+        <include refid="selectExtras"/> 
+    </select>
+    
+    <sql id="selectExtras">
+        SELECT id,name,timePriceType,resourcePriceType,description,id_structure,availableOnline FROM extra
     </sql>
     
     <update id="updateExtra" parameterType="model.Extra">
-        UPDATE extra set name=#{name},timePriceType=#{timePriceType},resourcePriceType=#{resourcePriceType},description=#{description},id_structure=#{id_structure},availableOnline=#{availableOnline} where id = #{id}
+        UPDATE extra set name=#{name},timePriceType=#{timePriceType},resourcePriceType=#{resourcePriceType},description=#{description},id_structure=#{id_structure},availableOnline=#{availableOnline} WHERE id = #{id}
     </update>
     
     <insert id="insertExtra" keyProperty="id" useGeneratedKeys="true" parameterType="model.Extra">
-        INSERT into extra(name,timePriceType,resourcePriceType,description,id_structure,availableOnline) values(#{name},#{timePriceType},#{resourcePriceType},#{description},#{id_structure},#{availableOnline})
+        INSERT INTO extra(name,timePriceType,resourcePriceType,description,id_structure,availableOnline) values(#{name},#{timePriceType},#{resourcePriceType},#{description},#{id_structure},#{availableOnline})
     </insert>
     
     <delete id="deleteExtra" parameterType="int">
-        DELETE from extra where id = #{id}
+        DELETE FROM extra WHERE id = #{id}
     </delete>
     
 </mapper>

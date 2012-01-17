@@ -62,6 +62,12 @@
 		<constructor-arg ref="multiCoreContainer" />
 		<constructor-arg value="guest" />
 	</bean>
+	
+	<bean id="solrServerExtra"
+		class="org.apache.solr.client.solrj.embedded.EmbeddedSolrServer">
+		<constructor-arg ref="multiCoreContainer" />
+		<constructor-arg value="extra" />
+	</bean>
 
 	<bean id="solrServerCore1"
 		class="org.apache.solr.client.solrj.embedded.EmbeddedSolrServer">
