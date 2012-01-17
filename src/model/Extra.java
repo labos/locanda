@@ -17,14 +17,27 @@ package model;
 
 import java.io.Serializable;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+import org.apache.solr.client.solrj.beans.Field;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
+@XmlRootElement
+@JsonIgnoreProperties(ignoreUnknown = true)
+
 public class Extra implements Serializable{
 	
+	@Field
 	private Integer id;
-	
+	@Field
 	private String name;
+	@Field
 	private String timePriceType;
+	@Field
 	private String resourcePriceType;
+	@Field
 	private String description;
+	@Field
 	private Integer id_structure;
 	private Boolean availableOnline;
 	

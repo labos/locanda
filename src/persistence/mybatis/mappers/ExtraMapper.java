@@ -22,9 +22,10 @@ import model.Extra;
 
 public interface ExtraMapper {
 	public List<Extra> findExtrasByIdStructure(Integer id_structure);
+	public List<Extra> findExtrasByIdStructureAndAvailableOnline(Map params);
+	public List<Extra> findAll();
 	public Integer insertExtra(Extra extra);
 	public Extra findExtraById(Integer id);
 	public Integer updateExtra(Extra extra);
 	public Integer deleteExtra(Integer id);
-	public List<Extra> findExtrasByIdStructureAndAvailableOnline(Map params);
 }

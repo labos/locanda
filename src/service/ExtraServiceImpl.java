@@ -28,6 +28,7 @@ import persistence.mybatis.mappers.ExtraMapper;
 import persistence.mybatis.mappers.ExtraPriceListItemMapper;
 
 import model.Extra;
+import model.Guest;
 
 @Service
 public class ExtraServiceImpl implements ExtraService {
@@ -54,6 +55,11 @@ public class ExtraServiceImpl implements ExtraService {
 		
 		ret = this.getExtraMapper().findExtrasByIdStructureAndAvailableOnline(params);
 		return ret;
+	}
+	
+	@Override
+	public List<Extra> findAll() {
+		return this.getExtraMapper().findAll();
 	}
 
 	@Override

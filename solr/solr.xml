@@ -31,6 +31,7 @@
   <cores adminPath="/admin/cores">
     <core name="convention" instanceDir="convention"/>
     <core name="guest" 		instanceDir="guest"/>
+    <core name="extra" 		instanceDir="extra"/>
     <core name="core1" 		instanceDir="core1"/>
   </cores>
 </solr>

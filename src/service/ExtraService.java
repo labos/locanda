@@ -25,7 +25,7 @@ public interface ExtraService {
 	public List<Extra> findExtrasByIds(List<Integer> ids);
 	public List<Extra> findExtrasByIdStructure(Integer id_structure);
 	public List<Extra> findExtrasByIdStructureAndAvailableOnline(Integer id_structure, Boolean availableOnline);
-	
+	public List<Extra> findAll();
 	public Integer insertExtra(Extra extra);
 	public Integer updateExtra(Extra extra);
 	public Integer deleteExtra(Integer id);

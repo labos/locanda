@@ -33,6 +33,7 @@ public interface StructureService {
 	public void addPriceListsForSeason(Integer id_structure, Integer id_season);
 	public void addPriceListsForRoomType(Integer id_structure, Integer id_roomType);
 	public void addPriceListsForConvention(Integer id_structure, Integer id_convention);
+	public void addPriceListsForExtra(Integer id_structure, Integer id_extra);
 	
 	public Boolean hasRoomFreeInPeriod(Integer id_structure,Integer roomId, Date dateIn, Date dateOut);
 	public Boolean hasRoomFreeForBooking(Integer id_structure,Booking booking);
