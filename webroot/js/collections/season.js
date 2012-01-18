@@ -24,7 +24,6 @@
 
 window.Seasons = Backbone.Collection.extend({
     model: Season,
-    //This is our Conventions collection and holds our Convention models
     initialize: function (idStructure) {
     	this.setIdWrapper(idStructure);
     	this.setFrom(0);

@@ -192,9 +192,9 @@ window.ImagesFacilitiesView = Backbone.View.extend({
          this.render();
      },
      render: function () {
-         $(this.el).html(this.indexTemplate.html());
+         $(this.el).html(Mustache.to_html(this.indexTemplate.html(), {id_roomType: this.idParent, id_structure:""}));
          if(this.$("#uploadFacility").length){
-             	 this.$("#uploadFacility").uploadImage( );
+             	 this.$("#uploadFacility").uploadImage( this );
          }
          $(".btn_add").button({
              icons: {
@@ -376,36 +376,45 @@ window.ImagesFacilitiesView = Backbone.View.extend({
      
      switchMode: function () {
     	 // change in edit mode template
-         this.indexTemplate = (this.indexTemplate.attr("id") == "images-view-template") ? $("#images-edit-template") : $("#images-view-template");
-         this.render();
-         var self = this;
-         // unbind div click event in edit mode in the current div overlapped
-         $(this.el).undelegate("div", "click");
+    	 if( this.indexTemplate.attr("id") == "images-edit-template" ){
+    		 this.indexTemplate = $("#images-view-template");
+             $(".overlay").remove();
+             $(this.el).removeClass("edit-state-box");
+             this.render();
+             $($.fn.overlay.defaults.container).css('overflow', 'auto');
+    	 }
+    	 else{
+             this.indexTemplate = $("#images-edit-template");
+             this.render();
+             var self = this;
+             $(this.el).undelegate("div", "click");
+             
+             $('<div></div>').overlay({
+                 effect: 'fade',
+                 onShow: function() {
+                	 var overlay = this;
+                     $(self.el).addClass("edit-state-box");
+                     $(this).click( function (){
+                  	   if(confirm($.i18n( "alertExitEditState" ))){
+                  		 $(self.el).removeClass("edit-state-box");
+          					self.indexTemplate = $("#images-view-template");
+       					self.render();
+       					$(overlay).remove();
+       					$($.fn.overlay.defaults.container).css('overflow', 'auto');
+
+                   	   }
+                    	 
+                     });
+                   }
+               });
+    		 
+    	 }
+
          //change list of rows in edit mode
     	 $.each(this.rowViews, function(index,aView){
     		 aView.switchMode();
     	 });
          
-         $('<div></div>').overlay({
-             effect: 'fade',
-             onShow: function() {
-            	 var overlay = this;
-                 $(self.el).addClass("edit-state-box");
-                 $(this).click( function (){
-              	   if(confirm($.i18n( "alertExitEditState" ))){
-              		 $(self.el).removeClass("edit-state-box");
-      					self.indexTemplate = $("#images-view-template");
-   					self.render();
-   					$(overlay).remove();
-   					$($.fn.overlay.defaults.container).css('overflow', 'auto');
-
-               	   }
-                	 
-                 });
-               }
-           });
-
-
     
      }
  });
@@ -456,9 +465,13 @@ window.ImagesFacilitiesView = Backbone.View.extend({
          this.delegateEvents();
          return this;
      },
+     /**
+      * Render associated views
+      */
      renderAssociated: function (){
     	 // check if model has changed, then update collections in associated views
     	 if (this.model.isNew() || this.model.get("id")  != this.id){
+    		 var self = this;
              this.id = this.model.get("id");
     	        //set id season for new periods to add in periods list
              this.facilitiesListView.idParent= this.id;
@@ -466,6 +479,22 @@ window.ImagesFacilitiesView = Backbone.View.extend({
              //set collection for associated views
              this.facilitiesListView.collection.reset(this.model.get("facilities") );
              this.imagesListView.collection.reset( this.model.get("images"));
+             // listen for changes in model on editing and fetch model if any change occur.
+             this.facilitiesListView.bind("child:update", function () {
+                 self.model.fetch();
+                 //set collection for associated views
+                 self.facilitiesListView.collection.reset(self.model.get("facilities") );
+                 self.imagesListView.collection.reset( self.model.get("images"));
+                 
+             });
+             this.imagesListView.bind("child:update", function () {
+                 self.model.fetch();
+                 //set collection for associated views
+                 self.facilitiesListView.collection.reset(self.model.get("facilities") );
+                 self.imagesListView.collection.reset( self.model.get("images"));
+
+             });
+             
              this.id = this.model.get("id");
              // now render associated views
              if( $("#facilities").is(':empty') ) {

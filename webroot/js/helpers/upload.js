@@ -213,7 +213,7 @@ $.fn.deprecatedBrowser = function () {
 	};
 	
 	
-	$.fn.uploadImage =  function (){
+	$.fn.uploadImage =  function ( view ){
 		$(this).fileUploadUI({
 
 		forceIframeUpload: function(){
@@ -263,6 +263,7 @@ $.fn.deprecatedBrowser = function () {
 			if (typeof json !== "undefined" && typeof json.message !== "undefined" && json.message.result == "success") {
 				var action = this.uploadForm.attr("action");
 				try {
+					view.trigger("child:update", view);
 					$().addImageObject(json, action);
 				} catch (e) {
 					//var log = e;

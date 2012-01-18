@@ -14,27 +14,16 @@
  * In case of controversy the competent court is the Court of Cagliari (Italy).
  *******************************************************************************/
 /*
- * @class Season
+ * @class Period
  * @parent Backbone.Model
  * @constructor
- * Model to hold a season.
+ * Model to hold period to a season.
  * @tag models
  * @author LabOpenSource
  */
-window.Season = Backbone.Model.extend({
-    defaults: {
-        year: (new Date).getFullYear()
-    },
-    url: function () {
-        var base = this.urlRoot;
-        if (this.isNew()) return base;
-        return base + (base.charAt(base.length - 1) == '/' ? '' : '/') + encodeURIComponent(this.id);
-    },
-    urlRoot: "rest/seasons/",
-});
 
-window.Autocompletes = AutocompleteCollection.extend({
-    url: function () {
-        return 'rest/seasons/structure/' + this.idWrapper + '/suggest' + this.term;
+window.PriceList = Backbone.Model.extend({
+	
+    initialize: function () {
     }
 });

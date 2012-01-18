@@ -94,7 +94,7 @@
 					<button class="btn_submit"><s:text name="search"/></button>
                 </div>
               </div>
-</form>
+		</form>
 </script>
 <script id="period-row-template" type="text/x-handlebars-template" >
 	<div class="subcolumns inview">
@@ -150,7 +150,7 @@
 	<ul>
 	</ul>
 <div class="add-new">
-<button class="btn_add">Add new Period</button>
+<button class="btn_add"><s:text name="periodAddNew"/></button>
 </div>
 </div>
 </script>

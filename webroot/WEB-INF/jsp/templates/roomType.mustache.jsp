@@ -109,7 +109,7 @@
 </script>
 
 <script id="facility-row-template" type="text/x-handlebars-template" >
-{{name}}<img src="images/{{fileName}}" />
+<span class="title-elem">{{name}}</span><img src="images/{{fileName}}" />
 </script>
 
 <script id="facility-row-edit-template" type="text/x-handlebars-template" >
@@ -117,11 +117,11 @@
 </script>
 
 <script id="image-row-template" type="text/x-handlebars-template" >
-{{name}}<img src="images/hotel-demo.jpeg" />
+<span class="title-elem">{{name}}</span><img src="images/hotel-demo.jpeg" />
 </script>
 
 <script id="image-row-edit-template" type="text/x-handlebars-template" >
-<span class="delete-elem"></span><img src="images/hotel-demo.jpeg" />
+<span class="title-elem">{{name}}</span><span class="delete-elem"></span><img src="images/hotel-demo.jpeg" />
 </script>
 
 <script id="facilities-view-template" type="text/x-handlebars-template" >
@@ -179,10 +179,11 @@
  				<br/>
  				<form id="uploadFacility" action="uploadRoomTypeImage.action" method="post" enctype="multipart/form-data">
    				  <input type="hidden" name="name" value=""/>
-   				    <input type="hidden" name="id" value="{{id}}"/>
+					<input type="hidden" name="roomType.id" value="{{id_roomType}}"/>
+   				    <input type="hidden" name="idStructure" value="{{id_structure}}"/>
      			  <input type="file" name="upload" multiple/>
     			  <button>Upload</button> 
-    			  <div><s:text name="uploadFacility" /></div>  
+    			  <div><s:text name="uploadRoomTypeImage" /></div>  
 				</form>
 		   	  </div>
 		   	</div>      
