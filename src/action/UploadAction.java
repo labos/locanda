@@ -17,6 +17,7 @@ package action;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
@@ -106,12 +107,17 @@ public class UploadAction extends ActionSupport implements SessionAware,UserAwar
 		ServletContext context = null; 
 		String imgPath = null; 
 		File target = null;
+		List<Facility> roomAndRoomTypeFacilities = null;
 		
-		if(this.getFacilityService().findUploadedFacilityByName(this.getIdStructure(),this.getName())!=null){
-			message.setResult(Message.ERROR);
-			message.setDescription(getText("facilityAlreadyPresentError"));
-			return ERROR;
-		};
+		
+		roomAndRoomTypeFacilities = this.getFacilityService().findRoomAndRoomTypeFacilitiesByIdStructure(this.getIdStructure());
+		for(Facility each: roomAndRoomTypeFacilities){
+			if(each.getName().equals(this.getName())){
+				message.setResult(Message.ERROR);
+				message.setDescription(getText("facilityAlreadyPresentError"));
+				return ERROR;
+			}
+		}
 		
 		context =  ServletActionContext.getServletContext();
 		//imgPath = context.getRealPath("/")+ "images/room_facilities/";	
@@ -149,12 +155,17 @@ public class UploadAction extends ActionSupport implements SessionAware,UserAwar
 		ServletContext context = null;
 		String imgPath = null; 
 		File target = null;
+		List<Facility> structureFacilities = null;
 		
-		if(this.getFacilityService().findStructureFacilityByName(this.getIdStructure(),this.getName()) != null){
-			message.setResult(Message.ERROR);
-			message.setDescription(getText("facilityAlreadyPresentError"));
-			return ERROR;
+		structureFacilities = this.getFacilityService().findStructureFacilitiesByIdStructure(this.getIdStructure());
+		for(Facility each: structureFacilities){
+			if(each.getName().equals(this.getName())){
+				message.setResult(Message.ERROR);
+				message.setDescription(getText("facilityAlreadyPresentError"));
+				return ERROR;
+			}
 		}
+		
 		
 		context =ServletActionContext.getServletContext();
 		//imgPath = context.getRealPath("/")+ "images/struct_facilities/";

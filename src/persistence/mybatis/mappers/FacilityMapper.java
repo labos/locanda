@@ -25,15 +25,15 @@ public interface FacilityMapper {
 	public Integer insertRoomFacility(Map map);
 	public Integer insertRoomTypeFacility(Map map);
 	public Integer insertStructureFacility(Facility facility);
-	public List<Facility> findStructureFacilitiesByIdStructure(Integer id_structure);
-	public List<Facility> findUploadedFacilitiesByIdStructure(Integer id_structure);
-	public Facility findUploadedFacilityById(Integer id);
 	
-	public Facility findStructureFacilityById(Integer id);
-	public Facility findStructureFacilityByName(Map map);
-	public Facility findUploadedFacilityByName(Map map);
-	public List<Facility> findRoomFacilitiesByIdRoom(Integer id_room);
-	public List<Facility> findRoomTypeFacilitiesByIdRoomType(Integer id_roomType);
+	public Facility findFacilityById(Integer id);
+	public List<Integer> findStructureFacilityIdsByIdStructure(Integer id_structure);
+	public List<Integer> findRoomFacilityIdsByIdStructure(Integer id_structure);
+	public List<Integer> findRoomTypeFacilityIdsByIdStructure(Integer id_structure);	
+	public List<Facility> findStructureFacilitiesByIdStructure(Integer id_structure);	
+	public List<Integer> findRoomFacilityIdsByIdRoom(Integer id_room);
+	public List<Integer> findRoomTypeFacilityIdsByIdRoomType(Integer id_roomType);		
+	
 	public Integer deleteUploadedFacility(Integer id);
 	public Integer deleteFacilityFromAllRooms(Integer id_uploadedFacility);
 	public Integer deleteFacilityFromAllRoomTypes(Integer id_uploadedFacility);

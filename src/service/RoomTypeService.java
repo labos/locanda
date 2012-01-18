@@ -30,6 +30,9 @@ public interface RoomTypeService {
 	
 	public List<RoomType> findAll();
 	public List<RoomType> findRoomTypesByIdStructure(Integer id_structure);
+	public List<Integer> findRoomTypeIdsByIdStructure(Integer id_structure);
+	
+	
 	public List<RoomType> findRoomTypesByIdStructure(Integer id_structure,Integer offset,Integer rownum);
 	
 	public RoomType findRoomTypeById(Integer id);

@@ -20,61 +20,50 @@ In case of controversy the competent court is the Court of Cagliari (Italy).
 <mapper namespace="persistence.mybatis.mappers.FacilityMapper">
     <cache/>
 	
-    <insert id="insertUploadedFacility" parameterType="model.Facility" useGeneratedKeys="true" keyProperty="id">
-        INSERT into uploadedFacility(name,fileName,id_structure) values (#{name},#{fileName},#{id_structure})
+    <insert id="insertFacility" parameterType="model.Facility" useGeneratedKeys="true" keyProperty="id">
+        INSERT into facility(name,fileName) values (#{name},#{fileName})
     </insert>
 	
     <insert id="insertRoomFacility" parameterType="map">
-        INSERT into roomFacility(id_uploadedFacility,id_room) values (#{id_uploadedFacility},#{id_room})
+        INSERT into roomFacility(id_room,id_facility) values (#{id_room},#{id_facility})
     </insert>
 	
     <insert id="insertRoomTypeFacility" parameterType="map">
-        INSERT into roomTypeFacility(id_uploadedFacility,id_roomType) values (#{id_uploadedFacility},#{id_roomType})
+        INSERT into roomTypeFacility(id_roomType,id_facility) values (#{id_roomType},#{id_facility})
     </insert>
 	
-    <insert id="insertStructureFacility" parameterType="model.Facility" useGeneratedKeys="true" keyProperty="id">
-        INSERT into structureFacility(name,fileName,id_structure) values (#{name},#{fileName},#{id_structure})
+    <insert id="insertStructureFacility" parameterType="map">
+        INSERT into structureFacility(id_structure,id_facility) values (#{id_structure},#{id_facility})
     </insert>
     
-    <select id="findUploadedFacilitiesByIdStructure" parameterType="int" resultType="model.Facility">
-        <include refid="findUploadedFacilities"/>where id_structure = #{id_structure}
+    
+    <select id="findFacilityById" parameterType="int" resultType="model.Facility">
+        <include refid="findFacility"/> where id = #{id}        
     </select>
     
-    <select id="findUploadedFacilityById" parameterType="int" resultType="model.Facility">
-        <include refid="findUploadedFacilities"/>where id = #{id}
-        
+    <select id="findStructureFacilityIdsByIdStructure" parameterType="int" resultType="int">
+       SELECT DISTINCT id_facility from structureFacility where id_structure = #{id_structure}
     </select>
     
-    <select id="findUploadedFacilityByName" parameterType="map" resultType="model.Facility">
-        <include refid="findUploadedFacilities"/>where id_structure = #{id_structure} and name = #{name}
+    <select id="findRoomFacilityIdsByIdStructure" parameterType="int" resultType="int">
+       SELECT DISTINCT id_facility from roomFacility where id_room IN (SELECT id FROM room WHERE id_structure = #{id_structure})
     </select>
     
-    <select id="findStructureFacilitiesByIdStructure" parameterType="int" resultType="model.Facility">
-        <include refid="findStructureFacilities"/>where id_structure = #{id_structure}
+     <select id="findRoomTypeFacilityIdsByIdStructure" parameterType="int" resultType="int">
+       SELECT DISTINCT id_facility from roomTypeFacility where id_roomType IN (SELECT id FROM roomType WHERE id_structure = #{id_structure})
     </select>
     
-    <select id="findStructureFacilityById" parameterType="int" resultType="model.Facility">
-        <include refid="findStructureFacilities"/>where id = #{id}
+    <select id="findRoomFacilityIdsByIdRoom" parameterType="int" resultType="int">
+       SELECT DISTINCT id_facility from roomFacility where id_room = #{id_room})
     </select>
     
-    <select id="findStructureFacilityByName" parameterType="map" resultType="model.Facility">
-        <include refid="findStructureFacilities"/>where id_structure = #{id_structure} and name = #{name}
+    <select id="findRoomTypeFacilityIdsByIdRoomType" parameterType="int" resultType="int">
+       SELECT DISTINCT id_facility from roomTypeFacility where id_roomType = #{id_roomType})
     </select>
+       
     
-    <select id="findRoomFacilitiesByIdRoom" parameterType="int" resultType="model.Facility">
-        select id,name,fileName from uploadedFacility where id IN(select id_uploadedFacility from roomFacility where id_room = #{id_room})
-    </select>
-    
-    <select id="findRoomTypeFacilitiesByIdRoomType" parameterType="int" resultType="model.Facility">
-        select id,name,fileName from uploadedFacility where id IN(select id_uploadedFacility from roomTypeFacility where id_roomType = #{id_roomType})
-    </select>
-    
-    <sql id="findStructureFacilities">
-        SELECT id,name,fileName,id_structure from structureFacility
-    </sql>
-    
-    <sql id="findUploadedFacilities">
-        SELECT id,name,fileName,id_structure from uploadedFacility
+    <sql id="findFacility">
+        SELECT id,name,fileName from facility
     </sql>
     
     <delete id="deleteUploadedFacility" parameterType="int">

@@ -48,7 +48,7 @@ public class FacilityResource {
 		String filePath = null;
 		File file = null;
 		
-		facility = this.getFacilityService().findStructureFacilityById(id);
+		facility = this.getFacilityService().findFacilityById(id);
 		if (facility == null) {
 			throw new WebApplicationException(404);
 		}

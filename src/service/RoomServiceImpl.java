@@ -106,6 +106,14 @@ public class RoomServiceImpl implements RoomService{
 		return rooms;
 	}
 	
+	
+	
+	@Override
+	public List<Integer> findRoomIdsByIdStructure(Integer id_structure) {
+		
+		return this.getRoomMapper().findRoomIdsByIdStructure(id_structure);
+	}
+
 	@Override
 	public List<Room> findRoomsByIdStructure(Integer id_structure, Integer offset, Integer rownum) {
 		Map map = null;

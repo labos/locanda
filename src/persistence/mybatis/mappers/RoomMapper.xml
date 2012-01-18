@@ -40,6 +40,12 @@ In case of controversy the competent court is the Court of Cagliari (Italy).
         <include refid="selectRoom"/>WHERE id_structure = #{id_structure}
     </select>
     
+    <select id="findRoomIdsByIdStructure" parameterType="int" resultType="int">
+        <include refid="selectRoomId"/>WHERE id_structure = #{id_structure}
+    </select>
+    
+    
+    
     <select id="findRoomsByIdStructureAndOffsetAndRownum" parameterType="map" resultType="model.Room">
         <include refid="selectRoom"/>WHERE id_structure = #{id_structure} LIMIT #{offset}, #{rownum}
     </select>
@@ -62,6 +68,10 @@ In case of controversy the competent court is the Court of Cagliari (Italy).
     
     <sql id="selectRoom">
         SELECT id,name,notes,id_roomType,id_structure FROM room
+    </sql>
+    
+    <sql id="selectRoomId">
+        SELECT id FROM room
     </sql>
     
 </mapper>
