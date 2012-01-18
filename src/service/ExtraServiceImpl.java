@@ -25,17 +25,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import persistence.mybatis.mappers.ExtraMapper;
-import persistence.mybatis.mappers.ExtraPriceListItemMapper;
-
 import model.Extra;
-import model.Guest;
 
 @Service
 public class ExtraServiceImpl implements ExtraService {
 	@Autowired
 	private ExtraMapper extraMapper = null;
-	@Autowired
-	private ExtraPriceListItemMapper extraPriceListItemMapper = null;
 	
 
 	public List<Extra> findExtrasByIdStructure(Integer id_structure) {
@@ -79,7 +74,6 @@ public class ExtraServiceImpl implements ExtraService {
 	
 	@Override
 	public Integer deleteExtra(Integer id) {
-		this.getExtraPriceListItemMapper().deleteExtraPriceListItemsByIdExtra(id);
 		return this.getExtraMapper().deleteExtra(id);
 	}
 
@@ -98,13 +92,6 @@ public class ExtraServiceImpl implements ExtraService {
 	}
 	public void setExtraMapper(ExtraMapper extraMapper) {
 		this.extraMapper = extraMapper;
-	}
-	public ExtraPriceListItemMapper getExtraPriceListItemMapper() {
-		return extraPriceListItemMapper;
-	}
-	public void setExtraPriceListItemMapper(
-			ExtraPriceListItemMapper extraPriceListItemMapper) {
-		this.extraPriceListItemMapper = extraPriceListItemMapper;
 	}
 
 }

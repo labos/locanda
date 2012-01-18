@@ -21,29 +21,23 @@ In case of controversy the competent court is the Court of Cagliari (Italy).
     <cache/>
     
     <insert id="insertExtraPriceListItem" parameterType="model.listini.ExtraPriceListItem" useGeneratedKeys="true" keyProperty="id">
-        insert into extraPriceListItem(price,id_extra, id_extraPriceList)
-        values(#{price},#{id_extra},#{id_extraPriceList})
+        INSERT INTO extraPriceListItem(price,id_extra, id_extraPriceList) values(#{price},#{id_extra},#{id_extraPriceList})
     </insert>
     
     <delete id="deleteExtraPriceListItemsByIdExtraPriceList" parameterType="int">
-        delete from extraPriceListItem where id_extraPriceList = #{id_extraPriceList}
+        DELETE FROM extraPriceListItem WHERE id_extraPriceList = #{id_extraPriceList}
     </delete>
     
     <delete id="deleteExtraPriceListItemsByIdExtra" parameterType="int">
-        delete from extraPriceListItem where id_extra = #{id_extra}
+        DELETE FROM extraPriceListItem WHERE id_extra = #{id_extra}
     </delete>
     
     <select id="findExtraPriceListItemsByIdExtraPriceList" resultType="model.listini.ExtraPriceListItem" parameterType="int">
-        select
-        id,price,id_extra, id_extraPriceList
-        from  extraPriceListItem
-        where id_extraPriceList = #{id_extraPriceList}
+        SELECT id,price,id_extra, id_extraPriceList FROM extraPriceListItem WHERE id_extraPriceList = #{id_extraPriceList}
     </select>
     
     <update id="updateExtraPriceListItem" parameterType="model.listini.ExtraPriceListItem">
-        update extraPriceListItem
-        set price = #{price}
-        where id = #{id}
+        UPDATE extraPriceListItem set price = #{price} WHERE id = #{id}
     </update>
     
 </mapper>

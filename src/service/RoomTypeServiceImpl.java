@@ -21,12 +21,9 @@ import java.util.Map;
 
 import model.Facility;
 import model.RoomType;
-import model.listini.Convention;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import parser.SearchParser;
 import persistence.mybatis.mappers.RoomTypeMapper;
 
 @Service
@@ -34,16 +31,18 @@ public class RoomTypeServiceImpl implements RoomTypeService{
 	@Autowired
 	private RoomTypeMapper roomTypeMapper = null;
 	@Autowired
-	private RoomPriceListService roomPriceListService = null;
-	@Autowired
-	private ExtraPriceListService extraPriceListService = null;
-	@Autowired
 	private FacilityService facilityService = null;
 	@Autowired
 	private StructureService structureService = null;
 	@Autowired
 	private ImageService imageService = null;
 
+	
+	@Override
+	public List<RoomType> findAll() {
+		return this.getRoomTypeMapper().findAll();
+	}
+	
 	@Override
 	public List<RoomType> findRoomTypesByIdStructure(Integer id_structure) {
 		List<RoomType> ret = null;
@@ -104,46 +103,16 @@ public class RoomTypeServiceImpl implements RoomTypeService{
 	@Override
 	public Integer deleteRoomType(Integer id) {
 		//TODO - Check if there are rooms with id_roomType == id
-		this.getRoomPriceListService().deleteRoomPriceListsByIdRoomType(id);
-		this.getExtraPriceListService().deleteExtraPriceListsByIdRoomType(id);
 		this.getFacilityService().deleteAllFacilitiesFromRoomType(id);
-		this.getImageService().deleteAllImagesFromRoomType(id);
-		
+		this.getImageService().deleteAllImagesFromRoomType(id);	
 		return this.getRoomTypeMapper().deleteRoomType(id);
 	}	
-
-	@Override
-	public List<RoomType> search(Integer id_structure, Integer offset, Integer rownum, String term) {
-		Map map = null;
-		SearchParser<RoomType> parser;
-		
-		parser = new SearchParser<RoomType>(RoomType.class);
-		map = new HashMap();
-		map.put("id_structure", id_structure );
-		map.put("offset", offset );
-		map.put("rownum", rownum );
-		map.putAll(parser.parse(term));
-		
-		return this.getRoomTypeMapper().search(map);
-	}
 	
 	public RoomTypeMapper getRoomTypeMapper() {
 		return roomTypeMapper;
 	}
 	public void setRoomTypeMapper(RoomTypeMapper roomTypeMapper) {
 		this.roomTypeMapper = roomTypeMapper;
-	}
-	public RoomPriceListService getRoomPriceListService() {
-		return roomPriceListService;
-	}
-	public void setRoomPriceListService(RoomPriceListService roomPriceListService) {
-		this.roomPriceListService = roomPriceListService;
-	}
-	public ExtraPriceListService getExtraPriceListService() {
-		return extraPriceListService;
-	}
-	public void setExtraPriceListService(ExtraPriceListService extraPriceListService) {
-		this.extraPriceListService = extraPriceListService;
 	}
 	public FacilityService getFacilityService() {
 		return facilityService;

@@ -20,13 +20,23 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+import org.apache.solr.client.solrj.beans.Field;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
+@XmlRootElement
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Season implements Serializable{
 	
+	@Field
 	private Integer id;
-	
+	@Field
 	private String name;
+	@Field
 	private Integer year;	
 	private List<Period> periods;
+	@Field
 	private Integer id_structure;
 	
 	

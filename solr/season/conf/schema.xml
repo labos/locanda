@@ -16,21 +16,20 @@
  limitations under the License.
 -->
 
-<schema name="convention" version="1.1">
+<schema name="season" version="1.1">
   <types>
-	<fieldType name="int" 			class="solr.TrieIntField"	positionIncrementGap="0" 	omitNorms="true" precisionStep="0"/>
-   	<fieldtype name="string"  		class="solr.StrField" 		sortMissingLast="true" 		omitNorms="true"/>
+	<fieldType name="int" 			class="solr.TrieIntField" 	positionIncrementGap="0"	omitNorms="true" precisionStep="0"/>
+   	<fieldtype name="string"  		class="solr.StrField"	 	sortMissingLast="true" 		omitNorms="true"/>
 	<fieldType name="text_general" 	class="solr.TextField" 		positionIncrementGap="100"/>
   </types>
 
  <fields>   
   	<!-- general -->
-  	<field name="id"      			type="int"   		indexed="true"  stored="true"  	multiValued="false" required="true"/>
-  	<field name="name"    			type="string"   	indexed="true"  stored="false"  multiValued="false" /> 
-  	<field name="description"   	type="string"  	 	indexed="true"  stored="false"  multiValued="false" /> 
-	<field name="activationCode"    type="string"   	indexed="true"  stored="false"  multiValued="false" /> 
-	<field name="id_structure"      type="int"   		indexed="true"  stored="false"  multiValued="false"/>
-  	<field name="text" 				type="text_general" indexed="true" 	stored="true" 	multiValued="true"/>
+  	<field name="id"			type="int"   		indexed="true"  stored="true"  	multiValued="false" required="true"/>
+  	<field name="name"   		type="string"  	 	indexed="true"  stored="false"  multiValued="false"/>
+  	<field name="year"    		type="int"  	 	indexed="true"  stored="false"  multiValued="false"/>
+	<field name="id_structure"  type="int"  		indexed="true"  stored="false"  multiValued="false"/>
+  	<field name="text" 			type="text_general" indexed="true" 	stored="true" 	multiValued="true"/>
  </fields>
 
  <!-- field to use to determine and enforce document uniqueness. -->
@@ -42,8 +41,8 @@
  <!-- SolrQueryParser configuration: defaultOperator="AND|OR" -->
  <solrQueryParser defaultOperator="OR"/>
 
- <copyField source="name" 			dest="text"/>
- <copyField source="description" 	dest="text"/>
- <copyField source="activationCode" dest="text"/>
+ <copyField source="name" 	dest="text"/>
+ <copyField source="year" 	dest="text"/>
+ 
 </schema>
 

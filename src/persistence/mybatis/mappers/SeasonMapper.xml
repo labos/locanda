@@ -19,6 +19,10 @@ In case of controversy the competent court is the Court of Cagliari (Italy).
 
 <mapper namespace="persistence.mybatis.mappers.SeasonMapper">
     <cache/>
+    
+    <select id="findAll" resultType="model.listini.Season">
+        <include refid="selectSeason"/> 
+    </select>
   
     <select id="findSeasonsByStructureId" parameterType="int" resultType="model.listini.Season">
         <include refid="selectSeason"/> WHERE id_structure = #{id_structure}

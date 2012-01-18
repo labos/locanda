@@ -17,8 +17,15 @@ package model;
 
 import java.io.Serializable;
 
-import org.apache.solr.client.solrj.beans.Field;
+import javax.xml.bind.annotation.XmlRootElement;
 
+
+
+import org.apache.solr.client.solrj.beans.Field;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
+@XmlRootElement
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Guest implements Serializable{
 	
 	@Field

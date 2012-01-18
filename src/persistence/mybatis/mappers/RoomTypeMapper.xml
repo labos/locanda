@@ -20,7 +20,11 @@ In case of controversy the competent court is the Court of Cagliari (Italy).
 <mapper namespace="persistence.mybatis.mappers.RoomTypeMapper">
     <cache/>
 	
-	 <select id="findRoomTypesByIdStructure" parameterType="int" resultType="model.RoomType">
+	<select id="findAll" resultType="model.RoomType">
+        <include refid="selectRoomType"/> 
+    </select>
+    
+	<select id="findRoomTypesByIdStructure" parameterType="int" resultType="model.RoomType">
         <include refid="selectRoomType"/>WHERE id_structure = #{id_structure}
     </select>
     
@@ -33,7 +37,7 @@ In case of controversy the competent court is the Court of Cagliari (Italy).
     </select>
     
     <select id="findRoomTypeByIdStructureAndName" parameterType="map" resultType="model.RoomType">
-        <include refid="selectRoomType"/>WHERE id_structure = #{id_structure} and   name = #{name}
+        <include refid="selectRoomType"/>WHERE id_structure = #{id_structure} AND name = #{name}
     </select>
     
     <select id="search" parameterType="map" resultType="model.RoomType">
@@ -57,15 +61,15 @@ In case of controversy the competent court is the Court of Cagliari (Italy).
     </sql>
 	
     <insert id="insertRoomType" parameterType="model.RoomType" useGeneratedKeys="true" keyProperty="id">
-        INSERT into roomType(name,maxGuests,notes,id_structure) values(#{name},#{maxGuests},#{notes},#{id_structure})
+        INSERT INTO roomType(name,maxGuests,notes,id_structure) values(#{name},#{maxGuests},#{notes},#{id_structure})
     </insert>
     
     <update id="updateRoomType" parameterType="model.RoomType">
-        UPDATE roomType set name = #{name},maxGuests = #{maxGuests}, notes = #{notes},id_structure = #{id_structure} where id = #{id}
+        UPDATE roomType set name = #{name},maxGuests = #{maxGuests}, notes = #{notes},id_structure = #{id_structure} WHERE id = #{id}
     </update>
     
     <delete id="deleteRoomType">
-        DELETE from roomType where id = #{id}
+        DELETE FROM roomType WHERE id = #{id}
     </delete>
     
 </mapper>

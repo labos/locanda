@@ -35,6 +35,7 @@ import model.listini.Season;
 
 @Service
 public class SeasonServiceImpl implements SeasonService{
+	
 	@Autowired
 	private SeasonMapper seasonMapper = null;
 	@Autowired
@@ -44,8 +45,21 @@ public class SeasonServiceImpl implements SeasonService{
 	@Autowired
 	private ExtraPriceListService extraPriceListService = null;
 	
+	
+	public List<Season> findAll(){
+		return this.seasonMapper.findAll();
+	}
+	
 	public List<Season> findSeasonsByIdStructure(Integer structureId) {
 		return this.getSeasonMapper().findSeasonsByStructureId(structureId);
+	}
+	
+	public List<Season> findSeasonsByYear(Integer structureId,Integer year) {
+		Map params = new HashMap();
+		params.put("structureId", structureId);
+		params.put("year", year);
+		
+		return this.getSeasonMapper().findSeasonsByYear(params);
 	}
 	
 	public Season findSeasonById(Integer seasonId) {
@@ -60,14 +74,6 @@ public class SeasonServiceImpl implements SeasonService{
 		return this.getSeasonMapper().findSeasonByName(params);
 	}
 	
-	public List<Season> findSeasonsByYear(Integer structureId,Integer year) {
-		Map params = new HashMap();
-		params.put("structureId", structureId);
-		params.put("year", year);
-		
-		return this.getSeasonMapper().findSeasonsByYear(params);
-	}
-	
 	public Season findSeasonByDate(Integer structureId, Date date){
 		Season ret = null;
 		
@@ -77,20 +83,6 @@ public class SeasonServiceImpl implements SeasonService{
 			}
 		}
 		return ret;
-	}
-	
-	@Override
-	public List<Season> search(Integer id_structure, Integer offset, Integer rownum, String term) {
-		Map map = null;
-		SearchParser< Season> parser;
-		
-		parser = new SearchParser<Season>(Season.class);
-		map = new HashMap();
-		map.put("id_structure", id_structure );
-		map.put("offset", offset );
-		map.put("rownum", rownum );			
-		map.putAll(parser.parse(term));
-		return this.getSeasonMapper().search(map);
 	}
 	
 	public Boolean checkYears(Season season) {
@@ -113,59 +105,18 @@ public class SeasonServiceImpl implements SeasonService{
 		return ret;
 	}
 	
-	public Integer insertSeason(Season season) {
-		Integer ret = 0;
-		
-		ret = this.getSeasonMapper().insertSeason(season);
-//		if(ret > 0){
-//			for(Period each: season.getPeriods()){
-//				each.setId_season(season.getId());
-//				this.getPeriodMapper().insertPeriod(each);
-//			}
-//		}		
-		return ret;
+	public Integer insertSeason(Season season) {		
+		return this.getSeasonMapper().insertSeason(season);		
 	}
 	
 	public Integer updateSeason(Season season) {
-		Integer ret = null;
-		List<Integer> oldPeriodIds = null;
-		Season oldSeason = null;
-		
-		oldPeriodIds = new ArrayList<Integer>();
-		oldSeason = this.getSeasonMapper().findSeasonById(season.getId());
-		for(Period each: oldSeason.getPeriods()){
-			oldPeriodIds.add(each.getId());
-		}
-		
-		ret = this.getSeasonMapper().updateSeason(season);
-//		if(ret>0){
-//			for(Period each: season.getPeriods()){
-//				if(each.getId()==null){
-//					//It's a new period, so an insert is needed
-//					each.setId_season(season.getId());
-//					this.getPeriodMapper().insertPeriod(each);
-//				}else{
-//					//It's an existing period, so an update is needed
-//					
-//					oldPeriodIds.remove(each.getId());
-//					each.setId_season(season.getId());
-//					this.getPeriodMapper().updatePeriod(each);
-//				}				
-//			}
-//			//The oldPeriodIds collection now contains the ids of all periods that must be removed
-//			for(Integer oldPeriodId: oldPeriodIds){
-//				this.getPeriodMapper().deletePeriod(oldPeriodId);
-//			}
-//		}
-		return ret;
+		return this.getSeasonMapper().updateSeason(season);
 	}
 
 	public Integer deleteSeason(Integer seasonId) {
 		Integer ret = 0;
 		
 		this.getPeriodMapper().deletePeriodsFromSeason(seasonId);
-		this.getRoomPriceListService().deleteRoomPriceListsByIdSeason(seasonId);
-		this.getExtraPriceListService().deleteExtraPriceListsByIdSeason(seasonId);
 		ret = this.getSeasonMapper().deleteSeason(seasonId);
 		return ret;
 	}

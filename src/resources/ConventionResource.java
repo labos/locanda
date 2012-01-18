@@ -20,16 +20,11 @@ import model.listini.Convention;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServer;
 import org.apache.solr.client.solrj.SolrServerException;
-import org.apache.solr.client.solrj.request.CoreAdminRequest;
 import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.client.solrj.response.TermsResponse;
 import org.apache.solr.client.solrj.response.TermsResponse.Term;
 import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
-import org.apache.solr.core.CoreContainer;
-import org.apache.solr.core.CoreDescriptor;
-import org.apache.solr.core.SolrCore;
-import org.apache.solr.update.SolrIndexWriter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -38,6 +33,8 @@ import com.sun.jersey.api.NotFoundException;
 
 import service.BookingService;
 import service.ConventionService;
+import service.ExtraPriceListService;
+import service.RoomPriceListService;
 import service.StructureService;
 
 @Path("/conventions/")
@@ -48,12 +45,17 @@ public class ConventionResource {
     @Autowired
     private ConventionService conventionService = null;
     @Autowired
+	private RoomPriceListService roomPriceListService = null;
+	@Autowired
+	private ExtraPriceListService extraPriceListService = null;
+    @Autowired
     private StructureService structureService = null;
     @Autowired
     private BookingService bookingService = null;
     @Autowired
     private SolrServer solrServerConvention = null;
    
+    
     @PostConstruct
     public void init(){
     	List<Convention> conventions = null;
@@ -68,7 +70,6 @@ public class ConventionResource {
 			e.printStackTrace();
 		}
     }
-    
     
     @GET
     @Path("structure/{idStructure}/search/{start}/{rows}")
@@ -85,9 +86,7 @@ public class ConventionResource {
         if(term.trim().equals("")){
         	term = "*:*";
         }
-        
         term = term + " AND id_structure:" + idStructure.toString();
-        
         query = new SolrQuery();   		
         query.setQuery( term);
         query.setStart(start);
@@ -106,12 +105,11 @@ public class ConventionResource {
            for(int i = 0; i <solrDocumentList.size(); i++){
         	   solrDocument = solrDocumentList.get(i);
         	   id = (Integer)solrDocument.getFieldValue("id");
-        	  // System.out.println("----> "+solrDocument.getFieldValues("text")+" <-----");
+        	// System.out.println("----> "+solrDocument.getFieldValues("text")+" <-----");
         	   aConvention = this.getConventionService().findConventionById(id);
         	   conventions.add(aConvention);
            }  
        }       
-       
        return conventions;          
     }
     
@@ -129,15 +127,13 @@ public class ConventionResource {
         query.setQueryType("/terms");
         query.addTermsField("text");
         query.setParam("terms.prefix", term); 
-       // query.setParam("id_structure", idStructure.toString());
+     // query.setParam("id_structure", idStructure.toString());
         
         try {
 			rsp = this.getSolrServerConvention().query( query );
-			
 		} catch (SolrServerException e) {
 			e.printStackTrace();			
 		} 
-        
         ret = new ArrayList<String>(); 
         
         if(rsp!=null){
@@ -149,7 +145,6 @@ public class ConventionResource {
         }         
         return ret; 
      }
-    
     
     @GET
     @Path("{id}")
@@ -183,13 +178,11 @@ public class ConventionResource {
     @Path("{id}")
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
-    public Convention update(Convention convention) {  
+    public Convention update(Convention convention) {
+    	
     	try{
     		this.getConventionService().updateConvention(convention);
-    	}catch(Exception ex){
-    		
-    	}
-    	
+    	}catch(Exception ex){}	
     	try {
 			this.getSolrServerConvention().addBean(convention);			
 			this.getSolrServerConvention().commit();			
@@ -212,10 +205,11 @@ public class ConventionResource {
 					" Please try to delete the associated bookings before.");
 		}
 		count = this.getConventionService().deleteConvention(id);
+		this.getRoomPriceListService().deleteRoomPriceListsByIdSeason(id);
+		this.getExtraPriceListService().deleteExtraPriceListsByIdSeason(id);
 		if(count == 0){
 			throw new NotFoundException("Error: the convention has NOT been deleted");
-		}
-		
+		}	
 		try {
 			this.getSolrServerConvention().deleteById(id.toString());
 			this.getSolrServerConvention().commit();
@@ -233,7 +227,19 @@ public class ConventionResource {
     public void setConventionService(ConventionService conventionService) {
         this.conventionService = conventionService;
     }
-    public StructureService getStructureService() {
+    public RoomPriceListService getRoomPriceListService() {
+		return roomPriceListService;
+	}
+	public void setRoomPriceListService(RoomPriceListService roomPriceListService) {
+		this.roomPriceListService = roomPriceListService;
+	}
+	public ExtraPriceListService getExtraPriceListService() {
+		return extraPriceListService;
+	}
+	public void setExtraPriceListService(ExtraPriceListService extraPriceListService) {
+		this.extraPriceListService = extraPriceListService;
+	}
+	public StructureService getStructureService() {
         return structureService;
     }
     public void setStructureService(StructureService structureService) {
@@ -245,11 +251,9 @@ public class ConventionResource {
 	public void setBookingService(BookingService bookingService) {
 		this.bookingService = bookingService;
 	}
-
 	public SolrServer getSolrServerConvention() {
 		return solrServerConvention;
 	}
-
 	public void setSolrServerConvention(SolrServer solrServerConvention) {
 		this.solrServerConvention = solrServerConvention;
 	}  	

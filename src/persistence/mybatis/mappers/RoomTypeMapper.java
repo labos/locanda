@@ -24,6 +24,7 @@ public interface RoomTypeMapper {
 	public Integer updateRoomType(RoomType roomType);
 	public Integer deleteRoomType(Integer id);
 	
+	public List<RoomType> findAll();
 	public List<RoomType> findRoomTypesByIdStructure(Integer id_structure);
 	public List<RoomType> findRoomTypesByIdStructureAndOffsetAndRownum(Map map);
 	public List<RoomType> search(Map map);
