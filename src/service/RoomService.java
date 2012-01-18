@@ -28,9 +28,9 @@ public interface RoomService {
 	public Integer deleteRoom(Integer id);
 	public Integer countRoomsByIdRoomType(Integer id_roomType);
 	
+	public List<Room> findAll();
 	public List<Room> findRoomsByIdStructure(Integer id_structure);
 	public List<Room> findRoomsByIdStructure(Integer id_structure,Integer offset,Integer rownum);
-	public List<Room> search(Integer id_structure, Integer offset, Integer rownum, String term);
 	public List<Room> findRoomsByIdRoomType(Integer id_roomType);
 	
 	public Room findRoomById(Integer id);

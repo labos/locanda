@@ -21,22 +21,26 @@ import java.util.List;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.solr.client.solrj.beans.Field;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 @XmlRootElement
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Room implements Serializable{
 	
+	@Field
 	private Integer id;
-	
+	@Field
 	private String name;
 	private Double price;
+	@Field
 	private String notes;
 	private RoomType roomType;
 	private Integer id_roomType;
-	private Integer id_structure;
 	private List<Facility> facilities;
 	private List<Image> images;
+	@Field
+	private Integer id_structure;
 	
 	
 	public Room(){

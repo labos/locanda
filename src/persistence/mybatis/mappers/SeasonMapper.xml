@@ -40,22 +40,6 @@ In case of controversy the competent court is the Court of Cagliari (Italy).
         <include refid="selectSeason"/> WHERE year = #{year} AND id_structure = #{id_structure}
     </select>
     
-    <select id="search" parameterType="map" resultType="model.listini.Season">
-        <include refid="selectSeason"/> 
-         
-        WHERE 
-        id_structure = #{id_structure}
-        
-        <if test="name != null">
-        AND name LIKE CONCAT('%',#{name},'%')
-        </if>
-        <if test="year != null">
-        AND year LIKE CONCAT('%',#{year},'%')
-        </if> 
-              
-        LIMIT #{offset}, #{rownum}
-    </select>
-    
     <sql id="selectSeason">
         SELECT id,name,year,id_structure FROM season
     </sql>

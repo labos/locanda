@@ -69,6 +69,12 @@
 		<constructor-arg value="extra" />
 	</bean>
 	
+	<bean id="solrServerRoom"
+		class="org.apache.solr.client.solrj.embedded.EmbeddedSolrServer">
+		<constructor-arg ref="multiCoreContainer" />
+		<constructor-arg value="room" />
+	</bean>
+	
 	<bean id="solrServerRoomType"
 		class="org.apache.solr.client.solrj.embedded.EmbeddedSolrServer">
 		<constructor-arg ref="multiCoreContainer" />
