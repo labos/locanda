@@ -21,11 +21,11 @@ In case of controversy the competent court is the Court of Cagliari (Italy).
     <cache/>
     
     <select id="findGuestsByIdStructure" parameterType="int" resultType="model.Guest">
-        <include refid="selectGuests"/>where id_structure = #{id_structure}
+        <include refid="selectGuests"/>WHERE id_structure = #{id_structure}
     </select>
     
     <select id="findGuestById" parameterType="int" resultType="model.Guest">
-        <include refid="selectGuests"/>where id = #{id}
+        <include refid="selectGuests"/>WHERE id = #{id}
     </select>
     
     <select id="findAll" resultType="model.Guest">
@@ -33,22 +33,22 @@ In case of controversy the competent court is the Court of Cagliari (Italy).
     </select>
     
     <sql id="selectGuests">
-        SELECT id,firstName,lastName,gender,birthDay,birthMonth,birthYear,birthPlace,email,phone,address,country,zipCode,notes,idNumber,id_structure from guest
+        SELECT id,firstName,lastName,gender,birthDay,birthMonth,birthYear,birthPlace,email,phone,address,country,zipCode,notes,idNumber,id_structure FROM guest
     </sql>
     
     <insert id="insertGuest" parameterType="model.Guest" useGeneratedKeys="true" keyProperty="id">
-        INSERT into guest(firstName,lastName,gender,birthDay,birthMonth,birthYear,birthPlace,email,phone,address,country,zipCode,notes,idNumber,id_structure) values
+        INSERT INTO guest(firstName,lastName,gender,birthDay,birthMonth,birthYear,birthPlace,email,phone,address,country,zipCode,notes,idNumber,id_structure) values
         (#{firstName},#{lastName},#{gender},#{birthDay},#{birthMonth},#{birthYear},#{birthPlace},#{email},#{phone},#{address},#{country},#{zipCode},#{notes},#{idNumber},#{id_structure})
     </insert>
     
     <update id="updateGuest" parameterType="model.Guest">
         UPDATE guest set
         firstName= #{firstName},lastName= #{lastName},gender=#{gender},birthDay=#{birthDay},birthMonth=#{birthMonth},birthYear=#{birthYear},birthPlace=#{birthPlace},email= #{email},phone= #{phone},address= #{address},country= #{country},zipCode= #{zipCode},notes= #{notes},idNumber= #{idNumber},id_structure= #{id_structure}
-        where id = #{id}
+        WHERE id = #{id}
     </update>
     
     <delete id="deleteGuest" parameterType="int">
-        DELETE from guest where id= #{id}
+        DELETE FROM guest WHERE id= #{id}
     </delete>
     
 </mapper>

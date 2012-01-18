@@ -21,16 +21,20 @@ In case of controversy the competent court is the Court of Cagliari (Italy).
     <cache/>
 	
     <insert id="insertRoom" parameterType="model.Room" useGeneratedKeys="true" keyProperty="id">
-        INSERT into room(name,notes,id_roomType,id_structure) values(#{name},#{notes},#{id_roomType},#{id_structure})
+        INSERT INTO room(name,notes,id_roomType,id_structure) values(#{name},#{notes},#{id_roomType},#{id_structure})
     </insert>
     
     <update id="updateRoom" parameterType="model.Room">
-        UPDATE room set name = #{name},notes = #{notes},id_roomType = #{id_roomType},id_structure = #{id_structure} where id = #{id}
+        UPDATE room set name = #{name},notes = #{notes},id_roomType = #{id_roomType},id_structure = #{id_structure} WHERE id = #{id}
     </update>
     
     <delete id="deleteRoom">
-        DELETE from room where id = #{id}
+        DELETE FROM room WHERE id = #{id}
     </delete>
+    
+    <select id="findAll" resultType="model.Room">
+        <include refid="selectRoom"/> 
+    </select>
     
     <select id="findRoomsByIdStructure" parameterType="int" resultType="model.Room">
         <include refid="selectRoom"/>WHERE id_structure = #{id_structure}
@@ -45,7 +49,7 @@ In case of controversy the competent court is the Court of Cagliari (Italy).
     </select>
     
     <select id="findRoomByIdStructureAndName" parameterType="map" resultType="model.Room">
-        <include refid="selectRoom"/>WHERE id_structure = #{id_structure} and   name = #{name}
+        <include refid="selectRoom"/>WHERE id_structure = #{id_structure} AND name = #{name}
     </select>
     
     <select id="findRoomsByIdRoomType" parameterType="int" resultType="model.Room">
@@ -53,20 +57,7 @@ In case of controversy the competent court is the Court of Cagliari (Italy).
     </select>
     
     <select id="countRoomsByIdRoomType" parameterType="int" resultType="int">
-        select count(id) from room where id_roomType = #{id_roomType}
-    </select>
-    
-    <select id="search" parameterType="map" resultType="model.Room">
-        <include refid="selectRoom"/> 
-        WHERE 
-        id_structure = #{id_structure}
-        <if test="name != null">
-        AND name LIKE CONCAT('%',#{name},'%')
-        </if>
-        <if test="notes != null">
-        AND notes LIKE CONCAT('%',#{notes},'%')
-        </if>  
-        LIMIT #{offset}, #{rownum}
+        SELECT count(id) FROM room WHERE id_roomType = #{id_roomType}
     </select>
     
     <sql id="selectRoom">

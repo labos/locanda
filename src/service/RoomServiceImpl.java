@@ -20,13 +20,13 @@ import java.util.List;
 import java.util.Map;
 
 import model.Facility;
+import model.Image;
 import model.Room;
 import model.RoomType;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import parser.SearchParser;
 import persistence.mybatis.mappers.ImageMapper;
 import persistence.mybatis.mappers.RoomMapper;
 import persistence.mybatis.mappers.RoomTypeMapper;
@@ -49,14 +49,16 @@ public class RoomServiceImpl implements RoomService{
 		Room room = null;
 		RoomType roomType = null;
 		List<Facility> facilities = null;
+		List<Image> images = null;
 		
 		room = this.getRoomMapper().findRoomById(id);
 		if (room!=null){
 			roomType = this.getRoomTypeMapper().findRoomTypeById(room.getId_roomType());
-			room.setRoomType(roomType);
-			
+			room.setRoomType(roomType);	
 			facilities = this.getFacilityService().findRoomFacilitiesByIdRoom(id);
 			room.setFacilities(facilities);
+			images = this.getImageService().findImagesByIdRoom(id);
+			room.setImages(images);
 		}
 		return room;
 	}
@@ -85,6 +87,10 @@ public class RoomServiceImpl implements RoomService{
 		return ret;
 	}
 
+	public List<Room> findAll() {
+		return this.getRoomMapper().findAll();
+	}
+	
 	@Override
 	public List<Room> findRoomsByIdStructure(Integer id_structure) {	
 		List<Room> rooms = null;
@@ -148,21 +154,6 @@ public class RoomServiceImpl implements RoomService{
 			this.getFacilityService().insertRoomFacility(each.getId(),room.getId());
 		}
 		return ret;
-	}
-
-	@Override
-	public List<Room> search(Integer id_structure, Integer offset, Integer rownum, String term) {
-		Map map = null;
-		SearchParser<Room> parser;
-		
-		parser = new SearchParser<Room>(Room.class);
-		map = new HashMap();
-		map.put("id_structure", id_structure );
-		map.put("offset", offset );
-		map.put("rownum", rownum );
-		map.putAll(parser.parse(term));
-		
-		return this.getRoomMapper().search(map);
 	}
 	
 	public RoomMapper getRoomMapper() {

@@ -26,9 +26,8 @@
  <fields>   
   	<!-- general -->
   	<field name="id"      			type="int"   		indexed="true"  stored="true"  	multiValued="false" required="true"/>
-  	<field name="name"    			type="string"   	indexed="true"  stored="false"  multiValued="false" /> 
-  	<field name="description"   	type="string"  	 	indexed="true"  stored="false"  multiValued="false" /> 
-	<field name="activationCode"    type="string"   	indexed="true"  stored="false"  multiValued="false" /> 
+  	<field name="name"    			type="string"   	indexed="true"  stored="false"  multiValued="false"/> 
+  	<field name="notes"   			type="string"  	 	indexed="true"  stored="false"  multiValued="false"/> 
 	<field name="id_structure"      type="int"   		indexed="true"  stored="false"  multiValued="false"/>
   	<field name="text" 				type="text_general" indexed="true" 	stored="true" 	multiValued="true"/>
  </fields>
@@ -42,8 +41,7 @@
  <!-- SolrQueryParser configuration: defaultOperator="AND|OR" -->
  <solrQueryParser defaultOperator="OR"/>
 
- <copyField source="name" 			dest="text"/>
- <copyField source="description" 	dest="text"/>
- <copyField source="activationCode" dest="text"/>
+ <copyField source="name" 	dest="text"/>
+ <copyField source="notes" 	dest="text"/>
 </schema>
 
