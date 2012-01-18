@@ -149,6 +149,10 @@ public class ExtraPriceListServiceImpl implements ExtraPriceListService{
 		}
 		return ret;
 	}
+	
+	public Integer deleteExtraPriceListItemsByIdExtra(Integer id_extra){
+		return this.getExtraPriceListItemMapper().deleteExtraPriceListItemsByIdExtra(id_extra);
+	}
 
 	@Override
 	public Integer updateExtraPriceListItem(ExtraPriceListItem extraPriceListItem) {

@@ -68,15 +68,25 @@
 		<constructor-arg ref="multiCoreContainer" />
 		<constructor-arg value="extra" />
 	</bean>
+	
+	<bean id="solrServerRoomType"
+		class="org.apache.solr.client.solrj.embedded.EmbeddedSolrServer">
+		<constructor-arg ref="multiCoreContainer" />
+		<constructor-arg value="roomType" />
+	</bean>
+	
+	<bean id="solrServerSeason"
+		class="org.apache.solr.client.solrj.embedded.EmbeddedSolrServer">
+		<constructor-arg ref="multiCoreContainer" />
+		<constructor-arg value="season" />
+	</bean>
 
 	<bean id="solrServerCore1"
 		class="org.apache.solr.client.solrj.embedded.EmbeddedSolrServer">
 		<constructor-arg ref="multiCoreContainer" />
 		<constructor-arg value="core1" />
 	</bean>
-
-   
-
+	
     <!-- enable autowire -->
     <context:annotation-config />
     
@@ -94,9 +104,7 @@
     </bean> 
     
     <!-- enable component scanning (beware that this does not enable mapper scanning!) -->    
-    
 	<context:component-scan base-package="service" />
 	<context:component-scan base-package="resources" />
        
-    
 </beans>

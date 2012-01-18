@@ -1,8 +1,10 @@
 package resources;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -17,13 +19,23 @@ import javax.ws.rs.core.MediaType;
 import model.listini.Period;
 import model.listini.Season;
 
+import org.apache.solr.client.solrj.SolrQuery;
+import org.apache.solr.client.solrj.SolrServer;
+import org.apache.solr.client.solrj.SolrServerException;
+import org.apache.solr.client.solrj.response.QueryResponse;
+import org.apache.solr.client.solrj.response.TermsResponse;
+import org.apache.solr.client.solrj.response.TermsResponse.Term;
+import org.apache.solr.common.SolrDocument;
+import org.apache.solr.common.SolrDocumentList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.sun.jersey.api.NotFoundException;
 
+import service.ExtraPriceListService;
 import service.PeriodService;
+import service.RoomPriceListService;
 import service.SeasonService;
 import service.StructureService;
 
@@ -37,24 +49,106 @@ public class SeasonResource {
 	@Autowired
 	private PeriodService periodService = null;
 	@Autowired
+	private RoomPriceListService roomPriceListService = null;
+	@Autowired
+	private ExtraPriceListService extraPriceListService = null;
+	@Autowired
     private StructureService structureService = null;
+	@Autowired
+    private SolrServer solrServerSeason = null;
 	
 	
-	@GET
-    @Path("structure/{idStructure}/search/{offset}/{rownum}")
-    @Produces({MediaType.APPLICATION_JSON})
-    public List<Season> simpleSearch(@PathParam("idStructure") Integer idStructure,@PathParam("offset") Integer offset,@PathParam("rownum") Integer rownum, @QueryParam("term") String term){
-        List<Season> filteredSeasons = null;
-        List<Period> periods = null;
-       
-		filteredSeasons = new ArrayList<Season>();
-        for(Season each: this.getSeasonService().search(idStructure, offset, rownum, term)){           
-        	periods = this.getPeriodService().findPeriodsByIdSeason(each.getId());
-			each.setPeriods(periods);
-			filteredSeasons.add(each);            		   
-        }       
-        return filteredSeasons;          
+	@PostConstruct
+    public void init(){
+    	List<Season> seasons = null;
+    	
+    	seasons = this.getSeasonService().findAll();
+    	try {
+			this.getSolrServerSeason().addBeans(seasons);
+			this.getSolrServerSeason().commit();
+		} catch (SolrServerException e) {			
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
     }
+    
+    @GET
+    @Path("structure/{idStructure}/search/{start}/{rows}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public List<Season> search(@PathParam("idStructure") Integer idStructure,@PathParam("start") Integer start,@PathParam("rows") Integer rows, @QueryParam("term") String term){
+        List<Season> seasons = null;
+        SolrQuery query = null;
+        QueryResponse rsp = null;
+        SolrDocumentList solrDocumentList = null;
+        SolrDocument solrDocument = null;
+        Season aSeason = null;
+        List<Period> periods = null;
+        Integer id;             
+       
+        if(term.trim().equals("")){
+        	term = "*:*";
+        }
+        term = term + " AND id_structure:" + idStructure.toString();
+        query = new SolrQuery();   		
+        query.setQuery(term);
+        query.setStart(start);
+        query.setRows(rows);
+              
+        try {
+			rsp = this.getSolrServerSeason().query(query);	
+		} catch (SolrServerException e) {
+			e.printStackTrace();			
+		}
+
+        seasons = new ArrayList<Season>();
+        if(rsp!=null){
+    	   solrDocumentList = rsp.getResults();
+           for(int i = 0; i <solrDocumentList.size(); i++){
+        	   solrDocument = solrDocumentList.get(i);
+        	   id = (Integer)solrDocument.getFieldValue("id");
+        	// System.out.println("----> "+solrDocument.getFieldValues("text")+" <-----");
+        	   aSeason = this.getSeasonService().findSeasonById(id);
+        	   periods = this.getPeriodService().findPeriodsByIdSeason(id);
+        	   aSeason.setPeriods(periods);
+        	   seasons.add(aSeason);
+           }  
+       }       
+       return seasons;          
+    }
+    
+    @GET
+    @Path("structure/{idStructure}/suggest")
+    @Produces({MediaType.APPLICATION_JSON})
+    public List<String> suggest(@PathParam("idStructure") Integer idStructure,@QueryParam("term") String term){        
+        SolrQuery query = null;
+        QueryResponse rsp = null;
+        List<String> ret = null;
+        TermsResponse termsResponse = null;
+        List<Term> terms;
+        
+        query = new SolrQuery();         
+        query.setQueryType("/terms");
+        query.addTermsField("text");
+        query.setParam("terms.prefix", term); 
+     // query.setParam("id_structure", idStructure.toString());
+        
+        try {
+			rsp = this.getSolrServerSeason().query( query );
+		} catch (SolrServerException e) {
+			e.printStackTrace();			
+		} 
+        ret = new ArrayList<String>(); 
+        
+        if(rsp!=null){
+        	termsResponse = rsp.getTermsResponse();
+            terms = termsResponse.getTerms("text");
+            for(int i = 0; i <terms.size(); i++){
+            	ret.add(terms.get(i).getTerm());
+            } 
+        }         
+        return ret; 
+     }
 	
 	@GET
 	@Path("{id}")
@@ -76,6 +170,14 @@ public class SeasonResource {
        
         this.getSeasonService().insertSeason(season);
         this.getStructureService().addPriceListsForSeason(season.getId_structure(), season.getId());
+        try {
+			this.getSolrServerSeason().addBean(season);			
+			this.getSolrServerSeason().commit();			
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (SolrServerException e) {
+			e.printStackTrace();
+		}
         return season;
     }
    
@@ -85,7 +187,17 @@ public class SeasonResource {
     @Produces({MediaType.APPLICATION_JSON})
     public Season update(Season season) {        
         
+    	try{
     	this.getSeasonService().updateSeason(season);
+    	}catch(Exception ex){}	
+    	try {
+			this.getSolrServerSeason().addBean(season);			
+			this.getSolrServerSeason().commit();			
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (SolrServerException e) {
+			e.printStackTrace();
+		}
         return season;
     }
     
@@ -96,8 +208,18 @@ public class SeasonResource {
     	Integer count = 0;		
 		
 		count = this.getSeasonService().deleteSeason(id);
+		this.getRoomPriceListService().deleteRoomPriceListsByIdSeason(id);
+		this.getExtraPriceListService().deleteExtraPriceListsByIdSeason(id);
 		if(count == 0){
 			throw new NotFoundException("Error: the season has NOT been deleted");
+		}
+		try {
+			this.getSolrServerSeason().deleteById(id.toString());
+			this.getSolrServerSeason().commit();
+		} catch (SolrServerException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 		return count;
     }
@@ -114,11 +236,29 @@ public class SeasonResource {
 	public void setPeriodService(PeriodService periodService) {
 		this.periodService = periodService;
 	}
+	public RoomPriceListService getRoomPriceListService() {
+		return roomPriceListService;
+	}
+	public void setRoomPriceListService(RoomPriceListService roomPriceListService) {
+		this.roomPriceListService = roomPriceListService;
+	}
+	public ExtraPriceListService getExtraPriceListService() {
+		return extraPriceListService;
+	}
+	public void setExtraPriceListService(ExtraPriceListService extraPriceListService) {
+		this.extraPriceListService = extraPriceListService;
+	}
 	public StructureService getStructureService() {
 		return structureService;
 	}
 	public void setStructureService(StructureService structureService) {
 		this.structureService = structureService;
+	}
+	public SolrServer getSolrServerSeason() {
+		return solrServerSeason;
+	}
+	public void setSolrServerSeason(SolrServer solrServerSeason) {
+		this.solrServerSeason = solrServerSeason;
 	}
 	
 }

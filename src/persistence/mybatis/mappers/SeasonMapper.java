@@ -24,13 +24,12 @@ public interface SeasonMapper {
 	public Season findSeasonById(Integer seasonId);
 	public Season findSeasonByName(Map params);
 	
+	public List<Season> findAll();
 	public List<Season> findSeasonsByStructureId(Integer structureId);	
 	public List<Season> findSeasonsByYear(Map params);
-	public List<Season> search(Map map);
 	
 	public Integer insertSeason(Season season);
 	public Integer updateSeason(Season season);
-	
 	public Integer deleteSeason(Integer seasonId);
 	
 }

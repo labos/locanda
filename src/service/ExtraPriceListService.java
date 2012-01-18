@@ -36,5 +36,6 @@ public interface ExtraPriceListService {
 	public Integer deleteExtraPriceListById(Integer id);
 	public Integer deleteExtraPriceListsByIdSeason(Integer id_season);
 	public Integer deleteExtraPriceListsByIdRoomType(Integer id_roomType); 
-	public Integer deleteExtraPriceListsByIdConvention(Integer id_convention); 
+	public Integer deleteExtraPriceListsByIdConvention(Integer id_convention);
+	public Integer deleteExtraPriceListItemsByIdExtra(Integer id_extra);
 }

@@ -308,7 +308,7 @@ public class StructureServiceImpl implements StructureService{
 		}
 	}
 	
-	public void addPriceListsForExtra(Integer id_structure, Integer id_extra) {
+	public void modifyPriceListsForExtra(Integer id_structure, Integer id_extra) {
 		ExtraPriceListItem newExtraPriceListItem = null;
 		
 		for (ExtraPriceList eachPriceList : this.getExtraPriceListService().findExtraPriceListsByIdStructure(id_structure)) {

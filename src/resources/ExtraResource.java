@@ -32,6 +32,7 @@ import org.springframework.stereotype.Component;
 import com.sun.jersey.api.NotFoundException;
 
 import service.BookingService;
+import service.ExtraPriceListService;
 import service.ExtraService;
 import service.StructureService;
 
@@ -42,6 +43,8 @@ public class ExtraResource {
    
     @Autowired
     private ExtraService extraService = null;
+    @Autowired
+    private ExtraPriceListService extraPriceListService = null;
     @Autowired
     private StructureService structureService = null;
     @Autowired
@@ -94,12 +97,12 @@ public class ExtraResource {
 		}
 
         extras = new ArrayList<Extra>();
-       if(rsp!=null){
+        if(rsp!=null){
     	   solrDocumentList = rsp.getResults();
            for(int i = 0; i <solrDocumentList.size(); i++){
         	   solrDocument = solrDocumentList.get(i);
         	   id = (Integer)solrDocument.getFieldValue("id");
-        	  // System.out.println("----> "+solrDocument.getFieldValues("text")+" <-----");
+        	// System.out.println("----> "+solrDocument.getFieldValues("text")+" <-----");
         	   anExtra = this.getExtraService().findExtraById(id);
         	   extras.add(anExtra);
            }  
@@ -121,7 +124,7 @@ public class ExtraResource {
         query.setQueryType("/terms");
         query.addTermsField("text");
         query.setParam("terms.prefix", term); 
-       // query.setParam("id_structure", idStructure.toString());
+     // query.setParam("id_structure", idStructure.toString());
         
         try {
 			rsp = this.getSolrServerExtra().query(query);
@@ -158,7 +161,7 @@ public class ExtraResource {
     public Extra save(Extra extra) {
        
         this.getExtraService().insertExtra(extra);
-        this.getStructureService().addPriceListsForExtra(extra.getId_structure(),extra.getId() );
+        this.getStructureService().modifyPriceListsForExtra(extra.getId_structure(),extra.getId());
         try {
 			this.getSolrServerExtra().addBean(extra);			
 			this.getSolrServerExtra().commit();			
@@ -196,11 +199,12 @@ public class ExtraResource {
     public Integer delete(@PathParam("id") Integer id){
     	Integer count = 0;		
 		
-		if(this.getBookingService().countBookingsByIdGuest(id) > 0){
-			throw new NotFoundException("The guest you are trying to delete has links to one or more bookings." +
+		if(this.getBookingService().countBookingsByIdExtra(id) > 0){
+			throw new NotFoundException("The extra you are trying to delete has links to one or more bookings." +
 					" Please try to delete the associated bookings before.");
 		}
 		count = this.getExtraService().deleteExtra(id);
+		this.getExtraPriceListService().deleteExtraPriceListItemsByIdExtra(id);
 		if(count == 0){
 			throw new NotFoundException("Error: the extra has NOT been deleted");
 		}
@@ -221,6 +225,12 @@ public class ExtraResource {
 	}
 	public void setExtraService(ExtraService extraService) {
 		this.extraService = extraService;
+	}
+	public ExtraPriceListService getExtraPriceListService() {
+		return extraPriceListService;
+	}
+	public void setExtraPriceListService(ExtraPriceListService extraPriceListService) {
+		this.extraPriceListService = extraPriceListService;
 	}
 	public StructureService getStructureService() {
 		return structureService;

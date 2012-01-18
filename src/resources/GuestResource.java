@@ -56,8 +56,8 @@ public class GuestResource {
     	
     	guests = this.getGuestService().findAll();
     	try {
-			this.getsolrServerGuest().addBeans(guests);
-			this.getsolrServerGuest().commit();
+			this.getSolrServerGuest().addBeans(guests);
+			this.getSolrServerGuest().commit();
 		} catch (SolrServerException e) {			
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -87,14 +87,14 @@ public class GuestResource {
         query.setRows(rows);
               
         try {
-			rsp = this.getsolrServerGuest().query(query);
+			rsp = this.getSolrServerGuest().query(query);
 			
 		} catch (SolrServerException e) {
 			e.printStackTrace();			
 		}
 
-       guests = new ArrayList<Guest>();
-       if(rsp!=null){
+        guests = new ArrayList<Guest>();
+        if(rsp!=null){
     	   solrDocumentList = rsp.getResults();
            for(int i = 0; i <solrDocumentList.size(); i++){
         	   solrDocument = solrDocumentList.get(i);
@@ -121,15 +121,14 @@ public class GuestResource {
         query.setQueryType("/terms");
         query.addTermsField("text");
         query.setParam("terms.prefix", term); 
-       // query.setParam("id_structure", idStructure.toString());
+     // query.setParam("id_structure", idStructure.toString());
         
         try {
-			rsp = this.getsolrServerGuest().query(query);
+			rsp = this.getSolrServerGuest().query(query);
 			
 		} catch (SolrServerException e) {
 			e.printStackTrace();			
 		} 
-        
         ret = new ArrayList<String>(); 
         
         if(rsp!=null){
@@ -159,8 +158,8 @@ public class GuestResource {
        
         this.getGuestService().insertGuest(guest);
         try {
-			this.getsolrServerGuest().addBean(guest);			
-			this.getsolrServerGuest().commit();			
+			this.getSolrServerGuest().addBean(guest);			
+			this.getSolrServerGuest().commit();			
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (SolrServerException e) {
@@ -176,13 +175,10 @@ public class GuestResource {
     public Guest update(Guest guest) {  
     	try{
     		this.getGuestService().updateGuest(guest);
-    	}catch(Exception ex){
-    		
-    	}
-    	
+    	}catch(Exception ex){}	
     	try {
-			this.getsolrServerGuest().addBean(guest);			
-			this.getsolrServerGuest().commit();			
+			this.getSolrServerGuest().addBean(guest);			
+			this.getSolrServerGuest().commit();			
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (SolrServerException e) {
@@ -205,10 +201,9 @@ public class GuestResource {
 		if(count == 0){
 			throw new NotFoundException("Error: the guest has NOT been deleted");
 		}
-		
 		try {
-			this.getsolrServerGuest().deleteById(id.toString());
-			this.getsolrServerGuest().commit();
+			this.getSolrServerGuest().deleteById(id.toString());
+			this.getSolrServerGuest().commit();
 		} catch (SolrServerException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -235,10 +230,10 @@ public class GuestResource {
 	public void setBookingService(BookingService bookingService) {
 		this.bookingService = bookingService;
 	}
-	public SolrServer getsolrServerGuest() {
+	public SolrServer getSolrServerGuest() {
 		return solrServerGuest;
 	}
-	public void setsolrServerGuest(SolrServer solrServerGuest) {
+	public void setSolrServerGuest(SolrServer solrServerGuest) {
 		this.solrServerGuest = solrServerGuest;
 	}  	
 

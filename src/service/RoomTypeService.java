@@ -28,9 +28,9 @@ public interface RoomTypeService {
 	public Integer updateRoomType(RoomType roomType);
 	public Integer deleteRoomType(Integer id);
 	
+	public List<RoomType> findAll();
 	public List<RoomType> findRoomTypesByIdStructure(Integer id_structure);
 	public List<RoomType> findRoomTypesByIdStructure(Integer id_structure,Integer offset,Integer rownum);
-	public List<RoomType> search(Integer id_structure, Integer offset, Integer rownum, String term);
 	
 	public RoomType findRoomTypeById(Integer id);
 	public RoomType findRoomTypeByIdStructureAndName(Integer id_structure, String name);

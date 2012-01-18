@@ -32,6 +32,8 @@
     <core name="convention" instanceDir="convention"/>
     <core name="guest" 		instanceDir="guest"/>
     <core name="extra" 		instanceDir="extra"/>
+    <core name="roomType" 	instanceDir="roomType"/>
+    <core name="season" 	instanceDir="season"/>
     <core name="core1" 		instanceDir="core1"/>
   </cores>
 </solr>
