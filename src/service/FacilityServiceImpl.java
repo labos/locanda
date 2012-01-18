@@ -16,9 +16,12 @@
 package service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -79,69 +82,58 @@ public class FacilityServiceImpl implements FacilityService{
 		return this.getFacilityMapper().insertStructureFacility(facility);
 	}
 	
+	
 	@Override
-	public List<Facility> findUploadedFacilitiesByIdStructure(Integer id_structure) {
-		return this.getFacilityMapper().findUploadedFacilitiesByIdStructure(id_structure);
-	}
-
-	@Override
-	public Facility findUploadedFacilityById(Integer id) {
-		return this.getFacilityMapper().findUploadedFacilityById(id);
-	}
-
-	@Override
-	public Facility findUploadedFacilityByName(Integer id_structure, String name) {	
-		Map map = null;
-		
-		map = new HashMap();
-		map.put("id_structure", id_structure);
-		map.put("name", name);
-		return this.getFacilityMapper().findUploadedFacilityByName(map);
+	public Facility findFacilityById(Integer id) {		
+		return this.getFacilityMapper().findFacilityById(id);
 	}
 	
 	
-	
-	
 	@Override
-	public Facility findStructureFacilityById(Integer id) {
-		
-		return this.getFacilityMapper().findStructureFacilityById(id);
-	}
-
-	@Override
-	public Facility findStructureFacilityByName(Integer id_structure, String name) {
-		Map map = null;
-		
-		map = new HashMap();
-		map.put("id_structure", id_structure);
-		map.put("name", name);
-		return this.getFacilityMapper().findStructureFacilityByName(map);
-	}
-
-	@Override
-	public List<Facility> findUploadedFacilitiesByIds(List<Integer> ids) {
+	public List<Facility> findFacilitiesByIds(List<Integer> ids) {
 		List<Facility> ret = null;
 		
 		ret = new ArrayList<Facility>();
 		for(Integer each: ids){
-			ret.add(this.findUploadedFacilityById(each));
+			ret.add(this.findFacilityById(each));
 		}
 		return ret;
 	}
 
 	@Override
-	public List<Facility> findStructureFacilitiesByIdStructure(	Integer id_structure) {
-		return this.getFacilityMapper().findStructureFacilitiesByIdStructure(id_structure);
+	public List<Facility> findStructureFacilitiesByIdStructure(	Integer id_structure) {		
+		Set<Integer> ids = null;
+		
+		ids = new HashSet<Integer>();
+		ids.addAll(this.getFacilityMapper().findRoomFacilityIdsByIdStructure(id_structure));
+		return this.findFacilitiesByIds(new ArrayList<Integer>(ids));
+		
+	}
+	
+	@Override
+	public List<Facility> findRoomAndRoomTypeFacilitiesByIdStructure(Integer id_structure) {
+		Set<Integer> ids = null;
+		
+		ids = new HashSet<Integer>();
+		ids.addAll(this.getFacilityMapper().findRoomFacilityIdsByIdStructure(id_structure));
+		ids.addAll(this.getFacilityMapper().findRoomTypeFacilityIdsByIdStructure(id_structure));
+		return this.findFacilitiesByIds(new ArrayList<Integer>(ids));
 	}
 
 	@Override
-	public List<Facility> findRoomFacilitiesByIdRoom(Integer id_room) {		
-		return this.getFacilityMapper().findRoomFacilitiesByIdRoom(id_room);
+	public List<Facility> findRoomFacilitiesByIdRoom(Integer id_room) {	
+		List<Integer> ids = null;
+		
+		ids = this.getFacilityMapper().findRoomFacilityIdsByIdRoom(id_room);
+		return this.findFacilitiesByIds(ids);
 	}
 
 	@Override
 	public List<Facility> findRoomTypeFacilitiesByIdRoomType(Integer id_roomType) {
-		return this.getFacilityMapper().findRoomTypeFacilitiesByIdRoomType(id_roomType);
+		List<Integer> ids = null;
+		
+		ids = this.getFacilityMapper().findRoomTypeFacilityIdsByIdRoomType(id_roomType);
+		return this.findFacilitiesByIds(ids);
 	}
 
 	@Override

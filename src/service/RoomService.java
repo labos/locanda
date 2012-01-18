@@ -30,6 +30,7 @@ public interface RoomService {
 	
 	public List<Room> findAll();
 	public List<Room> findRoomsByIdStructure(Integer id_structure);
+	public List<Integer> findRoomIdsByIdStructure(Integer id_structure);
 	public List<Room> findRoomsByIdStructure(Integer id_structure,Integer offset,Integer rownum);
 	public List<Room> findRoomsByIdRoomType(Integer id_roomType);
 	

@@ -20,12 +20,18 @@ In case of controversy the competent court is the Court of Cagliari (Italy).
 <mapper namespace="persistence.mybatis.mappers.RoomTypeMapper">
     <cache/>
 	
+
 	<select id="findAll" resultType="model.RoomType">
         <include refid="selectRoomType"/> 
     </select>
     
+
 	<select id="findRoomTypesByIdStructure" parameterType="int" resultType="model.RoomType">
         <include refid="selectRoomType"/>WHERE id_structure = #{id_structure}
+    </select>
+    
+    <select id="findRoomTypeIdsByIdStructure" parameterType="int" resultType="int">
+        <include refid="selectRoomTypeId"/>WHERE id_structure = #{id_structure}
     </select>
     
     <select id="findRoomTypesByIdStructureAndOffsetAndRownum" parameterType="map" resultType="model.RoomType">
@@ -58,6 +64,10 @@ In case of controversy the competent court is the Court of Cagliari (Italy).
     
     <sql id="selectRoomType">
         SELECT id,name,maxGuests,notes,id_structure FROM roomType
+    </sql>
+    
+    <sql id="selectRoomTypeId">
+        SELECT id FROM roomType
     </sql>
 	
     <insert id="insertRoomType" parameterType="model.RoomType" useGeneratedKeys="true" keyProperty="id">

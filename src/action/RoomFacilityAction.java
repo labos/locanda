@@ -67,7 +67,7 @@ public class RoomFacilityAction extends ActionSupport implements SessionAware,Us
 	})
 	public String goUpdateRoomFacilities() {
 		
-		this.setRoomFacilities(this.getFacilityService().findUploadedFacilitiesByIdStructure(this.getIdStructure()));
+		this.setRoomFacilities(this.getFacilityService().findRoomAndRoomTypeFacilitiesByIdStructure(this.getIdStructure()));
 		for(Facility each: this.getFacilityService().findRoomFacilitiesByIdRoom(this.getIdRoom())){	
 			this.roomFacilitiesIds.add(each.getId());			
 		}
@@ -83,7 +83,7 @@ public class RoomFacilityAction extends ActionSupport implements SessionAware,Us
 		List<Facility>  checkedFacilities = null;
 		
 		this.setRoom(this.getRoomService().findRoomById(this.getIdRoom()));
-		checkedFacilities = this.getFacilityService().findUploadedFacilitiesByIds(this.getRoomFacilitiesIds());
+		checkedFacilities = this.getFacilityService().findFacilitiesByIds(this.getRoomFacilitiesIds());
 		this.getRoom().setFacilities(checkedFacilities);
 		this.getFacilityService().deleteAllFacilitiesFromRoom(this.getIdRoom());
 		this.getFacilityService().insertRoomFacilities(this.getRoomFacilitiesIds(), this.getIdRoom());
@@ -123,11 +123,11 @@ public class RoomFacilityAction extends ActionSupport implements SessionAware,Us
 	public String updateUploadedFacility() {
 		
 		if(this.getFacilityService().updateUploadedFacility(this.getFacility()) > 0){
-			this.setFacility(this.getFacilityService().findUploadedFacilityById(this.getFacility().getId()));
+			this.setFacility(this.getFacilityService().findFacilityById(this.getFacility().getId()));
 			this.getMessage().setResult(Message.SUCCESS);
 			return SUCCESS;
 		}else{
-			this.setFacility(this.getFacilityService().findUploadedFacilityById(this.getFacility().getId()));
+			this.setFacility(this.getFacilityService().findFacilityById(this.getFacility().getId()));
 			this.getMessage().setResult(Message.ERROR);
 			return ERROR;
 		}

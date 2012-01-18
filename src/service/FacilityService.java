@@ -16,6 +16,7 @@
 package service;
 
 import java.util.List;
+import java.util.Set;
 
 import model.Facility;
 
@@ -30,16 +31,11 @@ public interface FacilityService {
 	public Integer insertRoomTypeFacilities(List<Integer> uploadedFacilitiesIds, Integer id_roomType);
 	public Integer insertStructureFacility(Facility facility);
 	
-	public List<Facility> findUploadedFacilitiesByIdStructure(Integer id_structure);
-	public Facility findUploadedFacilityById(Integer id);
-	public List<Facility> findUploadedFacilitiesByIds(List<Integer> ids);
+	public List<Facility> findFacilitiesByIds(List<Integer> ids);
+	public Facility findFacilityById(Integer id);
 	public List<Facility> findStructureFacilitiesByIdStructure(Integer id_structure);
-	
-	public Facility findUploadedFacilityByName(Integer id_structure, String name);	
-	
-	public Facility findStructureFacilityById(Integer id);
-	public Facility findStructureFacilityByName(Integer id_structure, String name);
-	public List<Facility> findRoomFacilitiesByIdRoom(Integer id_room);
+	public List<Facility> findRoomAndRoomTypeFacilitiesByIdStructure(Integer id_structure);		
+	public List<Facility> findRoomFacilitiesByIdRoom(Integer id_room);		
 	public List<Facility> findRoomTypeFacilitiesByIdRoomType(Integer id_roomType);
 	
 	public Integer deleteUploadedFacility(Integer id);

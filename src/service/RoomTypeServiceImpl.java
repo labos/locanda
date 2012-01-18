@@ -51,6 +51,13 @@ public class RoomTypeServiceImpl implements RoomTypeService{
 		return ret;
 	}
 	
+	
+	@Override
+	public List<Integer> findRoomTypeIdsByIdStructure(Integer id_structure) {
+		return this.getRoomTypeMapper().findRoomTypeIdsByIdStructure(id_structure);
+	}
+
+
 	@Override
 	public List<RoomType> findRoomTypesByIdStructure(Integer id_structure, Integer offset, Integer rownum) {
 		Map map = null;
