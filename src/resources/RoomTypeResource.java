@@ -116,6 +116,7 @@ public class RoomTypeResource {
         	   id = (Integer)solrDocument.getFieldValue("id");
             // System.out.println("----> "+solrDocument.getFieldValues("text")+" <-----");
         	   aRoomType = this.getRoomTypeService().findRoomTypeById(id);
+        	   
         	   roomTypes.add(aRoomType);
            }  
        }       

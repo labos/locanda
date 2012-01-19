@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 import model.Facility;
+import model.Image;
 import model.RoomType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -71,7 +72,14 @@ public class RoomTypeServiceImpl implements RoomTypeService{
 
 	@Override
 	public RoomType findRoomTypeById(Integer id) {
-		return this.getRoomTypeMapper().findRoomTypeById(id);
+		RoomType roomType = null;
+		List<Image> images = null;
+		
+		roomType = this.getRoomTypeMapper().findRoomTypeById(id);
+		images = this.getImageService().findImagesByIdRoomType(id);
+		roomType.setImages(images);
+		return roomType;
+		
 	}
 
 	@Override

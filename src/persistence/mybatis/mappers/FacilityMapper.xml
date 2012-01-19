@@ -54,11 +54,11 @@ In case of controversy the competent court is the Court of Cagliari (Italy).
     </select>
     
     <select id="findRoomFacilityIdsByIdRoom" parameterType="int" resultType="int">
-       SELECT DISTINCT id_facility from roomFacility where id_room = #{id_room})
+       SELECT DISTINCT id_facility from roomFacility where id_room = #{id_room}
     </select>
     
     <select id="findRoomTypeFacilityIdsByIdRoomType" parameterType="int" resultType="int">
-       SELECT DISTINCT id_facility from roomTypeFacility where id_roomType = #{id_roomType})
+       SELECT DISTINCT id_facility from roomTypeFacility where id_roomType = #{id_roomType}
     </select>
        
     
