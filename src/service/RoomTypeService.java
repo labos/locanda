@@ -37,4 +37,6 @@ public interface RoomTypeService {
 	
 	public RoomType findRoomTypeById(Integer id);
 	public RoomType findRoomTypeByIdStructureAndName(Integer id_structure, String name);
+	
+	public Integer findIdStructureByIdRoomType(Integer idRoomType);
 }

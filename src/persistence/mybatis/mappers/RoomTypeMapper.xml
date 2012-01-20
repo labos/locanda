@@ -62,6 +62,11 @@ In case of controversy the competent court is the Court of Cagliari (Italy).
         LIMIT #{offset}, #{rownum}
     </select>
     
+    
+    <select id="findIdStructureByIdRoomType" parameterType="int" resultType="int">
+        select id_structure from roomType where id = #{idRoomType}
+    </select>
+    
     <sql id="selectRoomType">
         SELECT id,name,maxGuests,notes,id_structure FROM roomType
     </sql>
