@@ -20,6 +20,14 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <jsp:include page="layout/header_menu.jsp" />
+<script>
+Entity = {name: "extra", 
+		model: function(options){ return new Extra( options );},
+		collection: function(options){ return new Extra( options );},
+		editView: null,
+		idStructure : <s:property value="#session.user.structure.id"/>
+		};
+</script>
       <div id="main">
         <!-- begin: #col1 - first float column -->
         <div id="col1" role="complementary">
@@ -36,7 +44,7 @@
       	    <div>
               <button class="btn_add_form btn_addExtra"><s:text name="addNew"/></button>
             </div>
-            <div class="yform hideform">
+            <div class="yform hideform" id="newExtraForm">
           	  <jsp:include page="contents/extra_form.jsp" />
             </div>
             
@@ -71,4 +79,5 @@
             </s:iterator>
                
 		  </div><!-- end: #col3_content-->		  
-<jsp:include page="layout/footer.jsp" />     
+<jsp:include page="layout/footer.jsp" />  
+<script type='text/javascript' src="js/controllers/extra_controller.js"></script>   

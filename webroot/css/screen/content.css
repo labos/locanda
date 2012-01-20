@@ -1146,7 +1146,7 @@ background: url("../../images/loading.gif") no-repeat center center;
 
 	}
 	.edit-state-box{
-	padding:5px;
+	padding:0px;
 	z-index:3000;
 	background-color:white;
 	position:relative;
@@ -1156,7 +1156,16 @@ background: url("../../images/loading.gif") no-repeat center center;
 	div.add-new {
     right: 0;
     text-align: right;
+    margin-bottom: 5px;
 }
+	div.add-new .ui-widget {
+	margin: 0;
+}
+
+div.add-new .ui-corner-all {
+    border-radius: 0px 0px 0px 6px;
+}
+
 #periods{
 	border-top:1px solid #DDDDDD;
 }

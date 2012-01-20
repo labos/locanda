@@ -20,6 +20,14 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <jsp:include page="layout/header_menu.jsp" />
+<script>
+Entity = {name: "room", 
+		model: function(options){ return new Room( options );},
+		collection: function(options){ return new Room( options );},
+		editView: null,
+		idStructure : <s:property value="#session.user.structure.id"/>
+		};
+</script>
 <link rel='stylesheet' type='text/css' href='css/screen/basemod_2col_left_tree.css' />
   <div id="main">
     <!-- begin: #col1 - first float column -->
@@ -41,7 +49,7 @@
         <div>
           <button class="btn_add_form"><s:text name="addNew"/></button>
         </div>
-        <div class="yform hideform">
+        <div class="yform hideform" id="newExtraForm">
           <jsp:include page="contents/room_form.jsp" />
         </div>
         

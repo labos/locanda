@@ -534,11 +534,13 @@
          return this;
      },
      addNew: function () {
-         this.editView.resetModel(Entity.model({
+    	 if( Entity && Entity.editView!==null ){
+    		 this.editView.resetModel(Entity.model({
              id_structure: Entity.idStructure
-         }));
-         $(this.editView.el).undelegate("div", "click");
-        // this.editView.switchMode();
+    		 }));
+    		 $(this.editView.el).undelegate("div", "click");
+    		 // this.editView.switchMode();
+    	 }
      },
      filterAll: function (attribute, value) {
          self.listView.collection.setFilter(attribute, value).fetch();

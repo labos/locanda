@@ -15,7 +15,7 @@
  *******************************************************************************/
 $(function () {
 /*
- * @class PriceListView 
+ * @class EditPriceListView 
  * @parent Backbone.View
  * @constructor
  * Class to show a price list.

@@ -117,11 +117,11 @@
 </script>
 
 <script id="image-row-template" type="text/x-handlebars-template" >
-<span class="title-elem">{{name}}</span><img src="images/hotel-demo.jpeg" />
+<span class="title-elem">{{name}}</span><img src="<%=request.getContextPath( )%>/rest/images/roomType/{{id}}" />
 </script>
 
 <script id="image-row-edit-template" type="text/x-handlebars-template" >
-<span class="title-elem">{{name}}</span><span class="delete-elem"></span><img src="images/hotel-demo.jpeg" />
+<span class="title-elem">{{name}}</span><span class="delete-elem"></span><img src="<%=request.getContextPath( )%>/rest/images/roomType/{{id}}" />
 </script>
 
 <script id="facilities-view-template" type="text/x-handlebars-template" >
@@ -146,10 +146,10 @@
 
 
 <script id="facilities-edit-template" type="text/x-handlebars-template" >
-<div class="wrapper">
 <div class="add-new">
-<button class="btn_add">Add new Facility</button>
+	<a hfref="" class="btn_add">Add new Facility</a>
 </div>
+<div class="wrapper">
 	<ul>
 	</ul>
 </div>
@@ -159,6 +159,9 @@
 </script>
 
 <script id="images-edit-template" type="text/x-handlebars-template" >
+<div class="add-new">
+	<a hfref="" class="btn_add">Edit <s:text name="images"/></a>
+</div>
 <div class="wrapper">
 	<ul>
 	</ul>

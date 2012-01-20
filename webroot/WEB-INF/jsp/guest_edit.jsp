@@ -20,6 +20,14 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <jsp:include page="layout/header_menu.jsp" />
+<script>
+Entity = {name: "guest", 
+		model: function(options){ return new Guest( options );},
+		collection: function(options){ return new Guest( options );},
+		editView: null,
+		idStructure : <s:property value="#session.user.structure.id"/>
+		};
+</script>
       <div id="main">
         <!-- begin: #col1 - first float column -->
         <div id="col1" role="complementary">

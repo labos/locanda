@@ -12,8 +12,6 @@ window.FacilityRowView = Backbone.View.extend({
      indexTemplate: $("#facility-row-template"),
      // The DOM events specific to an row.
      events: {
-         "click span.row-item-destroy": "remove",
-         "click .row-item": "edit",
          "click input.choose-elem": "choose"
      },
      initialize: function () {
@@ -25,20 +23,16 @@ window.FacilityRowView = Backbone.View.extend({
          $(this.el).html(Mustache.to_html(this.indexTemplate.html(), this.model.toJSON()));
          return this;
      },
-     // Switch this view into `"editing"` mode, displaying the input field.
-     edit: function (event) {
-         var $target = $(event.target);
-         if (!$target.is("span.row-item-destroy")) {
-             this.trigger("row:edit", this);
-         }},
          // add a facility to the parent model
      choose: function (event) {
         	 //send cheched/unchecked roomTypeFacility
-         var $target = $(event.target);
+         var $target = $(event.target),
+         self = this;
          if (!$target.is(":checked")) {
         	  this.model.destroy({
                   success: function () {
-                     
+                      // trigger an update event.
+                      self.trigger("child:update", self);
                       $.jGrowl($.i18n("congratulation"), { header: this.alertOK });
                   },
                   error: function (jqXHR, textStatus, errorThrown) {
@@ -51,7 +45,8 @@ window.FacilityRowView = Backbone.View.extend({
          else{
        	  this.model.save({
               success: function () {
-                 
+            	  // trigger an update event.
+                  self.trigger("child:update", self);
                   $.jGrowl($.i18n("congratulation"), { header: this.alertOK });
               },
               error: function (jqXHR, textStatus, errorThrown) {
@@ -66,27 +61,14 @@ window.FacilityRowView = Backbone.View.extend({
 
      },
      unrender: function () {
+    	 this.model.unbind('change', this.render);
+    	 this.model.unbind('destroy', this.unrender);
          //clean up events raised from the view
          this.unbind();
          //clean up events from the DOM
          $(this.el).remove();
      },
-     // Remove this view from the DOM.
-     remove: function () {
-         if (confirm($.i18n("alertDelete"))) {
-             this.model.destroy({
-                 success: function () {
-                    
-                     $.jGrowl($.i18n("congratulation"), { header: this.alertOK });
-                 },
-                 error: function (jqXHR, textStatus, errorThrown) {
-                     textStatus.responseText || (textStatus.responseText = $.i18n("seriousErrorDescr"));
-                     $.jGrowl(textStatus.responseText, { header: this.alertKO, theme: "notify-error"  });
-                     
-                 }
-             });
-         }
-     },
+
      // clear all attributes from the model
      clear: function () {
          this.model.clear();
@@ -113,7 +95,6 @@ window.ImageRowView = Backbone.View.extend({
      // The DOM events specific to an row.
      events: {
          "click span.delete-elem": "remove",
-         "click .row-item": "edit"
      },
      initialize: function () {
          this.model.bind('change', this.render, this);
@@ -124,14 +105,9 @@ window.ImageRowView = Backbone.View.extend({
          $(this.el).html(Mustache.to_html(this.indexTemplate.html(), this.model.toJSON()));
          return this;
      },
-     // Switch this view into `"editing"` mode, displaying the input field.
-     edit: function (event) {
-         var $target = $(event.target);
-         if (!$target.is("span.row-item-destroy")) {
-             this.trigger("row:edit", this);
-         }
-     },
      unrender: function () {
+    	 this.model.unbind('change', this.render);
+    	 this.model.unbind('destroy', this.unrender);
          //clean up events raised from the view
          this.unbind();
          //clean up events from the DOM
@@ -142,7 +118,7 @@ window.ImageRowView = Backbone.View.extend({
          if (confirm($.i18n("alertDelete"))) {
              this.model.destroy({
                  success: function () {
-                    
+
                      $.jGrowl($.i18n("congratulation"), { header: this.alertOK });
                  },
                  error: function (jqXHR, textStatus, errorThrown) {
@@ -181,7 +157,6 @@ window.ImagesFacilitiesView = Backbone.View.extend({
          "click .ui-rcarousel-next": "next",
          "click .ui-rcarousel-prev": "prev",
          "click .save-elem": "saveElement",
-        // "click span.sub-edit" :"switchMode",
          "click div" :"switchMode"
      },
      initialize: function (options) {
@@ -198,7 +173,7 @@ window.ImagesFacilitiesView = Backbone.View.extend({
          }
          $(".btn_add").button({
              icons: {
-                 primary: "ui-icon-plusthick"
+                 primary: "ui-icon-gear"
              }
          });
          this.addAll();
@@ -294,6 +269,9 @@ window.ImagesFacilitiesView = Backbone.View.extend({
     	 this.page = 0;
     	 this.idParent = null;
      },
+     removeOne: function(){
+    	 this.trigger("child:update", this);
+     },
      
      saveElement: function(){ 
     	 
@@ -302,7 +280,14 @@ window.ImagesFacilitiesView = Backbone.View.extend({
          var view = new FacilityRowView({
              model: item
          });
-         view.bind("row:edit", this.editOne);
+         view.bind("child:update", function () {
+             self.trigger("child:update", this);
+         }, self);
+         if( this.indexTemplate.attr("id") == "facilities-edit-template" )
+    	 {
+    	 
+    	 	view.switchMode();
+    	 }
          view.model.collection = this.collection;
          this.rowViews.push(view);
          this.$("ul").append(view.render().el);
@@ -311,9 +296,7 @@ window.ImagesFacilitiesView = Backbone.View.extend({
          this.indexTemplate = (this.indexTemplate.attr("id") == "facilities-view-template") ? $("#facilities-edit-template") : $("#facilities-view-template");
          this.render();
          var self = this;
-    	 $.each(this.rowViews, function(index,aView){
-    		 aView.switchMode();
-    	 });
+
          $(this.el).undelegate("div", "click");
          $('<div></div>').overlay({
              effect: 'fade',
@@ -356,9 +339,7 @@ window.ImagesFacilitiesView = Backbone.View.extend({
     	 this.idParent = null;
      },
      removeOne: function(){
-         if (confirm($.i18n("alresetertDelete"))) {
-        	 this.trigger("image:remove", this);
-         } 
+    	 this.trigger("child:update", this);
      },
      saveElement: function(){
     	 //save element
@@ -368,8 +349,15 @@ window.ImagesFacilitiesView = Backbone.View.extend({
          var view = new ImageRowView({
              model: item
          });
-         view.bind("row:edit", this.editOne);
          view.model.collection = this.collection;
+/*         view.bind("child:update", function () {
+             self.trigger("child:update", self);
+         }, self);*/
+       if( this.indexTemplate.attr("id") == "images-edit-template" )
+        	 {
+        	 
+        	 	view.switchMode();
+        	 }
          this.rowViews.push(view);
          this.$("ul").append(view.render().el);
      },
@@ -409,13 +397,13 @@ window.ImagesFacilitiesView = Backbone.View.extend({
                });
     		 
     	 }
-
+/*
          //change list of rows in edit mode
     	 $.each(this.rowViews, function(index,aView){
     		 aView.switchMode();
     	 });
          
-    
+    */
      }
  });
  
@@ -473,7 +461,9 @@ window.ImagesFacilitiesView = Backbone.View.extend({
     	 if (this.model.isNew() || this.model.get("id")  != this.id){
     		 var self = this;
              this.id = this.model.get("id");
-    	        //set id season for new periods to add in periods list
+             // unbind previous events raised from associated views
+             this.facilitiesListView.unbind("child:update");
+             this.imagesListView.unbind("child:update");
              this.facilitiesListView.idParent= this.id;
              this.imagesListView.idParent= this.id;
              //set collection for associated views
@@ -481,21 +471,24 @@ window.ImagesFacilitiesView = Backbone.View.extend({
              this.imagesListView.collection.reset( this.model.get("images"));
              // listen for changes in model on editing and fetch model if any change occur.
              this.facilitiesListView.bind("child:update", function () {
-                 self.model.fetch();
-                 //set collection for associated views
-                 self.facilitiesListView.collection.reset(self.model.get("facilities") );
-                 self.imagesListView.collection.reset( self.model.get("images"));
+                 self.model.fetch({silent: true, success: function(){
+                     //set collection for associated views
+                     self.facilitiesListView.collection.reset(self.model.get("facilities") );
+
+                 }});
+
                  
              });
              this.imagesListView.bind("child:update", function () {
-                 self.model.fetch();
-                 //set collection for associated views
-                 self.facilitiesListView.collection.reset(self.model.get("facilities") );
-                 self.imagesListView.collection.reset( self.model.get("images"));
+                 self.model.fetch({silent: true, success: function(){
+                     //set collection for associated views
+                     self.imagesListView.collection.reset( self.model.get("images"));
+
+                 }});
 
              });
              
-             this.id = this.model.get("id");
+
              // now render associated views
              if( $("#facilities").is(':empty') ) {
                  $("#facilities").html( this.facilitiesListView.el ) ;
