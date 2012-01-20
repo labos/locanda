@@ -27,6 +27,7 @@ public interface RoomTypeMapper {
 	public List<RoomType> findAll();
 	public List<RoomType> findRoomTypesByIdStructure(Integer id_structure);
 	public List<Integer> findRoomTypeIdsByIdStructure(Integer id_structure);
+	public Integer findIdStructureByIdRoomType(Integer idRoomType);
 	
 	public List<RoomType> findRoomTypesByIdStructureAndOffsetAndRownum(Map map);
 	public List<RoomType> search(Map map);

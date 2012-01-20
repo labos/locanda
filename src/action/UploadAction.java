@@ -298,10 +298,12 @@ public class UploadAction extends ActionSupport implements SessionAware,UserAwar
 		RoomType aRoomType = null;
 		ServletContext context = null; 
 		String imgPath = null; 
-		
+		Integer idStructure = null;
 		File target = null;
-				
-		if(this.getImageService().findRoomTypeImageByName(this.getIdStructure(),this.getName()) != null){
+		
+		idStructure = this.getRoomTypeService().findIdStructureByIdRoomType(this.getRoomType().getId());
+		
+		if(this.getImageService().findRoomTypeImageByName(idStructure,this.getName()) != null){
 			message.setResult(Message.ERROR);
 			message.setDescription(getText("roomTypeImageAlreadyPresentError"));
 			return ERROR;
@@ -315,7 +317,7 @@ public class UploadAction extends ActionSupport implements SessionAware,UserAwar
 		
 		context = ServletActionContext.getServletContext();
 		//imgPath = context.getRealPath("/")+ "images/roomtype/";
-		imgPath = context.getRealPath("/")+ "resources/" +this.getIdStructure()+ "/images/roomType/";
+		imgPath = context.getRealPath("/")+ "resources/" +idStructure+ "/images/roomType/";
 		target = new File(imgPath + this.getUploadFileName());
 		FileUtils.copyFile(this.getUpload(), target);	
 		

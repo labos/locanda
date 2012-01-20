@@ -92,6 +92,15 @@ public class RoomTypeServiceImpl implements RoomTypeService{
 		return this.getRoomTypeMapper().findRoomTypeByIdStructureAndName(map);
 	}
 	
+	
+	
+	
+	@Override
+	public Integer findIdStructureByIdRoomType(Integer idRoomType) {
+		
+		return this.getRoomTypeMapper().findIdStructureByIdRoomType(idRoomType);
+	}
+
 	@Override
 	public Integer insertRoomType(RoomType roomType) {
 		Integer ret = 0;

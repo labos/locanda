@@ -1,10 +1,12 @@
 package resources;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import javax.activation.MimetypesFileTypeMap;
 import javax.servlet.ServletContext;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -16,11 +18,15 @@ import javax.ws.rs.core.Response;
 
 import model.Image;
 
+import org.apache.solr.client.solrj.SolrServerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import com.sun.jersey.api.NotFoundException;
+
 import service.ImageService;
+import service.RoomTypeService;
 
 @Path("/images/")
 @Component
@@ -28,6 +34,8 @@ import service.ImageService;
 public class ImageResource {
 	@Autowired
 	private ImageService imageService = null;
+	@Autowired
+	private RoomTypeService roomTypeService = null;
 	
 	@Context
 	private ServletContext servletContext = null;
@@ -43,10 +51,11 @@ public class ImageResource {
 	@GET
 	@Path("structure/{id}")
 	@Produces("image/*")
-	public Response getImage(@PathParam("id") Integer id) {
+	public Response getStructureImage(@PathParam("id") Integer id) {
 		Image image = null;
 		String filePath = null;
 		File file = null;
+		
 		
 		image = this.getImageService().findStructureImageById(id);
 		if (image == null) {
@@ -59,6 +68,47 @@ public class ImageResource {
 		String mt = new MimetypesFileTypeMap().getContentType(file);
 		return Response.ok(file, mt).build();
 	}
+	
+	
+	@GET
+	@Path("roomType/{id}")
+	@Produces("image/*")
+	public Response getRoomTypeImage(@PathParam("id") Integer id) {
+		Image image = null;
+		String filePath = null;
+		File file = null;
+		Integer idStructure;
+		
+		image = this.getImageService().findRoomTypeImageById(id);
+		if (image == null) {
+			throw new WebApplicationException(404);
+		}
+		
+		idStructure = this.getRoomTypeService().findIdStructureByIdRoomType(image.getId_roomType());
+		filePath = this.getServletContext().getRealPath("/") +  "resources/" + idStructure + "/images/roomType/" + image.getFileName();
+		file = new File(filePath);
+		
+		if (!file.exists()) {
+			throw new WebApplicationException(404);
+		}
+		
+		String mt = new MimetypesFileTypeMap().getContentType(file);
+		return Response.ok(file, mt).build();
+	}
+	
+	@DELETE
+    @Path("roomType/{id}")
+    @Produces({MediaType.APPLICATION_JSON})   
+    public Integer deleteRoomTypeImage(@PathParam("id") Integer id){
+    	Integer count = 0;			
+		
+		count = this.getImageService().deleteRoomTypeImage(id);		
+		if(count == 0){
+			throw new NotFoundException("Error: the image has NOT been deleted");
+		}	
+		
+		return count;
+    }   
 
 	public ImageService getImageService() {
 		return imageService;
@@ -74,6 +124,14 @@ public class ImageResource {
 
 	public void setServletContext(ServletContext servletContext) {
 		this.servletContext = servletContext;
+	}
+
+	public RoomTypeService getRoomTypeService() {
+		return roomTypeService;
+	}
+
+	public void setRoomTypeService(RoomTypeService roomTypeService) {
+		this.roomTypeService = roomTypeService;
 	}	
 	
 	

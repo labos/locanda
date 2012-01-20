@@ -111,7 +111,7 @@ CREATE TABLE `convention` (
   `activationCode` varchar(255) DEFAULT NULL,
   `id_structure` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -120,6 +120,7 @@ CREATE TABLE `convention` (
 
 LOCK TABLES `convention` WRITE;
 /*!40000 ALTER TABLE `convention` DISABLE KEYS */;
+INSERT INTO `convention` VALUES (40,'Nessuna Convenzione','Nessuna Convenzione','thisconventionshouldntneverberemoved',6);
 /*!40000 ALTER TABLE `convention` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -227,6 +228,30 @@ CREATE TABLE `extraPriceListItem` (
 LOCK TABLES `extraPriceListItem` WRITE;
 /*!40000 ALTER TABLE `extraPriceListItem` DISABLE KEYS */;
 /*!40000 ALTER TABLE `extraPriceListItem` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `facility`
+--
+
+DROP TABLE IF EXISTS `facility`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `facility` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `fileName` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `facility`
+--
+
+LOCK TABLES `facility` WRITE;
+/*!40000 ALTER TABLE `facility` DISABLE KEYS */;
+/*!40000 ALTER TABLE `facility` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -354,8 +379,8 @@ DROP TABLE IF EXISTS `roomFacility`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `roomFacility` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_uploadedFacility` int(11) DEFAULT NULL,
   `id_room` int(11) DEFAULT NULL,
+  `id_facility` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -465,7 +490,7 @@ CREATE TABLE `roomType` (
   `id_structure` int(11) DEFAULT NULL,
   `notes` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -474,7 +499,6 @@ CREATE TABLE `roomType` (
 
 LOCK TABLES `roomType` WRITE;
 /*!40000 ALTER TABLE `roomType` DISABLE KEYS */;
-INSERT INTO `roomType` VALUES (1,'singola',1,5,NULL);
 /*!40000 ALTER TABLE `roomType` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -487,8 +511,8 @@ DROP TABLE IF EXISTS `roomTypeFacility`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `roomTypeFacility` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_uploadedFacility` int(11) DEFAULT NULL,
   `id_roomType` int(11) DEFAULT NULL,
+  `id_facility` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -515,7 +539,7 @@ CREATE TABLE `roomTypeImage` (
   `fileName` varchar(255) DEFAULT NULL,
   `id_roomType` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -573,7 +597,7 @@ CREATE TABLE `structure` (
   `notes` varchar(255) DEFAULT NULL,
   `id_user` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -582,6 +606,7 @@ CREATE TABLE `structure` (
 
 LOCK TABLES `structure` WRITE;
 /*!40000 ALTER TABLE `structure` DISABLE KEYS */;
+INSERT INTO `structure` VALUES (6,'Locanda','labopensource@gmail.com',NULL,'+39 070 92432684',NULL,NULL,NULL,NULL,NULL,'Example structure. Please overwrite data with your own!',6);
 /*!40000 ALTER TABLE `structure` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -594,9 +619,8 @@ DROP TABLE IF EXISTS `structureFacility`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `structureFacility` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) DEFAULT NULL,
-  `fileName` varchar(255) DEFAULT NULL,
   `id_structure` int(11) DEFAULT NULL,
+  `id_facility` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -623,7 +647,7 @@ CREATE TABLE `structureImage` (
   `fileName` varchar(255) DEFAULT NULL,
   `id_structure` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -648,7 +672,7 @@ CREATE TABLE `uploadedFacility` (
   `fileName` varchar(255) DEFAULT NULL,
   `id_structure` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -676,7 +700,7 @@ CREATE TABLE `user` (
   `password` varchar(255) DEFAULT NULL,
   `creationDate` date DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -685,6 +709,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT INTO `user` VALUES (6,'Sandro','Pinna','sandro.pinna@gmail.com','3497193498','locanda','2012-01-16');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -697,4 +722,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2011-07-18 10:31:41
+-- Dump completed on 2012-01-20 11:06:58
