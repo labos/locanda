@@ -17,7 +17,7 @@
 		test("check edit click from list", function(){
 			// S._window.appRouter.appView.listView.collection ='[{"name":"singola","id":2,"facilities":[],"maxGuests":1,"id_structure":6,"notes":null,"images":[]},{"name":"doppia","id":4,"facilities":[],"maxGuests":2,"id_structure":6,"notes":null,"images":[]},{"name":"tripla","id":5,"facilities":[],"maxGuests":3,"id_structure":6,"notes":null,"images":[]}]';
 			//S._window.appRouter.appView.listView.collection.at(0).facilities =[{"name":"mio nome", "filename":"mio.jpg","id_structure":6, "id":8},{"name":"mio nome1", "filename":"mio1.jpg","id_structure":6, "id":9}];
-			S._window.appRouter.appView.listView.collection.at(0).facilities =["bananas", "apples"];
+			S._window.appRouter.appView.listView.collection.at(0).set({facilities :[{"name": "frigo","id":"25"},{"name":"jacuzzi", "id":"26"}]});
 
 			S("#row-list ul li").first().click(function(){
 				S._window.appRouter.appView.listView.editView.render();

@@ -109,11 +109,11 @@
 </script>
 
 <script id="facility-row-template" type="text/x-handlebars-template" >
-<span class="title-elem">{{name}}</span><img src="images/{{fileName}}" />
+<span class="title-elem">{{name}}</span><img src="<%=request.getContextPath( )%>/rest/facilities/roomType/{{id}}" />
 </script>
 
 <script id="facility-row-edit-template" type="text/x-handlebars-template" >
-<input class="choose-elem" checked="checked" type="checkbox" name="facilities[]" value="{{id}}" /><img src="images/{{fileName}}" />
+<input class="choose-elem" checked="checked" type="checkbox" name="facilities[]" value="{{id}}" /><img src="<%=request.getContextPath( )%>/rest/images/{{id}}" />
 </script>
 
 <script id="image-row-template" type="text/x-handlebars-template" >
@@ -147,7 +147,7 @@
 
 <script id="facilities-edit-template" type="text/x-handlebars-template" >
 <div class="add-new">
-	<a hfref="" class="btn_add">Add new Facility</a>
+	<a href="goEditFacilities.action" class="btn_add">Add new Facility</a>
 </div>
 <div class="wrapper">
 	<ul>
@@ -160,7 +160,7 @@
 
 <script id="images-edit-template" type="text/x-handlebars-template" >
 <div class="add-new">
-	<a hfref="" class="btn_add">Edit <s:text name="images"/></a>
+	<a href="goEditImages.action" class="btn_add">Edit <s:text name="images"/></a>
 </div>
 <div class="wrapper">
 	<ul>

@@ -31,11 +31,12 @@ window.FacilityRowView = Backbone.View.extend({
          if (!$target.is(":checked")) {
         	  this.model.destroy({
                   success: function () {
-                      // trigger an update event.
-                      self.trigger("child:update", self);
+
                       $.jGrowl($.i18n("congratulation"), { header: this.alertOK });
                   },
                   error: function (jqXHR, textStatus, errorThrown) {
+                	  // re-check if destroy fail
+                	  $target.prop("checked","checked");
                       textStatus.responseText || (textStatus.responseText = $.i18n("seriousErrorDescr"));
                       $.jGrowl(textStatus.responseText, { header: this.alertKO, theme: "notify-error"  });
                       
@@ -176,6 +177,7 @@ window.ImagesFacilitiesView = Backbone.View.extend({
                  primary: "ui-icon-gear"
              }
          });
+         this.page = 0;
          this.addAll();
          (typeof this.idParent !== 'undefined' && this.idParent )? $(this.el).show() : $(this.el).hide();
 
@@ -201,9 +203,12 @@ window.ImagesFacilitiesView = Backbone.View.extend({
          $(this.el).append(view.render().el);
      },
      next: function () {
+    	 if(  this.getNumPages( this.page )){
     	 this.page--;
-			var slideAmount =  this.page * $(".wrapper").width() / 2 ;
-	    	// $(".wrapper ul",this.el).css("left", + this.page + "px");
+    	 // calculate width used by elements contained in wrapper
+    	 
+    	 var self = this,
+    	 slideAmount =  (-1) * $(".wrapper",this.el).width() / 3 ;
 	    	 
 	    	 $(".wrapper ul",this.el).animate({
 	    		    opacity: 0.25,
@@ -211,26 +216,39 @@ window.ImagesFacilitiesView = Backbone.View.extend({
 	    		  }, 1000, 'linear', function() {
 	    		   
 	    			  $(this).css("opacity", 1);
-	    			  $(".ui-rcarousel-prev").removeClass("disable");
+	    			  $(".ui-rcarousel-prev",self.el).removeClass("disable");
 	    		  });
+	    	 
+    	 }	 
      },
      prev: function (event) {        
     	    if(this.page < 0 ){
+    	    	  this.page++;
     	    		var self = this,
-    				slideAmount =  this.page * $(".wrapper").width() / 2 ;
-    		    	// $(".wrapper ul",this.el).css("left", + this.page + "px");
+    				slideAmount =   $(".wrapper",this.el).width() / 3 ;
     				 
     		    	 $(".wrapper ul",this.el).animate({
     		    		    opacity: 0.25,
-    		    		    left: '-='+slideAmount
+    		    		    left: '+='+slideAmount
     		    		  }, 1000, 'linear', function() {
     		    		   
     		    			  $(this).css("opacity", 1);
-    		    			  ( self.page < 0 )? $(".ui-rcarousel-prev").removeClass("disable") : $(".ui-rcarousel-prev").addClass("disable");
-    		    			  self.page++;
+    		    			  ( self.page < 0 )? $(".ui-rcarousel-prev",self.el).removeClass("disable") : $(".ui-rcarousel-prev",self.el).addClass("disable");
+    		    			
     		    		  });
     	    }
 
+    	 
+     },
+     getNumPages: function(step){
+    	 
+    	 var slideAmount = $(".wrapper",this.el).width() / 3,
+    	 slideWidth = this.$(".wrapper").width(),
+    	 itemWidth = this.$(".wrapper ul li").width() + 16,
+    	 numItems = this.$(".wrapper ul li").length,
+    	 itemWidthUsed = numItems * itemWidth;
+    	 return ( (itemWidthUsed + (step * slideAmount)) > slideWidth )? true : false;
+  	 
     	 
      },
      addElement: function(){
@@ -259,12 +277,13 @@ window.ImagesFacilitiesView = Backbone.View.extend({
  * @author LabOpenSource
  */
  window.FacilitiesListView = ImagesFacilitiesView.extend({
+	 className: "facilities",
      initialize: function (options) {
     	 options['mode'] || ( options['mode'] = "view");
     	 this.indexTemplate  = $("#facilities-" + options['mode'] + "-template");
     	 _.bindAll(this, "next", "prev","addOne");
          this.collection.bind('reset', this.render, this);
-         this.collection.bind('remove', this.render, this);
+         this.collection.bind('remove', this.removeOne, this);
     	 this.rowViews = [];
     	 this.page = 0;
     	 this.idParent = null;
@@ -328,6 +347,7 @@ window.ImagesFacilitiesView = Backbone.View.extend({
   * @author LabOpenSource
   */
  window.ImagesListView = ImagesFacilitiesView.extend({
+	 className: "images",
      initialize: function (options) {
     	 options['mode'] || ( options['mode'] = "view");
     	 this.indexTemplate  = $("#images-" + options['mode'] + "-template");
@@ -474,6 +494,7 @@ window.ImagesFacilitiesView = Backbone.View.extend({
                  self.model.fetch({silent: true, success: function(){
                      //set collection for associated views
                      self.facilitiesListView.collection.reset(self.model.get("facilities") );
+                     $(self.facilitiesListView.el).undelegate("div", "click");
 
                  }});
 
@@ -483,6 +504,7 @@ window.ImagesFacilitiesView = Backbone.View.extend({
                  self.model.fetch({silent: true, success: function(){
                      //set collection for associated views
                      self.imagesListView.collection.reset( self.model.get("images"));
+                     $(self.imagesListView.el).undelegate("div", "click");
 
                  }});
 
