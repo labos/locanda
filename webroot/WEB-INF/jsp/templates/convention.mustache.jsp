@@ -21,26 +21,26 @@
    
     <script id="edit-template" type="text/x-handlebars-template">
 		<form id="edit-form" class="yform json full" role="application">
-          	  <div class="c50l">
+        	<div class="c50l">
                 <div class="c50l">
-                  <div class="type-text">	
-                  	<label for="FormName"><s:text name="name"/><sup title="This field is mandatory.">*</sup></label>
-                	<input type="text" class="required" name="name" id="FormName" value="{{name}}" aria-required="true"/>
-                  </div>
-                  <div class="type-text">           
-       				<label for="FormCode"><s:text name="code"/><sup title="This field is mandatory.">*</sup></label>
-                    <input type="text" class="required" name="activationCode" id="FormCode" value="{{activationCode}}" aria-required="true"/>
-      		      </div> 
-				  <div class="type-text">	
-                  	<label for="FormDescr"><s:text name="description"/></label>
-					<textarea name="description" id="FormDescr">{{description}}</textarea>		 
-                  </div>
-                  <div class="type-button">
-                	<button class="btn_save"><s:text name="save"/></button>
-                	<button class="btn_reset"><s:text name="cancel"/></button>
+                  	<div class="type-text">	
+                  		<label for="FormName"><s:text name="name"/><sup title="This field is mandatory.">*</sup></label>
+                		<input type="text" class="required" name="name" id="FormName" value="{{name}}" aria-required="true"/>
+                  	</div>
+                  	<div class="type-text">           
+       					<label for="FormCode"><s:text name="code"/><sup title="This field is mandatory.">*</sup></label>
+                    	<input type="text" class="required" name="activationCode" id="FormCode" value="{{activationCode}}" aria-required="true"/>
+      		      	</div> 
+				  	<div class="type-text">	
+                  		<label for="FormDescr"><s:text name="description"/></label>
+						<textarea name="description" id="FormDescr">{{description}}</textarea>		 
+                  	</div>
+                  	<div class="type-button">
+                		<button class="btn_save"><s:text name="save"/></button>
+                		<button class="btn_reset"><s:text name="cancel"/></button>
                     </div>	
                 </div>
-              </div>
+            </div>
 		</form>
 	</script>
 
@@ -70,43 +70,46 @@
 		</form>
 	</script>
 
-<script id="row-template" type="text/x-handlebars-template">
-<div class="row-item">
-<ul><li><b>Name: </b>{{name}}</li><li><b>Code: </b>{{activationCode}}</li><li><b>Description: </b>{{sub_description}}</li>
-<li><input type="hidden" name="id" value="{{id}}"/></li>
-</ul>
-<span class="row-item-destroy"></span>
-</div>
-</script>
-<script id="toolbar-template" type="text/x-handlebars-template">
-<li><input id="item-autocomplete" type="text" value=""/>
-<div id="form-filter-container"></div>
-</li>
-<li>
-<button id="item-filter">&nbsp;</button>
-</li>
-</script>
+	<script id="row-template" type="text/x-handlebars-template">
+		<div class="row-item">
+			<ul>
+				<li><b><s:text name="name"/>: </b>{{name}}</li>
+				<li><b><s:text name="code"/>: </b>{{activationCode}}</li>
+				<li><b><s:text name="description"/>: </b>{{sub_description}}</li>
+				<li><input type="hidden" name="id" value="{{id}}"/></li>
+			</ul>
+			<span class="row-item-destroy"></span>
+		</div>
+	</script>
 
+	<script id="toolbar-template" type="text/x-handlebars-template">
+		<li><input id="item-autocomplete" type="text" value=""/>
+			<div id="form-filter-container"></div>
+		</li>
+		<li>
+			<button id="item-filter">&nbsp;</button>
+		</li>
+	</script>
 
     <script id="form-filter-template" type="text/x-handlebars-template">
 		<form id="filter-form" class="yform json full" role="application">
-			  <span class="filter-close"></span>
-          	  <div class="c80l">
-                  <div class="type-text">	
+			<span class="filter-close"></span>
+          	<div class="c80l">
+            	<div class="type-text">	
                   	<label for="fFormName"><s:text name="name"/></label>
-                	<input type="text"  name="name" id="fFormName" value="{{name}}" aria-required="true"/>
-                  </div>
-                  <div class="type-text">           
-       				<label for="fFormCode"><s:text name="code"/></label>
-                    <input type="text"  name="activationCode" id="fFormCode" value="{{activationCode}}" aria-required="true"/>
-      		      </div>
-                  <div class="type-text">           
-       				<label for="fFormDescr"><s:text name="description"/></label>
-                    <input type="text"  name="description" id="fFormDescr" value="{{description}}" aria-required="true"/>
-      		      </div>
-                  <div class="type-button">
-					<button class="btn_submit"><s:text name="search"/></button>
+                	<input type="text" name="name" id="fFormName" value="{{name}}" aria-required="true"/>
                 </div>
-              </div>
-</form>
-</script>
+                <div class="type-text">           
+       				<label for="fFormCode"><s:text name="code"/></label>
+                   	<input type="text" name="activationCode" id="fFormCode" value="{{activationCode}}" aria-required="true"/>
+            	</div>
+               	<div class="type-text">           
+       				<label for="fFormDescr"><s:text name="description"/></label>
+                   	<input type="text" name="description" id="fFormDescr" value="{{description}}" aria-required="true"/>
+      		    </div>
+               	<div class="type-button">
+					<button class="btn_submit"><s:text name="search"/></button>
+               	</div>
+           	</div>
+		</form>
+	</script>
