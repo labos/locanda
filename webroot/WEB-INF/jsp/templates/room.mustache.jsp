@@ -181,7 +181,7 @@
  					<br/>
  					<form id="uploadFacility" action="uploadRoomImage.action" method="post" enctype="multipart/form-data">
    				  		<input type="hidden" name="name" value=""/>
-						<input type="hidden" name="room.id" value="{{id_roomType}}"/>
+						<input type="hidden" name="room.id" value="{{id_parent}}"/>
    				    	<input type="hidden" name="idStructure" value="{{id_structure}}"/>
      			  		<input type="file" name="upload" multiple/>
     			  		<button>Upload</button> 
