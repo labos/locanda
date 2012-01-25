@@ -103,11 +103,11 @@
       		      	</div>
 				  	<div class="type-text">           
        				  	<label for="FormEmail"><s:text name="email"/></label>
-                      	<input type="text" class="email" name="phone" id="FormEmail" value="{{email}}" aria-required="true"/>
+                      	<input type="text" class="email" name="email" id="FormEmail" value="{{email}}" aria-required="true"/>
       		      	</div>
 				  	<div class="type-text">           
        				 	 <label for="FormAddress"><s:text name="address"/></label>
-                      	<input type="text"name="phone" id="FormAddress" value="{{address}}" aria-required="true"/>
+                      	<input type="text" name="address" id="FormAddress" value="{{address}}" aria-required="true"/>
       		      	</div>
 					<div class="type-select">
                 		<label for="FormCountry"><s:text name="country"/>:</label>

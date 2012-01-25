@@ -25,8 +25,8 @@
                 <div class="c50l">
                   	<div class="type-text">           
        					<label for="FormYear"><s:text name="year"/><sup title="This field is mandatory.">*</sup></label>
-						<select name="year">{{#availableYears}}
-							<option name="{{value}}" {{#selected}}selected="selected"{{/selected}}>{{value}}</option>{{/availableYears}}
+						<select name="year">
+							{{#availableYears}}<option name="{{value}}" {{#selected}}selected="selected"{{/selected}}>{{value}}</option>{{/availableYears}}
 						</select>
       		      	</div> 
                   	<div class="type-text">	

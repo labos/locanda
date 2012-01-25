@@ -17,13 +17,11 @@
  * @class RoomType
  * @parent Backbone.Model
  * @constructor
- * Model to hold convention attribute.
+ * Model to hold a roomType.
  * @tag models
  * @author LabOpenSource
  */
-
 window.RoomType = Backbone.Model.extend({
-	
     defaults: {
         sub_description: null
     },
@@ -44,7 +42,6 @@ window.RoomType = Backbone.Model.extend({
 });
 
 window.Autocompletes = AutocompleteCollection.extend({
-
     url: function () {
     	return 'rest/roomTypes/structure/' + this.idWrapper + '/suggest' + this.term;
     }
