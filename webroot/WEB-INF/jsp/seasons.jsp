@@ -14,48 +14,63 @@
  * In case of controversy the competent court is the Court of Cagliari (Italy).
 --%>
 <?xml version="1.0" encoding="UTF-8" ?>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="/struts-tags" prefix="s" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="/struts-tags" prefix="s"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<jsp:include page="layout/header_menu.jsp" />
+
 <script>
-Entity = {name: "season", 
-		model: function(options){ return new Season( options );},
-		collection: function(options){ return new Seasons( options );},
-		editView: function(options){ return new EditSeasonView( options );},
+	Entity = {
+		name : "season",
+		model : function(options) {
+			return new Season(options);
+		},
+		collection : function(options) {
+			return new Seasons(options);
+		},
+		editView : function(options) {
+			return new EditSeasonView(options);
+		},
 		idStructure : <s:property value="#session.user.structure.id"/>
-		};
+	};
 </script>
- <link rel='stylesheet' type='text/css' href='css/screen/basemod_2col_advanced.css' />   
-    <div id="main">
-      <!-- begin: #col1 - first float column -->
-      <div role="complementary" id="col1">
-        <div class="clearfix" id="col1_content">
-           <div>
-          <button class="btn_add_form"><s:text name="addNew" /></button>
-        </div> 
-        <div class="subcolumns" id="row-edit-container">
-          </div>
-          <div id="periods"></div>
-        </div>
-      </div>
-      <!-- end: #col1 -->
-      <!-- begin: #col3 static column -->
-      <div role="main" id="col3">
-        <div class="clearfix" id="col3_content"> 
-          <h2><s:text name="seasons"/></h2>
-          <div id="toolbar-container">
-          </div>
-		  <div id="main-app">
-		  <div id="nav-top"></div>
-		  <div id="row-list" class="back"></div>
-	      <div id="nav-bottom"></div>
-        </div>
-       </div>
-        <div id="ie_clearing">&nbsp;</div>
-        <!-- End: IE Column Clearing -->
-      </div>
-      <!-- end: #col3 -->
-    </div>
-<jsp:include page="templates/season.mustache.jsp" />    
-<jsp:include page="layout/footer.jsp" />   
+<jsp:include page="layout/header_menu.jsp" />
+<link rel='stylesheet' type='text/css'
+	href='css/screen/basemod_2col_advanced.css' />
+
+<div id="main">
+	<!-- begin: #col1 - first float column -->
+	<div id="col1" role="complementary">
+		<div class="clearfix" id="col1_content">
+			<div>
+				<button class="btn_add_form">
+					<s:text name="addNew" />
+				</button>
+			</div>
+			<div class="subcolumns" id="row-edit-container"></div>
+			<div id="periods"></div>
+		</div>
+	</div>
+	<!-- end: #col1 -->
+
+	<!-- begin: #col3 static column -->
+	<div id="col3" role="main">
+		<div class="clearfix" id="col3_content">
+			<h2>
+				<s:text name="seasons" />
+			</h2>
+			<div id="toolbar-container"></div>
+			<div id="main-app">
+				<div id="nav-top"></div>
+				<div id="row-list" class="back"></div>
+				<div id="nav-bottom"></div>
+			</div>
+		</div>
+		<div id="ie_clearing">&nbsp;</div>
+		<!-- End: IE Column Clearing -->
+	</div>
+	<!-- end: #col3 -->
+</div>
+
+<jsp:include page="templates/season.mustache.jsp" />
+<jsp:include page="layout/footer.jsp" />
