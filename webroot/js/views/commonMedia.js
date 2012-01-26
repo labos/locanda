@@ -37,6 +37,9 @@ window.FacilityRowView = Backbone.View.extend({
    	 * Re-render the contents of the facility item.
    	 */
      render: function () {
+    	 if( this.model.isNew()){
+    		 this.indexTemplate.find(".choose-elem").prop("checked", "");
+    	 }
          $(this.el).html(Mustache.to_html(this.indexTemplate.html(), this.model.toJSON()));
          return this;
      },
@@ -306,7 +309,7 @@ window.ImagesFacilitiesView = Backbone.View.extend({
          this.collection.bind('reset', this.render, this);
          this.collection.bind('remove', this.removeOne, this);
          // collection of facilities to check
-         this.availableCollection = null;
+         this.availableCollection = new AvailableFacilities({idStructure: Entity.idStructure});
          // array of single facility view
     	 this.rowViews = [];
     	 // page index for the slider
@@ -322,10 +325,14 @@ window.ImagesFacilitiesView = Backbone.View.extend({
     	 
      },
  	/**
-  	 * Merge checked facilities with available facilities
+  	 * Merge checked facilities with available facilities and show not checked facilities.
   	 */
-     merge: function(){
-    	 
+     getAvailableFacilities: function(){
+    	 var self = this;
+    	 this.availableCollection.fetch( {silent: true, success: function(){
+    		 self.availableCollection =  _.without(self.availableCollection, self.collection );
+    	 }});
+    	this.availableCollection.each(this.addOne);
      },
  	/**
   	 * Add a facility view  to rowViews array render it.
@@ -357,6 +364,8 @@ window.ImagesFacilitiesView = Backbone.View.extend({
              effect: 'fade',
              onShow: function() {
             	 var overlay = this;
+            	 // call a method to render availableCollection
+            	 self.getAvailableFacilities();
                  $(self.el).addClass("edit-state-box");
                  $(this).click( function (){
               	   if(confirm($.i18n( "alertExitEditState" ))){

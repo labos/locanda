@@ -18,7 +18,7 @@
 typeof Entity !== "undefined" || ( Entity = {name:"default", editView:null} );
 // conditional file loading section
 if (Entity.name == "roomType" || Entity.name == "room" || Entity.name == "structure") {
-    steal("../../css/rcarousel.css","jquery.fileupload.js", "jquery.fileupload-ui.js", "jquery.fileupload-uix.js").then("../helpers/upload.js", "../views/commonMedia.js","../models/image.js","../models/roomTypeFacility.js").then("../collections/image.js","../collections/roomTypeFacilities.js" );
+    steal("../../css/rcarousel.css","jquery.fileupload.js", "jquery.fileupload-ui.js", "jquery.fileupload-uix.js").then("../helpers/upload.js","../models/facility.js").then("../collections/availableFacility.js", "../views/commonMedia.js","../models/image.js","../models/roomTypeFacility.js").then("../collections/image.js","../collections/roomTypeFacilities.js" );
 }
 if (Entity.name == "planner") {
     steal("jquery.weekcalendar.js");
