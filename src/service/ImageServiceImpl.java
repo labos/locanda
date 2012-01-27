@@ -15,6 +15,7 @@
  *******************************************************************************/
 package service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,111 +30,203 @@ import model.Image;
 @Service
 public class ImageServiceImpl implements ImageService{
 	@Autowired
-	private ImageMapper imageMapper = null;
+	private ImageMapper imageMapper = null;	
+
+	@Override
+	public Integer insertImage(Image image) {		
+		return this.getImageMapper().insertImage(image);		
+	}
+
+	
+	
+	@Override
+	public Integer insertStructureImage(Integer id_structure, Integer id_image) {
+		Map map = null;		
+		
+		map = new HashMap();
+		map.put("id_structure",id_structure );
+		map.put("id_image",id_image);
+		return this.getImageMapper().insertStructureImage(map);
+	}
+
+
+
+	@Override
+	public Integer insertRoomTypeImage(Integer id_roomType, Integer id_image) {
+		Map map = null;		
+		
+		map = new HashMap();
+		map.put("id_roomType",id_roomType );
+		map.put("id_image",id_image);
+		return this.getImageMapper().insertRoomTypeImage(map);
+	}
+
+
+
+
+	@Override
+	public Integer insertRoomImage(Integer id_room, Integer id_image) {
+		Map map = null;		
+		
+		map = new HashMap();
+		map.put("id_room",id_room );
+		map.put("id_image",id_image);
+		return this.getImageMapper().insertRoomImage(map);
+	}
+	
+
+	@Override
+	public Integer insertFacilityImage(Integer id_facility,Integer id_image) {
+		Map map = null;			
+		
+		map = new HashMap();
+		map.put("id_facility",id_facility );
+		map.put("id_image",id_image);
+		return this.getImageMapper().insertFacilityImage(map);
+	}
+
+
+	
+	
+	@Override
+	public List<Image> findImagesByIdStructure(Integer id_structure) {
+		List<Integer> ids = null;
+		List<Image> ret = null;
+		Image image = null;
+		
+		ids = this.getImageMapper().findImageIdsByIdStructure(id_structure);
+		ret = new ArrayList<Image>();
+		for(Integer each: ids){
+			image = this.getImageMapper().findImageMetadataById(each);
+			ret.add(image);
+		}
+		return ret;
+	}
 
 	
 	@Override
-	public Integer insertRoomImage(Image image) {
-		return this.getImageMapper().insertRoomImage(image);
+	public List<Image> findImagesByIdRoomType(Integer id_roomType) {
+		List<Integer> ids = null;
+		List<Image> ret = null;
+		Image image = null;
+		
+		ids = this.getImageMapper().findImageIdsByIdRoomType(id_roomType);
+		ret = new ArrayList<Image>();
+		for(Integer each: ids){
+			image = this.getImageMapper().findImageMetadataById(each);
+			ret.add(image);
+		}
+		return ret;
 	}
-
-	@Override
-	public Integer insertRoomTypeImage(Image image) {
-		return this.getImageMapper().insertRoomTypeImage(image);
-	}
-
-	@Override
-	public Integer insertStructureImage(Image image) {		
-		return this.getImageMapper().insertStructureImage(image);
-	}
+	
 	
 	@Override
 	public List<Image> findImagesByIdRoom(Integer id_room) {
-		return this.getImageMapper().findImagesByIdRoom(id_room);
+		List<Integer> ids = null;
+		List<Image> ret = null;
+		Image image = null;
+		
+		ids = this.getImageMapper().findImageIdsByIdRoom(id_room);
+		ret = new ArrayList<Image>();
+		for(Integer each: ids){
+			image = this.getImageMapper().findImageMetadataById(each);
+			ret.add(image);
+		}
+		return ret;
 	}
-
+	
 	@Override
-	public List<Image> findImagesByIdRoomType(Integer id_roomType) {
-		return this.getImageMapper().findImagesByIdRoomType(id_roomType);
-	}
-
-	@Override
-	public List<Image> findImagesByIdStructure(Integer id_structure) {		
-		return this.getImageMapper().findImagesByIdStructure(id_structure);
+	public Image findImageById(Integer id) {		
+		return this.getImageMapper().findImageById(id);
 	}	
 	
-
-	@Override
-	public Image findStructureImageById(Integer id) {
-		
-		return this.getImageMapper().findStructureImageById(id);
-	}
 	
 	
-
 	@Override
-	public Image findRoomTypeImageById(Integer id) {
+	public Integer deleteImage(Integer id) {
 		
-		return this.getImageMapper().findRoomTypeImageById(id);
+		return this.getImageMapper().deleteImage(id);
 	}
 
+
+
 	@Override
-	public Image findStructureImageByName(Integer id_structure, String name) {
+	public Integer deleteStructureImage(Integer id_structure, Integer id_image) {
 		Map map = null;
 		
 		map = new HashMap();
 		map.put("id_structure", id_structure);
-		map.put("name", name);
-		
-		return this.getImageMapper().findStructureImageByName(map);
+		map.put("id_image", id_image);
+		return this.getImageMapper().deleteStructureImage(map);
 	}
 
+
+
 	@Override
-	public Image findRoomImageByName(Integer id_structure, String name) {
+	public Integer deleteStructureImages(Integer id_structure) {
+		List<Integer> ids = null;
+		Integer count = 0;		
+		
+		ids = this.getImageMapper().findImageIdsByIdStructure(id_structure);		
+		for (Integer each: ids){			
+			count = count + this.deleteStructureImage(id_structure,each);
+		}
+		return count;
+	}
+
+
+
+	@Override
+	public Integer deleteRoomTypeImage(Integer id_roomType, Integer id_image) {
 		Map map = null;
 		
 		map = new HashMap();
-		map.put("id_structure", id_structure);
-		map.put("name", name);
-		
-		return this.getImageMapper().findRoomImageByName(map);
+		map.put("id_roomType", id_roomType);
+		map.put("id_image", id_image);
+		return this.getImageMapper().deleteRoomTypeImage(map);
 	}
 
+
+
 	@Override
-	public Image findRoomTypeImageByName(Integer id_structure, String name) {
+	public Integer deleteRoomTypeImages(Integer id_roomType) {
+		List<Integer> ids = null;
+		Integer count = 0;		
+		
+		ids = this.getImageMapper().findImageIdsByIdRoomType(id_roomType);		
+		for (Integer each: ids){			
+			count = count + this.deleteRoomTypeImage(id_roomType,each);
+		}
+		return count;
+	}
+
+
+
+	@Override
+	public Integer deleteRoomImage(Integer id_room, Integer id_image) {
 		Map map = null;
 		
 		map = new HashMap();
-		map.put("id_structure", id_structure);
-		map.put("name", name);
+		map.put("id_room", id_room);
+		map.put("id_image", id_image);
+		return this.getImageMapper().deleteRoomImage(map);
+	}
+
+
+
+	@Override
+	public Integer deleteRoomImages(Integer id_room) {
+		List<Integer> ids = null;
+		Integer count = 0;		
 		
-		return this.getImageMapper().findRoomTypeImageByName(map);
+		ids = this.getImageMapper().findImageIdsByIdRoom(id_room);		
+		for (Integer each: ids){			
+			count = count + this.deleteRoomImage(id_room,each);
+		}
+		return count;
 	}
 
-	@Override
-	public Integer deleteRoomImage(Integer id) {
-		return this.getImageMapper().deleteRoomImage(id);
-	}
 
-	@Override
-	public Integer deleteAllImagesFromRoom(Integer id) {
-		return this.getImageMapper().deleteAllImagesFromRoom(id);
-	}
-
-	@Override
-	public Integer deleteRoomTypeImage(Integer id) {
-		return this.getImageMapper().deleteRoomTypeImage(id);
-	}
-
-	@Override
-	public Integer deleteAllImagesFromRoomType(Integer id) {
-		return this.getImageMapper().deleteAllImagesFromRoomType(id);
-	}
-
-	@Override
-	public Integer deleteStructureImage(Integer id) {		
-		return this.getImageMapper().deleteStructureImage(id);
-	}
 
 	public ImageMapper getImageMapper() {
 		return imageMapper;

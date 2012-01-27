@@ -125,6 +125,7 @@ public class StructureAction extends ActionSupport implements SessionAware,UserA
 		return SUCCESS;	
 	}
 	
+	/*
 	@Actions({
 		@Action(value="/deleteImageStructure",results = {
 				@Result(type ="json",name="success", params={"root","message"}),
@@ -144,7 +145,8 @@ public class StructureAction extends ActionSupport implements SessionAware,UserA
 			return ERROR;
 		}
 	}
-	
+	*/
+	/*
 	@Actions({
 		@Action(value="/deleteStructureFacility",results = {
 				@Result(type ="json",name="success", params={"root","message"}),
@@ -164,7 +166,7 @@ public class StructureAction extends ActionSupport implements SessionAware,UserA
 			return ERROR;
 		}
 	}	
-
+*/
 	public Map<String, Object> getSession() {
 		return session;
 	}

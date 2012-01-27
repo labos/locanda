@@ -20,12 +20,13 @@ import java.io.Serializable;
 public class Image implements Serializable{
 	
 	private Integer id;
-	
-	private String name;
+	private String caption;	
 	private String fileName;
+	private byte[] data;
 	private Integer id_structure;
 	private Integer id_room;
 	private Integer id_roomType;
+	
 	
 	@Override
 	public int hashCode() {
@@ -56,12 +57,7 @@ public class Image implements Serializable{
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
+	
 	public String getFileName() {
 		return fileName;
 	}
@@ -86,5 +82,19 @@ public class Image implements Serializable{
 	public void setId_roomType(Integer id_roomType) {
 		this.id_roomType = id_roomType;
 	}
+	public byte[] getData() {
+		return data;
+	}
+	public void setData(byte[] data) {
+		this.data = data;
+	}
+	public String getCaption() {
+		return caption;
+	}
+	public void setCaption(String caption) {
+		this.caption = caption;
+	}
+	
+	
 	
 }

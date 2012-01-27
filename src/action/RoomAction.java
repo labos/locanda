@@ -330,6 +330,7 @@ public class RoomAction extends ActionSupport implements SessionAware,UserAware{
 		}		
 	}	
 	
+	/*
 	@Actions({
 		@Action(value="/deleteRoomImage",results = {
 				@Result(type ="json",name="success", params={"root","message"}),
@@ -349,7 +350,7 @@ public class RoomAction extends ActionSupport implements SessionAware,UserAware{
 			return "error";
 		}		
 	}	
-	
+	*/
 	public Map<String, Object> getSession() {
 		return session;
 	}

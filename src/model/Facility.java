@@ -25,7 +25,9 @@ public class Facility implements Serializable{
 	private Integer id;
 	
 	private String name;
-	private String fileName;
+	private String description;
+	private Image image;
+	
 	private Integer  id_structure;
 	private Integer id_room;
 	private Integer id_roomType;
@@ -44,12 +46,7 @@ public class Facility implements Serializable{
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getFileName() {
-		return fileName;
-	}
-	public void setFileName(String fileName) {
-		this.fileName = fileName;
-	}
+	
 	public Integer getId_structure() {
 		return id_structure;
 	}
@@ -74,5 +71,19 @@ public class Facility implements Serializable{
 	public void setId_uploadedFacility(Integer id_uploadedFacility) {
 		this.id_uploadedFacility = id_uploadedFacility;
 	}
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	public Image getImage() {
+		return image;
+	}
+	public void setImage(Image image) {
+		this.image = image;
+	}
+	
+	
 
 }

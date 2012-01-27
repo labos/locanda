@@ -17,28 +17,24 @@ package persistence.mybatis.mappers;
 
 import java.util.List;
 import java.util.Map;
-
 import model.Facility;
 
 public interface FacilityMapper {
-	public Integer insertUploadedFacility(Facility facility);
-	public Integer insertRoomFacility(Map map);
+	public Integer insertFacility(Facility facility);
+	public Integer insertStructureFacility(Map map);
 	public Integer insertRoomTypeFacility(Map map);
-	public Integer insertStructureFacility(Facility facility);
+	public Integer insertRoomFacility(Map map);	
 	
-	public Facility findFacilityById(Integer id);
-	public List<Integer> findStructureFacilityIdsByIdStructure(Integer id_structure);
+	public Facility findFacilityById(Integer id);	
+	public List<Integer> findStructureFacilityIdsByIdStructure(Integer id_structure);	
+	public List<Integer> findRoomTypeFacilityIdsByIdStructure(Integer id_structure);
+	public List<Integer> findRoomTypeFacilityIdsByIdRoomType(Integer id_roomType);	
 	public List<Integer> findRoomFacilityIdsByIdStructure(Integer id_structure);
-	public List<Integer> findRoomTypeFacilityIdsByIdStructure(Integer id_structure);	
-	public List<Facility> findStructureFacilitiesByIdStructure(Integer id_structure);	
-	public List<Integer> findRoomFacilityIdsByIdRoom(Integer id_room);
-	public List<Integer> findRoomTypeFacilityIdsByIdRoomType(Integer id_roomType);		
+	public List<Integer> findRoomFacilityIdsByIdRoom(Integer id_room);			
 	
-	public Integer deleteUploadedFacility(Integer id);
-	public Integer deleteFacilityFromAllRooms(Integer id_uploadedFacility);
-	public Integer deleteFacilityFromAllRoomTypes(Integer id_uploadedFacility);
-	public Integer deleteAllFacilitiesFromRoom(Integer id_room);
-	public Integer deleteAllFacilitiesFromRoomType(Integer id_roomType);
-	public Integer deleteStructureFacility(Integer id);
-	public Integer updateUploadedFacility(Facility facility);
+	public Integer deleteFacility(Integer id);
+	public Integer deleteStructureFacility(Map map);
+	public Integer deleteRoomTypeFacility(Map map);
+	public Integer deleteRoomFacility(Map map);
+	
 }

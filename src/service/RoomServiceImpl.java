@@ -69,20 +69,20 @@ public class RoomServiceImpl implements RoomService{
 		
 		ret = this.getRoomMapper().updateRoom(room);
 		
-		this.getFacilityService().deleteAllFacilitiesFromRoom(room.getId());
+		/*this.getFacilityService().deleteAllFacilitiesFromRoom(room.getId());
+		
 		for(Facility each: room.getFacilities()){
 			this.getFacilityService().insertRoomFacility(each.getId(), room.getId());
-		}
+		}*/
 		return ret;
 	}	
 
 	@Override
 	public Integer deleteRoom(Integer id) {		
-		Integer ret = 0;
+		Integer ret = 0;		
 		
-		//TODO - verify that a room can be deleted
-		this.getFacilityService().deleteAllFacilitiesFromRoom(id);
-		this.getImageService().deleteAllImagesFromRoom(id);
+		this.getFacilityService().deleteRoomFacilities(id);
+		//this.getImageService().deleteAllImagesFromRoom(id);
 		ret = this.getRoomMapper().deleteRoom(id);
 		return ret;
 	}
@@ -99,9 +99,9 @@ public class RoomServiceImpl implements RoomService{
 		rooms = this.getRoomMapper().findRoomsByIdStructure(id_structure);
 		for(Room each: rooms){
 			roomType = this.getRoomTypeMapper().findRoomTypeById(each.getId_roomType());
-			roomType.setImages(this.getImageMapper().findImagesByIdRoomType(roomType.getId()));
+			roomType.setImages(this.getImageService().findImagesByIdRoomType(roomType.getId()));
 			each.setRoomType(roomType);
-			each.setImages(this.getImageMapper().findImagesByIdRoom(each.getId()));
+			each.setImages(this.getImageService().findImagesByIdRoom(each.getId()));
 		}
 		return rooms;
 	}
@@ -158,9 +158,11 @@ public class RoomServiceImpl implements RoomService{
 		Integer ret = 0;
 		
 		ret = this.getRoomMapper().insertRoom(room);
+		/*
 		for(Facility each: room.getFacilities()){
 			this.getFacilityService().insertRoomFacility(each.getId(),room.getId());
 		}
+		*/
 		return ret;
 	}
 	

@@ -5,7 +5,9 @@ import java.util.List;
 
 import javax.activation.MimetypesFileTypeMap;
 import javax.servlet.ServletContext;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -19,6 +21,8 @@ import model.Facility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
+
+import com.sun.jersey.api.NotFoundException;
 
 import service.FacilityService;
 
@@ -38,27 +42,44 @@ public class FacilityResource {
 	@Produces({MediaType.APPLICATION_JSON})	
 	public List<Facility> getStructureFacilities(@PathParam("idStructure") Integer idStructure){
 		return this.getFacilityService().findStructureFacilitiesByIdStructure(idStructure);
-	}
-
+	}	
+	
 	@GET
-	@Path("structure/{id}")
-	@Produces("image/*")
-	public Response getFacility(@PathParam("id") Integer id) {
-		Facility facility = null;
-		String filePath = null;
-		File file = null;
+	@Path("roomAndRoomTypeFacilities/{idStructure}")
+	@Produces({MediaType.APPLICATION_JSON})	
+	public List<Facility> getRoomAndRoomTypeFacilities(@PathParam("idStructure") Integer idStructure){
+		return this.getFacilityService().findRoomAndRoomTypeFacilitiesByIdStructure(idStructure);
+	}	
+	
+	@POST
+    @Path("checkRoomTypeFacility/{id_roomType}/{id_facility}")
+    @Produces({MediaType.APPLICATION_JSON})   
+    public Integer checkRoomTypeFacility(@PathParam("id_roomType") Integer id_roomType, @PathParam("id_facility") Integer id_facility){
+    	Integer count = 0;			
 		
-		facility = this.getFacilityService().findFacilityById(id);
-		if (facility == null) {
-			throw new WebApplicationException(404);
-		}
 		
-		filePath = this.getServletContext().getRealPath("/") +  "resources/" + facility.getId_structure() + "/facilities/structure/" + facility.getFileName();
-		file = new File(filePath);
+    	count = this.getFacilityService().insertRoomTypeFacility(id_roomType, id_facility);
+    	if(count == 0){
+			throw new NotFoundException("Error: the facility has NOT been checked");
+		}			
+		return count;
+    }  
+	
+	@DELETE
+    @Path("uncheckRoomTypeFacility/{id_roomType}/{id_facility}")
+    @Produces({MediaType.APPLICATION_JSON})   
+    public Integer uncheckRoomTypeFacility(@PathParam("id_roomType") Integer id_roomType, @PathParam("id_facility") Integer id_facility){
+    	Integer count = 0;				
 		
-		String mt = new MimetypesFileTypeMap().getContentType(file);
-		return Response.ok(file, mt).build();
-	}
+    	count = this.getFacilityService().deleteRoomTypeFacility(id_roomType, id_facility);
+    	if(count == 0){
+			throw new NotFoundException("Error: the facility has NOT been deleted");
+		}	
+		
+		return count;
+    }   
+	
+	 
 
 	public ServletContext getServletContext() {
 		return servletContext;

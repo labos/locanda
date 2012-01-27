@@ -33,55 +33,44 @@ import model.Facility;
 @Service
 public class FacilityServiceImpl implements FacilityService{
 	@Autowired
-	private FacilityMapper facilityMapper = null;
+	private FacilityMapper facilityMapper = null;				
 	
 	@Override
-	public Integer insertUploadedFacility(Facility facility) {
-		return this.getFacilityMapper().insertUploadedFacility(facility);
-	}
+	public Integer insertFacility(Facility facility) {		
+		return this.getFacilityMapper().insertFacility(facility);		
+	}	
 
 	@Override
-	public Integer insertRoomFacility(Integer id_uploadedFacility,Integer id_room) {
+	public Integer insertStructureFacility(Integer id_structure,Integer id_facility) {
 		Map map = null;
 		
 		map = new HashMap();
-		map.put("id_uploadedFacility", id_uploadedFacility);
-		map.put("id_room", id_room);
-		return this.getFacilityMapper().insertRoomFacility(map);
+		map.put("id_structure", id_structure);
+		map.put("id_facility", id_facility);
+		return this.getFacilityMapper().insertStructureFacility(map);
 	}
 	
 	@Override
-	public Integer insertRoomTypeFacility(Integer id_uploadedFacility,Integer id_roomType) {
+	public Integer insertRoomTypeFacility(Integer id_roomType,Integer id_facility) {
 		Map map = null;
 		
 		map = new HashMap();
-		map.put("id_uploadedFacility", id_uploadedFacility);
 		map.put("id_roomType", id_roomType);
+		map.put("id_facility", id_facility);
+		
 		return this.getFacilityMapper().insertRoomTypeFacility(map);
 	}
-
-	@Override
-	public Integer insertRoomFacilities(List<Integer> uploadedFacilitiesIds,Integer id_room) {
-		Integer ret = 0;
-		for(Integer id_uploadedFacility: uploadedFacilitiesIds){
-			ret = ret + this.insertRoomFacility(id_uploadedFacility, id_room);
-		}
-		return ret;
-	}
 	
+		
 	@Override
-	public Integer insertRoomTypeFacilities(List<Integer> uploadedFacilitiesIds, Integer id_roomType) {
-		Integer ret = 0;
-		for(Integer id_uploadedFacility: uploadedFacilitiesIds){
-			ret = ret + this.insertRoomTypeFacility(id_uploadedFacility, id_roomType);
-		}
-		return ret;
+	public Integer insertRoomFacility(Integer id_room,Integer id_facility ) {
+		Map map = null;
+		
+		map = new HashMap();
+		map.put("id_room", id_room);
+		map.put("id_facility", id_facility);
+		return this.getFacilityMapper().insertRoomFacility(map);
 	}
-
-	public Integer insertStructureFacility(Facility facility) {
-		return this.getFacilityMapper().insertStructureFacility(facility);
-	}
-	
 	
 	@Override
 	public Facility findFacilityById(Integer id) {		
@@ -102,11 +91,10 @@ public class FacilityServiceImpl implements FacilityService{
 
 	@Override
 	public List<Facility> findStructureFacilitiesByIdStructure(	Integer id_structure) {		
-		Set<Integer> ids = null;
+		List<Integer> ids = null;
 		
-		ids = new HashSet<Integer>();
-		ids.addAll(this.getFacilityMapper().findRoomFacilityIdsByIdStructure(id_structure));
-		return this.findFacilitiesByIds(new ArrayList<Integer>(ids));
+		ids = this.getFacilityMapper().findRoomFacilityIdsByIdStructure(id_structure);
+		return this.findFacilitiesByIds(ids);
 		
 	}
 	
@@ -136,35 +124,78 @@ public class FacilityServiceImpl implements FacilityService{
 		return this.findFacilitiesByIds(ids);
 	}
 
-	@Override
-	public Integer deleteStructureFacility(Integer id) {
-		return this.getFacilityMapper().deleteStructureFacility(id);
-	}
+	
 
 	@Override
-	public Integer deleteUploadedFacility(Integer id) {
-		Integer ret = 0;
+	public Integer deleteStructureFacility(Integer id_structure,Integer id_facility) {
+		Map map = null;
 		
-		ret = this.getFacilityMapper().deleteFacilityFromAllRooms(id); 
-		ret = ret + this.getFacilityMapper().deleteFacilityFromAllRoomTypes(id);
-		ret = ret + this.getFacilityMapper().deleteUploadedFacility(id);
-		return ret;
+		map = new HashMap();
+		map.put("id_structure", id_structure);
+		map.put("id_facility", id_facility);
+		return this.getFacilityMapper().deleteStructureFacility(map);
+	}
+	
+	
+
+	@Override
+	public Integer deleteStructureFacilities(Integer id_structure) {
+		List<Integer> ids = null;
+		Integer count = 0;		
+		
+		ids = this.getFacilityMapper().findStructureFacilityIdsByIdStructure(id_structure);		
+		for (Integer each: ids){			
+			count = count + this.deleteStructureFacility(id_structure,each);
+		}
+		return count;
 	}
 
 	@Override
-	public Integer deleteAllFacilitiesFromRoom(Integer id_room) {		
-		return this.getFacilityMapper().deleteAllFacilitiesFromRoom(id_room);
+	public Integer deleteRoomTypeFacility(Integer id_roomType,	Integer id_facility) {
+		Map map = null;
+		
+		map = new HashMap();
+		map.put("id_roomType", id_roomType);
+		map.put("id_facility", id_facility);
+		return this.getFacilityMapper().deleteRoomTypeFacility(map);
 	}
 	
 	@Override
-	public Integer deleteAllFacilitiesFromRoomType(Integer id_roomType) {		
-		return this.getFacilityMapper().deleteAllFacilitiesFromRoomType(id_roomType);
+	public Integer deleteRoomTypeFacilities(Integer id_roomType) {		
+		List<Integer> ids = null;
+		Integer count = 0;		
+		
+		ids = this.getFacilityMapper().findRoomTypeFacilityIdsByIdRoomType(id_roomType);		
+		for (Integer each: ids){			
+			count = count + this.deleteRoomTypeFacility(id_roomType,each);
+		}
+		return count;
 	}
 
 	@Override
-	public Integer updateUploadedFacility(Facility facility) {		
-		return this.getFacilityMapper().updateUploadedFacility(facility);
+	public Integer deleteRoomFacility(Integer id_room, Integer id_facility) {
+		Map map = null;
+		
+		map = new HashMap();
+		map.put("id_room", id_room);
+		map.put("id_facility", id_facility);
+		return this.getFacilityMapper().deleteRoomFacility(map);
 	}
+
+	@Override
+	public Integer deleteRoomFacilities(Integer id_room) {
+		List<Integer> ids = null;
+		Integer count = 0;		
+		
+		ids = this.getFacilityMapper().findRoomFacilityIdsByIdRoom(id_room);
+		for (Integer each: ids){
+			count = count + this.deleteRoomFacility(id_room,each);
+		}
+		return count;
+	}
+	
+	
+
 	
 	public FacilityMapper getFacilityMapper() {
 		return facilityMapper;

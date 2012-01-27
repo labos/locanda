@@ -21,80 +21,69 @@ In case of controversy the competent court is the Court of Cagliari (Italy).
 <mapper namespace="persistence.mybatis.mappers.ImageMapper">
     <cache/>
 	
-    <insert id="insertStructureImage" useGeneratedKeys="true" keyProperty="id" parameterType="model.Image">
-        insert into structureImage(name,fileName,id_structure) values(#{name},#{fileName},#{id_structure})
-    </insert>
-	
-    <insert id="insertRoomImage" useGeneratedKeys="true" keyProperty="id" parameterType="model.Image">
-        insert into roomImage(name,fileName,id_room) values(#{name},#{fileName},#{id_room})
-    </insert>
-	
-    <insert id="insertRoomTypeImage" useGeneratedKeys="true" keyProperty="id" parameterType="model.Image">
-        insert into roomTypeImage(name,fileName,id_roomType) values(#{name},#{fileName},#{id_roomType})
+	<insert id="insertImage" useGeneratedKeys="true" keyProperty="id" parameterType="model.Image">
+        insert into image(caption,fileName,data) values(#{caption},#{fileName},#{data})
     </insert>
     
-    <select id="findImagesByIdStructure" parameterType="int" resultType="model.Image">
-        <include refid="selectStructureImages"/>where id_structure = #{id_structure}
+    <insert id="insertStructureImage" useGeneratedKeys="true" keyProperty="id" parameterType="map">
+        insert into structureImage(id_structure,id_image) values(#{id_structure},#{id_image})
+    </insert>
+    
+    <insert id="insertRoomTypeImage" useGeneratedKeys="true" keyProperty="id" parameterType="map">
+        insert into roomTypeImage(id_roomType,id_image) values(#{id_roomType},#{id_image})
+    </insert>
+    
+    <insert id="insertRoomImage" useGeneratedKeys="true" keyProperty="id" parameterType="map">
+        insert into roomImage(id_room,id_image) values(#{id_room},#{id_image})
+    </insert>
+    
+    <update id="insertFacilityImage" parameterType="map">
+        update facility set id_image = #{id_image} where id = id_facility
+    </update>
+    
+    <select id="findImageIdsByIdStructure" parameterType="int" resultType="int">
+        select id_image from structureImage where id_structure = #{id_structure}
     </select>
     
-    <select id="findStructureImageByName" parameterType="map" resultType="model.Image">
-        <include refid="selectStructureImages"/>where id_structure = #{id_structure} and name = #{name}
+    <select id="findImageIdsByIdRoomType" parameterType="int" resultType="int">
+        select id_image from roomTypeImage where id_roomType = #{id_roomType}
     </select>
     
-    <select id="findStructureImageById" parameterType="int" resultType="model.Image">
-        <include refid="selectStructureImages"/>where id = #{id}
+    <select id="findImageIdsByIdRoom" parameterType="int" resultType="int">
+        select id_image from roomImage where id_room = #{id_room}
     </select>
     
-    <select id="findRoomImageByName" parameterType="map" resultType="model.Image">
-        <include refid="selectRoomImages"/>where  name = #{name} and id_room IN (select id from room where id_structure = #{id_structure} )
+    <select id="findImageById" parameterType="int" resultType="model.Image">
+        <include refid="selectImage"/>where id = #{id}
     </select>
     
-    <select id="findRoomTypeImageByName" parameterType="map" resultType="model.Image">
-        <include refid="selectRoomTypeImages"/>where name = #{name} and id_roomType IN (select id from roomType where id_structure = #{id_structure} )
-    </select>
+    <select id="findImageMetadataById" parameterType="int" resultType="model.Image">
+        <include refid="selectImageMetadata"/> where id = #{id}
+    </select>     
     
-    <select id="findRoomTypeImageById" parameterType="int" resultType="model.Image">
-        <include refid="selectRoomTypeImages"/> where id = #{id}
-    </select>
-    
-    <select id="findImagesByIdRoom" parameterType="int" resultType="model.Image">
-        <include refid="selectRoomImages"/>where id_room = #{id_room}
-    </select>
-    
-    <select id="findImagesByIdRoomType" parameterType="int" resultType="model.Image">
-        <include refid="selectRoomTypeImages"/>where id_roomType = #{id_roomType}
-    </select>
-    
-    <sql id="selectStructureImages">
-        select id,name,fileName,id_structure from structureImage
+    <sql id="selectImage">
+        select id,caption,fileName,data from image
     </sql>
     
-    <sql id="selectRoomImages">
-        select id,name,fileName,id_room from roomImage
+     <sql id="selectImageMetadata">
+        select id,caption,fileName from image
     </sql>
-    
-    <sql id="selectRoomTypeImages">
-        select id,name,fileName,id_roomType from roomTypeImage
-    </sql>
-    
-    <delete id="deleteStructureImage" parameterType="int">
-        delete from structureImage where id = #{id}
+    	
+	<delete id="deleteImage" parameterType="int">
+        delete from image where id = #{id}
     </delete>
     
-    <delete id="deleteRoomImage" parameterType="int">
-        delete from roomImage where id = #{id}
+	 <delete id="deleteStructureImage" parameterType="map">
+        DELETE from structureImage where id_structure = #{id_structure} AND id_image = #{id_image}
     </delete>
+    
+    <delete id="deleteRoomTypeImage" parameterType="map">
+        DELETE from roomTypeImage where id_roomType = #{id_roomType} AND id_image = #{id_image}
+    </delete>
+    
+    <delete id="deleteRoomImage" parameterType="map">
+        DELETE from roomImage where id_room = #{id_room} AND id_image = #{id_image}
+    </delete> 
 	
-    <delete id="deleteAllImagesFromRoom" parameterType="int">
-        delete from roomImage where id_room = #{id_room}
-    </delete>
-    
-    <delete id="deleteRoomTypeImage" parameterType="int">
-        delete from roomTypeImage where id = #{id}
-    </delete>
-	
-    <delete id="deleteAllImagesFromRoomType" parameterType="int">
-        delete from roomTypeImage where id_roomType = #{id_roomType}
-    </delete>
-    
+	    
 </mapper>

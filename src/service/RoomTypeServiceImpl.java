@@ -101,25 +101,20 @@ public class RoomTypeServiceImpl implements RoomTypeService{
 		return this.getRoomTypeMapper().findIdStructureByIdRoomType(idRoomType);
 	}
 
+	
 	@Override
 	public Integer insertRoomType(RoomType roomType) {
 		Integer ret = 0;
 		
-		ret = this.getRoomTypeMapper().insertRoomType(roomType);
-		for(Facility each: roomType.getFacilities()){
-			this.getFacilityService().insertRoomTypeFacility(each.getId(), roomType.getId());
-		}
+		ret = this.getRoomTypeMapper().insertRoomType(roomType);		
 		return ret ;
 	}
+	
 
 	@Override
 	public Integer updateRoomType(RoomType roomType) {
 		Integer ret = 0;
 		
-		this.getFacilityService().deleteAllFacilitiesFromRoomType(roomType.getId());
-		for(Facility each: roomType.getFacilities()){
-			this.getFacilityService().insertRoomTypeFacility(each.getId(), roomType.getId());
-		}
 		ret = this.getRoomTypeMapper().updateRoomType(roomType);
 		return ret;
 	}
@@ -127,8 +122,8 @@ public class RoomTypeServiceImpl implements RoomTypeService{
 	@Override
 	public Integer deleteRoomType(Integer id) {
 		//TODO - Check if there are rooms with id_roomType == id
-		this.getFacilityService().deleteAllFacilitiesFromRoomType(id);
-		this.getImageService().deleteAllImagesFromRoomType(id);	
+		this.getFacilityService().deleteRoomTypeFacilities(id);
+		//this.getImageService().deleteAllImagesFromRoomType(id);	
 		return this.getRoomTypeMapper().deleteRoomType(id);
 	}	
 	

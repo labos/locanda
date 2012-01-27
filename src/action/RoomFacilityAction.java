@@ -74,6 +74,7 @@ public class RoomFacilityAction extends ActionSupport implements SessionAware,Us
 		return SUCCESS;
 	}
 	
+	/*
 	@Actions({
 		@Action(value="/updateRoomFacilities", results={
 				@Result(type ="json",name="success", params={"root","message"})					
@@ -92,7 +93,8 @@ public class RoomFacilityAction extends ActionSupport implements SessionAware,Us
 		this.getMessage().setDescription(getText("facilitiesUpdatedSuccessAction"));
 		return SUCCESS;
 	}
-	
+	*/
+	/*
 	@Actions({
 		@Action(value="/deleteFacility", results={
 				@Result(type ="json",name="success", params={"root","message"}),
@@ -109,7 +111,8 @@ public class RoomFacilityAction extends ActionSupport implements SessionAware,Us
 			return ERROR;
 		}
 	}
-
+*/
+	/*
 	@Actions({
 		@Action(value="/updateFacility", results={
 				@Result(type ="json",name="success", params={
@@ -131,7 +134,7 @@ public class RoomFacilityAction extends ActionSupport implements SessionAware,Us
 			this.getMessage().setResult(Message.ERROR);
 			return ERROR;
 		}
-	}
+	}*/
 		
 	public Map<String, Object> getSession() {
 		return session;

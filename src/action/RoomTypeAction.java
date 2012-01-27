@@ -109,6 +109,7 @@ public class RoomTypeAction extends ActionSupport implements SessionAware,UserAw
 		return SUCCESS;
 	}
 	
+	/*
 	@Actions({
 		@Action(value="/saveUpdateRoomType",results = {
 				@Result(type ="json",name="success", params={"root","message"})
@@ -146,7 +147,7 @@ public class RoomTypeAction extends ActionSupport implements SessionAware,UserAw
 			this.getMessage().setDescription(getText("roomTypeUpdateSuccessAction"));
 		}
 		return SUCCESS;		
-	}
+	}*/
 	
 	@Actions({
 		@Action(value="/deleteRoomType",results = {
@@ -176,7 +177,8 @@ public class RoomTypeAction extends ActionSupport implements SessionAware,UserAw
 			return ERROR;
 		}
 	}
-		
+	
+	/*
 	@Actions({
 		@Action(value="/deleteRoomTypeImage",results = {
 				@Result(type ="json",name="success", params={"root","message"}),
@@ -195,7 +197,7 @@ public class RoomTypeAction extends ActionSupport implements SessionAware,UserAw
 			return "error";
 		}		
 	}
-	
+	*/
 	public Map<String, Object> getSession() {
 		return session;
 	}

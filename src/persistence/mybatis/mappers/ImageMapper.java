@@ -21,20 +21,22 @@ import java.util.Map;
 import model.Image;
 
 public interface ImageMapper {
-	public Integer insertRoomImage(Image image);
-	public Integer insertRoomTypeImage(Image image);
-	public Integer insertStructureImage(Image image);
-	public List<Image> findImagesByIdRoom(Integer id_room);
-	public List<Image> findImagesByIdRoomType(Integer id_roomType);
-	public List<Image> findImagesByIdStructure(Integer id_structure);
-	public Image findStructureImageByName(Map map);
-	public Image findStructureImageById(Integer id);
-	public Image findRoomTypeImageById(Integer id);	
-	public Image findRoomImageByName(Map map);
-	public Image findRoomTypeImageByName(Map map);
-	public Integer deleteRoomImage(Integer id);
-	public Integer deleteAllImagesFromRoom(Integer id);
-	public Integer deleteRoomTypeImage(Integer id);
-	public Integer deleteAllImagesFromRoomType(Integer id);
-	public Integer deleteStructureImage(Integer id);
+	public Integer insertImage(Image image);
+	public Integer insertStructureImage(Map map);
+	public Integer insertRoomTypeImage(Map map);
+	public Integer insertRoomImage(Map map);
+	public Integer insertFacilityImage(Map map);
+	
+	public List<Integer> findImageIdsByIdStructure(Integer id_structure);
+	public List<Integer> findImageIdsByIdRoomType(Integer id_roomType);
+	public List<Integer> findImageIdsByIdRoom(Integer id_room);
+	public Image findImageById(Integer id);	
+	public Image findImageMetadataById(Integer id);		
+	
+	public Integer deleteImage(Integer id);
+	public Integer deleteStructureImage(Map map);		
+	public Integer deleteRoomTypeImage(Map map);	
+	public Integer deleteRoomImage(Map map);	
+	
+	
 }

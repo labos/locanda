@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+
 import javax.activation.MimetypesFileTypeMap;
 import javax.servlet.ServletContext;
 import javax.ws.rs.DELETE;
@@ -18,12 +19,14 @@ import javax.ws.rs.core.Response;
 
 import model.Image;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.sun.jersey.api.NotFoundException;
+import com.sun.jersey.multipart.file.DefaultMediaTypePredictor;
 
 import service.ImageService;
 import service.RoomTypeService;
@@ -49,61 +52,31 @@ public class ImageResource {
 	}
 
 	@GET
-	@Path("structure/{id}")
+	@Path("{id}")
 	@Produces("image/*")
-	public Response getStructureImage(@PathParam("id") Integer id) {
+	public Response getImage(@PathParam("id") Integer id) {
 		Image image = null;
-		String filePath = null;
-		File file = null;
 		
-		
-		image = this.getImageService().findStructureImageById(id);
+		image = this.getImageService().findImageById(id);
 		if (image == null) {
 			throw new WebApplicationException(404);
-		}
+		}		
 		
-		filePath = this.getServletContext().getRealPath("/") +  "resources/" + image.getId_structure() + "/images/structure/" + image.getFileName();
-		file = new File(filePath);
-		
-		String mt = new MimetypesFileTypeMap().getContentType(file);
-		return Response.ok(file, mt).build();
+		String mt = DefaultMediaTypePredictor.CommonMediaTypes.getMediaTypeFromFileName(image.getFileName()).toString();
+		return Response.ok(image.getData(), mt).build();
 	}
 	
-	
-	@GET
-	@Path("roomType/{id}")
-	@Produces("image/*")
-	public Response getRoomTypeImage(@PathParam("id") Integer id) {
-		Image image = null;
-		String filePath = null;
-		File file = null;
-		Integer idStructure;
-		
-		image = this.getImageService().findRoomTypeImageById(id);
-		if (image == null) {
-			throw new WebApplicationException(404);
-		}
-		
-		idStructure = this.getRoomTypeService().findIdStructureByIdRoomType(image.getId_roomType());
-		filePath = this.getServletContext().getRealPath("/") +  "resources/" + idStructure + "/images/roomType/" + image.getFileName();
-		file = new File(filePath);
-		
-		if (!file.exists()) {
-			throw new WebApplicationException(404);
-		}
-		
-		String mt = new MimetypesFileTypeMap().getContentType(file);
-		return Response.ok(file, mt).build();
-	}
 	
 	@DELETE
-    @Path("roomType/{id}")
+    @Path("roomType/{id_roomType}/{id_image}")
     @Produces({MediaType.APPLICATION_JSON})   
-    public Integer deleteRoomTypeImage(@PathParam("id") Integer id){
+    public Integer deleteRoomTypeImage(@PathParam("id_roomType") Integer id_roomType, @PathParam("id_image") Integer id_image){
     	Integer count = 0;			
 		
-		count = this.getImageService().deleteRoomTypeImage(id);		
-		if(count == 0){
+		
+    	count = this.getImageService().deleteRoomTypeImage(id_roomType, id_image);
+    	count = this.getImageService().deleteImage(id_image);
+    	if(count == 0){
 			throw new NotFoundException("Error: the image has NOT been deleted");
 		}	
 		

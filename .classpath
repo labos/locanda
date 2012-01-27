@@ -123,7 +123,7 @@
 	<classpathentry kind="lib" path="webroot/WEB-INF/lib/jackson-mapper-asl-1.8.3.jar"/>
 	<classpathentry kind="lib" path="webroot/WEB-INF/lib/jackson-xc-1.8.3.jar"/>
 	<classpathentry kind="lib" path="webroot/WEB-INF/lib/jersey-client-1.10.jar"/>
-	<classpathentry kind="lib" path="webroot/WEB-INF/lib/jersey-core-1.10.jar"/>
+	<classpathentry kind="lib" path="webroot/WEB-INF/lib/jersey-core-1.10.jar" sourcepath="/home/sandro/.m2/repository/com/sun/jersey/jersey-core/1.10/jersey-core-1.10-sources.jar"/>
 	<classpathentry kind="lib" path="webroot/WEB-INF/lib/jersey-json-1.10.jar"/>
 	<classpathentry kind="lib" path="webroot/WEB-INF/lib/jersey-server-1.10.jar"/>
 	<classpathentry kind="lib" path="webroot/WEB-INF/lib/jersey-servlet-1.10.jar"/>
@@ -153,5 +153,6 @@
 	<classpathentry kind="lib" path="webroot/WEB-INF/lib/slf4j-jdk14-1.6.1.jar"/>
 	<classpathentry kind="lib" path="webroot/WEB-INF/lib/wstx-asl-3.2.7.jar"/>
 	<classpathentry kind="lib" path="webroot/WEB-INF/lib/commons-io-2.0.1.jar"/>
+	<classpathentry kind="lib" path="webroot/WEB-INF/lib/jersey-multipart-1.10.jar"/>
 	<classpathentry kind="output" path="webroot/WEB-INF/classes"/>
 </classpath>
