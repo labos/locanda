@@ -22,7 +22,6 @@
     <script id="edit-template" type="text/x-handlebars-template">
 		<form id="edit-form" class="yform" role="application">
           	<div class="c50l">
-                <div class="c50l">
                   	<div class="type-text">	
                   		<label for="FormName"><s:text name="name"/><sup title="This field is mandatory.">*</sup></label>
                 		<input type="text" class="required" name="name" id="FormName" value="{{name}}" aria-required="true"/>
@@ -31,30 +30,28 @@
                   		<label for="FormDescription"><s:text name="description"/><sup title="This field is mandatory.">*</sup></label>
                 		<input type="text" class="required" name="description" id="FormDescription" value="{{description}}" aria-required="true"/>
                  	</div>
-					<div class="c50l">
-						<input {{#nightPriceType.checked}checked="checked"{{/nightPriceType.checked}
-					    	type="radio" name="{{timePriceType}}" value="{{nightPriceType.value}}"/><s:text name="extraPerNight"/><br/>
-                        <input {{#weekPriceType.checked}checked="checked"{{#weekPriceType.checked}
-					    	type="radio" name="{{timePriceType}}" value="{{weekPriceType.value}}"/><s:text name="extraPerWeek"/><br/>
-                      	<input {{{#bookingPriceType.checked}checked="checked"{{#bookingPriceType.checked}
-				        	type="radio" name="{{timePriceType}}" value="{{bookingPriceType.value}}"/><s:text name="extraPerBooking"/>
-				    </div>				 
-				    <div class="c50l">
-				  	  <input 
-					    <s:if test="extra.resourcePriceType == 'per Room'">checked="checked"</s:if>
-					    type="radio" name="extra.resourcePriceType" value="per Room"/><s:text name="extraPerRoom"/><br/>
-                      <input 
-                        <s:if test="extra.resourcePriceType == 'per Person'">checked="checked"</s:if>
-					    type="radio" name="extra.resourcePriceType" value="per Person"/><s:text name="extraPerPerson"/><br/>
-                      <input 
-                        <s:if test="extra.resourcePriceType == 'per Item'">checked="checked"</s:if>
-					    type="radio" name="extra.resourcePriceType" value="per Item"/><s:text name="extraPerItem"/>
-				    </div>
+					<div class="type-text">
+						<div class="c50l">
+							<input {{nightPriceType.checked}}
+					    		type="radio" name="timePriceType" value="{{nightPriceType.value}}"/><s:text name="extraPerNight"/><br/>
+                        	<input {{weekPriceType.checked}}
+					    		type="radio" name="timePriceType" value="{{weekPriceType.value}}"/><s:text name="extraPerWeek"/><br/>
+                      		<input {{bookingPriceType.checked}}
+				        		type="radio" name="timePriceType" value="{{bookingPriceType.value}}"/><s:text name="extraPerBooking"/>
+				    	</div>				 
+				    	<div class="c50l">
+							<input {{roomPriceType.checked}}
+					    		type="radio" name="resourcePriceType" value="{{roomPriceType.value}}"/><s:text name="extraPerRoom"/><br/>
+                        	<input {{personPriceType.checked}}
+					    		type="radio" name="resourcePriceType" value="{{personPriceType.value}}"/><s:text name="extraPerPerson"/><br/>
+                        	<input {{itemPriceType.checked}}
+					    		type="radio" name="resourcePriceType" value="{{itemPriceType.value}}"/><s:text name="extraPerItem"/><br/>
+				    	</div>
+					</div>
                   	<div class="type-button">
                 		<button class="btn_save"><s:text name="save"/></button>
                 		<button class="btn_reset"><s:text name="cancel"/></button>
-                    </div>	
-                </div>
+                    </div>
             </div>
 		</form>
 	</script>

@@ -25,14 +25,8 @@
 window.Extra = Backbone.Model.extend({
 	
     defaults: {
-        sub_description: null
-    },
-    initialize: function () {
-        this.get("description") ? this.set({
-            sub_description: this.get("description").substring(0, 20) + '...'
-        }) : this.set({
-            sub_description: null
-        });
+    	name: "",
+        description: ""
     },
     url: function () {
         var base = this.urlRoot;

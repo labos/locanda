@@ -28,31 +28,40 @@ window.EditExtraView = EditView.extend({
     },
     initialize: function () {
         this.model.bind('change', this.render, this);
-        
-        this.nightPriceType = {"value":"per Night","checked":false};
-        this.weekPriceType = {"value":"per Week","checked":false};
-        this.bookingPriceType = {"value":"per Booking","checked":false};
-        this.checkPriceType();
+
     },
+
     /**
      * Initialize priceType properties added to model and only to be used in the template.
      */
-    checkPriceType: function () {
-    	if (this.model.get("timePriceType") == "per Night") {
-    		this.nightPriceType.checked = true;
-    	} else
-    	if (this.model.get("timePriceType") == "per Week") {
-      		this.weekPriceType.checked = true;
-        } else this.bookingPriceType.checked = true;	
+    checkPriceType: function ( type) {
+    	if ( this.model.get("timePriceType") == type  || this.model.get("resourcePriceType" ) == type) {
+    		return {"value": type,"checked":"checked=\"checked\""};
+    		
+    	} else {
+        	return {"value": type,"checked":""};	
+        }
+    
+    	
+    	
     },
    
     render: function () {
         // render main edit view
         var modelToRender = this.model.toJSON();
+        this.checkPriceType();
         // set additional attributes to display the radio buttons for price types. Only for the view.
-        modelToRender.nightPriceType = this.nightPriceType;
-        modelToRender.weekPriceType = this.weekPriceType;
-        modelToRender.bookingPriceType = this.bookingPriceType;
+        if ( this.model.isNew() ){
+        	this.model.set({"timePriceType": "per Booking"},{silent: true});
+        	this.model.set({"resourcePriceType": "per Item"},{silent: true});
+        	        }
+        modelToRender.nightPriceType = this.checkPriceType( "per Night" );
+        modelToRender.weekPriceType = this.checkPriceType( "per Week" );
+        modelToRender.bookingPriceType = this.checkPriceType( "per Booking" );
+        modelToRender.roomPriceType = this.checkPriceType( "per Room" );
+        modelToRender.personPriceType = this.checkPriceType( "per Person" );
+        modelToRender.itemPriceType = this.checkPriceType( "per Item" );
+
         $(this.el).html(Mustache.to_html(this.indexTemplate.html(), modelToRender));
         // add validation check
         this.$(".yform").validate();

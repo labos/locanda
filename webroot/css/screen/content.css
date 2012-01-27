@@ -1199,4 +1199,8 @@ span.title-elem {
     width: 85px;
 }
 
+#edit-form input[type="radio"] {
+	display: inline;
+}
+
     
