@@ -14,10 +14,10 @@
  * In case of controversy the competent court is the Court of Cagliari (Italy).
  *******************************************************************************/
 /*
- * @class Convention
+ * @class Guest
  * @parent Backbone.Model
  * @constructor
- * Model to hold convention attribute.
+ * Model to hold a guest.
  * @tag models
  * @author LabOpenSource
  */
