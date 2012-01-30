@@ -312,7 +312,7 @@ $.fn.deprecatedBrowser = function () {
     			}
                 
 			if (isValidImage && isValidName) {
-				handler.uploadForm.find('input:hidden[name="name"]').val(facility_name);
+				handler.uploadForm.find('input:hidden[name="caption"]').val(facility_name);
 				callBack();
 			} else {
 				handler.uploadForm.parents(".beauty").find('input[name="facility_name"]').addClass("error").after('<label for="name_facility"  class="error">This field is required.</label>');

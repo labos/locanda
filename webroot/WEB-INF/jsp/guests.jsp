@@ -29,7 +29,7 @@
 			return new Guests(options);
 		},
 		editView : function(options) {
-			return new EditView(options);
+			return new EditGuestView(options);
 		},
 		idStructure : <s:property value="#session.user.structure.id"/>
 	};

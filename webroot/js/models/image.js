@@ -31,6 +31,6 @@ window.Image = Backbone.Model.extend({
         if (this.isNew()) return base;
         return base + (base.charAt(base.length - 1) == '/' ? '' : '/') + encodeURIComponent(this.id);
     },
-    urlRoot: "rest/images/roomType/",
+    urlRoot: "rest/images/",
     validate: function (attrs) {},
 });

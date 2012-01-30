@@ -112,7 +112,7 @@
 	</script>
 
 	<script id="facility-row-template" type="text/x-handlebars-template">
-		<span class="title-elem">{{name}}</span><img src="images/{{fileName}}"/>
+		<span class="title-elem">{{caption}}</span><img src="images/{{fileName}}"/>
 	</script>
 
 	<script id="facility-row-edit-template" type="text/x-handlebars-template">
@@ -121,14 +121,14 @@
 	</script>
 
 	<script id="image-row-template" type="text/x-handlebars-template">
-		<span class="title-elem">{{name}}</span>
-		<img src="<%=request.getContextPath( )%>/rest/images/room/{{id}}"/>
+		<span class="title-elem">{{caption}}</span>
+		<img src="<%=request.getContextPath( )%>/rest/images/{{id}}"/>
 	</script>
 
 	<script id="image-row-edit-template" type="text/x-handlebars-template">
-		<span class="title-elem">{{name}}</span>
+		<span class="title-elem">{{caption}}</span>
 		<span class="delete-elem"></span>
-		<img src="<%=request.getContextPath( )%>/rest/images/room/{{id}}"/>
+		<img src="<%=request.getContextPath( )%>/rest/images/{{id}}"/>
 	</script>
 
 	<script id="facilities-view-template" type="text/x-handlebars-template">
@@ -180,8 +180,8 @@
  			  	<div class="c20l">
  					<br/>
  					<form id="uploadFacility" action="uploadRoomImage.action" method="post" enctype="multipart/form-data">
-   				  		<input type="hidden" name="name" value=""/>
-						<input type="hidden" name="room.id" value="{{id_parent}}"/>
+   				  		<input type="hidden" name="caption" value=""/>
+						<input type="hidden" name="id" value="{{id_parent}}"/>
    				    	<input type="hidden" name="idStructure" value="{{id_structure}}"/>
      			  		<input type="file" name="upload" multiple/>
     			  		<button>Upload</button> 
