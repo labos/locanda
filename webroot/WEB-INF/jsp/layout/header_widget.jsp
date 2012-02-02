@@ -41,8 +41,6 @@
 <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js'></script>
 -->
 <script type='text/javascript' src='js/lib/jquery-ui-1.8.9.custom.min.js'></script>
-<script type='text/javascript' src='js/lib/jquery.fileupload.js'></script>
-<script type='text/javascript' src='js/lib/jquery.fileupload-ui.js'></script>
 <script type='text/javascript' src="js/lib/jquery.i18n.js"></script>
 <script type='text/javascript' src='js/lang/jquery.<s:property value="#request.locale.getLanguage()" />.json'></script>
       <script>
@@ -114,6 +112,7 @@
 </s:if>
 <script type='text/javascript' src='js/lib/jquery.form.js'></script>
 <script type="text/javascript" src="js/lib/jquery.mobile-1.0a4.1.js"></script>
+<script type="text/javascript" src="js/controllers/online_controller.js"></script>
 <style>
 body {
 background:#4D87C7;
