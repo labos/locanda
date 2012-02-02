@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.1.49, for debian-linux-gnu (i686)
+-- MySQL dump 10.13  Distrib 5.1.41, for debian-linux-gnu (i486)
 --
 -- Host: localhost    Database: locanda
 -- ------------------------------------------------------
--- Server version	5.1.49-1ubuntu8.1
+-- Server version	5.1.41-3ubuntu12.10
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -111,7 +111,7 @@ CREATE TABLE `convention` (
   `activationCode` varchar(255) DEFAULT NULL,
   `id_structure` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -120,7 +120,7 @@ CREATE TABLE `convention` (
 
 LOCK TABLES `convention` WRITE;
 /*!40000 ALTER TABLE `convention` DISABLE KEYS */;
-INSERT INTO `convention` VALUES (40,'Nessuna Convenzione','Nessuna Convenzione','thisconventionshouldntneverberemoved',6),(41,'Nessuna Convenzione','Nessuna Convenzione','thisconventionshouldntneverberemoved',1);
+INSERT INTO `convention` VALUES (41,'Nessuna Convenzione','Nessuna Convenzione','thisconventionshouldntneverberemoved',1);
 /*!40000 ALTER TABLE `convention` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -275,12 +275,10 @@ CREATE TABLE `guest` (
   `idNumber` varchar(255) DEFAULT NULL,
   `id_structure` int(11) DEFAULT NULL,
   `gender` varchar(255) DEFAULT NULL,
-  `birthDay` int(11) DEFAULT NULL,
-  `birthMonth` varchar(255) DEFAULT NULL,
-  `birthYear` int(11) DEFAULT NULL,
+  `birthDate` date DEFAULT NULL,
   `birthPlace` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -305,7 +303,7 @@ CREATE TABLE `image` (
   `fileName` varchar(255) DEFAULT NULL,
   `data` blob,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -515,7 +513,7 @@ CREATE TABLE `roomType` (
   `id_structure` int(11) DEFAULT NULL,
   `notes` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -524,7 +522,6 @@ CREATE TABLE `roomType` (
 
 LOCK TABLES `roomType` WRITE;
 /*!40000 ALTER TABLE `roomType` DISABLE KEYS */;
-INSERT INTO `roomType` VALUES (1,'Singola',1,1,'Camera Singola');
 /*!40000 ALTER TABLE `roomType` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -549,7 +546,6 @@ CREATE TABLE `roomTypeFacility` (
 
 LOCK TABLES `roomTypeFacility` WRITE;
 /*!40000 ALTER TABLE `roomTypeFacility` DISABLE KEYS */;
-INSERT INTO `roomTypeFacility` VALUES (1,1,NULL),(2,1,NULL),(3,1,NULL),(4,1,0),(5,1,NULL),(6,1,NULL);
 /*!40000 ALTER TABLE `roomTypeFacility` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -720,4 +716,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2012-01-27 16:56:54
+-- Dump completed on 2012-02-02 12:35:41

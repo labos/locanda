@@ -18,8 +18,6 @@ package service;
 import java.util.List;
 
 import model.Guest;
-import model.listini.Convention;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

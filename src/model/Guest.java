@@ -16,6 +16,7 @@
 package model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -35,9 +36,7 @@ public class Guest implements Serializable{
 	@Field
 	private String lastName;
 	private String gender;
-	private Integer birthDay;
-	private String birthMonth;
-	private Integer birthYear;
+	private Date birthDate;
 	private String birthPlace;
 	@Field
 	private String email;
@@ -152,23 +151,11 @@ public class Guest implements Serializable{
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
-	public Integer getBirthDay() {
-		return birthDay;
+	public Date getBirthDate() {
+		return birthDate;
 	}
-	public void setBirthDay(Integer birthDay) {
-		this.birthDay = birthDay;
-	}
-	public String getBirthMonth() {
-		return birthMonth;
-	}
-	public void setBirthMonth(String birthMonth) {
-		this.birthMonth = birthMonth;
-	}
-	public Integer getBirthYear() {
-		return birthYear;
-	}
-	public void setBirthYear(Integer birthYear) {
-		this.birthYear = birthYear;
+	public void setBirthDate(Date birthDate) {
+		this.birthDate = birthDate;
 	}
 	public String getBirthPlace() {
 		return birthPlace;
@@ -176,5 +163,5 @@ public class Guest implements Serializable{
 	public void setBirthPlace(String birthPlace) {
 		this.birthPlace = birthPlace;
 	}
-
+	
 }

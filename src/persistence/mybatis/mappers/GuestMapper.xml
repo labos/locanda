@@ -33,17 +33,17 @@ In case of controversy the competent court is the Court of Cagliari (Italy).
     </select>
     
     <sql id="selectGuests">
-        SELECT id,firstName,lastName,gender,birthDay,birthMonth,birthYear,birthPlace,email,phone,address,country,zipCode,notes,idNumber,id_structure FROM guest
+        SELECT id,firstName,lastName,gender,birthDate,birthPlace,email,phone,address,country,zipCode,notes,idNumber,id_structure FROM guest
     </sql>
     
     <insert id="insertGuest" parameterType="model.Guest" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO guest(firstName,lastName,gender,birthDay,birthMonth,birthYear,birthPlace,email,phone,address,country,zipCode,notes,idNumber,id_structure) values
-        (#{firstName},#{lastName},#{gender},#{birthDay},#{birthMonth},#{birthYear},#{birthPlace},#{email},#{phone},#{address},#{country},#{zipCode},#{notes},#{idNumber},#{id_structure})
+        INSERT INTO guest(firstName,lastName,gender,birthDate,birthPlace,email,phone,address,country,zipCode,notes,idNumber,id_structure) values
+        (#{firstName},#{lastName},#{gender},#{birthDate},#{birthPlace},#{email},#{phone},#{address},#{country},#{zipCode},#{notes},#{idNumber},#{id_structure})
     </insert>
     
     <update id="updateGuest" parameterType="model.Guest">
         UPDATE guest set
-        firstName= #{firstName},lastName= #{lastName},gender=#{gender},birthDay=#{birthDay},birthMonth=#{birthMonth},birthYear=#{birthYear},birthPlace=#{birthPlace},email= #{email},phone= #{phone},address= #{address},country= #{country},zipCode= #{zipCode},notes= #{notes},idNumber= #{idNumber},id_structure= #{id_structure}
+        firstName= #{firstName},lastName= #{lastName},gender=#{gender},birthDate=#{birthDate},birthPlace=#{birthPlace},email= #{email},phone= #{phone},address= #{address},country= #{country},zipCode= #{zipCode},notes= #{notes},idNumber= #{idNumber},id_structure= #{id_structure}
         WHERE id = #{id}
     </update>
     
