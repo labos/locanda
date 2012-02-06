@@ -26,10 +26,10 @@
 			return new Facility(options);
 		},
 		collection : function(options) {
-			return new Facilities(options);
+			return new Facilities( {}, options );
 		},
 		editView : function(options) {
-			return null;
+			return new EditFacilityView(options);
 		},
 		idStructure : <s:property value="#session.user.structure.id"/>
 	};
@@ -42,6 +42,16 @@
 	<!-- begin: #col1 - first float column -->
 	<div id="col1" role="complementary">
 		<div class="clearfix" id="col1_content">
+		<div id="tabs">
+			<ul>
+				<li><a href="#roomFacilities"><s:text name="rooms"/></a></li>
+				<li><a href="#roomTypeFacilities"><s:text name="roomTypes"/></a></li>
+				<li><a href="#structureFacilities"><s:text name="structureDetails"/></a></li>
+			</ul>
+			<div id="roomFacilities" style="display:none"></div>
+			<div id="roomTypeFacilities" style="display:none"></div>
+			<div id="structureFacilities" style="display:none"></div>
+		</div>
 			<div>
 				<button class="btn_add_form">
 					<s:text name="addNew" />
@@ -56,7 +66,7 @@
 	<div id="col3" role="main">
 		<div class="clearfix" id="col3_content">
 			<h2>
-				<s:text name="conventions" />
+				<s:text name="facilities" />
 			</h2>
 			<div id="toolbar-container"></div>
 			<div id="main-app">

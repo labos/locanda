@@ -134,7 +134,7 @@
          "submit form": "save",
          "keypress input:text": "updateOnEnter",
          "dblclick #view-form span": "switchMode",
-         "click span.inplace-edit": "switchMode"
+         "click div": "switchMode"
      },
      initialize: function () {
          this.model.bind('change', this.render, this);         
@@ -209,7 +209,10 @@
          //clean up events bound from the model
          this.model.unbind("change", this.render);
      },
-     switchMode: function () {
+     switchMode: function (event) {
+    	 // prevents the event from bubbling up the DOM tree
+    	 event.stopPropagation();
+
          if( this.indexTemplate.attr("id") == "edit-template" ){
         	 this.indexTemplate =  $("#view-template");
         	 $(".overlay").remove();
@@ -417,7 +420,7 @@
          this.collection.bind('reset', this.addAll, this);
          this.collection.bind('destroy', this.removeOne, this);
          this.collection.bind('all', this.render, this);
-         this.collection.fetch();
+         this.collection.fetch({error: function(){ $("#row-list").removeClass("back"); }});
          //handle moreViews for pagination
          this.moreViewTop = new MoreListTopView();
          this.moreViewTop.bind("prev", this.prev, this);
@@ -434,13 +437,16 @@
      // Add a single item to the list by creating a view for it, and
      // appending its element to the `<ul>`.
      addOne: function (item) {
-         var view = new RowView({
-             model: item
-         });
-         view.bind("row:edit", this.editOne);
-         view.model.collection = this.collection;
-         this.rowViews.push(view);
-         $(this.el).append(view.render().el);
+    	 if( !item.isNew() ){
+             var view = new RowView({
+                 model: item
+             });
+             view.bind("row:edit", this.editOne);
+             view.model.collection = this.collection;
+             this.rowViews.push(view);
+             $(this.el).append(view.render().el); 
+    	 }
+
      },
      // Add all items in the collection at once.
      addAll: function () {
@@ -451,9 +457,11 @@
          });
          this.rowViews = [];
          this.collection.each(this.addOne);
-         if (this.collection.length) {
+         if ( this.collection.length && !this.collection.at(0).isNew()) {
              this.editView.resetModel(this.collection.at(0));
          }
+         // check that the number of collection elements is enough to display a more-view-button ( in progress.. )
+         //( //tot number > this.perPageResults )? this.moreViewBottom.show() : this.moreViewBottom.hide();
     	 $("#row-list").removeClass("back");
      },
      removeOne: function (aModel) {
@@ -517,8 +525,8 @@
                  })
              });
              this.listView = new ListView({
-                 collection: Entity.collection(Entity.idStructure, {
-                     view: RowView
+                 collection: Entity.collection({
+                     idStructure: Entity.idStructure
                  }),
                  editView: this.editView
              });

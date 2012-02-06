@@ -24,8 +24,8 @@
 
 window.Rooms = Backbone.Collection.extend({
     model: Room,
-    initialize: function (idStructure) {
-    	this.setIdWrapper(idStructure);
+    initialize: function (models, options) {
+    	this.setIdWrapper(options.idStructure);
     	this.setFrom(0);
     	this.setTo(10);
     	this.setTerm(null);

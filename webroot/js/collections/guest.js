@@ -10,8 +10,8 @@
 window.Guests = Backbone.Collection.extend({
     model: Guest,
     //This is our Guests collection and holds our Guest models
-    initialize: function (idStructure) {
-    	this.setIdWrapper(idStructure);
+    initialize: function (models, options) {
+    	this.setIdWrapper(options.idStructure);
     	this.setFrom(0);
     	this.setTo(10);
     	this.setTerm(null);

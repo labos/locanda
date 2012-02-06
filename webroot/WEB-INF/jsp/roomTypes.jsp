@@ -26,7 +26,7 @@
 			return new RoomType(options);
 		},
 		collection : function(options) {
-			return new RoomTypes(options);
+			return new RoomTypes({},options);
 		},
 		editView : function(options) {
 			return new EditImagesFacilitiesView(options);

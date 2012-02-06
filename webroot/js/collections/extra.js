@@ -10,8 +10,8 @@
 window.Extras = Backbone.Collection.extend({
     model: Extra,
     //This is our Extras collection and holds our Extra models
-    initialize: function (idStructure) {
-    	this.setIdWrapper(idStructure);
+    initialize: function (models, options) {
+    	this.setIdWrapper(options.idStructure);
     	this.setFrom(0);
     	this.setTo(10);
     	this.setTerm(null);

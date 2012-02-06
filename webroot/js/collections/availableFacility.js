@@ -25,7 +25,7 @@
 window.AvailableFacilities = Backbone.Collection.extend({
     model: Facility,
     //This is our Conventions collection and holds our Convention models
-    initialize: function (options) {
+    initialize: function (models, options) {
     	this.setIdWrapper(options.idStructure);
     	this.setFrom(0);
     	this.setTo(10);

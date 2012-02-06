@@ -1202,5 +1202,30 @@ span.title-elem {
 #edit-form input[type="radio"] {
 	display: inline;
 }
+#tabs{
+	border: none;
+	margin-top: 0;
+}
+#tabs ul{
+	border: none;
+}
 
-    
+#tabs .ui-state-default{
+	background: none;
+	border: none;
+}
+#tabs .ui-state-default a{
+	color: #0088CC;
+}
+#tabs .ui-state-active{
+	background-color: white;
+	border: 1px solid #D4CCB0;
+	margin-bottom: -1px;
+}
+#tabs .ui-state-active a{
+	color: #555555;
+}
+#tabs .ui-widget-header{
+	background: none;
+	border-bottom: 1px solid #D4CCB0;
+}

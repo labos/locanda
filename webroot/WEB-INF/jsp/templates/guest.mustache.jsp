@@ -85,7 +85,7 @@
 	</script>
 
     <script id="view-template" type="text/x-handlebars-template">
-		<form id="view-form" class="yform json full" role="application">
+		<form id="view-form" class="yform inview" role="application">
         	<div class="c50l">
               	<div class="c50l">
                   	<div class="type-text">	

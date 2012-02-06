@@ -309,7 +309,7 @@ window.ImagesFacilitiesView = Backbone.View.extend({
          this.collection.bind('reset', this.render, this);
          this.collection.bind('remove', this.removeOne, this);
          // collection of facilities to check
-         this.availableCollection = new AvailableFacilities({idStructure: Entity.idStructure});
+         this.availableCollection = new AvailableFacilities({}, {idStructure: Entity.idStructure});
          // array of single facility view
     	 this.rowViews = [];
     	 // page index for the slider

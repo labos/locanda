@@ -26,7 +26,7 @@
 			return new Season(options);
 		},
 		collection : function(options) {
-			return new Seasons(options);
+			return new Seasons({},options);
 		},
 		editView : function(options) {
 			return new EditSeasonView(options);

@@ -26,7 +26,7 @@
 			return new Guest(options);
 		},
 		collection : function(options) {
-			return new Guests(options);
+			return new Guests( {}, options );
 		},
 		editView : function(options) {
 			return new EditGuestView(options);

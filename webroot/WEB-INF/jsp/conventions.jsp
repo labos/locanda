@@ -26,7 +26,7 @@
 			return new Convention(options);
 		},
 		collection : function(options) {
-			return new Conventions(options);
+			return new Conventions( {}, options );
 		},
 		editView : function(options) {
 			return new EditView(options);

@@ -26,7 +26,7 @@
 			return new Extra(options);
 		},
 		collection : function(options) {
-			return new Extras(options);
+			return new Extras({}, options);
 		},
 		editView : function(options) {
 			return new EditExtraView(options);

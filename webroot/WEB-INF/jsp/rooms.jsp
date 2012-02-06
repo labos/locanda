@@ -26,7 +26,7 @@
 			return new Room(options);
 		},
 		collection : function(options) {
-			return new Rooms(options);
+			return new Rooms({},options);
 		},
 		editView : function(options) {
 			return new EditView(options);

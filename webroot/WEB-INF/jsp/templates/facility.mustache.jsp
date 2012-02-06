@@ -54,11 +54,6 @@
                   </div>
               </div>
               <div class="c50l">
-                <div class="type-text">	
-                  <span class="inplace-edit"></span>
-                </div>
-			  </div>
-              <div class="c50l">
 				<img src="{{}}" alt="" />
 			  </div>
 		</form>
