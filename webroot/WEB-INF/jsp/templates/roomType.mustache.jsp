@@ -147,7 +147,7 @@
 
 	<script id="facilities-edit-template" type="text/x-handlebars-template" >
 		<div class="add-new">
-			<a hfref="" class="btn_add">Add new Facility</a>
+			<a href="<%=request.getContextPath( )%>/findAllFacilities.action?sect=settings#show/roomtype/{{id_parent}}" class="btn_add">Add new Facility</a>
 		</div>
 		<div class="wrapper">
 			<ul></ul>

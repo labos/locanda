@@ -4,6 +4,8 @@ window.AppRouter = Backbone.Router.extend({
         routes: {
             "edit/:id": "editItem",
             "new": "newItem",
+            "tab/:entity": "switchTab",
+            "show/:entity/:id": "showEntity",
             "*actions": "defaultRoute" // Backbone will try match the route above first
         },
         initialize: function () {
@@ -32,6 +34,22 @@ window.AppRouter = Backbone.Router.extend({
             new EditView({
                 model: Entity.model()
             });
+        },
+        switchTab: function ( entity ) {
+        	// filter listView setting the contained collection.	
+        	this.appView.filterAll(entity, "");
+        	return true;
+        	
+        },
+        showEntity: function ( entity, id ) {
+        	// show in edit view a specified entity
+        	this.appView.filterAll(entity, id);        	
+        	$( "#tabs" ).bind( "tabscreate", function(event, ui) {
+            		$("a[href$='#tab-" + entity  + "']").trigger('click');        		 
+        		});
+        	
+        	return true;
+        	
         },
         defaultRoute: function (actions) {
             ///nothing

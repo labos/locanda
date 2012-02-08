@@ -39,6 +39,29 @@
 				<img src="{{}}" alt="" />
 			</div>	
 		</form>
+ 		<div class="subcolumns">
+		   	<div class="result_facility_upload" id="result_facility_upload"></div>
+		   	<div class="upload_loader">&nbsp;</div>
+		   	<div class="image_preview"></div>
+		</div>
+        <div class="beauty">
+     	  	<div class="subcolumns">
+           	  	<div class="c33l">
+    				<label for="name_facility"><s:text name="imageName"/>:</label>&nbsp;<input type="text" name="facility_name" value="" id="name_facility" class="require"/>
+ 			  	</div>
+ 			  	<div class="c20l">
+ 					<br/>
+ 					<form id="uploadFacility" action="uploadRoomTypeImage.action" method="post" enctype="multipart/form-data">
+   				  		<input type="hidden" name="caption" value=""/>
+						<input type="hidden" name="id" value="{{id_parent}}"/>
+   				    	<input type="hidden" name="idStructure" value="{{id_structure}}"/>
+     			  		<input type="file" name="upload" multiple/>
+    			  		<button>Upload</button> 
+    			  		<div><s:text name="uploadRoomTypeImage"/></div>  
+					</form>
+		   	  	</div>
+		   	</div>      
+        </div>
 	</script>
 
     <script id="view-template" type="text/x-handlebars-template">

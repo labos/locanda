@@ -28,8 +28,8 @@
      },
      initialize: function () {
          this.model.bind('change', this.render, this);
-        	 this.facilitiesListView = new FacilitiesListView( { collection: new RoomTypeFacilities( )});
-        	 this.imagesListView = new ImagesListView( { collection: new Images( ) } );
+        	 this.facilitiesListView = new FacilitiesListView( { collection: new RoomTypeFacilities( {}, {idStructure: Entity.idStructure} )});
+        	 this.imagesListView = new ImagesListView( { collection: new Images( {}, {idStructure: Entity.idStructure} ) } );
         	 this.id = null;
      },
      

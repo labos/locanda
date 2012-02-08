@@ -192,6 +192,12 @@ $(document).ready(function () {
                     $(this).parents(".yform").submitForm();
                 }
             });
+            // add tabs
+            $( "#tabs" ).tabs({ selected: 0, select: function(event, ui) {
+            	var url = ui.tab;
+            	location.href = url.href.replace(/tab-/g,"tab/");
+            }});
+            
             
             $('a[id*=toggle]').click(function () {
                 if ($(this).hasClass('active') === true) {

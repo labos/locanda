@@ -30,9 +30,10 @@ window.Facilities = Backbone.Collection.extend({
     	this.setFrom(0);
     	this.setTo(10);
     	this.setTerm(null);
+    	this.setFilter( "" );
     },
     url: function () {
-        return 'rest/roomAndRoomTypeFacilities/structure/' + this.idWrapper +  '/search' + this.from + this.to + '?term=' + this.term ;
+        return 'rest/facilities'+ this.filter + '/search' + this.from + this.to + '?term=' + this.term ;
     },
     setTerm: function (aTerm) {
         this.term = (typeof aTerm !== "undefined" && aTerm) ? aTerm : '';
@@ -52,7 +53,9 @@ window.Facilities = Backbone.Collection.extend({
     setFilter: function (attribute, value) {
         this.filter = "";
         if (arguments.length === 2 && attribute !== undefined && value !== undefined) {
-            this.filter = (attribute && value) ? '/' + attribute + '/' + value : "";
+        	var attributePath = (attribute) ? '/' + attribute  : "";
+        	var valuePath = ( value )? '/' + value : "";
+            this.filter = attributePath + valuePath;
         }
         return this;
     },

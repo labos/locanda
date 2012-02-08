@@ -211,7 +211,9 @@
      },
      switchMode: function (event) {
     	 // prevents the event from bubbling up the DOM tree
-    	 event.stopPropagation();
+    	 if ( typeof event !== 'undefined' ) {
+    		 event.stopPropagation();
+    	 }
 
          if( this.indexTemplate.attr("id") == "edit-template" ){
         	 this.indexTemplate =  $("#view-template");
@@ -381,7 +383,7 @@
      
      closeFilter: function(){
     	 
-    	 $("#form-filter-container").slideUp()( );
+    	 $("#form-filter-container").slideUp();
      }
  });
  /*
@@ -551,7 +553,7 @@
     	 }
      },
      filterAll: function (attribute, value) {
-         self.listView.collection.setFilter(attribute, value).fetch();
+         this.listView.collection.setFilter(attribute, value).fetch();
      },
      selectAutocomplete: function (aSelection) {
     	 

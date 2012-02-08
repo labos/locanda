@@ -45,9 +45,7 @@ window.EditFacilityView = EditView.extend({
         if(this.$("#uploadFacility").length){
         	 this.$("#uploadFacility").uploadImage( this );
         		}
-        // add tabs
-        $tabs = $( "#tabs" ).tabs({ selected: 0, select: function(event, ui) { 
-        	return true; }});
+
         $(this.el).html(Mustache.to_html(this.indexTemplate.html(), modelToRender));
         // add validation check
         this.$(".yform").validate();

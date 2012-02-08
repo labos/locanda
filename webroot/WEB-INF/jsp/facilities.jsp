@@ -44,13 +44,13 @@
 		<div class="clearfix" id="col1_content">
 		<div id="tabs">
 			<ul>
-				<li><a href="#roomFacilities"><s:text name="rooms"/></a></li>
-				<li><a href="#roomTypeFacilities"><s:text name="roomTypes"/></a></li>
-				<li><a href="#structureFacilities"><s:text name="structureDetails"/></a></li>
+				<li><a href="#tab-room"><s:text name="rooms"/></a></li>
+				<li><a href="#tab-roomtype"><s:text name="roomTypes"/></a></li>
+				<li><a href="#tab-structure"><s:text name="structureDetails"/></a></li>
 			</ul>
-			<div id="roomFacilities" style="display:none"></div>
-			<div id="roomTypeFacilities" style="display:none"></div>
-			<div id="structureFacilities" style="display:none"></div>
+			<div id="tab-room" style="display:none"></div>
+			<div id="tab-roomtype" style="display:none"></div>
+			<div id="tab-structure" style="display:none"></div>
 		</div>
 			<div>
 				<button class="btn_add_form">
