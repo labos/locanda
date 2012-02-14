@@ -42,11 +42,12 @@ window.EditFacilityView = EditView.extend({
 
         	        }
 
+        $(this.el).html(Mustache.to_html(this.indexTemplate.html(), modelToRender));
+       
+
         if(this.$("#uploadFacility").length){
         	 this.$("#uploadFacility").uploadImage( this );
         		}
-
-        $(this.el).html(Mustache.to_html(this.indexTemplate.html(), modelToRender));
         // add validation check
         this.$(".yform").validate();
         // renderize buttons

@@ -110,12 +110,12 @@
 	</script>
 
 	<script id="facility-row-template" type="text/x-handlebars-template">
-		<span class="title-elem">{{caption}}</span><img src="<%=request.getContextPath( )%>/rest/facilities/roomType/{{id}}"/>
+		<span class="title-elem">{{caption}}</span><img src="<%=request.getContextPath( )%>/rest/files/{{facility.image.file.id}}"/>
 	</script>
 
 	<script id="facility-row-edit-template" type="text/x-handlebars-template">
 		<input class="choose-elem" checked="checked" type="checkbox" name="facilities[]" value="{{id}}"/>
-		<img src="<%=request.getContextPath( )%>/rest/facilities/roomType/{{id}}"/>
+		<img src="<%=request.getContextPath( )%>/rest/files/{{facility.image.file.id}}"/>
 	</script>
 
 	<script id="image-row-template" type="text/x-handlebars-template">
@@ -147,7 +147,7 @@
 
 	<script id="facilities-edit-template" type="text/x-handlebars-template" >
 		<div class="add-new">
-			<a href="<%=request.getContextPath( )%>/findAllFacilities.action?sect=settings#show/roomtype/{{id_parent}}" class="btn_add">Add new Facility</a>
+			<a href="<%=request.getContextPath( )%>/findAllFacilities.action?sect=settings#edit/roomtype/{{id_parent}}" class="btn_add">Add new Facility</a>
 		</div>
 		<div class="wrapper">
 			<ul></ul>
@@ -177,7 +177,7 @@
  			  	</div>
  			  	<div class="c20l">
  					<br/>
- 					<form id="uploadFacility" action="uploadRoomTypeImage.action" method="post" enctype="multipart/form-data">
+ 					<form id="uploadFacility" action="rest/roomType/{{id_parent}}" method="post" enctype="multipart/form-data">
    				  		<input type="hidden" name="caption" value=""/>
 						<input type="hidden" name="id" value="{{id_parent}}"/>
    				    	<input type="hidden" name="idStructure" value="{{id_structure}}"/>

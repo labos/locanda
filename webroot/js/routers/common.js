@@ -5,6 +5,7 @@ window.AppRouter = Backbone.Router.extend({
             "edit/:id": "editItem",
             "new": "newItem",
             "tab/:entity": "switchTab",
+            "edit/:entity/:id": "editIntoEntity",
             "show/:entity/:id": "showEntity",
             "*actions": "defaultRoute" // Backbone will try match the route above first
         },
@@ -41,13 +42,28 @@ window.AppRouter = Backbone.Router.extend({
         	return true;
         	
         },
-        showEntity: function ( entity, id ) {
-        	// show in edit view a specified entity
-        	this.appView.filterAll(entity, id);        	
+        editIntoEntity: function ( entity, id ) {
+        	// show in edit view a specified entity    	
         	$( "#tabs" ).bind( "tabscreate", function(event, ui) {
-            		$("a[href$='#tab-" + entity  + "']").trigger('click');        		 
+            //$("a[href$='#tab-" + entity  + "']").trigger('click');
+        	// reset selected tabs
+        	$( "#tabs > ul li" ).removeClass("ui-tabs-selected ui-state-active");
+        	// select the appropriate tab
+        	$("a[href$='#tab-" + entity  + "']").parent().addClass("ui-tabs-selected ui-state-active");
         		});
         	
+        	this.appView.filterAll(entity, id);
+        	
+        	return true;
+        	
+        },
+        showEntity: function ( entity, id ) {
+        	// show in edit view a specified entity    	
+        	// reset selected tabs
+        	$( "#tabs > ul li" ).removeClass("ui-tabs-selected ui-state-active");
+        	// select the appropriate tab
+        	$("a[href$='#tab-" + entity  + "']").parent().addClass("ui-tabs-selected ui-state-active");      	
+        	this.appView.filterAll(entity, id);       	
         	return true;
         	
         },

@@ -1220,7 +1220,6 @@ span.title-elem {
 #tabs .ui-state-active{
 	background-color: white;
 	border: 1px solid #D4CCB0;
-	margin-bottom: -1px;
 }
 #tabs .ui-state-active a{
 	color: #555555;

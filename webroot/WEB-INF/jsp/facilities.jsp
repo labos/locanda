@@ -42,16 +42,16 @@
 	<!-- begin: #col1 - first float column -->
 	<div id="col1" role="complementary">
 		<div class="clearfix" id="col1_content">
-		<div id="tabs">
+<%-- 		<div id="tabs">
 			<ul>
-				<li><a href="#tab-room"><s:text name="rooms"/></a></li>
-				<li><a href="#tab-roomtype"><s:text name="roomTypes"/></a></li>
-				<li><a href="#tab-structure"><s:text name="structureDetails"/></a></li>
+				<li><a href="#tab-Room"><s:text name="rooms"/></a></li>
+				<li><a href="#tab-RoomType"><s:text name="roomTypes"/></a></li>
+				<li><a href="#tab-Structure"><s:text name="structureDetails"/></a></li>
 			</ul>
-			<div id="tab-room" style="display:none"></div>
-			<div id="tab-roomtype" style="display:none"></div>
-			<div id="tab-structure" style="display:none"></div>
-		</div>
+			<div id="tab-Room" style="display:none"></div>
+			<div id="tab-RoomType" style="display:none"></div>
+			<div id="tab-Structure" style="display:none"></div>
+		</div> --%>
 			<div>
 				<button class="btn_add_form">
 					<s:text name="addNew" />

@@ -14,26 +14,25 @@
  * In case of controversy the competent court is the Court of Cagliari (Italy).
  *******************************************************************************/
 /*
- * @class Facilities
+ * @class StructureFacilities
  * @parent Backbone.Collection
  * @constructor
- * Collection for Facilities.
+ * Collection for StructureFacilities.
  * @tag models
  * @author LabOpenSource
  */
 
-window.Facilities = Backbone.Collection.extend({
-    model: Facility,
+window.StructureFacilities = Backbone.Collection.extend({
+    model: StructureFacility,
     //This is our Conventions collection and holds our Convention models
     initialize: function (models, options) {
     	this.setIdWrapper(options.idStructure);
     	this.setFrom(0);
     	this.setTo(10);
     	this.setTerm(null);
-    	this.setFilter("structure", this.idWrapper);
     },
     url: function () {
-        return 'rest/facilities'+ this.filter + '/search' + this.from + this.to + '?term=' + this.term ;
+        return 'rest/structureFacilities/'+ this.idWrapper  + this.from + this.to + '?term=' + this.term ;
     },
     setTerm: function (aTerm) {
         this.term = (typeof aTerm !== "undefined" && aTerm) ? aTerm : '';
@@ -49,15 +48,6 @@ window.Facilities = Backbone.Collection.extend({
     },
     setTo: function (end) {
         this.to = (typeof end === "number") ? '/' + end : '';
-    },
-    setFilter: function (attribute, value) {
-        this.filter = "";
-        if (arguments.length === 2 && attribute !== undefined && value !== undefined) {
-        	var attributePath = (attribute) ? '/' + attribute  : "";
-        	var valuePath = ( value )? '/' + value : "";
-            this.filter = attributePath + valuePath;
-        }
-        return this;
-    },
+    }
 
 });

@@ -36,9 +36,10 @@
                     </div>	
             </div>
             <div class="c50l">
-				<img src="{{}}" alt="" />
+				<img src="rest/files/{{image.file.id}}" alt="" />
 			</div>	
 		</form>
+		{{#id}}
  		<div class="subcolumns">
 		   	<div class="result_facility_upload" id="result_facility_upload"></div>
 		   	<div class="upload_loader">&nbsp;</div>
@@ -51,10 +52,9 @@
  			  	</div>
  			  	<div class="c20l">
  					<br/>
- 					<form id="uploadFacility" action="uploadRoomTypeImage.action" method="post" enctype="multipart/form-data">
+ 					<form id="uploadFacility" action="rest/images/facility" method="post" enctype="multipart/form-data">
    				  		<input type="hidden" name="caption" value=""/>
-						<input type="hidden" name="id" value="{{id_parent}}"/>
-   				    	<input type="hidden" name="idStructure" value="{{id_structure}}"/>
+						<input type="hidden" name="idFacility" value="{{id}}"/>
      			  		<input type="file" name="upload" multiple/>
     			  		<button>Upload</button> 
     			  		<div><s:text name="uploadRoomTypeImage"/></div>  
@@ -62,6 +62,7 @@
 		   	  	</div>
 		   	</div>      
         </div>
+		{{/id}}
 	</script>
 
     <script id="view-template" type="text/x-handlebars-template">
@@ -77,7 +78,8 @@
                   </div>
               </div>
               <div class="c50l">
-				<img src="{{}}" alt="" />
+				<span>{{image.caption}}</span>
+				<img src="rest/files/{{image.file.id}}" alt="" />
 			  </div>
 		</form>
 	</script>
@@ -89,7 +91,7 @@
 				<li><b><s:text name="description"/>: </b>{{sub_description}}</li>
 				<li><input type="hidden" name="id" value="{{id}}"/></li>
 			</ul>
-			<img class="thumb" src="{{}}" alt="" />
+			<img class="thumb" src="rest/files/{{image.file.id}}" alt="" />
 		</div>
 	</script>
 

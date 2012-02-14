@@ -553,7 +553,10 @@
     	 }
      },
      filterAll: function (attribute, value) {
-         this.listView.collection.setFilter(attribute, value).fetch();
+    	 this.listView.collection.setFilter(attribute,value).fetch();
+/*    	 var facilitiesCollection = {"Room": new RoomFacilities(null,{idStructure: Entity.idStructure}), "RoomType":new RoomTypeFacilities(null,{idStructure: Entity.idStructure}),"Structure": new StructureFacilities(null,{idStructure: Entity.idStructure})};
+         this.listView.collection = facilitiesCollection[attribute];
+         this.listView.collection.fetch();*/
      },
      selectAutocomplete: function (aSelection) {
     	 

@@ -17,7 +17,7 @@
  * @class RoomTypeFacility
  * @parent Backbone.Model
  * @constructor
- * Model to hold facility for roomType.
+ * Model to hold facility for roomType
  * @tag models
  * @author LabOpenSource
  */
@@ -29,8 +29,8 @@ window.RoomTypeFacility = Backbone.Model.extend({
     url: function () {
         var base = this.urlRoot;
         if (this.isNew()) return base;
-        return base + (base.charAt(base.length - 1) == '/' ? '' : '/') + encodeURIComponent(this.id);
+        return base + (base.charAt(base.length - 1) == '/' ? '' : '/') + this.filter + encodeURIComponent(this.id);
     },
-    urlRoot: "rest/roomTypeFacilities/",
-    validate: function (attrs) {},
+    urlRoot: "rest/roomTypeFacility/",
+    validate: function (attrs) {}
 });
