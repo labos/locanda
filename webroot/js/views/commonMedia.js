@@ -227,10 +227,13 @@ window.ImagesFacilitiesView = Backbone.View.extend({
          $(this.el).append(view.render().el);
      },
      next: function () {
+
     	 if(  this.getNumPages( this.page )){
     	 this.page--;
+    	 this.collection.setFrom(-10 * this.page );
+    	 this.collection.fetch();
     	 // calculate width used by elements contained in wrapper
-    	 
+    	 this.collection.setFrom(-10 * this.page ).fetch();
     	 var self = this,
     	 slideAmount =  (-1) * $(".wrapper",this.el).width() / 3 ;
 	    	 

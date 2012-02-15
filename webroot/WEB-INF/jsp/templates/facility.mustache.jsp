@@ -36,7 +36,7 @@
                     </div>	
             </div>
             <div class="c50l">
-				<img src="rest/files/{{image.file.id}}" alt="" />
+				<img src="rest/file/{{image.file.id}}" alt="" />
 			</div>	
 		</form>
 		{{#id}}
@@ -57,7 +57,7 @@
 						<input type="hidden" name="idFacility" value="{{id}}"/>
      			  		<input type="file" name="upload" multiple/>
     			  		<button>Upload</button> 
-    			  		<div><s:text name="uploadRoomTypeImage"/></div>  
+    			  		<div><s:text name="uploadFacility"/></div>  
 					</form>
 		   	  	</div>
 		   	</div>      
@@ -86,12 +86,13 @@
 
 	<script id="row-template" type="text/x-handlebars-template">
 		<div class="row-item">
-			<ul>
+			<img class="thumb" src="rest/file/{{image.file.id}}" alt="" style="position:absolute;left:0px;width:30px;heigth:30px;"/>
+			<ul style="margin-left:35px;">
 				<li><b><s:text name="name"/>: </b>{{name}}</li>
 				<li><b><s:text name="description"/>: </b>{{sub_description}}</li>
 				<li><input type="hidden" name="id" value="{{id}}"/></li>
 			</ul>
-			<img class="thumb" src="rest/files/{{image.file.id}}" alt="" />
+			<span class="row-item-destroy"></span>
 		</div>
 	</script>
 

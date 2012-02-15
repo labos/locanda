@@ -110,12 +110,12 @@
 	</script>
 
 	<script id="facility-row-template" type="text/x-handlebars-template">
-		<span class="title-elem">{{caption}}</span><img src="<%=request.getContextPath( )%>/rest/files/{{facility.image.file.id}}"/>
+		<span class="title-elem">{{caption}}</span><img src="<%=request.getContextPath( )%>/rest/file/{{facility.image.file.id}}"/>
 	</script>
 
 	<script id="facility-row-edit-template" type="text/x-handlebars-template">
 		<input class="choose-elem" checked="checked" type="checkbox" name="facilities[]" value="{{id}}"/>
-		<img src="<%=request.getContextPath( )%>/rest/files/{{facility.image.file.id}}"/>
+		<img src="<%=request.getContextPath( )%>/rest/file/{{facility.image.file.id}}"/>
 	</script>
 
 	<script id="image-row-template" type="text/x-handlebars-template">
@@ -147,7 +147,7 @@
 
 	<script id="facilities-edit-template" type="text/x-handlebars-template" >
 		<div class="add-new">
-			<a href="<%=request.getContextPath( )%>/findAllFacilities.action?sect=settings#edit/roomtype/{{id_parent}}" class="btn_add">Add new Facility</a>
+			<a href="<%=request.getContextPath( )%>/findAllFacilities.action?sect=settings" class="btn_add"><s:text name="facilityEdit" /></a>
 		</div>
 		<div class="wrapper">
 			<ul></ul>

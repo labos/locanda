@@ -25,13 +25,13 @@
 window.RoomTypeFacilities = Backbone.Collection.extend({
     model: RoomTypeFacility,
     initialize: function (models, options) {
-    	this.setIdWrapper(options.idRoomType);
+    	this.setIdWrapper(options.id);
     	this.setFrom(0);
     	this.setTo(10);
     	this.setTerm(null);
     },
     url: function () {
-        return 'rest/roomTypefacilities/' + this.idWrapper +  '/search' + this.from + this.to + '?term=' + this.term ;
+        return 'rest/facilities/roomType/' + this.idWrapper  + this.from + this.to + '?term=' + this.term ;
     },
     setTerm: function (aTerm) {
         this.term = (typeof aTerm !== "undefined" && aTerm) ? aTerm : '';

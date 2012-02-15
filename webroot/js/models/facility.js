@@ -23,9 +23,16 @@
  */
 
 window.Facility = Backbone.Model.extend({
-	
+    defaults: {
+        sub_description: null
+    },
     initialize: function () {
     	this.setFilter( "" );
+        this.get("description") ? this.set({
+            sub_description: this.get("description").substring(0, 20) + '...'
+        }) : this.set({
+            sub_description: null
+        });
     },
     url: function () {
         var base = this.urlRoot;

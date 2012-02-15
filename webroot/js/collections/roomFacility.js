@@ -26,13 +26,13 @@ window.RoomFacilities = Backbone.Collection.extend({
     model: RoomFacility,
     //This is our Conventions collection and holds our Convention models
     initialize: function (models, options) {
-    	this.setIdWrapper(options.idStructure);
+    	this.setIdWrapper(options.idRoom);
     	this.setFrom(0);
     	this.setTo(10);
     	this.setTerm(null);
     },
     url: function () {
-        return 'rest/list/room/'+ this.idWrapper  + this.from + this.to + '?term=' + this.term ;
+        return 'rest/facilities/room/'+ this.idWrapper  + this.from + this.to + '?term=' + this.term ;
     },
     setTerm: function (aTerm) {
         this.term = (typeof aTerm !== "undefined" && aTerm) ? aTerm : '';
