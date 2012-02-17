@@ -29,8 +29,8 @@
                   	</div>
                   	<div class="type-text">           
        					<label for="FormRoomType"><s:text name="roomType"/><sup title="This field is mandatory.">*</sup></label>
-                    	<select name="roomType">
-							{{#roomTypes}}<option name="{{value}}" {{#selected}}selected="selected"{{/selected}}>{{value}}</option>{{/roomTypes}}
+                    	<select name="id_roomType">
+							{{#availableRoomTypes}}<option value="{{value_id}}" {{#selected}}selected="selected"{{/selected}}>{{value_name}}</option>{{/availableRoomTypes}}
 						</select>
       		      	</div> 
 				  	<div class="type-text">	
@@ -56,7 +56,7 @@
                   	</div>
                   	<div class="type-text">           
        					<strong><s:text name="roomType"/></strong>
-						<span>{{roomType}}</span>
+						<span>{{roomType.name}}</span>
       		      	</div> 
 				  	<div class="type-text">	
                   		<strong><s:text name="notes"/></strong>
@@ -75,7 +75,7 @@
 		<div class="row-item">
 			<ul>
 				<li><b><s:text name="name"/>: </b>{{name}}</li>
-				<li><b><s:text name="roomType"/>: </b>{{roomType}}</li>
+				<li><b><s:text name="roomType"/>: </b>{{roomType.name}}</li>
 				<li><b><s:text name="notes"/>: </b>{{sub_description}}</li>
 				<li><input type="hidden" name="id" value="{{id}}"/></li>
 			</ul>

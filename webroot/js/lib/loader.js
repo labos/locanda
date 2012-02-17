@@ -39,6 +39,9 @@ if (Entity.name == "season") {
 
 // load common js scripts
 steal("../helpers/common.js", "../helpers/autocomplete.js").
+//then roomtype files, to be moved elsewhere
+then("../models/roomType.js").
+then("../collections/roomType.js").
 //then load views, model, collections and routers
 then("../models/" + Entity.name + ".js").
 then("../collections/" + Entity.name + ".js").

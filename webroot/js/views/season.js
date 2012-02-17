@@ -306,7 +306,7 @@ window.EditSeasonView = EditView.extend({
     initialize: function () {
         this.model.bind('change', this.render, this);
         this.periodsListView = new PeriodsListView({
-            collection: new Periods()
+            collection: new Periods(null, Entity.idStructure)
         });
         this.id = null;
         this.availableYears = [];

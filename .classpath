@@ -3,12 +3,6 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
-	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/Apache Tomcat v7.0">
-		<attributes>
-			<attribute name="owner.project.facets" value="jst.web"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="webroot/WEB-INF/lib/aopalliance-1.0.jar"/>
 	<classpathentry kind="lib" path="webroot/WEB-INF/lib/asm-3.1.jar"/>
 	<classpathentry kind="lib" path="webroot/WEB-INF/lib/asm-commons-3.1.jar"/>
@@ -154,5 +148,11 @@
 	<classpathentry kind="lib" path="webroot/WEB-INF/lib/wstx-asl-3.2.7.jar"/>
 	<classpathentry kind="lib" path="webroot/WEB-INF/lib/commons-io-2.0.1.jar"/>
 	<classpathentry kind="lib" path="webroot/WEB-INF/lib/jersey-multipart-1.10.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/Apache Tomcat v7.0">
+		<attributes>
+			<attribute name="owner.project.facets" value="#system#;jst.web"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="webroot/WEB-INF/classes"/>
 </classpath>
