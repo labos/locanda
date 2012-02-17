@@ -29,7 +29,8 @@
      initialize: function () {
          this.model.bind('change', this.render, this);
         	 this.facilitiesListView = new FacilitiesListView( { collection: new RoomTypeFacilities( {}, {id: this.model.get("id")} )});
-        	 this.imagesListView = new ImagesListView( { collection: new Images( {}, {idStructure: Entity.idStructure} ) } );
+        	 this.facilitiesListView.availableCollection= new AvailableRoomTypeFacilities({}, {id: this.model.get("id")});
+        	 this.imagesListView = new ImagesListView( { collection: new RoomTypeImages( {}, {id: this.model.get("id")} ) } );
         	 this.id = null;
      },
      
@@ -73,7 +74,9 @@
              this.imagesListView.idParent= this.id;
              //set collection for associated views
              this.facilitiesListView.collection.setIdWrapper(this.id);
+             this.facilitiesListView.availableCollection.setIdWrapper(this.id);
              this.facilitiesListView.collection.reset(this.model.get("facilities") );
+             this.imagesListView.collection.setIdWrapper(this.id);
              this.imagesListView.collection.reset( this.model.get("images"));
              // listen for changes in model on editing and fetch model if any change occur.
              this.facilitiesListView.bind("child:update", function () {

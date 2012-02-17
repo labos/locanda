@@ -14,15 +14,15 @@
  * In case of controversy the competent court is the Court of Cagliari (Italy).
  *******************************************************************************/
 /*
- * @class RoomTypeFacility
+ * @class Image
  * @parent Backbone.Model
  * @constructor
- * Model to hold facility for roomType
+ * Model to hold image for room, roomtype or structure.
  * @tag models
  * @author LabOpenSource
  */
 
-window.RoomTypeFacility = Backbone.Model.extend({
+window.RoomTypeImage = Backbone.Model.extend({
 	
     initialize: function () {
     },
@@ -31,6 +31,6 @@ window.RoomTypeFacility = Backbone.Model.extend({
         if (this.isNew()) return base;
         return base + (base.charAt(base.length - 1) == '/' ? '' : '/') + encodeURIComponent(this.id);
     },
-    urlRoot: "rest/roomTypeFacility/",
-    validate: function (attrs) {}
+    urlRoot: "rest/image/roomType",
+    validate: function (attrs) {},
 });

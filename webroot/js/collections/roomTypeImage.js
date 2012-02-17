@@ -14,25 +14,25 @@
  * In case of controversy the competent court is the Court of Cagliari (Italy).
  *******************************************************************************/
 /*
- * @class Facilities
+ * @class Images
  * @parent Backbone.Collection
  * @constructor
- * Collection for Facilities.
+ * Collection for Images.
  * @tag models
  * @author LabOpenSource
  */
 
-window.AvailableFacilities = Backbone.Collection.extend({
-    model: Facility,
+window.RoomTypeImages = Backbone.Collection.extend({
+    model: RoomTypeImage,
     //This is our Conventions collection and holds our Convention models
     initialize: function (models, options) {
-    	this.setIdWrapper(options.idStructure);
+    	this.setIdWrapper(options.id);
     	this.setFrom(0);
     	this.setTo(10);
     	this.setTerm(null);
     },
     url: function () {
-        return 'rest/roomTypeFacilities/' + this.idWrapper +  '/search' + this.from + this.to + '?term=' + this.term ;
+        return 'rest/images/roomType/' + this.idWrapper +  '/search' + this.from + this.to + '?term=' + this.term ;
     },
     setTerm: function (aTerm) {
         this.term = (typeof aTerm !== "undefined" && aTerm) ? aTerm : '';

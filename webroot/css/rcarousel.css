@@ -35,6 +35,7 @@ float: right;
 	padding: 3px;
 	position: relative;
 	text-align: center;
+	border: 1px solid grey;
 }
 
 .rcarousel div .wrapper ul li input {

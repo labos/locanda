@@ -231,11 +231,23 @@ window.ImagesFacilitiesView = Backbone.View.extend({
     	 if(  this.getNumPages( this.page )){
     	 this.page--;
     	 this.collection.setFrom(-10 * this.page );
-    	 this.collection.fetch();
+    	
     	 // calculate width used by elements contained in wrapper
-    	 this.collection.setFrom(-10 * this.page ).fetch();
-    	 var self = this,
-    	 slideAmount =  (-1) * $(".wrapper",this.el).width() / 3 ;
+    	 var self = this;
+    	 $(".wrapper ul",this.el).animate({
+ 		    opacity: 0.25
+ 		  }, 1000, 'linear', function() {
+
+ 		  });
+    	 this.collection.fetch({silent: true, success: function(){
+   		   
+    		 $(".wrapper ul",self.el).css("opacity", 1);
+			 $(".ui-rcarousel-prev",self.el).removeClass("disable");
+			 self.addAll();
+    	 }});
+
+    	 
+/*    	 slideAmount =  (-1) * $(".wrapper",this.el).width() / 3 ;
 	    	 
 	    	 $(".wrapper ul",this.el).animate({
 	    		    opacity: 0.25,
@@ -244,15 +256,27 @@ window.ImagesFacilitiesView = Backbone.View.extend({
 	    		   
 	    			  $(this).css("opacity", 1);
 	    			  $(".ui-rcarousel-prev",self.el).removeClass("disable");
-	    		  });
+	    		  });*/
 	    	 
     	 }	 
      },
      prev: function (event) {        
     	    if(this.page < 0 ){
     	    	  this.page++;
-    	    		var self = this,
-    				slideAmount =   $(".wrapper",this.el).width() / 3 ;
+    	     	 var self = this;
+    	     	this.collection.setFrom(-10 * this.page );
+    	    	 $(".wrapper ul",this.el).animate({
+    	  		    opacity: 0.25
+    	  		  }, 1000, 'linear', function() {
+
+    	  		  });
+    	    	 this.collection.fetch({silent: true, success: function(){
+    	    		 $(".wrapper ul",self.el).css("opacity", 1);
+	    			  ( self.page < 0 )? $(".ui-rcarousel-prev",self.el).removeClass("disable") : $(".ui-rcarousel-prev",self.el).addClass("disable");
+	    			  self.addAll();
+    	    	 }});
+    	    		
+/*    				slideAmount =   $(".wrapper",this.el).width() / 3 ;
     				 
     		    	 $(".wrapper ul",this.el).animate({
     		    		    opacity: 0.25,
@@ -262,7 +286,7 @@ window.ImagesFacilitiesView = Backbone.View.extend({
     		    			  $(this).css("opacity", 1);
     		    			  ( self.page < 0 )? $(".ui-rcarousel-prev",self.el).removeClass("disable") : $(".ui-rcarousel-prev",self.el).addClass("disable");
     		    			
-    		    		  });
+    		    		  });*/
     	    }
 
     	 
@@ -312,7 +336,7 @@ window.ImagesFacilitiesView = Backbone.View.extend({
          this.collection.bind('reset', this.render, this);
          this.collection.bind('remove', this.removeOne, this);
          // collection of facilities to check
-         this.availableCollection = new AvailableFacilities({}, {idStructure: Entity.idStructure});
+         this.availableCollection = null;
          // array of single facility view
     	 this.rowViews = [];
     	 // page index for the slider
@@ -327,16 +351,31 @@ window.ImagesFacilitiesView = Backbone.View.extend({
      saveElement: function(){ 
     	 
      },
- 	/**
-  	 * Merge checked facilities with available facilities and show not checked facilities.
-  	 */
-     getAvailableFacilities: function(){
+
+/*     getAvailableFacilities: function(){
     	 var self = this;
     	 this.availableCollection.fetch( {silent: true, success: function(){
     		 self.availableCollection =  _.without(self.availableCollection, self.collection );
     	 }});
     	this.availableCollection.each(this.addOne);
-     },
+     },*/
+     
+  	/**
+   	 * set collection with available facilities (to check or uncheck).
+   	 */
+      setAvailableFacilities: function(){
+     	 var self = this;
+         this.collection.unbind('reset', this.render);
+         this.collection.unbind('remove', this.removeOne);
+     	 this.collection = this.availableCollection;
+         this.collection.bind('reset', this.render, this);
+         this.collection.bind('remove', this.removeOne, this);
+     	 this.collection.fetch( {silent: true, success: function(){
+     		self.collection.addAll();
+     	 }});
+     	
+      },
+     
  	/**
   	 * Add a facility view  to rowViews array render it.
   	 * @param {Object} backbone model of the facility.
@@ -368,7 +407,7 @@ window.ImagesFacilitiesView = Backbone.View.extend({
              onShow: function() {
             	 var overlay = this;
             	 // call a method to render availableCollection
-            	 self.getAvailableFacilities();
+            	 self.setAvailableFacilities();
                  $(self.el).addClass("edit-state-box");
                  $(this).click( function (){
               	   if(confirm($.i18n( "alertExitEditState" ))){

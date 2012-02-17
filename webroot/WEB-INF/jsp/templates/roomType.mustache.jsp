@@ -110,12 +110,12 @@
 	</script>
 
 	<script id="facility-row-template" type="text/x-handlebars-template">
-		<span class="title-elem">{{caption}}</span><img src="<%=request.getContextPath( )%>/rest/file/{{facility.image.file.id}}"/>
+		<span class="title-elem">{{caption}}</span><img src="<%=request.getContextPath( )%>/rest/file/{{image.file.id}}"/>
 	</script>
 
 	<script id="facility-row-edit-template" type="text/x-handlebars-template">
 		<input class="choose-elem" checked="checked" type="checkbox" name="facilities[]" value="{{id}}"/>
-		<img src="<%=request.getContextPath( )%>/rest/file/{{facility.image.file.id}}"/>
+		<img src="<%=request.getContextPath( )%>/rest/file/{{image.file.id}}"/>
 	</script>
 
 	<script id="image-row-template" type="text/x-handlebars-template">
@@ -177,9 +177,9 @@
  			  	</div>
  			  	<div class="c20l">
  					<br/>
- 					<form id="uploadFacility" action="rest/roomType/{{id_parent}}" method="post" enctype="multipart/form-data">
+ 					<form id="uploadFacility" action="rest/image/roomType/" method="post" enctype="multipart/form-data">
    				  		<input type="hidden" name="caption" value=""/>
-						<input type="hidden" name="id" value="{{id_parent}}"/>
+						<input type="hidden" name="idRoomType" value="{{id_parent}}"/>
    				    	<input type="hidden" name="idStructure" value="{{id_structure}}"/>
      			  		<input type="file" name="upload" multiple/>
     			  		<button>Upload</button> 

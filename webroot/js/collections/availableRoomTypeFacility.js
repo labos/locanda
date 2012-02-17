@@ -22,11 +22,11 @@
  * @author LabOpenSource
  */
 
-window.AvailableFacilities = Backbone.Collection.extend({
-    model: Facility,
+window.AvailableRoomTypeFacilities = Backbone.Collection.extend({
+    model: RoomTypeFacility,
     //This is our Conventions collection and holds our Convention models
     initialize: function (models, options) {
-    	this.setIdWrapper(options.idStructure);
+    	this.setIdWrapper(options.id);
     	this.setFrom(0);
     	this.setTo(10);
     	this.setTerm(null);
@@ -45,9 +45,11 @@ window.AvailableFacilities = Backbone.Collection.extend({
     },
     setFrom: function (begin) {
         this.from = (typeof begin === "number") ? '/' + begin : '';
+        return this;
     },
     setTo: function (end) {
         this.to = (typeof end === "number") ? '/' + end : '';
+        return this;
     },
     setFilter: function (attribute, value) {
         this.filter = "";
