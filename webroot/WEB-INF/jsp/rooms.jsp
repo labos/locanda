@@ -29,7 +29,7 @@
 			return new Rooms({},options);
 		},
 		editView : function(options) {
-			return new EditView(options);
+			return new EditRoomView(options);
 		},
 		idStructure : <s:property value="#session.user.structure.id"/>
 	};

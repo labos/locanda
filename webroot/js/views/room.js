@@ -21,7 +21,7 @@
   * @tag views
   * @author LabOpenSource
   */
- window.EditView = EditView.extend({
+ window.EditRoomView = EditView.extend({
      events: {
          "submit form": "save",
          "click div": "switchMode"
@@ -36,27 +36,33 @@
         	 var self = this;
              this.roomTypes.fetch({
                  success: function() {
-                	 self.availableRoomTypes = self.setAvailableRoomTypes();
-                 },
-                 error: function() {
-                	 alert("error");
-                 },
+                	 self.initializeRoomTypes();
+                	 },
              });
      },
      /**
       * Set the list of available roomTypes.
       * @return {Array} array of { value_name:"", value_id:"", selected: ""} objects.
       */
-     setAvailableRoomTypes: function () {
+     initializeRoomTypes: function () {
     	 var self = this;
          _.each(self.roomTypes.models, function (val) {
         	 self.availableRoomTypes.push({
         		 value_name: val.attributes.name,
         		 value_id: val.attributes.id,
-//        		 selected: (val.attributes.id == (this.model.attributes.id_roomType ?
-//        			 (this.model.attributes.id_roomType ? true : false) : false)),
-        		 selected: (val.attributes.id == self.model.get("id_roomType") ? true : false),
+        		 selected: false,
         	 });
+         });
+         return self.availableRoomTypes;
+     },
+     
+     setRoomTypes: function (id_roomType) {
+    	 var self = this;
+         _.each(self.availableRoomTypes, function (val) {
+         val.selected = false;
+         if (val.value_id == id_roomType) {
+        	 val.selected = true;
+         	}   		 
          });
          return self.availableRoomTypes;
      },
@@ -65,10 +71,10 @@
     	 // render main edit view
     	 var modelToRender = this.model.toJSON();
     	 // set additional attribute to display roomTypes. Only for the view.
-    	 modelToRender.availableRoomTypes = this.availableRoomTypes;
+    	 modelToRender.availableRoomTypes = this.setRoomTypes(this.model.attributes.roomType.id);
          $(this.el).html(Mustache.to_html(this.indexTemplate.html(), modelToRender));
          // add validation check
-         this.$(".yform.json.full").validate();
+         this.$(".yform").validate();
          // renderize buttons
          $(".btn_save").button({
              icons: {
