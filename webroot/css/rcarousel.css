@@ -3,6 +3,7 @@
 	margin: 0 auto;
 	overflow: hidden;
 	padding: 0;
+	padding-bottom:5px;
 	position: relative;
 	width: 90%;
 	font-size: 13px;
@@ -20,6 +21,7 @@ float: right;
 }
 
 .rcarousel div .wrapper ul {
+	height: 90%;
 	list-style: none;
 	margin: 0;
 	padding: 0;
@@ -30,7 +32,7 @@ float: right;
 .rcarousel div .wrapper ul li {
 	display: block;
 	float: left;
-	height: 100px;
+	height: 100%;
 	overflow: hidden;
 	padding: 3px;
 	position: relative;

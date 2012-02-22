@@ -21,15 +21,15 @@
 
 <script>
 	Entity = {
-		name : "facility",
+		name : "image",
 		model : function(options) {
-			return new Facility(options);
+			return new Image(options);
 		},
 		collection : function(options) {
-			return new Facilities( {}, options );
+			return new Images( {}, options );
 		},
 		editView : function(options) {
-			return new EditFacilityView(options);
+			return new EditImageView(options);
 		},
 		idStructure : <s:property value="#session.user.structure.id"/>
 	};
@@ -58,7 +58,6 @@
 				</button>
 			</div>
 			<div class="subcolumns" id="row-edit-container"></div>
-			<div id="thumbnail"></div>
 		</div>
 	</div>
 	<!-- end: #col1 -->
@@ -82,5 +81,5 @@
 	<!-- end: #col3 -->
 </div>
 
-<jsp:include page="templates/facility.mustache.jsp" />
+<jsp:include page="templates/image.mustache.jsp" />
 <jsp:include page="layout/footer.jsp" />

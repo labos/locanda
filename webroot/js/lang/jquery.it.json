@@ -35,6 +35,7 @@ $.i18n.it.strings = {
     updateFacilityError: "Si è verificato un problema durante l'aggiornamento della facility",
     destroyFacilitySuccess: "Facility eliminata con successo",
     destroyFacilityError: "Si è verificato un problema durante la cancellazione della facility",
+    imageNameRequired: "Devi inserire il nome dell'immagine con almeno un carattere",
     facilityNameRequired: "Devi inserire il nome della facility con almeno un carattere",
     facilityTypeFileError: "Sono permessi solo file di tipo .jpeg,.gif,.png",
     bookingOverlapping: "Errore: booking sovrapposti",

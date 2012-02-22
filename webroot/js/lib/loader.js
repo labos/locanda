@@ -18,16 +18,19 @@
 typeof Entity !== "undefined" || ( Entity = {name:"default", editView:null} );
 // conditional file loading section
 if ( Entity.name == "roomType" || Entity.name == "room" || Entity.name == "structure") {
-    steal("../../css/rcarousel.css","jquery.fileupload.js", "jquery.fileupload-ui.js", "jquery.fileupload-uix.js").then("../helpers/upload.js").then("../views/commonMedia.js");
+    steal("../../css/rcarousel.css","../views/commonMedia.js");
 }
 if ( Entity.name == "roomType") {
-    steal("../models/roomTypeFacility.js").then("../collections/roomTypeFacility.js","../collections/availableRoomTypeFacility.js", "../models/RoomTypeImage.js").then("../collections/roomTypeImage.js");
+    steal("../models/roomTypeFacility.js", "../models/RoomTypeImage.js").then("../collections/roomTypeFacility.js","../collections/availableRoomTypeFacility.js","../collections/availableRoomTypeImages.js","../collections/roomTypeImage.js");
 }
 if ( Entity.name == "facility" ) {
     steal("jquery.fileupload.js", "jquery.fileupload-ui.js", "jquery.fileupload-uix.js").
-    then("../helpers/upload.js").then("../models/facility.js").then("../collections/facility.js");
+    then("../helpers/upload.js","../models/image.js");
 }
-
+if ( Entity.name == "image" ) {
+    steal("jquery.fileupload.js", "jquery.fileupload-ui.js", "jquery.fileupload-uix.js").
+    then("../helpers/upload.js");
+}
 if (Entity.name == "planner") {
     steal("jquery.weekcalendar.js");
 }

@@ -270,9 +270,11 @@ $.fn.deprecatedBrowser = function () {
 				}
 				$().notify($.i18n("congratulation"), json.message.description);
 			} else if (typeof json !== "undefined" && typeof json.message !== "undefined" && json.message.result == "error") {
-				$().notify($.i18n("warning"), json.message.description);
+				$.jGrowl(json.message.description, { theme: "notify-error"  });
+				
 			} else {
-				$().notify($.i18n("warning"), $.i18n("seriousErrorDescr"));
+				$.jGrowl($.i18n("seriousError"), { theme: "notify-error"  });
+				
 			}
 		},
 		onAbort: function (event, files, index, xhr, handler) {
@@ -308,7 +310,7 @@ $.fn.deprecatedBrowser = function () {
 				
     			if (facility_name.length <= 0) {
     				isValidName = false;
-    				errorMessage = errorMessage + ' ' + $.i18n("facilityNameRequired");
+    				errorMessage = errorMessage + ' ' + $.i18n("imageNameRequired");
     			}
                 
 			if (isValidImage && isValidName) {

@@ -35,6 +35,7 @@ $.i18n.en.strings = {
     updateFacilityError: "Problem during the facility update",
     destroyFacilitySuccess: "Facility destroyed successfully",
     destroyFacilityError: "Problem during the facility deletion",
+    imageNameRequired: "You must enter the name of the image. Insert at least one character.",
     facilityNameRequired: "You must enter the name of the facility. Insert at least one character.",
     facilityTypeFileError: "File type not allowed. Only jpeg, gif or png are allowed",
     bookingOverlapping: "Error checking booking overlappings in server",

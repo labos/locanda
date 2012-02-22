@@ -18,31 +18,35 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="/struts-tags" prefix="s" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-   
+     <script id="view-template" type="text/x-handlebars-template">
+		<form id="view-form" class="yform json full" role="application">
+              <div class="c50l">
+                  <div class="type-text">	
+                  	<strong><s:text name="caption"/></strong>
+                	<span>{{caption}}</span>
+                  </div>
+              </div>
+		</form>
+	</script>
     <script id="edit-template" type="text/x-handlebars-template">
 		<form id="edit-form" class="yform json full" role="application">
         	<div class="c50l">
                   	<div class="type-text">	
-                  		<label for="FormName"><s:text name="name"/><sup title="This field is mandatory.">*</sup></label>
-                		<input type="text" class="required" name="name" id="FormName" value="{{name}}" aria-required="true"/>
-                  	</div>
-				  	<div class="type-text">	
-                  		<label for="FormDescr"><s:text name="description"/></label>
-						<textarea name="description" id="FormDescr">{{description}}</textarea>		 
+                  		<label for="FormCaption"><s:text name="name"/><sup title="This field is mandatory.">*</sup></label>
+                		<input type="text" class="required" name="caption" id="FormCaption" value="{{caption}}" aria-required="true"/>
                   	</div>
                   	<div class="type-button">
                 		<button class="btn_save"><s:text name="save"/></button>
                 		<button class="btn_reset"><s:text name="cancel"/></button>
                     </div>	
-            </div>
-		</form>
-		
+            </div>	
+		</form>	
 	</script>
 	
 	<script id="image-view-template" type="text/x-handlebars-template">
-            <div class="c50l">
-				<img src="rest/file/{{id}}" alt="" />
-			</div>
+        <div class="c50l">
+			<img src="rest/file/{{id}}" alt="" />
+		</div>
  	</script>
  	
     <script id="image-edit-template" type="text/x-handlebars-template">
@@ -74,21 +78,6 @@
         </div>
 		{{/id}}
 	</script>
-    <script id="view-template" type="text/x-handlebars-template">
-		<form id="view-form" class="yform json full" role="application">
-                <div class="c50l">
-                  <div class="type-text">	
-                  	<strong><s:text name="name"/></strong>
-                	<span>{{name}}</span>
-                  </div>
-				  <div class="type-text">	
-                  	<strong><s:text name="description"/></strong>
-					<span>{{description}}</span>		 
-                  </div>
-              </div>
-		</form>
-	</script>
-
 	<script id="row-template" type="text/x-handlebars-template">
 		<div class="row-item">
 			<img class="thumb" src="rest/file/{{image.file.id}}" alt="" style="position:absolute;left:0px;width:30px;heigth:30px;"/>
@@ -115,13 +104,9 @@
 			<span class="filter-close"></span>
           	<div class="c80l">
             	<div class="type-text">	
-                  	<label for="fFormName"><s:text name="name"/></label>
-                	<input type="text" name="name" id="fFormName" value="{{name}}" aria-required="true"/>
+                  	<label for="fFormCaption"><s:text name="caption"/></label>
+                	<input type="text" name="caption" id="fFormCaption" value="{{caption}}" aria-required="true"/>
                 </div>
-               	<div class="type-text">           
-       				<label for="fFormDescr"><s:text name="description"/></label>
-                   	<input type="text" name="description" id="fFormDescr" value="{{description}}" aria-required="true"/>
-      		    </div>
                	<div class="type-button">
 					<button class="btn_submit"><s:text name="search"/></button>
                	</div>

@@ -1228,3 +1228,6 @@ span.title-elem {
 	background: none;
 	border-bottom: 1px solid #D4CCB0;
 }
+.slider-loader{
+	background: url('../images/slider-loader.gif') 50% 20% no-repeat;
+}

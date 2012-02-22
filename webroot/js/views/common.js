@@ -158,7 +158,7 @@
                  
              },
              error: function () {
-                 $().notify(this.alertKO, $.i18n("seriousErrorDescr") + ' ');
+                 $.jGrowl($.i18n("seriousErrorDescr"),  { theme: "notify-error"  });
              }
          });
          return false;

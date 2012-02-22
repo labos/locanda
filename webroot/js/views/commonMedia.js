@@ -114,55 +114,86 @@ window.FacilityRowView = Backbone.View.extend({
     * @author LabOpenSource
     */
 window.ImageRowView = Backbone.View.extend({
-     //... is a list tag.
-     tagName: "li",
-     indexTemplate: $("#image-row-template"),
-     // The DOM events specific to an row.
-     events: {
-         "click span.delete-elem": "remove",
-     },
-     initialize: function () {
-         this.model.bind('change', this.render, this);
-         this.model.bind('destroy', this.unrender, this);
-     },
-     // Re-render the contents of the todo item.
-     render: function () {
-         $(this.el).html(Mustache.to_html(this.indexTemplate.html(), this.model.toJSON()));
-         return this;
-     },
-     unrender: function () {
-    	 this.model.unbind('change', this.render);
-    	 this.model.unbind('destroy', this.unrender);
-         //clean up events raised from the view
-         this.unbind();
-         //clean up events from the DOM
-         $(this.el).remove();
-     },
-     // Remove this view from the DOM.
-     remove: function () {
-         if (confirm($.i18n("alertDelete"))) {
-             this.model.destroy({
+	 //list of tags.
+    tagName: "li",
+    indexTemplate: $("#image-row-template"),
+    // The DOM events specific to an row.
+    events: {
+        "click input.choose-elem": "choose"
+    },
+    initialize: function () {
+        this.model.bind('change', this.render, this);
+        this.model.bind('destroy', this.unrender, this);
+    },
+ 	/**
+  	 * Re-render the contents of the facility item.
+  	 */
+    render: function () {
+   	 if( this.model.isNew()){
+   		 this.indexTemplate.find(".choose-elem").prop("checked", "");
+   	 }
+        $(this.el).html(Mustache.to_html(this.indexTemplate.html(), this.model.toJSON()));
+        return this;
+    },
+        // 
+	/**
+ 	 * Assign or de-assign facility to the parent model by checkbox click
+ 	 * @param {Object} event triggered from checkbox pushed.
+ 	 */
+    choose: function (event) {
+       	 //send cheched/unchecked roomTypeFacility
+        var $target = $(event.target),
+        self = this;
+        if (!$target.is(":checked")) {
+       	  this.model.destroy({
                  success: function () {
 
                      $.jGrowl($.i18n("congratulation"), { header: this.alertOK });
                  },
                  error: function (jqXHR, textStatus, errorThrown) {
+               	  // re-check if destroy fail
+               	  $target.prop("checked","checked");
                      textStatus.responseText || (textStatus.responseText = $.i18n("seriousErrorDescr"));
                      $.jGrowl(textStatus.responseText, { header: this.alertKO, theme: "notify-error"  });
                      
                  }
              });
-         }
-     },
-     // clear all attributes from the model
-     clear: function () {
-         this.model.clear();
-     },
-     
-     switchMode: function () {
-         this.indexTemplate = (this.indexTemplate.attr("id") == "image-row-template") ? $("#image-row-edit-template") : $("#image-row-template");
-         this.render();
-     }
+        }
+        else{
+      	  this.model.save({
+             success: function () {
+           	  // trigger an update event.
+                 self.trigger("child:update", self);
+                 $.jGrowl($.i18n("congratulation"), { header: this.alertOK });
+             },
+             error: function (jqXHR, textStatus, errorThrown) {
+                 textStatus.responseText || (textStatus.responseText = $.i18n("seriousErrorDescr"));
+                 $.jGrowl(textStatus.responseText, { header: this.alertKO, theme: "notify-error"  });
+                 
+             }
+         }); 
+       	 
+        }
+          
+
+    },
+    unrender: function () {
+   	 this.model.unbind('change', this.render);
+   	 this.model.unbind('destroy', this.unrender);
+        //clean up events raised from the view
+        this.unbind();
+        //clean up events from the DOM
+        $(this.el).remove();
+    },
+
+    // clear all attributes from the model
+    clear: function () {
+        this.model.clear();
+    },
+    switchMode: function () {
+        this.indexTemplate = (this.indexTemplate.attr("id") == "image-row-template") ? $("#image-row-edit-template") : $("#image-row-template");
+        this.render();
+    }
  }); 
 
 
@@ -187,15 +218,14 @@ window.ImagesFacilitiesView = Backbone.View.extend({
      initialize: function (options) {
     	 _.bindAll(this, "next", "prev", "removeOne","addOne");
     	 this.page = 0;
+         // collection of facilities or images to check
+         this.availableCollection = null;
     	 this.idParent = null;
     	 this.rowViews = [];
          this.render();
      },
      render: function () {
          $(this.el).html(Mustache.to_html(this.indexTemplate.html(), {id_parent: this.idParent, id_structure:""}));
-         if(this.$("#uploadFacility").length){
-             	 this.$("#uploadFacility").uploadImage( this );
-         }
          $(".btn_add").button({
              icons: {
                  primary: "ui-icon-gear"
@@ -208,6 +238,21 @@ window.ImagesFacilitiesView = Backbone.View.extend({
          this.delegateEvents();
          return this;
      },
+   		/**
+    	 * set collection with available facilities (to check or uncheck).
+    	 */
+       setAvailableFacilities: function(){
+      	 var self = this;
+          this.collection.unbind('reset', this.render);
+          this.collection.unbind('remove', this.removeOne);
+      	 this.collection = this.availableCollection;
+          this.collection.bind('reset', this.render, this);
+          this.collection.bind('remove', this.removeOne, this);
+      	 this.collection.fetch( {silent: true, success: function(){
+      		self.collection.addAll();
+      	 }});
+      	
+       },
      // Add all items in the collection at once.
      addAll: function () {
          $.each(this.rowViews, function (index, value) {
@@ -237,13 +282,15 @@ window.ImagesFacilitiesView = Backbone.View.extend({
     	 $(".wrapper ul",this.el).animate({
  		    opacity: 0.25
  		  }, 1000, 'linear', function() {
-
+ 			  $(".add-new", this.el).addClass("slider-loader");
  		  });
     	 this.collection.fetch({silent: true, success: function(){
-   		   
+    		 $(".add-new", this.el).removeClass("slider-loader");
     		 $(".wrapper ul",self.el).css("opacity", 1);
 			 $(".ui-rcarousel-prev",self.el).removeClass("disable");
 			 self.addAll();
+    	 }, error: function(){
+    		 $.jGrowl($.i18n("seriousErrorDescr"), { header: this.alertKO, theme: "notify-error"  });
     	 }});
 
     	 
@@ -268,12 +315,16 @@ window.ImagesFacilitiesView = Backbone.View.extend({
     	    	 $(".wrapper ul",this.el).animate({
     	  		    opacity: 0.25
     	  		  }, 1000, 'linear', function() {
+    	  			$(".add-new", this.el).addClass("slider-loader");
 
     	  		  });
     	    	 this.collection.fetch({silent: true, success: function(){
+    	    		 $(".add-new", this.el).removeClass("slider-loader");
     	    		 $(".wrapper ul",self.el).css("opacity", 1);
 	    			  ( self.page < 0 )? $(".ui-rcarousel-prev",self.el).removeClass("disable") : $(".ui-rcarousel-prev",self.el).addClass("disable");
 	    			  self.addAll();
+    	    	 }, error: function(){
+    	    		 $.jGrowl($.i18n("seriousErrorDescr"), { header: this.alertKO, theme: "notify-error"  });
     	    	 }});
     	    		
 /*    				slideAmount =   $(".wrapper",this.el).width() / 3 ;
@@ -360,21 +411,7 @@ window.ImagesFacilitiesView = Backbone.View.extend({
     	this.availableCollection.each(this.addOne);
      },*/
      
-  	/**
-   	 * set collection with available facilities (to check or uncheck).
-   	 */
-      setAvailableFacilities: function(){
-     	 var self = this;
-         this.collection.unbind('reset', this.render);
-         this.collection.unbind('remove', this.removeOne);
-     	 this.collection = this.availableCollection;
-         this.collection.bind('reset', this.render, this);
-         this.collection.bind('remove', this.removeOne, this);
-     	 this.collection.fetch( {silent: true, success: function(){
-     		self.collection.addAll();
-     	 }});
-     	
-      },
+
      
  	/**
   	 * Add a facility view  to rowViews array render it.
@@ -441,6 +478,8 @@ window.ImagesFacilitiesView = Backbone.View.extend({
     	 _.bindAll(this, "next", "prev","addOne");
          this.collection.bind('reset', this.render, this);
          this.collection.bind('remove', this.removeOne, this);
+         // collection of images to check
+         this.availableCollection = null;
          this.rowViews = [];
     	 this.page = 0;
     	 this.idParent = null;
@@ -487,6 +526,8 @@ window.ImagesFacilitiesView = Backbone.View.extend({
                  effect: 'fade',
                  onShow: function() {
                 	 var overlay = this;
+                	 // call a method to render availableCollection
+                	 self.setAvailableFacilities();
                      $(self.el).addClass("edit-state-box");
                      $(this).click( function (){
                   	   if(confirm($.i18n( "alertExitEditState" ))){

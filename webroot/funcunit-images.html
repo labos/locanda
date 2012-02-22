@@ -14,7 +14,7 @@
 		});
 
 	
-		test("check edit click from list", function(){
+		test("Populate facilities", function(){
 			// S._window.appRouter.appView.listView.collection ='[{"name":"singola","id":2,"facilities":[],"maxGuests":1,"id_structure":6,"notes":null,"images":[]},{"name":"doppia","id":4,"facilities":[],"maxGuests":2,"id_structure":6,"notes":null,"images":[]},{"name":"tripla","id":5,"facilities":[],"maxGuests":3,"id_structure":6,"notes":null,"images":[]}]';
 			//S._window.appRouter.appView.listView.collection.at(0).facilities =[{"name":"mio nome", "filename":"mio.jpg","id_structure":6, "id":8},{"name":"mio nome1", "filename":"mio1.jpg","id_structure":6, "id":9}];
 			S._window.appRouter.appView.listView.collection.at(0).set({facilities :[{"name": "frigo","id":"25", "description":"è un frigo", image:{"id":3, "caption":"fgi","file":{"id":4, "name":"miofile.jpg"}}},{"name":"jacuzzi", "id":"26", "description":"è una jacuzzi", image:{"id":4, "caption":"yyt","file":{"id":5, "name":"miofile2.jpg"}}},
@@ -33,15 +33,27 @@
 			    			                                                     {"name": "frigo","id":"40", "description":"è un frigo14", image:{"id":3, "caption":"fgi","file":{"id":4, "name":"miofile.jpg"}}},
 			    			                                                     {"name": "frigo","id":"41", "description":"è un frigo15", image:{"id":3, "caption":"fgi","file":{"id":4, "name":"miofile.jpg"}}},
 			    			                                                     {"name": "frigo","id":"42", "description":"è un frigo16", image:{"id":3, "caption":"fgi","file":{"id":4, "name":"miofile.jpg"}}},
-			    			                                                     {"name": "frigo","id":"43", "description":"è un frigo17", image:{"id":3, "caption":"fgi","file":{"id":4, "name":"miofile.jpg"}}}]
+			    			                                                     {"name": "frigo","id":"43", "description":"è un frigo17", image:{"id":3, "caption":"fgi","file":{"id":4, "name":"miofile.jpg"}}}],
+			    			                                                     images :[{"id":3, "caption":"fgi","file":{"id":4, "name":"miofile.jpg"}},
+						    			                                                     {"id":3, "caption":"fgi","file":{"id":4, "name":"miofile.jpg"}},
+						    			                                                     {"id":3, "caption":"fgi","file":{"id":4, "name":"miofile.jpg"}},
+						    			                                                     {"id":3, "caption":"fgi","file":{"id":4, "name":"miofile.jpg"}},
+						    			                                                     {"id":3, "caption":"fgi","file":{"id":4, "name":"miofile.jpg"}},
+						    			                                                     {"id":3, "caption":"fgi","file":{"id":4, "name":"miofile.jpg"}},
+						    			                                                     {"id":3, "caption":"fgi","file":{"id":4, "name":"miofile.jpg"}},
+						    			                                                     {"id":3, "caption":"fgi","file":{"id":4, "name":"miofile.jpg"}},
+						    			                                                     {"id":3, "caption":"fgi","file":{"id":4, "name":"miofile.jpg"}},
+						    			                                                     {"id":3, "caption":"fgi","file":{"id":4, "name":"miofile.jpg"}},
+						    			                                                     {"id":3, "caption":"fgi","file":{"id":4, "name":"miofile.jpg"}},
+						    			                                                     {"id":3, "caption":"fgi","file":{"id":4, "name":"miofile.jpg"}},
+						    			                                                     {"id":3, "caption":"fgi","file":{"id":4, "name":"miofile.jpg"}},
+						    			                                                     {"id":3, "caption":"fgi","file":{"id":4, "name":"miofile.jpg"}},
+						    			                                                     {"id":3, "caption":"fgi","file":{"id":4, "name":"miofile.jpg"}},
+						    			                                                     {"id":3, "caption":"fgi","file":{"id":4, "name":"miofile.jpg"}}]
+						                                                                        
 			                                                                        });
 
-			S("#row-list ul li").first().click(function(){
-				S._window.appRouter.appView.listView.editView.render();
-				//alert (S._window.appRouter.appView.editView.model.facilities[0].name);
-				
-			});
-			
+	
 			/*
 			S(".inplace-edit").click(function() {
 				equal(S('input[name="name"]').val(), S._window.appRouter.appView.editView.model.get("name"), "Convention edit OK?")
@@ -50,14 +62,32 @@
 			
 		  //ok( S(".item-destroy").first().click().size(), "There be elements in that there body")
 		});
-	
 
-	
-		
-		
+/* 		test("Populate images", function(){
+			// S._window.appRouter.appView.listView.collection ='[{"name":"singola","id":2,"facilities":[],"maxGuests":1,"id_structure":6,"notes":null,"images":[]},{"name":"doppia","id":4,"facilities":[],"maxGuests":2,"id_structure":6,"notes":null,"images":[]},{"name":"tripla","id":5,"facilities":[],"maxGuests":3,"id_structure":6,"notes":null,"images":[]}]';
+			//S._window.appRouter.appView.listView.collection.at(0).facilities =[{"name":"mio nome", "filename":"mio.jpg","id_structure":6, "id":8},{"name":"mio nome1", "filename":"mio1.jpg","id_structure":6, "id":9}];
+			S._window.appRouter.appView.listView.collection.at(0).set({images :[{"id":3, "caption":"fgi","file":{"id":4, "name":"miofile.jpg"}},
+			    			                                                     {"id":3, "caption":"fgi","file":{"id":4, "name":"miofile.jpg"}},
+			    			                                                     {"id":3, "caption":"fgi","file":{"id":4, "name":"miofile.jpg"}},
+			    			                                                     {"id":3, "caption":"fgi","file":{"id":4, "name":"miofile.jpg"}},
+			    			                                                     {"id":3, "caption":"fgi","file":{"id":4, "name":"miofile.jpg"}},
+			    			                                                     {"id":3, "caption":"fgi","file":{"id":4, "name":"miofile.jpg"}},
+			    			                                                     {"id":3, "caption":"fgi","file":{"id":4, "name":"miofile.jpg"}},
+			    			                                                     {"id":3, "caption":"fgi","file":{"id":4, "name":"miofile.jpg"}},
+			    			                                                     {"id":3, "caption":"fgi","file":{"id":4, "name":"miofile.jpg"}},
+			    			                                                     {"id":3, "caption":"fgi","file":{"id":4, "name":"miofile.jpg"}},
+			    			                                                     {"id":3, "caption":"fgi","file":{"id":4, "name":"miofile.jpg"}},
+			    			                                                     {"id":3, "caption":"fgi","file":{"id":4, "name":"miofile.jpg"}},
+			    			                                                     {"id":3, "caption":"fgi","file":{"id":4, "name":"miofile.jpg"}},
+			    			                                                     {"id":3, "caption":"fgi","file":{"id":4, "name":"miofile.jpg"}},
+			    			                                                     {"id":3, "caption":"fgi","file":{"id":4, "name":"miofile.jpg"}},
+			    			                                                     {"id":3, "caption":"fgi","file":{"id":4, "name":"miofile.jpg"}}]
+			                                                                        });
+
+		}); */
 	
 	</script>
-	<title>Locanda Test Suite -Images</title>
+	<title>Locanda Test Suite-Images</title>
 </head>
 <body>
     <h1 id="qunit-header">Locanda Test Suite</h1>

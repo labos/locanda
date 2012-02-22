@@ -124,8 +124,8 @@
 	</script>
 
 	<script id="image-row-edit-template" type="text/x-handlebars-template">
+				<input class="choose-elem" checked="checked" type="checkbox" name="images[]" value="{{id}}"/>
 		<span class="title-elem">{{caption}}</span>
-		<span class="delete-elem"></span>
 		<img src="<%=request.getContextPath( )%>/rest/images/{{id}}"/>
 	</script>
 
@@ -158,34 +158,11 @@
 
 	<script id="images-edit-template" type="text/x-handlebars-template" >
 		<div class="add-new">
-			<a hfref="" class="btn_add">Edit <s:text name="images"/></a>
+			<a href="<%=request.getContextPath( )%>/findAllImages.action?sect=settings" class="btn_add"><s:text name="editImages" /></a>
 		</div>
 		<div class="wrapper">
 			<ul></ul>
 		</div>
 		<span class="ui-rcarousel-next"></span>
 		<span class="ui-rcarousel-prev disable"></span>
- 		<div class="subcolumns">
-		   	<div class="result_facility_upload" id="result_facility_upload"></div>
-		   	<div class="upload_loader">&nbsp;</div>
-		   	<div class="image_preview"></div>
-		</div>
-        <div class="beauty">
-     	  	<div class="subcolumns">
-           	  	<div class="c33l">
-    				<label for="name_facility"><s:text name="imageName"/>:</label>&nbsp;<input type="text" name="facility_name" value="" id="name_facility" class="require"/>
- 			  	</div>
- 			  	<div class="c20l">
- 					<br/>
- 					<form id="uploadFacility" action="rest/image/roomType/" method="post" enctype="multipart/form-data">
-   				  		<input type="hidden" name="caption" value=""/>
-						<input type="hidden" name="idRoomType" value="{{id_parent}}"/>
-   				    	<input type="hidden" name="idStructure" value="{{id_structure}}"/>
-     			  		<input type="file" name="upload" multiple/>
-    			  		<button>Upload</button> 
-    			  		<div><s:text name="uploadRoomTypeImage"/></div>  
-					</form>
-		   	  	</div>
-		   	</div>      
-        </div>	 
 	</script>

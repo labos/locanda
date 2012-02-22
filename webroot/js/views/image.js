@@ -14,14 +14,14 @@
  * In case of controversy the competent court is the Court of Cagliari (Italy).
  *******************************************************************************/
 /*
- * @class ThumbnailView
+ * @class ImageView
  * @parent Backbone.View
  * @constructor
- * Show or edit a thumbnail image.
+ * Show or edit an image.
  * @tag views
  * @author LabOpenSource
  */
-window.ThumbnailView = Backbone.View.extend({
+window.ImageView = Backbone.View.extend({
     indexTemplate: $("#image-view-template"),
     events: {
         "click div": "switchMode"
@@ -70,14 +70,14 @@ window.ThumbnailView = Backbone.View.extend({
 });
 
 /*
- * @class EditFacilityView
+ * @class EditImageView
  * @parent Backbone.View
  * @constructor
- * Show or edit a facility.
+ * Show or edit a image.
  * @tag views
  * @author LabOpenSource
  */
-window.EditFacilityView = EditView.extend({
+window.EditImageView = EditView.extend({
     events: {
         "submit form": "save",
         "click div": "switchMode"
@@ -85,7 +85,7 @@ window.EditFacilityView = EditView.extend({
     initialize: function () {
         this.model.bind('change', this.render, this);
         // initialize thumbnail view which show an image that represent a facility
-        this.thumbnailView = new ThumbnailView({
+        this.imageView = new ImageView({
             model: new Image()
         });
 
@@ -97,6 +97,7 @@ window.EditFacilityView = EditView.extend({
         // set additional attributes to display in the template. Only for the view.
         if (this.model.isNew()) {
             // add additional fields eventually..
+        	this.indexTemplate =  (this.indexTemplate == "edit-template" )? $("#image-edit-template") : $("#edit-template");
         }
 
         $(this.el).html(Mustache.to_html(this.indexTemplate.html(), modelToRender));
@@ -130,24 +131,24 @@ window.EditFacilityView = EditView.extend({
         if (!this.model.isNew()) {
             var self = this;
             this.id = this.model.get("id");
-            this.thumbnailView.unbind("child:update");
-            this.thumbnailView.model.set(this.model.get("image").file);
+            this.imageView.unbind("child:update");
+            this.imageView.model.set(this.model.get("image").file);
 
             // listen for changes in model on editing and fetch model if any change occur.
-            this.thumbnailView.bind("child:update", function () {
+            this.imageView.bind("child:update", function () {
                 self.model.fetch({
                     silent: true,
                     success: function () {
                         //set collection for associated views
-                        self.thumbnailView.model.set(this.model.get("image").file);
-                        $(self.thumbnailView.el).undelegate("div", "click");
+                        self.imageView.model.set(this.model.get("image").file);
+                        $(self.imageView.el).undelegate("div", "click");
                     }
                 });
             });
 
             // now render associated views
             if ($("#thumbnail").is(':empty')) {
-                $("#thumbnail").html(this.thumbnailView.el);
+                $("#thumbnail").html(this.imageView.el);
             }
 
         }
