@@ -58,6 +58,7 @@
 	<s:url action="findAllSeasons" var="url_findallseasons"></s:url>
 	<s:url action="findAllConventions" var="url_findallconventions"></s:url>
 	<s:url action="findAllFacilities" var="url_findallfacilities"></s:url>
+	<s:url action="findAllImages" var="url_findallimages"></s:url>
 	<s:url action="goUpdateDetails" var="url_details"></s:url>
 	<s:url action="goFindAllRoomPriceLists" var="url_findallroompricelists"></s:url>
 	<s:url action="goFindAllExtraPriceLists" var="url_findallextrapricelists"></s:url>
@@ -97,6 +98,7 @@
 								<li class="ui-menu-item"><a href="<s:property value="url_findallextrapricelists"/>?sect=settings"><s:text name="extraPriceList" /></a></li>
 								<li class="ui-menu-item"><a href="<s:property value="url_findallconventions"/>?sect=settings"><s:text name="conventions" /></a></li>
 								<li class="ui-menu-item"><a href="<s:property value="url_findallfacilities"/>?sect=settings"><s:text name="facilities" /></a></li>
+								<li class="ui-menu-item"><a href="<s:property value="url_findallimages"/>?sect=settings"><s:text name="images" /></a></li>
 								<li class="ui-menu-item"><a href="<s:property value="url_details"/>?sect=settings"><s:text name="structureDetails" /></a></li>
 							</ul>
 						</li>
