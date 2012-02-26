@@ -17,12 +17,18 @@ package model;
 
 import java.io.Serializable;
 
-public class Image implements Serializable{
+import javax.xml.bind.annotation.XmlRootElement;
+
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
+@XmlRootElement
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class Image implements Serializable{	
 	
 	private Integer id;
 	private String caption;	
-	private String fileName;
-	private byte[] data;
+	private File file;
+	
 	private Integer id_structure;
 	private Integer id_room;
 	private Integer id_roomType;
@@ -58,12 +64,7 @@ public class Image implements Serializable{
 		this.id = id;
 	}
 	
-	public String getFileName() {
-		return fileName;
-	}
-	public void setFileName(String fileName) {
-		this.fileName = fileName;
-	}
+	
 	public Integer getId_structure() {
 		return id_structure;
 	}
@@ -82,19 +83,18 @@ public class Image implements Serializable{
 	public void setId_roomType(Integer id_roomType) {
 		this.id_roomType = id_roomType;
 	}
-	public byte[] getData() {
-		return data;
-	}
-	public void setData(byte[] data) {
-		this.data = data;
-	}
+	
 	public String getCaption() {
 		return caption;
 	}
 	public void setCaption(String caption) {
 		this.caption = caption;
 	}
-	
-	
+	public File getFile() {
+		return file;
+	}
+	public void setFile(File file) {
+		this.file = file;
+	}
 	
 }

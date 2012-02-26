@@ -41,10 +41,14 @@ import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import service.FacilityImageService;
 import service.FacilityService;
 import service.ImageService;
+import service.RoomImageService;
 import service.RoomService;
+import service.RoomTypeImageService;
 import service.RoomTypeService;
+import service.StructureImageService;
 import service.StructureService;
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -61,14 +65,23 @@ public class UploadAction extends ActionSupport {
 	private String caption;
 	private Integer id;
 	
+	
 	@Autowired
 	private StructureService structureService = null;
+	@Autowired
+	private RoomTypeImageService roomTypeImageService = null;
+	@Autowired
+	private StructureImageService structureImageService = null;
 	@Autowired
 	private RoomTypeService roomTypeService = null;
 	@Autowired
 	private RoomService roomService = null;
 	@Autowired
 	private ImageService imageService = null;
+	@Autowired
+	private RoomImageService roomImageService = null;
+	@Autowired
+	private FacilityImageService facilityImageService = null;
 	@Autowired
 	private FacilityService facilityService = null;
 	
@@ -87,6 +100,7 @@ public class UploadAction extends ActionSupport {
 	public String uploadStructureImage() throws IOException {
 		Image image = null;
 		Structure structure = null;
+		model.File file = null;
 		
 		structure = this.getStructureService().findStructureById(this.getId());
 		if (structure == null){			
@@ -98,12 +112,13 @@ public class UploadAction extends ActionSupport {
 		byte[] data = FileUtils.readFileToByteArray(this.getUpload());
 		
 		image = new Image();
-		image.setCaption(this.getCaption());		
-		image.setFileName(this.getUploadFileName());
-		image.setData(data);	
-		
-		this.getImageService().insertImage(image);
-		this.getImageService().insertStructureImage(this.getId(), image.getId());
+		image.setCaption(this.getCaption());	
+		file = new model.File();
+		file.setName(this.getUploadFileName());
+		file.setData(data);	
+		image.setFile(file);
+		this.getImageService().insert(image);
+		this.getStructureImageService().insert(this.getId(), image.getId());
 			
 		message.setResult(Message.SUCCESS);
 		message.setDescription(getText("structureImageAddSuccessAction"));
@@ -126,6 +141,7 @@ public class UploadAction extends ActionSupport {
 	public String uploadRoomTypeImage() throws IOException {
 		RoomType aRoomType = null;
 		Image image = null;
+		model.File file = null;
 		
 		aRoomType = this.getRoomTypeService().findRoomTypeById(this.getId());
 		if (aRoomType == null){			
@@ -137,12 +153,14 @@ public class UploadAction extends ActionSupport {
 		byte[] data = FileUtils.readFileToByteArray(this.getUpload());
 		
 		image = new Image();
-		image.setCaption(this.getCaption());		
-		image.setFileName(this.getUploadFileName());
-		image.setData(data);	
+		image.setCaption(this.getCaption());	
+		file = new model.File();
+		file.setName(this.getUploadFileName());
+		file.setData(data);	
+		image.setFile(file);
 		
-		this.getImageService().insertImage(image);
-		this.getImageService().insertRoomTypeImage(this.getId(), image.getId());
+		this.getImageService().insert(image);
+		this.getRoomTypeImageService().insert(this.getId(), image.getId());
 			
 		message.setResult(Message.SUCCESS);
 		message.setDescription(getText("roomTypeImageAddSuccessAction"));
@@ -164,6 +182,7 @@ public class UploadAction extends ActionSupport {
 	public String uploadRoomImage() throws IOException {
 		Room room = null;
 		Image image = null;
+		model.File file = null;
 		
 		room = this.getRoomService().findRoomById(this.getId());
 		if (room == null){			
@@ -175,12 +194,14 @@ public class UploadAction extends ActionSupport {
 		byte[] data = FileUtils.readFileToByteArray(this.getUpload());
 		
 		image = new Image();
-		image.setCaption(this.getCaption());		
-		image.setFileName(this.getUploadFileName());
-		image.setData(data);	
+		image.setCaption(this.getCaption());	
+		file = new model.File();
+		file.setName(this.getUploadFileName());
+		file.setData(data);	
+		image.setFile(file);
 		
-		this.getImageService().insertImage(image);
-		this.getImageService().insertRoomImage(this.getId(),image.getId());
+		this.getImageService().insert(image);
+		this.getRoomImageService().insert(this.getId(),image.getId());
 			
 		message.setResult(Message.SUCCESS);
 		message.setDescription(getText("roomImageAddSuccessAction"));
@@ -200,9 +221,10 @@ public class UploadAction extends ActionSupport {
 	})
 	public String uploadFacilityImage() throws IOException {
 		Image image = null;
+		model.File file = null;
 		
 		
-		if (this.getFacilityService().findFacilityById(this.getId())== null){
+		if (this.getFacilityService().find(this.getId())== null){
 			message.setResult(Message.ERROR);
 			message.setDescription("facility not found");//TO DO: I18N 
 			return ERROR;
@@ -211,12 +233,14 @@ public class UploadAction extends ActionSupport {
 		byte[] data = FileUtils.readFileToByteArray(this.getUpload());
 		
 		image = new Image();
-		image.setCaption(this.getCaption());		
-		image.setFileName(this.getUploadFileName());
-		image.setData(data);			
+		image.setCaption(this.getCaption());	
+		file = new model.File();
+		file.setName(this.getUploadFileName());
+		file.setData(data);	
+		image.setFile(file);			
 		
-		this.getImageService().insertImage(image);
-		this.getImageService().insertFacilityImage(this.getId(),image.getId());
+		this.getImageService().insert(image);
+		this.getFacilityImageService().insert(this.getId(),image.getId());
 				
 		message.setResult(Message.SUCCESS);
 		message.setDescription(getText("facilityImageAddSuccessAction"));
@@ -295,6 +319,54 @@ public class UploadAction extends ActionSupport {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+
+
+	public StructureImageService getStructureImageService() {
+		return structureImageService;
+	}
+
+
+
+	public void setStructureImageService(StructureImageService structureImageService) {
+		this.structureImageService = structureImageService;
+	}
+
+
+
+	public RoomTypeImageService getRoomTypeImageService() {
+		return roomTypeImageService;
+	}
+
+
+
+	public void setRoomTypeImageService(RoomTypeImageService roomTypeImageService) {
+		this.roomTypeImageService = roomTypeImageService;
+	}
+
+
+
+	public RoomImageService getRoomImageService() {
+		return roomImageService;
+	}
+
+
+
+	public void setRoomImageService(RoomImageService roomImageService) {
+		this.roomImageService = roomImageService;
+	}
+
+
+
+	public FacilityImageService getFacilityImageService() {
+		return facilityImageService;
+	}
+
+
+
+	public void setFacilityImageService(FacilityImageService facilityImageService) {
+		this.facilityImageService = facilityImageService;
 	}
 	
 	

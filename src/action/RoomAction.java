@@ -89,11 +89,11 @@ public class RoomAction extends ActionSupport implements SessionAware,UserAware{
 		
 		this.setRooms(this.getRoomService().findRoomsByIdStructure(this.getIdStructure()));
 		for(Room aRoom: this.getRooms()){
-			aRoom.setFacilities(this.getFacilityService().findRoomFacilitiesByIdRoom(aRoom.getId()));
+			aRoom.setFacilities(this.getFacilityService().findByIdRoom(aRoom.getId()));
 		}
 		
 		this.setRoomTypes(this.getRoomTypeService().findRoomTypesByIdStructure(this.getIdStructure()));
-		this.setRoomFacilities(this.getFacilityService().findRoomAndRoomTypeFacilitiesByIdStructure(this.getIdStructure()));
+		this.setRoomFacilities(this.getFacilityService().findByIdStructure(this.getIdStructure()));
 		if (this.getRoomTypeId() != null){			
 			this.setRooms(this.getRoomService().findRoomsByIdRoomType(this.getRoomTypeId()));
 		}
@@ -129,8 +129,8 @@ public class RoomAction extends ActionSupport implements SessionAware,UserAware{
 	public String findAllRoomTypesForRoom() {
 		List <Facility> selectedFacilities = null;
 				
-		this.setRoomFacilities(this.getFacilityService().findRoomAndRoomTypeFacilitiesByIdStructure(this.getIdStructure()));
-		selectedFacilities = this.getFacilityService().findRoomTypeFacilitiesByIdRoomType(this.getRoom().getRoomType().getId());
+		this.setRoomFacilities(this.getFacilityService().findByIdStructure(this.getIdStructure()));
+		selectedFacilities = this.getFacilityService().findByIdRoomType(this.getRoom().getRoomType().getId());
 		for(Facility each: selectedFacilities){			
 			this.getRoomFacilitiesIds().add(each.getId());		//populating roomFacilitiesIds array with the ids of facilities that are already in rooms to be edited
 		}
@@ -147,10 +147,10 @@ public class RoomAction extends ActionSupport implements SessionAware,UserAware{
 		Room oldRoom = null;
 		
 		oldRoom = this.getRoomService().findRoomById(this.getRoom().getId());
-		oldRoom.setImages(this.getImageService().findImagesByIdRoom(this.getRoom().getId()));
+		oldRoom.setImages(this.getImageService().findByIdRoom(this.getRoom().getId()));
 		this.setRoom(oldRoom);
 		this.setRoomTypes(this.getRoomTypeService().findRoomTypesByIdStructure(this.getIdStructure()));
-		this.setRoomFacilities(this.getFacilityService().findRoomAndRoomTypeFacilitiesByIdStructure(this.getIdStructure()));
+		this.setRoomFacilities(this.getFacilityService().findByIdStructure(this.getIdStructure()));
 		for(Facility each: this.getRoom().getFacilities()){			
 			this.getRoomFacilitiesIds().add(each.getId());		//populating roomFacilitiesIds array with the ids of facilities that are already in rooms to be edited
 		}
@@ -210,7 +210,7 @@ public class RoomAction extends ActionSupport implements SessionAware,UserAware{
 			return "error";			
 		}	
 		else{	
-			checkedFacilities = this.getFacilityService().findFacilitiesByIds(filteredRoomFacilitiesIds);
+			checkedFacilities = this.getFacilityService().findByIds(filteredRoomFacilitiesIds);
 			for(Room each: rooms){				
 
 				if(this.getRoom().getRoomType().getId() < 0){
@@ -283,7 +283,7 @@ public class RoomAction extends ActionSupport implements SessionAware,UserAware{
 			}
 		}
 		
-		checkedFacilities = this.getFacilityService().findFacilitiesByIds(filteredRoomFacilitiesIds);
+		checkedFacilities = this.getFacilityService().findByIds(filteredRoomFacilitiesIds);
 		this.getRoom().setFacilities(checkedFacilities);
 		
 		theRoomType = this.getRoomTypeService().findRoomTypeById(this.getRoom().getRoomType().getId());

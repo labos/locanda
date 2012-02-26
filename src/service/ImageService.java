@@ -24,29 +24,15 @@ import model.Image;
 
 @Transactional
 public interface ImageService {
-	public Integer insertImage(Image image);
-	public Integer insertStructureImage(Integer id_structure,Integer id_image);
-	public Integer insertRoomTypeImage(Integer id_roomType,Integer id_image);
-	public Integer insertRoomImage(Integer id_room,Integer id_image);
-	public Integer insertFacilityImage(Integer id_facility,Integer id_image);
 	
-	public List<Image> findImagesByIdStructure(Integer id_structure);
-	public List<Image> findImagesByIdRoomType(Integer id_roomType);
-	public List<Image> findImagesByIdRoom(Integer id_room);
-	public Image findImageById(Integer id);	
+	public Integer insert(Image image);		
+	public Image update(Image image);		
+	public Integer delete(Integer id);
 	
-	public Integer deleteImage(Integer id);
-	public Integer deleteStructureImage(Integer id_structure,Integer id_image);
-	public Integer deleteStructureImages(Integer id_structure);
-	
-	public Integer deleteRoomTypeImage(Integer id_roomType,Integer id_image);
-	public Integer deleteRoomTypeImages(Integer id_roomType);
-	
-	public Integer deleteRoomImage(Integer id_room,Integer id_image);	
-	public Integer deleteRoomImages(Integer id_room);
-	
-	
-	
-	
+	public Image find(Integer id);	
+	public List<Image> findByIdStructure(Integer id_structure);
+	public List<Image> findByIdRoomType(Integer id_roomType);
+	public List<Image> findByIdRoom(Integer id_room);
+	public Image findByIdFacility(Integer id_facility);
 	
 }

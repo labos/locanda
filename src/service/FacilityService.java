@@ -17,40 +17,20 @@
 package service;
 
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 import model.Facility;
 import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
 public interface FacilityService {	
 	
-	public Integer insertFacility(Facility facility);		
-	public Integer insertStructureFacility(Integer id_structure,Integer id_facility);		
-	public Integer insertRoomTypeFacility(Integer id_roomType,Integer id_facility);		
-	public Integer insertRoomFacility(Integer id_room,Integer id_facility);	
+	public Integer insert(Facility facility);		
+	public Integer update(Facility facility);
+	public Integer delete(Integer id);		
+	public Facility find(Integer id);
+	public List<Facility> findByIds(List<Integer> ids);	
+	public List<Facility> findByIdStructure(Integer id_structure);		
+	public List<Facility> findByIdRoomType(Integer id_roomType);	
+	public List<Facility> findByIdRoom(Integer id_room);		
+	
 		
-	public Facility findFacilityById(Integer id);
-	public List<Facility> findFacilitiesByIds(List<Integer> ids);
-	
-	public List<Facility> findStructureFacilitiesByIdStructure(Integer id_structure);
-	
-	public List<Facility> findRoomAndRoomTypeFacilitiesByIdStructure(Integer id_structure);	
-	
-	public List<Facility> findRoomTypeFacilitiesByIdRoomType(Integer id_roomType);
-	
-	public List<Facility> findRoomFacilitiesByIdRoom(Integer id_room);		
-	
-	public Integer deleteStructureFacility(Integer id_structure,Integer id_facility);
-	public Integer deleteStructureFacilities(Integer id_structure);
-	
-	public Integer deleteRoomTypeFacility(Integer id_roomType,Integer id_facility);
-	public Integer deleteRoomTypeFacilities(Integer id_roomType);
-	
-	public Integer deleteRoomFacility(Integer id_room,Integer id_facility);	
-	public Integer deleteRoomFacilities(Integer id_room);
-	
-	
-	
-	
 }

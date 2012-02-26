@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+Copyright 2011 - Sardegna Ricerche, Distretto ICT, Pula, Italy
+
+Licensed under the EUPL, Version 1.1.
+You may not use this work except in compliance with the Licence.
+You may obtain a copy of the Licence at:
+
+http://www.osor.eu/eupl
+
+Unless required by applicable law or agreed to in  writing, software distributed under the Licence is distributed on an "AS IS" basis,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the Licence for the specific language governing permissions and limitations under the Licence.
+In case of controversy the competent court is the Court of Cagliari (Italy).
+-->
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="persistence.mybatis.mappers.FileMapper">
+    <cache/>
+	
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="model.File">
+        insert into file(name,data) values(#{name},#{data})
+    </insert>
+    
+       
+    <update id="update"  parameterType="model.File" >
+        update file set name = #{name},data = #{data} where id = #{id}
+    </update>
+    
+        
+    <select id="find" parameterType="int" resultType="model.File">
+        <include refid="selectFile"/> where id = #{id}
+    </select>    
+        
+    <sql id="selectFile">
+        select id,name,data from file
+    </sql>    
+    	
+	<delete id="delete" parameterType="int">
+        delete from file where id = #{id}
+    </delete>    
+	    
+</mapper>

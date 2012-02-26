@@ -25,6 +25,10 @@ import model.RoomType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import persistence.mybatis.mappers.FacilityMapper;
+import persistence.mybatis.mappers.ImageMapper;
+import persistence.mybatis.mappers.RoomTypeFacilityMapper;
+import persistence.mybatis.mappers.RoomTypeImageMapper;
 import persistence.mybatis.mappers.RoomTypeMapper;
 
 @Service
@@ -37,7 +41,11 @@ public class RoomTypeServiceImpl implements RoomTypeService{
 	private StructureService structureService = null;
 	@Autowired
 	private ImageService imageService = null;
-
+	@Autowired
+	private RoomTypeFacilityService roomTypeFacilityService = null;
+	@Autowired
+	private RoomTypeImageService roomTypeImageService = null;
+	
 	
 	@Override
 	public List<RoomType> findAll() {
@@ -76,7 +84,7 @@ public class RoomTypeServiceImpl implements RoomTypeService{
 		List<Image> images = null;
 		
 		roomType = this.getRoomTypeMapper().findRoomTypeById(id);
-		images = this.getImageService().findImagesByIdRoomType(id);
+		images = this.getImageService().findByIdRoomType(id);
 		roomType.setImages(images);
 		return roomType;
 		
@@ -121,9 +129,9 @@ public class RoomTypeServiceImpl implements RoomTypeService{
 
 	@Override
 	public Integer deleteRoomType(Integer id) {
-		//TODO - Check if there are rooms with id_roomType == id
-		this.getFacilityService().deleteRoomTypeFacilities(id);
-		//this.getImageService().deleteAllImagesFromRoomType(id);	
+		
+		this.getRoomTypeFacilityService().deleteByIdRoomType(id);
+		this.getRoomTypeImageService().deleteByIdRoomType(id);
 		return this.getRoomTypeMapper().deleteRoomType(id);
 	}	
 	
@@ -151,5 +159,25 @@ public class RoomTypeServiceImpl implements RoomTypeService{
 	public void setImageService(ImageService imageService) {
 		this.imageService = imageService;
 	}
+
+	public RoomTypeImageService getRoomTypeImageService() {
+		return roomTypeImageService;
+	}
+
+	public void setRoomTypeImageService(RoomTypeImageService roomTypeImageService) {
+		this.roomTypeImageService = roomTypeImageService;
+	}
+
+	public RoomTypeFacilityService getRoomTypeFacilityService() {
+		return roomTypeFacilityService;
+	}
+
+	public void setRoomTypeFacilityService(
+			RoomTypeFacilityService roomTypeFacilityService) {
+		this.roomTypeFacilityService = roomTypeFacilityService;
+	}
+	
+	
+
 	
 }

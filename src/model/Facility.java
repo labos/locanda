@@ -19,7 +19,10 @@ import java.io.Serializable;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 @XmlRootElement
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Facility implements Serializable{
 	
 	private Integer id;
@@ -27,6 +30,14 @@ public class Facility implements Serializable{
 	private String name;
 	private String description;
 	private Image image;
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	private Integer  id_structure;
 	private Integer id_room;

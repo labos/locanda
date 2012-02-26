@@ -1,0 +1,43 @@
+<!--
+   
+     Copyright 2011 - Sardegna Ricerche, Distretto ICT, Pula, Italy
+   
+    Licensed under the EUPL, Version 1.1.
+    You may not use this work except in compliance with the Licence.
+    You may obtain a copy of the Licence at:
+   
+     http://www.osor.eu/eupl
+   
+    Unless required by applicable law or agreed to in  writing, software distributed under the Licence is distributed on an "AS IS" basis,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the Licence for the specific language governing permissions and limitations under the Licence.
+    In case of controversy the competent court is the Court of Cagliari (Italy).
+ -->
+<project>
+	<description>Properties file</description>
+	
+	<property name="webappname" value="locanda"/>
+	<property name="host" value="localhost"/>
+	
+	<property name="tomcat.home.path" value="/opt/java/apache-tomcat-7.0.2"/>
+	<property name="tomcat.deploy.path" value="${tomcat.home.path}/webapps"/>
+	<property name="tomcat.application.path" value="${tomcat.deploy.path}/${webappname}"/>
+	<property name="tomcat.resource.path" value="${tomcat.application.path}/resources"/>
+	<property name="tomcat.username" value="tomcat"/>
+	<property name="tomcat.password" value="tomcat"/>
+	<property name="tomcat.manager.url" value="http://${host}:8080/manager/text"/>
+	
+	<property name="dist.path" value="dist"/>
+	<property name="workdir.path" value="webroot"/>
+	<property name="webroot.path" value="${dist.path}/WEB-INF"/>
+	<property name="build.path" value="${webroot.path}/classes"/>
+	<property name="src.path" value="src"/>
+	
+	<property name="mysql.bin.path" location="/usr/bin"/>
+	<property name="mysql.host" value="${host}"/>
+	<property name="mysql.port" value="3306"/>
+	<property name="mysql.username" value="root"/>
+	<property name="mysql.password" value="root"/>
+	<property name="mysql.dump.path" value="sql"/>
+	
+</project>
