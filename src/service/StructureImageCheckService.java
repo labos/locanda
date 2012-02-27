@@ -23,17 +23,14 @@ import org.springframework.transaction.annotation.Transactional;
 import model.Image;
 
 @Transactional
-public interface ImageService {
+public interface StructureImageCheckService {
 	
-	public Integer insert(Image image,Integer id_structure);		
-	public Image update(Image image);		
+	public Integer insert(Integer id_structure,Integer id_image);
+	
+	public List<Integer> findIdImageByIdStructure(Integer id_structure);
+	
 	public Integer delete(Integer id);
-	
-	public Image find(Integer id);	
-	public List<Image> findByIdStructure_ownership(Integer id_structure);
-	public List<Image> findByIdStructure_check(Integer id_structure);
-	public List<Image> findByIdRoomType(Integer id_roomType);
-	public List<Image> findByIdRoom(Integer id_room);
-	public Image findByIdFacility(Integer id_facility);
-	
+	public Integer deleteByIdImage(Integer id_image);
+	public Integer deleteByIdStructure(Integer id_structure);	
+		
 }

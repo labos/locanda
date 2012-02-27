@@ -23,7 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 import model.Image;
 
 @Transactional
-public interface StructureImageService {
+public interface StructureImageOwnershipService {
 	
 	public Integer insert(Integer id_structure,Integer id_image);
 	

@@ -29,69 +29,43 @@ import org.springframework.stereotype.Service;
 
 import persistence.mybatis.mappers.FacilityMapper;
 import persistence.mybatis.mappers.ImageMapper;
-import persistence.mybatis.mappers.RoomTypeFacilityMapper;
 import persistence.mybatis.mappers.StructureFacilityCheckMapper;
+import persistence.mybatis.mappers.StructureFacilityOwnershipMapper;
 
 import model.Facility;
 import model.Image;
 
 @Service
-public class RoomTypeFacilityServiceImpl implements RoomTypeFacilityService{
-	
+public class StructureFacilityOwnershipServiceImpl implements StructureFacilityOwnershipService{
 	@Autowired
-	private RoomTypeFacilityMapper roomTypeFacilityMapper = null;
-	@Autowired
-	private StructureFacilityCheckService structureFacilityCheckService = null;
+	private StructureFacilityOwnershipMapper structureFacilityOwnershipMapper = null;
 	@Autowired
 	private ImageService imageService = null;
 	
-	
 		
 	@Override
-	public Integer insert(Integer id_roomType,Integer id_facility) {
+	public Integer insert(Integer id_structure,Integer id_facility) {
 		Map map = null;
 		
 		map = new HashMap();
-		map.put("id_roomType", id_roomType);
+		map.put("id_structure", id_structure);
 		map.put("id_facility", id_facility);
-		
-		return this.getRoomTypeFacilityMapper().insert(map);
-		
+		return this.getStructureFacilityOwnershipMapper().insert(map);
 	}
 	
 	
 	
 		
 	@Override
-	public List<Integer> findIdFacilityByIdRoomType(Integer id_roomType) {
+	public List<Integer> findIdFacilityByIdStructure(Integer id_structure) {
 		List<Integer> ret = null;
 		
 		ret = new ArrayList<Integer>();
-		for(Map map: this.getRoomTypeFacilityMapper().findByIdRoomType(id_roomType)){
+		for(Map map: this.getStructureFacilityOwnershipMapper().findByIdStructure(id_structure)){
 			ret.add((Integer)map.get("id_facility"));
 		}
+		
 		return ret;
-	}
-	
-
-	@Override
-	public Integer delete(Integer id) {		
-		return this.getRoomTypeFacilityMapper().delete(id);
-	}
-
-	@Override
-	public Integer deleteByIdRoomType(Integer id_roomType) {
-		
-		return this.getRoomTypeFacilityMapper().deleteByIdRoomType(id_roomType);
-	}
-
-
-
-
-	@Override
-	public Integer deleteByIdFacility(Integer id_facility) {
-		
-		return this.getRoomTypeFacilityMapper().deleteByIdFacility(id_facility);
 	}
 
 
@@ -103,26 +77,21 @@ public class RoomTypeFacilityServiceImpl implements RoomTypeFacilityService{
 		this.imageService = imageService;
 	}
 
-	
-	public StructureFacilityCheckService getStructureFacilityCheckService() {
-		return structureFacilityCheckService;
+
+
+
+	public StructureFacilityOwnershipMapper getStructureFacilityOwnershipMapper() {
+		return structureFacilityOwnershipMapper;
 	}
 
 
-	public void setStructureFacilityCheckService(StructureFacilityCheckService structureFacilityCheckService) {
-		this.structureFacilityCheckService = structureFacilityCheckService;
+
+
+	public void setStructureFacilityOwnershipMapper(
+			StructureFacilityOwnershipMapper structureFacilityOwnershipMapper) {
+		this.structureFacilityOwnershipMapper = structureFacilityOwnershipMapper;
 	}
 
-
-	public RoomTypeFacilityMapper getRoomTypeFacilityMapper() {
-		return roomTypeFacilityMapper;
-	}
-
-
-	public void setRoomTypeFacilityMapper(
-			RoomTypeFacilityMapper roomTypeFacilityMapper) {
-		this.roomTypeFacilityMapper = roomTypeFacilityMapper;
-	}
 	
 		
 }

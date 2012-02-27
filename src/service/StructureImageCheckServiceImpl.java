@@ -23,67 +23,62 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import persistence.mybatis.mappers.FacilityImageMapper;
-import persistence.mybatis.mappers.FileMapper;
-import persistence.mybatis.mappers.ImageFileMapper;
-import persistence.mybatis.mappers.ImageMapper;
-import persistence.mybatis.mappers.RoomImageMapper;
-import persistence.mybatis.mappers.RoomTypeImageMapper;
+import persistence.mybatis.mappers.StructureImageCheckMapper;
 import persistence.mybatis.mappers.StructureImageOwnershipMapper;
 
-import model.File;
-import model.Image;
-
 @Service
-public class FacilityImageServiceImpl implements FacilityImageService{
+public class StructureImageCheckServiceImpl implements StructureImageCheckService{	
 	@Autowired
-	private FacilityImageMapper facilityImageMapper = null;	
+	private StructureImageCheckMapper structureImageCheckMapper = null;
 	
 	@Override
-	public Integer insert(Integer id_facility,Integer id_image) {
-		Map map = null;			
+	public Integer insert(Integer id_structure, Integer id_image) {
+		Map map = null;		
 		
 		map = new HashMap();
-		map.put("id_facility",id_facility );
+		map.put("id_structure",id_structure );
 		map.put("id_image",id_image);
-		return this.getFacilityImageMapper().insert(map);
-	}
-
+		return this.getStructureImageCheckMapper().insert(map);
+	}	
 
 	@Override
-	public Integer findIdImageByIdFacility(Integer id_facility) {
-		return (Integer)this.getFacilityImageMapper().findByIdFacility(id_facility).get("id_image");
+	public List<Integer> findIdImageByIdStructure(Integer id_structure) {
+		List<Integer> ret = null;
+		
+		ret = new ArrayList<Integer>();
+		for(Map map: this.getStructureImageCheckMapper().findByIdStructure(id_structure)){
+			ret.add((Integer)map.get("id_image"));
+		}
+		return ret;
 	}
-
 
 	@Override
 	public Integer delete(Integer id) {
 		
-		return this.getFacilityImageMapper().delete(id);
+		return this.getStructureImageCheckMapper().delete(id);
 	}
-	
 
 	@Override
 	public Integer deleteByIdImage(Integer id_image) {
 		
-		return this.getFacilityImageMapper().deleteByIdImage(id_image);
+		return this.getStructureImageCheckMapper().deleteByIdImage(id_image);
 	}
 
 	@Override
-	public Integer deleteByIdFacility(Integer id_facility) {
+	public Integer deleteByIdStructure(Integer id_structure) {
 		
-		return this.getFacilityImageMapper().deleteByIdFacility(id_facility);
+		return this.getStructureImageCheckMapper().deleteByIdStructure(id_structure);
 	}
 
-
-
-	public FacilityImageMapper getFacilityImageMapper() {
-		return facilityImageMapper;
+	public StructureImageCheckMapper getStructureImageCheckMapper() {
+		return structureImageCheckMapper;
 	}
 
-	public void setFacilityImageMapper(FacilityImageMapper facilityImageMapper) {
-		this.facilityImageMapper = facilityImageMapper;
+	public void setStructureImageCheckMapper(StructureImageCheckMapper structureImageCheckMapper) {
+		this.structureImageCheckMapper = structureImageCheckMapper;
 	}
+
+	
 
 		
 }

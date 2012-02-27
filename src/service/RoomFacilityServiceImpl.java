@@ -31,7 +31,7 @@ import persistence.mybatis.mappers.FacilityMapper;
 import persistence.mybatis.mappers.ImageMapper;
 import persistence.mybatis.mappers.RoomFacilityMapper;
 import persistence.mybatis.mappers.RoomTypeFacilityMapper;
-import persistence.mybatis.mappers.StructureFacilityMapper;
+import persistence.mybatis.mappers.StructureFacilityCheckMapper;
 
 import model.Facility;
 import model.Image;
@@ -39,7 +39,7 @@ import model.Image;
 @Service
 public class RoomFacilityServiceImpl implements RoomFacilityService{
 	@Autowired
-	private StructureFacilityService structureFacilityService = null;
+	private StructureFacilityCheckService structureFacilityCheckService = null;
 	@Autowired
 	private RoomFacilityMapper roomFacilityMapper = null;
 	@Autowired
@@ -104,14 +104,13 @@ public class RoomFacilityServiceImpl implements RoomFacilityService{
 	}
 
 	
-	public StructureFacilityService getStructureFacilityService() {
-		return structureFacilityService;
+	public StructureFacilityCheckService getStructureFacilityCheckService() {
+		return structureFacilityCheckService;
 	}
 
 
-	public void setStructureFacilityService(
-			StructureFacilityService structureFacilityService) {
-		this.structureFacilityService = structureFacilityService;
+	public void setStructureFacilityCheckService(StructureFacilityCheckService structureFacilityCheckService) {
+		this.structureFacilityCheckService = structureFacilityCheckService;
 	}
 
 	public RoomTypeFacilityService getRoomTypeFacilityService() {

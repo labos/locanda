@@ -29,7 +29,7 @@ import persistence.mybatis.mappers.ImageFileMapper;
 import persistence.mybatis.mappers.ImageMapper;
 import persistence.mybatis.mappers.RoomImageMapper;
 import persistence.mybatis.mappers.RoomTypeImageMapper;
-import persistence.mybatis.mappers.StructureImageMapper;
+import persistence.mybatis.mappers.StructureImageOwnershipMapper;
 
 import model.File;
 import model.Image;
@@ -41,7 +41,9 @@ public class ImageServiceImpl implements ImageService{
 	@Autowired
 	private ImageFileService imageFileService = null;
 	@Autowired
-	private StructureImageService structureImageService = null;
+	private StructureImageOwnershipService structureImageOwnershipService = null;
+	@Autowired
+	private StructureImageCheckService structureImageCheckService = null;
 	@Autowired
 	private RoomTypeImageService roomTypeImageService = null;
 	@Autowired
@@ -52,11 +54,12 @@ public class ImageServiceImpl implements ImageService{
 	private FileService fileService = null;
 
 	@Override
-	public Integer insert(Image image) {	
+	public Integer insert(Image image,Integer id_structure) {	
 		Integer count;
 		File file = null;
 		
-		count = this.getImageMapper().insert(image);	
+		count = this.getImageMapper().insert(image);
+		this.getStructureImageOwnershipService().insert(id_structure, image.getId());
 		file = image.getFile();
 		this.getFileService().insert(file);		
 		this.getImageFileService().insert(image.getId(), file.getId());		
@@ -72,7 +75,8 @@ public class ImageServiceImpl implements ImageService{
 	public Integer delete(Integer id) {
 		Integer count = 0;
 				
-		this.getStructureImageService().deleteByIdImage(id);
+		this.getStructureImageOwnershipService().deleteByIdImage(id);
+		this.getStructureImageCheckService().deleteByIdImage(id);
 		this.getRoomTypeImageService().deleteByIdImage(id);
 		this.getRoomImageService().deleteByIdImage(id);
 		this.getFacilityImageService().deleteByIdImage(id);		
@@ -100,13 +104,27 @@ public class ImageServiceImpl implements ImageService{
 		return ret;		
 	}	
 	
+	
 	@Override
-	public List<Image> findByIdStructure(Integer id_structure) {
+	public List<Image> findByIdStructure_ownership(Integer id_structure) {
 		List<Image> ret = null;
 		Image image = null;
 		
 		ret = new ArrayList<Image>();
-		for(Integer id: this.getStructureImageService().findIdImageByIdStructure(id_structure)){
+		for(Integer id: this.getStructureImageOwnershipService().findIdImageByIdStructure(id_structure)){
+			image = this.find(id);
+			ret.add(image);
+		}
+		return ret;
+	}
+
+	@Override
+	public List<Image> findByIdStructure_check(Integer id_structure) {
+		List<Image> ret = null;
+		Image image = null;
+		
+		ret = new ArrayList<Image>();
+		for(Integer id: this.getStructureImageCheckService().findIdImageByIdStructure(id_structure)){
 			image = this.find(id);
 			ret.add(image);
 		}
@@ -175,12 +193,12 @@ public class ImageServiceImpl implements ImageService{
 		this.fileService = fileService;
 	}
 
-	public StructureImageService getStructureImageService() {
-		return structureImageService;
+	public StructureImageOwnershipService getStructureImageOwnershipService() {
+		return structureImageOwnershipService;
 	}
 
-	public void setStructureImageService(StructureImageService structureImageService) {
-		this.structureImageService = structureImageService;
+	public void setStructureImageOwnershipService(StructureImageOwnershipService structureImageOwnershipService) {
+		this.structureImageOwnershipService = structureImageOwnershipService;
 	}
 
 	public RoomTypeImageService getRoomTypeImageService() {
@@ -206,8 +224,13 @@ public class ImageServiceImpl implements ImageService{
 	public void setFacilityImageService(FacilityImageService facilityImageService) {
 		this.facilityImageService = facilityImageService;
 	}
-	
-	
 
+	public StructureImageCheckService getStructureImageCheckService() {
+		return structureImageCheckService;
+	}
+
+	public void setStructureImageCheckService(StructureImageCheckService structureImageCheckService) {
+		this.structureImageCheckService = structureImageCheckService;
+	}
 		
 }

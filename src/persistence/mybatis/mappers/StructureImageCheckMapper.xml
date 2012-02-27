@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
+
 Copyright 2011 - Sardegna Ricerche, Distretto ICT, Pula, Italy
 
 Licensed under the EUPL, Version 1.1.
@@ -17,25 +18,26 @@ In case of controversy the competent court is the Court of Cagliari (Italy).
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="persistence.mybatis.mappers.StructureFacilityMapper">
+<mapper namespace="persistence.mybatis.mappers.StructureImageCheckMapper">
     <cache/>
-		
-    <insert id="insert" parameterType="map">
-        INSERT into structureFacility(id_structure,id_facility) values (#{id_structure},#{id_facility})
-    </insert>     
+	
+	
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="map">
+        insert into structureImage_check(id_structure,id_image) values(#{id_structure},#{id_image})
+    </insert>        
     
     <select id="findByIdStructure" parameterType="int" resultType="map">
-       SELECT id,id_structure, id_facility from structureFacility where id_structure = #{id_structure}
-    </select>   
-          
+        select id,id_structure,id_image from structureImage_check where id_structure = #{id_structure}
+    </select>    
+    
     <delete id="delete" parameterType="int">
-        DELETE from structureFacility where id = #{id}
-    </delete>     
-    <delete id="deleteByIdStructure" parameterType="int">
-        DELETE from structureFacility where id_structure = #{id_structure}
-    </delete>    
-     <delete id="deleteByIdFacility" parameterType="int">
-        DELETE from structureFacility where id_facility = #{id_facility}
+        DELETE from structureImage_check where id = #{id}
     </delete>
-            
+	<delete id="deleteByIdImage" parameterType="int">
+        DELETE from structureImage_check where id_image = #{id_image}
+    </delete>   
+    <delete id="deleteByIdStructure" parameterType="int">
+        DELETE from structureImage_check where id_structure = #{id_structure}
+    </delete>     	
+	    
 </mapper>

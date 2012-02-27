@@ -31,7 +31,7 @@ import persistence.mybatis.mappers.FacilityMapper;
 import persistence.mybatis.mappers.ImageMapper;
 import persistence.mybatis.mappers.RoomFacilityMapper;
 import persistence.mybatis.mappers.RoomTypeFacilityMapper;
-import persistence.mybatis.mappers.StructureFacilityMapper;
+import persistence.mybatis.mappers.StructureFacilityCheckMapper;
 
 import model.Facility;
 import model.Image;
@@ -41,7 +41,7 @@ public class FacilityServiceImpl implements FacilityService{
 	@Autowired
 	private FacilityMapper facilityMapper = null;	
 	@Autowired
-	private StructureFacilityService structureFacilityService = null;
+	private StructureFacilityCheckService structureFacilityCheckService = null;
 	@Autowired
 	private RoomFacilityService roomFacilityService = null;
 	@Autowired
@@ -88,7 +88,7 @@ public class FacilityServiceImpl implements FacilityService{
 	public List<Facility> findByIdStructure(Integer id_structure) {		
 		List<Integer> ids = null;
 		
-		ids = this.getStructureFacilityService().findIdFacilityByIdStructure(id_structure);
+		ids = this.getStructureFacilityCheckService().findIdFacilityByIdStructure(id_structure);
 		return this.findByIds(ids);
 		
 	}
@@ -141,14 +141,13 @@ public class FacilityServiceImpl implements FacilityService{
 	}
 
 	
-	public StructureFacilityService getStructureFacilityService() {
-		return structureFacilityService;
+	public StructureFacilityCheckService getStructureFacilityCheckService() {
+		return structureFacilityCheckService;
 	}
 
 
-	public void setStructureFacilityService(
-			StructureFacilityService structureFacilityService) {
-		this.structureFacilityService = structureFacilityService;
+	public void setStructureFacilityCheckService(StructureFacilityCheckService structureFacilityCheckService) {
+		this.structureFacilityCheckService = structureFacilityCheckService;
 	}
 
 

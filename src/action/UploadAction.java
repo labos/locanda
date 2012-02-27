@@ -48,7 +48,7 @@ import service.RoomImageService;
 import service.RoomService;
 import service.RoomTypeImageService;
 import service.RoomTypeService;
-import service.StructureImageService;
+import service.StructureImageOwnershipService;
 import service.StructureService;
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -71,7 +71,7 @@ public class UploadAction extends ActionSupport {
 	@Autowired
 	private RoomTypeImageService roomTypeImageService = null;
 	@Autowired
-	private StructureImageService structureImageService = null;
+	private StructureImageOwnershipService structureImageOwnershipService = null;
 	@Autowired
 	private RoomTypeService roomTypeService = null;
 	@Autowired
@@ -117,8 +117,8 @@ public class UploadAction extends ActionSupport {
 		file.setName(this.getUploadFileName());
 		file.setData(data);	
 		image.setFile(file);
-		this.getImageService().insert(image);
-		this.getStructureImageService().insert(this.getId(), image.getId());
+		this.getImageService().insert(image,image.getId());
+		
 			
 		message.setResult(Message.SUCCESS);
 		message.setDescription(getText("structureImageAddSuccessAction"));
@@ -159,8 +159,8 @@ public class UploadAction extends ActionSupport {
 		file.setData(data);	
 		image.setFile(file);
 		
-		this.getImageService().insert(image);
-		this.getRoomTypeImageService().insert(this.getId(), image.getId());
+		this.getImageService().insert(image,image.getId());
+		
 			
 		message.setResult(Message.SUCCESS);
 		message.setDescription(getText("roomTypeImageAddSuccessAction"));
@@ -200,8 +200,8 @@ public class UploadAction extends ActionSupport {
 		file.setData(data);	
 		image.setFile(file);
 		
-		this.getImageService().insert(image);
-		this.getRoomImageService().insert(this.getId(),image.getId());
+		this.getImageService().insert(image,image.getId());
+		
 			
 		message.setResult(Message.SUCCESS);
 		message.setDescription(getText("roomImageAddSuccessAction"));
@@ -239,9 +239,8 @@ public class UploadAction extends ActionSupport {
 		file.setData(data);	
 		image.setFile(file);			
 		
-		this.getImageService().insert(image);
-		this.getFacilityImageService().insert(this.getId(),image.getId());
-				
+		this.getImageService().insert(image,image.getId());
+						
 		message.setResult(Message.SUCCESS);
 		message.setDescription(getText("facilityImageAddSuccessAction"));
 		return SUCCESS;
@@ -323,14 +322,14 @@ public class UploadAction extends ActionSupport {
 
 
 
-	public StructureImageService getStructureImageService() {
-		return structureImageService;
+	public StructureImageOwnershipService getStructureImageOwnershipService() {
+		return structureImageOwnershipService;
 	}
 
 
 
-	public void setStructureImageService(StructureImageService structureImageService) {
-		this.structureImageService = structureImageService;
+	public void setStructureImageOwnershipService(StructureImageOwnershipService structureImageOwnershipService) {
+		this.structureImageOwnershipService = structureImageOwnershipService;
 	}
 
 

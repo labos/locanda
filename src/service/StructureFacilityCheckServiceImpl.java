@@ -29,27 +29,27 @@ import org.springframework.stereotype.Service;
 
 import persistence.mybatis.mappers.FacilityMapper;
 import persistence.mybatis.mappers.ImageMapper;
-import persistence.mybatis.mappers.StructureFacilityMapper;
+import persistence.mybatis.mappers.StructureFacilityCheckMapper;
 
 import model.Facility;
 import model.Image;
 
 @Service
-public class StructureFacilityServiceImpl implements StructureFacilityService{
+public class StructureFacilityCheckServiceImpl implements StructureFacilityCheckService{
 	@Autowired
-	private StructureFacilityMapper structureFacilityMapper = null;
+	private StructureFacilityCheckMapper structureFacilityCheckMapper = null;
 	@Autowired
 	private ImageService imageService = null;
 	
 		
 	@Override
-	public Integer insertStructureFacility(Integer id_structure,Integer id_facility) {
+	public Integer insert(Integer id_structure,Integer id_facility) {
 		Map map = null;
 		
 		map = new HashMap();
 		map.put("id_structure", id_structure);
 		map.put("id_facility", id_facility);
-		return this.getStructureFacilityMapper().insert(map);
+		return this.getStructureFacilityCheckMapper().insert(map);
 	}
 	
 	
@@ -60,7 +60,7 @@ public class StructureFacilityServiceImpl implements StructureFacilityService{
 		List<Integer> ret = null;
 		
 		ret = new ArrayList<Integer>();
-		for(Map map: this.getStructureFacilityMapper().findByIdStructure(id_structure)){
+		for(Map map: this.getStructureFacilityCheckMapper().findByIdStructure(id_structure)){
 			ret.add((Integer)map.get("id_facility"));
 		}
 		
@@ -76,12 +76,12 @@ public class StructureFacilityServiceImpl implements StructureFacilityService{
 		this.imageService = imageService;
 	}
 
-	public StructureFacilityMapper getStructureFacilityMapper() {
-		return structureFacilityMapper;
+	public StructureFacilityCheckMapper getStructureFacilityCheckMapper() {
+		return structureFacilityCheckMapper;
 	}
 
-	public void setStructureFacilityMapper(	StructureFacilityMapper structureFacilityMapper) {
-		this.structureFacilityMapper = structureFacilityMapper;
+	public void setStructureFacilityCheckMapper(StructureFacilityCheckMapper structureFacilityCheckMapper) {
+		this.structureFacilityCheckMapper = structureFacilityCheckMapper;
 	}
 		
 }

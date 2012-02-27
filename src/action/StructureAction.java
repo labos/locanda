@@ -71,7 +71,7 @@ public class StructureAction extends ActionSupport implements SessionAware,UserA
 		Structure structure = null;
 		
 		structure = this.getStructureService().findStructureById(this.getIdStructure());		
-		structure.setImages(this.getImageService().findByIdStructure(structure.getId()));
+		structure.setImages(this.getImageService().findByIdStructure_check(structure.getId()));
 		structure.setFacilities(this.getFacilityService().findByIdStructure(structure.getId()));
 		
 		this.setStructure(structure);

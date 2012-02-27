@@ -39,35 +39,19 @@ import service.ImageService;
 import service.RoomImageService;
 import service.RoomTypeImageService;
 import service.RoomTypeService;
-import service.StructureImageService;
+import service.StructureImageOwnershipService;
 
-@Path("/images/")
+@Path("/image/")
 @Component
 @Scope("prototype")
 
 public class ImageResource {
 	@Autowired
 	private ImageService imageService = null;
-	@Autowired
-	private StructureImageService structureImageService = null;
-	@Autowired
-	private RoomTypeImageService roomTypeImageService = null;
-	@Autowired
-	private RoomImageService roomImageService = null;
-	@Autowired
-	private FacilityImageService facilityImageService = null;
-	
-	@Autowired
-	private RoomTypeService roomTypeService = null;	
-	
 	
 	
 	@GET
 	@Path("{id}")
-	//@Path("structure/{idImage}")
-	//@Path("roomType/{idImage}")
-	//@Path("room/{idImage}")
-	//@Path("facility/{idImage}")
 	@Produces({MediaType.APPLICATION_JSON})  
 	public Image getImage(@PathParam("id") Integer id) {
 		Image image = null;
@@ -79,44 +63,11 @@ public class ImageResource {
 		return image;
 	}	
 	
-	@GET
-	@Path("structure/{idStructure}/{offset}/{rownum}")
-	@Produces({MediaType.APPLICATION_JSON})	
-	public List<Image> getStructureImages(@PathParam("idStructure") Integer idStructure){
-		return this.getImageService().findByIdStructure(idStructure);
 		
-	}
-
-	
-	@GET
-	@Path("roomType/{idRoomType}/{offset}/{rownum}")
-	@Produces({MediaType.APPLICATION_JSON})	
-	public List<Image> getRoomTypeImages(@PathParam("idRoomType") Integer idRoomType){
-		return this.getImageService().findByIdRoomType(idRoomType);
-	}
-	
-	@GET
-	@Path("room/{idRoom}/{offset}/{rownum}")
-	@Produces({MediaType.APPLICATION_JSON})	
-	public List<Image> getRoomImages(@PathParam("idRoom") Integer idRoom){
-		return this.getImageService().findByIdRoom(idRoom);
-	}
-
-	@GET
-	@Path("facility/{idFacility}")
-	@Produces({MediaType.APPLICATION_JSON})	
-	public Image getFacilityImage(@PathParam("idFacility") Integer idFacility){
-		return this.getImageService().findByIdFacility(idFacility);
-	}
-	
-	
-	
 	@POST
-	@Path("structure/{idStructure}")
-	
 	@Consumes(MediaType.MULTIPART_FORM_DATA)
 	@Produces({MediaType.APPLICATION_JSON}) 
-	public Image uploadStructureImage(
+	public Image uploadImage(
 		@FormDataParam("upload") InputStream uploadedInputStream,
 		@FormDataParam("upload") FormDataContentDisposition fileDetail,
 		@FormDataParam("caption") String caption,
@@ -136,100 +87,7 @@ public class ImageResource {
 			e.printStackTrace();
 		}
 		image.setFile(file);
-		this.getImageService().insert(image);
-		this.getStructureImageService().insert(idStructure, image.getId());
-		
-		return image;
-	}
-	
-	
-	@POST
-	@Path("roomType/{idRoomType}")
-	//@Path("roomType")
-	@Consumes(MediaType.MULTIPART_FORM_DATA)
-	@Produces({MediaType.APPLICATION_JSON}) 
-	public Image uploadRoomTypeImage(
-		@FormDataParam("upload") InputStream uploadedInputStream,
-		@FormDataParam("upload") FormDataContentDisposition fileDetail,
-		@FormDataParam("caption") String caption,
-		@PathParam("idRoomType") Integer idRoomType){															
- 
-		Image image = null;
-		File file = null;
-		
-		image = new Image();
-		image.setCaption(caption);
-		file = new File();
-		file.setName(fileDetail.getFileName());
-		try {
-			file.setData(
-					IOUtils.toByteArray(uploadedInputStream));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		image.setFile(file);
-		this.getImageService().insert(image);
-		this.getRoomTypeImageService().insert(idRoomType, image.getId());
-		return image;
-	}
-	
-	@POST
-	@Path("room/{idRoom}")
-	//@Path("room")
-	@Consumes(MediaType.MULTIPART_FORM_DATA)
-	@Produces({MediaType.APPLICATION_JSON}) 
-	public Image uploadRoomImage(
-		@FormDataParam("upload") InputStream uploadedInputStream,
-		@FormDataParam("upload") FormDataContentDisposition fileDetail,
-		@FormDataParam("caption") String caption,
-		@PathParam("idRoom") Integer idRoom){															
- 
-		Image image = null;
-		File file = null;
-		
-		image = new Image();
-		image.setCaption(caption);
-		file = new File();
-		file.setName(fileDetail.getFileName());
-		try {
-			file.setData(
-					IOUtils.toByteArray(uploadedInputStream));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		image.setFile(file);
-		this.getImageService().insert(image);
-		this.getRoomImageService().insert(idRoom, image.getId());
-		return image;
-	}
-	
-	@POST
-	@Path("facility/{idFacility}")
-	//@Path("facility")
-	@Consumes(MediaType.MULTIPART_FORM_DATA)
-	@Produces({MediaType.APPLICATION_JSON}) 
-	public Image uploadFacilityImage(
-		@FormDataParam("upload") InputStream uploadedInputStream,
-		@FormDataParam("upload") FormDataContentDisposition fileDetail,
-		@FormDataParam("caption") String caption,
-		@PathParam("idFacility") Integer idFacility){															
- 
-		Image image = null;
-		File file = null;
-		
-		image = new Image();
-		image.setCaption(caption);
-		file = new File();
-		file.setName(fileDetail.getFileName());
-		try {
-			file.setData(
-					IOUtils.toByteArray(uploadedInputStream));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		image.setFile(file);
-		this.getImageService().insert(image);
-		this.getFacilityImageService().insert(idFacility, image.getId());
+		this.getImageService().insert(image,idStructure);
 		return image;
 	}
 	
@@ -237,10 +95,6 @@ public class ImageResource {
 	
 	@PUT
 	@Path("{id}")
-	//@Path("structure/{idImage}")
-	//@Path("roomType/{idImage}")
-	//@Path("room/{idImage}")
-	//@Path("facility/{idImage}")
 	@Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON}) 
 	public Image updateImage(Image image) {
@@ -253,11 +107,7 @@ public class ImageResource {
 		
 	@DELETE
     @Path("{id}")
-	//@Path("structure/{idImage}")
-	//@Path("roomType/{idImage}")
-	//@Path("room/{idImage}")
-	//@Path("facility/{idImage}")
-    @Produces({MediaType.APPLICATION_JSON})   
+	@Produces({MediaType.APPLICATION_JSON})   
     public Integer deleteImage(@PathParam("id") Integer id){
     	Integer count = 0;				
 		
@@ -278,46 +128,5 @@ public class ImageResource {
 
 	
 
-	public RoomTypeService getRoomTypeService() {
-		return roomTypeService;
-	}
-
-	public void setRoomTypeService(RoomTypeService roomTypeService) {
-		this.roomTypeService = roomTypeService;
-	}
-
-	public StructureImageService getStructureImageService() {
-		return structureImageService;
-	}
-
-	public void setStructureImageService(StructureImageService structureImageService) {
-		this.structureImageService = structureImageService;
-	}
-
-	public RoomTypeImageService getRoomTypeImageService() {
-		return roomTypeImageService;
-	}
-
-	public void setRoomTypeImageService(RoomTypeImageService roomTypeImageService) {
-		this.roomTypeImageService = roomTypeImageService;
-	}
-
-	public RoomImageService getRoomImageService() {
-		return roomImageService;
-	}
-
-	public void setRoomImageService(RoomImageService roomImageService) {
-		this.roomImageService = roomImageService;
-	}
-
-	public FacilityImageService getFacilityImageService() {
-		return facilityImageService;
-	}
-
-	public void setFacilityImageService(FacilityImageService facilityImageService) {
-		this.facilityImageService = facilityImageService;
-	}	
-	
-	
 	
 }

@@ -22,7 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import persistence.mybatis.mappers.ImageFileMapper;
-import persistence.mybatis.mappers.StructureImageMapper;
+import persistence.mybatis.mappers.StructureImageOwnershipMapper;
 
 @Service
 public class ImageFileServiceImpl implements ImageFileService{	
