@@ -18,26 +18,32 @@ In case of controversy the competent court is the Court of Cagliari (Italy).
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="persistence.mybatis.mappers.StructureImageCheckMapper">
+<mapper namespace="persistence.mybatis.mappers.StructureImageMapper">
     <cache/>
 	
 	
 	<insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="map">
-        insert into structureImage_check(id_structure,id_image) values(#{id_structure},#{id_image})
+        insert into structureImage(id_structure,id_image) values(#{id_structure},#{id_image})
     </insert>        
     
-    <select id="findByIdStructure" parameterType="int" resultType="map">
-        select id,id_structure,id_image from structureImage_check where id_structure = #{id_structure}
-    </select>    
     
+    
+    <select id="findIdByIdStructureAndIdImage" parameterType="map" resultType="int">
+        select id from structureImage where id_structure = #{id_structure} AND id_image = #{id_image}
+    </select>  
+    
+    <select id="findByIdStructure" parameterType="int" resultType="map">
+        select id,id_structure,id_image from structureImage where id_structure = #{id_structure}
+    </select>  
+        
     <delete id="delete" parameterType="int">
-        DELETE from structureImage_check where id = #{id}
+        DELETE from structureImage where id = #{id}
     </delete>
 	<delete id="deleteByIdImage" parameterType="int">
-        DELETE from structureImage_check where id_image = #{id_image}
+        DELETE from structureImage where id_image = #{id_image}
     </delete>   
     <delete id="deleteByIdStructure" parameterType="int">
-        DELETE from structureImage_check where id_structure = #{id_structure}
+        DELETE from structureImage where id_structure = #{id_structure}
     </delete>     	
 	    
 </mapper>

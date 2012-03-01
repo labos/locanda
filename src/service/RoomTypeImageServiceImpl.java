@@ -29,7 +29,6 @@ import persistence.mybatis.mappers.ImageFileMapper;
 import persistence.mybatis.mappers.ImageMapper;
 import persistence.mybatis.mappers.RoomImageMapper;
 import persistence.mybatis.mappers.RoomTypeImageMapper;
-import persistence.mybatis.mappers.StructureImageOwnershipMapper;
 
 import model.File;
 import model.Image;

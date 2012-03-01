@@ -15,11 +15,14 @@
  *******************************************************************************/
 package persistence.mybatis.mappers;
 
+import java.util.List;
+
 import model.Facility;
 
 public interface FacilityMapper {
 	public Integer insert(Facility facility);
 	public Integer update(Facility facility);
 	public Integer delete(Integer id);		
-	public Facility find(Integer id);			
+	public Facility find(Integer id);	
+	public List<Facility> findByIdStructure(Integer id_structure);
 }

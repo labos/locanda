@@ -29,7 +29,6 @@ import persistence.mybatis.mappers.ImageFileMapper;
 import persistence.mybatis.mappers.ImageMapper;
 import persistence.mybatis.mappers.RoomImageMapper;
 import persistence.mybatis.mappers.RoomTypeImageMapper;
-import persistence.mybatis.mappers.StructureImageOwnershipMapper;
 
 import model.File;
 import model.Image;
@@ -41,9 +40,7 @@ public class ImageServiceImpl implements ImageService{
 	@Autowired
 	private ImageFileService imageFileService = null;
 	@Autowired
-	private StructureImageOwnershipService structureImageOwnershipService = null;
-	@Autowired
-	private StructureImageCheckService structureImageCheckService = null;
+	private StructureImageService structureImageService = null;
 	@Autowired
 	private RoomTypeImageService roomTypeImageService = null;
 	@Autowired
@@ -54,12 +51,11 @@ public class ImageServiceImpl implements ImageService{
 	private FileService fileService = null;
 
 	@Override
-	public Integer insert(Image image,Integer id_structure) {	
+	public Integer insert(Image image) {	
 		Integer count;
 		File file = null;
 		
 		count = this.getImageMapper().insert(image);
-		this.getStructureImageOwnershipService().insert(id_structure, image.getId());
 		file = image.getFile();
 		this.getFileService().insert(file);		
 		this.getImageFileService().insert(image.getId(), file.getId());		
@@ -75,8 +71,7 @@ public class ImageServiceImpl implements ImageService{
 	public Integer delete(Integer id) {
 		Integer count = 0;
 				
-		this.getStructureImageOwnershipService().deleteByIdImage(id);
-		this.getStructureImageCheckService().deleteByIdImage(id);
+		this.getStructureImageService().deleteByIdImage(id);
 		this.getRoomTypeImageService().deleteByIdImage(id);
 		this.getRoomImageService().deleteByIdImage(id);
 		this.getFacilityImageService().deleteByIdImage(id);		
@@ -104,38 +99,42 @@ public class ImageServiceImpl implements ImageService{
 		return ret;		
 	}	
 	
-	
+
 	@Override
-	public List<Image> findByIdStructure_ownership(Integer id_structure) {
+	public List<Image> findByIdStructure(Integer id_structure) {
+		List<Image> ret = null;
+		Integer id_file;
+		File file;
+		
+		ret = this.getImageMapper().findByIdStructure(id_structure);
+		for(Image each: ret){
+			file = new File();
+			id_file = this.getImageFileService().findIdFileByIdImage(each.getId());		
+			file.setId(id_file);
+			each.setFile(file);
+		}		
+		return ret;
+	}
+
+	@Override
+	public List<Image> findCheckedByIdStructure(Integer id_structure) {
 		List<Image> ret = null;
 		Image image = null;
 		
 		ret = new ArrayList<Image>();
-		for(Integer id: this.getStructureImageOwnershipService().findIdImageByIdStructure(id_structure)){
+		for(Integer id: this.getStructureImageService().findIdImageByIdStructure(id_structure)){
 			image = this.find(id);
 			ret.add(image);
 		}
 		return ret;
 	}
 
+	
 	@Override
-	public List<Image> findByIdStructure_check(Integer id_structure) {
+	public List<Image> findCheckedByIdRoomType(Integer id_roomType) {
 		List<Image> ret = null;
 		Image image = null;
 		
-		ret = new ArrayList<Image>();
-		for(Integer id: this.getStructureImageCheckService().findIdImageByIdStructure(id_structure)){
-			image = this.find(id);
-			ret.add(image);
-		}
-		return ret;
-	}
-
-	
-	@Override
-	public List<Image> findByIdRoomType(Integer id_roomType) {
-		List<Image> ret = null;
-		Image image = null;
 		
 		ret = new ArrayList<Image>();
 		for(Integer id: this.getRoomTypeImageService().findIdImageByIdRoomType(id_roomType)){
@@ -147,7 +146,7 @@ public class ImageServiceImpl implements ImageService{
 	
 	
 	@Override
-	public List<Image> findByIdRoom(Integer id_room) {
+	public List<Image> findCheckedByIdRoom(Integer id_room) {
 		List<Image> ret = null;
 		Image image = null;		
 		
@@ -193,14 +192,6 @@ public class ImageServiceImpl implements ImageService{
 		this.fileService = fileService;
 	}
 
-	public StructureImageOwnershipService getStructureImageOwnershipService() {
-		return structureImageOwnershipService;
-	}
-
-	public void setStructureImageOwnershipService(StructureImageOwnershipService structureImageOwnershipService) {
-		this.structureImageOwnershipService = structureImageOwnershipService;
-	}
-
 	public RoomTypeImageService getRoomTypeImageService() {
 		return roomTypeImageService;
 	}
@@ -225,12 +216,12 @@ public class ImageServiceImpl implements ImageService{
 		this.facilityImageService = facilityImageService;
 	}
 
-	public StructureImageCheckService getStructureImageCheckService() {
-		return structureImageCheckService;
+	public StructureImageService getStructureImageService() {
+		return structureImageService;
 	}
 
-	public void setStructureImageCheckService(StructureImageCheckService structureImageCheckService) {
-		this.structureImageCheckService = structureImageCheckService;
+	public void setStructureImageService(StructureImageService structureImageService) {
+		this.structureImageService = structureImageService;
 	}
 		
 }

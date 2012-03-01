@@ -84,7 +84,7 @@ public class RoomTypeServiceImpl implements RoomTypeService{
 		List<Image> images = null;
 		
 		roomType = this.getRoomTypeMapper().findRoomTypeById(id);
-		images = this.getImageService().findByIdRoomType(id);
+		images = this.getImageService().findCheckedByIdRoomType(id);
 		roomType.setImages(images);
 		return roomType;
 		

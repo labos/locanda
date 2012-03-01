@@ -15,12 +15,10 @@ import javax.ws.rs.core.MediaType;
 
 import model.Facility;
 
-import org.apache.solr.client.solrj.SolrServerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import com.sun.jersey.api.NotFoundException;
 
 import service.FacilityService;
 
@@ -31,13 +29,7 @@ public class FacilityResource {
 	@Autowired
 	private FacilityService facilityService = null;	
 		
-	@GET
-	@Path("structure/{idStructure}/{offset}/{rownum}")
-	@Produces({MediaType.APPLICATION_JSON})	
-	public List<Facility> getStructureFacilities(@PathParam("idStructure") Integer idStructure){
-		return this.getFacilityService().findByIdStructure(idStructure);
-	}
-	
+		
 	@GET
 	@Path("{id}")
 	@Produces({MediaType.APPLICATION_JSON})	
@@ -73,7 +65,33 @@ public class FacilityResource {
 		 return count;
 	 } 
 	
-	
+	 @GET
+	 @Path("all/structure/{idStructure}/{offset}/{rownum}")
+	 @Produces({MediaType.APPLICATION_JSON})	
+	 public List<Facility> getAllFacilities(@PathParam("idStructure") Integer idStructure){
+		 return this.getFacilityService().findByIdStructure(idStructure);
+	 }
+	 
+	 @GET
+	 @Path("checked/structure/{idStructure}/{offset}/{rownum}")
+	 @Produces({MediaType.APPLICATION_JSON})	
+	 public List<Facility> getStructureFacilities(@PathParam("idStructure") Integer idStructure){
+		 return this.getFacilityService().findCheckedByIdStructure(idStructure);
+	 }
+	 
+	 @GET
+	 @Path("checked/roomType/{idRoomType}/{offset}/{rownum}")
+	 @Produces({MediaType.APPLICATION_JSON})	
+	 public List<Facility> getRoomTypeFacilities(@PathParam("idRoomType") Integer idRoomType){
+		 return this.getFacilityService().findCheckedByIdRoomType(idRoomType);
+	 }
+	 
+	 @GET
+	 @Path("checked/room/{idRoom}/{offset}/{rownum}")
+	 @Produces({MediaType.APPLICATION_JSON})	
+	 public List<Facility> getRoomFacilities(@PathParam("idRoom") Integer idRoom){
+		 return this.getFacilityService().findCheckedByIdRoom(idRoom);
+	 }
 	
 	public FacilityService getFacilityService() {
 		return facilityService;

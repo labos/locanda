@@ -60,9 +60,9 @@ public class RoomServiceImpl implements RoomService{
 		if (room!=null){
 			roomType = this.getRoomTypeMapper().findRoomTypeById(room.getId_roomType());
 			room.setRoomType(roomType);	
-			facilities = this.getFacilityService().findByIdRoom(id);
+			facilities = this.getFacilityService().findCheckedByIdRoom(id);
 			room.setFacilities(facilities);
-			images = this.getImageService().findByIdRoom(id);
+			images = this.getImageService().findCheckedByIdRoom(id);
 			room.setImages(images);
 		}
 		return room;
@@ -104,9 +104,9 @@ public class RoomServiceImpl implements RoomService{
 		rooms = this.getRoomMapper().findRoomsByIdStructure(id_structure);
 		for(Room each: rooms){
 			roomType = this.getRoomTypeMapper().findRoomTypeById(each.getId_roomType());
-			roomType.setImages(this.getImageService().findByIdRoomType(roomType.getId()));
+			roomType.setImages(this.getImageService().findCheckedByIdRoomType(roomType.getId()));
 			each.setRoomType(roomType);
-			each.setImages(this.getImageService().findByIdRoom(each.getId()));
+			each.setImages(this.getImageService().findCheckedByIdRoom(each.getId()));
 		}
 		return rooms;
 	}

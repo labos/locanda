@@ -1,6 +1,5 @@
 /*******************************************************************************
  *
-
  *  Copyright 2011 - Sardegna Ricerche, Distretto ICT, Pula, Italy
  *
  * Licensed under the EUPL, Version 1.1.
@@ -14,16 +13,21 @@
  * See the Licence for the specific language governing permissions and limitations under the Licence.
  * In case of controversy the competent court is the Court of Cagliari (Italy).
  *******************************************************************************/
-package service;
-
+package persistence.mybatis.mappers;
 
 import java.util.List;
-import org.springframework.transaction.annotation.Transactional;
+import java.util.Map;
+import model.Image;
 
-@Transactional
-public interface StructureFacilityCheckService {	
+public interface StructureImageMapper {	
 	
-	public Integer insert(Integer id_structure,Integer id_facility);	
-	public List<Integer> findIdFacilityByIdStructure(Integer id_structure);		
-
+	public Integer insert(Map map);	
+	
+	public Integer findIdByIdStructureAndIdImage(Map map);
+	public List<Map> findByIdStructure(Integer id_structure);
+	
+	public Integer delete(Integer id);
+	public Integer deleteByIdImage(Integer id_image);
+	public Integer deleteByIdStructure(Integer id_structure);
+		
 }

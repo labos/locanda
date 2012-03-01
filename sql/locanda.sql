@@ -239,10 +239,11 @@ DROP TABLE IF EXISTS `facility`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `facility` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) DEFAULT NULL,
-  `description` varchar(255) DEFAULT NULL,
+  `name` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
+  `description` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
+  `id_structure` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -266,7 +267,7 @@ CREATE TABLE `facilityImage` (
   `id_facility` int(11) DEFAULT NULL,
   `id_image` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -290,7 +291,7 @@ CREATE TABLE `file` (
   `name` varchar(255) DEFAULT NULL,
   `data` blob,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -347,8 +348,9 @@ DROP TABLE IF EXISTS `image`;
 CREATE TABLE `image` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `caption` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
+  `id_structure` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -690,7 +692,7 @@ CREATE TABLE `structure` (
   `notes` varchar(255) DEFAULT NULL,
   `id_user` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -703,13 +705,13 @@ LOCK TABLES `structure` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `structureFacility_check`
+-- Table structure for table `structureFacility`
 --
 
-DROP TABLE IF EXISTS `structureFacility_check`;
+DROP TABLE IF EXISTS `structureFacility`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `structureFacility_check` (
+CREATE TABLE `structureFacility` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_structure` int(11) DEFAULT NULL,
   `id_facility` int(11) DEFAULT NULL,
@@ -718,70 +720,22 @@ CREATE TABLE `structureFacility_check` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `structureFacility_check`
+-- Dumping data for table `structureFacility`
 --
 
-LOCK TABLES `structureFacility_check` WRITE;
-/*!40000 ALTER TABLE `structureFacility_check` DISABLE KEYS */;
-/*!40000 ALTER TABLE `structureFacility_check` ENABLE KEYS */;
+LOCK TABLES `structureFacility` WRITE;
+/*!40000 ALTER TABLE `structureFacility` DISABLE KEYS */;
+/*!40000 ALTER TABLE `structureFacility` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `structureFacility_ownership`
+-- Table structure for table `structureImage`
 --
 
-DROP TABLE IF EXISTS `structureFacility_ownership`;
+DROP TABLE IF EXISTS `structureImage`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `structureFacility_ownership` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_structure` int(11) DEFAULT NULL,
-  `id_facility` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `structureFacility_ownership`
---
-
-LOCK TABLES `structureFacility_ownership` WRITE;
-/*!40000 ALTER TABLE `structureFacility_ownership` DISABLE KEYS */;
-/*!40000 ALTER TABLE `structureFacility_ownership` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `structureImage_check`
---
-
-DROP TABLE IF EXISTS `structureImage_check`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `structureImage_check` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_structure` int(11) DEFAULT NULL,
-  `id_image` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `structureImage_check`
---
-
-LOCK TABLES `structureImage_check` WRITE;
-/*!40000 ALTER TABLE `structureImage_check` DISABLE KEYS */;
-/*!40000 ALTER TABLE `structureImage_check` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `structureImage_ownership`
---
-
-DROP TABLE IF EXISTS `structureImage_ownership`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `structureImage_ownership` (
+CREATE TABLE `structureImage` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_structure` int(11) DEFAULT NULL,
   `id_image` int(11) DEFAULT NULL,
@@ -790,12 +744,12 @@ CREATE TABLE `structureImage_ownership` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `structureImage_ownership`
+-- Dumping data for table `structureImage`
 --
 
-LOCK TABLES `structureImage_ownership` WRITE;
-/*!40000 ALTER TABLE `structureImage_ownership` DISABLE KEYS */;
-/*!40000 ALTER TABLE `structureImage_ownership` ENABLE KEYS */;
+LOCK TABLES `structureImage` WRITE;
+/*!40000 ALTER TABLE `structureImage` DISABLE KEYS */;
+/*!40000 ALTER TABLE `structureImage` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -814,7 +768,7 @@ CREATE TABLE `user` (
   `password` varchar(255) DEFAULT NULL,
   `creationDate` date DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -835,4 +789,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2012-02-27  9:34:14
+-- Dump completed on 2012-03-01 16:19:49

@@ -48,7 +48,6 @@ import service.RoomImageService;
 import service.RoomService;
 import service.RoomTypeImageService;
 import service.RoomTypeService;
-import service.StructureImageOwnershipService;
 import service.StructureService;
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -70,8 +69,6 @@ public class UploadAction extends ActionSupport {
 	private StructureService structureService = null;
 	@Autowired
 	private RoomTypeImageService roomTypeImageService = null;
-	@Autowired
-	private StructureImageOwnershipService structureImageOwnershipService = null;
 	@Autowired
 	private RoomTypeService roomTypeService = null;
 	@Autowired
@@ -117,7 +114,7 @@ public class UploadAction extends ActionSupport {
 		file.setName(this.getUploadFileName());
 		file.setData(data);	
 		image.setFile(file);
-		this.getImageService().insert(image,image.getId());
+	//	this.getImageService().insert(image,image.getId());
 		
 			
 		message.setResult(Message.SUCCESS);
@@ -159,7 +156,7 @@ public class UploadAction extends ActionSupport {
 		file.setData(data);	
 		image.setFile(file);
 		
-		this.getImageService().insert(image,image.getId());
+		//this.getImageService().insert(image,image.getId());
 		
 			
 		message.setResult(Message.SUCCESS);
@@ -200,7 +197,7 @@ public class UploadAction extends ActionSupport {
 		file.setData(data);	
 		image.setFile(file);
 		
-		this.getImageService().insert(image,image.getId());
+		//this.getImageService().insert(image,image.getId());
 		
 			
 		message.setResult(Message.SUCCESS);
@@ -239,7 +236,7 @@ public class UploadAction extends ActionSupport {
 		file.setData(data);	
 		image.setFile(file);			
 		
-		this.getImageService().insert(image,image.getId());
+		//this.getImageService().insert(image,image.getId());
 						
 		message.setResult(Message.SUCCESS);
 		message.setDescription(getText("facilityImageAddSuccessAction"));
@@ -321,16 +318,6 @@ public class UploadAction extends ActionSupport {
 	}
 
 
-
-	public StructureImageOwnershipService getStructureImageOwnershipService() {
-		return structureImageOwnershipService;
-	}
-
-
-
-	public void setStructureImageOwnershipService(StructureImageOwnershipService structureImageOwnershipService) {
-		this.structureImageOwnershipService = structureImageOwnershipService;
-	}
 
 
 
