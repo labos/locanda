@@ -22,7 +22,7 @@ In case of controversy the competent court is the Court of Cagliari (Italy).
     <cache/>
 	
 	<insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="model.Image">
-        insert into image(caption) values(#{caption})
+        insert into image(caption,id_structure) values(#{caption},#{id_structure})
     </insert>  
     
     <update id="update"  parameterType="model.Image">
@@ -35,11 +35,14 @@ In case of controversy the competent court is the Court of Cagliari (Italy).
           
     <select id="find" parameterType="int" resultType="model.Image">
         <include refid="selectImage"/> where id = #{id}
-    </select>  
+    </select> 
+    
+    <select id="findByIdStructure" parameterType="int" resultType="model.Image">
+        <include refid="selectImage"/> where id_structure = #{id_structure}
+    </select> 
           
     <sql id="selectImage">
-        select id,caption from image
-    </sql>    	
-	
-   	    
+        select id,caption,id_structure from image
+    </sql>   
+       	    
 </mapper>

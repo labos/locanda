@@ -23,12 +23,12 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import persistence.mybatis.mappers.StructureImageOwnershipMapper;
+import persistence.mybatis.mappers.StructureImageMapper;
 
 @Service
-public class StructureImageOwnershipServiceImpl implements StructureImageOwnershipService{	
+public class StructureImageServiceImpl implements StructureImageService{	
 	@Autowired
-	private StructureImageOwnershipMapper structureImageOwnershipMapper = null;
+	private StructureImageMapper structureImageMapper = null;
 	
 	@Override
 	public Integer insert(Integer id_structure, Integer id_image) {
@@ -37,15 +37,25 @@ public class StructureImageOwnershipServiceImpl implements StructureImageOwnersh
 		map = new HashMap();
 		map.put("id_structure",id_structure );
 		map.put("id_image",id_image);
-		return this.getStructureImageOwnershipMapper().insert(map);
+		return this.getStructureImageMapper().insert(map);
 	}	
+		
+	@Override
+	public Integer findIdByIdStructureAndIdImage(Integer id_structure,Integer id_image) {
+		Map map = null;
+		
+		map = new HashMap();
+		map.put("id_structure", id_structure);
+		map.put("id_image", id_image);		
+		return this.getStructureImageMapper().findIdByIdStructureAndIdImage(map);
+	}
 
 	@Override
 	public List<Integer> findIdImageByIdStructure(Integer id_structure) {
 		List<Integer> ret = null;
 		
 		ret = new ArrayList<Integer>();
-		for(Map map: this.getStructureImageOwnershipMapper().findByIdStructure(id_structure)){
+		for(Map map: this.getStructureImageMapper().findByIdStructure(id_structure)){
 			ret.add((Integer)map.get("id_image"));
 		}
 		return ret;
@@ -54,28 +64,30 @@ public class StructureImageOwnershipServiceImpl implements StructureImageOwnersh
 	@Override
 	public Integer delete(Integer id) {
 		
-		return this.getStructureImageOwnershipMapper().delete(id);
+		return this.getStructureImageMapper().delete(id);
 	}
 
 	@Override
 	public Integer deleteByIdImage(Integer id_image) {
 		
-		return this.getStructureImageOwnershipMapper().deleteByIdImage(id_image);
+		return this.getStructureImageMapper().deleteByIdImage(id_image);
 	}
 
 	@Override
 	public Integer deleteByIdStructure(Integer id_structure) {
 		
-		return this.getStructureImageOwnershipMapper().deleteByIdStructure(id_structure);
+		return this.getStructureImageMapper().deleteByIdStructure(id_structure);
 	}
 
-	public StructureImageOwnershipMapper getStructureImageOwnershipMapper() {
-		return structureImageOwnershipMapper;
+	public StructureImageMapper getStructureImageMapper() {
+		return structureImageMapper;
 	}
 
-	public void setStructureImageOwnerhipMapper(StructureImageOwnershipMapper structureImageOwnershipMapper) {
-		this.structureImageOwnershipMapper = structureImageOwnershipMapper;
+	public void setStructureImageMapper(StructureImageMapper structureImageMapper) {
+		this.structureImageMapper = structureImageMapper;
 	}
+
+	
 
 		
 }

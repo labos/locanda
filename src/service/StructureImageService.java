@@ -23,10 +23,11 @@ import org.springframework.transaction.annotation.Transactional;
 import model.Image;
 
 @Transactional
-public interface StructureImageOwnershipService {
+public interface StructureImageService {
 	
 	public Integer insert(Integer id_structure,Integer id_image);
 	
+	public Integer findIdByIdStructureAndIdImage(Integer id_structure,Integer id_image);
 	public List<Integer> findIdImageByIdStructure(Integer id_structure);
 	
 	public Integer delete(Integer id);

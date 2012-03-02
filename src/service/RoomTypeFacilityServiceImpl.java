@@ -30,7 +30,7 @@ import org.springframework.stereotype.Service;
 import persistence.mybatis.mappers.FacilityMapper;
 import persistence.mybatis.mappers.ImageMapper;
 import persistence.mybatis.mappers.RoomTypeFacilityMapper;
-import persistence.mybatis.mappers.StructureFacilityCheckMapper;
+import persistence.mybatis.mappers.StructureFacilityMapper;
 
 import model.Facility;
 import model.Image;
@@ -41,7 +41,7 @@ public class RoomTypeFacilityServiceImpl implements RoomTypeFacilityService{
 	@Autowired
 	private RoomTypeFacilityMapper roomTypeFacilityMapper = null;
 	@Autowired
-	private StructureFacilityCheckService structureFacilityCheckService = null;
+	private StructureFacilityService structureFacilityService = null;
 	@Autowired
 	private ImageService imageService = null;
 	
@@ -104,13 +104,13 @@ public class RoomTypeFacilityServiceImpl implements RoomTypeFacilityService{
 	}
 
 	
-	public StructureFacilityCheckService getStructureFacilityCheckService() {
-		return structureFacilityCheckService;
+	public StructureFacilityService getStructureFacilityService() {
+		return structureFacilityService;
 	}
 
 
-	public void setStructureFacilityCheckService(StructureFacilityCheckService structureFacilityCheckService) {
-		this.structureFacilityCheckService = structureFacilityCheckService;
+	public void setStructureFacilityService(StructureFacilityService structureFacilityService) {
+		this.structureFacilityService = structureFacilityService;
 	}
 
 

@@ -17,12 +17,14 @@ package persistence.mybatis.mappers;
 
 import java.util.List;
 import java.util.Map;
-import model.Image;
 
-public interface StructureImageCheckMapper {	
+public interface StructureImageMapper {	
 	
 	public Integer insert(Map map);	
+	
+	public Integer findIdByIdStructureAndIdImage(Map map);
 	public List<Map> findByIdStructure(Integer id_structure);
+	
 	public Integer delete(Integer id);
 	public Integer deleteByIdImage(Integer id_image);
 	public Integer deleteByIdStructure(Integer id_structure);

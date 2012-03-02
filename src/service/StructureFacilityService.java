@@ -21,7 +21,7 @@ import java.util.List;
 import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
-public interface StructureFacilityCheckService {	
+public interface StructureFacilityService {	
 	
 	public Integer insert(Integer id_structure,Integer id_facility);	
 	public List<Integer> findIdFacilityByIdStructure(Integer id_structure);		

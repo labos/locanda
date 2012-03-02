@@ -27,28 +27,19 @@ import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import com.sun.jersey.api.NotFoundException;
 import com.sun.jersey.core.header.FormDataContentDisposition;
 import com.sun.jersey.multipart.FormDataParam;
-
-
-import service.FacilityImageService;
 import service.ImageService;
-import service.RoomImageService;
-import service.RoomTypeImageService;
-import service.RoomTypeService;
-import service.StructureImageOwnershipService;
 
-@Path("/image/")
+@Path("/images/")
 @Component
 @Scope("prototype")
 
 public class ImageResource {
 	@Autowired
-	private ImageService imageService = null;
-	
+	private ImageService imageService = null;	
 	
 	@GET
 	@Path("{id}")
@@ -78,6 +69,7 @@ public class ImageResource {
 		
 		image = new Image();
 		image.setCaption(caption);
+		image.setId_structure(idStructure);
 		file = new File();
 		file.setName(fileDetail.getFileName());
 		try {
@@ -87,7 +79,8 @@ public class ImageResource {
 			e.printStackTrace();
 		}
 		image.setFile(file);
-		this.getImageService().insert(image,idStructure);
+		
+		this.getImageService().insert(image);
 		return image;
 	}
 	
@@ -117,6 +110,43 @@ public class ImageResource {
 		}			
 		return count;
     }   
+	
+	@GET
+	@Path("all/structure/{idStructure}/{offset}/{rownum}")
+	@Produces({MediaType.APPLICATION_JSON})	
+	public List<Image> getAllImages(@PathParam("idStructure") Integer idStructure){
+		return this.getImageService().findByIdStructure(idStructure);
+		
+	}	
+	
+	@GET
+	@Path("checked/structure/{idStructure}/{offset}/{rownum}")
+	@Produces({MediaType.APPLICATION_JSON})	
+	public List<Image> getStructureImages(@PathParam("idStructure") Integer idStructure){
+		return this.getImageService().findCheckedByIdStructure(idStructure);
+		
+	}	
+	
+	@GET
+	@Path("checked/roomType/{idRoomType}/{offset}/{rownum}")
+	@Produces({MediaType.APPLICATION_JSON})	
+	public List<Image> getRoomTypeImages(@PathParam("idRoomType") Integer idRoomType){
+		return this.getImageService().findCheckedByIdRoomType(idRoomType);
+	}
+	
+	@GET
+	@Path("checked/room/{idRoom}/{offset}/{rownum}")
+	@Produces({MediaType.APPLICATION_JSON})	
+	public List<Image> getRoomImages(@PathParam("idRoom") Integer idRoom){
+		return this.getImageService().findCheckedByIdRoom(idRoom);
+	}
+
+	@GET
+	@Path("checked/facility/{idFacility}")
+	@Produces({MediaType.APPLICATION_JSON})	
+	public Image getFacilityImage(@PathParam("idFacility") Integer idFacility){
+		return this.getImageService().findByIdFacility(idFacility);
+	}
 
 	public ImageService getImageService() {
 		return imageService;
@@ -124,9 +154,5 @@ public class ImageResource {
 
 	public void setImageService(ImageService imageService) {
 		this.imageService = imageService;
-	}
-
-	
-
-	
+	}	
 }

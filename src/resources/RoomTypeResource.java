@@ -164,9 +164,9 @@ public class RoomTypeResource {
 		List<Facility> facilities = null;
 		
 		ret = this.getRoomTypeService().findRoomTypeById(id);
-		images = this.getImageService().findByIdRoomType(id);
+		images = this.getImageService().findCheckedByIdRoomType(id);
 		ret.setImages(images);
-		facilities = this.getFacilityService().findByIdRoomType(id);
+		facilities = this.getFacilityService().findCheckedByIdRoomType(id);
 		ret.setFacilities(facilities);
 		return ret;
 	}

@@ -31,7 +31,7 @@ import persistence.mybatis.mappers.FacilityMapper;
 import persistence.mybatis.mappers.ImageMapper;
 import persistence.mybatis.mappers.RoomFacilityMapper;
 import persistence.mybatis.mappers.RoomTypeFacilityMapper;
-import persistence.mybatis.mappers.StructureFacilityCheckMapper;
+import persistence.mybatis.mappers.StructureFacilityMapper;
 
 import model.Facility;
 import model.Image;
@@ -41,7 +41,7 @@ public class FacilityServiceImpl implements FacilityService{
 	@Autowired
 	private FacilityMapper facilityMapper = null;	
 	@Autowired
-	private StructureFacilityCheckService structureFacilityCheckService = null;
+	private StructureFacilityService structureFacilityService = null;
 	@Autowired
 	private RoomFacilityService roomFacilityService = null;
 	@Autowired
@@ -84,17 +84,31 @@ public class FacilityServiceImpl implements FacilityService{
 		return ret;
 	}
 
+	
+	
 	@Override
-	public List<Facility> findByIdStructure(Integer id_structure) {		
+	public List<Facility> findByIdStructure(Integer id_structure) {
+		List<Facility> ret = null;
+		Image image = null;
+		
+		ret = this.getFacilityMapper().findByIdStructure(id_structure);
+		for(Facility each: ret){
+			image = this.getImageService().findByIdFacility(each.getId());
+			each.setImage(image);
+		}
+		return ret;
+	}
+
+	@Override
+	public List<Facility> findCheckedByIdStructure(Integer id_structure) {		
 		List<Integer> ids = null;
 		
-		ids = this.getStructureFacilityCheckService().findIdFacilityByIdStructure(id_structure);
-		return this.findByIds(ids);
-		
+		ids = this.getStructureFacilityService().findIdFacilityByIdStructure(id_structure);
+		return this.findByIds(ids);		
 	}
 	
 	@Override
-	public List<Facility> findByIdRoomType(Integer id_roomType) {
+	public List<Facility> findCheckedByIdRoomType(Integer id_roomType) {
 		List<Integer> ids = null;
 		
 		ids = this.getRoomTypeFacilityService().findIdFacilityByIdRoomType(id_roomType);
@@ -102,7 +116,7 @@ public class FacilityServiceImpl implements FacilityService{
 	}
 	
 	@Override
-	public List<Facility> findByIdRoom(Integer id_room) {	
+	public List<Facility> findCheckedByIdRoom(Integer id_room) {	
 		List<Integer> ids = null;
 		
 		ids = this.getRoomFacilityService().findIdFacilityByIdRoom(id_room);
@@ -141,13 +155,13 @@ public class FacilityServiceImpl implements FacilityService{
 	}
 
 	
-	public StructureFacilityCheckService getStructureFacilityCheckService() {
-		return structureFacilityCheckService;
+	public StructureFacilityService getStructureFacilityService() {
+		return structureFacilityService;
 	}
 
 
-	public void setStructureFacilityCheckService(StructureFacilityCheckService structureFacilityCheckService) {
-		this.structureFacilityCheckService = structureFacilityCheckService;
+	public void setStructureFacilityService(StructureFacilityService structureFacilityService) {
+		this.structureFacilityService = structureFacilityService;
 	}
 
 

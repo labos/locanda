@@ -29,15 +29,15 @@ import org.springframework.stereotype.Service;
 
 import persistence.mybatis.mappers.FacilityMapper;
 import persistence.mybatis.mappers.ImageMapper;
-import persistence.mybatis.mappers.StructureFacilityCheckMapper;
+import persistence.mybatis.mappers.StructureFacilityMapper;
 
 import model.Facility;
 import model.Image;
 
 @Service
-public class StructureFacilityCheckServiceImpl implements StructureFacilityCheckService{
+public class StructureFacilityServiceImpl implements StructureFacilityService{
 	@Autowired
-	private StructureFacilityCheckMapper structureFacilityCheckMapper = null;
+	private StructureFacilityMapper structureFacilityMapper = null;
 	@Autowired
 	private ImageService imageService = null;
 	
@@ -76,12 +76,12 @@ public class StructureFacilityCheckServiceImpl implements StructureFacilityCheck
 		this.imageService = imageService;
 	}
 
-	public StructureFacilityCheckMapper getStructureFacilityCheckMapper() {
-		return structureFacilityCheckMapper;
+	public StructureFacilityMapper getStructureFacilityCheckMapper() {
+		return structureFacilityMapper;
 	}
 
-	public void setStructureFacilityCheckMapper(StructureFacilityCheckMapper structureFacilityCheckMapper) {
-		this.structureFacilityCheckMapper = structureFacilityCheckMapper;
+	public void setStructureFacilityCheckMapper(StructureFacilityMapper structureFacilityMapper) {
+		this.structureFacilityMapper = structureFacilityMapper;
 	}
 		
 }
