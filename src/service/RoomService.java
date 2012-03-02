@@ -33,7 +33,8 @@ public interface RoomService {
 	public List<Integer> findRoomIdsByIdStructure(Integer id_structure);
 	public List<Room> findRoomsByIdStructure(Integer id_structure,Integer offset,Integer rownum);
 	public List<Room> findRoomsByIdRoomType(Integer id_roomType);
-	
+		
 	public Room findRoomById(Integer id);
 	public Room findRoomByIdStructureAndName(Integer id_structure, String name);
+	public Integer findIdStructureByIdRoom(Integer idRoom);
 }

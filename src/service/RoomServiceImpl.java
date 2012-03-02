@@ -49,6 +49,13 @@ public class RoomServiceImpl implements RoomService{
 	private RoomImageService roomImageService = null;
 	
 	
+	
+	@Override
+	public Integer findIdStructureByIdRoom(Integer idRoom) {
+		
+		return this.getRoomMapper().findIdStructureByIdRoom(idRoom);
+	}
+
 	@Override
 	public Room findRoomById(Integer id) {	
 		Room room = null;

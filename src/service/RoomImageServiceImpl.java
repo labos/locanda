@@ -61,6 +61,19 @@ public class RoomImageServiceImpl implements RoomImageService{
 		}
 		return ret;
 	}
+	
+	
+
+	@Override
+	public Integer findIdByIdRoomAndIdImage(Integer id_room, Integer id_image) {
+		Map map = null;
+		
+		map = new HashMap();
+		map.put("id_room", id_room);
+		map.put("id_image", id_image);	
+		return this.getRoomImageMapper().findIdByIdRoomAndIdImage(map);
+	}
+
 
 	@Override
 	public Integer delete(Integer id) {		

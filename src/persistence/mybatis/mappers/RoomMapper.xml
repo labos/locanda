@@ -64,6 +64,10 @@ In case of controversy the competent court is the Court of Cagliari (Italy).
     
     <select id="countRoomsByIdRoomType" parameterType="int" resultType="int">
         SELECT count(id) FROM room WHERE id_roomType = #{id_roomType}
+    </select>    
+    
+    <select id="findIdStructureByIdRoom" parameterType="int" resultType="int">
+        <include refid="selectIdStructure"/>WHERE id = #{id}
     </select>
     
     <sql id="selectRoom">
@@ -72,6 +76,10 @@ In case of controversy the competent court is the Court of Cagliari (Italy).
     
     <sql id="selectRoomId">
         SELECT id FROM room
+    </sql>
+    
+    <sql id="selectIdStructure">
+        SELECT id_structure FROM room
     </sql>
     
 </mapper>

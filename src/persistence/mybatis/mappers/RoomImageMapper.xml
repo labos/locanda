@@ -35,12 +35,14 @@ In case of controversy the competent court is the Court of Cagliari (Italy).
     
     <delete id="deleteByIdImage" parameterType="int">
         DELETE from roomImage where id_image = #{id_image}
-    </delete>
-     
-      
+    </delete>     
     
-     <select id="findByIdRoom" parameterType="int" resultType="map">
+    <select id="findByIdRoom" parameterType="int" resultType="map">
         select id,id_room,id_image from roomImage where id_room = #{id_room}
     </select> 
+    
+    <select id="findIdByIdRoomAndIdImage" parameterType="map" resultType="int">
+        select id from roomImage where id_room = #{id_room} AND id_image = #{id_image}
+    </select>    
             
 </mapper>

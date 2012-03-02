@@ -25,7 +25,10 @@ import model.Image;
 @Transactional
 public interface RoomImageService {	
 	public Integer insert(Integer id_room,Integer id_image);
+	
 	public List<Integer> findIdImageByIdRoom(Integer id_room);
+	public Integer findIdByIdRoomAndIdImage(Integer id_room, Integer id_image );
+	
 	public Integer delete(Integer id);
 	public Integer deleteByIdImage(Integer id_image);	
 	public Integer deleteByIdRoom(Integer id_room);	
