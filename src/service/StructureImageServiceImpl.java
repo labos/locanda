@@ -39,9 +39,7 @@ public class StructureImageServiceImpl implements StructureImageService{
 		map.put("id_image",id_image);
 		return this.getStructureImageMapper().insert(map);
 	}	
-
-	
-	
+		
 	@Override
 	public Integer findIdByIdStructureAndIdImage(Integer id_structure,Integer id_image) {
 		Map map = null;
@@ -51,8 +49,6 @@ public class StructureImageServiceImpl implements StructureImageService{
 		map.put("id_image", id_image);		
 		return this.getStructureImageMapper().findIdByIdStructureAndIdImage(map);
 	}
-
-
 
 	@Override
 	public List<Integer> findIdImageByIdStructure(Integer id_structure) {

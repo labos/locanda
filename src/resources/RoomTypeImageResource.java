@@ -48,34 +48,38 @@ import service.RoomTypeImageService;
 import service.RoomTypeService;
 import service.StructureImageService;
 
-@Path("/structureImages/")
+@Path("/roomTypeImages/")
 @Component
 @Scope("prototype")
 
-public class StructureImageResource {
+public class RoomTypeImageResource {
 	@Autowired
 	private ImageService imageService = null;
 	@Autowired
-	private StructureImageService structureImageService = null;	
+	private RoomTypeImageService roomTypeImageService = null;
+	@Autowired
+	private RoomTypeService roomTypeService = null;
 		
 	@GET
-	@Path("structure/{idStructure}/{offset}/{rownum}")
+	@Path("roomType/{idRoomType}/{offset}/{rownum}")
 	@Produces({MediaType.APPLICATION_JSON})	
-	public JSONArray getStructureImages(@PathParam("idStructure") Integer idStructure){
+	public JSONArray getStructureImages(@PathParam("idRoomType") Integer idRoomType){
 		JSONArray jsonArray = null;
 		JSONObject jsonObject = null;
 		List<Image> images = null;
 		ObjectMapper objectMapper = null; 
 		String imageAsJsonString = null;
 		Integer id = null;
-		String idAsJsonString = null;;
+		String idAsJsonString = null;
+		Integer idStructure = null;
 				
 		jsonArray = new JSONArray();		
 		
 		objectMapper = new ObjectMapper();
+		idStructure = this.getRoomTypeService().findIdStructureByIdRoomType(idRoomType);
 		images = this.getImageService().findByIdStructure(idStructure);
 		for(Image each: images){
-			id = this.getStructureImageService().findIdByIdStructureAndIdImage(idStructure, each.getId());  
+			id = this.getRoomTypeImageService().findIdByIdRoomTypeAndIdImage(idRoomType, each.getId());  
 			try {
 				imageAsJsonString = objectMapper.writeValueAsString(each);
 				idAsJsonString = objectMapper.writeValueAsString(id);
@@ -91,7 +95,7 @@ public class StructureImageResource {
 			
 			try {
 				jsonObject.put("id",new JSONObject(idAsJsonString));
-				jsonObject.put("idStructure", idStructure);
+				jsonObject.put("idRoomType", idRoomType);
 				jsonObject.put("image", new JSONObject(imageAsJsonString));
 			} catch (JSONException e) {
 				e.printStackTrace();
@@ -105,20 +109,20 @@ public class StructureImageResource {
 	@POST
 	@Consumes({MediaType.APPLICATION_JSON})
 	@Produces({MediaType.APPLICATION_JSON}) 
-	public JSONObject insertStructureImage(JSONObject jsonObject){	
-		Integer id_structure = null;
+	public JSONObject insertRoomTypeImage(JSONObject jsonObject){	
+		Integer id_roomType = null;
 		Integer id_image = null;
 		Integer id;
 		
  		try {
-			id_structure = jsonObject.getInt("idStructure");
+ 			id_roomType = jsonObject.getInt("idRoomType");
 			id_image = jsonObject.getJSONObject("image").getInt("id");			
 			
 		} catch (JSONException e) {
 			e.printStackTrace();
 		} 
- 		this.getStructureImageService().insert(id_structure, id_image);
- 		id = this.getStructureImageService().findIdByIdStructureAndIdImage(id_structure, id_image);
+ 		this.getRoomTypeImageService().insert(id_roomType, id_image);
+ 		id = this.getRoomTypeImageService().findIdByIdRoomTypeAndIdImage(id_roomType, id_image);
  		try {
 			jsonObject.put("id", id);
 		} catch (JSONException e) {
@@ -131,12 +135,12 @@ public class StructureImageResource {
 	@DELETE
     @Path("{id}")
 	@Produces({MediaType.APPLICATION_JSON})   
-    public Integer deleteStructureImage(@PathParam("id") Integer id){
+    public Integer deleteRoomTypeImage(@PathParam("id") Integer id){
     	Integer count = 0;				
 		
-    	count = this.getStructureImageService().delete(id);
+    	count = this.getRoomTypeImageService().delete(id);
     	if(count == 0){
-			throw new NotFoundException("Error: the structure image has NOT been deleted");
+			throw new NotFoundException("Error: the roomType image has NOT been deleted");
 		}			
 		return count;
     }   
@@ -149,13 +153,23 @@ public class StructureImageResource {
 		this.imageService = imageService;
 	}
 
-	public StructureImageService getStructureImageService() {
-		return structureImageService;
+	
+	public RoomTypeImageService getRoomTypeImageService() {
+		return roomTypeImageService;
 	}
 
-	public void setStructureImageService(StructureImageService structureImageService) {
-		this.structureImageService = structureImageService;
-	}	
+	public void setRoomTypeImageService(RoomTypeImageService roomTypeImageService) {
+		this.roomTypeImageService = roomTypeImageService;
+	}
 
+	public RoomTypeService getRoomTypeService() {
+		return roomTypeService;
+	}
+
+	public void setRoomTypeService(RoomTypeService roomTypeService) {
+		this.roomTypeService = roomTypeService;
+	}	
+	
+	
 	
 }

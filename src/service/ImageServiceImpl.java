@@ -98,7 +98,6 @@ public class ImageServiceImpl implements ImageService{
 		ret.setFile(file);
 		return ret;		
 	}	
-	
 
 	@Override
 	public List<Image> findByIdStructure(Integer id_structure) {

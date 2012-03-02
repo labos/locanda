@@ -38,7 +38,6 @@ public class RoomTypeImageServiceImpl implements RoomTypeImageService{
 	
 	@Autowired
 	private RoomTypeImageMapper roomTypeImageMapper = null;
-	
 		
 	@Override
 	public Integer insert(Integer id_roomType, Integer id_image) {
@@ -50,9 +49,6 @@ public class RoomTypeImageServiceImpl implements RoomTypeImageService{
 		return this.getRoomTypeImageMapper().insert(map);
 	}
 	
-	
-	
-	
 	@Override
 	public List<Integer> findIdImageByIdRoomType(Integer id_roomType) {
 		List<Integer> ret = null;
@@ -63,9 +59,16 @@ public class RoomTypeImageServiceImpl implements RoomTypeImageService{
 		}
 		return ret;
 	}
-
-
-
+	
+	@Override
+	public Integer findIdByIdRoomTypeAndIdImage(Integer id_roomType, Integer id_image) {
+		Map map = null;
+		
+		map = new HashMap();
+		map.put("id_roomType", id_roomType);
+		map.put("id_image", id_image);	
+		return this.getRoomTypeImageMapper().findIdByIdRoomTypeAndIdImage(map);
+	}
 
 	@Override
 	public Integer delete(Integer id) {
@@ -73,26 +76,17 @@ public class RoomTypeImageServiceImpl implements RoomTypeImageService{
 		return this.getRoomTypeImageMapper().delete(id);
 	}
 
-
-
-
 	@Override
 	public Integer deleteByIdImage(Integer id_image) {
 		
 		return this.getRoomTypeImageMapper().deleteByIdImage(id_image);
 	}
 
-
-
-
 	@Override
 	public Integer deleteByIdRoomType(Integer id_roomType) {
 		
 		return this.getRoomTypeImageMapper().deleteByIdRoomType(id_roomType);
 	}
-
-
-
 
 	public RoomTypeImageMapper getRoomTypeImageMapper() {
 		return roomTypeImageMapper;
@@ -101,6 +95,5 @@ public class RoomTypeImageServiceImpl implements RoomTypeImageService{
 	public void setRoomTypeImageMapper(RoomTypeImageMapper roomTypeImageMapper) {
 		this.roomTypeImageMapper = roomTypeImageMapper;
 	}
-
 	
 }

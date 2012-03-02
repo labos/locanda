@@ -23,23 +23,26 @@ In case of controversy the competent court is the Court of Cagliari (Italy).
 	
 	<insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="map">
         insert into roomTypeImage(id_roomType,id_image) values(#{id_roomType},#{id_image})
-    </insert>    
-     
+    </insert>  
+         
     <delete id="delete" parameterType="int">
         DELETE from roomTypeImage where id = #{id}
     </delete>
-    
-     <delete id="deleteByIdRoomType" parameterType="int">
+        
+    <delete id="deleteByIdRoomType" parameterType="int">
         DELETE from roomTypeImage where id_roomType = #{id_roomType}
     </delete> 
-    
+        
     <delete id="deleteByIdImage" parameterType="int">
         DELETE from roomTypeImage where id_image = #{id_image}
-    </delete>      
-    
+    </delete> 
+        
     <select id="findByIdRoomType" parameterType="int" resultType="map">
         select id, id_roomType, id_image from roomTypeImage where id_roomType = #{id_roomType}
-    </select> 
+    </select>
     
-	    
+    <select id="findIdByIdRoomTypeAndIdImage" parameterType="map" resultType="int">
+        select id from roomTypeImage where id_roomType = #{id_roomType} AND id_image = #{id_image}
+    </select>
+    	   
 </mapper>
