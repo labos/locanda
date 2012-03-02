@@ -40,13 +40,13 @@
 	</script>
 	
 	<script id="image-view-template" type="text/x-handlebars-template">
-            <div class="c50l">
-				<img src="rest/file/{{id}}" alt="" />
+            <div class="c50l inview">
+				{{#id}}<img src="rest/file/{{id}}" alt="" />{{/id}}
+				{{^id}}<img src="images/image-default.png" alt="default" /><b><s:text name="insertNewImage"/></b>{{/id}}
 			</div>
  	</script>
  	
     <script id="image-edit-template" type="text/x-handlebars-template">
-		{{#id}}
  		<div class="subcolumns">
 		   	<div class="result_facility_upload" id="result_facility_upload"></div>
 		   	<div class="upload_loader">&nbsp;</div>
@@ -72,10 +72,9 @@
 		   	  	</div>
 		   	</div>      
         </div>
-		{{/id}}
 	</script>
     <script id="view-template" type="text/x-handlebars-template">
-		<form id="view-form" class="yform json full" role="application">
+		<form id="view-form" class="yform inview" role="application">
                 <div class="c50l">
                   <div class="type-text">	
                   	<strong><s:text name="name"/></strong>

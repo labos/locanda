@@ -71,7 +71,7 @@
     	 // render main edit view
     	 var modelToRender = this.model.toJSON();
     	 // set additional attribute to display roomTypes. Only for the view.
-    	 modelToRender.availableRoomTypes = this.setRoomTypes(this.model.attributes.roomType.id);
+    	 modelToRender.availableRoomTypes = this.model.get("roomType")? this.setRoomTypes(this.model.get("roomType").id) : this.setRoomTypes( null );
          $(this.el).html(Mustache.to_html(this.indexTemplate.html(), modelToRender));
          // add validation check
          this.$(".yform").validate();

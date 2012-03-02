@@ -32,7 +32,9 @@ window.ThumbnailView = Backbone.View.extend({
 
     },
     render: function () {
-        $(this.el).html(Mustache.to_html(this.indexTemplate.html(), this.model));
+    	var modelToRender = this.model.toJSON();
+    	
+        $(this.el).html(Mustache.to_html(this.indexTemplate.html(), modelToRender));
         if (this.$("#uploadFacility").length) {
             this.$("#uploadFacility").uploadImage(this);
         }
@@ -131,7 +133,7 @@ window.EditFacilityView = EditView.extend({
             var self = this;
             this.id = this.model.get("id");
             this.thumbnailView.unbind("child:update");
-            this.thumbnailView.model.set(this.model.get("image").file);
+            this.model.get("image")? this.thumbnailView.model.set(this.model.get("image").file) : this.thumbnailView.model.set(new Image());
 
             // listen for changes in model on editing and fetch model if any change occur.
             this.thumbnailView.bind("child:update", function () {
