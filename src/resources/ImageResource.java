@@ -62,7 +62,7 @@ public class ImageResource {
 		@FormDataParam("upload") InputStream uploadedInputStream,
 		@FormDataParam("upload") FormDataContentDisposition fileDetail,
 		@FormDataParam("caption") String caption,
-		@PathParam("idStructure") Integer idStructure){															
+		@FormDataParam("idStructure") Integer idStructure){															
  
 		Image image = null;
 		File file = null;
