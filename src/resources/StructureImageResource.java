@@ -2,51 +2,36 @@ package resources;
 
 
 import java.io.IOException;
-import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.WebApplicationException;
-
 import javax.ws.rs.core.MediaType;
 
-
-import model.File;
 import model.Image;
 
-
-import org.apache.commons.io.IOUtils;
 import org.codehaus.jackson.JsonGenerationException;
-import org.codehaus.jackson.jaxrs.JacksonJsonProvider;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
+
+import service.ImageService;
+import service.StructureImageService;
 
 import com.sun.jersey.api.NotFoundException;
-import com.sun.jersey.core.header.FormDataContentDisposition;
-import com.sun.jersey.multipart.FormDataParam;
-
-
-import service.FacilityImageService;
-import service.ImageService;
-import service.RoomImageService;
-import service.RoomTypeImageService;
-import service.RoomTypeService;
-import service.StructureImageService;
 
 @Path("/structureImages/")
 @Component
@@ -57,77 +42,49 @@ public class StructureImageResource {
 	private ImageService imageService = null;
 	@Autowired
 	private StructureImageService structureImageService = null;	
+	
 		
 	@GET
 	@Path("structure/{idStructure}/{offset}/{rownum}")
 	@Produces({MediaType.APPLICATION_JSON})	
-	public JSONArray getStructureImages(@PathParam("idStructure") Integer idStructure){
-		JSONArray jsonArray = null;
-		JSONObject jsonObject = null;
+	public List<Map> getStructureImages(@PathParam("idStructure") Integer idStructure){
+		List<Map> ret = null;
 		List<Image> images = null;
-		ObjectMapper objectMapper = null; 
-		String imageAsJsonString = null;
 		Integer id = null;
-		String idAsJsonString = null;;
-				
-		jsonArray = new JSONArray();		
-		
-		objectMapper = new ObjectMapper();
+		Map map = null;
+							
+		ret = new ArrayList<Map>();
 		images = this.getImageService().findByIdStructure(idStructure);
 		for(Image each: images){
-			id = this.getStructureImageService().findIdByIdStructureAndIdImage(idStructure, each.getId());  
-			try {
-				imageAsJsonString = objectMapper.writeValueAsString(each);
-				idAsJsonString = objectMapper.writeValueAsString(id);
-			} catch (JsonGenerationException e) {
-				e.printStackTrace();
-			} catch (JsonMappingException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			
-			jsonObject = new JSONObject();			
-			
-			try {
-				jsonObject.put("id",new JSONObject(idAsJsonString));
-				jsonObject.put("idStructure", idStructure);
-				jsonObject.put("image", new JSONObject(imageAsJsonString));
-			} catch (JSONException e) {
-				e.printStackTrace();
-			}
-			jsonArray.put(jsonObject);
-		}
-		
-		return jsonArray;
+			id = this.getStructureImageService().findIdByIdStructureAndIdImage(idStructure, each.getId()); 
+			map = new HashMap();
+			map.put("id", id);
+			map.put("idStructure", idStructure);
+			map.put("image", each);
+			ret.add(map);
+		}		
+		return ret;
 	}	
-		
-	@POST
+	
+	
+	@POST	
 	@Consumes({MediaType.APPLICATION_JSON})
 	@Produces({MediaType.APPLICATION_JSON}) 
-	public JSONObject insertStructureImage(JSONObject jsonObject){	
+	public Map insertStructureImage(Map map){
 		Integer id_structure = null;
-		Integer id_image = null;
+		Image image;
 		Integer id;
 		
- 		try {
-			id_structure = jsonObject.getInt("idStructure");
-			id_image = jsonObject.getJSONObject("image").getInt("id");			
-			
-		} catch (JSONException e) {
-			e.printStackTrace();
-		} 
- 		this.getStructureImageService().insert(id_structure, id_image);
- 		id = this.getStructureImageService().findIdByIdStructureAndIdImage(id_structure, id_image);
- 		try {
-			jsonObject.put("id", id);
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-		return jsonObject;
+		id_structure = (Integer)map.get("idStructure");
+		image = (Image)map.get("image");
+ 		
+ 		this.getStructureImageService().insert(id_structure, image.getId());
+		id = this.getStructureImageService().findIdByIdStructureAndIdImage(id_structure, image.getId());
+		map.put("id", id);
+ 		return map;
 	}
 	
-		
+	
 	@DELETE
     @Path("{id}")
 	@Produces({MediaType.APPLICATION_JSON})   
@@ -156,6 +113,5 @@ public class StructureImageResource {
 	public void setStructureImageService(StructureImageService structureImageService) {
 		this.structureImageService = structureImageService;
 	}	
-
 	
 }

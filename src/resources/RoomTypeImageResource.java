@@ -3,7 +3,10 @@ package resources;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -58,80 +61,50 @@ public class RoomTypeImageResource {
 	@Autowired
 	private RoomTypeImageService roomTypeImageService = null;
 	@Autowired
-	private RoomTypeService roomTypeService = null;
-		
+	private RoomTypeService roomTypeService = null;	
+	
 	@GET
 	@Path("roomType/{idRoomType}/{offset}/{rownum}")
 	@Produces({MediaType.APPLICATION_JSON})	
-	public JSONArray getStructureImages(@PathParam("idRoomType") Integer idRoomType){
-		JSONArray jsonArray = null;
-		JSONObject jsonObject = null;
+	public List<Map> getRoomTypeImages(@PathParam("idRoomType") Integer idRoomType){
+		List<Map> ret = null;
 		List<Image> images = null;
-		ObjectMapper objectMapper = null; 
-		String imageAsJsonString = null;
 		Integer id = null;
-		String idAsJsonString = null;
 		Integer idStructure = null;
-				
-		jsonArray = new JSONArray();		
-		
-		objectMapper = new ObjectMapper();
+		Map map = null; 
+					
+		ret = new ArrayList<Map>();
 		idStructure = this.getRoomTypeService().findIdStructureByIdRoomType(idRoomType);
 		images = this.getImageService().findByIdStructure(idStructure);
 		for(Image each: images){
 			id = this.getRoomTypeImageService().findIdByIdRoomTypeAndIdImage(idRoomType, each.getId());  
-			try {
-				imageAsJsonString = objectMapper.writeValueAsString(each);
-				idAsJsonString = objectMapper.writeValueAsString(id);
-			} catch (JsonGenerationException e) {
-				e.printStackTrace();
-			} catch (JsonMappingException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			
-			jsonObject = new JSONObject();			
-			
-			try {
-				jsonObject.put("id",new JSONObject(idAsJsonString));
-				jsonObject.put("idRoomType", idRoomType);
-				jsonObject.put("image", new JSONObject(imageAsJsonString));
-			} catch (JSONException e) {
-				e.printStackTrace();
-			}
-			jsonArray.put(jsonObject);
-		}
-		
-		return jsonArray;
+			map = new HashMap();
+			map.put("id", id);
+			map.put("idRoomType", idRoomType);
+			map.put("image", each);
+			ret.add(map);
+		}		
+		return ret;
 	}	
-		
-	@POST
+	
+	@POST	
 	@Consumes({MediaType.APPLICATION_JSON})
 	@Produces({MediaType.APPLICATION_JSON}) 
-	public JSONObject insertRoomTypeImage(JSONObject jsonObject){	
+	public Map insertRoomTypeImage(Map map){
 		Integer id_roomType = null;
-		Integer id_image = null;
+		Image image;
 		Integer id;
 		
- 		try {
- 			id_roomType = jsonObject.getInt("idRoomType");
-			id_image = jsonObject.getJSONObject("image").getInt("id");			
-			
-		} catch (JSONException e) {
-			e.printStackTrace();
-		} 
- 		this.getRoomTypeImageService().insert(id_roomType, id_image);
- 		id = this.getRoomTypeImageService().findIdByIdRoomTypeAndIdImage(id_roomType, id_image);
- 		try {
-			jsonObject.put("id", id);
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-		return jsonObject;
+		id_roomType = (Integer)map.get("idRoomType");
+		image = (Image)map.get("image");
+ 		
+ 		this.getRoomTypeImageService().insert(id_roomType, image.getId());
+		id = this.getRoomTypeImageService().findIdByIdRoomTypeAndIdImage(id_roomType, image.getId());
+		map.put("id", id);
+ 		return map;
 	}
 	
-		
+			
 	@DELETE
     @Path("{id}")
 	@Produces({MediaType.APPLICATION_JSON})   
