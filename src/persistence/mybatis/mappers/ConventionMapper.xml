@@ -20,15 +20,15 @@ In case of controversy the competent court is the Court of Cagliari (Italy).
 <mapper namespace="persistence.mybatis.mappers.ConventionMapper">
     
     <insert id="insertConvention" parameterType="model.listini.Convention" useGeneratedKeys="true" keyProperty="id">
-        insert into convention(name,description,activationCode,id_structure) values (#{name},#{description},#{activationCode},#{id_structure})
+        INSERT INTO convention(name,description,activationCode,id_structure) values (#{name},#{description},#{activationCode},#{id_structure})
     </insert>
     
     <update id="updateConvention" parameterType="model.listini.Convention">
-        update convention set name = #{name},description = #{description},activationCode = #{activationCode},id_structure = #{id_structure} where id = #{id}
+        UPDATE convention set name = #{name},description = #{description},activationCode = #{activationCode},id_structure = #{id_structure} WHERE id = #{id}
     </update>
     
     <delete id="deleteConvention" parameterType="int">
-        delete from convention where id = #{id}
+        DELETE FROM convention WHERE id = #{id}
     </delete>
     
     <select id="findAll" resultType="model.listini.Convention">
@@ -36,15 +36,19 @@ In case of controversy the competent court is the Court of Cagliari (Italy).
     </select>
     
     <select id="findConventionsByIdStructure" parameterType="int" resultType="model.listini.Convention">
-        <include refid="selectConvention"/>AND id_structure = #{id_structure}
+        <include refid="selectConvention"/>WHERE id_structure = #{id_structure}
+    </select>
+    
+    <select id="findConventionsByIdStructureWithoutDefault" parameterType="int" resultType="model.listini.Convention">
+        <include refid="selectConvention"/>WHERE id_structure = #{id_structure} AND activationCode != 'thisconventionshouldntneverberemoved'
     </select>
      
     <select id="findConventionById" parameterType="int" resultType="model.listini.Convention">
-        <include refid="selectConvention"/>AND id = #{id}
+        <include refid="selectConvention"/>WHERE id = #{id} AND activationCode != 'thisconventionshouldntneverberemoved'
     </select>
     
     <sql id="selectConvention">
-        select id,name,description,activationCode,id_structure from convention where activationCode != 'thisconventionshouldntneverberemoved'
+        SELECT id,name,description,activationCode,id_structure FROM convention
     </sql>
     
 </mapper>

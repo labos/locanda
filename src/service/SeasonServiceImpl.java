@@ -26,7 +26,6 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import parser.SearchParser;
 import persistence.mybatis.mappers.PeriodMapper;
 import persistence.mybatis.mappers.SeasonMapper;
 
@@ -50,13 +49,13 @@ public class SeasonServiceImpl implements SeasonService{
 		return this.seasonMapper.findAll();
 	}
 	
-	public List<Season> findSeasonsByIdStructure(Integer structureId) {
-		return this.getSeasonMapper().findSeasonsByStructureId(structureId);
+	public List<Season> findSeasonsByIdStructure(Integer id_structure) {
+		return this.getSeasonMapper().findSeasonsByStructureId(id_structure);
 	}
 	
-	public List<Season> findSeasonsByYear(Integer structureId,Integer year) {
+	public List<Season> findSeasonsByYear(Integer id_structure,Integer year) {
 		Map params = new HashMap();
-		params.put("structureId", structureId);
+		params.put("id_structure", id_structure);
 		params.put("year", year);
 		
 		return this.getSeasonMapper().findSeasonsByYear(params);
@@ -66,19 +65,19 @@ public class SeasonServiceImpl implements SeasonService{
 		return this.getSeasonMapper().findSeasonById(seasonId);
 	}
 	
-	public Season findSeasonByName(Integer structureId,String name) {
+	public Season findSeasonByName(Integer id_structure,String name) {
 		Map params = new HashMap();
-		params.put("structureId", structureId);
+		params.put("id_structure", id_structure);
 		params.put("name", name);
 		
 		return this.getSeasonMapper().findSeasonByName(params);
 	}
 	
-	public Season findSeasonByDate(Integer structureId, Date date){
+	public Season findSeasonByDate(Integer id_structure, Date date){
 		Season ret = null;
 		
-		for(Season each: this.getSeasonMapper().findSeasonsByStructureId(structureId)){
-			if(each.includesDate(date)){
+		for(Season each: this.getSeasonMapper().findSeasonsByStructureId(id_structure)){
+			if(this.includesDate(each, date)){
 				return each;
 			}
 		}
@@ -103,6 +102,15 @@ public class SeasonServiceImpl implements SeasonService{
 			}
 		}
 		return ret;
+	}
+	
+	public Boolean includesDate(Season season, Date date){
+		for(Period each: this.getPeriodMapper().findPeriodsByIdSeason(season.getId())){
+			if(each.includesDate(date)){
+				return true;
+			}
+		}		
+		return false;
 	}
 	
 	public Integer insertSeason(Season season) {		

@@ -113,7 +113,7 @@ public class ExtraPriceListAction extends ActionSupport implements SessionAware,
 			List<Season> perYearSeasons = this.getSeasonService().findSeasonsByYear(this.getIdStructure(),Integer.parseInt(eachNode1.getData().getTitle()));	//All seasons for that particular year
 			for (Season eachYearSeason : perYearSeasons) {
 				if (this.getRoomTypeService().findRoomTypesByIdStructure(this.getIdStructure()).size() == 0) {			//Without room types, click on a season node must link to a blank page
-					String href = "/WEB-INF/jsp/layout/blank.jsp";
+					String href = webappPath + "/toBlankPage";
 					eachNode1.buildChild(eachYearSeason.getName(), eachYearSeason.getId(), href);
 				} else {
 					eachNode1.buildChild(eachYearSeason.getName(), eachYearSeason.getId());
@@ -122,7 +122,7 @@ public class ExtraPriceListAction extends ActionSupport implements SessionAware,
 			for (TreeNode eachNode2 : eachNode1.getChildren()) {		//For each season, building level-3 nodes - room types
 				for (RoomType eachRoomType : this.getRoomTypeService().findRoomTypesByIdStructure(this.getIdStructure())) {
 					if (this.getConventionService().findConventionsByIdStructure(this.getIdStructure()).size() == 0) {	//Without conventions, click on a room type node must link to a blank page
-						String href = "/WEB-INF/jsp/layout/blank.jsp";
+						String href = webappPath + "/toBlankPage";
 						eachNode2.buildChild(eachRoomType.getName(), eachRoomType.getId(), href);
 					}else {
 						eachNode2.buildChild(eachRoomType.getName(), eachRoomType.getId());
@@ -151,15 +151,9 @@ public class ExtraPriceListAction extends ActionSupport implements SessionAware,
 				})
 	})
 	public String findExtraPriceListItems() {
-		Season season = null;
-		RoomType roomType = null;
-		Convention convention = null;
 		
-		season = this.getSeasonService().findSeasonById(this.getSeasonId());
-		roomType = this.getRoomTypeService().findRoomTypeById(this.getRoomTypeId());
-		convention = this.getConventionService().findConventionById(this.getConventionId());
 		this.setPriceList(this.getExtraPriceListService().findExtraPriceListByIdStructureAndIdSeasonAndIdRoomTypeAndIdConvention(
-				this.getIdStructure(), season.getId(), roomType.getId(), convention.getId()));
+				this.getIdStructure(), this.getSeasonId(), this.getRoomTypeId(), this.getConventionId()));
 		return SUCCESS;
 	}
 	

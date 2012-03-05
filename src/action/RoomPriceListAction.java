@@ -87,6 +87,16 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware,U
 		return SUCCESS;
 	}
 	
+	@Actions(
+			@Action(value = "/toBlankPage", results = { 
+					@Result(name = "success", location = "/WEB-INF/jsp/layout/blank.jsp")}
+			)
+		)
+		public String toBlankPage() {
+
+			return SUCCESS;
+		}
+	
 	@Actions({
 		@Action(value="/findAllRoomPriceLists",results = {
 				@Result(type ="json",name="success", params={
@@ -117,7 +127,7 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware,U
 			List<Season> perYearSeasons = this.getSeasonService().findSeasonsByYear(this.getIdStructure(),Integer.parseInt(eachNode1.getData().getTitle()));	//All seasons for that particular year
 			for (Season eachYearSeason : perYearSeasons) {
 				if (this.getRoomTypeService().findRoomTypesByIdStructure(this.getIdStructure()).size() == 0) {			//Without room types, click on a season node must link to a blank page
-					String href = "/WEB-INF/jsp/layout/blank.jsp";
+					String href = webappPath + "/toBlankPage";
 					eachNode1.buildChild(eachYearSeason.getName(), eachYearSeason.getId(), href);
 				} else {
 					eachNode1.buildChild(eachYearSeason.getName(), eachYearSeason.getId());
@@ -126,13 +136,13 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware,U
 			for (TreeNode eachNode2 : eachNode1.getChildren()) {		//For each season, building level-3 nodes - room types
 				for (RoomType eachRoomType : this.getRoomTypeService().findRoomTypesByIdStructure(this.getIdStructure())) {
 					if (this.getConventionService().findConventionsByIdStructure(this.getIdStructure()).size() == 0) {	//Without conventions, click on a room type node must link to a blank page
-						String href = "/WEB-INF/jsp/layout/blank.jsp";
+						String href = webappPath + "/toBlankPage";
 						eachNode2.buildChild(eachRoomType.getName(), eachRoomType.getId(), href);
 					}else {
 						eachNode2.buildChild(eachRoomType.getName(), eachRoomType.getId());
 					}	
 				}
-					for (TreeNode eachNode3 : eachNode2.getChildren()) {//per ogni roomType costruisco i nodi di quarto livello - le convenzioni
+					for (TreeNode eachNode3 : eachNode2.getChildren()) {//For each room type, building level-4 nodes - conventions
 						for (Convention aConvention : this.getConventionService().findConventionsByIdStructure(this.getIdStructure())) {
 							String href = webappPath + "/findRoomPriceListItems" +
 							"?seasonId=" + eachNode2.getAttr().get("id") + 

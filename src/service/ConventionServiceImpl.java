@@ -62,6 +62,11 @@ public class ConventionServiceImpl implements ConventionService{
 	}
 	
 	@Override
+	public List<Convention> findConventionsByIdStructureWithoutDefault(Integer id_structure) {
+		return this.getConventionMapper().findConventionsByIdStructureWithoutDefault(id_structure);
+	}
+	
+	@Override
 	public List<Convention> findConventionsByIdStructure(Integer id_structure, Integer offset, Integer rownum) {
 		Map map = null;
 		

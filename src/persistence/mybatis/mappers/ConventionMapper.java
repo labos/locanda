@@ -26,6 +26,7 @@ public interface ConventionMapper {
 	public Integer deleteConvention(Integer id);
 	public List<Convention> findAll();
 	public List<Convention> findConventionsByIdStructure(Integer id_structure);
+	public List<Convention> findConventionsByIdStructureWithoutDefault(Integer id_structure);
 	public List<Convention> findConventionsByIdStructureAndOffsetAndRownum(Map map);
 	public List<Convention> search(Map map);	
 	

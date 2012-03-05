@@ -29,6 +29,7 @@ public interface ConventionService {
 	
 	public List<Convention> findAll();
 	public List<Convention> findConventionsByIdStructure(Integer id_structure);
+	public List<Convention> findConventionsByIdStructureWithoutDefault(Integer id_structure);
 	public List<Convention> findConventionsByIdStructure(Integer id_structure, Integer offset, Integer rownum);
 	
 	public Convention findConventionById(Integer id);
