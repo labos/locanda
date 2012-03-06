@@ -58,6 +58,7 @@
 				</button>
 			</div>
 			<div class="subcolumns" id="row-edit-container"></div>
+			<div id="image"></div>
 		</div>
 	</div>
 	<!-- end: #col1 -->
@@ -66,7 +67,7 @@
 	<div id="col3" role="main">
 		<div class="clearfix" id="col3_content">
 			<h2>
-				<s:text name="facilities" />
+				<s:text name="images" />
 			</h2>
 			<div id="toolbar-container"></div>
 			<div id="main-app">

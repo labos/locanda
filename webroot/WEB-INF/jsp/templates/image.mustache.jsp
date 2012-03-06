@@ -42,15 +42,50 @@
             </div>	
 		</form>	
 	</script>
-	
+    <script id="new-template" type="text/x-handlebars-template">
+ 		<div class="subcolumns">
+		   	<div class="result_facility_upload" id="result_facility_upload"></div>
+		   	<div class="upload_loader">&nbsp;</div>
+		   	<div class="image_preview"></div>
+		</div>
+        <div class="beauty">
+     	  	<div class="subcolumns">
+            <div class="c20l">
+			</div>
+           	  	<div class="c33l">
+    				<label for="name_facility"><s:text name="imageName"/>:</label>&nbsp;<input type="text" name="facility_name" value="" id="name_facility" class="require"/>
+ 			  	</div>
+ 			  	<div class="c20l">
+ 					<br/>
+ 					<form id="uploadFacility" action="rest/images" method="post" enctype="multipart/form-data">
+   				  		<input type="hidden" name="caption" value=""/>
+						<input type="hidden" name="idStructure" value="{{idStructure}}"/>
+     			  		<input type="file" name="upload" multiple/>
+    			  		<button>Upload</button> 
+    			  		<div><s:text name="uploadFacility"/></div>  
+					</form>
+		   	  	</div>
+		   	</div>      
+        </div>
+	</script>
+	<script id="row-template" type="text/x-handlebars-template">
+		<div class="row-item">
+			<img class="thumb" src="rest/file/{{image.file.id}}" alt="" style="position:absolute;left:0px;width:30px;heigth:30px;"/>
+			<ul style="margin-left:35px;">
+				<li><b><s:text name="name"/>: </b>{{name}}</li>
+				<li><b><s:text name="description"/>: </b>{{sub_description}}</li>
+				<li><input type="hidden" name="id" value="{{id}}"/></li>
+			</ul>
+			<span class="row-item-destroy"></span>
+		</div>
+	</script>	
 	<script id="image-view-template" type="text/x-handlebars-template">
         <div class="c50l">
-			<img src="rest/file/{{id}}" alt="" />
+			<img src="rest/file/{{file.id}}" alt="" />
 		</div>
  	</script>
  	
     <script id="image-edit-template" type="text/x-handlebars-template">
-		{{#id}}
  		<div class="subcolumns">
 		   	<div class="result_facility_upload" id="result_facility_upload"></div>
 		   	<div class="upload_loader">&nbsp;</div>
@@ -62,7 +97,7 @@
 				<img src="rest/file/{{id}}" alt="" />
 			</div>
            	  	<div class="c33l">
-    				<label for="name_facility"><s:text name="imageName"/>:</label>&nbsp;<input type="text" name="facility_name" value="" id="name_facility" class="require"/>
+    				<label for="name_facility"><s:text name="imageName"/>:</label>&nbsp;<input type="hidden" name="facility_name" value="default" id="name_facility"/>
  			  	</div>
  			  	<div class="c20l">
  					<br/>
@@ -76,7 +111,6 @@
 		   	  	</div>
 		   	</div>      
         </div>
-		{{/id}}
 	</script>
 	<script id="row-template" type="text/x-handlebars-template">
 		<div class="row-item">

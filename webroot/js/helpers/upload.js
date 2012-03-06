@@ -260,18 +260,15 @@ $.fn.deprecatedBrowser = function () {
 		},
 		onComplete: function (event, files, index, xhr, handler) {
 			var json = handler.response;
-			if (typeof json !== "undefined" && typeof json.message !== "undefined" && json.message.result == "success") {
+			if (typeof json !== "undefined" && typeof json.id !== "undefined") {
 				var action = this.uploadForm.attr("action");
 				try {
-					view.trigger("child:update", view);
+					view.trigger("child:update", view, json.id);
 					$().addImageObject(json, action);
 				} catch (e) {
 					//var log = e;
 				}
-				$().notify($.i18n("congratulation"), json.message.description);
-			} else if (typeof json !== "undefined" && typeof json.message !== "undefined" && json.message.result == "error") {
-				$.jGrowl(json.message.description, { theme: "notify-error"  });
-				
+				$().notify($.i18n("congratulation"), "");
 			} else {
 				$.jGrowl($.i18n("seriousError"), { theme: "notify-error"  });
 				

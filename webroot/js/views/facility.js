@@ -42,6 +42,11 @@ window.ThumbnailView = Backbone.View.extend({
         this.delegateEvents();
         return this;
     },
+    close: function ()	{
+    	this.remove();
+    	this.unbind();
+    	this.model.unbind("change", this.render);
+    },
     switchMode: function () {
         this.indexTemplate = (this.indexTemplate.attr("id") == "image-view-template") ? $("#image-edit-template") : $("#image-view-template");
         this.render();
@@ -132,8 +137,11 @@ window.EditFacilityView = EditView.extend({
         if (!this.model.isNew()) {
             var self = this;
             this.id = this.model.get("id");
-            this.thumbnailView.unbind("child:update");
-            this.model.get("image")? this.thumbnailView.model.set(this.model.get("image").file) : this.thumbnailView.model.set(new Image());
+            this.thumbnailView.close();
+            this.thumbnailView = new ThumbnailView({
+                model: this.model.get("image")? this.thumbnailView.model.set(this.model.get("image").file) : this.thumbnailView.model.set(new Image())
+
+            });
 
             // listen for changes in model on editing and fetch model if any change occur.
             this.thumbnailView.bind("child:update", function () {
@@ -146,12 +154,16 @@ window.EditFacilityView = EditView.extend({
                     }
                 });
             });
-
-            // now render associated views
+         // now render associated view
+            $("#thumbnail").html(this.thumbnailView.el);
+/*            // now render associated views
             if ($("#thumbnail").is(':empty')) {
                 $("#thumbnail").html(this.thumbnailView.el);
-            }
+            }*/
 
+        }
+        else {
+        	this.thumbnailView.close();
         }
     }
 });

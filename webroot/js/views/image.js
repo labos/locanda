@@ -40,6 +40,11 @@ window.ImageView = Backbone.View.extend({
         this.delegateEvents();
         return this;
     },
+    close: function ()	{
+    	this.remove();
+    	this.unbind();
+    	this.model.unbind("change", this.render);
+    },
     switchMode: function () {
         this.indexTemplate = (this.indexTemplate.attr("id") == "image-view-template") ? $("#image-edit-template") : $("#image-view-template");
         this.render();
@@ -84,7 +89,7 @@ window.EditImageView = EditView.extend({
     },
     initialize: function () {
         this.model.bind('change', this.render, this);
-        // initialize thumbnail view which show an image that represent a facility
+        // initialize image view which show an image that represent a facility
         this.imageView = new ImageView({
             model: new Image()
         });
@@ -95,12 +100,29 @@ window.EditImageView = EditView.extend({
         // render main edit view
         var modelToRender = this.model.toJSON();
         // set additional attributes to display in the template. Only for the view.
+        this.indexTemplate = $("#view-template");
         if (this.model.isNew()) {
+        	var self = this;
+            this.bind("child:update", function (event, paramId, paramOther) {
+            	self.model.set({id:paramId},{silent: true});
+                self.model.fetch({
+                    error: function () {
+                        	alert($.i18n("seriousError"));
+                    },
+                    success: function () {
+                        	self.switchMode();
+                    }
+                });
+            });
             // add additional fields eventually..
-        	this.indexTemplate =  (this.indexTemplate == "edit-template" )? $("#image-edit-template") : $("#edit-template");
+        	this.indexTemplate =   $("#new-template");
+        	modelToRender.idStructure = Entity.idStructure;
         }
 
         $(this.el).html(Mustache.to_html(this.indexTemplate.html(), modelToRender));
+        if (this.$("#uploadFacility").length) {
+            this.$("#uploadFacility").uploadImage(this);
+        }
         // add validation check
         this.$(".yform").validate();
         // renderize buttons
@@ -131,26 +153,31 @@ window.EditImageView = EditView.extend({
         if (!this.model.isNew()) {
             var self = this;
             this.id = this.model.get("id");
-            this.imageView.unbind("child:update");
-            this.imageView.model.set(this.model.get("image").file);
+            this.imageView.close();
+            this.imageView = new ImageView({
+                model: this.model.get("file")? this.imageView.model.set(this.model.get("file")) : this.imageView.model.set(new File())
 
+            });
+            
             // listen for changes in model on editing and fetch model if any change occur.
             this.imageView.bind("child:update", function () {
                 self.model.fetch({
                     silent: true,
                     success: function () {
                         //set collection for associated views
-                        self.imageView.model.set(this.model.get("image").file);
+                        self.imageView.model.set(this.model.get("file"));
                         $(self.imageView.el).undelegate("div", "click");
                     }
                 });
             });
-
-            // now render associated views
-            if ($("#thumbnail").is(':empty')) {
-                $("#thumbnail").html(this.imageView.el);
-            }
+            
+            // now render associated view
+            $("#image").html(this.imageView.el);
 
         }
-    }
+        else{
+        		this.imageView.close();      	
+            }
+      
+}
 });

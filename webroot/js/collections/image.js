@@ -26,13 +26,13 @@ window.Images = Backbone.Collection.extend({
     model: Image,
     //This is our Conventions collection and holds our Convention models
     initialize: function (models, options) {
-    	this.setIdWrapper(options.id);
+    	this.setIdWrapper(options.idStructure);
     	this.setFrom(0);
     	this.setTo(10);
     	this.setTerm(null);
     },
     url: function () {
-        return 'rest/images/structure/' + this.idWrapper +  '/search' + this.from + this.to + '?term=' + this.term ;
+        return 'rest/images/all/structure/' + this.idWrapper  + this.from + this.to + '?term=' + this.term ;
     },
     setTerm: function (aTerm) {
         this.term = (typeof aTerm !== "undefined" && aTerm) ? aTerm : '';
