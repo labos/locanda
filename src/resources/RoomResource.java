@@ -17,6 +17,8 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import model.Room;
+import model.RoomType;
+
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServer;
 import org.apache.solr.client.solrj.SolrServerException;
@@ -107,6 +109,7 @@ public class RoomResource {
         	   id = (Integer)solrDocument.getFieldValue("id");
             // System.out.println("----> "+solrDocument.getFieldValues("text")+" <-----");
         	   aRoom = this.getRoomService().findRoomById(id);
+        	   aRoom.setRoomType(this.getRoomTypeService().findRoomTypeById(aRoom.getId_roomType()));
         	   rooms.add(aRoom);
            }  
        }       
@@ -153,6 +156,7 @@ public class RoomResource {
 		Room ret = null;
 		
 		ret = this.getRoomService().findRoomById(id);
+		ret.setRoomType(this.getRoomTypeService().findRoomTypeById(ret.getId_roomType()));
 		return ret;
 	}
 	
@@ -170,6 +174,7 @@ public class RoomResource {
 		} catch (SolrServerException e) {
 			e.printStackTrace();
 		}
+        room.setRoomType(this.getRoomTypeService().findRoomTypeById(room.getId_roomType()));
         return room;
     }
    
@@ -190,6 +195,7 @@ public class RoomResource {
     	} catch (SolrServerException e) {
     		e.printStackTrace();
     	}
+    	room.setRoomType(this.getRoomTypeService().findRoomTypeById(room.getId_roomType()));
         return room;
     }
     
