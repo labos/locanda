@@ -854,7 +854,6 @@ span.copy
 
 #convention{
 	position:relative;
-	height: 250px;
 	overflow-y: scroll;
 }
 #conventions-list

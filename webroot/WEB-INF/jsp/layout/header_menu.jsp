@@ -94,8 +94,8 @@
 							<ul class="sub_menu ui-menu ui-widget ui-widget-content ui-corner-all">
 								<li class="ui-menu-item"><a href="<s:property value="url_onlinebookings"/>?sect=settings"><s:text name="onlineBooking" /></a></li>
 								<li class="ui-menu-item"><a href="<s:property value="url_findallseasons"/>?sect=settings"><s:text name="seasons" /></a></li>
-								<li class="ui-menu-item"><a href="<s:property value="url_findallroompricelists"/>?sect=settings"><s:text name="roomPriceList" /></a></li>
-								<li class="ui-menu-item"><a href="<s:property value="url_findallextrapricelists"/>?sect=settings"><s:text name="extraPriceList" /></a></li>
+								<li class="ui-menu-item"><a href="<s:property value="url_findallroompricelists"/>?sect=settings"><s:text name="roomPriceLists" /></a></li>
+								<li class="ui-menu-item"><a href="<s:property value="url_findallextrapricelists"/>?sect=settings"><s:text name="extraPriceLists" /></a></li>
 								<li class="ui-menu-item"><a href="<s:property value="url_findallconventions"/>?sect=settings"><s:text name="conventions" /></a></li>
 								<li class="ui-menu-item"><a href="<s:property value="url_findallfacilities"/>?sect=settings"><s:text name="facilities" /></a></li>
 								<li class="ui-menu-item"><a href="<s:property value="url_findallimages"/>?sect=settings"><s:text name="images" /></a></li>

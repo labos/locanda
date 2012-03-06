@@ -32,7 +32,7 @@ Entity = {name: "priceList",
     <div id="col2" role="complementary">
       <div id="col2_content" class="clearfix">
         <div class="header_section">
-       	  <span class="name_section"><s:text name="extraPriceList"/></span>
+       	  <span class="name_section"><s:text name="extraPriceLists"/></span>
       	</div>
       </div>
     </div>
