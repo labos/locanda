@@ -372,7 +372,7 @@ DROP TABLE IF EXISTS `imageFile`;
 CREATE TABLE `imageFile` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_image` int(11) DEFAULT NULL,
-  `id_file` varchar(45) DEFAULT NULL,
+  `id_file` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
