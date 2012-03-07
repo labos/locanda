@@ -63,7 +63,7 @@ public class ImageServiceImpl implements ImageService{
 	}	
 	
 	@Override
-	public Image update(Image image) {		
+	public Integer update(Image image) {		
 		return this.getImageMapper().update(image);
 	}
 	

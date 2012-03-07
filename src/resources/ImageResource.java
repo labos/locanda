@@ -92,7 +92,7 @@ public class ImageResource {
     @Produces({MediaType.APPLICATION_JSON}) 
 	public Image updateImage(Image image) {
 		
-		image = this.getImageService().update(image);		
+		this.getImageService().update(image);		
 		
 		return image;
 	}

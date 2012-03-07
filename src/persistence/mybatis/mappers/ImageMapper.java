@@ -20,7 +20,7 @@ import model.Image;
 
 public interface ImageMapper {	
 	public Integer insert(Image image);
-	public Image update(Image image);
+	public Integer update(Image image);
 	public Integer delete(Integer id);		
 	public Image find(Integer id);
 	public List<Image> findByIdStructure(Integer id_structure);	
