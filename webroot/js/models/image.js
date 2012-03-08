@@ -23,7 +23,9 @@
  */
 
 window.Image = Backbone.Model.extend({
-	
+    defaults: {
+        rnd: Math.ceil(Math.random()*500)
+    },
     initialize: function () {
     },
     url: function () {

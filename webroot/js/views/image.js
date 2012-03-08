@@ -32,7 +32,9 @@ window.ImageView = Backbone.View.extend({
 
     },
     render: function () {
-        $(this.el).html(Mustache.to_html(this.indexTemplate.html(), this.model));
+        var modelToRender = this.model.toJSON();
+        modelToRender.rnd = Math.ceil(Math.random()*500);
+        $(this.el).html(Mustache.to_html(this.indexTemplate.html(), modelToRender));
         if (this.$("#uploadFacility").length) {
             this.$("#uploadFacility").uploadImage(this);
         }
@@ -87,6 +89,7 @@ window.EditImageView = EditView.extend({
         "submit form": "save",
         "click div": "switchMode"
     },
+    indexTemplate: $("#view-template"),
     initialize: function () {
         this.model.bind('change', this.render, this);
         // initialize image view which show an image that represent a facility
@@ -100,7 +103,6 @@ window.EditImageView = EditView.extend({
         // render main edit view
         var modelToRender = this.model.toJSON();
         // set additional attributes to display in the template. Only for the view.
-        this.indexTemplate = $("#view-template");
         if (this.model.isNew()) {
         	var self = this;
             this.bind("child:update", function (event, paramId, paramOther) {
@@ -110,6 +112,8 @@ window.EditImageView = EditView.extend({
                         	alert($.i18n("seriousError"));
                     },
                     success: function () {
+                    		self.indexTemplate = $("#edit-template");
+                    		self.collection.add(self.model);
                         	self.switchMode();
                     }
                 });
@@ -150,7 +154,7 @@ window.EditImageView = EditView.extend({
      */
     renderAssociated: function () {
         // check if model has changed or is new, then update collections in associated views
-        if (!this.model.isNew()) {
+        if (!this.model.isNew()  && this.model.get("id")  != this.id) {
             var self = this;
             this.id = this.model.get("id");
             this.imageView.close();
@@ -162,10 +166,12 @@ window.EditImageView = EditView.extend({
             // listen for changes in model on editing and fetch model if any change occur.
             this.imageView.bind("child:update", function () {
                 self.model.fetch({
-                    silent: true,
+                    silent: false,
                     success: function () {
                         //set collection for associated views
-                        self.imageView.model.set(this.model.get("file"));
+                        self.imageView.model.set(self.model.get("file"));
+                        self.model.trigger('change', self.model);
+                        self.imageView.render();
                         $(self.imageView.el).undelegate("div", "click");
                     }
                 });
@@ -175,8 +181,8 @@ window.EditImageView = EditView.extend({
             $("#image").html(this.imageView.el);
 
         }
-        else{
-        		this.imageView.close();      	
+        else if(this.model.isNew()){
+        	this.imageView.close();      	
             }
       
 }

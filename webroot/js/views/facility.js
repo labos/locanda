@@ -156,7 +156,7 @@ window.EditFacilityView = EditView.extend({
             });
          // now render associated view
             $("#thumbnail").html(this.thumbnailView.el);
-/*            // now render associated views
+            /*// now render associated views
             if ($("#thumbnail").is(':empty')) {
                 $("#thumbnail").html(this.thumbnailView.el);
             }*/

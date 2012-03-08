@@ -19,7 +19,7 @@
 <%@ taglib uri="/struts-tags" prefix="s" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
      <script id="view-template" type="text/x-handlebars-template">
-		<form id="view-form" class="yform json full" role="application">
+		<form id="view-form" class="yform inview" role="application">
               <div class="c50l">
                   <div class="type-text">	
                   	<strong><s:text name="caption"/></strong>
@@ -70,18 +70,17 @@
 	</script>
 	<script id="row-template" type="text/x-handlebars-template">
 		<div class="row-item">
-			<img class="thumb" src="rest/file/{{image.file.id}}" alt="" style="position:absolute;left:0px;width:30px;heigth:30px;"/>
-			<ul style="margin-left:35px;">
-				<li><b><s:text name="name"/>: </b>{{name}}</li>
-				<li><b><s:text name="description"/>: </b>{{sub_description}}</li>
+			<img class="thumb" src="rest/file/{{file.id}}?rnd={{rnd}}" alt="" style="position:absolute;left:0px;width:30px;heigth:30px;"/>
+			<ul style="margin-left:35px; height:50px;">
+				<li><b><s:text name="caption"/>: </b>{{caption}}</li>
 				<li><input type="hidden" name="id" value="{{id}}"/></li>
 			</ul>
 			<span class="row-item-destroy"></span>
 		</div>
 	</script>	
 	<script id="image-view-template" type="text/x-handlebars-template">
-        <div class="c50l">
-			<img src="rest/file/{{file.id}}" alt="" />
+        <div class="c50l inview">
+			<img src="rest/file/{{id}}?rnd={{rnd}}" alt="" />
 		</div>
  	</script>
  	
@@ -94,10 +93,10 @@
         <div class="beauty">
      	  	<div class="subcolumns">
             <div class="c20l">
-				<img src="rest/file/{{id}}" alt="" />
+				<img src="rest/file/{{id}}?rnd={{rnd}}" alt="" />
 			</div>
            	  	<div class="c33l">
-    				<label for="name_facility"><s:text name="imageName"/>:</label>&nbsp;<input type="hidden" name="facility_name" value="default" id="name_facility"/>
+    				<input type="hidden" name="facility_name" value="default" id="name_facility"/>
  			  	</div>
  			  	<div class="c20l">
  					<br/>
@@ -112,18 +111,6 @@
 		   	</div>      
         </div>
 	</script>
-	<script id="row-template" type="text/x-handlebars-template">
-		<div class="row-item">
-			<img class="thumb" src="rest/file/{{image.file.id}}" alt="" style="position:absolute;left:0px;width:30px;heigth:30px;"/>
-			<ul style="margin-left:35px;">
-				<li><b><s:text name="name"/>: </b>{{name}}</li>
-				<li><b><s:text name="description"/>: </b>{{sub_description}}</li>
-				<li><input type="hidden" name="id" value="{{id}}"/></li>
-			</ul>
-			<span class="row-item-destroy"></span>
-		</div>
-	</script>
-
 	<script id="toolbar-template" type="text/x-handlebars-template">
 		<li><input id="item-autocomplete" type="text" value=""/>
 			<div id="form-filter-container"></div>
