@@ -18,12 +18,6 @@ import javax.ws.rs.core.MediaType;
 
 import model.Image;
 
-import org.codehaus.jackson.JsonGenerationException;
-import org.codehaus.jackson.map.JsonMappingException;
-import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jettison.json.JSONArray;
-import org.codehaus.jettison.json.JSONException;
-import org.codehaus.jettison.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -77,14 +71,14 @@ public class RoomImageResource {
 	@Produces({MediaType.APPLICATION_JSON}) 
 	public Map insertRoomImage(Map map){
 		Integer id_room = null;
-		Image image;
+		Integer id_image;
 		Integer id;
 		
 		id_room = (Integer)map.get("idRoom");
-		image = (Image)map.get("image");
- 		
- 		this.getRoomImageService().insert(id_room, image.getId());
-		id = this.getRoomImageService().findIdByIdRoomAndIdImage(id_room, image.getId());
+		id_image = (Integer)((Map)map.get("image")).get("id");
+		
+ 		this.getRoomImageService().insert(id_room, id_image);
+		id = this.getRoomImageService().findIdByIdRoomAndIdImage(id_room, id_image);
 		map.put("id", id);
  		return map;
 	}

@@ -64,14 +64,14 @@ public class StructureImageResource {
 	@Produces({MediaType.APPLICATION_JSON}) 
 	public Map insertStructureImage(Map map){
 		Integer id_structure = null;
-		Image image;
+		Integer id_image;
 		Integer id;
 		
 		id_structure = (Integer)map.get("idStructure");
-		image = (Image)map.get("image");
+		id_image = (Integer)((Map)map.get("image")).get("id");
  		
- 		this.getStructureImageService().insert(id_structure, image.getId());
-		id = this.getStructureImageService().findIdByIdStructureAndIdImage(id_structure, image.getId());
+ 		this.getStructureImageService().insert(id_structure, id_image);
+		id = this.getStructureImageService().findIdByIdStructureAndIdImage(id_structure, id_image);
 		map.put("id", id);
  		return map;
 	}
