@@ -114,8 +114,8 @@ public class ImageResource {
 	@GET
 	@Path("all/structure/{idStructure}/{offset}/{rownum}")
 	@Produces({MediaType.APPLICATION_JSON})	
-	public List<Image> getAllImages(@PathParam("idStructure") Integer idStructure){
-		return this.getImageService().findByIdStructure(idStructure);
+	public List<Image> getAllImages(@PathParam("idStructure") Integer idStructure,@PathParam("offset") Integer offset,@PathParam("rownum") Integer rownum){
+		return this.getImageService().findByIdStructure(idStructure,offset,rownum);
 		
 	}	
 	

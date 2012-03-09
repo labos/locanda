@@ -16,6 +16,8 @@
 package persistence.mybatis.mappers;
 
 import java.util.List;
+import java.util.Map;
+
 import model.Image;
 
 public interface ImageMapper {	
@@ -23,5 +25,5 @@ public interface ImageMapper {
 	public Integer update(Image image);
 	public Integer delete(Integer id);		
 	public Image find(Integer id);
-	public List<Image> findByIdStructure(Integer id_structure);	
+	public List<Image> findByIdStructure(Map map);	
 }

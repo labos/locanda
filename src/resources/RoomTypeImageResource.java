@@ -66,7 +66,7 @@ public class RoomTypeImageResource {
 	@GET
 	@Path("roomType/{idRoomType}/{offset}/{rownum}")
 	@Produces({MediaType.APPLICATION_JSON})	
-	public List<Map> getRoomTypeImages(@PathParam("idRoomType") Integer idRoomType){
+	public List<Map> getRoomTypeImages(@PathParam("idRoomType") Integer idRoomType,@PathParam("offset") Integer offset,@PathParam("rownum") Integer rownum){
 		List<Map> ret = null;
 		List<Image> images = null;
 		Integer id = null;
@@ -75,7 +75,7 @@ public class RoomTypeImageResource {
 					
 		ret = new ArrayList<Map>();
 		idStructure = this.getRoomTypeService().findIdStructureByIdRoomType(idRoomType);
-		images = this.getImageService().findByIdStructure(idStructure);
+		images = this.getImageService().findByIdStructure(idStructure,offset,rownum);
 		for(Image each: images){
 			id = this.getRoomTypeImageService().findIdByIdRoomTypeAndIdImage(idRoomType, each.getId());  
 			map = new HashMap();

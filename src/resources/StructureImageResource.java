@@ -39,14 +39,14 @@ public class StructureImageResource {
 	@GET
 	@Path("structure/{idStructure}/{offset}/{rownum}")
 	@Produces({MediaType.APPLICATION_JSON})	
-	public List<Map> getStructureImages(@PathParam("idStructure") Integer idStructure){
+	public List<Map> getStructureImages(@PathParam("idStructure") Integer idStructure,@PathParam("offset") Integer offset,@PathParam("rownum") Integer rownum){
 		List<Map> ret = null;
 		List<Image> images = null;
 		Integer id = null;
 		Map map = null;
 							
 		ret = new ArrayList<Map>();
-		images = this.getImageService().findByIdStructure(idStructure);
+		images = this.getImageService().findByIdStructure(idStructure,offset,rownum);
 		for(Image each: images){
 			id = this.getStructureImageService().findIdByIdStructureAndIdImage(idStructure, each.getId()); 
 			map = new HashMap();

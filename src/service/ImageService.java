@@ -30,7 +30,7 @@ public interface ImageService {
 	public Integer delete(Integer id);
 	
 	public Image find(Integer id);	
-	public List<Image> findByIdStructure(Integer id_structure);
+	public List<Image> findByIdStructure(Integer id_structure,Integer offset, Integer rownum);
 	public List<Image> findCheckedByIdStructure(Integer id_structure);
 	public List<Image> findCheckedByIdRoomType(Integer id_roomType);
 	public List<Image> findCheckedByIdRoom(Integer id_room);

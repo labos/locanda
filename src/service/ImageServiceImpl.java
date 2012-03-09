@@ -100,12 +100,18 @@ public class ImageServiceImpl implements ImageService{
 	}	
 
 	@Override
-	public List<Image> findByIdStructure(Integer id_structure) {
+	public List<Image> findByIdStructure(Integer id_structure,Integer offset, Integer rownum) {
 		List<Image> ret = null;
 		Integer id_file;
 		File file;
+		Map map = null;
 		
-		ret = this.getImageMapper().findByIdStructure(id_structure);
+		map = new HashMap();
+		map.put("id_structure", id_structure);
+		map.put("offset", offset);
+		map.put("rownum", rownum);
+		
+		ret = this.getImageMapper().findByIdStructure(map);
 		for(Image each: ret){
 			file = new File();
 			id_file = this.getImageFileService().findIdFileByIdImage(each.getId());		
