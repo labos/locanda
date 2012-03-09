@@ -92,14 +92,14 @@ public class RoomTypeImageResource {
 	@Produces({MediaType.APPLICATION_JSON}) 
 	public Map insertRoomTypeImage(Map map){
 		Integer id_roomType = null;
-		Image image;
 		Integer id;
+		Integer id_image;
 		
 		id_roomType = (Integer)map.get("idRoomType");
-		image = (Image)map.get("image");
+		id_image = (Integer)((Map)map.get("image")).get("id");
  		
- 		this.getRoomTypeImageService().insert(id_roomType, image.getId());
-		id = this.getRoomTypeImageService().findIdByIdRoomTypeAndIdImage(id_roomType, image.getId());
+ 		this.getRoomTypeImageService().insert(id_roomType, id_image);
+		id = this.getRoomTypeImageService().findIdByIdRoomTypeAndIdImage(id_roomType, id_image);
 		map.put("id", id);
  		return map;
 	}
