@@ -62,7 +62,7 @@ window.FacilityRowView = Backbone.View.extend({
                 	  // re-check if destroy fail
                 	  $target.prop("checked","checked");
                       textStatus.responseText || (textStatus.responseText = $.i18n("seriousErrorDescr"));
-                      $.jGrowl(textStatus.responseText, { header: this.alertKO, theme: "notify-error"  });
+                      $.jGrowl($.i18n("seriousErrorDescr"), { header: this.alertKO, theme: "notify-error"  });
                       
                   }
               });
@@ -76,7 +76,7 @@ window.FacilityRowView = Backbone.View.extend({
               },
               error: function (jqXHR, textStatus, errorThrown) {
                   textStatus.responseText || (textStatus.responseText = $.i18n("seriousErrorDescr"));
-                  $.jGrowl(textStatus.responseText, { header: this.alertKO, theme: "notify-error"  });
+                  $.jGrowl($.i18n("seriousErrorDescr"), { header: this.alertKO, theme: "notify-error"  });
                   
               }
           }); 
@@ -129,9 +129,6 @@ window.ImageRowView = Backbone.View.extend({
   	 * Re-render the contents of the facility item.
   	 */
     render: function () {
-   	 if( this.model.isNew()){
-   		 this.indexTemplate.find(".choose-elem").prop("checked", "");
-   	 }
         $(this.el).html(Mustache.to_html(this.indexTemplate.html(), this.model.toJSON()));
         return this;
     },
@@ -145,7 +142,7 @@ window.ImageRowView = Backbone.View.extend({
         var $target = $(event.target),
         self = this;
         if (!$target.is(":checked")) {
-       	  this.model.destroy({
+       	  this.model.destroy(null,{
                  success: function () {
 
                      $.jGrowl($.i18n("congratulation"), { header: this.alertOK });
@@ -154,21 +151,22 @@ window.ImageRowView = Backbone.View.extend({
                	  // re-check if destroy fail
                	  $target.prop("checked","checked");
                      textStatus.responseText || (textStatus.responseText = $.i18n("seriousErrorDescr"));
-                     $.jGrowl(textStatus.responseText, { header: this.alertKO, theme: "notify-error"  });
+                     $.jGrowl($.i18n("seriousErrorDescr"), { header: this.alertKO, theme: "notify-error"  });
                      
                  }
              });
         }
         else{
-      	  this.model.save({
+      	  this.model.save(null, {
              success: function () {
            	  // trigger an update event.
                  self.trigger("child:update", self);
                  $.jGrowl($.i18n("congratulation"), { header: this.alertOK });
              },
              error: function (jqXHR, textStatus, errorThrown) {
+            	 $target.prop("checked","");
                  textStatus.responseText || (textStatus.responseText = $.i18n("seriousErrorDescr"));
-                 $.jGrowl(textStatus.responseText, { header: this.alertKO, theme: "notify-error"  });
+                 $.jGrowl($.i18n("seriousErrorDescr"), { header: this.alertKO, theme: "notify-error"  });
                  
              }
          }); 
@@ -236,12 +234,12 @@ window.ImagesFacilitiesView = Backbone.View.extend({
          (typeof this.idParent !== 'undefined' && this.idParent )? $(this.el).show() : $(this.el).hide();
 
          this.delegateEvents();
-         return this;
+         return this;$.jGrowl($.i18n("seriousErrorDescr"), { header: this.alertKO, theme: "notify-error"  });
      },
    		/**
-    	 * set collection with available facilities (to check or uncheck).
+    	 * set collection with available images or facilities (to check or uncheck).
     	 */
-       setAvailableFacilities: function(){
+       setAvailables: function(){
       	 var self = this;
           this.collection.unbind('reset', this.render);
           this.collection.unbind('remove', this.removeOne);
@@ -249,10 +247,16 @@ window.ImagesFacilitiesView = Backbone.View.extend({
           this.collection.bind('reset', this.render, this);
           this.collection.bind('remove', this.removeOne, this);
       	 this.collection.fetch( {silent: true, success: function(){
-      		self.collection.addAll();
+      		self.addAll();
       	 }});
       	
        },
+  	/**
+   	 * set collection with checked images or facilities.
+   	 */
+      setChecked: function(){
+    	  /* override in extended classes */
+      },
      // Add all items in the collection at once.
      addAll: function () {
          $.each(this.rowViews, function (index, value) {
@@ -279,18 +283,18 @@ window.ImagesFacilitiesView = Backbone.View.extend({
     	
     	 // calculate width used by elements contained in wrapper
     	 var self = this;
-    	 $(".wrapper ul",this.el).animate({
- 		    opacity: 0.25
- 		  }, 1000, 'linear', function() {
- 			  $(".add-new", this.el).addClass("slider-loader");
- 		  });
+    	 $(".wrapper ul",self.el).css("opacity", 0.25);
+ 		 $(".add-new", this.el).addClass("slider-loader");
     	 this.collection.fetch({silent: true, success: function(){
     		 $(".add-new", this.el).removeClass("slider-loader");
     		 $(".wrapper ul",self.el).css("opacity", 1);
 			 $(".ui-rcarousel-prev",self.el).removeClass("disable");
 			 self.addAll();
+			 $(".add-new", self.el).removeClass("slider-loader");
+			 $(".wrapper ul",self.el).css("opacity", 1);
     	 }, error: function(){
     		 $.jGrowl($.i18n("seriousErrorDescr"), { header: this.alertKO, theme: "notify-error"  });
+    		 $(".add-new", self.el).removeClass("slider-loader");
     	 }});
 
     	 
@@ -312,12 +316,8 @@ window.ImagesFacilitiesView = Backbone.View.extend({
     	    	  this.page++;
     	     	 var self = this;
     	     	this.collection.setFrom(-10 * this.page );
-    	    	 $(".wrapper ul",this.el).animate({
-    	  		    opacity: 0.25
-    	  		  }, 1000, 'linear', function() {
-    	  			$(".add-new", this.el).addClass("slider-loader");
-
-    	  		  });
+    	    	 $(".wrapper ul",self.el).css("opacity", 0.25);
+    	    	 $(".add-new", this.el).addClass("slider-loader");
     	    	 this.collection.fetch({silent: true, success: function(){
     	    		 $(".add-new", this.el).removeClass("slider-loader");
     	    		 $(".wrapper ul",self.el).css("opacity", 1);
@@ -352,6 +352,16 @@ window.ImagesFacilitiesView = Backbone.View.extend({
     	 return ( (itemWidthUsed + (step * slideAmount)) > slideWidth )? true : false;
   	 
     	 
+     },
+     close: function ()	{
+     	this.remove();
+     	this.unbind();
+        $.each(this.rowViews, function (index, value) {
+            this.unrender();
+        });
+        this.collection.unbind('reset', this.render );
+        this.collection.unbind('remove', this.removeOne );
+     	
      },
      addElement: function(){
     	 
@@ -411,7 +421,21 @@ window.ImagesFacilitiesView = Backbone.View.extend({
     	this.availableCollection.each(this.addOne);
      },*/
      
-
+   		/**
+    	 * set collection with checked images or facilities.
+    	 */
+       setChecked: function(){
+      	 var self = this;
+          this.collection.unbind('reset', this.render);
+          this.collection.unbind('remove', this.removeOne);
+      	 this.collection = new RoomTypeFacilities({}, {id: this.idParent});
+          this.collection.bind('reset', this.render, this);
+          this.collection.bind('remove', this.removeOne, this);
+      	 this.collection.fetch( {silent: true, success: function(){
+      		self.addAll();
+      	 }});
+      	
+       },
      
  	/**
   	 * Add a facility view  to rowViews array render it.
@@ -428,6 +452,7 @@ window.ImagesFacilitiesView = Backbone.View.extend({
     	 {
     	 
     	 	view.switchMode();
+
     	 }
          view.model.collection = this.collection;
          this.rowViews.push(view);
@@ -444,7 +469,7 @@ window.ImagesFacilitiesView = Backbone.View.extend({
              onShow: function() {
             	 var overlay = this;
             	 // call a method to render availableCollection
-            	 self.setAvailableFacilities();
+            	 self.setAvailables();
                  $(self.el).addClass("edit-state-box");
                  $(this).click( function (){
               	   if(confirm($.i18n( "alertExitEditState" ))){
@@ -507,13 +532,26 @@ window.ImagesFacilitiesView = Backbone.View.extend({
          this.$("ul").append(view.render().el);
      },
      
+	/**
+ 	 * set collection with checked images or facilities.
+ 	 */
+    setChecked: function(){
+   	 var self = this;
+       this.collection.unbind('reset', this.render);
+       this.collection.unbind('remove', this.removeOne);
+   	 this.collection = new RoomTypeImages({}, {id: this.idParent});
+       this.collection.bind('reset', this.render, this);
+       this.collection.bind('remove', this.removeOne, this);
+   	 this.collection.fetch();
+   	
+    },
      switchMode: function () {
     	 // change in edit mode template
     	 if( this.indexTemplate.attr("id") == "images-edit-template" ){
     		 this.indexTemplate = $("#images-view-template");
              $(".overlay").remove();
              $(this.el).removeClass("edit-state-box");
-             this.render();
+             this.setChecked();
              $($.fn.overlay.defaults.container).css('overflow', 'auto');
     	 }
     	 else{
@@ -523,17 +561,17 @@ window.ImagesFacilitiesView = Backbone.View.extend({
              $(this.el).undelegate("div", "click");
              
              $('<div></div>').overlay({
-                 effect: 'fade',
+                 effect: 'fade',        
                  onShow: function() {
                 	 var overlay = this;
                 	 // call a method to render availableCollection
-                	 self.setAvailableFacilities();
+                	 self.setAvailables();
                      $(self.el).addClass("edit-state-box");
                      $(this).click( function (){
                   	   if(confirm($.i18n( "alertExitEditState" ))){
                   		 $(self.el).removeClass("edit-state-box");
           					self.indexTemplate = $("#images-view-template");
-       					self.render();
+          					self.setChecked();
        					$(overlay).remove();
        					$($.fn.overlay.defaults.container).css('overflow', 'auto');
 

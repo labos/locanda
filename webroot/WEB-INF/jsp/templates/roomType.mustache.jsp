@@ -110,23 +110,23 @@
 	</script>
 
 	<script id="facility-row-template" type="text/x-handlebars-template">
-		<span class="title-elem">{{caption}}</span><img src="<%=request.getContextPath( )%>/rest/file/{{image.file.id}}"/>
+		<span class="title-elem">{{image.caption}}</span><img src="<%=request.getContextPath( )%>/rest/file/{{image.file.id}}"/>
 	</script>
 
 	<script id="facility-row-edit-template" type="text/x-handlebars-template">
-		<input class="choose-elem" checked="checked" type="checkbox" name="facilities[]" value="{{id}}"/>
+		<input class="choose-elem" {{#id}}checked="checked"{{/id}} type="checkbox" name="facilities[]" value="{{id}}"/>
 		<img src="<%=request.getContextPath( )%>/rest/file/{{image.file.id}}"/>
 	</script>
 
 	<script id="image-row-template" type="text/x-handlebars-template">
-		<span class="title-elem">{{caption}}</<%=request.getContextPath( )%>/rest/facilities/roomType/{{id}}span>
-		<img src="<%=request.getContextPath( )%>/rest/images/{{id}}"/>
+		<span class="title-elem">{{image.caption}}</span>
+		<img src="<%=request.getContextPath( )%>/rest/file/{{file.id}}"/>
 	</script>
 
 	<script id="image-row-edit-template" type="text/x-handlebars-template">
-				<input class="choose-elem" checked="checked" type="checkbox" name="images[]" value="{{id}}"/>
-		<span class="title-elem">{{caption}}</span>
-		<img src="<%=request.getContextPath( )%>/rest/images/{{id}}"/>
+				<input class="choose-elem" {{#id}}checked="checked"{{/id}} type="checkbox" name="images[]" value="{{id}}"/>
+		<span class="title-elem">{{image.caption}}</span>
+		<img src="<%=request.getContextPath( )%>/rest/file/{{image.file.id}}"/>
 	</script>
 
 	<script id="facilities-view-template" type="text/x-handlebars-template">

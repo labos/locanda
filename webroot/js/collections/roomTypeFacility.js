@@ -31,7 +31,7 @@ window.RoomTypeFacilities = Backbone.Collection.extend({
     	this.setTerm(null);
     },
     url: function () {
-        return 'rest/facilities/roomType/' + this.idWrapper  + this.from + this.to + '?term=' + this.term ;
+        return 'rest/facilities/checked/roomType/' + this.idWrapper  + this.from + this.to + '?term=' + this.term ;
     },
     setTerm: function (aTerm) {
         this.term = (typeof aTerm !== "undefined" && aTerm) ? aTerm : '';

@@ -62,7 +62,7 @@
 						<input type="hidden" name="idStructure" value="{{idStructure}}"/>
      			  		<input type="file" name="upload" multiple/>
     			  		<button>Upload</button> 
-    			  		<div><s:text name="uploadFacility"/></div>  
+    			  		<div><s:text name="uploadImage"/></div>  
 					</form>
 		   	  	</div>
 		   	</div>      
@@ -105,7 +105,7 @@
 						<input type="hidden" name="id" value="{{id}}"/>
      			  		<input type="file" name="upload" multiple/>
     			  		<button>Upload</button> 
-    			  		<div><s:text name="uploadFacility"/></div>  
+    			  		<div><s:text name="uploadImage"/></div>  
 					</form>
 		   	  	</div>
 		   	</div>      

@@ -32,8 +32,8 @@ window.AvailableRoomTypeImages = Backbone.Collection.extend({
     	this.setTerm(null);
     },
     url: function () {
-        return 'rest/roomTypeImages/' + this.idWrapper +  '/search' + this.from + this.to + '?term=' + this.term ;
-    },
+    	return 'rest/roomTypeImages/roomType/' + this.idWrapper + this.from + this.to + '?term=' + this.term ;
+    	},
     setTerm: function (aTerm) {
         this.term = (typeof aTerm !== "undefined" && aTerm) ? aTerm : '';
     },

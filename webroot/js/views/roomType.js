@@ -32,7 +32,6 @@
         	 this.facilitiesListView.availableCollection= new AvailableRoomTypeFacilities({}, {id: this.model.get("id")});
         	 this.imagesListView = new ImagesListView( { collection: new RoomTypeImages( {}, {id: this.model.get("id")} ) } );
         	 this.imagesListView.availableCollection= new AvailableRoomTypeImages({}, {id: this.model.get("id")});
-
         	 this.id = null;
      },
      
@@ -66,7 +65,12 @@
       */
      renderAssociated: function (){
     	 // check if model has changed, then update collections in associated views
-    	 if (this.model.isNew() || this.model.get("id")  != this.id){
+    	if(this.model.isNew()){
+     		this.facilitiesListView.close(); 
+          	this.imagesListView.close(); 
+          	
+          }
+    	else if (this.model.get("id")  != this.id){
     		 var self = this;
              this.id = this.model.get("id");
              // unbind previous events raised from associated views
@@ -77,15 +81,16 @@
              //set collection for associated views
              this.facilitiesListView.collection.setIdWrapper(this.id);
              this.facilitiesListView.availableCollection.setIdWrapper(this.id);
-             this.facilitiesListView.collection.reset(this.model.get("facilities") );
+             this.facilitiesListView.collection.fetch();
              this.imagesListView.collection.setIdWrapper(this.id);
              this.imagesListView.availableCollection.setIdWrapper(this.id);
-             this.imagesListView.collection.reset( this.model.get("images"));
+             //--this.imagesListView.collection.reset( this.model.get("images"));
+             this.imagesListView.collection.fetch();
              // listen for changes in model on editing and fetch model if any change occur.
              this.facilitiesListView.bind("child:update", function () {
                  self.model.fetch({silent: true, success: function(){
                      //set collection for associated views
-                     self.facilitiesListView.collection.reset(self.model.get("facilities") );
+                     self.facilitiesListView.collection.fetch();
                      $(self.facilitiesListView.el).undelegate("div", "click");
 
                  }});
@@ -95,7 +100,8 @@
              this.imagesListView.bind("child:update", function () {
                  self.model.fetch({silent: true, success: function(){
                      //set collection for associated views
-                     self.imagesListView.collection.reset( self.model.get("images"));
+                     //--self.imagesListView.collection.reset( self.model.get("images"));
+                	 self.imagesListView.collection.fetch();
                      $(self.imagesListView.el).undelegate("div", "click");
 
                  }});
@@ -110,6 +116,7 @@
              }
 
     	 }
+    	
 
 
     	 

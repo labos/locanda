@@ -1163,6 +1163,7 @@ background: url("../../images/loading.gif") no-repeat center center;
 
 div.add-new .ui-corner-all {
     border-radius: 0px 0px 0px 6px;
+    color: #fff;
 }
 
 #periods{

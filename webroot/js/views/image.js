@@ -170,7 +170,8 @@ window.EditImageView = EditView.extend({
                     success: function () {
                         //set collection for associated views
                         self.imageView.model.set(self.model.get("file"));
-                        self.model.trigger('change', self.model);
+                        self.model.set({rnd: Math.ceil(Math.random()*500)})
+                        //self.model.trigger('change', self.model);
                         self.imageView.render();
                         $(self.imageView.el).undelegate("div", "click");
                     }
