@@ -1231,3 +1231,12 @@ span.title-elem {
 .slider-loader{
 	background: url('../images/slider-loader.gif') 50% 20% no-repeat;
 }
+#footer img{
+	margin: 0px 7px;
+}
+img#labos{
+	margin:20px 7px
+}
+img#eu{
+	margin:10px 7px
+} 

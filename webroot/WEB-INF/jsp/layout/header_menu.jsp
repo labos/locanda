@@ -18,28 +18,36 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="/struts-tags" prefix="s"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<meta http-equiv="Cache-Control" content="no-cache" />
-<link rel='stylesheet' type='text/css' href='css/reset.css' />
-<!--<link rel='stylesheet' type='text/css' href='http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/start/jquery-ui.css' />-->
-<link rel='stylesheet' type='text/css'
-	href='css/south-street/jquery-ui-1.8.9.custom.css' />
-<link rel='stylesheet' type='text/css'
-	href='css/jquery.weekcalendar.css' />
-<link rel='stylesheet' type='text/css' href='css/calendar.css' />
-<link rel='stylesheet' type='text/css' href='css/jquery.jgrowl.css' />
-<link rel="stylesheet" type='text/css'
-	href="css/jquery.fileupload-ui.css" />
-<link href="css/layout_sliding_door.css" rel="stylesheet"
-	type="text/css" />
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta http-equiv="Cache-Control" content="no-cache" />
+	<link rel='stylesheet' type='text/css' href='css/reset.css' />
+	<!--<link rel='stylesheet' type='text/css' href='http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/start/jquery-ui.css' />-->
+	<link rel='stylesheet' type='text/css' href='css/south-street/jquery-ui-1.8.9.custom.css' />
+	<link rel='stylesheet' type='text/css' href='css/jquery.weekcalendar.css' />
+	<link rel='stylesheet' type='text/css' href='css/calendar.css' />
+	<link rel='stylesheet' type='text/css' href='css/jquery.jgrowl.css' />
+	<link rel="stylesheet" type='text/css' href="css/jquery.fileupload-ui.css" />
+	<link rel="stylesheet" type="text/css" href="css/layout_sliding_door.css" />
 
-<title>LOCANDA - Open Source Booking Tool</title>
+	<title>LOCANDA - Open Source Booking Tool</title>
 
-<!--[if lte IE 7]>
+	<!--[if lte IE 7]>
 		<link href="css/patches/patch_sliding_door.css" rel="stylesheet" type="text/css" />
+		<style type="text/css">
+			h1 span {
+  					filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/logo_locanda.png', sizingMethod='scale');
+  					}
   	<![endif]-->
+  	<!--[if IE 8]>
+		<style type="text/css">
+			h1 span {
+				-ms-filter:"progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/logo_locanda.png', sizingMethod='scale')";
+			}
+		</style>
+	<![endif] -->
 </head>
 <body>
 	<!-- skip link navigation -->

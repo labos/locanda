@@ -19,16 +19,31 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<meta http-equiv="Cache-Control" content="no-cache" />
-<link type='text/css' href='css/south-street/jquery-ui-1.8.9.custom.css' rel='stylesheet' />
-<link type="text/css" href="css/layout_sliding_door.css" rel="stylesheet"  />
-  <title>LOCANDA - Open Source Booking Tool</title><!-- (en) Add your meta data here -->
-  <!-- (de) Fuegen Sie hier ihre Meta-Daten ein -->
-  <!--[if lte IE 7]>
-	<link href="css/patches/patch_sliding_door.css" rel="stylesheet" type="text/css" />
-  <![endif]-->
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta http-equiv="Cache-Control" content="no-cache" />
+	<link type='text/css' href='css/south-street/jquery-ui-1.8.9.custom.css' rel='stylesheet' />
+	<link type="text/css" href="css/layout_sliding_door.css" rel="stylesheet"  />
+  
+  	<title>LOCANDA - Open Source Booking Tool</title><!-- (en) Add your meta data here -->
+  	
+  	<!-- (de) Fuegen Sie hier ihre Meta-Daten ein -->
+  	<!--[if lte IE 7]>
+		<link href="css/patches/patch_sliding_door.css" rel="stylesheet" type="text/css" />
+		<style type="text/css">
+			h1 span {
+  					filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/logo_locanda.png', sizingMethod='scale');
+  					}
+  	<![endif]-->
+  	<!--[if IE 8]>
+		<style type="text/css">
+			h1 span {
+				background: none;
+				-ms-filter:"progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/logo_locanda.png', sizingMethod='scale')";
+			}
+		</style>
+	<![endif] -->
 </head>
+
 <!--<s:url var="redirectLang" includeParams="get" escapeAmp="false"/>-->
 <s:set var="redirectLang" value="#context['struts.actionMapping'].name" />
 <s:url id="localeFR" namespace="/" action="locale" >
@@ -44,9 +59,9 @@
 </s:url>
 
 <s:url action="goLogin" var="url_login"></s:url>
+
 <body>
   <!-- skip link navigation -->
-
   <ul id="skiplinks">
     <li><a class="skip" href="#nav">Skip to navigation (Press Enter).</a></li>
     <li><a class="skip" href="#col3">Skip to main content (Press Enter).</a></li>
