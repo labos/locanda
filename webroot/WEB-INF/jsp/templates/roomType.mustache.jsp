@@ -110,7 +110,7 @@
 	</script>
 
 	<script id="facility-row-template" type="text/x-handlebars-template">
-		<span class="title-elem">{{image.caption}}</span><img src="<%=request.getContextPath( )%>/rest/file/{{image.file.id}}"/>
+		{{#id}}<span class="title-elem">{{image.caption}}</span><img src="<%=request.getContextPath( )%>/rest/file/{{image.file.id}}"/>{{/id}}
 	</script>
 
 	<script id="facility-row-edit-template" type="text/x-handlebars-template">
@@ -119,8 +119,8 @@
 	</script>
 
 	<script id="image-row-template" type="text/x-handlebars-template">
-		<span class="title-elem">{{image.caption}}</span>
-		<img src="<%=request.getContextPath( )%>/rest/file/{{file.id}}"/>
+		{{#id}}<span class="title-elem">{{image.caption}}</span>
+		<img src="<%=request.getContextPath( )%>/rest/file/{{file.id}}"/>{{/id}}
 	</script>
 
 	<script id="image-row-edit-template" type="text/x-handlebars-template">

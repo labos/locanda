@@ -229,12 +229,14 @@ window.ImagesFacilitiesView = Backbone.View.extend({
                  primary: "ui-icon-gear"
              }
          });
-         this.page = 0;
+          if( this.page < 0 ){
+        	  this.enablePrev();
+          };
          this.addAll();
          (typeof this.idParent !== 'undefined' && this.idParent )? $(this.el).show() : $(this.el).hide();
 
          this.delegateEvents();
-         return this;$.jGrowl($.i18n("seriousErrorDescr"), { header: this.alertKO, theme: "notify-error"  });
+         return this;
      },
    		/**
     	 * set collection with available images or facilities (to check or uncheck).
@@ -267,13 +269,10 @@ window.ImagesFacilitiesView = Backbone.View.extend({
      },
      
      addOne: function (item) {
-         var view = new RowView({
-             model: item
-         });
-         view.bind("row:edit", this.editOne);
-         view.model.collection = this.collection;
-         this.rowViews.push(view);
-         $(this.el).append(view.render().el);
+    	 if(item.isNew){
+    		 return;
+    	 }
+
      },
      next: function () {
 
@@ -288,7 +287,7 @@ window.ImagesFacilitiesView = Backbone.View.extend({
     	 this.collection.fetch({silent: true, success: function(){
     		 $(".add-new", this.el).removeClass("slider-loader");
     		 $(".wrapper ul",self.el).css("opacity", 1);
-			 $(".ui-rcarousel-prev",self.el).removeClass("disable");
+			 self.enablePrev();
 			 self.addAll();
 			 $(".add-new", self.el).removeClass("slider-loader");
 			 $(".wrapper ul",self.el).css("opacity", 1);
@@ -321,7 +320,7 @@ window.ImagesFacilitiesView = Backbone.View.extend({
     	    	 this.collection.fetch({silent: true, success: function(){
     	    		 $(".add-new", this.el).removeClass("slider-loader");
     	    		 $(".wrapper ul",self.el).css("opacity", 1);
-	    			  ( self.page < 0 )? $(".ui-rcarousel-prev",self.el).removeClass("disable") : $(".ui-rcarousel-prev",self.el).addClass("disable");
+	    			  ( self.page < 0 )? self.enablePrev() : self.disablePrev();
 	    			  self.addAll();
     	    	 }, error: function(){
     	    		 $.jGrowl($.i18n("seriousErrorDescr"), { header: this.alertKO, theme: "notify-error"  });
@@ -342,6 +341,13 @@ window.ImagesFacilitiesView = Backbone.View.extend({
 
     	 
      },
+     disablePrev: function(){
+    	 $(".ui-rcarousel-prev",self.el).addClass("disable");
+     },
+     enablePrev: function(){
+    	 $(".ui-rcarousel-prev",self.el).removeClass("disable");
+     },
+     disableNext: function(){},
      getNumPages: function(step){
     	 
     	 var slideAmount = $(".wrapper",this.el).width() / 3,
@@ -363,6 +369,14 @@ window.ImagesFacilitiesView = Backbone.View.extend({
         this.collection.unbind('remove', this.removeOne );
      	
      },
+     disable: function (){
+      	
+         $.each(this.rowViews, function (index, value) {
+             this.unrender();
+         });
+         $(this.el).hide();
+      	
+      },
      addElement: function(){
     	 
      },
@@ -432,7 +446,7 @@ window.ImagesFacilitiesView = Backbone.View.extend({
           this.collection.bind('reset', this.render, this);
           this.collection.bind('remove', this.removeOne, this);
       	 this.collection.fetch( {silent: true, success: function(){
-      		self.addAll();
+      		self.render();
       	 }});
       	
        },
@@ -442,6 +456,8 @@ window.ImagesFacilitiesView = Backbone.View.extend({
   	 * @param {Object} backbone model of the facility.
   	 */
      addOne: function (item) {
+    	 
+    	 //return FacilitiesListView.__super__.addOne.apply(this, arguments);
          var view = new FacilityRowView({
              model: item
          });
@@ -459,31 +475,43 @@ window.ImagesFacilitiesView = Backbone.View.extend({
          this.$("ul").append(view.render().el);
      },
      switchMode: function () {
-         this.indexTemplate = (this.indexTemplate.attr("id") == "facilities-view-template") ? $("#facilities-edit-template") : $("#facilities-view-template");
-         this.render();
-         var self = this;
+        
+    	 // change in edit mode template
+    	 if( this.indexTemplate.attr("id") == "facilities-edit-template" ){
+    		 this.indexTemplate = $("#facilities-view-template");
+             $(".overlay").remove();
+             $(this.el).removeClass("edit-state-box");
+             this.setChecked();
+             $($.fn.overlay.defaults.container).css('overflow', 'auto');
+    	 }
+    	 else{
+             this.indexTemplate = $("#facilities-edit-template");
+             this.render();
+             var self = this;
+             $(this.el).undelegate("div", "click");
+             
+             $('<div></div>').overlay({
+                 effect: 'fade',        
+                 onShow: function() {
+                	 var overlay = this;
+                	 // call a method to render availableCollection
+                	 self.setAvailables();
+                     $(self.el).addClass("edit-state-box");
+                     $(this).click( function (){
+                  	   if(confirm($.i18n( "alertExitEditState" ))){
+                  		 $(self.el).removeClass("edit-state-box");
+          					self.indexTemplate = $("#facilities-view-template");
+          					self.setChecked();
+       					$(overlay).remove();
+       					$($.fn.overlay.defaults.container).css('overflow', 'auto');
 
-         $(this.el).undelegate("div", "click");
-         $('<div></div>').overlay({
-             effect: 'fade',
-             onShow: function() {
-            	 var overlay = this;
-            	 // call a method to render availableCollection
-            	 self.setAvailables();
-                 $(self.el).addClass("edit-state-box");
-                 $(this).click( function (){
-              	   if(confirm($.i18n( "alertExitEditState" ))){
-              		 $(self.el).removeClass("edit-state-box");
-              		self.indexTemplate = $("#facilities-view-template");
-   					self.render();
-   					$(overlay).remove();
-   					$($.fn.overlay.defaults.container).css('overflow', 'auto');
-
-               	   }
-                	 
-                 });
-               }
-           });
+                   	   }
+                    	 
+                     });
+                   }
+               });
+    		 
+    	 }
 }
  });
  
