@@ -33,7 +33,7 @@ window.ImageView = Backbone.View.extend({
     },
     render: function () {
         var modelToRender = this.model.toJSON();
-        modelToRender.rnd = Math.ceil(Math.random()*500);
+        modelToRender.rnd = Math.ceil(Math.random() * 500);
         $(this.el).html(Mustache.to_html(this.indexTemplate.html(), modelToRender));
         if (this.$("#uploadFacility").length) {
             this.$("#uploadFacility").uploadImage(this);
@@ -42,10 +42,10 @@ window.ImageView = Backbone.View.extend({
         this.delegateEvents();
         return this;
     },
-    close: function ()	{
-    	this.remove();
-    	this.unbind();
-    	this.model.unbind("change", this.render);
+    close: function () {
+        this.remove();
+        this.unbind();
+        this.model.unbind("change", this.render);
     },
     switchMode: function () {
         this.indexTemplate = (this.indexTemplate.attr("id") == "image-view-template") ? $("#image-edit-template") : $("#image-view-template");
@@ -102,25 +102,10 @@ window.EditImageView = EditView.extend({
     render: function () {
         // render main edit view
         var modelToRender = this.model.toJSON();
-        // set additional attributes to display in the template. Only for the view.
+        modelToRender.idStructure = Entity.idStructure;
+        // check if model is new then render the new template.
         if (this.model.isNew()) {
-        	var self = this;
-            this.bind("child:update", function (event, paramId, paramOther) {
-            	self.model.set({id:paramId},{silent: true});
-                self.model.fetch({
-                    error: function () {
-                        	alert($.i18n("seriousError"));
-                    },
-                    success: function () {
-                    		self.indexTemplate = $("#edit-template");
-                    		self.collection.add(self.model);
-                        	self.switchMode();
-                    }
-                });
-            });
-            // add additional fields eventually..
-        	this.indexTemplate =   $("#new-template");
-        	modelToRender.idStructure = Entity.idStructure;
+            this.renderNew();
         }
 
         $(this.el).html(Mustache.to_html(this.indexTemplate.html(), modelToRender));
@@ -154,15 +139,18 @@ window.EditImageView = EditView.extend({
      */
     renderAssociated: function () {
         // check if model has changed or is new, then update collections in associated views
-        if (!this.model.isNew()  && this.model.get("id")  != this.id) {
+        if (!this.model.isNew() && this.model.get("id") != this.id) {
             var self = this;
+            // set id property of view as model id attribute
             this.id = this.model.get("id");
+            // close imageView opened eventually
             this.imageView.close();
+            // create a new image view
             this.imageView = new ImageView({
-                model: this.model.get("file")? this.imageView.model.set(this.model.get("file")) : this.imageView.model.set(new File())
+                model: this.model.get("file") ? this.imageView.model.set(this.model.get("file")) : this.imageView.model.set(new File())
 
             });
-            
+
             // listen for changes in model on editing and fetch model if any change occur.
             this.imageView.bind("child:update", function () {
                 self.model.fetch({
@@ -170,21 +158,48 @@ window.EditImageView = EditView.extend({
                     success: function () {
                         //set collection for associated views
                         self.imageView.model.set(self.model.get("file"));
-                        self.model.set({rnd: Math.ceil(Math.random()*500)})
-                        //self.model.trigger('change', self.model);
+                        self.model.set({
+                            rnd: Math.ceil(Math.random() * 500)
+                        });
                         self.imageView.render();
                         $(self.imageView.el).undelegate("div", "click");
                     }
                 });
             });
-            
+
             // now render associated view
             $("#image").html(this.imageView.el);
 
+        } else if (this.model.isNew()) {
+            this.imageView.close();
         }
-        else if(this.model.isNew()){
-        	this.imageView.close();      	
-            }
-      
-}
+
+    },
+    /**
+     * Render associated views
+     */
+    renderNew: function () {
+        var self = this;
+        this.bind("child:update", function (event, paramId, paramOther) {
+            self.model.set({
+                id: paramId
+            }, {
+                silent: true
+            });
+            self.model.fetch({
+                error: function () {
+                    alert($.i18n("seriousError"));
+                },
+                success: function () {
+                    self.indexTemplate = $("#edit-template");
+                    self.collection.add(self.model);
+                    self.switchMode();
+                }
+            });
+        });
+        // set the right template for new action
+        this.indexTemplate = $("#new-template");
+
+    }
+
 });

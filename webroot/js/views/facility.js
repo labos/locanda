@@ -32,8 +32,8 @@ window.ThumbnailView = Backbone.View.extend({
 
     },
     render: function () {
-    	var modelToRender = this.model.toJSON();
-    	
+        var modelToRender = this.model.toJSON();
+
         $(this.el).html(Mustache.to_html(this.indexTemplate.html(), modelToRender));
         if (this.$("#uploadFacility").length) {
             this.$("#uploadFacility").uploadImage(this);
@@ -42,10 +42,10 @@ window.ThumbnailView = Backbone.View.extend({
         this.delegateEvents();
         return this;
     },
-    close: function ()	{
-    	this.remove();
-    	this.unbind();
-    	this.model.unbind("change", this.render);
+    close: function () {
+        this.remove();
+        this.unbind();
+        this.model.unbind("change", this.render);
     },
     switchMode: function () {
         this.indexTemplate = (this.indexTemplate.attr("id") == "image-view-template") ? $("#image-edit-template") : $("#image-view-template");
@@ -139,7 +139,7 @@ window.EditFacilityView = EditView.extend({
             this.id = this.model.get("id");
             this.thumbnailView.close();
             this.thumbnailView = new ThumbnailView({
-                model: this.model.get("image")? this.thumbnailView.model.set(this.model.get("image").file) : this.thumbnailView.model.set(new Image())
+                model: this.model.get("image") ? this.thumbnailView.model.set(this.model.get("image").file) : this.thumbnailView.model.set(new Image())
 
             });
 
@@ -154,16 +154,11 @@ window.EditFacilityView = EditView.extend({
                     }
                 });
             });
-         // now render associated view
+            // now render associated view
             $("#thumbnail").html(this.thumbnailView.el);
-            /*// now render associated views
-            if ($("#thumbnail").is(':empty')) {
-                $("#thumbnail").html(this.thumbnailView.el);
-            }*/
 
-        }
-        else {
-        	this.thumbnailView.close();
+        } else {
+            this.thumbnailView.close();
         }
     }
 });
