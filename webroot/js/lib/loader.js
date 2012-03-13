@@ -20,8 +20,11 @@ typeof Entity !== "undefined" || ( Entity = {name:"default", editView:null} );
 if ( Entity.name == "roomType" || Entity.name == "room" || Entity.name == "structure") {
     steal("../../css/rcarousel.css","../views/commonMedia.js");
 }
+if ( Entity.name == "room") {
+    steal("../models/roomFacility.js", "../models/roomImage.js", "../models/file.js").then("../collections/roomFacility.js","../collections/availableRoomFacilities.js","../collections/availableRoomImages.js","../collections/roomImage.js");
+}
 if ( Entity.name == "roomType") {
-    steal("../models/roomTypeFacility.js", "../models/roomTypeImage.js", "../models/file.js").then("../collections/roomTypeFacility.js","../collections/availableRoomTypeFacility.js","../collections/availableRoomTypeImages.js","../collections/roomTypeImage.js");
+    steal("../models/roomTypeFacility.js", "../models/roomTypeImage.js", "../models/file.js").then("../collections/roomTypeFacility.js","../collections/availableRoomTypeFacilities.js","../collections/availableRoomTypeImages.js","../collections/roomTypeImage.js");
 }
 if ( Entity.name == "facility" ) {
     steal("jquery.fileupload.js", "jquery.fileupload-ui.js", "jquery.fileupload-uix.js").

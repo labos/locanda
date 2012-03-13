@@ -215,6 +215,8 @@ window.ImagesFacilitiesView = Backbone.View.extend({
         this.page = 0;
         // collection of facilities or images to check
         this.availableCollection = null;
+        // set a copy of collection
+        this.initCollection = this.collection;
         this.idParent = null;
         this.rowViews = [];
         this.render();
@@ -406,6 +408,8 @@ window.FacilitiesListView = ImagesFacilitiesView.extend({
         this.collection.bind('remove', this.removeOne, this);
         // collection of facilities to check
         this.availableCollection = null;
+        // set a copy of collection
+        this.initCollection = this.collection;
         // array of single facility view
         this.rowViews = [];
         // page index for the slider
@@ -431,9 +435,10 @@ window.FacilitiesListView = ImagesFacilitiesView.extend({
         var self = this;
         this.collection.unbind('reset', this.render);
         this.collection.unbind('remove', this.removeOne);
-        this.collection = new RoomTypeFacilities({}, {
+        this.collection = this.initCollection.initialize({}, {
             id: this.idParent
         });
+        this.collection = this.initCollection;
         this.collection.bind('reset', this.render, this);
         this.collection.bind('remove', this.removeOne, this);
         this.collection.fetch({
@@ -512,6 +517,8 @@ window.ImagesListView = ImagesFacilitiesView.extend({
         _.bindAll(this, "next", "prev", "addOne");
         this.collection.bind('reset', this.render, this);
         this.collection.bind('remove', this.removeOne, this);
+        // set a copy of collection
+        this.initCollection = this.collection;
         // collection of images to check
         this.availableCollection = null;
         this.rowViews = [];
@@ -541,9 +548,10 @@ window.ImagesListView = ImagesFacilitiesView.extend({
     setChecked: function () {
         this.collection.unbind('reset', this.render);
         this.collection.unbind('remove', this.removeOne);
-        this.collection = new RoomTypeImages({}, {
+        this.collection = this.initCollection.initialize({}, {
             id: this.idParent
         });
+        this.collection = this.initCollection;
         this.collection.bind('reset', this.render, this);
         this.collection.bind('remove', this.removeOne, this);
         this.collection.fetch();

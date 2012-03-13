@@ -28,8 +28,6 @@
      },
      initialize: function () {
          this.model.bind('change', this.render, this);
-//        	 this.facilitiesListView = new FacilitiesListView( { collection: new RoomFacilities(null, Entity.idStructure)});
-//        	 this.imagesListView = new ImagesListView( { collection: new Images(null, Entity.idStructure) } );
         	 this.id = null;
         	 this.roomTypes = new RoomTypes(null, {idStructure: Entity.idStructure});
         	 this.availableRoomTypes = [];
@@ -39,6 +37,25 @@
                 	 self.initializeRoomTypes();
                 	 },
              });
+             this.facilitiesListView = new FacilitiesListView({
+                 collection: new RoomFacilities({}, {
+                     id: this.model.get("id")
+                 })
+             });
+             this.facilitiesListView.availableCollection = new AvailableRoomFacilities({}, {
+                 id: this.model.get("id")
+             });
+             this.imagesListView = new ImagesListView({
+                 collection: new RoomImages({}, {
+                     id: this.model.get("id")
+                 })
+             });
+             this.imagesListView.availableCollection = new AvailableRoomImages({}, {
+                 id: this.model.get("id")
+             });
+             this.id = null;
+             
+             
      },
      /**
       * Set the list of available roomTypes.
@@ -100,37 +117,65 @@
      /**
       * Render associated views
       */
-     renderAssociated: function (){
-    	 // check if model has changed, then update collections in associated views
-//    	 if (this.model.isNew() || this.model.get("id")  != this.id){
-//    		 var self = this;
-//             this.id = this.model.get("id");
-//             // unbind previous events raised from associated views
-//             this.facilitiesListView.unbind("child:update");
-//             this.imagesListView.unbind("child:update");
-//             this.facilitiesListView.idParent= this.id;
-//             this.imagesListView.idParent= this.id;
-//             //set collection for associated views
-//             this.facilitiesListView.collection.reset(this.model.get("facilities") );
-//             this.imagesListView.collection.reset( this.model.get("images"));
-//             // listen for changes in model on editing and fetch model if any change occur.
-//             this.facilitiesListView.bind("child:update", function () {
-//                 self.model.fetch({silent: true, success: function(){
-//                     //set collection for associated views
-//                     self.facilitiesListView.collection.reset(self.model.get("facilities") );
-//                 }});    
-//             });
-//             this.imagesListView.bind("child:update", function () {
-//                 self.model.fetch({silent: true, success: function(){
-//                     //set collection for associated views
-//                     self.imagesListView.collection.reset( self.model.get("images"));
-//                 }});
-//             });             
-//             // now render associated views
-//             if( $("#facilities").is(':empty') ) {
-//                 $("#facilities").html( this.facilitiesListView.el ) ;
-//                 $("#images").html( this.imagesListView.el);
-//             }
-//    	 } 
+     renderAssociated: function () {
+         // check if model has changed, then update collections in associated views
+         if (this.model.isNew()) {
+             //disable sliders when you add a new RoomType
+             this.facilitiesListView.disable();
+             this.imagesListView.disable();
+
+         } else if (this.model.get("id") != this.id) {
+             this.id = this.model.get("id");
+             this.resetAssociated(this.id);
+             // now render associated views
+             $("#facilities").html(this.facilitiesListView.el);
+             $("#images").html(this.imagesListView.el);
+
+         }
+     },
+     /**
+      * Reset slider views collections
+      */
+     resetAssociated: function () {
+         var self = this;
+         // unbind previous events raised from associated views
+         this.facilitiesListView.unbind("child:update");
+         this.imagesListView.unbind("child:update");
+         this.facilitiesListView.idParent = this.id;
+         this.imagesListView.idParent = this.id;
+         //set collection for associated views
+         this.facilitiesListView.collection.setIdWrapper(this.id);
+         this.facilitiesListView.availableCollection.setIdWrapper(this.id);
+         this.facilitiesListView.collection.fetch();
+         this.imagesListView.collection.setIdWrapper(this.id);
+         this.imagesListView.availableCollection.setIdWrapper(this.id);
+         this.imagesListView.collection.fetch();
+         // listen for changes in model on editing and fetch model if any change occur.
+         this.facilitiesListView.bind("child:update", function () {
+             self.model.fetch({
+                 silent: true,
+                 success: function () {
+                     //set collection for associated views
+                     self.facilitiesListView.collection.fetch();
+                     $(self.facilitiesListView.el).undelegate("div", "click");
+
+                 }
+             });
+
+
+         });
+         this.imagesListView.bind("child:update", function () {
+             self.model.fetch({
+                 silent: true,
+                 success: function () {
+                     //set collection for associated views
+                     self.imagesListView.collection.fetch();
+                     $(self.imagesListView.el).undelegate("div", "click");
+
+                 }
+             });
+         });
+
+
      }
  });

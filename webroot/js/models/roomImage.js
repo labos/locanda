@@ -22,7 +22,7 @@
  * @author LabOpenSource
  */
 
-window.RoomTypeImage = Backbone.Model.extend({
+window.RoomImage = Backbone.Model.extend({
 	
     initialize: function () {
     },
@@ -31,6 +31,6 @@ window.RoomTypeImage = Backbone.Model.extend({
         if (this.isNew()) return base;
         return base + (base.charAt(base.length - 1) == '/' ? '' : '/') + encodeURIComponent(this.id);
     },
-    urlRoot: "rest/roomTypeImages",
+    urlRoot: "rest/roomImages",
     validate: function (attrs) {},
 });
