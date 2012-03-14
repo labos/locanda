@@ -70,7 +70,7 @@ public class FacilityServiceImpl implements FacilityService{
 		file.setName("empty.gif");
 		image.setFile(file);
 		this.getImageService().insert(image);
-		
+		facility.setImage(image);
 		count = this.getFacilityMapper().insert(facility);	
 		this.getFacilityImageService().insert(facility.getId(), image.getId());		
 		return count;		
