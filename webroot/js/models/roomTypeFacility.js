@@ -31,6 +31,6 @@ window.RoomTypeFacility = Backbone.Model.extend({
         if (this.isNew()) return base;
         return base + (base.charAt(base.length - 1) == '/' ? '' : '/') + encodeURIComponent(this.id);
     },
-    urlRoot: "rest/roomTypeFacility/",
+    urlRoot: "rest/roomTypeFacilities/",
     validate: function (attrs) {}
 });

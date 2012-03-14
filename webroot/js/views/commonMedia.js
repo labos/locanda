@@ -52,7 +52,7 @@ window.FacilityRowView = Backbone.View.extend({
         var $target = $(event.target),
             self = this;
         if (!$target.is(":checked")) {
-            this.model.destroy({
+            this.model.destroy(null, {
                 success: function () {
                     $.jGrowl($.i18n("congratulation"), {
                         header: this.alertOK
@@ -69,7 +69,7 @@ window.FacilityRowView = Backbone.View.extend({
                 }
             });
         } else {
-            this.model.save({
+            this.model.save(null, {
                 success: function () {
                     // trigger an update event.
                     self.trigger("child:update", self);
@@ -458,8 +458,8 @@ window.FacilitiesListView = ImagesFacilitiesView.extend({
             model: item
         });
         view.bind("child:update", function () {
-            self.trigger("child:update", this);
-        }, self);
+            this.trigger("child:update", this);
+        }, this);
         if (this.indexTemplate.attr("id") == "facilities-edit-template") {
             view.switchMode();
         }

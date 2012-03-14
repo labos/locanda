@@ -26,7 +26,7 @@ window.RoomFacilities = Backbone.Collection.extend({
     model: RoomFacility,
     //This is our Conventions collection and holds our Convention models
     initialize: function (models, options) {
-    	this.setIdWrapper(options.idRoom);
+    	this.setIdWrapper(options.id);
     	this.setFrom(0);
     	this.setTo(10);
     	this.setTerm(null);

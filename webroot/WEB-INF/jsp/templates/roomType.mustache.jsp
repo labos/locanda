@@ -115,7 +115,7 @@
 
 	<script id="facility-row-edit-template" type="text/x-handlebars-template">
 		<input class="choose-elem" {{#id}}checked="checked"{{/id}} type="checkbox" name="facilities[]" value="{{id}}"/>
-		<img src="<%=request.getContextPath( )%>/rest/file/{{image.file.id}}"/>
+		<img src="<%=request.getContextPath( )%>/rest/file/{{facility.image.file.id}}"/>
 	</script>
 
 	<script id="image-row-template" type="text/x-handlebars-template">

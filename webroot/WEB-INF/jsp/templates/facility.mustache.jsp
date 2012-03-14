@@ -41,7 +41,7 @@
 	
 	<script id="image-view-template" type="text/x-handlebars-template">
             <div class="c50l inview">
-				{{#id}}<img src="rest/file/{{id}}" alt="" />{{/id}}
+				{{#id}}<img src="rest/file/{{id}}?rnd={{rnd}}" alt="" />{{/id}}
 				{{^id}}<img src="images/image-default.png" alt="default" /><b><s:text name="insertNewImage"/></b>{{/id}}
 			</div>
  	</script>
@@ -55,10 +55,10 @@
         <div class="beauty">
      	  	<div class="subcolumns">
             <div class="c20l">
-				<img src="rest/file/{{id}}" alt="" />
+				<img src="rest/file/{{id}}?rnd={{rnd}}" alt="" />
 			</div>
            	  	<div class="c33l">
-    				<label for="name_facility"><s:text name="imageName"/>:</label>&nbsp;<input type="text" name="facility_name" value="" id="name_facility" class="require"/>
+    				<input type="hidden" name="facility_name" value="default" id="name_facility"/>
  			  	</div>
  			  	<div class="c20l">
  					<br/>
@@ -90,7 +90,7 @@
 
 	<script id="row-template" type="text/x-handlebars-template">
 		<div class="row-item">
-			<img class="thumb" src="rest/file/{{image.file.id}}" alt="" style="position:absolute;left:0px;width:30px;heigth:30px;"/>
+			<img class="thumb" src="rest/file/{{image.file.id}}?rnd={{rnd}}" alt="" style="position:absolute;left:0px;width:30px;heigth:30px;"/>
 			<ul style="margin-left:35px;">
 				<li><b><s:text name="name"/>: </b>{{name}}</li>
 				<li><b><s:text name="description"/>: </b>{{sub_description}}</li>

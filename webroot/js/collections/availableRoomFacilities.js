@@ -32,7 +32,7 @@ window.AvailableRoomFacilities = Backbone.Collection.extend({
     	this.setTerm(null);
     },
     url: function () {
-        return 'rest/roomFacilities/' + this.idWrapper  + this.from + this.to + '?term=' + this.term ;
+        return 'rest/roomFacilities/room/' + this.idWrapper  + this.from + this.to + '?term=' + this.term ;
     },
     setTerm: function (aTerm) {
         this.term = (typeof aTerm !== "undefined" && aTerm) ? aTerm : '';

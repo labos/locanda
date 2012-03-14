@@ -33,7 +33,7 @@ window.ThumbnailView = Backbone.View.extend({
     },
     render: function () {
         var modelToRender = this.model.toJSON();
-
+        modelToRender.rnd = Math.ceil(Math.random() * 500);
         $(this.el).html(Mustache.to_html(this.indexTemplate.html(), modelToRender));
         if (this.$("#uploadFacility").length) {
             this.$("#uploadFacility").uploadImage(this);
@@ -134,7 +134,7 @@ window.EditFacilityView = EditView.extend({
      */
     renderAssociated: function () {
         // check if model has changed or is new, then update collections in associated views
-        if (!this.model.isNew()) {
+        if (!this.model.isNew()  && this.model.get("id") != this.id) {
             var self = this;
             this.id = this.model.get("id");
             this.thumbnailView.close();
@@ -149,7 +149,12 @@ window.EditFacilityView = EditView.extend({
                     silent: true,
                     success: function () {
                         //set collection for associated views
-                        self.thumbnailView.model.set(this.model.get("image").file);
+                        self.thumbnailView.model.set(self.model.get("image").file);
+                        //update rnd attributes when raise a change in the list collection
+                        self.model.set({
+                            rnd: Math.ceil(Math.random() * 500)
+                        });
+                        self.thumbnailView.render();
                         $(self.thumbnailView.el).undelegate("div", "click");
                     }
                 });
@@ -157,7 +162,7 @@ window.EditFacilityView = EditView.extend({
             // now render associated view
             $("#thumbnail").html(this.thumbnailView.el);
 
-        } else {
+        } else if (this.model.isNew()) {
             this.thumbnailView.close();
         }
     }

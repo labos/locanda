@@ -24,7 +24,8 @@
 
 window.Facility = Backbone.Model.extend({
     defaults: {
-        sub_description: null
+        sub_description: null,
+        rnd: null
     },
     initialize: function () {
     	this.setFilter( "" );
