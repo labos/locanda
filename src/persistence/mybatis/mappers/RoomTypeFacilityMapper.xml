@@ -26,7 +26,11 @@ In case of controversy the competent court is the Court of Cagliari (Italy).
      
     <select id="findByIdRoomType" parameterType="int" resultType="map">
        SELECT  id,id_roomType,id_facility from roomTypeFacility where id_roomType = #{id_roomType}
-    </select>        
+    </select>  
+    
+    <select id="findIdByIdRoomTypeAndIdFacility" parameterType="map" resultType="int">
+        select id from roomTypeFacility where id_roomType = #{id_roomType} AND id_facility = #{id_facility}
+    </select>       
         
     <delete id="delete" parameterType="int">
         DELETE from roomTypeFacility where id = #{id}

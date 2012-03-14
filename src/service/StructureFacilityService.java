@@ -24,6 +24,10 @@ import org.springframework.transaction.annotation.Transactional;
 public interface StructureFacilityService {	
 	
 	public Integer insert(Integer id_structure,Integer id_facility);	
-	public List<Integer> findIdFacilityByIdStructure(Integer id_structure);		
+	public List<Integer> findIdFacilityByIdStructure(Integer id_structure);	
+	public Integer findIdByIdStructureAndIdFacility(Integer id_structure,Integer id_facility);
+	public Integer delete(Integer id);
+	public Integer deleteByIdStructure(Integer id_structure);
+	public Integer deleteByIdFacility(Integer id_facility);	
 
 }

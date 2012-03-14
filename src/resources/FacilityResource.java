@@ -10,6 +10,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 
 import model.Facility;
@@ -33,7 +34,14 @@ public class FacilityResource {
 	@Path("{id}")
 	@Produces({MediaType.APPLICATION_JSON})	
 	public Facility findFacilityById(@PathParam("id") Integer id){
-		return this.getFacilityService().find(id);		
+		Facility facility = null;
+		
+		facility = this.getFacilityService().find(id);
+		if (facility == null) {
+			throw new WebApplicationException(404);
+		}
+		
+		return 	facility;	
 	}
 	
 	@POST
@@ -67,28 +75,28 @@ public class FacilityResource {
 	 @GET
 	 @Path("all/structure/{idStructure}/{offset}/{rownum}")
 	 @Produces({MediaType.APPLICATION_JSON})	
-	 public List<Facility> getAllFacilities(@PathParam("idStructure") Integer idStructure){
-		 return this.getFacilityService().findByIdStructure(idStructure);
+	 public List<Facility> getAllFacilities(@PathParam("idStructure") Integer idStructure,@PathParam("offset") Integer offset,@PathParam("rownum") Integer rownum){
+		 return this.getFacilityService().findByIdStructure(idStructure,offset,rownum);
 	 }
 	 
 	 @GET
 	 @Path("checked/structure/{idStructure}/{offset}/{rownum}")
 	 @Produces({MediaType.APPLICATION_JSON})	
-	 public List<Facility> getStructureFacilities(@PathParam("idStructure") Integer idStructure){
+	 public List<Facility> getStructureFacilities(@PathParam("idStructure") Integer idStructure,@PathParam("offset") Integer offset,@PathParam("rownum") Integer rownum){
 		 return this.getFacilityService().findCheckedByIdStructure(idStructure);
 	 }
 	 
 	 @GET
 	 @Path("checked/roomType/{idRoomType}/{offset}/{rownum}")
 	 @Produces({MediaType.APPLICATION_JSON})	
-	 public List<Facility> getRoomTypeFacilities(@PathParam("idRoomType") Integer idRoomType){
+	 public List<Facility> getRoomTypeFacilities(@PathParam("idRoomType") Integer idRoomType,@PathParam("offset") Integer offset,@PathParam("rownum") Integer rownum){
 		 return this.getFacilityService().findCheckedByIdRoomType(idRoomType);
 	 }
 	 
 	 @GET
 	 @Path("checked/room/{idRoom}/{offset}/{rownum}")
 	 @Produces({MediaType.APPLICATION_JSON})	
-	 public List<Facility> getRoomFacilities(@PathParam("idRoom") Integer idRoom){
+	 public List<Facility> getRoomFacilities(@PathParam("idRoom") Integer idRoom,@PathParam("offset") Integer offset,@PathParam("rownum") Integer rownum){
 		 return this.getFacilityService().findCheckedByIdRoom(idRoom);
 	 }
 	

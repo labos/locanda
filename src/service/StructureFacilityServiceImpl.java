@@ -38,10 +38,7 @@ import model.Image;
 public class StructureFacilityServiceImpl implements StructureFacilityService{
 	@Autowired
 	private StructureFacilityMapper structureFacilityMapper = null;
-	@Autowired
-	private ImageService imageService = null;
-	
-		
+			
 	@Override
 	public Integer insert(Integer id_structure,Integer id_facility) {
 		Map map = null;
@@ -49,7 +46,7 @@ public class StructureFacilityServiceImpl implements StructureFacilityService{
 		map = new HashMap();
 		map.put("id_structure", id_structure);
 		map.put("id_facility", id_facility);
-		return this.getStructureFacilityCheckMapper().insert(map);
+		return this.getStructureFacilityMapper().insert(map);
 	}
 	
 	
@@ -60,27 +57,62 @@ public class StructureFacilityServiceImpl implements StructureFacilityService{
 		List<Integer> ret = null;
 		
 		ret = new ArrayList<Integer>();
-		for(Map map: this.getStructureFacilityCheckMapper().findByIdStructure(id_structure)){
+		for(Map map: this.getStructureFacilityMapper().findByIdStructure(id_structure)){
 			ret.add((Integer)map.get("id_facility"));
 		}
 		
 		return ret;
 	}
 
+	
 
-	public ImageService getImageService() {
-		return imageService;
+	@Override
+	public Integer findIdByIdStructureAndIdFacility(Integer id_structure,Integer id_facility) {
+		Map map = null;
+		
+		map = new HashMap();
+		map.put("id_structure", id_structure);
+		map.put("id_facility", id_facility);
+		
+		return this.getStructureFacilityMapper().findIdByIdStructureAndIdFacility(map);
 	}
 
-	public void setImageService(ImageService imageService) {
-		this.imageService = imageService;
+    
+
+
+	@Override
+	public Integer delete(Integer id) {
+		
+		return this.getStructureFacilityMapper().delete(id);
 	}
 
-	public StructureFacilityMapper getStructureFacilityCheckMapper() {
+
+
+
+	@Override
+	public Integer deleteByIdStructure(Integer id_structure) {
+		
+		return this.getStructureFacilityMapper().deleteByIdStructure(id_structure);
+	}
+
+
+
+
+	@Override
+	public Integer deleteByIdFacility(Integer id_facility) {
+		
+		return this.getStructureFacilityMapper().deleteByIdFacility(id_facility);
+	}
+
+
+
+
+	
+	public StructureFacilityMapper getStructureFacilityMapper() {
 		return structureFacilityMapper;
 	}
 
-	public void setStructureFacilityCheckMapper(StructureFacilityMapper structureFacilityMapper) {
+	public void setStructureFacilityMapper(StructureFacilityMapper structureFacilityMapper) {
 		this.structureFacilityMapper = structureFacilityMapper;
 	}
 		

@@ -39,15 +39,7 @@ import model.Image;
 @Service
 public class RoomFacilityServiceImpl implements RoomFacilityService{
 	@Autowired
-	private StructureFacilityService structureFacilityService = null;
-	@Autowired
-	private RoomFacilityMapper roomFacilityMapper = null;
-	@Autowired
-	private RoomTypeFacilityService roomTypeFacilityService = null;
-	
-	@Autowired
-	private ImageService imageService = null;
-	
+	private RoomFacilityMapper roomFacilityMapper = null;		
 			
 	@Override
 	public Integer insert(Integer id_room,Integer id_facility ) {
@@ -68,11 +60,20 @@ public class RoomFacilityServiceImpl implements RoomFacilityService{
 		for(Map map: this.getRoomFacilityMapper().findByIdRoom(id_room)){
 			ret.add((Integer)map.get("id_facility"));
 		}
-		return ret;
-		
+		return ret;		
 	}
 
 
+	@Override
+	public Integer findIdByIdRoomAndIdFacility(Integer id_room,	Integer id_facility) {
+		Map map = null;
+		
+		map = new HashMap();
+		map.put("id_room", id_room);
+		map.put("id_facility", id_facility);
+		
+		return this.getRoomFacilityMapper().findIdByIdRoomAndIdFacility(map);
+	}
 
 	@Override
 	public Integer delete(Integer id) {
@@ -95,35 +96,7 @@ public class RoomFacilityServiceImpl implements RoomFacilityService{
 		return this.getRoomFacilityMapper().deleteByIdFacility(id_facility);
 	}
 
-	public ImageService getImageService() {
-		return imageService;
-	}
-
-	public void setImageService(ImageService imageService) {
-		this.imageService = imageService;
-	}
-
 	
-	public StructureFacilityService getStructureFacilityService() {
-		return structureFacilityService;
-	}
-
-
-	public void setStructureFacilityService(StructureFacilityService structureFacilityService) {
-		this.structureFacilityService = structureFacilityService;
-	}
-
-	public RoomTypeFacilityService getRoomTypeFacilityService() {
-		return roomTypeFacilityService;
-	}
-
-
-	public void setRoomTypeFacilityService(
-			RoomTypeFacilityService roomTypeFacilityService) {
-		this.roomTypeFacilityService = roomTypeFacilityService;
-	}
-
-
 	public RoomFacilityMapper getRoomFacilityMapper() {
 		return roomFacilityMapper;
 	}

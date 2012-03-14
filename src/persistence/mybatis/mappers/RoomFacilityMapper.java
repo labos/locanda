@@ -23,6 +23,7 @@ public interface RoomFacilityMapper {
 	
 	public Integer insert(Map map);	
 	public List<Map> findByIdRoom(Integer id_room);	 
+	public Integer findIdByIdRoomAndIdFacility(Map map);
 	public Integer delete(Integer id);
 	public Integer deleteByIdRoom(Integer id_room);
 	public Integer deleteByIdFacility(Integer id_facility);

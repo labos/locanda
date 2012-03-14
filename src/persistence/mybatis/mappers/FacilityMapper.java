@@ -16,6 +16,7 @@
 package persistence.mybatis.mappers;
 
 import java.util.List;
+import java.util.Map;
 
 import model.Facility;
 
@@ -24,5 +25,5 @@ public interface FacilityMapper {
 	public Integer update(Facility facility);
 	public Integer delete(Integer id);		
 	public Facility find(Integer id);	
-	public List<Facility> findByIdStructure(Integer id_structure);
+	public List<Facility> findByIdStructure(Map map);
 }

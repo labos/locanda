@@ -122,7 +122,7 @@ public class ImageResource {
 	@GET
 	@Path("checked/structure/{idStructure}/{offset}/{rownum}")
 	@Produces({MediaType.APPLICATION_JSON})	
-	public List<Image> getStructureImages(@PathParam("idStructure") Integer idStructure){
+	public List<Image> getStructureImages(@PathParam("idStructure") Integer idStructure,@PathParam("offset") Integer offset,@PathParam("rownum") Integer rownum){
 		return this.getImageService().findCheckedByIdStructure(idStructure);
 		
 	}	
@@ -130,14 +130,14 @@ public class ImageResource {
 	@GET
 	@Path("checked/roomType/{idRoomType}/{offset}/{rownum}")
 	@Produces({MediaType.APPLICATION_JSON})	
-	public List<Image> getRoomTypeImages(@PathParam("idRoomType") Integer idRoomType){
+	public List<Image> getRoomTypeImages(@PathParam("idRoomType") Integer idRoomType,@PathParam("offset") Integer offset,@PathParam("rownum") Integer rownum){
 		return this.getImageService().findCheckedByIdRoomType(idRoomType);
 	}
 	
 	@GET
 	@Path("checked/room/{idRoom}/{offset}/{rownum}")
 	@Produces({MediaType.APPLICATION_JSON})	
-	public List<Image> getRoomImages(@PathParam("idRoom") Integer idRoom){
+	public List<Image> getRoomImages(@PathParam("idRoom") Integer idRoom,@PathParam("offset") Integer offset,@PathParam("rownum") Integer rownum){
 		return this.getImageService().findCheckedByIdRoom(idRoom);
 	}
 

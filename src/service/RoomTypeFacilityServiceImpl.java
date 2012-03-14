@@ -40,12 +40,7 @@ public class RoomTypeFacilityServiceImpl implements RoomTypeFacilityService{
 	
 	@Autowired
 	private RoomTypeFacilityMapper roomTypeFacilityMapper = null;
-	@Autowired
-	private StructureFacilityService structureFacilityService = null;
-	@Autowired
-	private ImageService imageService = null;
-	
-	
+			
 		
 	@Override
 	public Integer insert(Integer id_roomType,Integer id_facility) {
@@ -75,6 +70,19 @@ public class RoomTypeFacilityServiceImpl implements RoomTypeFacilityService{
 	
 
 	@Override
+	public Integer findIdByIdRoomTypeAndIdFacility(Integer id_roomType,	Integer id_facility) {
+		Map map = null;
+		
+		map = new HashMap();
+		map.put("id_roomType", id_roomType);
+		map.put("id_facility", id_facility);
+		return this.getRoomTypeFacilityMapper().findIdByIdRoomTypeAndIdFacility(map);
+	}
+
+
+
+
+	@Override
 	public Integer delete(Integer id) {		
 		return this.getRoomTypeFacilityMapper().delete(id);
 	}
@@ -93,26 +101,6 @@ public class RoomTypeFacilityServiceImpl implements RoomTypeFacilityService{
 		
 		return this.getRoomTypeFacilityMapper().deleteByIdFacility(id_facility);
 	}
-
-
-	public ImageService getImageService() {
-		return imageService;
-	}
-
-	public void setImageService(ImageService imageService) {
-		this.imageService = imageService;
-	}
-
-	
-	public StructureFacilityService getStructureFacilityService() {
-		return structureFacilityService;
-	}
-
-
-	public void setStructureFacilityService(StructureFacilityService structureFacilityService) {
-		this.structureFacilityService = structureFacilityService;
-	}
-
 
 	public RoomTypeFacilityMapper getRoomTypeFacilityMapper() {
 		return roomTypeFacilityMapper;

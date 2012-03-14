@@ -34,8 +34,8 @@ In case of controversy the competent court is the Court of Cagliari (Italy).
         <include refid="findFacility"/> where id = #{id}        
     </select>   
     
-    <select id="findByIdStructure" parameterType="int" resultType="model.Facility">
-        <include refid="findFacility"/> where id_structure = #{id_structure}        
+    <select id="findByIdStructure" parameterType="map" resultType="model.Facility">
+        <include refid="findFacility"/> where id_structure = #{id_structure} LIMIT #{offset}, #{rownum}       
     </select>    
     
     <sql id="findFacility">

@@ -15,6 +15,7 @@
  *******************************************************************************/
 package service;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -24,6 +25,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,6 +36,7 @@ import persistence.mybatis.mappers.RoomTypeFacilityMapper;
 import persistence.mybatis.mappers.StructureFacilityMapper;
 
 import model.Facility;
+import model.File;
 import model.Image;
 
 @Service
@@ -49,10 +52,28 @@ public class FacilityServiceImpl implements FacilityService{
 	
 	@Autowired
 	private ImageService imageService = null;
+	@Autowired
+	private FacilityImageService facilityImageService = null;
+	
 	
 	@Override
-	public Integer insert(Facility facility) {		
-		return this.getFacilityMapper().insert(facility);		
+	public Integer insert(Facility facility) {	
+		Integer count;
+		Image image = null;
+		File file = null;
+		
+			
+		image = new Image();
+		image.setCaption(facility.getName());
+		image.setId_structure(facility.getId_structure());
+		file = new File();
+		file.setName("empty.gif");
+		image.setFile(file);
+		this.getImageService().insert(image);
+		
+		count = this.getFacilityMapper().insert(facility);	
+		this.getFacilityImageService().insert(facility.getId(), image.getId());		
+		return count;		
 	}	
 		
 	@Override
@@ -87,11 +108,17 @@ public class FacilityServiceImpl implements FacilityService{
 	
 	
 	@Override
-	public List<Facility> findByIdStructure(Integer id_structure) {
+	public List<Facility> findByIdStructure(Integer id_structure,Integer offset, Integer rownum) {
 		List<Facility> ret = null;
 		Image image = null;
+		Map map = null;
 		
-		ret = this.getFacilityMapper().findByIdStructure(id_structure);
+		map = new HashMap();
+		map.put("id_structure", id_structure);
+		map.put("offset", offset);
+		map.put("rownum", rownum);
+		
+		ret = this.getFacilityMapper().findByIdStructure(map);
 		for(Facility each: ret){
 			image = this.getImageService().findByIdFacility(each.getId());
 			each.setImage(image);
@@ -185,7 +212,13 @@ public class FacilityServiceImpl implements FacilityService{
 	public void setRoomFacilityService(RoomFacilityService roomFacilityService) {
 		this.roomFacilityService = roomFacilityService;
 	}
-	
-	
+
+	public FacilityImageService getFacilityImageService() {
+		return facilityImageService;
+	}
+
+	public void setFacilityImageService(FacilityImageService facilityImageService) {
+		this.facilityImageService = facilityImageService;
+	}	
 		
 }

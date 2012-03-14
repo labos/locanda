@@ -25,7 +25,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public interface RoomFacilityService {	
 	public Integer insert(Integer id_room,Integer id_facility);		
-	public List<Integer> findIdFacilityByIdRoom(Integer id_room);		
+	public List<Integer> findIdFacilityByIdRoom(Integer id_room);	
+	public Integer findIdByIdRoomAndIdFacility(Integer id_room,Integer id_facility);
 	public Integer delete(Integer id);
 	public Integer deleteByIdRoom(Integer id_room);
 	public Integer deleteByIdFacility(Integer id_facility);

@@ -27,15 +27,21 @@ In case of controversy the competent court is the Court of Cagliari (Italy).
     <select id="findByIdStructure" parameterType="int" resultType="map">
        SELECT id,id_structure, id_facility from structureFacility where id_structure = #{id_structure}
     </select>   
+    
+    <select id="findIdByIdStructureAndIdFacility" parameterType="map" resultType="int">
+        select id from structureFacility where id_structure = #{id_structure} AND id_facility = #{id_facility}
+    </select> 
           
     <delete id="delete" parameterType="int">
-        DELETE from structureFacility_check where id = #{id}
-    </delete>     
+        DELETE from structureFacility where id = #{id}
+    </delete>    
+     
     <delete id="deleteByIdStructure" parameterType="int">
         DELETE from structureFacility where id_structure = #{id_structure}
-    </delete>    
+    </delete>  
+      
      <delete id="deleteByIdFacility" parameterType="int">
         DELETE from structureFacility where id_facility = #{id_facility}
-    </delete>
-            
+    </delete>  
+              
 </mapper>
