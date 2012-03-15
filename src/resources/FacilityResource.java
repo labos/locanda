@@ -2,6 +2,7 @@ package resources;
 
 import java.util.List;
 
+import javax.servlet.ServletContext;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -11,7 +12,9 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.UriInfo;
 
 import model.Facility;
 
@@ -68,8 +71,8 @@ public class FacilityResource {
 		 Integer count = 0;		
 		
 		count =  this.getFacilityService().delete(id);
-		 
-		 return count;
+		
+		return count;
 	 } 
 	
 	 @GET
@@ -106,7 +109,8 @@ public class FacilityResource {
 
 	public void setFacilityService(FacilityService facilityService) {
 		this.facilityService = facilityService;
-	}	
-	
+	}
+
+		
 	
 }

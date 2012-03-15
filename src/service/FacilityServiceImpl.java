@@ -16,28 +16,25 @@
 package service;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
-import org.apache.commons.io.IOUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import persistence.mybatis.mappers.FacilityMapper;
-import persistence.mybatis.mappers.ImageMapper;
-import persistence.mybatis.mappers.RoomFacilityMapper;
-import persistence.mybatis.mappers.RoomTypeFacilityMapper;
-import persistence.mybatis.mappers.StructureFacilityMapper;
+import javax.servlet.ServletContext;
 
 import model.Facility;
 import model.File;
 import model.Image;
+
+import org.apache.catalina.core.ApplicationContext;
+import org.apache.commons.io.IOUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.context.support.ServletContextResource;
+
+import persistence.mybatis.mappers.FacilityMapper;
 
 @Service
 public class FacilityServiceImpl implements FacilityService{
@@ -48,12 +45,13 @@ public class FacilityServiceImpl implements FacilityService{
 	@Autowired
 	private RoomFacilityService roomFacilityService = null;
 	@Autowired
-	private RoomTypeFacilityService roomTypeFacilityService = null;
-	
+	private RoomTypeFacilityService roomTypeFacilityService = null;	
 	@Autowired
 	private ImageService imageService = null;
 	@Autowired
 	private FacilityImageService facilityImageService = null;
+	@Autowired
+	private ApplicationContext applicationContext = null;
 	
 	
 	@Override
@@ -61,13 +59,25 @@ public class FacilityServiceImpl implements FacilityService{
 		Integer count;
 		Image image = null;
 		File file = null;
+		byte[] data = null;
 		
-			
+		
+		//this.getApplicationContext().getResource("/images/image-default.png");
 		image = new Image();
 		image.setCaption(facility.getName());
 		image.setId_structure(facility.getId_structure());
 		file = new File();
-		file.setName("empty.gif");
+		file.setName("image-default.png");
+		
+		try {
+			data = IOUtils.toByteArray(
+					this.getApplicationContext().getResource("/images/image-default.png").openStream());
+			file.setData(data);
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		image.setFile(file);
 		this.getImageService().insert(image);
 		facility.setImage(image);
@@ -219,6 +229,14 @@ public class FacilityServiceImpl implements FacilityService{
 
 	public void setFacilityImageService(FacilityImageService facilityImageService) {
 		this.facilityImageService = facilityImageService;
+	}
+
+	public ApplicationContext getApplicationContext() {
+		return applicationContext;
+	}
+
+	public void setApplicationContext(ApplicationContext applicationContext) {
+		this.applicationContext = applicationContext;
 	}	
-		
+			
 }

@@ -35,11 +35,11 @@ In case of controversy the competent court is the Court of Cagliari (Italy).
     </select>
     
     <select id="findRoomTypesByIdStructureAndOffsetAndRownum" parameterType="map" resultType="model.RoomType">
-        <include refid="selectRoomType"/>WHERE id_structure = #{id_structure} LIMIT #{offset}, #{rownum}
+        <include refid="selectRoomType"/> WHERE id_structure = #{id_structure} LIMIT #{offset}, #{rownum}
     </select>
     
     <select id="findRoomTypeById" parameterType="int" resultType="model.RoomType">
-        <include refid="selectRoomType"/>WHERE id = #{id}
+        <include refid="selectRoomType"/> WHERE id = #{id}
     </select>
     
     <select id="findRoomTypeByIdStructureAndName" parameterType="map" resultType="model.RoomType">

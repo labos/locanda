@@ -29,5 +29,4 @@ public interface StructureFacilityService {
 	public Integer delete(Integer id);
 	public Integer deleteByIdStructure(Integer id_structure);
 	public Integer deleteByIdFacility(Integer id_facility);	
-
 }
