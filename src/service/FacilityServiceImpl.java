@@ -28,9 +28,9 @@ import model.Facility;
 import model.File;
 import model.Image;
 
-import org.apache.catalina.core.ApplicationContext;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.support.ServletContextResource;
 
@@ -69,15 +69,18 @@ public class FacilityServiceImpl implements FacilityService{
 		file = new File();
 		file.setName("image-default.png");
 		
+		
+		
 		try {
 			data = IOUtils.toByteArray(
-					this.getApplicationContext().getResource("/images/image-default.png").openStream());
+					this.getApplicationContext().getResource("/images/image-default.png").getInputStream());
 			file.setData(data);
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
 		image.setFile(file);
 		this.getImageService().insert(image);
 		facility.setImage(image);
@@ -237,6 +240,6 @@ public class FacilityServiceImpl implements FacilityService{
 
 	public void setApplicationContext(ApplicationContext applicationContext) {
 		this.applicationContext = applicationContext;
-	}	
-			
+	}
+	
 }
