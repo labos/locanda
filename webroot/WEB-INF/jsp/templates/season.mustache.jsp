@@ -115,7 +115,7 @@
 	</script>
 
 	<script id="period-row-edit-template" type="text/x-handlebars-template">
-		<form id="edit-form" class="yform" role="application">
+		<form id="edit-form" class="full yform" role="application">
 			<div class="subcolumns period">
 				<div class="type-text">
 		      		<input type="hidden" name="id_season" value="{{id_season}}"/>

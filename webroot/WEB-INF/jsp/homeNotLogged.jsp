@@ -23,9 +23,11 @@
       	<h1><s:text name="title"/></h1>
       	<p><s:text name="homeWelcomeMessage"/>.</p>
       	<p id="home_images">
-      	<img width="220" src="images/pan_small.jpg" alt="img_home1"/>
-        <img width="220" src="images/horse_small.jpg" alt="img_home2"/>
-        <img width="220" src="images/water_small.jpg" alt="img_home3"/>
+      	<a href="<s:property value="url_login"/>">
+	      	<img width="220" src="images/pan_small.jpg" alt="img_home1"/>
+	        <img width="220" src="images/horse_small.jpg" alt="img_home2"/>
+	        <img width="220" src="images/water_small.jpg" alt="img_home3"/>
+        </a>
       	</p>
       </div>
 <jsp:include page="layout/footer.jsp" />     

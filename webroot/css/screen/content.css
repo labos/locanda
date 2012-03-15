@@ -177,7 +177,7 @@
   * @section content-tables
   */
 
-  table { width:auto; border-collapse:collapse; margin-bottom:0.5em; border-top:2px #888 solid; border-bottom:2px #888 solid; }
+  table { width:auto; border-collapse:collapse; margin-bottom:0.1em; border-top:2px #888 solid; border-bottom:2px #888 solid; }
   table caption { font-variant:small-caps; }
   table.full { width:100%; margin-top: 12px;}
   table.fixed { table-layout:fixed; }
@@ -1235,8 +1235,67 @@ span.title-elem {
 	margin: 0px 7px;
 }
 img#labos{
-	margin:20px 7px
+	margin:20px 7px;
 }
 img#eu{
-	margin:10px 7px
+	margin:10px 7px;
 } 
+
+.yform .type-text input.beauty{
+	color:#D6D2D4;
+	background-color:#FFF;
+	height:35px;
+	width:50%;
+	border: 4px solid #D6F2AA;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	border-radius: 2px;
+	box-shadow: 0 0 1px #333333 inset;
+	-moz-box-shadow: 0 0 1px #333333 inset;
+	-webkit-box-shadow: 0 0 1px #333333 inset;
+	font-size:20px;
+	padding:5px 5px 5px 35px;
+}
+.yform .type-text input.beauty:hover{
+
+	border: 4px solid #D6F2AA;
+	box-shadow: 0 0 2px #666666 inset;
+	-moz-box-shadow: 0 0 2px #666666 inset;
+	-webkit-box-shadow: 0 0 2px #666666 inset;
+}
+.yform .type-text input.beauty:active,.yform .type-text input.beauty:focus {
+
+	color:#333333;
+	background:none;
+	border: 4px solid #B3D5F2;
+	box-shadow: 0 0 2px #666666 inset;
+	-moz-box-shadow: 0 0 2px #666666 inset;
+	-webkit-box-shadow: 0 0 2px #666666 inset;
+}
+#email{
+	background-image:url("../../images/mail-icon.png");
+	background-repeat: no-repeat;
+	background-position: 5px 10px;
+
+}
+#password{
+	background-image:url("../../images/password-icon.png");
+	background-repeat: no-repeat;
+	background-position: 5px 10px;
+}
+
+#home h1, #home legend{
+	color: #555555;
+	text-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+	font-family: arial;
+}
+#home_images img:hover {
+	cursor:pointer;
+    -moz-box-shadow:2px 2px 5px #558C3C;
+    -webkit-box-shadow:2px 2px 5px #558C3C;
+    box-shadow:2px 2px 5px #558C3C;
+}
+.edit-state-box .full div.type-text input{
+	width:70%;
+	margin-right:3px;
+}
