@@ -21,7 +21,6 @@
 
 	<script id="edit-template" type="text/x-handlebars-template">
 		<form id="edit-form" class="yform json full" role="application">
-        	<div class="c50l">
                 <div class="c50l">
                   	<div class="type-text">	
                   		<label for="FormName"><s:text name="name"/><sup title="This field is mandatory.">*</sup></label>
@@ -42,13 +41,11 @@
                 		<button class="btn_reset btn_cancel_form"><s:text name="cancel"/></button>
                     </div>	
                 </div>
-            </div>
 		</form>
 	</script>
 
 	<script id="view-template" type="text/x-handlebars-template">
 		<form id="view-form" class="yform json inview" role="application">
-          	<div class="c50l">
             	<div class="c50l">
                   	<div class="type-text">	
                   		<strong><s:text name="name"/></strong>
@@ -67,7 +64,6 @@
                 	<div class="type-text">	
                 	</div>
 			  	</div>
-            </div>
 		</form>
 	</script>
 

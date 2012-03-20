@@ -26,8 +26,6 @@
 	<link rel='stylesheet' type='text/css' href='css/reset.css' />
 	<!--<link rel='stylesheet' type='text/css' href='http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/start/jquery-ui.css' />-->
 	<link rel='stylesheet' type='text/css' href='css/south-street/jquery-ui-1.8.9.custom.css' />
-	<link rel='stylesheet' type='text/css' href='css/jquery.weekcalendar.css' />
-	<link rel='stylesheet' type='text/css' href='css/calendar.css' />
 	<link rel='stylesheet' type='text/css' href='css/jquery.jgrowl.css' />
 	<link rel="stylesheet" type='text/css' href="css/jquery.fileupload-ui.css" />
 	<link rel="stylesheet" type="text/css" href="css/layout_sliding_door.css" />

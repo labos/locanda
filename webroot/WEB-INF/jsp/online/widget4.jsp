@@ -18,25 +18,29 @@
   </script>
   
   <div data-role="header">
+	<div style="position:absolute; left:1px; top:1px;">
+		<a href="goOnlineBookingCalendar.action?idStructure=<s:property value="idStructure"/>" class="ui-link" rel="external" >
+			<img src="images/logo_small.png" />
+		</a>
+    </div>
     <h1><s:text name="bookerDetails"/></h1>
     <a href="goOnlineBookingCalendar.action?idStructure=<s:property value="structure.id"/>" class="ui-btn-right" rel="external" data-icon="home" data-iconpos="notext" data-direction="reverse"><s:text name="home"/></a>
   </div>
   <!-- /header -->
   <div data-role="content">
     <div class="contentHeader">
-      <ul data-role="listview" data-theme="c">
-        <li>
-          <s:text name="dateIn"/>: <strong><s:property value="booking.dateIn"/></strong>, <s:property value="booking.calculateNumNights()"/><s:text name="nights"/>, <s:property value="booking.nrGuests"/><s:text name="persons"/>
-        </li>
-        <li>
-          <s:text name="subtotalRoom"/>: &euro;<strong><s:property value="booking.roomSubtotal"/></strong>
-        </li>
-        <li>
+	    <ul data-role="listview" data-theme="a" data-inset="true">
+		    <li>
+		      <p class="resume"><s:text name="dateIn" />: <strong><s:property value="booking.dateIn"/></strong>, <s:text name="nights"/>: <strong><s:property value="booking.calculateNumNights()"/></strong>&nbsp;, <s:text name="persons"/>: <strong><s:property value="booking.nrGuests"/></strong><img src="images/<s:property value="booking.nrGuests"/>.png" alt="<s:property value="booking.nrGuests"/>" /></p>
+		      <p class="resume"><s:text name="subtotal" />: <strong><s:property value="booking.roomSubtotal"/></strong></p>
+					  <p class="resume">
           <s:text name="subtotalExtra"/>: &euro;<strong><s:property value="booking.extraSubtotal"/></strong>
-        </li>
-        <li>
+		  </p>
+		  		  <p class="resume">
           <s:text name="subtotal"/>: &euro;<strong class="red"><s:property value="booking.roomSubtotal + booking.extraSubtotal"/></strong>
-        </li>
+		  </p>
+			</li>
+		</ul>    
       </ul>
     </div>
     <form action="goOnlineBookingFinal.action" method="post">
@@ -58,7 +62,7 @@
         <input id="emailNo" name="booking.booker.email" type="text" class="required email"/>
       </div>
       <div data-role="fieldcontain">
-        <button type="submit" data-theme="b" id="btn_guest_next">
+        <button type="submit" data-theme="b" id="btn_guest_next" data-icon="arrow-r">
           <s:text name="sendBooking"/>
         </button>
       </div>

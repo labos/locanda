@@ -54,13 +54,10 @@ form ul {
 }
 
 select, input[type='text'], textarea {
-	width: 250px;
+	width: 80%;
 	padding: 3px;
 }
 
-input[type='text'] {
-	width: 245px;
-}
 
 ul.formatted,ol.formatted {
 	display: block;

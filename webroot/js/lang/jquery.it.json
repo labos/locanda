@@ -52,7 +52,7 @@ $.i18n.it.strings = {
     guests: "Ospiti",
     newBookingForRoom: "Nuova prenotazione per la camera",
     modifyBooking: "Modifica Prenotazione",
-    dateInRequired: "Devi selezionare una data",
+    dateInRequired: "Devi selezionare una data ed impostarla!",
     save: "Salva",
     erase: "Cancella",
     close: "Annulla",

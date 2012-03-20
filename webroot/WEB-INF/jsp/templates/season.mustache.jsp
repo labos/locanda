@@ -21,7 +21,6 @@
    
     <script id="edit-template" type="text/x-handlebars-template">
 		<form id="edit-form" class="yform" role="application">
-          	<div class="c50l">
                 <div class="c50l">
                   	<div class="type-text">           
        					<label for="FormYear"><s:text name="year"/><sup title="This field is mandatory.">*</sup></label>
@@ -38,13 +37,11 @@
                 		<button class="btn_reset"><s:text name="cancel"/></button>
                     </div>	
                 </div>
-            </div>
 		</form>
 	</script>
 
     <script id="view-template" type="text/x-handlebars-template">
 		<form id="view-form" class="yform inview" role="application">
-          	<div class="c50l">
                 <div class="c50l">
                   	<div class="type-text">           
        					<strong><s:text name="year"/>:</strong>
@@ -55,7 +52,6 @@
                 		<span>{{name}}</span>
                   	</div>
               	</div>
-			</div>
 		</form>
 	</script>
 

@@ -52,7 +52,7 @@ $.i18n.en.strings = {
     guests: "Guests",
     newBookingForRoom: "New Booking for Room",
     modifyBooking: "Modify Booking",
-    dateInRequired: "Devi selezionare una data",
+    dateInRequired: "Please Set a Date!",
     save: "Save",
     erase: "Delete",
     close: "Cancel",

@@ -35,7 +35,7 @@ if ( Entity.name == "image" ) {
     then("../helpers/upload.js");
 }
 if (Entity.name == "planner") {
-    steal("jquery.weekcalendar.js");
+    steal("../../css/jquery.weekcalendar.css","../../css/calendar.css","../controllers/guest_controller.js").then("../controllers/booking_controller.js","jquery.weekcalendar.js");
 }
 if (Entity.name == "season") {
     steal("../models/period.js").
