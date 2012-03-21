@@ -86,6 +86,12 @@
 		<constructor-arg ref="multiCoreContainer" />
 		<constructor-arg value="season" />
 	</bean>
+	
+	<bean id="solrServerStructure"
+		class="org.apache.solr.client.solrj.embedded.EmbeddedSolrServer">
+		<constructor-arg ref="multiCoreContainer" />
+		<constructor-arg value="structure" />
+	</bean>
 
 	<bean id="solrServerCore1"
 		class="org.apache.solr.client.solrj.embedded.EmbeddedSolrServer">

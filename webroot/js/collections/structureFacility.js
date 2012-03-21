@@ -24,15 +24,14 @@
 
 window.StructureFacilities = Backbone.Collection.extend({
     model: StructureFacility,
-    //This is our Conventions collection and holds our Convention models
     initialize: function (models, options) {
-    	this.setIdWrapper(options.idStructure);
+    	this.setIdWrapper(options.id);
     	this.setFrom(0);
     	this.setTo(10);
     	this.setTerm(null);
     },
     url: function () {
-        return 'rest/facilities/structure/'+ this.idWrapper  + this.from + this.to + '?term=' + this.term ;
+        return 'rest/facilities/checked/structure/'+ this.idWrapper  + this.from + this.to + '?term=' + this.term ;
     },
     setTerm: function (aTerm) {
         this.term = (typeof aTerm !== "undefined" && aTerm) ? aTerm : '';
@@ -48,6 +47,13 @@ window.StructureFacilities = Backbone.Collection.extend({
     },
     setTo: function (end) {
         this.to = (typeof end === "number") ? '/' + end : '';
-    }
+    },
+    setFilter: function (attribute, value) {
+        this.filter = "";
+        if (arguments.length === 2 && attribute !== undefined && value !== undefined) {
+            this.filter = (attribute && value) ? '/' + attribute + '/' + value : "";
+        }
+        return this;
+    },
 
 });

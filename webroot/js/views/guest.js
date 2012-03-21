@@ -1,5 +1,5 @@
 /*
- * @class EditSeasonView
+ * @class EditGuestView
  * @parent Backbone.View
  * @constructor
  * Edit a row selected in the listing.
@@ -204,7 +204,7 @@ window.EditGuestView = EditView.extend({
             {name: 'Reunion', code: 'RE'},
             {name: 'Romania', code: 'RO'},
             {name: 'Russian Federation', code: 'RU'},
-            {name: 'RWANDA', code: 'RW'},
+            {name: 'Rwanda', code: 'RW'},
             {name: 'Saint Helena', code: 'SH'},
             {name: 'Saint Kitts and Nevis', code: 'KN'},
             {name: 'Saint Lucia', code: 'LC'},
@@ -270,7 +270,7 @@ window.EditGuestView = EditView.extend({
             
     },
     /**
-     * Set the saved year in the list of available countries.
+     * Set the saved country in the list of available countries.
      * @param {String} country to be setted.
      * @return {Array} array of { value:"", selected: ""} objects.
      */
@@ -284,7 +284,7 @@ window.EditGuestView = EditView.extend({
         return this.availableCountries;
     },
     /**
-     * Initialize priceType properties added to model and only to be used in the template.
+     * Initialize guest properties added to model and only to be used in the template.
      */
     checkGender: function ( type) {
     	return {value: type, selected: this.model.get("gender")==type? true : false  };

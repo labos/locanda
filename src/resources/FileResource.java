@@ -14,8 +14,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import model.File;
-import model.Image;
-
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -71,16 +69,11 @@ public class FileResource {
 		return file;
 	}
 
-
 	public FileService getFileService() {
 		return fileService;
 	}
-
-
 	public void setFileService(FileService fileService) {
 		this.fileService = fileService;
 	}
-	
-	
 	
 }

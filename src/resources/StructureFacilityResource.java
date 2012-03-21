@@ -15,17 +15,12 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import model.Facility;
-import model.Image;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import service.FacilityService;
-import service.ImageService;
 import service.StructureFacilityService;
-import service.StructureImageService;
-
 import com.sun.jersey.api.NotFoundException;
 
 @Path("/structureFacilities/")
@@ -82,9 +77,9 @@ public class StructureFacilityResource {
 	
 	
 	@DELETE
-    @Path("{id}")
+    @Path("{idStructure}")
 	@Produces({MediaType.APPLICATION_JSON})   
-    public Integer deleteStructureFacility(@PathParam("id") Integer id){
+    public Integer deleteStructureFacility(@PathParam("idStructure") Integer id){
     	Integer count = 0;				
 		
     	count = this.getStructureFacilityService().delete(id);
@@ -97,21 +92,14 @@ public class StructureFacilityResource {
 	public FacilityService getFacilityService() {
 		return facilityService;
 	}
-
-
 	public void setFacilityService(FacilityService facilityService) {
 		this.facilityService = facilityService;
 	}
-
-
 	public StructureFacilityService getStructureFacilityService() {
 		return structureFacilityService;
 	}
-
-
 	public void setStructureFacilityService(StructureFacilityService structureFacilityService) {
 		this.structureFacilityService = structureFacilityService;
 	}	
-	
-	
+		
 }

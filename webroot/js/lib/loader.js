@@ -26,6 +26,9 @@ if ( Entity.name == "room") {
 if ( Entity.name == "roomType") {
     steal("../models/roomTypeFacility.js", "../models/roomTypeImage.js", "../models/file.js").then("../collections/roomTypeFacility.js","../collections/availableRoomTypeFacilities.js","../collections/availableRoomTypeImages.js","../collections/roomTypeImage.js");
 }
+if ( Entity.name == "structure") {
+    steal("../models/structureFacility.js", "../models/structureImage.js", "../models/file.js").then("../collections/structureFacility.js","../collections/availableStructureFacilities.js","../collections/availableStructureImages.js","../collections/structureImage.js");
+}
 if ( Entity.name == "facility" ) {
     steal("jquery.fileupload.js", "jquery.fileupload-ui.js", "jquery.fileupload-uix.js").
     then("../helpers/upload.js","../models/image.js");
