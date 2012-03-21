@@ -69,7 +69,7 @@
 						</select>
              	 	</div>
 				  	<div class="type-text">           
-       				  	<label for="FormZipCode"><s:text name="zip"/></label>
+       				  	<label for="FormZipCode"><s:text name="zipCode"/></label>
                       	<input type="text" name="zipCode" id="FormZipCode" value="{{zipCode}}" aria-required="true"/>
       		      	</div>
 				  	<div class="type-text">           
