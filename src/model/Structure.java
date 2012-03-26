@@ -52,7 +52,6 @@ public class Structure implements Serializable {
 	private String notes;
 	private List<Image> images;
 	private List<Facility> facilities;
-	@Field
 	private Integer id_user;
 	private TreeSet<Integer> keys;
 	
