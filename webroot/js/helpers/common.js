@@ -39,7 +39,8 @@ $(document).ready(function () {
        	                    } else if (data_action.result == "error") {
        	                        $().notify($.i18n("warning"), data_action.description);
        	                    } else {
-       	                        $(".validationErrors").html(data_action);
+       	                    	$().notify($.i18n("seriousError"), $.i18n("seriousErrorDescription"));
+       	                       
        	                    }
        	                },
        	                error: function () {

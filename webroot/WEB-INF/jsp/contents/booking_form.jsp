@@ -135,8 +135,8 @@ width:80%;
                <div>
                   <div class="type-text"><label for="phone"><s:text name="phone" />:</sup> </label> 
                   <input type="text" class="validPhone" name="booking.booker.phone" id="phone" value="<s:property value="booking.booker.phone"/>"/></div>
-               		<div class="type-text"><label for="email">Email:</label> 
-                  <input type="text" name="booking.booker.email"  class="email" id="email" value="<s:property value="booking.booker.email"/>" /></div>
+               		<div class="type-text"><label for="email1">Email:</label> 
+                  <input type="text" name="booking.booker.email"  class="email" id="email1" value="<s:property value="booking.booker.email"/>" /></div>
                    <div class="type-text"><label for="notes">Note:</label> 
                   	  <textarea name="booking.notes" id="notes"><s:property value="booking.notes"/></textarea>
                     </div>

@@ -80,7 +80,7 @@
 	</script>	
 	<script id="image-view-template" type="text/x-handlebars-template">
         <div class="c50l inview">
-			<img src="rest/file/{{id}}?rnd={{rnd}}" alt="" />
+			<img width="100" src="rest/file/{{id}}?rnd={{rnd}}" alt="" />
 		</div>
  	</script>
  	
@@ -93,7 +93,7 @@
         <div class="beauty">
      	  	<div class="subcolumns">
             <div class="c20l">
-				<img src="rest/file/{{id}}?rnd={{rnd}}" alt="" />
+				<img width="100" src="rest/file/{{id}}?rnd={{rnd}}" alt="" />
 			</div>
            	  	<div class="c33l">
     				<input type="hidden" name="facility_name" value="default" id="name_facility"/>

@@ -32,7 +32,7 @@
               <div class="ui-block-a">
                 <input type="hidden" name="booking.room.id" value="<s:property value="#eachRoom.id"/>"/>
                 <img width="90" height="75" 
-                src="resources/<s:property value="idStructure"/>/images/room/<s:property value="#eachRoom.images[0].fileName"/>"
+                src="rest/file/<s:property value="#eachRoom.images[0].file.id"/>"
                 alt="room photo"/>
               </div>
                 <div class="ui-block-b">

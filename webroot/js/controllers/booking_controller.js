@@ -342,7 +342,8 @@ $(function () {
                             event.preventDefault();
                             var validator = $(clicked).parents(".yform.json").validate();
                             validator.resetForm();
-                            $(".validationErrors").html($.i18n("bookingOverlapping"));
+                            $().notify($.i18n("warning"), $.i18n("seriousErrorDescr"));
+                            //$(".validationErrors").html($.i18n("bookingOverlapping"));
                         }
                     },
                     error: function () {
@@ -460,7 +461,8 @@ $(function () {
                             }
                         } catch (e) {
                             //an error in data returned...
-                            $(".validationErrors").html(data_action);
+                        	   $().notify($.i18n("warning"), $.i18n("seriousErrorDescr"));
+                            //$(".validationErrors").html(data_action);
                         }
                     },
                     error: function () {
