@@ -23,7 +23,7 @@
  */
 
 window.AvailableStructureImages = Backbone.Collection.extend({
-    model: StructureImages,
+    model: StructureImage,
     initialize: function (models, options) {
     	this.setIdWrapper(options.id);
     	this.setFrom(0);
