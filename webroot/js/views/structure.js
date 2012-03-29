@@ -8,7 +8,8 @@
  */
 window.EditStructureView = EditView.extend({
     events: {
-        "submit form": "save",
+        "submit #structure-form": "save",
+        "submit #password-form": "changePassword",
         "click div": "switchMode"
     },
     initialize: function () {
@@ -388,5 +389,10 @@ window.EditStructureView = EditView.extend({
                 }
             });
         });
+    },
+    
+    changePassword: function (e) {
+    	e.preventDefault();
+    	$("#password-form").submitForm("updateAccount.action");
     }
 });

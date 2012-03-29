@@ -20,7 +20,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
    
     <script id="edit-template" type="text/x-handlebars-template">
-		<form id="edit-form" class="yform json full" role="application">
+		<form id="edit-form" id="structure-form" class="yform json full" role="application">
           	<div class="c50l">   
             	  <div class="type-text">
                   	<label for="FormName"><s:text name="name"/><sup title="This field is mandatory.">*</sup></label>
@@ -71,6 +71,27 @@
                   	<textarea name="notes" id="FormNotes">{{notes}}</textarea>
                   </div>    	  	             
             </div>
+        </form>
+
+        <form method="post" action="updateAccount.action" id="password-form" class="yform json full" role="application">
+          <fieldset>
+          	<legend><s:text name="passwordChange"></s:text></legend>
+			<input type="hidden" name="redirect_form" value="false" />
+          	<div class="c50l">
+              <div class="type-text">
+              	<label for="FormPassword"><s:text name="password"></s:text><sup title="This field is mandatory.">*</sup></label>
+                <input type="password" class="required" name="password" id="FormPassword" aria-required="true" />
+              </div>
+              <div class="type-text">
+                <label for="FormRetyped"><s:text name="reTypePassword"></s:text> <sup title="This field is mandatory.">*</sup></label>
+                <input type="password" class="required" name="reTyped" id="FormRetyped"  aria-required="true" />
+              </div>
+              <div class="type-button">
+                <button class="btn_save"><s:text name="save"/></button>
+                <button class="btn_reset btn_cancel_form"><s:text name="cancel"/></button>
+              </div>
+            </div>
+          </fieldset>
         </form>
 	</script>
 
@@ -153,6 +174,22 @@
                   	<label for="fFormName"><s:text name="name"/></label>
                 	<input type="text" name="name" id="fFormName" value="{{name}}" aria-required="true"/>
                 </div>
+				<div class="type-text">
+               	 	<label for="FormAddress"><s:text name="address"/></label>
+                  	<input type="text" name="address" id="FormAddress" value="{{address}}" aria-required="true" />
+              	</div>
+             	<div class="type-text">
+               	 	<label for="FormCity"><s:text name="city"/></label>
+                  	<input type="text" name="city" id="FormCity" value="{{city}}" aria-required="true" />
+              	</div>
+              	<div class="type-text">
+               	 	<label for="FormZipCode"><s:text name="zipCode"/></label>
+                  	<input type="text" name="zipCode" id="FormZipCode" value="{{zipCode}}" aria-required="true" />
+              	</div>
+				<div class="type-text">
+               	 	<label for="FormCountry"><s:text name="zipCode"/></label>
+                  	<input type="text" name="zipCode" id="FormCountry" value="{{country}}" aria-required="true" />
+              	</div>
                	<div class="type-button">
 					<button class="btn_submit"><s:text name="search"/></button>
                	</div>

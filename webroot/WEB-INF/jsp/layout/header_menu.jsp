@@ -105,7 +105,7 @@
 								<li class="ui-menu-item"><a href="<s:property value="url_findallconventions"/>?sect=settings"><s:text name="conventions" /></a></li>
 								<li class="ui-menu-item"><a href="<s:property value="url_findallfacilities"/>?sect=settings"><s:text name="facilities" /></a></li>
 								<li class="ui-menu-item"><a href="<s:property value="url_findallimages"/>?sect=settings"><s:text name="images" /></a></li>
-								<li class="ui-menu-item"><a href="<s:property value="url_details"/>?sect=settings"><s:text name="structureDetails" /></a></li>
+								<li class="ui-menu-item"><a href="<s:property value="url_details"/>?sect=settings"><s:text name="structureSettings" /></a></li>
 							</ul>
 						</li>
 						<li><a href="#"><s:text name="help" /></a>

@@ -50,7 +50,7 @@
     <div id="col3" role="main">
     	<div id="col3_content" class="clearfix">
     	<h2>
-				<s:text name="structureDetails" />
+				<s:text name="structureSettings" />
 			</h2>
 			<div id="toolbar-container"></div>
 			<div id="main-app">
