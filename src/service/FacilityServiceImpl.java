@@ -22,8 +22,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.ServletContext;
-
 import model.Facility;
 import model.File;
 import model.Image;
@@ -32,8 +30,6 @@ import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
-import org.springframework.web.context.support.ServletContextResource;
-
 import persistence.mybatis.mappers.FacilityMapper;
 
 @Service
@@ -60,16 +56,13 @@ public class FacilityServiceImpl implements FacilityService{
 		Image image = null;
 		File file = null;
 		byte[] data = null;
-		
-		
+			
 		//this.getApplicationContext().getResource("/images/image-default.png");
 		image = new Image();
 		image.setCaption(facility.getName());
 		image.setId_structure(facility.getId_structure());
 		file = new File();
 		file.setName("image-default.png");
-		
-		
 		
 		try {
 			data = IOUtils.toByteArray(
@@ -94,7 +87,6 @@ public class FacilityServiceImpl implements FacilityService{
 		return this.getFacilityMapper().update(facility);
 	}
 	
-	
 	@Override
 	public Facility find(Integer id) {	
 		Facility ret = null;
@@ -106,7 +98,6 @@ public class FacilityServiceImpl implements FacilityService{
 		return ret;
 	}
 	
-	
 	@Override
 	public List<Facility> findByIds(List<Integer> ids) {
 		List<Facility> ret = null;
@@ -117,8 +108,6 @@ public class FacilityServiceImpl implements FacilityService{
 		}
 		return ret;
 	}
-
-	
 	
 	@Override
 	public List<Facility> findByIdStructure(Integer id_structure,Integer offset, Integer rownum) {
@@ -168,76 +157,56 @@ public class FacilityServiceImpl implements FacilityService{
 		Integer count = 0;
 		Integer id_image;
 		
+		this.getStructureFacilityService().deleteByIdFacility(id);
+		this.getRoomTypeFacilityService().deleteByIdFacility(id);
+		this.getRoomFacilityService().deleteByIdFacility(id);
 		
 		id_image = this.getImageService().findByIdFacility(id).getId();
 		this.getImageService().delete(id_image);
 		count = this.getFacilityMapper().delete(id);
 		
 		return count;
-		
 	}
 	
 	public FacilityMapper getFacilityMapper() {
 		return facilityMapper;
 	}
-	
-	public void setFacilityMapper(
-			FacilityMapper structureFacilityMapper) {
+	public void setFacilityMapper(FacilityMapper structureFacilityMapper) {
 		this.facilityMapper = structureFacilityMapper;
 	}	
-
 	public ImageService getImageService() {
 		return imageService;
 	}
-
 	public void setImageService(ImageService imageService) {
 		this.imageService = imageService;
 	}
-
-	
 	public StructureFacilityService getStructureFacilityService() {
 		return structureFacilityService;
 	}
-
-
 	public void setStructureFacilityService(StructureFacilityService structureFacilityService) {
 		this.structureFacilityService = structureFacilityService;
 	}
-
-
-	
 	public RoomTypeFacilityService getRoomTypeFacilityService() {
 		return roomTypeFacilityService;
 	}
-
-
-	public void setRoomTypeFacilityService(
-			RoomTypeFacilityService roomTypeFacilityService) {
+	public void setRoomTypeFacilityService(RoomTypeFacilityService roomTypeFacilityService) {
 		this.roomTypeFacilityService = roomTypeFacilityService;
 	}
-
-
 	public RoomFacilityService getRoomFacilityService() {
 		return roomFacilityService;
 	}
-
-
 	public void setRoomFacilityService(RoomFacilityService roomFacilityService) {
 		this.roomFacilityService = roomFacilityService;
 	}
-
 	public FacilityImageService getFacilityImageService() {
 		return facilityImageService;
 	}
-
 	public void setFacilityImageService(FacilityImageService facilityImageService) {
 		this.facilityImageService = facilityImageService;
 	}
-
 	public ApplicationContext getApplicationContext() {
 		return applicationContext;
 	}
-
 	public void setApplicationContext(ApplicationContext applicationContext) {
 		this.applicationContext = applicationContext;
 	}
