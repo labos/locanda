@@ -15,13 +15,18 @@
  *******************************************************************************/
 // load files in models folder. Please not wrape code into jquery ready function in model's file.
 // set defaults for pages not managed by entities
-typeof Entity !== "undefined" || ( Entity = {name:"default", editView:null} );
+( typeof Entity !== "undefined" && typeof Entity.name !== "undefined" ) || ( Entity = {name:"default", editView:null} );
+
+//load common js scripts
+steal("../helpers/common.js", "../helpers/autocomplete.js");
 // conditional file loading section
 if ( Entity.name == "roomType" || Entity.name == "room" || Entity.name == "structure") {
     steal("../../css/rcarousel.css","../views/commonMedia.js");
 }
 if ( Entity.name == "room") {
-    steal("../models/roomFacility.js", "../models/roomImage.js", "../models/file.js").then("../collections/roomFacility.js","../collections/availableRoomFacilities.js","../collections/availableRoomImages.js","../collections/roomImage.js");
+    steal("../models/roomFacility.js", "../models/roomImage.js", "../models/file.js").then("../collections/roomFacility.js","../collections/availableRoomFacilities.js","../collections/availableRoomImages.js","../collections/roomImage.js").
+    then("../models/roomType.js").
+    then("../collections/roomType.js");
 }
 if ( Entity.name == "roomType") {
     steal("../models/roomTypeFacility.js", "../models/roomTypeImage.js", "../models/file.js").then("../collections/roomTypeFacility.js","../collections/availableRoomTypeFacilities.js","../collections/availableRoomTypeImages.js","../collections/roomTypeImage.js");
@@ -46,13 +51,9 @@ if (Entity.name == "season") {
 }
 // end conditional file loading section
 
-// load common js scripts
-steal("../helpers/common.js", "../helpers/autocomplete.js").
-//then roomtype files, to be moved elsewhere
-then("../models/roomType.js").
-then("../collections/roomType.js").
+
 //then load views, model, collections and routers
-then("../models/" + Entity.name + ".js").
+steal("../models/" + Entity.name + ".js").
 then("../collections/" + Entity.name + ".js").
 then("../views/common.js").
 then("../views/" + Entity.name + ".js").

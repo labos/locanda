@@ -25,7 +25,7 @@
 				
 				<!-- begin: #footer -->
 				<div id="footer" role="contentinfo">
-					<img src="images/labos.png" id="labos" alt="Laboratorio Open Source" class="left" height="20%" width="20%"/> 
+					<img src="images/labos.png" id="labos" alt="Laboratorio Open Source" class="left" height="7%" width="20%"/> 
 					<img src="images/sardegna_ricerche.png" alt="Sardegna Ricerche" class="left" height="7%" width="7%" /> 
 					<img src="images/european_union.png" id="eu" alt="European Union" class="right" height="7%" width="7%" /> 
 					<img src="images/repubblica.png" alt="Repubblica Italiana" class="right" height="7%" width="7%"/> 
@@ -93,8 +93,6 @@ if (locale != null){
 </s:if>
 <script type='text/javascript' src="js/lib/steal/steal.js?loader.js"></script>
 <script type='text/javascript' src='js/lib/jquery.jgrowl_minimized.js'></script>
-<script type='text/javascript' src='js/lib/ejs_production.js'></script>
-<script type='text/javascript' src='js/lib/view.js'></script>
 <!-- full skiplink functionality in webkit browsers -->
 <script src="yaml/core/js/yaml-focusfix.js" type="text/javascript"></script>
 

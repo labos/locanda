@@ -51,6 +51,10 @@ window.FacilityRowView = Backbone.View.extend({
         //send cheched/unchecked facility
         var $target = $(event.target),
             self = this;
+   	 // prevents the event from bubbling up the DOM tree
+   	 if ( typeof event !== 'undefined' ) {
+   		 event.stopPropagation();
+   	 }
         if (!$target.is(":checked")) {
             this.model.destroy(null, {
                 success: function () {
@@ -140,6 +144,10 @@ window.ImageRowView = Backbone.View.extend({
         //send cheched/unchecked roomTypeFacility
         var $target = $(event.target),
             self = this;
+      	 // prevents the event from bubbling up the DOM tree
+      	 if ( typeof event !== 'undefined' ) {
+      		 event.stopPropagation();
+      	 }
         if (!$target.is(":checked")) {
             this.model.destroy(null, {
                 success: function () {
@@ -252,7 +260,7 @@ window.ImagesFacilitiesView = Backbone.View.extend({
         this.collection.fetch({
             silent: true,
             success: function () {
-                self.addAll();
+                self.render();
             }
         });
     },
@@ -477,15 +485,15 @@ window.FacilitiesListView = ImagesFacilitiesView.extend({
             $($.fn.overlay.defaults.container).css('overflow', 'auto');
         } else {
             this.indexTemplate = $("#facilities-edit-template");
-            this.render();
+            // call a method to render availableCollection
+            this.setAvailables();
+            //this.render();
             var self = this;
             $(this.el).undelegate("div", "click");
             $('<div></div>').overlay({
                 effect: 'fade',
                 onShow: function () {
                     var overlay = this;
-                    // call a method to render availableCollection
-                    self.setAvailables();
                     $(self.el).addClass("edit-state-box");
                     $(this).click(function () {
                         if (confirm($.i18n("alertExitEditState"))) {
@@ -566,15 +574,15 @@ window.ImagesListView = ImagesFacilitiesView.extend({
             $($.fn.overlay.defaults.container).css('overflow', 'auto');
         } else {
             this.indexTemplate = $("#images-edit-template");
-            this.render();
+            // call a method to render availableCollection
+            this.setAvailables();
+            //this.render();
             var self = this;
             $(this.el).undelegate("div", "click");
             $('<div></div>').overlay({
                 effect: 'fade',
                 onShow: function () {
                     var overlay = this;
-                    // call a method to render availableCollection
-                    self.setAvailables();
                     $(self.el).addClass("edit-state-box");
                     $(this).click(function () {
                         if (confirm($.i18n("alertExitEditState"))) {

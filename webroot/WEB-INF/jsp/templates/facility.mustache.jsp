@@ -41,7 +41,7 @@
 	
 	<script id="image-view-template" type="text/x-handlebars-template">
             <div class="c50l inview">
-				{{#id}}<img src="rest/file/{{id}}?rnd={{rnd}}" alt="" />{{/id}}
+				{{#id}}<img width="100" src="rest/file/{{id}}?rnd={{rnd}}" alt="" />{{/id}}
 				{{^id}}<img src="images/image-default.png" alt="default" /><b><s:text name="insertNewImage"/></b>{{/id}}
 			</div>
  	</script>
@@ -55,7 +55,7 @@
         <div class="beauty">
      	  	<div class="subcolumns">
             <div class="c20l">
-				<img src="rest/file/{{id}}?rnd={{rnd}}" alt="" />
+				<img width="100" src="rest/file/{{id}}?rnd={{rnd}}" alt="" />
 			</div>
            	  	<div class="c33l">
     				<input type="hidden" name="facility_name" value="default" id="name_facility"/>

@@ -143,6 +143,10 @@
      // save new item or update existing item.
      save: function (e) {
          e.preventDefault();
+         if (!this.$(".yform").valid()) {
+        	 return;
+         }
+         
          var self = this,
              is_new = this.model.isNew() ? true : false,
              item = this.model.clone();
@@ -249,7 +253,7 @@
  });
  /*
   * @class ToolBarView
-  * @parent Backbone.View
+  * @parent Backbone.Viewthis.editView.clear()
   * @constructor
   * View for item filtering.
   * @tag views
@@ -418,7 +422,7 @@
          //bind collection's events
          _.bindAll(this, "addOne", "editOne");
          this.collection.bind('add', this.addOne, this);
-         this.collection.bind('remove', this.removeOne, this);
+         //this.collection.bind('remove', this.removeOne, this);
          this.collection.bind('reset', this.addAll, this);
          this.collection.bind('destroy', this.removeOne, this);
          this.collection.bind('all', this.render, this);
@@ -470,7 +474,7 @@
          // now check if deleted model is in editing mode
          if (this.editView && this.editView.model.get("id") == aModel.get("id")) {
              //this.editView.clear();
-        	 this.editView.resetModel(this.collection.at(0));
+        	 ( this.collection.length > 0 )? this.editView.resetModel(this.collection.at(0)) : this.editView.clear();
          }
          this.collection.remove(aModel);
      },

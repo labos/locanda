@@ -42,7 +42,7 @@ window.Autocomplete = Backbone.Model.extend({
  * @author LabOpenSource
  */
 
-AutocompleteCollection = Backbone.Collection.extend({
+window.AutocompleteCollection = Backbone.Collection.extend({
     model: Autocomplete,
     initialize: function (term, wrapper) {
         this.setTerm(term);
