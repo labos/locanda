@@ -15,18 +15,14 @@
  *******************************************************************************/
 package service;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import model.Facility;
-import model.File;
 import model.Image;
 
-import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
@@ -50,35 +46,13 @@ public class FacilityServiceImpl implements FacilityService{
 	private ApplicationContext applicationContext = null;
 	
 	
+	
 	@Override
 	public Integer insert(Facility facility) {	
 		Integer count;
-		Image image = null;
-		File file = null;
-		byte[] data = null;
-			
-		//this.getApplicationContext().getResource("/images/image-default.png");
-		image = new Image();
-		image.setCaption(facility.getName());
-		image.setId_structure(facility.getId_structure());
-		file = new File();
-		file.setName("image-default.png");
-		
-		try {
-			data = IOUtils.toByteArray(
-					this.getApplicationContext().getResource("/images/image-default.png").getInputStream());
-			file.setData(data);
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		image.setFile(file);
-		this.getImageService().insert(image);
-		facility.setImage(image);
+
 		count = this.getFacilityMapper().insert(facility);	
-		this.getFacilityImageService().insert(facility.getId(), image.getId());		
+		this.getFacilityImageService().associateDefaultImage(facility);		
 		return count;		
 	}	
 		
@@ -164,7 +138,6 @@ public class FacilityServiceImpl implements FacilityService{
 		id_image = this.getImageService().findByIdFacility(id).getId();
 		this.getImageService().delete(id_image);
 		count = this.getFacilityMapper().delete(id);
-		
 		return count;
 	}
 	

@@ -15,29 +15,60 @@
  *******************************************************************************/
 package service;
 
-import java.util.ArrayList;
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
+import model.Facility;
+import model.File;
+import model.Image;
+
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
 import persistence.mybatis.mappers.FacilityImageMapper;
-import persistence.mybatis.mappers.FileMapper;
-import persistence.mybatis.mappers.ImageFileMapper;
-import persistence.mybatis.mappers.ImageMapper;
-import persistence.mybatis.mappers.RoomImageMapper;
-import persistence.mybatis.mappers.RoomTypeImageMapper;
-
-
-import model.File;
-import model.Image;
 
 @Service
 public class FacilityImageServiceImpl implements FacilityImageService{
 	@Autowired
 	private FacilityImageMapper facilityImageMapper = null;	
+	@Autowired
+	private ImageService imageService = null;
+	@Autowired
+	private ApplicationContext applicationContext = null;
+	
+	@Override
+	public Facility associateDefaultImage(Facility facility) {
+		Image image = null;
+		File file = null;
+		byte[] data = null;
+		
+		//this.getApplicationContext().getResource("/images/image-default.png");
+				image = new Image();
+				image.setCaption(facility.getName());
+				image.setId_structure(facility.getId_structure());
+				file = new File();
+				file.setName("image-default.png");
+		
+		try {
+			data = IOUtils.toByteArray(
+					this.getApplicationContext().getResource("/images/image-default.png").getInputStream());
+			file.setData(data);
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		image.setFile(file);
+		this.getImageService().insert(image);
+		facility.setImage(image);
+		this.insert(facility.getId(), image.getId());
+		return facility;
+	}
 	
 	@Override
 	public Integer insert(Integer id_facility,Integer id_image) {
@@ -55,6 +86,10 @@ public class FacilityImageServiceImpl implements FacilityImageService{
 		return (Integer)this.getFacilityImageMapper().findByIdFacility(id_facility).get("id_image");
 	}
 
+	@Override
+	public Integer findIdFacilityByIdImage(Integer id_image) {
+		return (Integer)this.getFacilityImageMapper().findByIdImage(id_image).get("id_facility");
+	}
 
 	@Override
 	public Integer delete(Integer id) {
@@ -85,5 +120,21 @@ public class FacilityImageServiceImpl implements FacilityImageService{
 		this.facilityImageMapper = facilityImageMapper;
 	}
 
+	public ImageService getImageService() {
+		return imageService;
+	}
+
+	public void setImageService(ImageService imageService) {
+		this.imageService = imageService;
+	}
+
+	public ApplicationContext getApplicationContext() {
+		return applicationContext;
+	}
+
+	public void setApplicationContext(ApplicationContext applicationContext) {
+		this.applicationContext = applicationContext;
+	}
+	
 		
 }

@@ -15,15 +15,13 @@
  *******************************************************************************/
 package persistence.mybatis.mappers;
 
-import java.util.List;
 import java.util.Map;
-
-import model.Image;
 
 public interface FacilityImageMapper {	
 	public Integer insert(Map map);	
 	
-	public Map findByIdFacility(Integer id_facility);	
+	public Map findByIdFacility(Integer id_facility);
+	public Map findByIdImage(Integer id_image);
 	public Integer delete(Integer id);
 	public Integer deleteByIdImage(Integer id_image);	
 	public Integer deleteByIdFacility(Integer id_facility);			

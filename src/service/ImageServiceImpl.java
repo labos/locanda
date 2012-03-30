@@ -30,6 +30,7 @@ import persistence.mybatis.mappers.ImageMapper;
 import persistence.mybatis.mappers.RoomImageMapper;
 import persistence.mybatis.mappers.RoomTypeImageMapper;
 
+import model.Facility;
 import model.File;
 import model.Image;
 
@@ -45,6 +46,8 @@ public class ImageServiceImpl implements ImageService{
 	private RoomTypeImageService roomTypeImageService = null;
 	@Autowired
 	private RoomImageService roomImageService = null;
+	@Autowired
+	private FacilityService facilityService = null;
 	@Autowired
 	private FacilityImageService facilityImageService = null;
 	@Autowired
@@ -70,17 +73,23 @@ public class ImageServiceImpl implements ImageService{
 	@Override
 	public Integer delete(Integer id) {
 		Integer count = 0;
+		Integer id_facility = null;
 				
 		this.getStructureImageService().deleteByIdImage(id);
 		this.getRoomTypeImageService().deleteByIdImage(id);
 		this.getRoomImageService().deleteByIdImage(id);
-		this.getFacilityImageService().deleteByIdImage(id);		
+		
+		
+		
+		//creating a new association with the default image
+		id_facility = this.getFacilityImageService().findIdFacilityByIdImage(id);
+		this.getFacilityImageService().deleteByIdImage(id);
+		this.getFacilityImageService().associateDefaultImage(this.getFacilityService().find(id_facility));
 		
 		this.getFileService().deleteByIdImage(id);
-			
 		count = this.getImageMapper().delete(id);
+
 		return count; 
-		
 	}
 	
 	@Override
@@ -211,6 +220,15 @@ public class ImageServiceImpl implements ImageService{
 
 	public void setRoomImageService(RoomImageService roomImageService) {
 		this.roomImageService = roomImageService;
+	}
+
+	
+	public FacilityService getFacilityService() {
+		return facilityService;
+	}
+
+	public void setFacilityService(FacilityService facilityService) {
+		this.facilityService = facilityService;
 	}
 
 	public FacilityImageService getFacilityImageService() {

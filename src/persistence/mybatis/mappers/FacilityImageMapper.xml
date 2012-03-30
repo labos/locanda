@@ -35,8 +35,12 @@ In case of controversy the competent court is the Court of Cagliari (Italy).
         DELETE from facilityImage where id_facility = #{id_facility}
     </delete>   
     
-     <select id="findByIdFacility" parameterType="int" resultType="map">
+    <select id="findByIdFacility" parameterType="int" resultType="map">
         select id,id_facility,id_image from facilityImage where id_facility = #{id_facility}
+    </select>
+    
+    <select id="findByIdImage" parameterType="int" resultType="map">
+        select id,id_facility,id_image from facilityImage where id_image = #{id_image}
     </select> 
     	
 	    
