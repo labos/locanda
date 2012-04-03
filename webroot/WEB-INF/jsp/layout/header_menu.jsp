@@ -32,28 +32,16 @@
 
 	<title>LOCANDA - Open Source Booking Tool</title>
 
-	<!--[if lte IE 7]>
+	<!-- (de) Fuegen Sie hier ihre Meta-Daten ein -->
+  	<!--[if lte IE 7]>
 		<link href="css/patches/patch_sliding_door.css" rel="stylesheet" type="text/css" />
-		<style type="text/css">
-			h1 span {
-  					filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/logo_locanda.png', sizingMethod='scale');
-  					}
   	<![endif]-->
-  	<!--[if IE 8]>
-		<style type="text/css">
-			h1 span {
-				-ms-filter:"progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/logo_locanda.png', sizingMethod='scale')";
-			}
-		</style>
-	<![endif] -->
 </head>
 <body>
 	<!-- skip link navigation -->
 	<ul id="skiplinks">
-		<li><a class="skip" href="#nav">Skip to navigation (Press
-				Enter).</a></li>
-		<li><a class="skip" href="#col3">Skip to main content (Press
-				Enter).</a></li>
+		<li><a class="skip" href="#nav">Skip to navigation (Press Enter).</a></li>
+		<li><a class="skip" href="#col3">Skip to main content (Press Enter).</a></li>
 	</ul>
 	<s:url action="logout" var="url_logout"></s:url>
 	<s:url action="home" var="url_home"></s:url>
@@ -79,9 +67,13 @@
 					<div class="langMenu"></div>
 				</div>
 				<h1>
-					<a href="<s:property value="url_home"/>?sect=planner"><span>&nbsp;</span></a><em>&nbsp;</em>
+					<a href="<s:property value="url_home"/>?sect=planner">
+						<span>
+							<img src="images/logo_locanda.png" alt="" class="left" height="100%"/>
+						</span>	
+					</a>
+					<em>&nbsp;</em>
 				</h1>
-				<span></span>
 			</div>
 			<!-- begin: main navigation #nav -->
 			<div id="nav" role="navigation">

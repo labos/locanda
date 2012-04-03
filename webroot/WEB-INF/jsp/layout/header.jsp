@@ -29,19 +29,7 @@
   	<!-- (de) Fuegen Sie hier ihre Meta-Daten ein -->
   	<!--[if lte IE 7]>
 		<link href="css/patches/patch_sliding_door.css" rel="stylesheet" type="text/css" />
-		<style type="text/css">
-			h1 span {
-  					filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/logo_locanda.png', sizingMethod='scale');
-  					}
   	<![endif]-->
-  	<!--[if IE 8]>
-		<style type="text/css">
-			h1 span {
-				background: none;
-				-ms-filter:"progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/logo_locanda.png', sizingMethod='scale')";
-			}
-		</style>
-	<![endif] -->
 </head>
 
 <!--<s:url var="redirectLang" includeParams="get" escapeAmp="false"/>-->
@@ -57,26 +45,30 @@
    <s:param name="request_locale" >it</s:param>
      <s:param name="redirect" ><s:property value="#redirectLang"/>.action</s:param>
 </s:url>
-
 <s:url action="goLogin" var="url_login"></s:url>
 
 <body>
-  <!-- skip link navigation -->
-  <ul id="skiplinks">
-    <li><a class="skip" href="#nav">Skip to navigation (Press Enter).</a></li>
-    <li><a class="skip" href="#col3">Skip to main content (Press Enter).</a></li>
-  </ul>
+	<!-- skip link navigation -->
+  	<ul id="skiplinks">
+    	<li><a class="skip" href="#nav">Skip to navigation (Press Enter).</a></li>
+    	<li><a class="skip" href="#col3">Skip to main content (Press Enter).</a></li>
+  	</ul>
 
-  <div class="page_margins">
-    <div class="page">
-      <div id="header" role="banner">
-        <div id="topnav" role="contentinfo" style="height: 25px; float: left;">
-        <div style="float: right;"><a class="login-top" href="<s:property value="url_login"/>"><s:text name="loginSignup" /></a></div>
-        <div class="langMenu">
-       	 <s:a href="%{localeIT}" cssClass="flag_it"></s:a>
-         <s:a href="%{localeEN}" cssClass="flag_en"></s:a>
-        </div>
-        </div>
-        <h1>
-        <span>&nbsp;</span><em>&nbsp;</em></h1><span>&nbsp;</span>
-      </div><!-- begin: main navigation #nav -->
+  	<div class="page_margins">
+   		<div class="page">
+      		<div id="header" role="banner">
+        		<div id="topnav" role="contentinfo" style="height: 25px; float: left;">
+        			<div style="float: right;"><a class="login-top" href="<s:property value="url_login"/>"><s:text name="loginSignup" /></a></div>
+        			<div class="langMenu">
+       	  				<s:a href="%{localeIT}" cssClass="flag_it"></s:a>
+          				<s:a href="%{localeEN}" cssClass="flag_en"></s:a>
+        			</div>
+      			</div>
+      			<h1>
+        			<span>
+          				<img src="images/logo_locanda.png" alt="" class="left" height="100%"/>
+        			</span>
+        			<em>&nbsp;</em>
+      			</h1> 
+    		</div>
+    		<!-- begin: main navigation #nav -->
