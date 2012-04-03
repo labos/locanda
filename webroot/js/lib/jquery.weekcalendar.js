@@ -525,7 +525,12 @@ $(function() {
 
       },
 
-     
+_highlightCell : function($weekDay){
+	
+	$weekDay.hover( function(){$(this).css("border", "2px solid grey")});
+	
+},
+
       
  /*******************************************************************************************/    
 /************************************ room checkin selection *******************************/      

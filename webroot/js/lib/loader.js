@@ -15,7 +15,7 @@
  *******************************************************************************/
 // load files in models folder. Please not wrape code into jquery ready function in model's file.
 // set defaults for pages not managed by entities
-( typeof Entity !== "undefined" && typeof Entity.name !== "undefined" ) || ( Entity = {name:"default", editView:null} );
+( typeof Entity !== "undefined" && typeof Entity.model !== "undefined" ) || ( Entity = {name:"default", editView:null} );
 
 //load common js scripts
 steal("../helpers/common.js", "../helpers/autocomplete.js");

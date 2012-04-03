@@ -25,7 +25,7 @@
       	<s:url action="login" var="url"></s:url>
       	<s:url action="goCreateAccount" var="url_account" />
       	<s:actionerror /><s:fielderror></s:fielderror>
-      	<form method="post" action="<s:property value="url"/>" class="yform" role="application">
+      	<form method="post" action="<s:property value="url"/>" class="yform" role="application" autocomplete="off">
             <fieldset>
               <legend><s:text name="loginData" /></legend>
               <div class="type-text">

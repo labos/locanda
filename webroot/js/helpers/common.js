@@ -216,6 +216,11 @@ $(document).ready(function () {
                 $(this).addClass('active');
             }); 
             
+            $('#support').click(function () {
+                $('<iframe src="https://docs.google.com/spreadsheet/embeddedform?formkey=dFF4RUt5UURpRlV0SzVFT1lmODR3UFE6MQ" width="760" height="592" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>')
+                .dialog({ minWidth: 300, minHeight:350 });
+            }); 
+            
             /* General settings */
             //make a new div overlay element
           //---  $('body').append($('<div class="ui-widget-overlay"></div>'));

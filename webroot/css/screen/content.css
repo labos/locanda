@@ -241,6 +241,7 @@ div.header_section span.name_section
 	float: left;
 	font-size: 250%;
 	font-weight: 600;
+	text-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
 }
 div.header_section span.btn_right
 {
@@ -332,6 +333,9 @@ ul.sub_menu
 	position: absolute;
 	z-index: 2000;
 	border: 1px solid #B3EB86;
+	-webkit-box-shadow: 0px 0px 5px rgba(50, 50, 50, 0.75);
+	-moz-box-shadow:    0px 0px 5px rgba(50, 50, 50, 0.75);
+	box-shadow:         0px 0px 5px rgba(50, 50, 50, 0.75);
 	
 }
 ul.sub_menu li, ul.sub_menu li a
@@ -352,7 +356,7 @@ ul.sub_menu li:hover,ul.sub_menu li a:hover
 #header
 {
 	background: none;
-	height: 45px;
+	height: 5px;
 }
 .hlist
 {
@@ -1266,7 +1270,6 @@ img#eu{
 .yform .type-text input.beauty:active,.yform .type-text input.beauty:focus {
 
 	color:#333333;
-	background:none;
 	border: 4px solid #B3D5F2;
 	box-shadow: 0 0 2px #666666 inset;
 	-moz-box-shadow: 0 0 2px #666666 inset;

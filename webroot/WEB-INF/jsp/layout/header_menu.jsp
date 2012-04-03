@@ -111,6 +111,7 @@
 						<li><a href="#"><s:text name="help" /></a>
 							<ul class="sub_menu ui-menu ui-widget ui-widget-content ui-corner-all">
 								<li class="ui-menu-item"><a href="<s:property value="url_about"/>?sect=help"><s:text name="about" /></a></li>
+								<li class="ui-menu-item"><a href="#" id="support"><s:text name="feedback" /></a></li>
 							</ul>
 						</li>
 					</ul>
