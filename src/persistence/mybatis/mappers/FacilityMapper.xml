@@ -22,10 +22,12 @@ In case of controversy the competent court is the Court of Cagliari (Italy).
     
     <insert id="insert" parameterType="model.Facility" useGeneratedKeys="true" keyProperty="id">
         INSERT into facility(name,description,id_structure) values (#{name},#{description},#{id_structure})
-    </insert> 		   
+    </insert>
+    	   
     <update id="update" parameterType="model.Facility" >
         UPDATE facility set name = #{name},description = #{description} where id = #{id}
     </update>
+    
     <delete id="delete" parameterType="int">
         DELETE from facility where id = #{id} 
     </delete>  

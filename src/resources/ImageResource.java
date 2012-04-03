@@ -54,7 +54,6 @@ public class ImageResource {
 		return image;
 	}	
 	
-		
 	@POST
 	@Consumes(MediaType.MULTIPART_FORM_DATA)
 	@Produces({MediaType.APPLICATION_JSON}) 
@@ -84,8 +83,6 @@ public class ImageResource {
 		return image;
 	}
 	
-	
-	
 	@PUT
 	@Path("{id}")
 	@Consumes({MediaType.APPLICATION_JSON})
@@ -93,10 +90,8 @@ public class ImageResource {
 	public Image updateImage(Image image) {
 		
 		this.getImageService().update(image);		
-		
 		return image;
 	}
-	
 		
 	@DELETE
     @Path("{id}")
@@ -115,8 +110,7 @@ public class ImageResource {
 	@Path("all/structure/{idStructure}/{offset}/{rownum}")
 	@Produces({MediaType.APPLICATION_JSON})	
 	public List<Image> getAllImages(@PathParam("idStructure") Integer idStructure,@PathParam("offset") Integer offset,@PathParam("rownum") Integer rownum){
-		return this.getImageService().findByIdStructure(idStructure,offset,rownum);
-		
+		return this.getImageService().findByIdStructure(idStructure,offset,rownum);	
 	}	
 	
 	@GET
@@ -124,7 +118,6 @@ public class ImageResource {
 	@Produces({MediaType.APPLICATION_JSON})	
 	public List<Image> getStructureImages(@PathParam("idStructure") Integer idStructure,@PathParam("offset") Integer offset,@PathParam("rownum") Integer rownum){
 		return this.getImageService().findCheckedByIdStructure(idStructure);
-		
 	}	
 	
 	@GET
@@ -151,8 +144,8 @@ public class ImageResource {
 	public ImageService getImageService() {
 		return imageService;
 	}
-
 	public void setImageService(ImageService imageService) {
 		this.imageService = imageService;
-	}	
+	}
+	
 }

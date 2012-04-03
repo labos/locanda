@@ -40,13 +40,11 @@ public class ImageFileServiceImpl implements ImageFileService{
 
 	@Override
 	public Integer delete(Integer id) {
-		// TODO Auto-generated method stub
 		return this.getImageFileMapper().delete(id);
 	}
 
 	@Override
 	public Integer deleteByIdImage(Integer id) {
-		
 		return this.getImageFileMapper().deleteByIdImage(id);
 	}
 
@@ -61,12 +59,8 @@ public class ImageFileServiceImpl implements ImageFileService{
 	public ImageFileMapper getImageFileMapper() {
 		return imageFileMapper;
 	}
-
 	public void setImageFileMapper(ImageFileMapper imageFileMapper) {
 		this.imageFileMapper = imageFileMapper;
 	}
-	
-	
-
 		
 }

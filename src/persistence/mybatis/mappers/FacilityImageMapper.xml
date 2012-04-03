@@ -22,26 +22,27 @@ In case of controversy the competent court is the Court of Cagliari (Italy).
     <cache/>	
 	
 	<insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="map">
-        insert into facilityImage(id_facility,id_image) values(#{id_facility},#{id_image})
+        INSERT INTO facilityImage(id_facility,id_image) values(#{id_facility},#{id_image})
     </insert>          
     
-     <delete id="delete" parameterType="int">
-        DELETE from facilityImage where id = #{id}
-    </delete> 
+    <delete id="delete" parameterType="int">
+        DELETE FROM facilityImage WHERE id = #{id}
+    </delete>
+    
     <delete id="deleteByIdImage" parameterType="int">
-        DELETE from facilityImage where id_image = #{id_image}
-    </delete> 
+        DELETE FROM facilityImage WHERE id_image = #{id_image}
+    </delete>
+    
     <delete id="deleteByIdFacility" parameterType="int">
-        DELETE from facilityImage where id_facility = #{id_facility}
+        DELETE FROM facilityImage WHERE id_facility = #{id_facility}
     </delete>   
     
     <select id="findByIdFacility" parameterType="int" resultType="map">
-        select id,id_facility,id_image from facilityImage where id_facility = #{id_facility}
+        SELECT id,id_facility,id_image FROM facilityImage WHERE id_facility = #{id_facility}
     </select>
     
     <select id="findByIdImage" parameterType="int" resultType="map">
-        select id,id_facility,id_image from facilityImage where id_image = #{id_image}
+        SELECT id,id_facility,id_image FROM facilityImage WHERE id_image = #{id_image}
     </select> 
-    	
 	    
 </mapper>

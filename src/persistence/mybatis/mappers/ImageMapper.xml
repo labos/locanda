@@ -22,27 +22,27 @@ In case of controversy the competent court is the Court of Cagliari (Italy).
     <cache/>
 	
 	<insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="model.Image">
-        insert into image(caption,id_structure) values(#{caption},#{id_structure})
+        INSERT INTO image(caption,id_structure) values(#{caption},#{id_structure})
     </insert>  
     
     <update id="update"  parameterType="model.Image">
-        update image set caption = #{caption} where id = #{id}
+        UPDATE image set caption = #{caption} WHERE id = #{id}
     </update>  
     
     <delete id="delete" parameterType="int">
-        delete from image where id = #{id}
+        DELETE FROM image WHERE id = #{id}
     </delete>   
           
     <select id="find" parameterType="int" resultType="model.Image">
-        <include refid="selectImage"/> where id = #{id}
+        <include refid="selectImage"/> WHERE id = #{id}
     </select> 
     
     <select id="findByIdStructure" parameterType="map" resultType="model.Image">
-        <include refid="selectImage"/> where id_structure = #{id_structure} LIMIT #{offset}, #{rownum}
+        <include refid="selectImage"/> WHERE id_structure = #{id_structure} LIMIT #{offset}, #{rownum}
     </select> 
           
     <sql id="selectImage">
-        select id,caption,id_structure from image
+        SELECT id,caption,id_structure FROM image
     </sql>   
        	    
 </mapper>

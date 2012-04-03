@@ -6,15 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import persistence.mybatis.mappers.FileMapper;
-import persistence.mybatis.mappers.ImageFileMapper;
 
 @Service
 public class FileServiceImpl implements FileService{
 	@Autowired
 	private FileMapper fileMapper = null;
-	
 	@Autowired
 	private ImageFileService imageFileService = null;
+	
 	
 	@Override
 	public Integer insert(File file) {
@@ -31,12 +30,9 @@ public class FileServiceImpl implements FileService{
 		Integer count = 0;
 		
 		count = this.getFileMapper().delete(id);		
-		
 		return count;
 	}
 	
-	
-
 	@Override
 	public Integer deleteByIdImage(Integer id) {
 		Integer count;
@@ -56,19 +52,14 @@ public class FileServiceImpl implements FileService{
 	public FileMapper getFileMapper() {
 		return fileMapper;
 	}
-
 	public void setFileMapper(FileMapper fileMapper) {
 		this.fileMapper = fileMapper;
 	}
-
 	public ImageFileService getImageFileService() {
 		return imageFileService;
 	}
-
 	public void setImageFileService(ImageFileService imageFileService) {
 		this.imageFileService = imageFileService;
 	}	
 	
-	
-
 }

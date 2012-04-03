@@ -15,12 +15,7 @@
  *******************************************************************************/
 package service;
 
-import java.util.List;
-import java.util.Map;
-
 import org.springframework.transaction.annotation.Transactional;
-
-import model.Image;
 
 @Transactional
 public interface ImageFileService {
@@ -28,8 +23,6 @@ public interface ImageFileService {
 	public Integer insert(Integer id_image,Integer id_file);
 	public Integer delete(Integer id);
 	public Integer deleteByIdImage(Integer id);
-	
 	public Integer findIdFileByIdImage(Integer id_image);
 	
-		
 }

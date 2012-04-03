@@ -80,61 +80,62 @@ public class FacilityImageServiceImpl implements FacilityImageService{
 		return this.getFacilityImageMapper().insert(map);
 	}
 
-
 	@Override
 	public Integer findIdImageByIdFacility(Integer id_facility) {
-		return (Integer)this.getFacilityImageMapper().findByIdFacility(id_facility).get("id_image");
+		Map map = null;
+		Integer ret = 0;
+		
+		map = this.getFacilityImageMapper().findByIdFacility(id_facility);
+		if (map != null) {
+			ret = (Integer)map.get("id_image");
+		}
+		return ret;
 	}
 
 	@Override
 	public Integer findIdFacilityByIdImage(Integer id_image) {
-		return (Integer)this.getFacilityImageMapper().findByIdImage(id_image).get("id_facility");
+		Map map = null;
+		Integer ret = 0;
+		
+		map = this.getFacilityImageMapper().findByIdImage(id_image);
+		if (map != null) {
+			ret = (Integer)map.get("id_facility");
+		}
+		return ret;
 	}
 
 	@Override
 	public Integer delete(Integer id) {
-		
 		return this.getFacilityImageMapper().delete(id);
 	}
-	
 
 	@Override
 	public Integer deleteByIdImage(Integer id_image) {
-		
 		return this.getFacilityImageMapper().deleteByIdImage(id_image);
 	}
 
 	@Override
 	public Integer deleteByIdFacility(Integer id_facility) {
-		
 		return this.getFacilityImageMapper().deleteByIdFacility(id_facility);
 	}
-
-
-
+	
 	public FacilityImageMapper getFacilityImageMapper() {
 		return facilityImageMapper;
 	}
-
 	public void setFacilityImageMapper(FacilityImageMapper facilityImageMapper) {
 		this.facilityImageMapper = facilityImageMapper;
 	}
-
 	public ImageService getImageService() {
 		return imageService;
 	}
-
 	public void setImageService(ImageService imageService) {
 		this.imageService = imageService;
 	}
-
 	public ApplicationContext getApplicationContext() {
 		return applicationContext;
 	}
-
 	public void setApplicationContext(ApplicationContext applicationContext) {
 		this.applicationContext = applicationContext;
 	}
-	
 		
 }

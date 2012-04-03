@@ -24,7 +24,6 @@ import model.Facility;
 import model.Image;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 import persistence.mybatis.mappers.FacilityMapper;
 
@@ -42,9 +41,6 @@ public class FacilityServiceImpl implements FacilityService{
 	private ImageService imageService = null;
 	@Autowired
 	private FacilityImageService facilityImageService = null;
-	@Autowired
-	private ApplicationContext applicationContext = null;
-	
 	
 	
 	@Override
@@ -136,6 +132,7 @@ public class FacilityServiceImpl implements FacilityService{
 		this.getRoomFacilityService().deleteByIdFacility(id);
 		
 		id_image = this.getImageService().findByIdFacility(id).getId();
+		this.getFacilityImageService().deleteByIdFacility(id);
 		this.getImageService().delete(id_image);
 		count = this.getFacilityMapper().delete(id);
 		return count;
@@ -176,12 +173,6 @@ public class FacilityServiceImpl implements FacilityService{
 	}
 	public void setFacilityImageService(FacilityImageService facilityImageService) {
 		this.facilityImageService = facilityImageService;
-	}
-	public ApplicationContext getApplicationContext() {
-		return applicationContext;
-	}
-	public void setApplicationContext(ApplicationContext applicationContext) {
-		this.applicationContext = applicationContext;
 	}
 	
 }

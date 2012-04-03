@@ -16,8 +16,6 @@
 package service;
 
 import java.util.List;
-import java.util.Map;
-
 import org.springframework.transaction.annotation.Transactional;
 
 import model.Image;
@@ -28,7 +26,6 @@ public interface ImageService {
 	public Integer insert(Image image);		
 	public Integer update(Image image);		
 	public Integer delete(Integer id);
-	
 	public Image find(Integer id);	
 	public List<Image> findByIdStructure(Integer id_structure,Integer offset, Integer rownum);
 	public List<Image> findCheckedByIdStructure(Integer id_structure);

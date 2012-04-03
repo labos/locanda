@@ -23,14 +23,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import persistence.mybatis.mappers.FacilityImageMapper;
-import persistence.mybatis.mappers.FileMapper;
-import persistence.mybatis.mappers.ImageFileMapper;
 import persistence.mybatis.mappers.ImageMapper;
-import persistence.mybatis.mappers.RoomImageMapper;
-import persistence.mybatis.mappers.RoomTypeImageMapper;
-
-import model.Facility;
 import model.File;
 import model.Image;
 
@@ -73,22 +66,22 @@ public class ImageServiceImpl implements ImageService{
 	@Override
 	public Integer delete(Integer id) {
 		Integer count = 0;
-		Integer id_facility = null;
+		Integer id_facility = 0;
 				
 		this.getStructureImageService().deleteByIdImage(id);
 		this.getRoomTypeImageService().deleteByIdImage(id);
 		this.getRoomImageService().deleteByIdImage(id);
 		
-		
-		
-		//creating a new association with the default image
+		//if the image is associated with a facility, creates a new association with the default image
 		id_facility = this.getFacilityImageService().findIdFacilityByIdImage(id);
-		this.getFacilityImageService().deleteByIdImage(id);
-		this.getFacilityImageService().associateDefaultImage(this.getFacilityService().find(id_facility));
+		if (id_facility != 0) {
+			this.getFacilityImageService().associateDefaultImage(this.getFacilityService().find(id_facility));
+			this.getFacilityImageService().deleteByIdImage(id);
+			}
 		
+		//now all the data related to the old image are erased
 		this.getFileService().deleteByIdImage(id);
 		count = this.getImageMapper().delete(id);
-
 		return count; 
 	}
 	
@@ -99,11 +92,9 @@ public class ImageServiceImpl implements ImageService{
 		Integer id_file;
 		
 		ret = this.getImageMapper().find(id);
-		
 		file = new File();
 		id_file = this.getImageFileService().findIdFileByIdImage(id);		
 		file.setId(id_file);
-		
 		ret.setFile(file);
 		return ret;		
 	}	
@@ -142,13 +133,11 @@ public class ImageServiceImpl implements ImageService{
 		}
 		return ret;
 	}
-
 	
 	@Override
 	public List<Image> findCheckedByIdRoomType(Integer id_roomType) {
 		List<Image> ret = null;
 		Image image = null;
-		
 		
 		ret = new ArrayList<Image>();
 		for(Integer id: this.getRoomTypeImageService().findIdImageByIdRoomType(id_roomType)){
@@ -157,7 +146,6 @@ public class ImageServiceImpl implements ImageService{
 		}
 		return ret;
 	}
-	
 	
 	@Override
 	public List<Image> findCheckedByIdRoom(Integer id_room) {
@@ -171,7 +159,6 @@ public class ImageServiceImpl implements ImageService{
 		}
 		return ret;
 	}
-	
 	
 	@Override
 	public Image findByIdFacility(Integer id_facility) {
@@ -189,60 +176,45 @@ public class ImageServiceImpl implements ImageService{
 	public void setImageMapper(ImageMapper imageMapper) {
 		this.imageMapper = imageMapper;
 	}
-	
 	public ImageFileService getImageFileService() {
 		return imageFileService;
 	}
-
 	public void setImageFileService(ImageFileService imageFileService) {
 		this.imageFileService = imageFileService;
 	}
-
 	public FileService getFileService() {
 		return fileService;
 	}
-
 	public void setFileService(FileService fileService) {
 		this.fileService = fileService;
 	}
-
 	public RoomTypeImageService getRoomTypeImageService() {
 		return roomTypeImageService;
 	}
-
 	public void setRoomTypeImageService(RoomTypeImageService roomTypeImageService) {
 		this.roomTypeImageService = roomTypeImageService;
 	}
-
 	public RoomImageService getRoomImageService() {
 		return roomImageService;
 	}
-
 	public void setRoomImageService(RoomImageService roomImageService) {
 		this.roomImageService = roomImageService;
 	}
-
-	
 	public FacilityService getFacilityService() {
 		return facilityService;
 	}
-
 	public void setFacilityService(FacilityService facilityService) {
 		this.facilityService = facilityService;
 	}
-
 	public FacilityImageService getFacilityImageService() {
 		return facilityImageService;
 	}
-
 	public void setFacilityImageService(FacilityImageService facilityImageService) {
 		this.facilityImageService = facilityImageService;
 	}
-
 	public StructureImageService getStructureImageService() {
 		return structureImageService;
 	}
-
 	public void setStructureImageService(StructureImageService structureImageService) {
 		this.structureImageService = structureImageService;
 	}

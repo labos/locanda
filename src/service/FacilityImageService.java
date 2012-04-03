@@ -23,9 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 public interface FacilityImageService {
 	
 	public Facility associateDefaultImage(Facility facility);
-	
 	public Integer insert(Integer id_facility,Integer id_image);
-	
 	public Integer findIdImageByIdFacility(Integer id_facility);
 	public Integer findIdFacilityByIdImage(Integer id_image);
 	public Integer delete(Integer id);
