@@ -66,7 +66,10 @@
 			  	</div>
 		</form>
 	</script>
-
+	<script id="no-roomtype-template" type="text/x-handlebars-template">
+		<h3><strong><s:text name="roomTypesNotPresent" /></strong></h3>
+		<a href="<s:property value="url_findallroomtypes"/>?sect=accomodation"><img src="images/add-icon.png" alt="<s:text name="roomType" />"/><s:text name="roomType" /></a>
+	</script>
 	<script id="row-template" type="text/x-handlebars-template">
 		<div class="row-item">
 			<ul>

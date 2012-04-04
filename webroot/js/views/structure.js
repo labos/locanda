@@ -8,7 +8,7 @@
  */
 window.EditStructureView = EditView.extend({
     events: {
-        "submit #structure-form": "save",
+        "submit #edit-form": "save",
         "submit #password-form": "changePassword",
         "click div": "switchMode"
     },

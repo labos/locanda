@@ -20,11 +20,12 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
    
     <script id="edit-template" type="text/x-handlebars-template">
-		<form id="edit-form" id="structure-form" class="yform json full" role="application">
+		<form id="edit-form" class="yform json full" role="application">
           	<div class="c50l">   
             	  <div class="type-text">
                   	<label for="FormName"><s:text name="name"/><sup title="This field is mandatory.">*</sup></label>
                   	<input type="text" class="required" name="name" id="FormName" value="{{name}}" aria-required="true"  />
+					<input type="hidden" name="redirect_form" value="false" />
                   </div>
                   <div class="type-text">
                	 	<label for="FormAddress"><s:text name="address"/></label>

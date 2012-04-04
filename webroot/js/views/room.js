@@ -89,7 +89,11 @@
     	 var modelToRender = this.model.toJSON();
     	 // set additional attribute to display roomTypes. Only for the view.
     	 modelToRender.availableRoomTypes = this.model.get("roomType")? this.setRoomTypes(this.model.get("roomType").id) : this.setRoomTypes( null );
-         $(this.el).html(Mustache.to_html(this.indexTemplate.html(), modelToRender));
+         // check for empty roomtypes
+    	 if( $.isEmptyObject(modelToRender.availableRoomTypes)){
+    		 this.indexTemplate = $("#no-roomtype-template");
+    	 }
+    	 $(this.el).html(Mustache.to_html(this.indexTemplate.html(), modelToRender));
          // add validation check
          this.$(".yform").validate();
          // renderize buttons
