@@ -44,8 +44,6 @@ In case of controversy the competent court is the Court of Cagliari (Italy).
         <include refid="selectRoomId"/>WHERE id_structure = #{id_structure}
     </select>
     
-    
-    
     <select id="findRoomsByIdStructureAndOffsetAndRownum" parameterType="map" resultType="model.Room">
         <include refid="selectRoom"/>WHERE id_structure = #{id_structure} LIMIT #{offset}, #{rownum}
     </select>

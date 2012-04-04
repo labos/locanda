@@ -27,9 +27,6 @@ import model.RoomType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import persistence.mybatis.mappers.FacilityMapper;
-import persistence.mybatis.mappers.ImageMapper;
-import persistence.mybatis.mappers.RoomImageMapper;
 import persistence.mybatis.mappers.RoomMapper;
 import persistence.mybatis.mappers.RoomTypeMapper;
 
@@ -49,10 +46,8 @@ public class RoomServiceImpl implements RoomService{
 	private RoomImageService roomImageService = null;
 	
 	
-	
 	@Override
 	public Integer findIdStructureByIdRoom(Integer idRoom) {
-		
 		return this.getRoomMapper().findIdStructureByIdRoom(idRoom);
 	}
 
@@ -77,16 +72,7 @@ public class RoomServiceImpl implements RoomService{
 
 	@Override
 	public Integer updateRoom(Room room) {
-		Integer ret = 0;
-		
-		ret = this.getRoomMapper().updateRoom(room);
-		
-		/*this.getFacilityService().deleteAllFacilitiesFromRoom(room.getId());
-		
-		for(Facility each: room.getFacilities()){
-			this.getFacilityService().insertRoomFacility(each.getId(), room.getId());
-		}*/
-		return ret;
+		return this.getRoomMapper().updateRoom(room);
 	}	
 
 	@Override
@@ -118,11 +104,8 @@ public class RoomServiceImpl implements RoomService{
 		return rooms;
 	}
 	
-	
-	
 	@Override
-	public List<Integer> findRoomIdsByIdStructure(Integer id_structure) {
-		
+	public List<Integer> findRoomIdsByIdStructure(Integer id_structure) {	
 		return this.getRoomMapper().findRoomIdsByIdStructure(id_structure);
 	}
 
@@ -167,15 +150,7 @@ public class RoomServiceImpl implements RoomService{
 
 	@Override
 	public Integer insertRoom(Room room) {	
-		Integer ret = 0;
-		
-		ret = this.getRoomMapper().insertRoom(room);
-		/*
-		for(Facility each: room.getFacilities()){
-			this.getFacilityService().insertRoomFacility(each.getId(),room.getId());
-		}
-		*/
-		return ret;
+		return this.getRoomMapper().insertRoom(room);
 	}
 	
 	public RoomMapper getRoomMapper() {
@@ -190,7 +165,6 @@ public class RoomServiceImpl implements RoomService{
 	public void setRoomTypeMapper(RoomTypeMapper roomTypeMapper) {
 		this.roomTypeMapper = roomTypeMapper;
 	}
-	
 	public FacilityService getFacilityService() {
 		return facilityService;
 	}
@@ -203,25 +177,17 @@ public class RoomServiceImpl implements RoomService{
 	public void setImageService(ImageService imageService) {
 		this.imageService = imageService;
 	}
-
-	
-
 	public RoomImageService getRoomImageService() {
 		return roomImageService;
 	}
-
 	public void setRoomImageService(RoomImageService roomImageService) {
 		this.roomImageService = roomImageService;
 	}
-
 	public RoomFacilityService getRoomFacilityService() {
 		return roomFacilityService;
 	}
-
 	public void setRoomFacilityService(RoomFacilityService roomFacilityService) {
 		this.roomFacilityService = roomFacilityService;
 	}
 	
-	
-
 }

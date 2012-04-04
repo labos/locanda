@@ -17,8 +17,6 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import model.Room;
-import model.RoomType;
-
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServer;
 import org.apache.solr.client.solrj.SolrServerException;
@@ -164,17 +162,26 @@ public class RoomResource {
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
     public Room save(Room room) {
-       
-        this.getRoomService().insertRoom(room);
-        try {
-			this.getSolrServerRoom().addBean(room);			
-			this.getSolrServerRoom().commit();			
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (SolrServerException e) {
+		Integer idRoomType = 0;
+		
+		idRoomType = room.getId_roomType();
+	//	if (idRoomType != null) {
+		try{
+			room.setRoomType(this.getRoomTypeService().findRoomTypeById(idRoomType));
+			this.getRoomService().insertRoom(room);
+		}
+		catch (Exception e){
 			e.printStackTrace();
 		}
-        room.setRoomType(this.getRoomTypeService().findRoomTypeById(room.getId_roomType()));
+			try {
+				this.getSolrServerRoom().addBean(room);			
+				this.getSolrServerRoom().commit();			
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (SolrServerException e) {
+				e.printStackTrace();
+			}
+		
         return room;
     }
    
