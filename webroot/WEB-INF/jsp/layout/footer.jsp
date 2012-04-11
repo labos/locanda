@@ -84,6 +84,7 @@ if (locale != null){
     	}
     	//$._.setLocale('<s:property value="#request.locale" />');
     	$._.setLocale('<s:property value="#request.locale.getLanguage()" />');
+    	I18NSettings.language = '<s:property value="#request.locale.getLanguage()" />';
 	});
 </script>
 <script type='text/javascript' src='js/lib/jquery.validate.min.js'></script>

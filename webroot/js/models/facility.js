@@ -51,3 +51,11 @@ window.Facility = Backbone.Model.extend({
         return this;
     },
 });
+
+
+window.Autocompletes = AutocompleteCollection.extend({
+
+    url: function () {
+        return 'rest/facilities/structure/' + this.idWrapper + '/suggest' + this.term;
+    }
+});

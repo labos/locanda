@@ -53,7 +53,7 @@ if (Entity.name == "season") {
 
 
 //then load views, model, collections and routers
-steal("../models/" + Entity.name + ".js").
+steal("../helpers/autocomplete.js").then("../models/" + Entity.name + ".js").
 then("../collections/" + Entity.name + ".js").
 then("../views/common.js").
 then("../views/" + Entity.name + ".js").

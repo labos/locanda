@@ -52,9 +52,8 @@
         			</textarea>
              	  </div>
              	  <div class="type-check">
-					<a href="#" id="customizewidget"><s:text name="customizeLayout"/></a>
-             	  </div>  
-              	  <!--
+					<!--<a href="#" id="customizewidget"><s:text name="customizeLayout"/></a>  -->
+              	  <!-- 
               	  <div class="type-check">
                   	<input type="checkbox" name="online.price" id="onlineRequire" value="1"/>
                   	<label for="onlineRequire"><s:text name="requirePayment"/></label>

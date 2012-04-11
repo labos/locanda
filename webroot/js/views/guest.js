@@ -275,6 +275,7 @@ window.EditGuestView = EditView.extend({
      * @return {Array} array of { value:"", selected: ""} objects.
      */
     setCountries: function (aCountry) {
+    	aCountry = (aCountry && aCountry.length > 0) ? aCountry : 'US'; 
         _.each(this.availableCountries, function (val) {
             val.selected = false;
             if (val.code == aCountry) {

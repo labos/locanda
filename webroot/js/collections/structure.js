@@ -36,12 +36,12 @@ window.Structures = Backbone.Collection.extend({
     setTerm: function (aTerm) {
         this.term = (typeof aTerm !== "undefined" && aTerm) ? aTerm : '';
     },
-//    setIdWrapper: function (id) {
-//        this.idWrapper = (typeof id === "number") ? id : '';
-//    },
-//    getIdWrapper: function () {
-//        return this.idWrapper;
-//    },
+    setIdWrapper: function (id) {
+        this.idWrapper = (typeof id === "number") ? id : '';
+    },
+    getIdWrapper: function () {
+        return this.idWrapper;
+    },
     setFrom: function (begin) {
         this.from = (typeof begin === "number") ? '/' + begin : '';
     },

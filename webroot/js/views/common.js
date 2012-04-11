@@ -339,7 +339,7 @@
              search: function (event, ui){
             	 var term  = $("#item-autocomplete").val();
             	 if ( term.length !== 1){
-                	 self.collection.setTerm( $("#item-autocomplete").val() );
+                	 self.collection.setTerm( term + '*' );
                      self.collection.setFrom(0);
                      self.collection.setTo(10);
                 	 self.collection.fetch();
@@ -355,9 +355,10 @@
                      return;
                  }
                  var autocompletes = new Autocompletes(term, self.collection.getIdWrapper());
+                 var result = new Array();
                  autocompletes.fetch({
                      success: function () {
-                         var result = new Array();
+
                          try {
                              result = autocompletes.toJSON();
                          } catch (e) {
@@ -365,6 +366,11 @@
                          }
                          cache[term] = result;
                          response(result);
+                     },
+                     error: function () {
+                         cache[term] = result;
+                         response(result); 
+                    	 
                      }
                  });
              },

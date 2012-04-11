@@ -36,3 +36,12 @@ window.Image = Backbone.Model.extend({
     urlRoot: "rest/images/",
     validate: function (attrs) {},
 });
+
+
+
+window.Autocompletes = AutocompleteCollection.extend({
+
+    url: function () {
+        return 'rest/images/structure/' + this.idWrapper + '/suggest' + this.term;
+    }
+});
