@@ -82,6 +82,12 @@ public class ConventionServiceImpl implements ConventionService{
 	public Convention findConventionById(Integer id) {
 		return this.getConventionMapper().findConventionById(id);
 	}
+	
+	@Override
+	public Convention findConventionByIdWithoutDefault(Integer id) {
+		return this.getConventionMapper().findConventionByIdWithoutDefault(id);
+	}
+	
 
 	public ConventionMapper getConventionMapper() {
 		return conventionMapper;

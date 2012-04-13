@@ -106,7 +106,7 @@ public class ConventionResource {
         	   solrDocument = solrDocumentList.get(i);
         	   id = (Integer)solrDocument.getFieldValue("id");
         	// System.out.println("----> "+solrDocument.getFieldValues("text")+" <-----");
-        	   aConvention = this.getConventionService().findConventionById(id);
+        	   aConvention = this.getConventionService().findConventionByIdWithoutDefault(id);
         	   conventions.add(aConvention);
            }  
        }       

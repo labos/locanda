@@ -31,4 +31,5 @@ public interface ConventionMapper {
 	public List<Convention> search(Map map);	
 	
 	public Convention findConventionById(Integer id);
+	public Convention findConventionByIdWithoutDefault(Integer id);
 }

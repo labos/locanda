@@ -44,6 +44,10 @@ In case of controversy the competent court is the Court of Cagliari (Italy).
     </select>
      
     <select id="findConventionById" parameterType="int" resultType="model.listini.Convention">
+        <include refid="selectConvention"/>WHERE id = #{id} 
+    </select>
+    
+     <select id="findConventionByIdWithoutDefault" parameterType="int" resultType="model.listini.Convention">
         <include refid="selectConvention"/>WHERE id = #{id} AND activationCode != 'thisconventionshouldntneverberemoved'
     </select>
     

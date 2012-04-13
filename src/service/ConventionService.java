@@ -33,4 +33,5 @@ public interface ConventionService {
 	public List<Convention> findConventionsByIdStructure(Integer id_structure, Integer offset, Integer rownum);
 	
 	public Convention findConventionById(Integer id);
+	public Convention findConventionByIdWithoutDefault(Integer id);
 }
