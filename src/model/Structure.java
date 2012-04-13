@@ -56,7 +56,6 @@ public class Structure implements Serializable {
 	private TreeSet<Integer> keys;
 	
 	
-	
 	public Integer nextKey(){
 		Integer ret = 0;
 		ret = this.getKeys().last();

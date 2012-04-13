@@ -36,8 +36,8 @@
 	<field name="email"   			type="string"  	 	indexed="true"  stored="false"  multiValued="false" /> 
 	<field name="url"   			type="string"  	 	indexed="true"  stored="false"  multiValued="false" />
 	<field name="notes"   			type="string"  	 	indexed="true"  stored="false"  multiValued="false" />
-	<field name="id_structure"      type="int"   		indexed="true"  stored="false"  multiValued="false"/>
-  	<field name="text" 				type="text_general" indexed="true" 	stored="true" 	multiValued="true"/>
+	<field name="id_structure"      type="int"   		indexed="true"  stored="false"  multiValued="false" />
+  	<field name="text" 				type="text_general" indexed="true" 	stored="true" 	multiValued="true"  />
  </fields>
 
  <!-- field to use to determine and enforce document uniqueness. -->
@@ -60,4 +60,3 @@
  <copyField source="url" 		dest="text"/>
  <copyField source="notes" 		dest="text"/>
 </schema>
-

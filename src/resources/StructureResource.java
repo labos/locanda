@@ -3,7 +3,6 @@ package resources;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.annotation.PostConstruct;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -18,6 +17,8 @@ import javax.ws.rs.core.MediaType;
 import model.Facility;
 import model.Image;
 import model.Structure;
+import model.User;
+
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServer;
 import org.apache.solr.client.solrj.SolrServerException;
@@ -27,8 +28,11 @@ import org.apache.solr.client.solrj.response.TermsResponse.Term;
 import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
 
 import service.FacilityService;
 import service.ImageService;
@@ -46,6 +50,9 @@ public class StructureResource {
 	private ImageService imageService = null;
 	@Autowired
     private SolrServer solrServerStructure = null;
+	@Autowired
+	private ApplicationContext applicationContext = null;
+	private User user = (User)RequestContextHolder.currentRequestAttributes().getAttribute("user", RequestAttributes.SCOPE_SESSION);
    
     
     @PostConstruct
@@ -66,26 +73,28 @@ public class StructureResource {
     @GET
     @Path("search/{start}/{rows}")
     @Produces({MediaType.APPLICATION_JSON})
-    public List<Structure> search(@PathParam("start") Integer start,@PathParam("rows") Integer rows, @QueryParam("term") String term){
+    public List<Structure> search(@PathParam("start") Integer start, @PathParam("rows") Integer rows, @QueryParam("term") String term){
         List<Structure> structures = null;
         SolrQuery query = null;
         QueryResponse rsp = null;
         SolrDocumentList solrDocumentList = null;
         SolrDocument solrDocument = null;
         Structure aStructure = null;
-        Integer id;             
-       
+        Integer id = 0;
+        
         if(term.trim().equals("")){
         	term = "*:*";
         }
-        //term = term + " AND id_structure:" + idStructure.toString();
+//        aStructure = this.getStructureService().findStructureByIdUser(this.user.getId());
+//        id = aStructure.getId();
+//        term = term + " AND id:" + id.toString();
         query = new SolrQuery();   		
-        query.setQuery( term);
+        query.setQuery(term);
         query.setStart(start);
         query.setRows(rows);
               
         try {
-			rsp = this.getSolrServerStructure().query( query );
+			rsp = this.getSolrServerStructure().query(query);
 			
 		} catch (SolrServerException e) {
 			e.printStackTrace();			
@@ -98,7 +107,9 @@ public class StructureResource {
         	   solrDocument = solrDocumentList.get(i);
         	   id = (Integer)solrDocument.getFieldValue("id");
         	   aStructure = this.getStructureService().findStructureById(id);
+        	   if (aStructure.getId_user() == user.getId()) {					//adding only the structures belonging to the logged user
         	   structures.add(aStructure);
+        	   }
            }  
        }       
        return structures;          
@@ -112,13 +123,20 @@ public class StructureResource {
         QueryResponse rsp = null;
         List<String> ret = null;
         TermsResponse termsResponse = null;
-        List<Term> terms;
+        List<Term> terms;   
+//      Structure aStructure = null;
+//      Integer id = 0;
         
         query = new SolrQuery();         
         query.setQueryType("/terms");
         query.addTermsField("text");
+        
+//      aStructure = this.getStructureService().findStructureByIdUser(this.user.getId());
+//      id = aStructure.getId();
+//      term = term + " AND id:" + id.toString();
+        
         query.setParam("terms.prefix", term); 
-     // query.setParam("id_structure", idStructure.toString());
+//      query.setParam("id", id.toString());
         
         try {
 			rsp = this.getSolrServerStructure().query( query );
@@ -211,8 +229,14 @@ public class StructureResource {
 	public SolrServer getSolrServerStructure() {
 		return solrServerStructure;
 	}
-	public void setServerStructure(SolrServer solrServerStructure) {
+	public void setSolrServerStructure(SolrServer solrServerStructure) {
 		this.solrServerStructure = solrServerStructure;
 	}
-	
+	public ApplicationContext getApplicationContext() {
+		return applicationContext;
+	}
+	public void setApplicationContext(ApplicationContext applicationContext) {
+		this.applicationContext = applicationContext;
+	}
+
 }

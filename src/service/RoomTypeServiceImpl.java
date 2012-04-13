@@ -19,16 +19,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import model.Facility;
 import model.Image;
 import model.RoomType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import persistence.mybatis.mappers.FacilityMapper;
-import persistence.mybatis.mappers.ImageMapper;
-import persistence.mybatis.mappers.RoomTypeFacilityMapper;
-import persistence.mybatis.mappers.RoomTypeImageMapper;
 import persistence.mybatis.mappers.RoomTypeMapper;
 
 @Service
@@ -60,12 +55,10 @@ public class RoomTypeServiceImpl implements RoomTypeService{
 		return ret;
 	}
 	
-	
 	@Override
 	public List<Integer> findRoomTypeIdsByIdStructure(Integer id_structure) {
 		return this.getRoomTypeMapper().findRoomTypeIdsByIdStructure(id_structure);
 	}
-
 
 	@Override
 	public List<RoomType> findRoomTypesByIdStructure(Integer id_structure, Integer offset, Integer rownum) {
@@ -100,16 +93,11 @@ public class RoomTypeServiceImpl implements RoomTypeService{
 		return this.getRoomTypeMapper().findRoomTypeByIdStructureAndName(map);
 	}
 	
-	
-	
-	
 	@Override
 	public Integer findIdStructureByIdRoomType(Integer idRoomType) {
-		
 		return this.getRoomTypeMapper().findIdStructureByIdRoomType(idRoomType);
 	}
 
-	
 	@Override
 	public Integer insertRoomType(RoomType roomType) {
 		Integer ret = 0;
@@ -117,7 +105,6 @@ public class RoomTypeServiceImpl implements RoomTypeService{
 		ret = this.getRoomTypeMapper().insertRoomType(roomType);		
 		return ret ;
 	}
-	
 
 	@Override
 	public Integer updateRoomType(RoomType roomType) {
@@ -159,25 +146,17 @@ public class RoomTypeServiceImpl implements RoomTypeService{
 	public void setImageService(ImageService imageService) {
 		this.imageService = imageService;
 	}
-
 	public RoomTypeImageService getRoomTypeImageService() {
 		return roomTypeImageService;
 	}
-
 	public void setRoomTypeImageService(RoomTypeImageService roomTypeImageService) {
 		this.roomTypeImageService = roomTypeImageService;
 	}
-
 	public RoomTypeFacilityService getRoomTypeFacilityService() {
 		return roomTypeFacilityService;
 	}
-
-	public void setRoomTypeFacilityService(
-			RoomTypeFacilityService roomTypeFacilityService) {
+	public void setRoomTypeFacilityService(RoomTypeFacilityService roomTypeFacilityService) {
 		this.roomTypeFacilityService = roomTypeFacilityService;
 	}
-	
-	
 
-	
 }

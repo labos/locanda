@@ -92,12 +92,6 @@
 		<constructor-arg ref="multiCoreContainer" />
 		<constructor-arg value="structure" />
 	</bean>
-
-	<bean id="solrServerCore1"
-		class="org.apache.solr.client.solrj.embedded.EmbeddedSolrServer">
-		<constructor-arg ref="multiCoreContainer" />
-		<constructor-arg value="core1" />
-	</bean>
 	
     <!-- enable autowire -->
     <context:annotation-config />

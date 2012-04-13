@@ -23,19 +23,10 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import persistence.mybatis.mappers.FacilityImageMapper;
-import persistence.mybatis.mappers.FileMapper;
-import persistence.mybatis.mappers.ImageFileMapper;
-import persistence.mybatis.mappers.ImageMapper;
-import persistence.mybatis.mappers.RoomImageMapper;
 import persistence.mybatis.mappers.RoomTypeImageMapper;
-
-import model.File;
-import model.Image;
 
 @Service
 public class RoomTypeImageServiceImpl implements RoomTypeImageService{
-	
 	@Autowired
 	private RoomTypeImageMapper roomTypeImageMapper = null;
 		
@@ -72,26 +63,22 @@ public class RoomTypeImageServiceImpl implements RoomTypeImageService{
 
 	@Override
 	public Integer delete(Integer id) {
-		
 		return this.getRoomTypeImageMapper().delete(id);
 	}
 
 	@Override
 	public Integer deleteByIdImage(Integer id_image) {
-		
 		return this.getRoomTypeImageMapper().deleteByIdImage(id_image);
 	}
 
 	@Override
 	public Integer deleteByIdRoomType(Integer id_roomType) {
-		
 		return this.getRoomTypeImageMapper().deleteByIdRoomType(id_roomType);
 	}
 
 	public RoomTypeImageMapper getRoomTypeImageMapper() {
 		return roomTypeImageMapper;
 	}
-
 	public void setRoomTypeImageMapper(RoomTypeImageMapper roomTypeImageMapper) {
 		this.roomTypeImageMapper = roomTypeImageMapper;
 	}

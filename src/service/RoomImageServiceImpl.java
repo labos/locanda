@@ -23,20 +23,10 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import persistence.mybatis.mappers.FacilityImageMapper;
-import persistence.mybatis.mappers.FileMapper;
-import persistence.mybatis.mappers.ImageFileMapper;
-import persistence.mybatis.mappers.ImageMapper;
 import persistence.mybatis.mappers.RoomImageMapper;
-import persistence.mybatis.mappers.RoomTypeImageMapper;
-
-
-import model.File;
-import model.Image;
 
 @Service
 public class RoomImageServiceImpl implements RoomImageService{
-	
 	@Autowired
 	private RoomImageMapper roomImageMapper = null;
 		
@@ -50,7 +40,6 @@ public class RoomImageServiceImpl implements RoomImageService{
 		return this.getRoomImageMapper().insert(map);
 	}	
 	
-
 	@Override
 	public List<Integer> findIdImageByIdRoom(Integer id_room) {
 		List<Integer> ret = null;
@@ -62,8 +51,6 @@ public class RoomImageServiceImpl implements RoomImageService{
 		return ret;
 	}
 	
-	
-
 	@Override
 	public Integer findIdByIdRoomAndIdImage(Integer id_room, Integer id_image) {
 		Map map = null;
@@ -74,31 +61,23 @@ public class RoomImageServiceImpl implements RoomImageService{
 		return this.getRoomImageMapper().findIdByIdRoomAndIdImage(map);
 	}
 
-
 	@Override
 	public Integer delete(Integer id) {		
 		return this.getRoomImageMapper().delete(id);
 	}
-
 	@Override
 	public Integer deleteByIdImage(Integer id_image) {		
 		return this.getRoomImageMapper().deleteByIdImage(id_image);
 	}
-
 	@Override
 	public Integer deleteByIdRoom(Integer id_room) {		
 		return this.getRoomImageMapper().deleteByIdRoom(id_room);
 	}
-
 	public RoomImageMapper getRoomImageMapper() {
 		return roomImageMapper;
 	}
-
 	public void setRoomImageMapper(RoomImageMapper roomImageMapper) {
 		this.roomImageMapper = roomImageMapper;
 	}
-
-		
-	
 	
 }
