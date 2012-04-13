@@ -80,15 +80,11 @@
 	});
 
 	test("check update model in collection", function(){
-		
 	
 		var myCollection = S._window.appRouter.appView.listView.collection;
 		var lastModel = S._window.appRouter.appView.listView.collection.last();
 		var idModel = lastModel.id;
-		
-		 lastModel.set({'name': 'My Name'});
-		
-
+		lastModel.set({'name': 'My Name'});
 		ok(( myCollection.get(idModel).get("name") == "My Name"),"Collection truncated successfully?");
 		
 	});
@@ -103,9 +99,7 @@
 	test("check update REST", function(){
 		var myCollection = S._window.appRouter.appView.listView.collection;
 		S("#row-list ul li").first().click(function() {
-			
 			S(".inplace-edit").click(function() {
-			
 			S('input[name="name"]').type("[shift]"+
             "[left][left][left][left][left][left][left][left][left][left][left][left][left]"+
             "[shift-up][delete]");
@@ -119,7 +113,6 @@
 		S('input[name="name"]').val(/new name1/ , function(){
 			var idModel = S._window.appRouter.appView.editView.model.id;
 			//S._window.myAppView.editView.trigger("submit form", S._window.myAppView.editView);
-			
 			//S.wait(500);
 			ok((myCollection.get(idModel).get("name") == "new name1"),"Collection updated successfully?");
 			
@@ -138,9 +131,6 @@
 	});
 	
 */
-		
-		
-	
 	</script>
 	<title>Locanda Test Suite</title>
 </head>

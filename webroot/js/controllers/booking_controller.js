@@ -448,7 +448,7 @@ $(function () {
                                 }
                                 $("#price_room").html(roomSubTotal);
                                 $("#extras_room").html(extraSubTotal);
-                                $('input:hidden[name="booking.subtotal"]').val(subTotal);
+                                //--$('input:hidden[name="booking.subtotal"]').val(subTotal);
                                 $("span.subtotal_room").text(subTotal);
                                 $("span.balance_room").text(subTotal);
                                 $("#booking_duration").val(numNights);

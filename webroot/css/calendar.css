@@ -1,85 +1,78 @@
 body {
-	font-family: "Lucida Grande", Helvetica, Arial, Verdana, sans-serif;
-	font-size: 83.33%;
+font-family:"Lucida Grande", Helvetica, Arial, Verdana, sans-serif;
+font-size:83.33%;
 }
 
-
 h2 {
-	margin: 0.5em 0;
-	font-size: 1.4em;	
+font-size:1.4em;
+margin:.5em 0;
 }
 
 p {
-	margin: 0.5em;	
+margin:.5em;
 }
 
 .ui-widget {
-	font-size: 1em;	
-	margin-top: 16px;
+font-size:1em;
+margin-top:16px;
 }
 
-#event_edit_container, #about {
-	display: none;
-	text-align:left;
-
+#event_edit_container,#about {
+display:none;
+text-align:left;
 }
+
 #event_edit_container form ul li div label {
-	display: inline;
+display:inline;
 }
+
 event_edit_container
 #about_button_container {
-	position: absolute;
-	top: 1em;
-	right: 1em;	
-	padding: 0.5em 2em;
-	background: #ddf;
-	border: 1px solid #bbd;
-	width: 10em;
-	text-align: center;
-}
-
-.wc-header td {
-	/* background: url(images/header-bg.png) repeat-x;*/
+position:absolute;
+top:1em;
+right:1em;
+background:#ddf;
+border:1px solid #bbd;
+width:10em;
+text-align:center;
+padding:.5em 2em;
 }
 
 label {
-	display: block;
-	margin-top: 0em;
-	margin-bottom: 0em;
+display:block;
+margin-top:0;
+margin-bottom:0;
 }
 
 form ul {
-	padding: 0.3em;
-	text-align: left;
+text-align:left;
+padding:.3em;
 }
 
-select, input[type='text'], textarea {
-	width: 80%;
-	padding: 3px;
+select,input[type='text'],textarea {
+width:80%;
+padding:3px;
 }
-
 
 ul.formatted,ol.formatted {
-	display: block;
-	margin: 1em 0.5em;
+display:block;
+margin:1em .5em;
 }
 
 ul.formatted li,ol.formatted li {
-	margin: 5px 30px;
-	display: auto;
+display:auto;
+margin:5px 30px;
 }
 
 ul.formatted li {
-	list-style-type: disc;
+list-style-type:disc;
 }
 
 ol.formatted li {
-	list-style-type: decimal;
+list-style-type:decimal;
 }
 
-/* Alberto Editing */
-
-#room_name_dialog{
+#room_name_dialog {
 font-size:15px;
-color: #336600;
+color:#360;
 }

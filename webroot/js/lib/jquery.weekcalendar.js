@@ -30,7 +30,7 @@ $(function() {
          daysToShow : 7,
          firstDayOfWeek : 0, // 0 = Sunday, 1 = Monday, 2 = Tuesday, ... , 6 = Saturday
          useShortDayNames: false,
-                  timeSeparator : " to ",
+         timeSeparator : " to ",
          startParam : "start",
          endParam : "end",
          businessHours : {start: 0, end: 58, limitDisplay : false},
@@ -200,6 +200,8 @@ $(function() {
          self.element.find(".wc-day-column-inner").each(function() {
             self._adjustOverlappingEvents($(this));
          });
+         
+         self._removeAllHoverRoomDiv();
       },
 
       /*
@@ -524,13 +526,6 @@ $(function() {
 
 
       },
-
-_highlightCell : function($weekDay){
-	
-	$weekDay.hover( function(){$(this).css("border", "2px solid grey")});
-	
-},
-
       
  /*******************************************************************************************/    
 /************************************ room checkin selection *******************************/      
@@ -571,7 +566,8 @@ _setupEventCreationForRoom : function($weekDay) {
                var topPosition = clickYRounded * options.timeslotHeight;
                $newEvent.css({top: topPosition});
                number_slots=1;
-                      
+               
+               self._hoverRoomDivByPosition(self._checkRoomByTop(topPosition));  
                 /****************************************************************/  
 					/* ADESSO SETTIAMO PER LE SELEZIONI ORIZZONTALI MULTIPLE */
 
@@ -619,7 +615,7 @@ _setupEventCreationForRoom : function($weekDay) {
 				{
 					
 
-var $newEventHor2 = $("<div class=\"wc-cal-event wc-new-cal-event wc-new-cal-event-creating\"></div>");
+				var $newEventHor2 = $("<div class=\"wc-cal-event wc-new-cal-event wc-new-cal-event-creating\"></div>");
 					//adesso regoliamo il css
                //--$newEventHor2.css( "width", options.defaultEventWidth+"px");
    				$newEventHor2.css( "height",  options.timeslotHeight);
@@ -986,7 +982,7 @@ $.ajax({
    		     
                self._renderEvents(list_bookings, $weekDayColumns);
                $.jGrowl.defaults.pool = 1;
-
+               /*
                $(".wc-cal-event").hover(function(){
             	   var bookingData = $(this).data("calEvent");
             	   var growlid = null;
@@ -1003,6 +999,8 @@ $.ajax({
             	   }
             	   
             	}, function(){});
+               
+               */
                if (options.loading) options.loading(false);
             });
          }
@@ -1298,8 +1296,12 @@ $.ajax({
       return return_value;
       },      
       
-      
-      
+    _hoverRoomDivByPosition : function(position){	   
+    	  $(".wc-hour-header > #" + position).addClass("hover-room-column");
+      },
+     _removeAllHoverRoomDiv : function(){	   
+    	  $(".hover-room-column").removeClass("hover-room-column");
+      },    
       
       _adjustOverlappingEvents : function($weekDay) {
          var self = this;

@@ -223,16 +223,16 @@ $(document).ready(function () {
             
             /* General settings */
             //make a new div overlay element
-          //---  $('body').append($('<div class="ui-widget-overlay"></div>'));
+            //---$('body').append($('<div class="ui-widget-overlay"></div>'));
             $.jGrowl.defaults.position = 'center';
             $.jGrowl.defaults.life = 300;
             $.ajaxSetup({cache: false});
             		  }
             		});
-    $('.item_list').live("mouseover mouseout", function(event) {
-  	  if ( event.type == "mouseover" ) {
+    		$('.item_list').live("mouseover mouseout", function(event) {
+    			if ( event.type == "mouseover" ) {
         	$(this).addClass("shadow_box");
-  		  } else {
+    			} else {
               	$(this).removeClass("shadow_box");
 
   		  }

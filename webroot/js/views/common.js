@@ -574,15 +574,6 @@
     	 this.listView.collection.setFrom(0);
     	 this.listView.collection.setTo(10);
     	 this.listView.collection.fetch(); 
-    	 /*
-         var aModel = Entity.model({
-             id: aResult.id
-         });
-         aModel.fetch();
-         var selectedModel = this.editView.resetModel(aModel);
-         if (typeof this.listView.collection.get(aModel.id) == "undefined") {
-             this.listView.collection.add(selectedModel);
-         }
-         */
+
      }
  });

@@ -206,7 +206,7 @@ width:80%;
               		</s:iterator> 
                  	<div class="type-text">
                  	  <span><s:text name="subtotal" />: </span><div class="c33r"><span class="subtotal_room" ><s:property value="%{ booking.roomSubtotal + booking.extraSubtotal + adjustmentsSubtotal}"/>
-                 	  </span> &euro;<input type="hidden" id="subtotal_room" name="booking.subtotal" value="<s:property value="%{ booking.roomSubtotal + booking.extraSubtotal + adjustmentsSubtotal}"/>" /></div>
+                 	  </span> &euro;<!-- <input type="hidden" id="subtotal_room" name="booking.subtotal" value="<s:property value="%{ booking.roomSubtotal + booking.extraSubtotal + adjustmentsSubtotal}"/>" /> --></div>
                  	</div>
                   	<div class="type-text"><hr/></div>
                     <div class="type-text"><span class="green">&nbsp;<s:text name="paymentReceived" />: </span>
