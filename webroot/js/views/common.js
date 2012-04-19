@@ -310,7 +310,6 @@
         	 
          });
          
-        // searched = $("#filter-form").serialize();
          var alreadyTyped =  $("#item-autocomplete").val();
          if( alreadyTyped == this.cachedSearch){
         	 
@@ -323,7 +322,6 @@
          self.collection.setFrom(0);
          self.collection.setTo(10);
     	 self.collection.fetch(); 
-        // this.collection.search( JSON.stringify( searched ) );
          self.closeFilter( );
          return false;
      },
@@ -462,7 +460,6 @@
      },
      // Add all items in the collection at once.
      addAll: function () {
-         //$(this.el).empty();
     	 $("#row-list").addClass("back");
          $.each(this.rowViews, function (index, value) {
              this.unrender();
@@ -486,7 +483,6 @@
      },
      editOne: function (row) {
          this.editView.resetModel(row.model);
-         //-- this.addAll();
      },
      // Clear all items, destroying their models.
      clearCompleted: function () {
@@ -559,17 +555,12 @@
              id_structure: Entity.idStructure
     		 }));
     		 $(this.editView.el).undelegate("div", "click");
-    		 // this.editView.switchMode();
     	 }
      },
      filterAll: function (attribute, value) {
     	 this.listView.collection.setFilter(attribute,value).fetch();
-/*    	 var facilitiesCollection = {"Room": new RoomFacilities(null,{idStructure: Entity.idStructure}), "RoomType":new RoomTypeFacilities(null,{idStructure: Entity.idStructure}),"Structure": new StructureFacilities(null,{idStructure: Entity.idStructure})};
-         this.listView.collection = facilitiesCollection[attribute];
-         this.listView.collection.fetch();*/
      },
      selectAutocomplete: function (aSelection) {
-    	 
     	 this.listView.collection.setTerm(  '"' + aSelection.value + '"' );
     	 this.listView.collection.setFrom(0);
     	 this.listView.collection.setTo(10);

@@ -429,13 +429,6 @@ window.FacilitiesListView = ImagesFacilitiesView.extend({
         this.trigger("child:update", this);
     },
     saveElement: function () {},
-    /*     getAvailableFacilities: function(){
-    	 var self = this;
-    	 this.availableCollection.fetch( {silent: true, success: function(){
-    		 self.availableCollection =  _.without(self.availableCollection, self.collection );
-    	 }});
-    	this.availableCollection.each(this.addOne);
-     },*/
     /**
      * set collection with checked images or facilities.
      */

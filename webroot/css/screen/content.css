@@ -288,9 +288,10 @@ height:44px;
 width:129px;
 }
 
-ul.sub_menu {
+#nav ul.sub_menu {
 clear:both;
 display:none;
+margin:0;
 left:0;
 position:absolute;
 z-index:2000;

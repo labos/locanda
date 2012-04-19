@@ -86,6 +86,8 @@ $(function() {
          shortDays : ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
          longDays : [$.i18n("sunday"), $.i18n("monday"), $.i18n("tuesday"), $.i18n("wednesday"), $.i18n("thursday"), $.i18n("friday"), $.i18n("saturday")]
       },
+      
+      clicked : false,
 
       /***********************
        * Initialise calendar *
@@ -202,10 +204,11 @@ $(function() {
          });
          
          self._removeAllHoverRoomDiv();
+         $(".wc-day-column-inner").css({cursor:"pointer"});
       },
 
       /*
-       *       update an event in the calendar. If the event exists it refreshes
+       * update an event in the calendar. If the event exists it refreshes
        * it's rendering. If it's a new event that does not exist in the calendar
        * it will be added.
        */
@@ -229,12 +232,8 @@ $(function() {
 
          var times = []
          var startMillis = startDate.getTime();
-         //i timeslotsperday è dato dalla funzione computeoptions che prende il numero di slot di ore in un giorno per il
-         //numero di slot per ogni ora.
          for (var i = 0; i < options.timeslotsPerDay; i++) {
             var endMillis = startMillis + options.millisPerTimeslot;
-            //creiamo di volta in volta un array di oggetti in cui i membri, rappresentano lla data di inizio e di fine per una giornata
-            //ovviamente questi valori sono identici per un'identica giornata-
             times[i] = {
                start: new Date(startMillis),
                startFormatted: this._formatDate(new Date(startMillis), options.timeFormat),
@@ -262,16 +261,6 @@ $(function() {
          }
       },
 
-
-
-
-
-/*
-      getData : function(key) {
-         return this._getData(key);
-      },
-      */
-
       /*********************
        * private functions *
        *********************/
@@ -279,7 +268,6 @@ $(function() {
 
       _setOption: function(key, value) {
          var self = this;
-         //se per caso il valore per una chiave è diverso da quello che gli vuoi assegnare, allora esegui quanto segue:...
          if(self.options[key] != value) {
 
             // this could be made more efficient at some stage by caching the
@@ -292,14 +280,14 @@ $(function() {
 
             var newOptions = {};
             newOptions[key] = value;
-            //adesso creiamo il nuovo calendario basato su eventuali opzioni aggiornate.
             self._renderEvents({events:currentEvents, options: newOptions}, self.element.find(".wc-day-column-inner"))
         }
 
 	   },
       
-
-      // compute dynamic options based on other config values
+	   /*
+	    * Compute dynamic options based on other config values.
+	    */
       _computeOptions : function() {
 
          var options = this.options;
@@ -330,30 +318,28 @@ $(function() {
       },
 
       /*
-       * configure calendar interaction events that are able to use event
+       * Configure calendar interaction events that are able to use event
        * delegation for greater efficiency
        */
       _setupEventDelegation : function() {
          var self = this;
          var options = this.options;
-         //ora controllo che al click di ogni elemento, non siano presenti dati salvati di tipo preventClick
+         //check for preventClick data already saved
          this.element.click(function(event) {
             var $target = $(event.target);
             if ($target.data("preventClick")) {
                return;
             }
-            //dovrei ora settare la data di start e di end nel caso in cui clicchi su un booking (ovvero caselle adiacenti bookate).
-            
+            //setting start-date and end-date if a booking box is pushed
             start_date_click = $.datepicker.formatDate(I18NSettings.datePattern,new Date($target.data("calEvent").start));
             end_date_click = $.datepicker.formatDate(I18NSettings.datePattern,new Date($target.data("calEvent").end));
-/*           start_date_click= self.formatDate(new Date($target.data("calEvent").start),"dd/mm/yy");
-           end_date_click= self.formatDate(new Date($target.data("calEvent").end),"dd/mm/yy");*/
-            //se il target del click  ha la classe wc-cal-event, allora 
+
+            //check if target has wc-cal-event css class
                if ($target.hasClass("wc-cal-event")) {
                options.eventClick({start: start_date_click, end: end_date_click}, $target, event);
             } else if ($target.parent().hasClass("wc-cal-event")) {
                options.eventClick($target.parent().data("calEvent"), $target.parent(), event);
-            }//ora controlliamo l'evento mouseover per l'elemento sul quale c'è stato un mouseover.
+            }
          }).mouseover(function(event) {
             var $target = $(event.target);
 
@@ -379,6 +365,7 @@ $(function() {
 
       /*
        * check if a ui draggable or resizable is currently being dragged or resized
+       * @param {Jquery DOM} dom object in dragging.
        */
       _isDraggingOrResizing : function ($target) {
          return $target.hasClass("ui-draggable-dragging") || $target.hasClass("ui-resizable-resizing");
@@ -442,7 +429,7 @@ $(function() {
          //render calendar header
          calendarHeaderHtml = "<table class=\"wc-header\"><tbody><tr><td class=\"wc-time-column-header\" width=\"70px\">&nbsp;"+ $.i18n("rooms")+ "</td>";
          for (var i = 1; i <= options.daysToShow; i++) {
-         //crea l'header del giorno come colonna.
+         //create header of day as a column.
             calendarHeaderHtml += "<td class=\"wc-day-column-header wc-day-" + i + "\"></td>";
          }
          calendarHeaderHtml += "<td class=\"wc-scrollbar-shim\"></td></tr></tbody></table>";
@@ -473,7 +460,7 @@ $(function() {
 
             var bhClass = (options.businessHours.start <= i && options.businessHours.end > i) ? "wc-business-hours" : "";
             calendarBodyHtml += "<div class=\"wc-hour-header " + bhClass + "\">"
-            //adesso creiamo le righe (ovvero iniziando dalla prima colonna che contiene il nome della camera.
+            //create room column
             if (options.use24Hour) {
                calendarBodyHtml += "<div class=\"wc-time-header-cell\" id=\"" + i + "\"><span>" + self._24HourForIndex(i) + "</span><input type=\"hidden\" name=\"id_room\" value=\""+ options.listRooms[i].id + "\" /><img src=\"images/" + options.listRooms[i].maxGuests + ".png\" /></div>";
             } else {
@@ -500,20 +487,19 @@ $(function() {
          //append all calendar parts to container
          $(calendarHeaderHtml + calendarBodyHtml).appendTo($calendarContainer);
          
-         //ora aggiungiamo il pulsante per l'aggiunta delle rooms
-         //--$('<a class="wc-add" href="findAllRooms.action?sect=accomodation">ADD ROOM</a>').appendTo($calendarContainer);
+         //create add new room button (in progress...)
+         /*$('<a class="wc-add" href="findAllRooms.action?sect=accomodation">ADD ROOM</a>').appendTo($calendarContainer);
          $(".wc-add").button({
              icons: {
                  secondary: "ui-icon-circle-plus"
              }});
-
+          */
          $weekDayColumns = $calendarContainer.find(".wc-day-column-inner");
          $weekDayColumns.each(function(i, val) {
             $(this).height(options.timeslotHeight * options.timeslotsPerDay);
             if (!options.readonly) {
                self._addDroppableToWeekDay($(this));
-               //---- self._setupEventCreationForWeekDay($(this));
-					self._setupEventCreationForRoom($(this));
+				self._setupEventCreationForRoom($(this));
             }
          });
 
@@ -527,36 +513,41 @@ $(function() {
 
       },
       
- /*******************************************************************************************/    
+/*******************************************************************************************/    
 /************************************ room checkin selection *******************************/      
 /*******************************************************************************************/
-_setupEventCreationForRoom : function($weekDay) {
+      /*
+       * Manage mouse actions into the planner/tableau.
+       * @param {JqueryDOM} jquery object representing a planner column.
+       */
+      _setupEventCreationForRoom : function($weekDay) {
          var self = this;
          var options = this.options;
-         //IL SEGUENTE ARRAY CONTIENE LA LISTA DEI TD DELLA TABELLA INTERESSATI CORRENTEMENTE AD UN
-         //NUOVO BOOKING
-         self.day_booked = new Array();  
+         // set a new array containing <td> column of booked days
+         self.day_booked = new Array();       
          
-         
-         /* ADD MOUSEDOWN EVENT LISTENER */
+         // Add mousedown event listener
          $weekDay.mousedown(function(event) {
             var $target = $(event.target);
             var number_slots=0;
-				self.day_booked = new Array();
-		
-
+				self.day_booked = new Array();		
+				self._mouseClicked(true);
 				
             if ($target.hasClass("wc-day-column-inner")) {
-            	
-            	//$(".wc-day-column, .wc-cal-event").css('cursor','e-resize');
-            	
-					// iniziamo a costruire i div che contengono la casella con il nuovo appuntamento.
+               // start to build a new div for the new booking
                var $newEvent = $("<div class=\"wc-cal-event wc-new-cal-event wc-new-cal-event-creating\"></div>");
-					//adesso regoliamo il css
-               $newEvent.css({lineHeight: (options.timeslotHeight - 15) + "px", fontSize: (options.timeslotHeight / 2) + "px"});
-               //adesso appendo il div creato dell'appuntamento.
+			   // set css target
+               $target.css({lineHeight: (options.timeslotHeight - 15) + "px", fontSize: (options.timeslotHeight / 2) + "px"});
+               $(".wc-day-column-inner").css({cursor:"e-resize"});
+               // append new div booking to the target
                $target.append($newEvent);
-					//offset() è una funzione di jquery che dà la posizione di un elemento.
+               
+               	//add column header hover effect
+            	  var classDay = $target.parent().attr("class");
+            	  var day = classDay.split(/ day-/)[1];
+            	  $(".wc-day-" + day, ".wc-header").addClass("hover-room-column");
+             
+               //offset() is a jquery function to get dom position parameters.
                var columnOffset = $target.offset().top;
                //Y è un intero che rappresenta il valore in pixel della coordinata Y del puntatore del mouse, relativamente all'intero 						documento
                var clickY = event.pageY - columnOffset;
@@ -578,6 +569,7 @@ _setupEventCreationForRoom : function($weekDay) {
             	   
                //ora che muovo il mouse come effetto mostro il div dell'evento.
                   $newEvent.show();
+                  
                   //rendo il div anche redimensionabile.
                   $newEvent.addClass("ui-resizable-resizing");
                   /* ora effettuo alcune operazioni nel caso di selezione verticale */
@@ -620,6 +612,9 @@ _setupEventCreationForRoom : function($weekDay) {
                //--$newEventHor2.css( "width", options.defaultEventWidth+"px");
    				$newEventHor2.css( "height",  options.timeslotHeight);
    				$newEventHor2.css({top: topPosition});
+   				
+                  
+   				
                //adesso appendo il div creato dell'appuntamento.
               //-- var next= $target.siblings();
               //-- next= next.prevObject;
@@ -632,22 +627,29 @@ _setupEventCreationForRoom : function($weekDay) {
                 //rendo il div anche redimensionabile.
                   $newEventHor2.addClass("ui-resizable-resizing");	
                  //-- $newEventHor2.addClass("ui-corner-all");
+                  
+                  
+                  $(".wc-day-" + ++day, ".wc-header").addClass("hover-room-column");
+                  $(".wc-day-column-inner").css({cursor:"e-resize"});
+                  
                      $newEventHor2.show();								        					
 
-                     
                      number_slots= Math.floor(clickX/halfWidthEvent);	
                      
-                     
-                     
+                    
 					}// se invece il mouse lo stò spostando in una posizione all'indietro...
 				else if (number_slots > 0 && Math.floor(clickX/halfWidthEvent)<number_slots)
 					{
+					$(".wc-day-column-inner").css({cursor:"w-resize"});
 					//ora ciclo a partire dall'ultimo giorno selezionato sino al punto mouse in cui mi sono fermato
 					var i;
 					for(i=self.day_booked.length; i>Math.floor(clickX/halfWidthEvent); i--){
 						/*var prova = self.day_booked[i].children().children(".wc-cal-event").find(".wc-time");*/
 						try{
 							self.day_booked[i - 1].children().children(".wc-cal-event:empty").remove();
+
+			                  $(".wc-day-" + day--, ".wc-header").removeClass("hover-room-column");
+			                 
 						}
 						catch(e)
 						{
@@ -656,9 +658,6 @@ _setupEventCreationForRoom : function($weekDay) {
 							var clicco = clickX;
 							//--console.log("Problem at remove event moving the mouse back " + self.day_booked);
 						}
-						
-
-						
 					
 					}
 					self.day_booked = self.day_booked.slice(0, Math.floor(clickX/halfWidthEvent));
@@ -681,7 +680,7 @@ _setupEventCreationForRoom : function($weekDay) {
                   $target.parent().parent().unbind("mousemove.newevent");
                   $newEvent.addClass("ui-corner-all");
 
-                  
+                  self._mouseClicked(false);
                   
  $.each(self.day_booked, function(key, value) {
 
@@ -695,7 +694,7 @@ _setupEventCreationForRoom : function($weekDay) {
 
          }).mouseup(function(event) {
         	 
-
+        	 self._mouseClicked(false);
              var $target = $(event.target);
         	 var $weekDay;
         	 var $renderCalEvent;
@@ -858,8 +857,7 @@ $.ajax({
 	  data: {'booking.room.id':id_book_room,  'booking.dateIn': dateInNewBook , 'booking.dateOut': dateOutNewBook, 'booking.booker.id': "-1"},
 	  success: function(data_action){
 		   if (data_action.result == "success")
-			   {
-		
+			   {	
 		
 			options.eventNew({start: dateInNewBook , end: dateOutNewBook, id_booked:id_book_room}, $renderedCalEvent); 
 			    				    
@@ -999,8 +997,37 @@ $.ajax({
             	   }
             	   
             	}, function(){});
-               
                */
+               
+               
+               $(".wc-day-column").hover(function(e){
+            	   	
+            	if(!self.clicked){
+        			//offset() è una funzione di jquery che dà la posizione di un elemento.
+                  /*  var columnOffset = $(this).offset().top;
+                    //Y è un intero che rappresenta il valore in pixel della coordinata Y del puntatore del mouse, relativamente all'intero 						documento
+                    var clickY = e.pageY - columnOffset;
+                    var clickYRounded = (clickY - (clickY % options.timeslotHeight)) / options.timeslotHeight;
+                    //ora sistemiamo la posizione del div dell'appuntamento arrotondato. In realtù topPosition è dato dal
+                    //numero intero di timeslots.
+                    var topPosition = clickYRounded * options.timeslotHeight;
+                    
+                   self._hoverRoomDivByPosition(self._checkRoomByTop(topPosition));  
+            		*/
+             		   var classDay = $(this).attr("class");
+                 	  var day = classDay.split(/ day-/)[1];
+                 	  $(".wc-day-" + day, ".wc-header").addClass("hover-room-column");
+           		}             	  
+            	}, function(e){
+            		if(!self.clicked){
+            		//	self._removeAllHoverRoomDiv(self._checkRoomByTop()); 
+            		   var classDay = $(this).attr("class");
+                    	  var day = classDay.split(/ day-/)[1];
+                    	  $(".wc-day-" + day, ".wc-header").removeClass("hover-room-column");	
+            		}    		
+            	});
+               
+               
                if (options.loading) options.loading(false);
             });
          }
@@ -1018,6 +1045,10 @@ $.ajax({
 
 
       },
+      _mouseClicked: function (clicked){
+    	  (clicked)? this.clicked = true : this.clicked = false;
+      },
+      
 
       /*
        * update the display of each day column header based on the calendar week

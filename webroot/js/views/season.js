@@ -288,7 +288,17 @@ window.PeriodsListView = Backbone.View.extend({
         }));
         // get the last rowView just added and switch it in edit mode
         _.last(this.rowViews).switchMode();
-    }
+    },
+    /**
+     * Disable current view.
+     */
+    disable: function () {
+        $.each(this.rowViews, function (index, value) {
+            this.unrender();
+        });
+        this.rowViews = [];
+        $(this.el).hide();
+    },
 });
 /*
  * @class EditSeasonView
@@ -344,6 +354,11 @@ window.EditSeasonView = EditView.extend({
         var modelToRender = this.model.toJSON();
         // set additional attribute to display years. Only for the view.
         modelToRender.availableYears = this.setYears(this.model.get("year"));
+        // check if model is new then render the new template.
+        if (this.model.isNew()) {
+            this.renderNew();
+        }
+
         $(this.el).html(Mustache.to_html(this.indexTemplate.html(), modelToRender));
         // add validation check
         this.$(".yform").validate();
@@ -373,7 +388,7 @@ window.EditSeasonView = EditView.extend({
      */
     renderAssociated: function () {
         // check if model has changed or is new, then update collections in associated views
-        if (this.model.isNew() || this.model.get("id") != this.id) {
+        if (!this.model.isNew() && this.model.get("id") != this.id) {
             var self = this;
             this.id = this.model.get("id");
             //set id season for new periods to add in periods list
@@ -391,5 +406,21 @@ window.EditSeasonView = EditView.extend({
                 $("#periods").html(this.periodsListView.el);
             }
         }
+    },
+    /**
+     * Render associated views
+     */
+    renderNew: function () {
+    	this.id = null;
+        //set id season for new periods to add in periods list
+        this.periodsListView.idSeason = null;
+        this.periodsListView.unbind("period:update");
+        this.periodsListView.disable();
+        // now render associated views
+        if ($("#periods").is(':empty')) {
+            $("#periods").html(this.periodsListView.el);
+        }
+
+
     }
 });

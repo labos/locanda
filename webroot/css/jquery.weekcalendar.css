@@ -171,7 +171,7 @@ table.wc-time-slots {
 	position: absolute;	
 	text-align: center;
 	overflow: hidden;
-	cursor: pointer;
+	/*cursor: pointer; */
 	color: #000000;
 	width: 100%;
 	display: none;
