@@ -86,11 +86,11 @@
 		<constructor-arg ref="multiCoreContainer" />
 		<constructor-arg value="season" />
 	</bean>
-
-	<bean id="solrServerCore1"
+	
+	<bean id="solrServerStructure"
 		class="org.apache.solr.client.solrj.embedded.EmbeddedSolrServer">
 		<constructor-arg ref="multiCoreContainer" />
-		<constructor-arg value="core1" />
+		<constructor-arg value="structure" />
 	</bean>
 	
     <!-- enable autowire -->

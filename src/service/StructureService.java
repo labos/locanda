@@ -16,6 +16,7 @@
 package service;
 
 import java.util.Date;
+import java.util.List;
 
 import model.Booking;
 import model.Extra;
@@ -28,6 +29,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
 public interface StructureService {
+	public List<Structure> findAll();
 	public Double calculateExtraItemUnitaryPrice(Integer id_structure, Date dateIn, Date dateOut, RoomType roomType, Convention convention, Extra extra);
 	
 	public void addPriceListsForSeason(Integer id_structure, Integer id_season);

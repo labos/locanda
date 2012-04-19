@@ -23,9 +23,10 @@ $(function () {
      * @param {String} room name
      */
 
-    function Room(room_id, room_name) {
+    function Room(room_id, room_name, max_guests) {
         this.id = room_id;
         this.name = room_name;
+        this.maxGuests = max_guests;
     }
     /*
      * @class Calendar
@@ -62,7 +63,7 @@ $(function () {
             this.$calendar = $('#calendar');
             if (this.$calendar.length > 0) {
                 //get real rooms list
-                Models.Room.findAll({}, self.callback('listRoomsSuccess'), self.callback('listRoomsError'));
+                Models.Room.findAll({'rnd': Math.floor(Math.random()*10000)}, self.callback('listRoomsSuccess'), self.callback('listRoomsError'));
                 $(".type_rooms").hide();
             }
         },
@@ -249,7 +250,7 @@ $(function () {
             //iterate over the list
             $(data).each(function (i, val) {
                 //add current room to room list 
-                self.list_rooms.push(new Room(val.id, val.name));
+                self.list_rooms.push(new Room(val.id, val.name,val.roomType.maxGuests));
             });
             //calculates the new lenght of the list
             this.num_rooms = this.list_rooms.length;

@@ -64,7 +64,6 @@ public class RoomTypeResource {
 	@Autowired
     private SolrServer solrServerRoomType = null;
 	
-	
 	@PostConstruct
     public void init(){
     	List<RoomType> roomTypes = null;
@@ -165,9 +164,9 @@ public class RoomTypeResource {
 		List<Facility> facilities = null;
 		
 		ret = this.getRoomTypeService().findRoomTypeById(id);
-		images = this.getImageService().findImagesByIdRoomType(id);
+		images = this.getImageService().findCheckedByIdRoomType(id);
 		ret.setImages(images);
-		facilities = this.getFacilityService().findRoomTypeFacilitiesByIdRoomType(id);
+		facilities = this.getFacilityService().findCheckedByIdRoomType(id);
 		ret.setFacilities(facilities);
 		return ret;
 	}

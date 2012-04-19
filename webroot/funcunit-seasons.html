@@ -1,0 +1,34 @@
+<html>
+<head>
+	<!-- Change HREF to point to your copy of qunit.css -->
+    <link rel="stylesheet" type="text/css" href="js/funcunit/qunit/qunit.css" />
+    <!-- Change SRC to point to your copy of funcunit.js -->
+	<script type='text/javascript' src='js/funcunit/funcunit.js'></script>
+	<!-- Change SRC to point to your test.js -->
+	<script type='text/javascript'>
+	module("Convention sanity check", {
+		  setup: function() {
+		    // opens the page you want to test
+		    S.open("findAllSeasons.action?sect=settings");
+		  }
+		});
+
+		test("add model to collection", function(){
+		
+		var sizeCollection = S._window.appRouter.appView.listView.collection.size();
+		S._window.appRouter.appView.listView.collection.add({id:5, name: "summer", year: 2012, periods: [{startDate:"06/06/2012", endDate:"14/09/2012",id_season: 5},{startDate:"15/09/2012", endDate:"28/10/2012",id_season: 5}] });
+		ok((S._window.appRouter.appView.listView.collection.size() == sizeCollection+1),"Collection increased successfully?");
+		
+	});
+
+	</script>
+	<title>Locanda Test Suite</title>
+</head>
+<body>
+    <h1 id="qunit-header">Locanda Test Suite</h1>
+	<h2 id="qunit-banner"></h2>
+	<div id="qunit-testrunner-toolbar"></div>
+	<h2 id="qunit-userAgent"></h2>
+    <ol id="qunit-tests"></ol>
+</body>
+</html>

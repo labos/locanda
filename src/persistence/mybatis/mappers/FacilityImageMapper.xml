@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+Copyright 2011 - Sardegna Ricerche, Distretto ICT, Pula, Italy
+
+Licensed under the EUPL, Version 1.1.
+You may not use this work except in compliance with the Licence.
+You may obtain a copy of the Licence at:
+
+http://www.osor.eu/eupl
+
+Unless required by applicable law or agreed to in  writing, software distributed under the Licence is distributed on an "AS IS" basis,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the Licence for the specific language governing permissions and limitations under the Licence.
+In case of controversy the competent court is the Court of Cagliari (Italy).
+-->
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="persistence.mybatis.mappers.FacilityImageMapper">
+    <cache/>	
+	
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="map">
+        INSERT INTO facilityImage(id_facility,id_image) values(#{id_facility},#{id_image})
+    </insert>          
+    
+    <delete id="delete" parameterType="int">
+        DELETE FROM facilityImage WHERE id = #{id}
+    </delete>
+    
+    <delete id="deleteByIdImage" parameterType="int">
+        DELETE FROM facilityImage WHERE id_image = #{id_image}
+    </delete>
+    
+    <delete id="deleteByIdFacility" parameterType="int">
+        DELETE FROM facilityImage WHERE id_facility = #{id_facility}
+    </delete>   
+    
+    <select id="findByIdFacility" parameterType="int" resultType="map">
+        SELECT id,id_facility,id_image FROM facilityImage WHERE id_facility = #{id_facility}
+    </select>
+    
+    <select id="findByIdImage" parameterType="int" resultType="map">
+        SELECT id,id_facility,id_image FROM facilityImage WHERE id_image = #{id_image}
+    </select> 
+	    
+</mapper>

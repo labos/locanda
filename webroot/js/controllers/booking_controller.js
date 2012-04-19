@@ -342,7 +342,8 @@ $(function () {
                             event.preventDefault();
                             var validator = $(clicked).parents(".yform.json").validate();
                             validator.resetForm();
-                            $(".validationErrors").html($.i18n("bookingOverlapping"));
+                            $().notify($.i18n("warning"), $.i18n("seriousErrorDescr"));
+                            //$(".validationErrors").html($.i18n("bookingOverlapping"));
                         }
                     },
                     error: function () {
@@ -447,7 +448,7 @@ $(function () {
                                 }
                                 $("#price_room").html(roomSubTotal);
                                 $("#extras_room").html(extraSubTotal);
-                                $('input:hidden[name="booking.subtotal"]').val(subTotal);
+                                //--$('input:hidden[name="booking.subtotal"]').val(subTotal);
                                 $("span.subtotal_room").text(subTotal);
                                 $("span.balance_room").text(subTotal);
                                 $("#booking_duration").val(numNights);
@@ -460,7 +461,8 @@ $(function () {
                             }
                         } catch (e) {
                             //an error in data returned...
-                            $(".validationErrors").html(data_action);
+                        	   $().notify($.i18n("warning"), $.i18n("seriousErrorDescr"));
+                            //$(".validationErrors").html(data_action);
                         }
                     },
                     error: function () {

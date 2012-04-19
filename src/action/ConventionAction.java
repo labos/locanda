@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import model.Guest;
 import model.UserAware;
 import model.internal.Message;
 import model.listini.Convention;
@@ -49,6 +50,7 @@ public class ConventionAction extends ActionSupport implements SessionAware,User
 	private List<Convention> conventions = null;
 	private Convention convention = null;
 	private Integer idStructure;	
+	private String term;
 	@Autowired 
 	private StructureService structureService = null;
 	@Autowired
@@ -59,6 +61,9 @@ public class ConventionAction extends ActionSupport implements SessionAware,User
 	@Actions({
 		@Action(value="/findAllConventions",results = {
 				@Result(name="success",location="/WEB-INF/jsp/conventions.jsp")
+		}),
+		@Action(value="/findAllConventionsJson",results = {
+				@Result(type ="json",name="success", params={"root","conventions"})
 		})
 	})
 	public String findAllConventions(){
@@ -75,8 +80,39 @@ public class ConventionAction extends ActionSupport implements SessionAware,User
 	}
 	
 	@Actions({
+		@Action(value="/findAllConventionsFilteredJson",results = {
+				@Result(type ="json",name="success", params={"root","conventions"})
+				}) 
+	})
+	public String findAllConventionsFiltered() {
+		List<Convention> allConventions= null;
+		List<Convention> returnedConventions = new ArrayList<Convention>();
+		
+		
+		if (this.getTerm() != null && this.getTerm().length() > 1) {
+			allConventions = this.getConventionService().findConventionsByIdStructure(
+					this.getIdStructure());
+
+			for (Convention convention : allConventions) {
+				if (convention.getName().toLowerCase()
+						.contains(this.getTerm().toLowerCase())) {
+					returnedConventions.add(convention);
+				}
+			}
+		}
+		this.setConventions(returnedConventions);
+		return SUCCESS;
+	}
+	
+	
+	
+	@Actions({
 		@Action(value="/goUpdateConvention",results = {
 				@Result(name="success",location="/WEB-INF/jsp/convention_edit.jsp")
+		})
+		,
+		@Action(value="/goUpdateConventionJson",results = {
+				@Result(type="json", params={"root", "convention"})
 		})
 	})
 	public String goUpdateConvention() {
@@ -88,6 +124,9 @@ public class ConventionAction extends ActionSupport implements SessionAware,User
 	@Actions({
 		@Action(value="/saveUpdateConvention",results = {
 				@Result(type ="json",name="success", params={"root","message"})
+		}),
+		@Action(value="/conventionJson",results = {
+				@Result(type="json", params={"root", "convention"})
 		})
 	})
 	public String saveUpdateConvention(){
@@ -192,6 +231,14 @@ public class ConventionAction extends ActionSupport implements SessionAware,User
 	}
 	public void setIdStructure(Integer idStructure) {
 		this.idStructure = idStructure;
+	}
+
+	public String getTerm() {
+		return term;
+	}
+
+	public void setTerm(String term) {
+		this.term = term;
 	}
 	
 }

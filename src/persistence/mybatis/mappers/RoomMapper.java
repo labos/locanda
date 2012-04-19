@@ -32,6 +32,9 @@ public interface RoomMapper {
 	public List<Room> findRoomsByIdRoomType(Integer id_roomType);
 	public List<Room> findRoomsByIdStructureAndOffsetAndRownum(Map map);
 	
+	
 	public Room findRoomById(Integer id);
 	public Room findRoomByIdStructureAndName(Map map);
+	
+	public Integer findIdStructureByIdRoom(Integer idRoom);
 }

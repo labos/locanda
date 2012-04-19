@@ -1,117 +1,100 @@
-/*
- Copyright (c) 2008, Yahoo! Inc. All rights reserved.
- Code licensed under the BSD License:
- http://developer.yahoo.net/yui/license.txt
- version: 2.5.1
- */
 html {
-    color: #000;
-    background: #FFF;
+color:#000;
+background:#FFF;
 }
 
-body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, textarea, p, blockquote, th, td {
-    margin: 0;
-    padding: 0;
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td {
+margin:0;
+padding:0;
 }
-
 
 table {
-    border-collapse: collapse;
-    border-spacing: 0;
+border-collapse:collapse;
+border-spacing:0;
 }
 
-fieldset, img {
-    border: 0;
+fieldset,img {
+border:0;
 }
+
 event_edit_container fieldset {
- float:left;
+float:left;
 }
-/*
-address, caption, cite, code, dfn, em, strong, th, var {
-    font-style: normal;
-    font-weight: normal;
-}
-*/
+
 li {
-    list-style: none;
+list-style:none;
 }
 
-caption, th {
-    text-align: left;
+h1,h2,h3,h4,h5,h6 {
+font-size:100%;
+font-weight:400;
 }
 
-h1, h2, h3, h4, h5, h6 {
-    font-size: 100%;
-    font-weight: normal;
+q:before,q:after {
+content:'';
 }
 
-q:before, q:after {
-    content: '';
-}
-
-abbr, acronym {
-    border: 0;
-    font-variant: normal;
+abbr,acronym {
+border:0;
+font-variant:normal;
 }
 
 sup {
-    vertical-align: text-top;
+vertical-align:text-top;
 }
 
 sub {
-    vertical-align: text-bottom;
+vertical-align:text-bottom;
 }
 
-input, textarea, select {
-    font-family: inherit;
-    font-size: inherit;
-    font-weight: inherit;
-}
-
-input, textarea, select {
-
-font-size:    100%;
+input,textarea,select {
+font-family:inherit;
+font-weight:inherit;
+font-size:100%;
 }
 
 legend {
-    color: #000;
+color:#000;
 }
-div.header_section p{
+
+div.header_section p {
 text-align:right;
 }
-/* Alberto Editing*/
-#date_booking{
+
+#date_booking {
 font-weight:600;
-color: red;
+color:red;
 }
 
 ul.money {
 font-size:14px;
 font-weight:600;
 }
+
 fieldset legend {
-font-size: 18px;
+font-size:18px;
 font-weight:600;
 }
 
-span.green{
-color: #99CC66;
+span.green {
+color:#9C6;
 font-size:13px;
-font-weight: 600;
+font-weight:600;
 }
 
-div.header_booking{
+div.header_booking {
 border-bottom:1px dotted grey;
 margin-bottom:10px;
 margin-top:10px;
 padding-bottom:7px;
 text-align:left;
 }
-#toolbar{
+
+#toolbar {
 padding-top:12px;
 padding-bottom:12px;
 }
 
-.ui-autocomplete {
-text-align: left;
+caption,th,.ui-autocomplete {
+text-align:left;
 }

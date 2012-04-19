@@ -25,22 +25,21 @@
       	<s:url action="login" var="url"></s:url>
       	<s:url action="goCreateAccount" var="url_account" />
       	<s:actionerror /><s:fielderror></s:fielderror>
-      	<form method="post" action="<s:property value="url"/>" class="yform" role="application">
+      	<form method="post" action="<s:property value="url"/>" class="yform" role="application" autocomplete="off">
             <fieldset>
               <legend><s:text name="loginData" /></legend>
               <div class="type-text">
                 <label for="email"><s:text name="email"/><sup title="This field is mandatory.">*</sup></label>
-                <input type="text" class="required email" name="email" id="email" size="20"  aria-required="true"/>
+                <input type="text" class="required email beauty" name="email" id="email" size="20"  aria-required="true"/>
               </div>
               <div class="type-text">
                 <label for="password"><s:text name="password"/><sup title="This field is mandatory.">*</sup></label>
-                <input type="password" class="required" name="password" id="password" size="20"  aria-required="true"/>
+                <input type="password" class="required beauty" name="password" id="password" size="20"  aria-required="true"/>
               </div>
-            </fieldset>
-
             <div class="type-button">
-          	  <button class="btn_submit" type="submit" role="button" aria-disabled="false"><s:text name="login"/></button>
+          	  &nbsp;&nbsp;<button class="btn_submit" type="submit" role="button" aria-disabled="false"><s:text name="login"/></button>
             </div>
+            </fieldset>
           </form>
             <div  id="signup" class="type-text">
             <ul><li><strong><s:text name="notRegistered"/></strong></li><li><a href="<s:property value="url_account"/>"><s:text name="signup"/></a></li></ul>

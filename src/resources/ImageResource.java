@@ -1,139 +1,151 @@
 package resources;
 
-import java.io.File;
+
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
-import javax.activation.MimetypesFileTypeMap;
-import javax.servlet.ServletContext;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 
+import javax.ws.rs.core.MediaType;
+
+
+import model.File;
 import model.Image;
 
-import org.apache.solr.client.solrj.SolrServerException;
+
+import org.apache.commons.io.IOUtils;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.sun.jersey.api.NotFoundException;
-
+import com.sun.jersey.core.header.FormDataContentDisposition;
+import com.sun.jersey.multipart.FormDataParam;
 import service.ImageService;
-import service.RoomTypeService;
 
 @Path("/images/")
 @Component
 @Scope("prototype")
+
 public class ImageResource {
 	@Autowired
-	private ImageService imageService = null;
-	@Autowired
-	private RoomTypeService roomTypeService = null;
-	
-	@Context
-	private ServletContext servletContext = null;
-	
+	private ImageService imageService = null;	
 	
 	@GET
-	@Path("structure/{idStructure}/{offset}/{rownum}")
+	@Path("{id}")
+	@Produces({MediaType.APPLICATION_JSON})  
+	public Image getImage(@PathParam("id") Integer id) {
+		Image image = null;
+		
+		image = this.getImageService().find(id);
+		if (image == null) {
+			throw new WebApplicationException(404);
+		}			
+		return image;
+	}	
+	
+	@POST
+	@Consumes(MediaType.MULTIPART_FORM_DATA)
+	@Produces({MediaType.APPLICATION_JSON}) 
+	public Image uploadImage(
+		@FormDataParam("upload") InputStream uploadedInputStream,
+		@FormDataParam("upload") FormDataContentDisposition fileDetail,
+		@FormDataParam("caption") String caption,
+		@FormDataParam("idStructure") Integer idStructure){															
+ 
+		Image image = null;
+		File file = null;
+		
+		image = new Image();
+		image.setCaption(caption);
+		image.setId_structure(idStructure);
+		file = new File();
+		file.setName(fileDetail.getFileName());
+		try {
+			file.setData(
+					IOUtils.toByteArray(uploadedInputStream));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		image.setFile(file);
+		
+		this.getImageService().insert(image);
+		return image;
+	}
+	
+	@PUT
+	@Path("{id}")
+	@Consumes({MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_JSON}) 
+	public Image updateImage(Image image) {
+		
+		this.getImageService().update(image);		
+		return image;
+	}
+		
+	@DELETE
+    @Path("{id}")
+	@Produces({MediaType.APPLICATION_JSON})   
+    public Integer deleteImage(@PathParam("id") Integer id){
+    	Integer count = 0;				
+		
+    	count = this.getImageService().delete(id);
+    	if(count == 0){
+			throw new NotFoundException("Error: the image has NOT been deleted");
+		}			
+		return count;
+    }   
+	
+	@GET
+	@Path("all/structure/{idStructure}/{offset}/{rownum}")
 	@Produces({MediaType.APPLICATION_JSON})	
-	public List<Image> getStructureImages(@PathParam("idStructure") Integer idStructure){
-		return this.getImageService().findImagesByIdStructure(idStructure);
+	public List<Image> getAllImages(@PathParam("idStructure") Integer idStructure,@PathParam("offset") Integer offset,@PathParam("rownum") Integer rownum){
+		return this.getImageService().findByIdStructure(idStructure,offset,rownum);	
+	}	
+	
+	@GET
+	@Path("checked/structure/{idStructure}/{offset}/{rownum}")
+	@Produces({MediaType.APPLICATION_JSON})	
+	public List<Image> getStructureImages(@PathParam("idStructure") Integer idStructure,@PathParam("offset") Integer offset,@PathParam("rownum") Integer rownum){
+		return this.getImageService().findCheckedByIdStructure(idStructure);
+	}	
+	
+	@GET
+	@Path("checked/roomType/{idRoomType}/{offset}/{rownum}")
+	@Produces({MediaType.APPLICATION_JSON})	
+	public List<Image> getRoomTypeImages(@PathParam("idRoomType") Integer idRoomType,@PathParam("offset") Integer offset,@PathParam("rownum") Integer rownum){
+		return this.getImageService().findCheckedByIdRoomType(idRoomType);
+	}
+	
+	@GET
+	@Path("checked/room/{idRoom}/{offset}/{rownum}")
+	@Produces({MediaType.APPLICATION_JSON})	
+	public List<Image> getRoomImages(@PathParam("idRoom") Integer idRoom,@PathParam("offset") Integer offset,@PathParam("rownum") Integer rownum){
+		return this.getImageService().findCheckedByIdRoom(idRoom);
 	}
 
 	@GET
-	@Path("structure/{id}")
-	@Produces("image/*")
-	public Response getStructureImage(@PathParam("id") Integer id) {
-		Image image = null;
-		String filePath = null;
-		File file = null;
-		
-		
-		image = this.getImageService().findStructureImageById(id);
-		if (image == null) {
-			throw new WebApplicationException(404);
-		}
-		
-		filePath = this.getServletContext().getRealPath("/") +  "resources/" + image.getId_structure() + "/images/structure/" + image.getFileName();
-		file = new File(filePath);
-		
-		String mt = new MimetypesFileTypeMap().getContentType(file);
-		return Response.ok(file, mt).build();
+	@Path("checked/facility/{idFacility}")
+	@Produces({MediaType.APPLICATION_JSON})	
+	public Image getFacilityImage(@PathParam("idFacility") Integer idFacility){
+		return this.getImageService().findByIdFacility(idFacility);
 	}
-	
-	
-	@GET
-	@Path("roomType/{id}")
-	@Produces("image/*")
-	public Response getRoomTypeImage(@PathParam("id") Integer id) {
-		Image image = null;
-		String filePath = null;
-		File file = null;
-		Integer idStructure;
-		
-		image = this.getImageService().findRoomTypeImageById(id);
-		if (image == null) {
-			throw new WebApplicationException(404);
-		}
-		
-		idStructure = this.getRoomTypeService().findIdStructureByIdRoomType(image.getId_roomType());
-		filePath = this.getServletContext().getRealPath("/") +  "resources/" + idStructure + "/images/roomType/" + image.getFileName();
-		file = new File(filePath);
-		
-		if (!file.exists()) {
-			throw new WebApplicationException(404);
-		}
-		
-		String mt = new MimetypesFileTypeMap().getContentType(file);
-		return Response.ok(file, mt).build();
-	}
-	
-	@DELETE
-    @Path("roomType/{id}")
-    @Produces({MediaType.APPLICATION_JSON})   
-    public Integer deleteRoomTypeImage(@PathParam("id") Integer id){
-    	Integer count = 0;			
-		
-		count = this.getImageService().deleteRoomTypeImage(id);		
-		if(count == 0){
-			throw new NotFoundException("Error: the image has NOT been deleted");
-		}	
-		
-		return count;
-    }   
 
 	public ImageService getImageService() {
 		return imageService;
 	}
-
 	public void setImageService(ImageService imageService) {
 		this.imageService = imageService;
 	}
-
-	public ServletContext getServletContext() {
-		return servletContext;
-	}
-
-	public void setServletContext(ServletContext servletContext) {
-		this.servletContext = servletContext;
-	}
-
-	public RoomTypeService getRoomTypeService() {
-		return roomTypeService;
-	}
-
-	public void setRoomTypeService(RoomTypeService roomTypeService) {
-		this.roomTypeService = roomTypeService;
-	}	
-	
-	
 	
 }

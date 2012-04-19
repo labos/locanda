@@ -15,6 +15,7 @@
  *******************************************************************************/
 package service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,123 +24,199 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import persistence.mybatis.mappers.ImageMapper;
-
+import model.File;
 import model.Image;
 
 @Service
 public class ImageServiceImpl implements ImageService{
 	@Autowired
-	private ImageMapper imageMapper = null;
-
-	
-	@Override
-	public Integer insertRoomImage(Image image) {
-		return this.getImageMapper().insertRoomImage(image);
-	}
-
-	@Override
-	public Integer insertRoomTypeImage(Image image) {
-		return this.getImageMapper().insertRoomTypeImage(image);
-	}
-
-	@Override
-	public Integer insertStructureImage(Image image) {		
-		return this.getImageMapper().insertStructureImage(image);
-	}
-	
-	@Override
-	public List<Image> findImagesByIdRoom(Integer id_room) {
-		return this.getImageMapper().findImagesByIdRoom(id_room);
-	}
+	private ImageMapper imageMapper = null;		
+	@Autowired
+	private ImageFileService imageFileService = null;
+	@Autowired
+	private StructureImageService structureImageService = null;
+	@Autowired
+	private RoomTypeImageService roomTypeImageService = null;
+	@Autowired
+	private RoomImageService roomImageService = null;
+	@Autowired
+	private FacilityService facilityService = null;
+	@Autowired
+	private FacilityImageService facilityImageService = null;
+	@Autowired
+	private FileService fileService = null;
 
 	@Override
-	public List<Image> findImagesByIdRoomType(Integer id_roomType) {
-		return this.getImageMapper().findImagesByIdRoomType(id_roomType);
-	}
-
-	@Override
-	public List<Image> findImagesByIdStructure(Integer id_structure) {		
-		return this.getImageMapper().findImagesByIdStructure(id_structure);
+	public Integer insert(Image image) {	
+		Integer count;
+		File file = null;
+		
+		count = this.getImageMapper().insert(image);
+		file = image.getFile();
+		this.getFileService().insert(file);		
+		this.getImageFileService().insert(image.getId(), file.getId());		
+		return count;				
 	}	
 	
-
 	@Override
-	public Image findStructureImageById(Integer id) {
-		
-		return this.getImageMapper().findStructureImageById(id);
+	public Integer update(Image image) {		
+		return this.getImageMapper().update(image);
 	}
 	
+	@Override
+	public Integer delete(Integer id) {
+		Integer count = 0;
+		Integer id_facility = 0;
+				
+		this.getStructureImageService().deleteByIdImage(id);
+		this.getRoomTypeImageService().deleteByIdImage(id);
+		this.getRoomImageService().deleteByIdImage(id);
+		
+		//if the image is associated with a facility, creates a new association with the default image
+		id_facility = this.getFacilityImageService().findIdFacilityByIdImage(id);
+		if (id_facility != 0) {
+			this.getFacilityImageService().associateDefaultImage(this.getFacilityService().find(id_facility));
+			this.getFacilityImageService().deleteByIdImage(id);
+			}
+		
+		//now all the data related to the old image are erased
+		this.getFileService().deleteByIdImage(id);
+		count = this.getImageMapper().delete(id);
+		return count; 
+	}
 	
-
 	@Override
-	public Image findRoomTypeImageById(Integer id) {
+	public Image find(Integer id) {	
+		Image ret = null;
+		File file = null;
+		Integer id_file;
 		
-		return this.getImageMapper().findRoomTypeImageById(id);
-	}
+		ret = this.getImageMapper().find(id);
+		file = new File();
+		id_file = this.getImageFileService().findIdFileByIdImage(id);		
+		file.setId(id_file);
+		ret.setFile(file);
+		return ret;		
+	}	
 
 	@Override
-	public Image findStructureImageByName(Integer id_structure, String name) {
+	public List<Image> findByIdStructure(Integer id_structure,Integer offset, Integer rownum) {
+		List<Image> ret = null;
+		Integer id_file;
+		File file;
 		Map map = null;
 		
 		map = new HashMap();
 		map.put("id_structure", id_structure);
-		map.put("name", name);
+		map.put("offset", offset);
+		map.put("rownum", rownum);
 		
-		return this.getImageMapper().findStructureImageByName(map);
+		ret = this.getImageMapper().findByIdStructure(map);
+		for(Image each: ret){
+			file = new File();
+			id_file = this.getImageFileService().findIdFileByIdImage(each.getId());		
+			file.setId(id_file);
+			each.setFile(file);
+		}		
+		return ret;
 	}
 
 	@Override
-	public Image findRoomImageByName(Integer id_structure, String name) {
-		Map map = null;
+	public List<Image> findCheckedByIdStructure(Integer id_structure) {
+		List<Image> ret = null;
+		Image image = null;
 		
-		map = new HashMap();
-		map.put("id_structure", id_structure);
-		map.put("name", name);
+		ret = new ArrayList<Image>();
+		for(Integer id: this.getStructureImageService().findIdImageByIdStructure(id_structure)){
+			image = this.find(id);
+			ret.add(image);
+		}
+		return ret;
+	}
+	
+	@Override
+	public List<Image> findCheckedByIdRoomType(Integer id_roomType) {
+		List<Image> ret = null;
+		Image image = null;
 		
-		return this.getImageMapper().findRoomImageByName(map);
+		ret = new ArrayList<Image>();
+		for(Integer id: this.getRoomTypeImageService().findIdImageByIdRoomType(id_roomType)){
+			image = this.find(id);
+			ret.add(image);
+		}
+		return ret;
 	}
-
+	
 	@Override
-	public Image findRoomTypeImageByName(Integer id_structure, String name) {
-		Map map = null;
+	public List<Image> findCheckedByIdRoom(Integer id_room) {
+		List<Image> ret = null;
+		Image image = null;		
 		
-		map = new HashMap();
-		map.put("id_structure", id_structure);
-		map.put("name", name);
+		ret = new ArrayList<Image>();
+		for(Integer id: this.getRoomImageService().findIdImageByIdRoom(id_room)){
+			image = this.find(id);
+			ret.add(image);
+		}
+		return ret;
+	}
+	
+	@Override
+	public Image findByIdFacility(Integer id_facility) {
+		Integer id_image = 0;
+		Image ret = null;
 		
-		return this.getImageMapper().findRoomTypeImageByName(map);
+		id_image = this.getFacilityImageService().findIdImageByIdFacility(id_facility);		
+		ret = this.find(id_image);
+		return ret;
 	}
-
-	@Override
-	public Integer deleteRoomImage(Integer id) {
-		return this.getImageMapper().deleteRoomImage(id);
-	}
-
-	@Override
-	public Integer deleteAllImagesFromRoom(Integer id) {
-		return this.getImageMapper().deleteAllImagesFromRoom(id);
-	}
-
-	@Override
-	public Integer deleteRoomTypeImage(Integer id) {
-		return this.getImageMapper().deleteRoomTypeImage(id);
-	}
-
-	@Override
-	public Integer deleteAllImagesFromRoomType(Integer id) {
-		return this.getImageMapper().deleteAllImagesFromRoomType(id);
-	}
-
-	@Override
-	public Integer deleteStructureImage(Integer id) {		
-		return this.getImageMapper().deleteStructureImage(id);
-	}
-
+	
 	public ImageMapper getImageMapper() {
 		return imageMapper;
 	}
 	public void setImageMapper(ImageMapper imageMapper) {
 		this.imageMapper = imageMapper;
 	}
-	
+	public ImageFileService getImageFileService() {
+		return imageFileService;
+	}
+	public void setImageFileService(ImageFileService imageFileService) {
+		this.imageFileService = imageFileService;
+	}
+	public FileService getFileService() {
+		return fileService;
+	}
+	public void setFileService(FileService fileService) {
+		this.fileService = fileService;
+	}
+	public RoomTypeImageService getRoomTypeImageService() {
+		return roomTypeImageService;
+	}
+	public void setRoomTypeImageService(RoomTypeImageService roomTypeImageService) {
+		this.roomTypeImageService = roomTypeImageService;
+	}
+	public RoomImageService getRoomImageService() {
+		return roomImageService;
+	}
+	public void setRoomImageService(RoomImageService roomImageService) {
+		this.roomImageService = roomImageService;
+	}
+	public FacilityService getFacilityService() {
+		return facilityService;
+	}
+	public void setFacilityService(FacilityService facilityService) {
+		this.facilityService = facilityService;
+	}
+	public FacilityImageService getFacilityImageService() {
+		return facilityImageService;
+	}
+	public void setFacilityImageService(FacilityImageService facilityImageService) {
+		this.facilityImageService = facilityImageService;
+	}
+	public StructureImageService getStructureImageService() {
+		return structureImageService;
+	}
+	public void setStructureImageService(StructureImageService structureImageService) {
+		this.structureImageService = structureImageService;
+	}
+		
 }

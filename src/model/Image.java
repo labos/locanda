@@ -17,15 +17,22 @@ package model;
 
 import java.io.Serializable;
 
-public class Image implements Serializable{
+import javax.xml.bind.annotation.XmlRootElement;
+
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
+@XmlRootElement
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class Image implements Serializable{	
 	
 	private Integer id;
+	private String caption;	
+	private File file;
 	
-	private String name;
-	private String fileName;
 	private Integer id_structure;
 	private Integer id_room;
 	private Integer id_roomType;
+	
 	
 	@Override
 	public int hashCode() {
@@ -56,18 +63,8 @@ public class Image implements Serializable{
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public String getFileName() {
-		return fileName;
-	}
-	public void setFileName(String fileName) {
-		this.fileName = fileName;
-	}
+	
+	
 	public Integer getId_structure() {
 		return id_structure;
 	}
@@ -85,6 +82,19 @@ public class Image implements Serializable{
 	}
 	public void setId_roomType(Integer id_roomType) {
 		this.id_roomType = id_roomType;
+	}
+	
+	public String getCaption() {
+		return caption;
+	}
+	public void setCaption(String caption) {
+		this.caption = caption;
+	}
+	public File getFile() {
+		return file;
+	}
+	public void setFile(File file) {
+		this.file = file;
 	}
 	
 }

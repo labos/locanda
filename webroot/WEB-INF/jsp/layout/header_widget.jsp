@@ -22,28 +22,14 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta http-equiv="Cache-Control" content="no-cache" />
-<link rel='stylesheet' type='text/css' href='css/reset.css' />
-<!--
-<link rel='stylesheet' type='text/css' href='http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/start/jquery-ui.css' />
--->
-<link rel='stylesheet' type='text/css' href='css/south-street/jquery-ui-1.8.9.custom.css' />
-<link rel='stylesheet' type='text/css' href='css/jquery.weekcalendar.css' />
-<link rel='stylesheet' type='text/css' href='css/calendar.css' />
+<link rel='stylesheet' type='text/css' href='css/locanda-theme.min.css' />
+<link rel="stylesheet" type="text/css" href="css/jquery.mobile.datebox.min.css" /> 
+
 <link rel='stylesheet' type='text/css' href='css/jquery.jgrowl.css' />
-<link rel="stylesheet" type='text/css' href="css/jquery.fileupload-ui.css" />
-<link href="css/layout_sliding_door.css" rel="stylesheet" type="text/css" />
-   <!--[if lte IE 7]>
-	<link href="css/patches/patch_sliding_door.css" rel="stylesheet" type="text/css" />
-  <![endif]-->   
+<link rel="stylesheet" href="css/jquery.mobile.structure-1.0.1.min.css" />
 <script type='text/javascript' src='js/lib/jquery.min.js'></script>
-<!--
-<script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js'></script>
--->
-<script type='text/javascript' src='js/lib/jquery-ui-1.8.9.custom.min.js'></script>
-<script type='text/javascript' src='js/jquery.fileupload.js'></script>
-<script type='text/javascript' src='js/jquery.fileupload-ui.js'></script>
-<script type='text/javascript' src="js/jquery.i18n.js"></script>
-<script type='text/javascript' src='lang/jquery.<s:property value="#request.locale.getLanguage()" />.json'></script>
+<script type='text/javascript' src="js/lib/jquery.i18n.js"></script>
+<script type='text/javascript' src='js/lang/jquery.<s:property value="#request.locale.getLanguage()" />.json'></script>
       <script>
       $(document).ready(function() {
       I18NSettings = {};
@@ -55,7 +41,7 @@
     	  }
       $._.setLocale('<s:property value="#request.locale.getLanguage()" />');
       
-      $("#largeDatepicker").datepicker({
+    /*  $("#largeDatepicker").datepicker({
           dateFormat: I18NSettings.datePattern,
           onSelect: function (dateText, inst) {
               var selectedData = $.datepicker.formatDate(I18NSettings.datePattern, $(this).datepicker("getDate"));
@@ -64,7 +50,24 @@
               }
           }
       });
-      
+  */    
+  
+  jQuery.extend(jQuery.mobile.datebox.prototype.options, {
+	    'dateFormat': I18NSettings.datePattern
+	});
+	  $('#dateIn').bind('datebox', function(e, p) {
+	    if ( p.method === 'set' ) {
+	      e.stopImmediatePropagation()
+	      //DO SOMETHING//
+	     var selectedData = $.datepicker.formatDate(I18NSettings.datePattern, $('#dateIn').data('datebox').theDate);
+
+            if (selectedData) {
+                $('input:hidden[name="booking.dateIn"]').val(selectedData);
+                $(".alert").hide();
+             }
+	    }
+	  });
+
       $('#choice-language').change(function() {
       	 
           $("#choice-language option:selected").each(function () {
@@ -105,20 +108,18 @@
 
       });
 </script>
-<script type='text/javascript' src='js/ftod.js'></script>
-<script type='text/javascript' src='js/jquery.validate.min.js'></script>
-<script type='text/javascript' src='js/jquery.metadata.js'></script>
+<script type='text/javascript' src='js/lib/jquery.validate.min.js'></script>
+<script type='text/javascript' src='js/lib/jquery.metadata.js'></script>
 <s:if test="#request.locale.getLanguage() != 'en'">
-<script type="text/javascript" src="lang/messages_<s:property value="#request.locale.getLanguage()" />.js"></script>
+<script type="text/javascript" src="js/lang/messages_<s:property value="#request.locale.getLanguage()" />.js"></script>
 </s:if>
-<script type='text/javascript' src='js/jquery.form.js'></script>
-<link rel="stylesheet" href="css/jquery.mobile-1.0a4.1.css" />
-<script type="text/javascript" src="js/jquery.mobile-1.0a4.1.js"></script>
+<script type='text/javascript' src='js/lib/jquery.form.js'></script>
+<script type="text/javascript" src="js/lib/jquery.mobile-1.0.1.min.js"></script>
+<script type="text/javascript" src="js/lib/jquery-ui-datepicker.custom.min.js"></script>
+<script type="text/javascript" src="js/lib/jquery.mobile.datebox.min.js"></script>
+<script type="text/javascript" src="js/lang/jquery.mobile.datebox.i8n.<s:property value="#request.locale.getLanguage()" />.js"></script>
+<script type="text/javascript" src="js/controllers/online_controller.js"></script>
 <style>
-body {
-background:#4D87C7;
-padding:0;
-}
 
 #largeDatepicker {
 width:99%;
@@ -169,9 +170,30 @@ background-color:#6C8DD4;
 
 .alert {
 display:none;
-border:1px dotted red;
 color:red;
 font-weight:600;
+-webkit-border-radius: 4px;
+-moz-border-radius: 4px;
+border-radius: 4px;
+text-shadow:0 -1px 2px #000000;
+box-shadow: 0 5px 6px rgba(0, 0, 0, 0.3);
+color: #fff;
+font-size: 100%;
+font-weight: bold;
+margin-left: auto;
+margin-right: auto;
+padding: 10px 20px 10px 30px;
+text-align: center;
+text-decoration: none;
+text-shadow: 0 1px 1px grey;
+background: #efc5ca; /* Old browsers */
+background: -moz-linear-gradient(top, #efc5ca 0%, #d24b5a 50%, #ba2737 51%, #f18e99 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#efc5ca), color-stop(50%,#d24b5a), color-stop(51%,#ba2737), color-stop(100%,#f18e99)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top, #efc5ca 0%,#d24b5a 50%,#ba2737 51%,#f18e99 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top, #efc5ca 0%,#d24b5a 50%,#ba2737 51%,#f18e99 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top, #efc5ca 0%,#d24b5a 50%,#ba2737 51%,#f18e99 100%); /* IE10+ */
+background: linear-gradient(top, #efc5ca 0%,#d24b5a 50%,#ba2737 51%,#f18e99 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#efc5ca', endColorstr='#f18e99',GradientType=0 ); /* IE6-9 */ 
 }
 
 .error {
@@ -181,10 +203,6 @@ font-weight:600;
 
 .ui-content .ui-listview {
 margin:0 auto;
-}
-
-h2,h1,h4 {
-color:#fff;
 }
 
 .title_widget,.resume_booking {
@@ -205,6 +223,24 @@ width:18px;
 
 strong.red{
 color: red;}
+
+.ui-grid-a label.ui-select{
+text-align:center;
+}
+
+.ui-btn-up-head-locanda {
+	background: none;
+    border: none;
+    color: #000000;
+    font-weight: bold;
+    text-shadow: 0 1px 1px #EEEEEE;
+}
+p.resume {
+    color: #620820;
+    font-family: Arial,sans-serif;
+    font-size: 12px;
+    margin: 0 0 2px;
+}
 </style>
 
 	</head>

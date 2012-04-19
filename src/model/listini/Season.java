@@ -17,7 +17,6 @@ package model.listini;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlRootElement;
@@ -46,15 +45,6 @@ public class Season implements Serializable{
 
 	public Boolean addPeriod(Period aPeriod){
 		return this.getPeriods().add(aPeriod);
-	}
-	
-	public Boolean includesDate(Date date){
-		for(Period each: this.getPeriods()){
-			if(each.includesDate(date)){
-				return true;
-			}
-		}		
-		return false;
 	}
 	
 	@Override

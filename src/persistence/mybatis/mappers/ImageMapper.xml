@@ -21,80 +21,28 @@ In case of controversy the competent court is the Court of Cagliari (Italy).
 <mapper namespace="persistence.mybatis.mappers.ImageMapper">
     <cache/>
 	
-    <insert id="insertStructureImage" useGeneratedKeys="true" keyProperty="id" parameterType="model.Image">
-        insert into structureImage(name,fileName,id_structure) values(#{name},#{fileName},#{id_structure})
-    </insert>
-	
-    <insert id="insertRoomImage" useGeneratedKeys="true" keyProperty="id" parameterType="model.Image">
-        insert into roomImage(name,fileName,id_room) values(#{name},#{fileName},#{id_room})
-    </insert>
-	
-    <insert id="insertRoomTypeImage" useGeneratedKeys="true" keyProperty="id" parameterType="model.Image">
-        insert into roomTypeImage(name,fileName,id_roomType) values(#{name},#{fileName},#{id_roomType})
-    </insert>
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="model.Image">
+        INSERT INTO image(caption,id_structure) values(#{caption},#{id_structure})
+    </insert>  
     
-    <select id="findImagesByIdStructure" parameterType="int" resultType="model.Image">
-        <include refid="selectStructureImages"/>where id_structure = #{id_structure}
-    </select>
+    <update id="update"  parameterType="model.Image">
+        UPDATE image set caption = #{caption} WHERE id = #{id}
+    </update>  
     
-    <select id="findStructureImageByName" parameterType="map" resultType="model.Image">
-        <include refid="selectStructureImages"/>where id_structure = #{id_structure} and name = #{name}
-    </select>
+    <delete id="delete" parameterType="int">
+        DELETE FROM image WHERE id = #{id}
+    </delete>   
+          
+    <select id="find" parameterType="int" resultType="model.Image">
+        <include refid="selectImage"/> WHERE id = #{id}
+    </select> 
     
-    <select id="findStructureImageById" parameterType="int" resultType="model.Image">
-        <include refid="selectStructureImages"/>where id = #{id}
-    </select>
-    
-    <select id="findRoomImageByName" parameterType="map" resultType="model.Image">
-        <include refid="selectRoomImages"/>where  name = #{name} and id_room IN (select id from room where id_structure = #{id_structure} )
-    </select>
-    
-    <select id="findRoomTypeImageByName" parameterType="map" resultType="model.Image">
-        <include refid="selectRoomTypeImages"/>where name = #{name} and id_roomType IN (select id from roomType where id_structure = #{id_structure} )
-    </select>
-    
-    <select id="findRoomTypeImageById" parameterType="int" resultType="model.Image">
-        <include refid="selectRoomTypeImages"/> where id = #{id}
-    </select>
-    
-    <select id="findImagesByIdRoom" parameterType="int" resultType="model.Image">
-        <include refid="selectRoomImages"/>where id_room = #{id_room}
-    </select>
-    
-    <select id="findImagesByIdRoomType" parameterType="int" resultType="model.Image">
-        <include refid="selectRoomTypeImages"/>where id_roomType = #{id_roomType}
-    </select>
-    
-    <sql id="selectStructureImages">
-        select id,name,fileName,id_structure from structureImage
-    </sql>
-    
-    <sql id="selectRoomImages">
-        select id,name,fileName,id_room from roomImage
-    </sql>
-    
-    <sql id="selectRoomTypeImages">
-        select id,name,fileName,id_roomType from roomTypeImage
-    </sql>
-    
-    <delete id="deleteStructureImage" parameterType="int">
-        delete from structureImage where id = #{id}
-    </delete>
-    
-    <delete id="deleteRoomImage" parameterType="int">
-        delete from roomImage where id = #{id}
-    </delete>
-	
-    <delete id="deleteAllImagesFromRoom" parameterType="int">
-        delete from roomImage where id_room = #{id_room}
-    </delete>
-    
-    <delete id="deleteRoomTypeImage" parameterType="int">
-        delete from roomTypeImage where id = #{id}
-    </delete>
-	
-    <delete id="deleteAllImagesFromRoomType" parameterType="int">
-        delete from roomTypeImage where id_roomType = #{id_roomType}
-    </delete>
-    
+    <select id="findByIdStructure" parameterType="map" resultType="model.Image">
+        <include refid="selectImage"/> WHERE id_structure = #{id_structure} LIMIT #{offset}, #{rownum}
+    </select> 
+          
+    <sql id="selectImage">
+        SELECT id,caption,id_structure FROM image
+    </sql>   
+       	    
 </mapper>

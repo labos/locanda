@@ -107,6 +107,7 @@ public class RoomResource {
         	   id = (Integer)solrDocument.getFieldValue("id");
             // System.out.println("----> "+solrDocument.getFieldValues("text")+" <-----");
         	   aRoom = this.getRoomService().findRoomById(id);
+        	   aRoom.setRoomType(this.getRoomTypeService().findRoomTypeById(aRoom.getId_roomType()));
         	   rooms.add(aRoom);
            }  
        }       
@@ -153,6 +154,7 @@ public class RoomResource {
 		Room ret = null;
 		
 		ret = this.getRoomService().findRoomById(id);
+		ret.setRoomType(this.getRoomTypeService().findRoomTypeById(ret.getId_roomType()));
 		return ret;
 	}
 	
@@ -160,16 +162,26 @@ public class RoomResource {
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
     public Room save(Room room) {
-       
-        this.getRoomService().insertRoom(room);
-        try {
-			this.getSolrServerRoom().addBean(room);			
-			this.getSolrServerRoom().commit();			
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (SolrServerException e) {
+		Integer idRoomType = 0;
+		
+		idRoomType = room.getId_roomType();
+	//	if (idRoomType != null) {
+		try{
+			room.setRoomType(this.getRoomTypeService().findRoomTypeById(idRoomType));
+			this.getRoomService().insertRoom(room);
+		}
+		catch (Exception e){
 			e.printStackTrace();
 		}
+			try {
+				this.getSolrServerRoom().addBean(room);			
+				this.getSolrServerRoom().commit();			
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (SolrServerException e) {
+				e.printStackTrace();
+			}
+		
         return room;
     }
    
@@ -190,6 +202,7 @@ public class RoomResource {
     	} catch (SolrServerException e) {
     		e.printStackTrace();
     	}
+    	room.setRoomType(this.getRoomTypeService().findRoomTypeById(room.getId_roomType()));
         return room;
     }
     

@@ -42,7 +42,7 @@ import service.StructureService;
 import service.UserService;
 
 import com.opensymphony.xwork2.ActionSupport;
-
+//First  commit branch spike EJS
 @ParentPackage(value = "default")
 public class LoginAction extends ActionSupport implements SessionAware {
 	private Map<String, Object> session = null;

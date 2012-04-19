@@ -14,69 +14,64 @@
  * In case of controversy the competent court is the Court of Cagliari (Italy).
 --%>
 <?xml version="1.0" encoding="UTF-8" ?>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="/struts-tags" prefix="s" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="/struts-tags" prefix="s"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+<script>
+	Entity = {
+		name : "roomType",
+		model : function(options) {
+			return new RoomType(options);
+		},
+		collection : function(options) {
+			return new RoomTypes({},options);
+		},
+		editView : function(options) {
+			return new EditImagesFacilitiesView(options);
+		},
+		idStructure : <s:property value="#session.user.structure.id"/>
+	};
+</script>
 <jsp:include page="layout/header_menu.jsp" />
-  <div id="main">
-    <!-- begin: #col1 - first float column -->
-    <div id="col1" role="complementary">
-      <div id="col1_content" class="clearfix"></div>
-    </div><!-- end: #col1 -->
-    <!-- begin: #col3 static column -->
-    <div id="col3" role="main">
-      <div id="col3_content" class="clearfix">
-        <div class="header_section yform">
-          <span class="name_section"><s:text name="roomTypes"/></span>    
-        </div>
-          
-        <div>
-          <button class="btn_add_form"><s:text name="addNew"/></button>
-        </div>
-        <div class="yform hideform">
-       	  <jsp:include page="contents/roomType_form.jsp"/>
-        </div>
-          
-        <s:iterator value="roomTypes" var="eachRoomType" >
-          <div>
-		    <form method="post" action="deleteRoomType.action" class="yform json full" role="application">
-		    <a name="<s:property value="#eachRoomType.name"/>"></a>
-              <fieldset>
-                <input type="hidden" name="redirect_form" value="findAllRoomTypes.action?sect=accomodation" />
-                <input type="hidden" name="roomType.id" value="<s:property value="#eachRoomType.id"/>"/>
-                <legend class="title_season">
-                	<a href="goUpdateRoomType.action?sect=accomodation&roomType.id=<s:property value="#eachRoomType.id"/>"><s:property value="#eachRoomType.name"/></a>
-                	<a href="goUpdateRoomType.action?sect=accomodation&roomType.id=<s:property value="#eachRoomType.id"/>"><img src="images/sign-up-icon.png" alt="edit" /></a>
-                </legend>
-		    	<div class="subcolumns">
-      		 	  <div class="c40l">
-                    <div class="type-text">
-					  <ul>
-				        <li><b><s:text name="maxGuests"/>:</b> <s:property value="#eachRoomType.maxGuests"/></li>
-				      </ul>
-                    </div>                  
-                  </div>
-                </div>
-                <fieldset> 
-           		  <legend><s:text name="images"/></legend>
-                  <ul class="thumbs">
-       	 			<s:iterator value="#eachRoomType.images" var="eachImage" >
-        			  <li>
-						<img width="45" height="45"
-						 alt="<s:property value="#eachImage.name"/>"
-						 src="resources/<s:property value="idStructure"/>/images/roomType/<s:property value="#eachImage.fileName"/>" />
-					  </li>
-        			</s:iterator>
-				  </ul>
-                </fieldset>
-                
-             	<div class="type-button">
-             	  <button class="btn_delete"><s:text name="delete"/></button>
-                </div>
-           	  </fieldset>
-            </form>        
-		  </div>
-		</s:iterator>     
-      </div>     
-<jsp:include page="layout/footer.jsp" />   
+<link rel='stylesheet' type='text/css'
+	href='css/screen/basemod_2col_advanced.css' />
+
+<div id="main">
+	<!-- begin: #col1 - first float column -->
+	<div id="col1" role="complementary">
+		<div class="clearfix" id="col1_content">
+			<div>
+				<button class="btn_add_form">
+					<s:text name="addNew" />
+				</button>
+			</div>
+			<div class="subcolumns" id="row-edit-container"></div>
+			<div id="facilities" class="rcarousel"></div>
+			<div id="images" class="rcarousel"></div>
+		</div>
+	</div>
+	<!-- end: #col1 -->
+	
+	<!-- begin: #col3 static column -->
+	<div id="col3" role="main">
+		<div class="clearfix" id="col3_content">
+			<h2>
+				<s:text name="roomTypes" />
+			</h2>
+			<div id="toolbar-container"></div>
+			<div id="main-app">
+				<div id="nav-top"></div>
+				<div id="row-list" class="back"></div>
+				<div id="nav-bottom"></div>
+			</div>
+		</div>
+		<div id="ie_clearing">&nbsp;</div>
+		<!-- End: IE Column Clearing -->
+	</div>
+	<!-- end: #col3 -->
+</div>
+
+<jsp:include page="templates/roomType.mustache.jsp" />
+<jsp:include page="layout/footer.jsp" />

@@ -1,5 +1,6 @@
 /*******************************************************************************
  *
+
  *  Copyright 2011 - Sardegna Ricerche, Distretto ICT, Pula, Italy
  *
  * Licensed under the EUPL, Version 1.1.
@@ -16,32 +17,20 @@
 package service;
 
 import java.util.List;
-import java.util.Set;
-
 import model.Facility;
-
 import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
-public interface FacilityService {
-	public Integer insertUploadedFacility(Facility facility);
-	public Integer insertRoomFacility(Integer id_uploadedFacility, Integer id_room);
-	public Integer insertRoomFacilities(List<Integer> uploadedFacilitiesIds, Integer id_room);
-	public Integer insertRoomTypeFacility(Integer id_uploadedFacility, Integer id_roomType);
-	public Integer insertRoomTypeFacilities(List<Integer> uploadedFacilitiesIds, Integer id_roomType);
-	public Integer insertStructureFacility(Facility facility);
+public interface FacilityService {	
 	
-	public List<Facility> findFacilitiesByIds(List<Integer> ids);
-	public Facility findFacilityById(Integer id);
-	public List<Facility> findStructureFacilitiesByIdStructure(Integer id_structure);
-	public List<Facility> findRoomAndRoomTypeFacilitiesByIdStructure(Integer id_structure);		
-	public List<Facility> findRoomFacilitiesByIdRoom(Integer id_room);		
-	public List<Facility> findRoomTypeFacilitiesByIdRoomType(Integer id_roomType);
-	
-	public Integer deleteUploadedFacility(Integer id);
-	public Integer deleteAllFacilitiesFromRoom(Integer id_room);
-	public Integer deleteAllFacilitiesFromRoomType(Integer id_roomType);
-	public Integer deleteStructureFacility(Integer id);	
-	
-	public Integer updateUploadedFacility(Facility facility);
+	public Integer insert(Facility facility);		
+	public Integer update(Facility facility);
+	public Integer delete(Integer id);		
+	public Facility find(Integer id);
+	public List<Facility> findByIds(List<Integer> ids);	
+	public List<Facility> findByIdStructure(Integer id_structure,Integer offset, Integer rownum);
+	public List<Facility> findCheckedByIdStructure(Integer id_structure);		
+	public List<Facility> findCheckedByIdRoomType(Integer id_roomType);	
+	public List<Facility> findCheckedByIdRoom(Integer id_room);		
+		
 }

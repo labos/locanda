@@ -18,15 +18,16 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="/struts-tags" prefix="s" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 <jsp:include page="layout/header.jsp"/>
       <div id="home">
       	<h1><s:text name="title"/></h1>
       	<p><s:text name="homeWelcomeMessage"/>.</p>
       	<p id="home_images">
-      	<img width="220" src="images/pan_small.jpg" alt="img_home1"/>
-        <img width="220" src="images/horse_small.jpg" alt="img_home2"/>
-        <img width="220" src="images/water_small.jpg" alt="img_home3"/>
+      	<a href="<s:property value="url_login"/>">
+	      	<img width="220" src="images/pan_small.jpg" alt="img_home1"/>
+	        <img width="220" src="images/horse_small.jpg" alt="img_home2"/>
+	        <img width="220" src="images/water_small.jpg" alt="img_home3"/>
+        </a>
       	</p>
       </div>
 <jsp:include page="layout/footer.jsp" />     

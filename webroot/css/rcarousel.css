@@ -1,0 +1,114 @@
+.rcarousel div .wrapper {
+height:121px;
+overflow:hidden;
+position:relative;
+width:90%;
+font-size:13px;
+margin:0 auto;
+padding:0 0 5px;
+}
+
+.rcarousel span.sub-edit {
+float:right;
+}
+
+.rcarousel div .wrapper ul li img {
+border:0;
+clear:left;
+display:block;
+float:left;
+}
+
+.rcarousel div .wrapper ul {
+height:90%;
+list-style:none;
+position:absolute;
+width:9999px;
+margin:0;
+padding:0;
+}
+
+.rcarousel div .wrapper ul li {
+display:block;
+float:left;
+height:100%;
+overflow:hidden;
+position:relative;
+text-align:center;
+border:1px dotted grey;
+-webkit-box-shadow:inset 1px 1px 2px 1px #6482A;
+-moz-box-shadow:inset 1px 1px 2px 1px #6482A;
+box-shadow:inset 1px 1px 2px 1px #6482A;
+padding:3px;
+}
+
+.rcarousel div .wrapper ul li input {
+display:block;
+}
+
+.ui-rcarousel-loader {
+background:url(../img/loader.gif) no-repeat center;
+height:100%;
+left:0;
+position:absolute;
+top:0;
+width:100%;
+}
+
+#carousel img {
+border:0;
+}
+
+.ui-rcarousel-next,.ui-rcarousel-prev {
+display:block;
+position:absolute;
+}
+
+.ui-rcarousel-next {
+top:29px;
+right:0;
+cursor:pointer;
+background:url(images/go-next.png) no-repeat 0 0;
+width:48px;
+height:48px;
+}
+
+.ui-rcarousel-prev {
+top:29px;
+left:0;
+cursor:pointer;
+background:url(images/go-previous.png) no-repeat 0 0;
+width:48px;
+height:48px;
+}
+
+.disable {
+cursor:auto;
+opacity:.20;
+filter:”alpha(opacity=20)”;
+}
+
+#facilities img {
+width:45px;
+height:45px;
+}
+
+#images img {
+width:85px;
+height:85px;
+}
+
+span.delete-elem {
+position:absolute;
+top:0;
+right:0;
+width:16px;
+height:16px;
+background:url(../images/delete.png) no-repeat 0 0;
+cursor:pointer;
+}
+
+#facilities,#images {
+width:100%;
+position:relative;
+}

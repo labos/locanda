@@ -15,24 +15,72 @@
 --%>
 <?xml version="1.0" encoding="UTF-8" ?>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib uri="/struts-tags" prefix="s" %>
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="/struts-tags" prefix="s"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>Insert title here</title>
-</head>
-<body>
-<%@ page import="net.sf.json.*" %>
-<%@ page import="model.Facility;" %>
-<%
-Facility roomfac = (Facility) request.getAttribute("roomFacility");
 
-//JSONUtil json = new JSONUtil();
-//JSONUtil.serialize(roomfac);
-JSONArray jsonArray = JSONArray.fromObject(roomfac);  
-System.out.println( jsonArray );  
-%>
-</body>
-</html>
+<script>
+	Entity = {
+		name : "facility",
+		model : function(options) {
+			return new Facility(options);
+		},
+		collection : function(options) {
+			return new Facilities( {}, options );
+		},
+		editView : function(options) {
+			return new EditFacilityView(options);
+		},
+		idStructure : <s:property value="#session.user.structure.id"/>
+	};
+</script>
+<jsp:include page="layout/header_menu.jsp" />
+<link rel='stylesheet' type='text/css'
+	href='css/screen/basemod_2col_advanced.css' />
+
+<div id="main">
+	<!-- begin: #col1 - first float column -->
+	<div id="col1" role="complementary">
+		<div class="clearfix" id="col1_content">
+		<%--<div id="tabs">
+			<ul>
+				<li><a href="#tab-Room"><s:text name="rooms"/></a></li>
+				<li><a href="#tab-RoomType"><s:text name="roomTypes"/></a></li>
+				<li><a href="#tab-Structure"><s:text name="structureDetails"/></a></li>
+			</ul>
+			<div id="tab-Room" style="display:none"></div>
+			<div id="tab-RoomType" style="display:none"></div>
+			<div id="tab-Structure" style="display:none"></div>
+		</div> --%>
+			<div>
+				<button class="btn_add_form">
+					<s:text name="addNew" />
+				</button>
+			</div>
+			<div class="subcolumns" id="row-edit-container"></div>
+			<div id="thumbnail"></div>
+		</div>
+	</div>
+	<!-- end: #col1 -->
+
+	<!-- begin: #col3 static column -->
+	<div id="col3" role="main">
+		<div class="clearfix" id="col3_content">
+			<h2>
+				<s:text name="facilities" />
+			</h2>
+			<div id="toolbar-container"></div>
+			<div id="main-app">
+				<div id="nav-top"></div>
+				<div id="row-list" class="back"></div>
+				<div id="nav-bottom"></div>
+			</div>
+		</div>
+		<div id="ie_clearing">&nbsp;</div>
+		<!-- End: IE Column Clearing -->
+	</div>
+	<!-- end: #col3 -->
+</div>
+
+<jsp:include page="templates/facility.mustache.jsp" />
+<jsp:include page="layout/footer.jsp" />

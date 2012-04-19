@@ -1,0 +1,144 @@
+<html>
+<head>
+	<!-- Change HREF to point to your copy of qunit.css -->
+    <link rel="stylesheet" type="text/css" href="js/funcunit/qunit/qunit.css" />
+    <!-- Change SRC to point to your copy of funcunit.js -->
+	<script type='text/javascript' src='js/funcunit/funcunit.js'></script>
+	<!-- Change SRC to point to your test.js -->
+	<script type='text/javascript'>
+	module("Convention sanity check", {
+		  setup: function() {
+		    // opens the page you want to test
+		    S.open("findAllConventions.action?sect=settings");
+		  }
+		});
+
+	
+		test("check edit click from list", function(){
+			
+			S("#row-list ul li").first().click();
+			S(".inplace-edit").click(function() {
+				equal(S('input[name="name"]').val(), S._window.appRouter.appView.editView.model.get("name"), "Convention edit OK?")
+			});
+			
+		  //ok( S(".item-destroy").first().click().size(), "There be elements in that there body")
+		});
+	
+
+	
+
+	
+	
+	test("add model to collection", function(){
+		
+		//remove last model
+		var sizeCollection = S._window.appRouter.appView.listView.collection.size();
+		S._window.appRouter.appView.listView.collection.add({ name: "my convention", activationCode: "dafs6ds7" });
+		ok((S._window.appRouter.appView.listView.collection.size() == sizeCollection+1),"Collection increased successfully?");
+		
+	});
+	
+
+	
+
+	
+	test("check delete model from collection", function(){
+		
+		//remove last model
+		var sizeCollection = S._window.appRouter.appView.listView.collection.size();
+		var lastModel = S._window.appRouter.appView.listView.collection.last();
+		S._window.appRouter.appView.listView.collection.remove(lastModel);
+		ok((S._window.appRouter.appView.listView.collection.size() == sizeCollection-1),"Collection truncated successfully?");
+		
+	});
+	
+	test("check destroy model contained in  collection and size collection", function(){
+		
+		//remove last model
+		var sizeCollection = S._window.appRouter.appView.listView.collection.size();
+		var lastModel = S._window.appRouter.appView.listView.collection.last();
+	
+		 lastModel.trigger('destroy', lastModel);
+		 // lastModel.trigger('destroy', lastModel);
+		  delete lastModel;
+		ok((S._window.appRouter.appView.listView.collection.size() == sizeCollection-1),"Collection truncated successfully?");
+		
+	});
+	
+	test("check destroy model contained in  collection and presence in collection", function(){
+		
+		//remove last model
+		var myCollection = S._window.appRouter.appView.listView.collection;
+		var lastModel = S._window.appRouter.appView.listView.collection.last();
+		var idModel = lastModel.id;
+		
+		lastModel.trigger('destroy', lastModel);
+		
+
+		ok(( typeof myCollection.get(idModel) == "undefined"),"Collection truncated successfully?");
+		
+	});
+
+	test("check update model in collection", function(){
+	
+		var myCollection = S._window.appRouter.appView.listView.collection;
+		var lastModel = S._window.appRouter.appView.listView.collection.last();
+		var idModel = lastModel.id;
+		lastModel.set({'name': 'My Name'});
+		ok(( myCollection.get(idModel).get("name") == "My Name"),"Collection truncated successfully?");
+		
+	});
+	
+	test("check delete REST", function(){
+		var sizeCollection = S._window.appRouter.appView.listView.collection.size();
+		S(".row-item-destroy").last().click();
+		ok((S._window.appRouter.appView.listView.collection.size() == sizeCollection-1),"Collection decreased successfully?");
+		
+	});
+	
+	test("check update REST", function(){
+		var myCollection = S._window.appRouter.appView.listView.collection;
+		S("#row-list ul li").first().click(function() {
+			S(".inplace-edit").click(function() {
+			S('input[name="name"]').type("[shift]"+
+            "[left][left][left][left][left][left][left][left][left][left][left][left][left]"+
+            "[shift-up][delete]");
+			S('input[name="convention.name"]').type("new name1");
+			var idModel = S._window.appRouter.appView.editView.model.id;
+			
+			
+		});
+		//wait for input val to be new name1
+		S("input:submit").click();
+		S('input[name="name"]').val(/new name1/ , function(){
+			var idModel = S._window.appRouter.appView.editView.model.id;
+			//S._window.myAppView.editView.trigger("submit form", S._window.myAppView.editView);
+			//S.wait(500);
+			ok((myCollection.get(idModel).get("name") == "new name1"),"Collection updated successfully?");
+			
+		});
+		
+		});
+		
+	});
+	
+/*	test("check reset collection", function(){
+		
+		//remove last model
+		 S._window.myAppView.collection.reset({silent: true});
+		
+		ok(!S._window.myAppView.collection.size(),"Collection resetted successfully");
+	});
+	
+*/
+	</script>
+	<title>Locanda Test Suite</title>
+</head>
+<body>
+    <h1 id="qunit-header">Locanda Test Suite</h1>
+	<h2 id="qunit-banner"></h2>
+	<div id="qunit-testrunner-toolbar"></div>
+	<h2 id="qunit-userAgent"></h2>
+    <ol id="qunit-tests"></ol>
+</body>
+</html>

@@ -33,7 +33,8 @@
 }
 
 .wc-header .wc-time-column-header {
-	width: 8%;	
+	background-color:#DAE6BC;
+	width: 9%;	
 	font-weight:600;
 }
 
@@ -51,6 +52,7 @@
 }
 
 .wc-grid-timeslot-header {
+	border-right: 1px solid grey;
 	width: 9%;
 	background: #eee;	
 }
@@ -86,7 +88,7 @@ table.wc-time-slots {
 
 .wc-time-slot-wrapper {
 	position:relative;	
-	height: 1px;
+	height:DAE6BC 1px;
 	top: 1px;
 }
 
@@ -97,11 +99,20 @@ table.wc-time-slots {
 
 
 .wc-time-header-cell {
+	position:relative;
 	padding: 5px;	
 	height: 80px; /* reference height */
-	text-align:center;
+	text-align:left;
+	overflow:hidden;
+	font-weight:600;
+	background-color:#DAE6BC;
 }
 
+.wc-time-header-cell img{
+	position:absolute;
+	top:2px;
+	right:1px;
+}
 
 .wc-time-slot {
 	border-bottom: 1px dotted #ddd;	

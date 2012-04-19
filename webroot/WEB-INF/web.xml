@@ -65,6 +65,11 @@
 	<listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
+    
+    <listener>
+    	<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+  	</listener>
+    
     <listener>
         <listener-class>solr.SolrListener</listener-class>
     </listener>
@@ -78,6 +83,7 @@
               <param-name>com.sun.jersey.api.json.POJOMappingFeature</param-name>
               <param-value>true</param-value>
         </init-param>
+        
 	</servlet>
 
 	<servlet-mapping>

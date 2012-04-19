@@ -8,15 +8,23 @@
 	<div data-role="page" id="foo3">
 
 	  <div data-role="header">
+	  	  <div style="position:absolute; left:1px; top:1px;">
+			<a href="goOnlineBookingCalendar.action?idStructure=<s:property value="idStructure"/>" class="ui-link" rel="external" >
+				<img src="images/logo_small.png" /></a>
+          </div>
 		<h1><s:text name="extrasSelect" /></h1>
 		<a href="goOnlineBookingCalendar.action?idStructure=<s:property value="structure.id"/>" class="ui-btn-right" rel="external" data-icon="home" data-iconpos="notext" data-direction="reverse">Home</a> 
 	  </div><!-- /header -->
 
 	  <div data-role="content">
-		<div class="contentHeader">
-		  <p><s:text name="dateIn" />: <strong><s:property value="booking.dateIn"/></strong>, <s:property value="booking.calculateNumNights()"/> <s:text name="nights" />, <s:property value="booking.nrGuests"/> <s:text name="persons" /></p>	
-		  <p><s:text name="subtotal" />: <strong><s:property value="booking.roomSubtotal"/></strong></p>
-		</div>			
+	  <div class="contentHeader">
+	    <ul data-role="listview" data-theme="a" data-inset="true">
+		    <li>
+		      <p class="resume"><s:text name="dateIn" />: <strong><s:property value="booking.dateIn"/></strong>, <s:text name="nights"/>: <strong><s:property value="booking.calculateNumNights()"/></strong>&nbsp;, <s:text name="persons"/>: <strong><s:property value="booking.nrGuests"/></strong><img src="images/<s:property value="booking.nrGuests"/>.png" alt="<s:property value="booking.nrGuests"/>" /></p>
+		      <p class="resume"><s:text name="subtotal" />: <strong><s:property value="booking.roomSubtotal"/></strong></p>
+			</li>
+		</ul>
+	</div>			
 		<form action="goOnlineBookingGuest.action" method="post">
 		  <fieldset data-role="controlgroup">
           	<s:iterator value="extras" var="eachExtra"  status="extraStatus">
@@ -28,7 +36,7 @@
 		  <div class="c33l">
 			<div data-role="fieldcontain">
 			  <p>&nbsp;</p>
-			  <button type="submit" data-theme="b"><s:text name="next" /></button>
+			  <button type="submit" data-theme="b" data-icon="arrow-r"><s:text name="next" /></button>
 			  <!--<a href="index.html" data-role="button" data-theme="b">NEXT</a>-->
 			</div>
 		  </div>

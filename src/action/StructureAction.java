@@ -64,15 +64,15 @@ public class StructureAction extends ActionSupport implements SessionAware,UserA
 	
 	@Actions({
 		@Action(value="/goUpdateDetails",results = {
-				@Result(name="success",location="/WEB-INF/jsp/details_edit.jsp")
+				@Result(name="success",location="/WEB-INF/jsp/structure.jsp")
 		})
 	})
 	public String goUpdateDetails() {
 		Structure structure = null;
 		
 		structure = this.getStructureService().findStructureById(this.getIdStructure());		
-		structure.setImages(this.getImageService().findImagesByIdStructure(structure.getId()));
-		structure.setFacilities(this.getFacilityService().findStructureFacilitiesByIdStructure(structure.getId()));
+//		structure.setImages(this.getImageService().findCheckedByIdStructure(structure.getId()));
+//		structure.setFacilities(this.getFacilityService().findCheckedByIdStructure(structure.getId()));
 		
 		this.setStructure(structure);
 		return SUCCESS;
@@ -124,46 +124,6 @@ public class StructureAction extends ActionSupport implements SessionAware,UserA
 		this.getMessage().setDescription(getText("passwordUpdateSuccessAction"));
 		return SUCCESS;	
 	}
-	
-	@Actions({
-		@Action(value="/deleteImageStructure",results = {
-				@Result(type ="json",name="success", params={"root","message"}),
-				@Result(type ="json",name="error", params={"root","message"})
-		})
-	})
-	public String deleteImageStructure() {
-					
-		if (this.getImageService().deleteStructureImage(this.getImage().getId()) > 0) {
-			this.getMessage().setResult(Message.SUCCESS);
-			this.getMessage().setDescription(getText("structureImageDeleteSuccessAction"));	
-			return SUCCESS;
-		}
-		else{
-			this.getMessage().setResult(Message.ERROR);
-			this.getMessage().setDescription(getText("structureImageDeleteErrorAction"));
-			return ERROR;
-		}
-	}
-	
-	@Actions({
-		@Action(value="/deleteStructureFacility",results = {
-				@Result(type ="json",name="success", params={"root","message"}),
-				@Result(type ="json",name="error", params={"root","message"})
-		})
-	})
-	public String deleteStructureFacility() {
-				
-		if ( this.getFacilityService().deleteStructureFacility(this.getImage().getId())>0) {
-			this.getMessage().setResult(Message.SUCCESS);
-			this.getMessage().setDescription(getText("structureFacilityDeleteSuccessAction"));			
-			return SUCCESS;
-		}
-		else{
-			this.getMessage().setResult(Message.ERROR);
-			this.getMessage().setDescription(getText("structureFacilityDeleteErrorAction"));
-			return ERROR;
-		}
-	}	
 
 	public Map<String, Object> getSession() {
 		return session;

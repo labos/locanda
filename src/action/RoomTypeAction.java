@@ -69,18 +69,22 @@ public class RoomTypeAction extends ActionSupport implements SessionAware,UserAw
 	
 	@Actions({
 		@Action(value="/findAllRoomTypes",results = {
-				@Result(name="success",location="/WEB-INF/jsp/roomTypes.jsp")
-		})
+				@Result(name="success",location="/WEB-INF/jsp/roomTypes.jsp"),
+
+		}),
+		@Action(value="/findAllRoomTypesJson",results = {
+				@Result(type ="json",name="success", params={"root","roomTypes"})
+				}) 
 	})
 	public String findAllRoomTypes() {
 		List<RoomType> roomTypes = null;
 		
 		roomTypes = this.getRoomTypeService().findRoomTypesByIdStructure(this.getIdStructure());
 		for(RoomType each: roomTypes){
-			each.setImages(this.getImageService().findImagesByIdRoomType(each.getId()));
+			each.setImages(this.getImageService().findCheckedByIdRoomType(each.getId()));
 		}
 		this.setRoomTypes(roomTypes);
-		this.setFacilities(this.getFacilityService().findRoomAndRoomTypeFacilitiesByIdStructure(this.getIdStructure()));
+		this.setFacilities(this.getFacilityService().findCheckedByIdStructure(this.getIdStructure()));
 		return SUCCESS;
 	}
 	
@@ -94,17 +98,18 @@ public class RoomTypeAction extends ActionSupport implements SessionAware,UserAw
 				
 		roomType = this.getRoomTypeService().findRoomTypeById(this.getRoomType().getId());
 		roomType.setFacilities(
-				this.getFacilityService().findRoomTypeFacilitiesByIdRoomType(this.getRoomType().getId()));
-		roomType.setImages(this.getImageService().findImagesByIdRoomType(this.getRoomType().getId()));
+				this.getFacilityService().findCheckedByIdRoomType(this.getRoomType().getId()));
+		roomType.setImages(this.getImageService().findCheckedByIdRoomType(this.getRoomType().getId()));
 		
 		this.setRoomType(roomType);
-		this.setFacilities(this.getFacilityService().findRoomAndRoomTypeFacilitiesByIdStructure(this.getIdStructure()));
+		this.setFacilities(this.getFacilityService().findCheckedByIdStructure(this.getIdStructure()));
 		for(Facility each: this.getRoomType().getFacilities()){			
 			this.getRoomTypeFacilitiesIds().add(each.getId());		//populating roomFacilitiesIds array with the ids of facilities that are already in rooms to be edited
 		}
 		return SUCCESS;
 	}
 	
+	/*
 	@Actions({
 		@Action(value="/saveUpdateRoomType",results = {
 				@Result(type ="json",name="success", params={"root","message"})
@@ -142,7 +147,7 @@ public class RoomTypeAction extends ActionSupport implements SessionAware,UserAw
 			this.getMessage().setDescription(getText("roomTypeUpdateSuccessAction"));
 		}
 		return SUCCESS;		
-	}
+	}*/
 	
 	@Actions({
 		@Action(value="/deleteRoomType",results = {
@@ -172,7 +177,8 @@ public class RoomTypeAction extends ActionSupport implements SessionAware,UserAw
 			return ERROR;
 		}
 	}
-		
+	
+	/*
 	@Actions({
 		@Action(value="/deleteRoomTypeImage",results = {
 				@Result(type ="json",name="success", params={"root","message"}),
@@ -191,7 +197,7 @@ public class RoomTypeAction extends ActionSupport implements SessionAware,UserAw
 			return "error";
 		}		
 	}
-	
+	*/
 	public Map<String, Object> getSession() {
 		return session;
 	}

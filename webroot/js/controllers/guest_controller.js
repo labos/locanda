@@ -106,7 +106,9 @@ $(function () {
                         else {
                             $('input[name="booking.booker.id"]').val(ui.item.id);
                             //send an ajax call to guest details retrieving
-                            Models.Guest.findOne({id: $('input[name="booking.booker.id"]').val()}, self.callback('findGuestByIdSuccess'),self.callback('findGuestByIdError'));
+                            var guest = new Guest({id: $('input[name="booking.booker.id"]').val()});
+                            guest.fetch({success:self.findGuestByIdSuccess,error:self.findGuestByIdError});
+                            //Models.Guest.findOne({id: $('input[name="booking.booker.id"]').val()}, self.callback('findGuestByIdSuccess'),self.callback('findGuestByIdError'));
 
                         } //END ELSE tODO
                     }
@@ -118,25 +120,33 @@ $(function () {
         },
         
         findGuestByIdSuccess: function(response){
-            if (typeof response.message !== 'undefined' &&  response.message.result == "success") {
-                $("#phone").val(response.guest.phone);
-                $("#address").val(response.guest.address);
-                $("#country").val(response.guest.country);
-                $("#zipCode").val(response.guest.zipCode);
-                $("#email").val(response.guest.email);
-                $("#fname").val(response.guest.firstName);
-                $("#lname").val(response.guest.lastName);
-                $("#notes").val(response.guest.notes);
+            if (typeof response !== 'undefined' &&  response) {
+                $("#phone").val(response.get("phone"));
+                $("#address").val(response.get("address"));
+                $("#country").val(response.get("country"));
+                $("#zipCode").val(response.get("zipCode"));
+                $("#email").val(response.get("email"));
+                $("#fname").val(response.get("firstName"));
+                $("#lname").val(response.get("lastName"));
+                $("#notes").val(response.get("notes"));
             }
             else {
-                $().notify($.i18n("warning"), $.i18n("listGuestsRetrive"));
+                $.jGrowl($.i18n("listGuestsRetrive"), {
+                    header: this.alertKO,
+                    theme: "notify-error"
+                });
+               
             }
         	
         	
         },
         findGuestByIdError: function(data){
             //if you cannot retrieve the list of rooms then...
-            $().notify($.i18n("seriousError"), $.i18n("seriousErrorDescription"));
+            $.jGrowl($.i18n("seriousErrorDescription"), {
+                header: this.alertKO,
+                theme: "notify-error"
+            });
+           
         }
         
         

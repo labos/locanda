@@ -1,0 +1,99 @@
+<html>
+<head>
+	<!-- Change HREF to point to your copy of qunit.css -->
+    <link rel="stylesheet" type="text/css" href="js/funcunit/qunit/qunit.css" />
+    <!-- Change SRC to point to your copy of funcunit.js -->
+	<script type='text/javascript' src='js/funcunit/funcunit.js'></script>
+	<!-- Change SRC to point to your test.js -->
+	<script type='text/javascript'>
+	module("Convention sanity check", {
+		  setup: function() {
+		    // opens the page you want to test
+		    S.open("findAllRoomTypes.action?sect=accomodation");
+		  }
+		});
+
+	
+		test("Populate facilities", function(){
+			// S._window.appRouter.appView.listView.collection ='[{"name":"singola","id":2,"facilities":[],"maxGuests":1,"id_structure":6,"notes":null,"images":[]},{"name":"doppia","id":4,"facilities":[],"maxGuests":2,"id_structure":6,"notes":null,"images":[]},{"name":"tripla","id":5,"facilities":[],"maxGuests":3,"id_structure":6,"notes":null,"images":[]}]';
+			//S._window.appRouter.appView.listView.collection.at(0).facilities =[{"name":"mio nome", "filename":"mio.jpg","id_structure":6, "id":8},{"name":"mio nome1", "filename":"mio1.jpg","id_structure":6, "id":9}];
+			S._window.appRouter.appView.listView.collection.at(0).set({facilities :[{"name": "frigo","id":"25", "description":"è un frigo", image:{"id":3, "caption":"fgi","file":{"id":4, "name":"miofile.jpg"}}},{"name":"jacuzzi", "id":"26", "description":"è una jacuzzi", image:{"id":4, "caption":"yyt","file":{"id":5, "name":"miofile2.jpg"}}},
+			       			                                                     {"name": "frigo","id":"28", "description":"è un frigo2", image:{"id":3, "caption":"fgi","file":{"id":4, "name":"miofile.jpg"}}},
+			    			                                                     {"name": "frigo","id":"29", "description":"è un frigo3", image:{"id":3, "caption":"fgi","file":{"id":4, "name":"miofile.jpg"}}},
+			    			                                                     {"name": "frigo","id":"30", "description":"è un frigo4", image:{"id":3, "caption":"fgi","file":{"id":4, "name":"miofile.jpg"}}},
+			    			                                                     {"name": "frigo","id":"31", "description":"è un frigo5", image:{"id":3, "caption":"fgi","file":{"id":4, "name":"miofile.jpg"}}},
+			    			                                                     {"name": "frigo","id":"32", "description":"è un frigo6", image:{"id":3, "caption":"fgi","file":{"id":4, "name":"miofile.jpg"}}},
+			    			                                                     {"name": "frigo","id":"33", "description":"è un frigo7", image:{"id":3, "caption":"fgi","file":{"id":4, "name":"miofile.jpg"}}},
+			    			                                                     {"name": "frigo","id":"34", "description":"è un frigo8", image:{"id":3, "caption":"fgi","file":{"id":4, "name":"miofile.jpg"}}},
+			    			                                                     {"name": "frigo","id":"35", "description":"è un frigo9", image:{"id":3, "caption":"fgi","file":{"id":4, "name":"miofile.jpg"}}},
+			    			                                                     {"name": "frigo","id":"36", "description":"è un frigo10", image:{"id":3, "caption":"fgi","file":{"id":4, "name":"miofile.jpg"}}},
+			    			                                                     {"name": "frigo","id":"37", "description":"è un frigo11", image:{"id":3, "caption":"fgi","file":{"id":4, "name":"miofile.jpg"}}},
+			    			                                                     {"name": "frigo","id":"38", "description":"è un frigo12", image:{"id":3, "caption":"fgi","file":{"id":4, "name":"miofile.jpg"}}},
+			    			                                                     {"name": "frigo","id":"39", "description":"è un frigo13", image:{"id":3, "caption":"fgi","file":{"id":4, "name":"miofile.jpg"}}},
+			    			                                                     {"name": "frigo","id":"40", "description":"è un frigo14", image:{"id":3, "caption":"fgi","file":{"id":4, "name":"miofile.jpg"}}},
+			    			                                                     {"name": "frigo","id":"41", "description":"è un frigo15", image:{"id":3, "caption":"fgi","file":{"id":4, "name":"miofile.jpg"}}},
+			    			                                                     {"name": "frigo","id":"42", "description":"è un frigo16", image:{"id":3, "caption":"fgi","file":{"id":4, "name":"miofile.jpg"}}},
+			    			                                                     {"name": "frigo","id":"43", "description":"è un frigo17", image:{"id":3, "caption":"fgi","file":{"id":4, "name":"miofile.jpg"}}}],
+			    			                                                     images :[{"id":3, "caption":"fgi","file":{"id":4, "name":"miofile.jpg"}},
+						    			                                                     {"id":3, "caption":"fgi","file":{"id":4, "name":"miofile.jpg"}},
+						    			                                                     {"id":3, "caption":"fgi","file":{"id":4, "name":"miofile.jpg"}},
+						    			                                                     {"id":3, "caption":"fgi","file":{"id":4, "name":"miofile.jpg"}},
+						    			                                                     {"id":3, "caption":"fgi","file":{"id":4, "name":"miofile.jpg"}},
+						    			                                                     {"id":3, "caption":"fgi","file":{"id":4, "name":"miofile.jpg"}},
+						    			                                                     {"id":3, "caption":"fgi","file":{"id":4, "name":"miofile.jpg"}},
+						    			                                                     {"id":3, "caption":"fgi","file":{"id":4, "name":"miofile.jpg"}},
+						    			                                                     {"id":3, "caption":"fgi","file":{"id":4, "name":"miofile.jpg"}},
+						    			                                                     {"id":3, "caption":"fgi","file":{"id":4, "name":"miofile.jpg"}},
+						    			                                                     {"id":3, "caption":"fgi","file":{"id":4, "name":"miofile.jpg"}},
+						    			                                                     {"id":3, "caption":"fgi","file":{"id":4, "name":"miofile.jpg"}},
+						    			                                                     {"id":3, "caption":"fgi","file":{"id":4, "name":"miofile.jpg"}},
+						    			                                                     {"id":3, "caption":"fgi","file":{"id":4, "name":"miofile.jpg"}},
+						    			                                                     {"id":3, "caption":"fgi","file":{"id":4, "name":"miofile.jpg"}},
+						    			                                                     {"id":3, "caption":"fgi","file":{"id":4, "name":"miofile.jpg"}}]
+						                                                                        
+			                                                                        });
+
+	
+			/*
+			S(".inplace-edit").click(function() {
+				equal(S('input[name="name"]').val(), S._window.appRouter.appView.editView.model.get("name"), "Convention edit OK?")
+			});
+			*/
+			
+		  //ok( S(".item-destroy").first().click().size(), "There be elements in that there body")
+		});
+
+/* 		test("Populate images", function(){
+			// S._window.appRouter.appView.listView.collection ='[{"name":"singola","id":2,"facilities":[],"maxGuests":1,"id_structure":6,"notes":null,"images":[]},{"name":"doppia","id":4,"facilities":[],"maxGuests":2,"id_structure":6,"notes":null,"images":[]},{"name":"tripla","id":5,"facilities":[],"maxGuests":3,"id_structure":6,"notes":null,"images":[]}]';
+			//S._window.appRouter.appView.listView.collection.at(0).facilities =[{"name":"mio nome", "filename":"mio.jpg","id_structure":6, "id":8},{"name":"mio nome1", "filename":"mio1.jpg","id_structure":6, "id":9}];
+			S._window.appRouter.appView.listView.collection.at(0).set({images :[{"id":3, "caption":"fgi","file":{"id":4, "name":"miofile.jpg"}},
+			    			                                                     {"id":3, "caption":"fgi","file":{"id":4, "name":"miofile.jpg"}},
+			    			                                                     {"id":3, "caption":"fgi","file":{"id":4, "name":"miofile.jpg"}},
+			    			                                                     {"id":3, "caption":"fgi","file":{"id":4, "name":"miofile.jpg"}},
+			    			                                                     {"id":3, "caption":"fgi","file":{"id":4, "name":"miofile.jpg"}},
+			    			                                                     {"id":3, "caption":"fgi","file":{"id":4, "name":"miofile.jpg"}},
+			    			                                                     {"id":3, "caption":"fgi","file":{"id":4, "name":"miofile.jpg"}},
+			    			                                                     {"id":3, "caption":"fgi","file":{"id":4, "name":"miofile.jpg"}},
+			    			                                                     {"id":3, "caption":"fgi","file":{"id":4, "name":"miofile.jpg"}},
+			    			                                                     {"id":3, "caption":"fgi","file":{"id":4, "name":"miofile.jpg"}},
+			    			                                                     {"id":3, "caption":"fgi","file":{"id":4, "name":"miofile.jpg"}},
+			    			                                                     {"id":3, "caption":"fgi","file":{"id":4, "name":"miofile.jpg"}},
+			    			                                                     {"id":3, "caption":"fgi","file":{"id":4, "name":"miofile.jpg"}},
+			    			                                                     {"id":3, "caption":"fgi","file":{"id":4, "name":"miofile.jpg"}},
+			    			                                                     {"id":3, "caption":"fgi","file":{"id":4, "name":"miofile.jpg"}},
+			    			                                                     {"id":3, "caption":"fgi","file":{"id":4, "name":"miofile.jpg"}}]
+			                                                                        });
+
+		}); */
+	
+	</script>
+	<title>Locanda Test Suite-Images</title>
+</head>
+<body>
+    <h1 id="qunit-header">Locanda Test Suite</h1>
+	<h2 id="qunit-banner"></h2>
+	<div id="qunit-testrunner-toolbar"></div>
+	<h2 id="qunit-userAgent"></h2>
+    <ol id="qunit-tests"></ol>
+</body>
+</html>

@@ -63,6 +63,11 @@ public class StructureServiceImpl implements StructureService{
 	@Autowired
 	private FacilityService facilityService = null;
 	
+	
+	public List<Structure> findAll(){
+		return this.structureMapper.findAll();
+	}
+	
 	@Override
 	public Structure findStructureByIdUser(Integer id_user) {	
 		Structure ret = null;
