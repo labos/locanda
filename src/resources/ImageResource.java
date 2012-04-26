@@ -23,6 +23,9 @@ import model.Image;
 
 
 import org.apache.commons.io.IOUtils;
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -81,6 +84,52 @@ public class ImageResource {
 		
 		this.getImageService().insert(image);
 		return image;
+	}
+	
+	@POST
+	@Path("/ie")
+	@Consumes(MediaType.MULTIPART_FORM_DATA)
+	@Produces({MediaType.TEXT_HTML}) 
+	public String uploadImageIe(
+		@FormDataParam("upload") InputStream uploadedInputStream,
+		@FormDataParam("upload") FormDataContentDisposition fileDetail,
+		@FormDataParam("caption") String caption,
+		@FormDataParam("idStructure") Integer idStructure){															
+ 
+		Image image = null;
+		File file = null;
+		String str = "";
+		
+		image = new Image();
+		image.setCaption(caption);
+		image.setId_structure(idStructure);
+		file = new File();
+		file.setName(fileDetail.getFileName());
+		try {
+			file.setData(
+					IOUtils.toByteArray(uploadedInputStream));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		image.setFile(file);
+		
+		this.getImageService().insert(image);
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			str = mapper.writeValueAsString(file);
+		} catch (JsonGenerationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+
+		return str;
 	}
 	
 	@PUT

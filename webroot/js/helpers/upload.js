@@ -230,7 +230,7 @@ $.fn.deprecatedBrowser = function () {
 			var splittedUrl = ["", ""];
 			splittedUrl = actionUrl.split(".");
 			if ($().deprecatedBrowser()) {
-				actionUrl = splittedUrl[0] + 'IF.' + splittedUrl[1];
+				actionUrl = actionUrl + '/ie';
 				
 			}
 			return actionUrl;

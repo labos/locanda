@@ -15,6 +15,9 @@ import javax.ws.rs.core.Response;
 
 import model.File;
 import org.apache.commons.io.IOUtils;
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -67,6 +70,44 @@ public class FileResource {
 		}
 		this.getFileService().update(file);
 		return file;
+	}
+	
+	@POST
+	@Path("/ie")
+	@Consumes(MediaType.MULTIPART_FORM_DATA)
+	@Produces({MediaType.TEXT_HTML}) 
+	public String updateIe(
+		@FormDataParam("upload") InputStream uploadedInputStream,
+		@FormDataParam("upload") FormDataContentDisposition fileDetail,
+		@FormDataParam("id") Integer id){
+		
+		File file = null;
+		String str = "";
+		file = new File();
+		file.setId(id);
+		file.setName(fileDetail.getFileName());
+		try {
+			file.setData(IOUtils.toByteArray(uploadedInputStream));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		this.getFileService().update(file);
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			str = mapper.writeValueAsString(file);
+		} catch (JsonGenerationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+
+		return str;
 	}
 
 	public FileService getFileService() {
