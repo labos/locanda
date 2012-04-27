@@ -20,6 +20,7 @@ import model.listini.Convention;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServer;
 import org.apache.solr.client.solrj.SolrServerException;
+import org.apache.solr.client.solrj.response.FacetField.Count;
 import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.client.solrj.response.TermsResponse;
 import org.apache.solr.client.solrj.response.TermsResponse.Term;
@@ -114,37 +115,42 @@ public class ConventionResource {
     }
     
     @GET
-    @Path("structure/{idStructure}/suggest")
-    @Produces({MediaType.APPLICATION_JSON})
-    public List<String> suggest(@PathParam("idStructure") Integer idStructure,@QueryParam("term") String term){        
-        SolrQuery query = null;
-        QueryResponse rsp = null;
-        List<String> ret = null;
-        TermsResponse termsResponse = null;
-        List<Term> terms;
-        
-        query = new SolrQuery();         
-        query.setQueryType("/terms");
-        query.addTermsField("text");
-        query.setParam("terms.prefix", term); 
-     // query.setParam("id_structure", idStructure.toString());
-        
-        try {
-			rsp = this.getSolrServerConvention().query( query );
+	@Path("structure/{idStructure}/suggest")
+	@Produces({ MediaType.APPLICATION_JSON })
+	public List<String> suggest(@PathParam("idStructure") Integer idStructure,
+			@QueryParam("term") String term) {
+		SolrQuery query = null;
+		QueryResponse rsp = null;
+		List<String> ret = null;
+		List<Count> values = null;
+		
+		query = new SolrQuery();
+		query.setFacet(true);
+		query.setQuery("*:* AND id_structure:" + idStructure.toString());
+
+		query.addFacetField("text");
+		term = term.toLowerCase();
+		query.setFacetPrefix(term);
+
+		try {
+			rsp = this.getSolrServerConvention().query(query);
 		} catch (SolrServerException e) {
-			e.printStackTrace();			
-		} 
-        ret = new ArrayList<String>(); 
-        
-        if(rsp!=null){
-        	termsResponse = rsp.getTermsResponse();
-            terms = termsResponse.getTerms("text");
-            for(int i = 0; i <terms.size(); i++){
-            	ret.add(terms.get(i).getTerm());
-            } 
-        }         
-        return ret; 
-     }
+			e.printStackTrace();
+		}
+		ret = new ArrayList<String>();
+
+		if (rsp != null) {
+			values = rsp.getFacetField("text").getValues();
+			if(values!=null){
+				for(Count each: values){
+					if(each.getCount()>0){
+						ret.add(each.getName());
+					}
+				}	
+			}					
+		}
+		return ret;
+	}
     
     @GET
     @Path("{id}")
