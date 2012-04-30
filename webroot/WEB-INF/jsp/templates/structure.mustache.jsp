@@ -188,8 +188,8 @@
                   	<input type="text" name="zipCode" id="FormZipCode" value="{{zipCode}}" aria-required="true" />
               	</div>
 				<div class="type-text">
-               	 	<label for="FormCountry"><s:text name="zipCode"/></label>
-                  	<input type="text" name="zipCode" id="FormCountry" value="{{country}}" aria-required="true" />
+               	 	<label for="FormCountry"><s:text name="country"/></label>
+                  	<input type="text" name="country" id="FormCountry" value="{{country}}" aria-required="true" />
               	</div>
                	<div class="type-button">
 					<button class="btn_submit"><s:text name="search"/></button>
