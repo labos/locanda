@@ -20,7 +20,12 @@
   <types>
 	<fieldType name="int" 			class="solr.TrieIntField" 	positionIncrementGap="0"	omitNorms="true" precisionStep="0"/>
    	<fieldtype name="string"  		class="solr.StrField"	 	sortMissingLast="true" 		omitNorms="true"/>
-	<fieldType name="text_general" 	class="solr.TextField" 		positionIncrementGap="100"/>
+	<fieldType name="text_general" 	class="solr.TextField" 		positionIncrementGap="100">
+		<analyzer type = "index">
+     		<tokenizer class="solr.KeywordTokenizerFactory"/>
+     		<filter class="solr.LowerCaseFilterFactory"/>
+   		</analyzer>
+   	</fieldType>
   </types>
 
  <fields>   

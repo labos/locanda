@@ -50,25 +50,14 @@ public class Structure implements Serializable {
 	private String url;
 	@Field
 	private String notes;
+	@Field
+	private Integer id_user;
+	
 	private List<Image> images;
 	private List<Facility> facilities;
-	private Integer id_user;
-	private TreeSet<Integer> keys;
 	
 	
-	public Integer nextKey(){
-		Integer ret = 0;
-		ret = this.getKeys().last();
-		ret = ret + 1;
-		this.getKeys().add(ret);
-		return ret;
-	}	
 	
-	public boolean hasRoomPhotoNamed(String roomPhotoName){
-		/*	IN PROGRESS...	*/
-		return false;
-	}
-
 	public Integer getId() {
 		return id;
 	}
@@ -153,11 +142,6 @@ public class Structure implements Serializable {
 	public void setId_user(Integer id_user) {
 		this.id_user = id_user;
 	}
-	public TreeSet<Integer> getKeys() {
-		return keys;
-	}
-	public void setKeys(TreeSet<Integer> keys) {
-		this.keys = keys;
-	}
+	
 	
 }

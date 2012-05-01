@@ -24,6 +24,7 @@ import org.apache.solr.client.solrj.SolrServer;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.client.solrj.response.TermsResponse;
+import org.apache.solr.client.solrj.response.FacetField.Count;
 import org.apache.solr.client.solrj.response.TermsResponse.Term;
 import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
@@ -52,7 +53,7 @@ public class StructureResource {
     private SolrServer solrServerStructure = null;
 	@Autowired
 	private ApplicationContext applicationContext = null;
-	private User user = (User)RequestContextHolder.currentRequestAttributes().getAttribute("user", RequestAttributes.SCOPE_SESSION);
+	 
    
     
     @PostConstruct
@@ -81,13 +82,14 @@ public class StructureResource {
         SolrDocument solrDocument = null;
         Structure aStructure = null;
         Integer id = 0;
+        User user = null;
         
         if(term.trim().equals("")){
         	term = "*:*";
         }
-//        aStructure = this.getStructureService().findStructureByIdUser(this.user.getId());
-//        id = aStructure.getId();
-//        term = term + " AND id:" + id.toString();
+
+        user = (User)RequestContextHolder.currentRequestAttributes().getAttribute("user", RequestAttributes.SCOPE_SESSION);
+        term = term + " AND id_user:" + user.getId();
         query = new SolrQuery();   		
         query.setQuery(term);
         query.setStart(start);
@@ -107,52 +109,51 @@ public class StructureResource {
         	   solrDocument = solrDocumentList.get(i);
         	   id = (Integer)solrDocument.getFieldValue("id");
         	   aStructure = this.getStructureService().findStructureById(id);
-        	   if (aStructure.getId_user() == user.getId()) {					//adding only the structures belonging to the logged user
         	   structures.add(aStructure);
-        	   }
            }  
        }       
        return structures;          
     }
     
+       
     @GET
     @Path("suggest")
     @Produces({MediaType.APPLICATION_JSON})
-    public List<String> suggest(@PathParam("idStructure") Integer idStructure,@QueryParam("term") String term){        
-        SolrQuery query = null;
-        QueryResponse rsp = null;
-        List<String> ret = null;
-        TermsResponse termsResponse = null;
-        List<Term> terms;   
-//      Structure aStructure = null;
-//      Integer id = 0;
+    public List<String> suggest(@QueryParam("term") String term){    
+    	SolrQuery query = null;
+   		QueryResponse rsp = null;
+   		List<String> ret = null;
+   		List<Count> values = null;
+   		User user = null;
+   		
+   		user = (User)RequestContextHolder.currentRequestAttributes().getAttribute("user", RequestAttributes.SCOPE_SESSION);
         
-        query = new SolrQuery();         
-        query.setQueryType("/terms");
-        query.addTermsField("text");
+   		query = new SolrQuery();
+   		query.setQuery("*:* AND id_user:" + user.getId());
+   		query.setFacet(true);
+   		query.addFacetField("text");
+   		term = term.toLowerCase();
+   		query.setFacetPrefix(term);
+
+   		try {
+   			rsp = this.getSolrServerStructure().query(query);
+   		} catch (SolrServerException e) {
+   			e.printStackTrace();
+   		}
+   		ret = new ArrayList<String>();
+
+   		if (rsp != null) {
+   			values = rsp.getFacetField("text").getValues();
+   			if(values!=null){
+   				for(Count each: values){
+   					if(each.getCount()>0){
+   						ret.add(each.getName());
+   					}
+   				}	
+   			}					
+   		}
+   		return ret;
         
-//      aStructure = this.getStructureService().findStructureByIdUser(this.user.getId());
-//      id = aStructure.getId();
-//      term = term + " AND id:" + id.toString();
-        
-        query.setParam("terms.prefix", term); 
-//      query.setParam("id", id.toString());
-        
-        try {
-			rsp = this.getSolrServerStructure().query( query );
-		} catch (SolrServerException e) {
-			e.printStackTrace();			
-		} 
-        ret = new ArrayList<String>(); 
-        
-        if(rsp!=null){
-        	termsResponse = rsp.getTermsResponse();
-            terms = termsResponse.getTerms("text");
-            for(int i = 0; i <terms.size(); i++){
-            	ret.add(terms.get(i).getTerm());
-            } 
-        }         
-        return ret; 
      }
 	
 	@GET
