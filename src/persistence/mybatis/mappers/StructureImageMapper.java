@@ -23,7 +23,7 @@ public interface StructureImageMapper {
 	public Integer insert(Map map);	
 	
 	public Integer findIdByIdStructureAndIdImage(Map map);
-	public List<Map> findByIdStructure(Integer id_structure);
+	public List<Map> findByIdStructure(Map map);
 	
 	public Integer delete(Integer id);
 	public Integer deleteByIdImage(Integer id_image);

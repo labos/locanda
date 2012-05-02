@@ -26,14 +26,12 @@ In case of controversy the competent court is the Court of Cagliari (Italy).
         insert into structureImage(id_structure,id_image) values(#{id_structure},#{id_image})
     </insert>        
     
-    
-    
     <select id="findIdByIdStructureAndIdImage" parameterType="map" resultType="int">
         select id from structureImage where id_structure = #{id_structure} AND id_image = #{id_image}
     </select>  
     
-    <select id="findByIdStructure" parameterType="int" resultType="map">
-        select id,id_structure,id_image from structureImage where id_structure = #{id_structure}
+    <select id="findByIdStructure" parameterType="map" resultType="map">
+        select id,id_structure,id_image from structureImage where id_structure = #{id_structure} LIMIT #{offset}, #{rownum}
     </select>  
         
     <delete id="delete" parameterType="int">

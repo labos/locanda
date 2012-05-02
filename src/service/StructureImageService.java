@@ -28,7 +28,8 @@ public interface StructureImageService {
 	public Integer insert(Integer id_structure,Integer id_image);
 	
 	public Integer findIdByIdStructureAndIdImage(Integer id_structure,Integer id_image);
-	public List<Integer> findIdImageByIdStructure(Integer id_structure);
+	
+	public List<Integer> findIdImageByIdStructure(Integer id_structure, Integer offset, Integer rowNum);
 	
 	public Integer delete(Integer id);
 	public Integer deleteByIdImage(Integer id_image);

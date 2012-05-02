@@ -166,7 +166,7 @@ public class ImageResource {
 	@Path("checked/structure/{idStructure}/{offset}/{rownum}")
 	@Produces({MediaType.APPLICATION_JSON})	
 	public List<Image> getStructureImages(@PathParam("idStructure") Integer idStructure,@PathParam("offset") Integer offset,@PathParam("rownum") Integer rownum){
-		return this.getImageService().findCheckedByIdStructure(idStructure);
+		return this.getImageService().findCheckedByIdStructure(idStructure,offset,rownum);
 	}	
 	
 	@GET

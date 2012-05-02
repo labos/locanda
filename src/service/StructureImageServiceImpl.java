@@ -51,12 +51,17 @@ public class StructureImageServiceImpl implements StructureImageService{
 	}
 
 	@Override
-	public List<Integer> findIdImageByIdStructure(Integer id_structure) {
+	public List<Integer> findIdImageByIdStructure(Integer id_structure, Integer offset, Integer rowNum) {
 		List<Integer> ret = null;
+		Map map = null;
 		
 		ret = new ArrayList<Integer>();
-		for(Map map: this.getStructureImageMapper().findByIdStructure(id_structure)){
-			ret.add((Integer)map.get("id_image"));
+		map = new HashMap();
+		map.put("id_structure", id_structure);
+		map.put("offset", offset);
+		map.put("rowNum", rowNum);
+		for(Map each: this.getStructureImageMapper().findByIdStructure(map)){
+			ret.add((Integer)each.get("id_image"));
 		}
 		return ret;
 	}

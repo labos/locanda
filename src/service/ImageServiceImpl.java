@@ -122,12 +122,12 @@ public class ImageServiceImpl implements ImageService{
 	}
 
 	@Override
-	public List<Image> findCheckedByIdStructure(Integer id_structure) {
+	public List<Image> findCheckedByIdStructure(Integer id_structure,Integer offset, Integer rownum) {
 		List<Image> ret = null;
 		Image image = null;
 		
 		ret = new ArrayList<Image>();
-		for(Integer id: this.getStructureImageService().findIdImageByIdStructure(id_structure)){
+		for(Integer id: this.getStructureImageService().findIdImageByIdStructure(id_structure,offset, rownum)){
 			image = this.find(id);
 			ret.add(image);
 		}
