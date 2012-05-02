@@ -29,8 +29,8 @@ public interface ImageService {
 	public Image find(Integer id);	
 	public List<Image> findByIdStructure(Integer id_structure,Integer offset, Integer rownum);
 	public List<Image> findCheckedByIdStructure(Integer id_structure,Integer offset, Integer rownum);
-	public List<Image> findCheckedByIdRoomType(Integer id_roomType);
-	public List<Image> findCheckedByIdRoom(Integer id_room);
+	public List<Image> findCheckedByIdRoomType(Integer id_roomType,Integer offset, Integer rownum);
+	public List<Image> findCheckedByIdRoom(Integer id_room,Integer offset, Integer rownum);
 	public Image findByIdFacility(Integer id_facility);
 	
 }

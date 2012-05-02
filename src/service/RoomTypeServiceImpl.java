@@ -74,11 +74,11 @@ public class RoomTypeServiceImpl implements RoomTypeService{
 	@Override
 	public RoomType findRoomTypeById(Integer id) {
 		RoomType roomType = null;
-		List<Image> images = null;
+		//List<Image> images = null;
 		
 		roomType = this.getRoomTypeMapper().findRoomTypeById(id);
-		images = this.getImageService().findCheckedByIdRoomType(id);
-		roomType.setImages(images);
+		//images = this.getImageService().findCheckedByIdRoomType(id);
+		//roomType.setImages(images);
 		return roomType;
 		
 	}

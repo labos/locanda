@@ -25,7 +25,7 @@ public interface RoomTypeImageMapper {
 	public Integer deleteByIdRoomType(Integer id_roomType);	
 	public Integer deleteByIdImage(Integer id_image);	
 	
-	public List<Map> findByIdRoomType(Integer id_roomType);
+	public List<Map> findByIdRoomType(Map map);
 	public Integer findIdByIdRoomTypeAndIdImage(Map map);
 	
 	

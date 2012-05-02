@@ -37,8 +37,8 @@ In case of controversy the competent court is the Court of Cagliari (Italy).
         DELETE from roomTypeImage where id_image = #{id_image}
     </delete> 
         
-    <select id="findByIdRoomType" parameterType="int" resultType="map">
-        select id, id_roomType, id_image from roomTypeImage where id_roomType = #{id_roomType}
+    <select id="findByIdRoomType" parameterType="map" resultType="map">
+        select id, id_roomType, id_image from roomTypeImage where id_roomType = #{id_roomType} LIMIT #{offset}, #{rownum}
     </select>
     
     <select id="findIdByIdRoomTypeAndIdImage" parameterType="map" resultType="int">

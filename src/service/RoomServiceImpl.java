@@ -55,17 +55,17 @@ public class RoomServiceImpl implements RoomService{
 	public Room findRoomById(Integer id) {	
 		Room room = null;
 		RoomType roomType = null;
-		List<Facility> facilities = null;
-		List<Image> images = null;
+		//List<Facility> facilities = null;
+		//List<Image> images = null;
 		
 		room = this.getRoomMapper().findRoomById(id);
 		if (room!=null){
 			roomType = this.getRoomTypeMapper().findRoomTypeById(room.getId_roomType());
 			room.setRoomType(roomType);	
-			facilities = this.getFacilityService().findCheckedByIdRoom(id);
-			room.setFacilities(facilities);
-			images = this.getImageService().findCheckedByIdRoom(id);
-			room.setImages(images);
+			//facilities = this.getFacilityService().findCheckedByIdRoom(id);
+			//room.setFacilities(facilities);
+			//images = this.getImageService().findCheckedByIdRoom(id);
+			//room.setImages(images);
 		}
 		return room;
 	}
@@ -97,9 +97,9 @@ public class RoomServiceImpl implements RoomService{
 		rooms = this.getRoomMapper().findRoomsByIdStructure(id_structure);
 		for(Room each: rooms){
 			roomType = this.getRoomTypeMapper().findRoomTypeById(each.getId_roomType());
-			roomType.setImages(this.getImageService().findCheckedByIdRoomType(roomType.getId()));
+			//roomType.setImages(this.getImageService().findCheckedByIdRoomType(roomType.getId()));
 			each.setRoomType(roomType);
-			each.setImages(this.getImageService().findCheckedByIdRoom(each.getId()));
+			//each.setImages(this.getImageService().findCheckedByIdRoom(each.getId()));
 		}
 		return rooms;
 	}

@@ -27,7 +27,7 @@ public interface RoomTypeImageService {
 		
 	public Integer insert(Integer id_roomType,Integer id_image);
 	
-	public List<Integer> findIdImageByIdRoomType(Integer id_roomType);
+	public List<Integer> findIdImageByIdRoomType(Integer id_roomType, Integer offset, Integer rownum);
 	public Integer findIdByIdRoomTypeAndIdImage(Integer id_roomType, Integer id_image );
 	
 	public Integer delete(Integer id);	

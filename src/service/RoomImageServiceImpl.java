@@ -41,11 +41,16 @@ public class RoomImageServiceImpl implements RoomImageService{
 	}	
 	
 	@Override
-	public List<Integer> findIdImageByIdRoom(Integer id_room) {
+	public List<Integer> findIdImageByIdRoom(Integer id_room,Integer offset, Integer rownum) {
 		List<Integer> ret = null;
+		Map map = null;
 		
 		ret = new ArrayList<Integer>();
-		for(Map each: this.getRoomImageMapper().findByIdRoom(id_room)){
+		map = new HashMap();
+		map.put("id_room",id_room );
+		map.put("offset",offset );
+		map.put("rownum",rownum );
+		for(Map each: this.getRoomImageMapper().findByIdRoom(map)){
 			ret.add((Integer)each.get("id_image"));
 		}
 		return ret;

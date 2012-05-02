@@ -135,12 +135,12 @@ public class ImageServiceImpl implements ImageService{
 	}
 	
 	@Override
-	public List<Image> findCheckedByIdRoomType(Integer id_roomType) {
+	public List<Image> findCheckedByIdRoomType(Integer id_roomType, Integer offset, Integer rownum ) {
 		List<Image> ret = null;
 		Image image = null;
 		
 		ret = new ArrayList<Image>();
-		for(Integer id: this.getRoomTypeImageService().findIdImageByIdRoomType(id_roomType)){
+		for(Integer id: this.getRoomTypeImageService().findIdImageByIdRoomType(id_roomType,offset, rownum)){
 			image = this.find(id);
 			ret.add(image);
 		}
@@ -148,12 +148,12 @@ public class ImageServiceImpl implements ImageService{
 	}
 	
 	@Override
-	public List<Image> findCheckedByIdRoom(Integer id_room) {
+	public List<Image> findCheckedByIdRoom(Integer id_room,Integer offset, Integer rownum) {
 		List<Image> ret = null;
 		Image image = null;		
 		
 		ret = new ArrayList<Image>();
-		for(Integer id: this.getRoomImageService().findIdImageByIdRoom(id_room)){
+		for(Integer id: this.getRoomImageService().findIdImageByIdRoom(id_room,offset,rownum)){
 			image = this.find(id);
 			ret.add(image);
 		}

@@ -26,7 +26,7 @@ import model.Image;
 public interface RoomImageService {	
 	public Integer insert(Integer id_room,Integer id_image);
 	
-	public List<Integer> findIdImageByIdRoom(Integer id_room);
+	public List<Integer> findIdImageByIdRoom(Integer id_room,Integer offset, Integer rownum);
 	public Integer findIdByIdRoomAndIdImage(Integer id_room, Integer id_image );
 	
 	public Integer delete(Integer id);

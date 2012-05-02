@@ -173,14 +173,14 @@ public class ImageResource {
 	@Path("checked/roomType/{idRoomType}/{offset}/{rownum}")
 	@Produces({MediaType.APPLICATION_JSON})	
 	public List<Image> getRoomTypeImages(@PathParam("idRoomType") Integer idRoomType,@PathParam("offset") Integer offset,@PathParam("rownum") Integer rownum){
-		return this.getImageService().findCheckedByIdRoomType(idRoomType);
+		return this.getImageService().findCheckedByIdRoomType(idRoomType,offset,rownum);
 	}
 	
 	@GET
 	@Path("checked/room/{idRoom}/{offset}/{rownum}")
 	@Produces({MediaType.APPLICATION_JSON})	
 	public List<Image> getRoomImages(@PathParam("idRoom") Integer idRoom,@PathParam("offset") Integer offset,@PathParam("rownum") Integer rownum){
-		return this.getImageService().findCheckedByIdRoom(idRoom);
+		return this.getImageService().findCheckedByIdRoom(idRoom,offset,rownum);
 	}
 
 	@GET

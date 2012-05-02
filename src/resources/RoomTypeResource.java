@@ -166,14 +166,14 @@ public class RoomTypeResource {
 	@Produces({MediaType.APPLICATION_JSON})
 	public RoomType getRoomType(@PathParam("id") Integer id){
 		RoomType ret = null;
-		List<Image> images = null;
-		List<Facility> facilities = null;
+		//List<Image> images = null;
+		//List<Facility> facilities = null;
 		
 		ret = this.getRoomTypeService().findRoomTypeById(id);
-		images = this.getImageService().findCheckedByIdRoomType(id);
-		ret.setImages(images);
-		facilities = this.getFacilityService().findCheckedByIdRoomType(id);
-		ret.setFacilities(facilities);
+		//images = this.getImageService().findCheckedByIdRoomType(id);
+		//ret.setImages(images);
+		//facilities = this.getFacilityService().findCheckedByIdRoomType(id);
+		//ret.setFacilities(facilities);
 		return ret;
 	}
 	
