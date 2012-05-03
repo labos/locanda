@@ -81,7 +81,7 @@ public class RoomTypeAction extends ActionSupport implements SessionAware,UserAw
 		
 		roomTypes = this.getRoomTypeService().findRoomTypesByIdStructure(this.getIdStructure());
 		for(RoomType each: roomTypes){
-			each.setImages(this.getImageService().findCheckedByIdRoomType(each.getId()));
+			each.setImages(this.getImageService().findCheckedByIdRoomType(each.getId(),0,100));
 		}
 		this.setRoomTypes(roomTypes);
 		this.setFacilities(this.getFacilityService().findCheckedByIdStructure(this.getIdStructure()));
@@ -99,7 +99,7 @@ public class RoomTypeAction extends ActionSupport implements SessionAware,UserAw
 		roomType = this.getRoomTypeService().findRoomTypeById(this.getRoomType().getId());
 		roomType.setFacilities(
 				this.getFacilityService().findCheckedByIdRoomType(this.getRoomType().getId()));
-		roomType.setImages(this.getImageService().findCheckedByIdRoomType(this.getRoomType().getId()));
+		roomType.setImages(this.getImageService().findCheckedByIdRoomType(this.getRoomType().getId(),0,100));
 		
 		this.setRoomType(roomType);
 		this.setFacilities(this.getFacilityService().findCheckedByIdStructure(this.getIdStructure()));

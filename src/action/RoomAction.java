@@ -147,7 +147,7 @@ public class RoomAction extends ActionSupport implements SessionAware,UserAware{
 		Room oldRoom = null;
 		
 		oldRoom = this.getRoomService().findRoomById(this.getRoom().getId());
-		oldRoom.setImages(this.getImageService().findCheckedByIdRoom(this.getRoom().getId()));
+		oldRoom.setImages(this.getImageService().findCheckedByIdRoom(this.getRoom().getId(),0,100));
 		this.setRoom(oldRoom);
 		this.setRoomTypes(this.getRoomTypeService().findRoomTypesByIdStructure(this.getIdStructure()));
 		this.setRoomFacilities(this.getFacilityService().findCheckedByIdStructure(this.getIdStructure()));
