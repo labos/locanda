@@ -48,29 +48,38 @@ window.ImageView = Backbone.View.extend({
         this.model.unbind("change", this.render);
     },
     switchMode: function () {
-        this.indexTemplate = (this.indexTemplate.attr("id") == "image-view-template") ? $("#image-edit-template") : $("#image-view-template");
-        this.render();
-        var self = this;
+    	 if( this.indexTemplate.attr("id") == "image-edit-template" ){
+    		 this.indexTemplate = $("#image-view-template");
+    		 $(".overlay").remove();
+        	 $(this.el).removeClass("edit-state-box");
+        	 this.render();
+        	 $($.fn.overlay.defaults.container).css('overflow', 'auto');
+    	 }
+    	 else{
+        	 
+    	        this.indexTemplate = $("#image-edit-template");
+    	        this.render();
+    	        var self = this;
+    	        $(this.el).undelegate("div", "click");
+    	        $('<div></div>').overlay({
+    	            effect: 'fade',
+    	            onShow: function () {
+    	                var overlay = this;
+    	                $(self.el).addClass("edit-state-box");
+    	                $(this).click(function () {
+    	                    if (confirm($.i18n("alertExitEditState"))) {
+    	                        $(self.el).removeClass("edit-state-box");
+    	                        self.indexTemplate = $("#image-view-template");
+    	                        self.render();
+    	                        $(overlay).remove();
+    	                        $($.fn.overlay.defaults.container).css('overflow', 'auto');
 
-        $(this.el).undelegate("div", "click");
-        $('<div></div>').overlay({
-            effect: 'fade',
-            onShow: function () {
-                var overlay = this;
-                $(self.el).addClass("edit-state-box");
-                $(this).click(function () {
-                    if (confirm($.i18n("alertExitEditState"))) {
-                        $(self.el).removeClass("edit-state-box");
-                        self.indexTemplate = $("#image-view-template");
-                        self.render();
-                        $(overlay).remove();
-                        $($.fn.overlay.defaults.container).css('overflow', 'auto');
+    	                    }
 
-                    }
-
-                });
-            }
-        });
+    	                });
+    	            }
+    	        });
+    	 }
     }
 
 
@@ -161,8 +170,8 @@ window.EditImageView = EditView.extend({
                         self.model.set({
                             rnd: Math.ceil(Math.random() * 500)
                         });
-                        self.imageView.render();
-                        $(self.imageView.el).undelegate("div", "click");
+                        self.imageView.switchMode();
+                        //$(self.imageView.el).undelegate("div", "click");
                     }
                 });
             });

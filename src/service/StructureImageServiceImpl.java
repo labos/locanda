@@ -59,7 +59,7 @@ public class StructureImageServiceImpl implements StructureImageService{
 		map = new HashMap();
 		map.put("id_structure", id_structure);
 		map.put("offset", offset);
-		map.put("rowNum", rowNum);
+		map.put("rownum", rowNum);
 		for(Map each: this.getStructureImageMapper().findByIdStructure(map)){
 			ret.add((Integer)each.get("id_image"));
 		}

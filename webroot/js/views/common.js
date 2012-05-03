@@ -337,7 +337,8 @@
              search: function (event, ui){
             	 var term  = $("#item-autocomplete").val();
             	 if ( term.length !== 1){
-                	 self.collection.setTerm( term + '*' );
+            		 
+                	 self.collection.setTerm( term ===''? term : term + '*' );
                      self.collection.setFrom(0);
                      self.collection.setTo(10);
                 	 self.collection.fetch();

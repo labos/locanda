@@ -1172,3 +1172,9 @@ border:none;
 #conventions-list li,.row-item .sidebox_edit ul,.row-item ul,#main-app ul,#main-app ul li,#toolbar-container ul,div.add-new .ui-widget {
 margin:0;
 }
+
+.rcarousel div .wrapper ul li.message {
+border:none;
+margin:20px 0px 0px 100px;
+font-weight:600;
+}

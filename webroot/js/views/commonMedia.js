@@ -254,6 +254,8 @@ window.ImagesFacilitiesView = Backbone.View.extend({
         var self = this;
         this.collection.unbind('reset', this.render);
         this.collection.unbind('remove', this.removeOne);
+        // reset starting page from 0
+        this.availableCollection.setFrom(0);
         this.collection = this.availableCollection;
         this.collection.bind('reset', this.render, this);
         this.collection.bind('remove', this.removeOne, this);
@@ -277,8 +279,11 @@ window.ImagesFacilitiesView = Backbone.View.extend({
         $.each(this.rowViews, function (index, value) {
             this.unrender();
         });
+        //set slider content
+        (this.collection.length > 0)? this.$("ul").empty() : this.$("ul").append(this.getEmptyMessage());
         this.rowViews = [];
         this.collection.each(this.addOne);
+        this.checkNumPages(null)? this.enableNext() : this.disableNext();
     },
     addOne: function (item) {
     	/* override in extended classes */
@@ -292,7 +297,7 @@ window.ImagesFacilitiesView = Backbone.View.extend({
     next: function () {
         if (this.checkNumPages(this.page)) {
             this.page--;
-            this.collection.setFrom(-10 * this.page);
+            this.collection.setFrom(-6 * this.page);
             // calculate width used by elements contained in wrapper
             var self = this;
             $(".wrapper ul", self.el).css("opacity", 0.25);
@@ -324,7 +329,7 @@ window.ImagesFacilitiesView = Backbone.View.extend({
         if (this.page < 0) {
             this.page++;
             var self = this;
-            this.collection.setFrom(-10 * this.page);
+            this.collection.setFrom(-6 * this.page);
             $(".wrapper ul", self.el).css("opacity", 0.25);
             $(".add-new", this.el).addClass("slider-loader");
             this.collection.fetch({
@@ -359,17 +364,26 @@ window.ImagesFacilitiesView = Backbone.View.extend({
     /**
      * Disable "next" right button on the slider.
      */
-    disableNext: function () {},
+    disableNext: function () {
+    	$(".ui-rcarousel-next", self.el).addClass("disable");
+    },
+    /**
+     * Disable "next" right button on the slider.
+     */
+    enableNext: function () {
+    	$(".ui-rcarousel-next", self.el).removeClass("disable");
+    },
     /**
      * Check if pagination is needed.
      */
     checkNumPages: function (step) {
         var slideAmount = $(".wrapper", this.el).width() / 3,
             slideWidth = this.$(".wrapper").width(),
-            itemWidth = this.$(".wrapper ul li").width() + 16,
+            itemWidth = this.$(".wrapper ul li").width() + 18,
             numItems = this.$(".wrapper ul li").length,
             itemWidthUsed = numItems * itemWidth;
-        return ((itemWidthUsed + (step * slideAmount)) > slideWidth) ? true : false;
+        //return ((itemWidthUsed + ((-step + 1) * slideAmount)) > slideWidth) ? true : false;
+        return ( numItems >= 7) ? true : false;
     },
     /**
      * Destroy current view.
@@ -391,6 +405,9 @@ window.ImagesFacilitiesView = Backbone.View.extend({
             this.unrender();
         });
         $(this.el).hide();
+    },
+    getEmptyMessage: function	()	{
+    	return '<li class="message">' + '' + '</li>';
     },
     addElement: function () {},
     saveElement: function () {},
@@ -468,7 +485,12 @@ window.FacilitiesListView = ImagesFacilitiesView.extend({
         this.rowViews.push(view);
         this.$("ul").append(view.render().el);
     },
+    getEmptyMessage: function	()	{
+    	return '<li class="message">' + $.i18n("facilities") + '</li>';
+    },
     switchMode: function () {
+        //reset to initial page
+        this.page = 0;
         // change in edit mode template
         if (this.indexTemplate.attr("id") == "facilities-edit-template") {
             this.indexTemplate = $("#facilities-view-template");
@@ -477,11 +499,11 @@ window.FacilitiesListView = ImagesFacilitiesView.extend({
             this.setChecked();
             $($.fn.overlay.defaults.container).css('overflow', 'auto');
         } else {
+            var self = this;
             this.indexTemplate = $("#facilities-edit-template");
             // call a method to render availableCollection
             this.setAvailables();
             //this.render();
-            var self = this;
             $(this.el).undelegate("div", "click");
             $('<div></div>').overlay({
                 effect: 'fade',
@@ -492,6 +514,7 @@ window.FacilitiesListView = ImagesFacilitiesView.extend({
                         if (confirm($.i18n("alertExitEditState"))) {
                             $(self.el).removeClass("edit-state-box");
                             self.indexTemplate = $("#facilities-view-template");
+                            self.page = 0;
                             self.setChecked();
                             $(overlay).remove();
                             $($.fn.overlay.defaults.container).css('overflow', 'auto');
@@ -557,7 +580,12 @@ window.ImagesListView = ImagesFacilitiesView.extend({
         this.collection.bind('remove', this.removeOne, this);
         this.collection.fetch();
     },
+    getEmptyMessage: function	()	{
+    	return '<li class="message">' + $.i18n("images") + '</li>';
+    },
     switchMode: function () {
+        //reset to initial page
+        this.page = 0;
         // change in edit mode template
         if (this.indexTemplate.attr("id") == "images-edit-template") {
             this.indexTemplate = $("#images-view-template");
@@ -566,11 +594,11 @@ window.ImagesListView = ImagesFacilitiesView.extend({
             this.setChecked();
             $($.fn.overlay.defaults.container).css('overflow', 'auto');
         } else {
+            var self = this;
             this.indexTemplate = $("#images-edit-template");
             // call a method to render availableCollection
             this.setAvailables();
             //this.render();
-            var self = this;
             $(this.el).undelegate("div", "click");
             $('<div></div>').overlay({
                 effect: 'fade',
@@ -581,6 +609,7 @@ window.ImagesListView = ImagesFacilitiesView.extend({
                         if (confirm($.i18n("alertExitEditState"))) {
                             $(self.el).removeClass("edit-state-box");
                             self.indexTemplate = $("#images-view-template");
+                            self.page = 0;
                             self.setChecked();
                             $(overlay).remove();
                             $($.fn.overlay.defaults.container).css('overflow', 'auto');
