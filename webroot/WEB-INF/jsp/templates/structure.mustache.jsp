@@ -199,7 +199,7 @@
 	</script>
 	
 	<script id="facility-row-template" type="text/x-handlebars-template">
-		{{#id}}<span class="title-elem">{{image.caption}}</span><img src="<%=request.getContextPath( )%>/rest/file/{{image.file.id}}"/>{{/id}}
+		{{#id}}<span class="title-elem">{{name}}</span><img src="<%=request.getContextPath( )%>/rest/file/{{image.file.id}}"/>{{/id}}
 	</script>
 
 	<script id="facility-row-edit-template" type="text/x-handlebars-template">
@@ -209,7 +209,7 @@
 	</script>
 
 	<script id="image-row-template" type="text/x-handlebars-template">
-		{{#id}}<span class="title-elem">{{file.name}}</span>
+		{{#id}}<span class="title-elem">{{caption}}</span>
 		<img src="<%=request.getContextPath( )%>/rest/file/{{file.id}}"/>{{/id}}
 	</script>
 

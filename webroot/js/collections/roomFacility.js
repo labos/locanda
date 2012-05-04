@@ -28,7 +28,7 @@ window.RoomFacilities = Backbone.Collection.extend({
     initialize: function (models, options) {
     	this.setIdWrapper(options.id);
     	this.setFrom(0);
-    	this.setTo(10);
+    	this.setTo(7);
     	this.setTerm(null);
     },
     url: function () {

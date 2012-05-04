@@ -116,16 +116,17 @@
 
 	<script id="facility-row-edit-template" type="text/x-handlebars-template">
 		<input class="choose-elem" {{#id}}checked="checked"{{/id}} type="checkbox" name="facilities[]" value="{{id}}"/>
+		<span class="title-elem">{{facility.name}}</span>	
 		<img src="<%=request.getContextPath( )%>/rest/file/{{facility.image.file.id}}"/>
 	</script>
 
 	<script id="image-row-template" type="text/x-handlebars-template">
-		{{#id}}<span class="title-elem">{{image.caption}}</span>
+		{{#id}}<span class="title-elem">{{caption}}</span>
 		<img width="100" src="<%=request.getContextPath( )%>/rest/file/{{file.id}}"/>{{/id}}
 	</script>
 
 	<script id="image-row-edit-template" type="text/x-handlebars-template">
-				<input class="choose-elem" {{#id}}checked="checked"{{/id}} type="checkbox" name="images[]" value="{{id}}"/>
+		<input class="choose-elem" {{#id}}checked="checked"{{/id}} type="checkbox" name="images[]" value="{{id}}"/>
 		<span class="title-elem">{{image.caption}}</span>
 		<img width="100" src="<%=request.getContextPath( )%>/rest/file/{{image.file.id}}"/>
 	</script>
