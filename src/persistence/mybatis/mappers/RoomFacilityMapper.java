@@ -22,7 +22,7 @@ import model.Facility;
 public interface RoomFacilityMapper {
 	
 	public Integer insert(Map map);	
-	public List<Map> findByIdRoom(Integer id_room);	 
+	public List<Map> findByIdRoom(Map map);	 
 	public Integer findIdByIdRoomAndIdFacility(Map map);
 	public Integer delete(Integer id);
 	public Integer deleteByIdRoom(Integer id_room);

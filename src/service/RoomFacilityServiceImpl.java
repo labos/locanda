@@ -53,12 +53,17 @@ public class RoomFacilityServiceImpl implements RoomFacilityService{
 	}
 		
 	@Override
-	public List<Integer> findIdFacilityByIdRoom(Integer id_room) {
+	public List<Integer> findIdFacilityByIdRoom(Integer id_room,Integer offset, Integer rownum) {
 		List<Integer> ret = null;
+		Map map = null;
 		
 		ret = new ArrayList<Integer>();
-		for(Map map: this.getRoomFacilityMapper().findByIdRoom(id_room)){
-			ret.add((Integer)map.get("id_facility"));
+		map = new HashMap();
+		map.put("id_room",id_room );
+		map.put("offset",offset );
+		map.put("rownum",rownum );
+		for(Map each: this.getRoomFacilityMapper().findByIdRoom(map)){
+			ret.add((Integer)each.get("id_facility"));
 		}
 		return ret;		
 	}

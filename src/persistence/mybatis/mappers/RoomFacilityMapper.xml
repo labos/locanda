@@ -24,8 +24,8 @@ In case of controversy the competent court is the Court of Cagliari (Italy).
         INSERT into roomFacility(id_room,id_facility) values (#{id_room},#{id_facility})
     </insert>           
         
-    <select id="findByIdRoom" parameterType="int" resultType="map">
-       SELECT  id,id_room,id_facility from roomFacility where id_room = #{id_room}
+    <select id="findByIdRoom" parameterType="map" resultType="map">
+       SELECT  id,id_room,id_facility from roomFacility where id_room = #{id_room} LIMIT #{offset}, #{rownum}
     </select> 
     
     <select id="findIdByIdRoomAndIdFacility" parameterType="map" resultType="int">
