@@ -53,12 +53,17 @@ public class StructureFacilityServiceImpl implements StructureFacilityService{
 	
 		
 	@Override
-	public List<Integer> findIdFacilityByIdStructure(Integer id_structure) {
+	public List<Integer> findIdFacilityByIdStructure(Integer id_structure,Integer offset, Integer rownum) {
 		List<Integer> ret = null;
+		Map map = null;
 		
 		ret = new ArrayList<Integer>();
-		for(Map map: this.getStructureFacilityMapper().findByIdStructure(id_structure)){
-			ret.add((Integer)map.get("id_facility"));
+		map = new HashMap();
+		map.put("id_structure", id_structure);
+		map.put("offset", offset);
+		map.put("rownum", rownum);
+		for(Map each: this.getStructureFacilityMapper().findByIdStructure(map)){
+			ret.add((Integer)each.get("id_facility"));
 		}
 		
 		return ret;

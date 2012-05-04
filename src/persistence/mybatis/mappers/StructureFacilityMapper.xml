@@ -24,8 +24,8 @@ In case of controversy the competent court is the Court of Cagliari (Italy).
         INSERT into structureFacility(id_structure,id_facility) values (#{id_structure},#{id_facility})
     </insert>     
     
-    <select id="findByIdStructure" parameterType="int" resultType="map">
-       SELECT id,id_structure, id_facility from structureFacility where id_structure = #{id_structure}
+    <select id="findByIdStructure" parameterType="map" resultType="map">
+       SELECT id,id_structure, id_facility from structureFacility where id_structure = #{id_structure} LIMIT #{offset}, #{rownum}
     </select>   
     
     <select id="findIdByIdStructureAndIdFacility" parameterType="map" resultType="int">

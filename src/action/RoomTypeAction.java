@@ -84,7 +84,7 @@ public class RoomTypeAction extends ActionSupport implements SessionAware,UserAw
 			each.setImages(this.getImageService().findCheckedByIdRoomType(each.getId(),0,100));
 		}
 		this.setRoomTypes(roomTypes);
-		this.setFacilities(this.getFacilityService().findCheckedByIdStructure(this.getIdStructure()));
+		this.setFacilities(this.getFacilityService().findCheckedByIdStructure(this.getIdStructure(),0,100));
 		return SUCCESS;
 	}
 	
@@ -102,7 +102,7 @@ public class RoomTypeAction extends ActionSupport implements SessionAware,UserAw
 		roomType.setImages(this.getImageService().findCheckedByIdRoomType(this.getRoomType().getId(),0,100));
 		
 		this.setRoomType(roomType);
-		this.setFacilities(this.getFacilityService().findCheckedByIdStructure(this.getIdStructure()));
+		this.setFacilities(this.getFacilityService().findCheckedByIdStructure(this.getIdStructure(),0,100));
 		for(Facility each: this.getRoomType().getFacilities()){			
 			this.getRoomTypeFacilitiesIds().add(each.getId());		//populating roomFacilitiesIds array with the ids of facilities that are already in rooms to be edited
 		}

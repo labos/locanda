@@ -86,7 +86,7 @@ public class FacilityResource {
 	 @Path("checked/structure/{idStructure}/{offset}/{rownum}")
 	 @Produces({MediaType.APPLICATION_JSON})	
 	 public List<Facility> getStructureFacilities(@PathParam("idStructure") Integer idStructure,@PathParam("offset") Integer offset,@PathParam("rownum") Integer rownum){
-		 return this.getFacilityService().findCheckedByIdStructure(idStructure);
+		 return this.getFacilityService().findCheckedByIdStructure(idStructure,offset, rownum);
 	 }
 	 
 	 @GET

@@ -22,7 +22,7 @@ public interface StructureFacilityMapper {
 		
 	public Integer insert(Map map);
 	
-	public List<Map> findByIdStructure(Integer id_structure);
+	public List<Map> findByIdStructure(Map map);
 	public Integer findIdByIdStructureAndIdFacility(Map map);
 	public Integer delete(Integer id);
 	public Integer deleteByIdStructure(Integer id_structure);

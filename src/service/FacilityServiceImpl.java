@@ -99,10 +99,10 @@ public class FacilityServiceImpl implements FacilityService{
 	}
 
 	@Override
-	public List<Facility> findCheckedByIdStructure(Integer id_structure) {		
+	public List<Facility> findCheckedByIdStructure(Integer id_structure,Integer offset, Integer rownum) {		
 		List<Integer> ids = null;
 		
-		ids = this.getStructureFacilityService().findIdFacilityByIdStructure(id_structure);
+		ids = this.getStructureFacilityService().findIdFacilityByIdStructure(id_structure,offset,rownum);
 		return this.findByIds(ids);		
 	}
 	
