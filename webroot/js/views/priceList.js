@@ -117,7 +117,12 @@ window.EditPriceListView = Backbone.View.extend({
 	            $(".room_tree").jstree({
 	                "json_data": {
 	                    "ajax": {
-	                        "url": "findAllRoomPriceLists.action"
+	                        "url": "findAllRoomPriceLists.action",
+	                    	"success" : function (data) {
+	                    		if($.isEmptyObject(data)){
+	                                $.jGrowl($.i18n("alertNoSeason"), { theme: "notify-error"  });
+	                    		}
+	                    		return data.d; }
 	                    }
 	                },
 	                "themes": {
@@ -133,7 +138,12 @@ window.EditPriceListView = Backbone.View.extend({
 	                },
 	                "json_data": {
 	                    "ajax": {
-	                    	"url": "findAllExtraPriceLists.action"
+	                    	"url": "findAllExtraPriceLists.action",
+	                    	"success" : function (data) {
+	                    		if($.isEmptyObject(data)){
+	                                $.jGrowl($.i18n("alertNoSeason"), { theme: "notify-error"  });
+	                    		}
+	                    		return data.d; }
 	                    }
 	                },
 	                "themes": {

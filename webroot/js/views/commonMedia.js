@@ -305,7 +305,7 @@ window.ImagesFacilitiesView = Backbone.View.extend({
             this.collection.fetch({
                 silent: true,
                 success: function () {
-                    $(".add-new", this.el).removeClass("slider-loader");
+                    $(".add-new", self.el).removeClass("slider-loader");
                     $(".wrapper ul", self.el).css("opacity", 1);
                     self.enablePrev();
                     self.addAll();
@@ -353,36 +353,31 @@ window.ImagesFacilitiesView = Backbone.View.extend({
      * Disable "previous" left button on the slider.
      */
     disablePrev: function () {
-        $(".ui-rcarousel-prev", self.el).addClass("disable");
+        $(".ui-rcarousel-prev", this.el).addClass("disable");
     },
     /**
      * Enable "previous" left button on the slider.
      */    
     enablePrev: function () {
-        $(".ui-rcarousel-prev", self.el).removeClass("disable");
+        $(".ui-rcarousel-prev", this.el).removeClass("disable");
     },
     /**
      * Disable "next" right button on the slider.
      */
     disableNext: function () {
-    	$(".ui-rcarousel-next", self.el).addClass("disable");
+    	$(".ui-rcarousel-next", this.el).addClass("disable");
     },
     /**
      * Disable "next" right button on the slider.
      */
     enableNext: function () {
-    	$(".ui-rcarousel-next", self.el).removeClass("disable");
+    	$(".ui-rcarousel-next", this.el).removeClass("disable");
     },
     /**
      * Check if pagination is needed.
      */
     checkNumPages: function (step) {
-        var slideAmount = $(".wrapper", this.el).width() / 3,
-            slideWidth = this.$(".wrapper").width(),
-            itemWidth = this.$(".wrapper ul li").width() + 18,
-            numItems = this.$(".wrapper ul li").length,
-            itemWidthUsed = numItems * itemWidth;
-        //return ((itemWidthUsed + ((-step + 1) * slideAmount)) > slideWidth) ? true : false;
+        var numItems = this.$(".wrapper ul li").length;
         return ( numItems >= 7) ? true : false;
     },
     /**

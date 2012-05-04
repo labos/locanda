@@ -46,6 +46,7 @@ $.i18n.it.strings = {
     validPriceAlert: "Attenzione, devi inserire un prezzo valido",
     validPhoneAlert: "Attenzione, devi inserire un numero di telefono valido",
     alertCancel: "Attenzione le modifiche che hai effettuato non verranno salvate. Vuoi chiudere ugualmente?",
+    alertNoSeason: "Devi aggiungere almeno una stagione prima di creare un listo prezzi",
     today: "Oggi",
     prev: "Precedente",
     next: "Successivo",

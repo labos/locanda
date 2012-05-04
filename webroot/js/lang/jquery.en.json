@@ -46,6 +46,7 @@ $.i18n.en.strings = {
     validPriceAlert: "Please enter a valid price value",
     validPhoneAlert: "Please enter a valid phone number",
     alertCancel: "Please note the changes you have made will not be saved. Do you want to quit anyway?",
+    alertNoSeason: "Please add a season before creating a price list",
     today: "Today",
     prev: "Prev",
     next: "Next",
