@@ -28,21 +28,7 @@
 			multipartUploadLimitInKB="2048" />
 	</requestDispatcher>
 
-	<searchComponent name="terms" class="solr.TermsComponent" />
-	<!-- A request handler for demonstrating the terms component for query term-complete/suggest -->
-	<requestHandler name="/terms" class="solr.SearchHandler">
-		<lst name="defaults">
-			<bool name="terms">true</bool>
-			  
-			<!-- <str name="terms.fl">text</str> -->
-			<str name="terms.sort">count</str>
-			<int name="terms.limit">20</int>
-			<!-- <int name="terms.mincount">2</int> -->
-		</lst>
-		<arr name="components">
-			<str>terms</str>
-		</arr>
-	</requestHandler>
+	
 	<requestHandler name="standard" class="solr.StandardRequestHandler"
 		default="true" />
 	<requestHandler name="/update" class="solr.XmlUpdateRequestHandler" />

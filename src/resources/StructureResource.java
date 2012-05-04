@@ -161,14 +161,8 @@ public class StructureResource {
 	@Produces({MediaType.APPLICATION_JSON})
 	public Structure getStructure(@PathParam("id") Integer idStructure){
 		Structure ret = null;
-		//List<Image> images = null;
-		//List<Facility> facilities = null;
-		
+				
 		ret = this.getStructureService().findStructureById(idStructure);
-		//images = this.getImageService().findCheckedByIdRoomType(idStructure);
-		//ret.setImages(images);
-		//facilities = this.getFacilityService().findCheckedByIdRoomType(idStructure);
-		//ret.setFacilities(facilities);
 		return ret;
 	}
 	
