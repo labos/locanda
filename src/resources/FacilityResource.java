@@ -93,7 +93,7 @@ public class FacilityResource {
 	 @Path("checked/roomType/{idRoomType}/{offset}/{rownum}")
 	 @Produces({MediaType.APPLICATION_JSON})	
 	 public List<Facility> getRoomTypeFacilities(@PathParam("idRoomType") Integer idRoomType,@PathParam("offset") Integer offset,@PathParam("rownum") Integer rownum){
-		 return this.getFacilityService().findCheckedByIdRoomType(idRoomType);
+		 return this.getFacilityService().findCheckedByIdRoomType(idRoomType,offset, rownum);
 	 }
 	 
 	 @GET

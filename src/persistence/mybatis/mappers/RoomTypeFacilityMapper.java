@@ -20,7 +20,7 @@ import java.util.Map;
 
 public interface RoomTypeFacilityMapper {		
 	public Integer insert(Map map);	
-	public List<Map> findByIdRoomType(Integer id_roomType);
+	public List<Map> findByIdRoomType(Map map);
 	public Integer findIdByIdRoomTypeAndIdFacility(Map map);
 	public Integer delete(Integer id);
 	public Integer deleteByIdRoomType(Integer id_roomType);

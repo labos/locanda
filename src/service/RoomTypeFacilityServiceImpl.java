@@ -58,12 +58,18 @@ public class RoomTypeFacilityServiceImpl implements RoomTypeFacilityService{
 	
 		
 	@Override
-	public List<Integer> findIdFacilityByIdRoomType(Integer id_roomType) {
+	public List<Integer> findIdFacilityByIdRoomType(Integer id_roomType,Integer offset, Integer rownum) {
 		List<Integer> ret = null;
+		Map map = null;
 		
 		ret = new ArrayList<Integer>();
-		for(Map map: this.getRoomTypeFacilityMapper().findByIdRoomType(id_roomType)){
-			ret.add((Integer)map.get("id_facility"));
+		map = new HashMap();
+		map.put("id_roomType",id_roomType );
+		map.put("offset",offset );
+		map.put("rownum",rownum );
+		
+		for(Map each: this.getRoomTypeFacilityMapper().findByIdRoomType(map)){
+			ret.add((Integer)each.get("id_facility"));
 		}
 		return ret;
 	}

@@ -30,7 +30,7 @@ public interface FacilityService {
 	public List<Facility> findByIds(List<Integer> ids);	
 	public List<Facility> findByIdStructure(Integer id_structure,Integer offset, Integer rownum);
 	public List<Facility> findCheckedByIdStructure(Integer id_structure,Integer offset, Integer rownum);		
-	public List<Facility> findCheckedByIdRoomType(Integer id_roomType);	
+	public List<Facility> findCheckedByIdRoomType(Integer id_roomType,Integer offset, Integer rownum);	
 	public List<Facility> findCheckedByIdRoom(Integer id_room);		
 		
 }

@@ -107,10 +107,10 @@ public class FacilityServiceImpl implements FacilityService{
 	}
 	
 	@Override
-	public List<Facility> findCheckedByIdRoomType(Integer id_roomType) {
+	public List<Facility> findCheckedByIdRoomType(Integer id_roomType,Integer offset, Integer rownum) {
 		List<Integer> ids = null;
 		
-		ids = this.getRoomTypeFacilityService().findIdFacilityByIdRoomType(id_roomType);
+		ids = this.getRoomTypeFacilityService().findIdFacilityByIdRoomType(id_roomType,offset,rownum);
 		return this.findByIds(ids);
 	}
 	

@@ -130,7 +130,7 @@ public class RoomAction extends ActionSupport implements SessionAware,UserAware{
 		List <Facility> selectedFacilities = null;
 				
 		this.setRoomFacilities(this.getFacilityService().findCheckedByIdStructure(this.getIdStructure(),0,100));
-		selectedFacilities = this.getFacilityService().findCheckedByIdRoomType(this.getRoom().getRoomType().getId());
+		selectedFacilities = this.getFacilityService().findCheckedByIdRoomType(this.getRoom().getRoomType().getId(),0,100);
 		for(Facility each: selectedFacilities){			
 			this.getRoomFacilitiesIds().add(each.getId());		//populating roomFacilitiesIds array with the ids of facilities that are already in rooms to be edited
 		}

@@ -98,7 +98,7 @@ public class RoomTypeAction extends ActionSupport implements SessionAware,UserAw
 				
 		roomType = this.getRoomTypeService().findRoomTypeById(this.getRoomType().getId());
 		roomType.setFacilities(
-				this.getFacilityService().findCheckedByIdRoomType(this.getRoomType().getId()));
+				this.getFacilityService().findCheckedByIdRoomType(this.getRoomType().getId(),0,100));
 		roomType.setImages(this.getImageService().findCheckedByIdRoomType(this.getRoomType().getId(),0,100));
 		
 		this.setRoomType(roomType);
