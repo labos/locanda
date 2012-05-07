@@ -31,7 +31,7 @@ window.FacilityRowView = Backbone.View.extend({
     },
     initialize: function () {
         this.model.bind('change', this.render, this);
-        this.model.bind('destroy', this.unrender, this);
+        //this.model.bind('destroy', this.unrender, this);
     },
     /**
      * Re-render the contents of the facility item.
@@ -56,9 +56,9 @@ window.FacilityRowView = Backbone.View.extend({
    		 event.stopPropagation();
    	 }
         if (!$target.is(":checked")) {
-            this.model.destroy(null, {
+            this.model.destroy({
                 success: function () {
-                    $.jGrowl($.i18n("congratulation"), {
+                    $.jGrowl($.i18n("facilityUnCheckedSucces"), {
                         header: this.alertOK
                     });
                 },
@@ -126,7 +126,7 @@ window.ImageRowView = Backbone.View.extend({
     },
     initialize: function () {
         this.model.bind('change', this.render, this);
-        this.model.bind('destroy', this.unrender, this);
+        //this.model.bind('destroy', this.unrender, this);
     },
     /**
      * Re-render the contents of the facility item.
@@ -149,9 +149,9 @@ window.ImageRowView = Backbone.View.extend({
       		 event.stopPropagation();
       	 }
         if (!$target.is(":checked")) {
-            this.model.destroy(null, {
+            this.model.destroy({
                 success: function () {
-                    $.jGrowl($.i18n("congratulation"), {
+                    $.jGrowl($.i18n("imageUnCheckedSuccess"), {
                         header: this.alertOK
                     });
                 },

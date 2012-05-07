@@ -176,7 +176,9 @@ table.wc-time-slots {
 	width: 100%;
 	display: none;
 }
-
+.wc-cal-event:hover {
+	cursor: pointer;
+}
 
 .wc-cal-event div {
 	padding: 0 5px;
