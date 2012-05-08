@@ -130,8 +130,8 @@ window.PeriodRowView = Backbone.View.extend({
                 // switch to in Non-Edit mode
                 self.switchMode();
             },
-            error: function () {
-                $.jGrowl($.i18n("seriousErrorDescr"), {
+            error: function (model, resp) {
+                $.jGrowl(resp, {
                     header: this.alertKO,
                     theme: "notify-error"
                 });

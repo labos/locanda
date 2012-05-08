@@ -3435,13 +3435,265 @@ where booking.id = ?]]></xml-property>
                                     <table id="701">
                                         <property name="textAlign">right</property>
                                         <property name="width">2.25in</property>
-                                        <property name="dataSet">InvoiceBookingDataSet2</property>
+                                        <property name="dataSet">InvoiceBookingDataSet</property>
                                         <list-property name="boundDataColumns">
                                             <structure>
+                                                <property name="name">id</property>
+                                                <text-property name="displayName">id</text-property>
+                                                <expression name="expression" type="javascript">dataSetRow["id"]</expression>
+                                                <property name="dataType">integer</property>
+                                            </structure>
+                                            <structure>
+                                                <property name="name">dateIn</property>
+                                                <text-property name="displayName">dateIn</text-property>
+                                                <expression name="expression" type="javascript">dataSetRow["dateIn"]</expression>
+                                                <property name="dataType">date</property>
+                                            </structure>
+                                            <structure>
+                                                <property name="name">dateOut</property>
+                                                <text-property name="displayName">dateOut</text-property>
+                                                <expression name="expression" type="javascript">dataSetRow["dateOut"]</expression>
+                                                <property name="dataType">date</property>
+                                            </structure>
+                                            <structure>
+                                                <property name="name">nrGuests</property>
+                                                <text-property name="displayName">nrGuests</text-property>
+                                                <expression name="expression" type="javascript">dataSetRow["nrGuests"]</expression>
+                                                <property name="dataType">integer</property>
+                                            </structure>
+                                            <structure>
+                                                <property name="name">roomSubtotal</property>
+                                                <text-property name="displayName">roomSubtotal</text-property>
+                                                <expression name="expression" type="javascript">dataSetRow["roomSubtotal"]</expression>
+                                                <property name="dataType">float</property>
+                                            </structure>
+                                            <structure>
                                                 <property name="name">extraSubtotal</property>
-                                                <text-property name="displayName" key="subtotalExtra">Costo per gli extra</text-property>
+                                                <text-property name="displayName">extraSubtotal</text-property>
                                                 <expression name="expression" type="javascript">dataSetRow["extraSubtotal"]</expression>
                                                 <property name="dataType">float</property>
+                                            </structure>
+                                            <structure>
+                                                <property name="name">status</property>
+                                                <text-property name="displayName">status</text-property>
+                                                <expression name="expression" type="javascript">dataSetRow["status"]</expression>
+                                                <property name="dataType">string</property>
+                                            </structure>
+                                            <structure>
+                                                <property name="name">notes</property>
+                                                <text-property name="displayName">notes</text-property>
+                                                <expression name="expression" type="javascript">dataSetRow["notes"]</expression>
+                                                <property name="dataType">string</property>
+                                            </structure>
+                                            <structure>
+                                                <property name="name">id_structure</property>
+                                                <text-property name="displayName">id_structure</text-property>
+                                                <expression name="expression" type="javascript">dataSetRow["id_structure"]</expression>
+                                                <property name="dataType">integer</property>
+                                            </structure>
+                                            <structure>
+                                                <property name="name">id_convention</property>
+                                                <text-property name="displayName">id_convention</text-property>
+                                                <expression name="expression" type="javascript">dataSetRow["id_convention"]</expression>
+                                                <property name="dataType">integer</property>
+                                            </structure>
+                                            <structure>
+                                                <property name="name">id_room</property>
+                                                <text-property name="displayName">id_room</text-property>
+                                                <expression name="expression" type="javascript">dataSetRow["id_room"]</expression>
+                                                <property name="dataType">integer</property>
+                                            </structure>
+                                            <structure>
+                                                <property name="name">id_12</property>
+                                                <text-property name="displayName">id_12</text-property>
+                                                <expression name="expression" type="javascript">dataSetRow["id_12"]</expression>
+                                                <property name="dataType">integer</property>
+                                            </structure>
+                                            <structure>
+                                                <property name="name">id_booking</property>
+                                                <text-property name="displayName">id_booking</text-property>
+                                                <expression name="expression" type="javascript">dataSetRow["id_booking"]</expression>
+                                                <property name="dataType">integer</property>
+                                            </structure>
+                                            <structure>
+                                                <property name="name">id_guest</property>
+                                                <text-property name="displayName">id_guest</text-property>
+                                                <expression name="expression" type="javascript">dataSetRow["id_guest"]</expression>
+                                                <property name="dataType">integer</property>
+                                            </structure>
+                                            <structure>
+                                                <property name="name">id_15</property>
+                                                <text-property name="displayName">id_15</text-property>
+                                                <expression name="expression" type="javascript">dataSetRow["id_15"]</expression>
+                                                <property name="dataType">integer</property>
+                                            </structure>
+                                            <structure>
+                                                <property name="name">firstName</property>
+                                                <text-property name="displayName">firstName</text-property>
+                                                <expression name="expression" type="javascript">dataSetRow["firstName"]</expression>
+                                                <property name="dataType">string</property>
+                                            </structure>
+                                            <structure>
+                                                <property name="name">lastName</property>
+                                                <text-property name="displayName">lastName</text-property>
+                                                <expression name="expression" type="javascript">dataSetRow["lastName"]</expression>
+                                                <property name="dataType">string</property>
+                                            </structure>
+                                            <structure>
+                                                <property name="name">email</property>
+                                                <text-property name="displayName">email</text-property>
+                                                <expression name="expression" type="javascript">dataSetRow["email"]</expression>
+                                                <property name="dataType">string</property>
+                                            </structure>
+                                            <structure>
+                                                <property name="name">phone</property>
+                                                <text-property name="displayName">phone</text-property>
+                                                <expression name="expression" type="javascript">dataSetRow["phone"]</expression>
+                                                <property name="dataType">string</property>
+                                            </structure>
+                                            <structure>
+                                                <property name="name">address</property>
+                                                <text-property name="displayName">address</text-property>
+                                                <expression name="expression" type="javascript">dataSetRow["address"]</expression>
+                                                <property name="dataType">string</property>
+                                            </structure>
+                                            <structure>
+                                                <property name="name">country</property>
+                                                <text-property name="displayName">country</text-property>
+                                                <expression name="expression" type="javascript">dataSetRow["country"]</expression>
+                                                <property name="dataType">string</property>
+                                            </structure>
+                                            <structure>
+                                                <property name="name">zipCode</property>
+                                                <text-property name="displayName">zipCode</text-property>
+                                                <expression name="expression" type="javascript">dataSetRow["zipCode"]</expression>
+                                                <property name="dataType">string</property>
+                                            </structure>
+                                            <structure>
+                                                <property name="name">notes_23</property>
+                                                <text-property name="displayName">notes_23</text-property>
+                                                <expression name="expression" type="javascript">dataSetRow["notes_23"]</expression>
+                                                <property name="dataType">string</property>
+                                            </structure>
+                                            <structure>
+                                                <property name="name">idNumber</property>
+                                                <text-property name="displayName">idNumber</text-property>
+                                                <expression name="expression" type="javascript">dataSetRow["idNumber"]</expression>
+                                                <property name="dataType">string</property>
+                                            </structure>
+                                            <structure>
+                                                <property name="name">id_structure_25</property>
+                                                <text-property name="displayName">id_structure_25</text-property>
+                                                <expression name="expression" type="javascript">dataSetRow["id_structure_25"]</expression>
+                                                <property name="dataType">integer</property>
+                                            </structure>
+                                            <structure>
+                                                <property name="name">gender</property>
+                                                <text-property name="displayName">gender</text-property>
+                                                <expression name="expression" type="javascript">dataSetRow["gender"]</expression>
+                                                <property name="dataType">string</property>
+                                            </structure>
+                                            <structure>
+                                                <property name="name">birthDate</property>
+                                                <text-property name="displayName">birthDate</text-property>
+                                                <expression name="expression" type="javascript">dataSetRow["birthDate"]</expression>
+                                                <property name="dataType">date</property>
+                                            </structure>
+                                            <structure>
+                                                <property name="name">birthPlace</property>
+                                                <text-property name="displayName">birthPlace</text-property>
+                                                <expression name="expression" type="javascript">dataSetRow["birthPlace"]</expression>
+                                                <property name="dataType">string</property>
+                                            </structure>
+                                            <structure>
+                                                <property name="name">id_29</property>
+                                                <text-property name="displayName">id_29</text-property>
+                                                <expression name="expression" type="javascript">dataSetRow["id_29"]</expression>
+                                                <property name="dataType">integer</property>
+                                            </structure>
+                                            <structure>
+                                                <property name="name">date</property>
+                                                <text-property name="displayName">date</text-property>
+                                                <expression name="expression" type="javascript">dataSetRow["date"]</expression>
+                                                <property name="dataType">date</property>
+                                            </structure>
+                                            <structure>
+                                                <property name="name">description</property>
+                                                <text-property name="displayName">description</text-property>
+                                                <expression name="expression" type="javascript">dataSetRow["description"]</expression>
+                                                <property name="dataType">string</property>
+                                            </structure>
+                                            <structure>
+                                                <property name="name">amount</property>
+                                                <text-property name="displayName">amount</text-property>
+                                                <expression name="expression" type="javascript">dataSetRow["amount"]</expression>
+                                                <property name="dataType">float</property>
+                                            </structure>
+                                            <structure>
+                                                <property name="name">id_booking_33</property>
+                                                <text-property name="displayName">id_booking_33</text-property>
+                                                <expression name="expression" type="javascript">dataSetRow["id_booking_33"]</expression>
+                                                <property name="dataType">integer</property>
+                                            </structure>
+                                            <structure>
+                                                <property name="name">id_34</property>
+                                                <text-property name="displayName">id_34</text-property>
+                                                <expression name="expression" type="javascript">dataSetRow["id_34"]</expression>
+                                                <property name="dataType">integer</property>
+                                            </structure>
+                                            <structure>
+                                                <property name="name">date_35</property>
+                                                <text-property name="displayName">date_35</text-property>
+                                                <expression name="expression" type="javascript">dataSetRow["date_35"]</expression>
+                                                <property name="dataType">date</property>
+                                            </structure>
+                                            <structure>
+                                                <property name="name">description_36</property>
+                                                <text-property name="displayName">description_36</text-property>
+                                                <expression name="expression" type="javascript">dataSetRow["description_36"]</expression>
+                                                <property name="dataType">string</property>
+                                            </structure>
+                                            <structure>
+                                                <property name="name">amount_37</property>
+                                                <text-property name="displayName">amount_37</text-property>
+                                                <expression name="expression" type="javascript">dataSetRow["amount_37"]</expression>
+                                                <property name="dataType">float</property>
+                                            </structure>
+                                            <structure>
+                                                <property name="name">id_booking_38</property>
+                                                <text-property name="displayName">id_booking_38</text-property>
+                                                <expression name="expression" type="javascript">dataSetRow["id_booking_38"]</expression>
+                                                <property name="dataType">integer</property>
+                                            </structure>
+                                            <structure>
+                                                <property name="name">id_39</property>
+                                                <text-property name="displayName">id_39</text-property>
+                                                <expression name="expression" type="javascript">dataSetRow["id_39"]</expression>
+                                                <property name="dataType">integer</property>
+                                            </structure>
+                                            <structure>
+                                                <property name="name">name</property>
+                                                <text-property name="displayName">name</text-property>
+                                                <expression name="expression" type="javascript">dataSetRow["name"]</expression>
+                                                <property name="dataType">string</property>
+                                            </structure>
+                                            <structure>
+                                                <property name="name">notes_41</property>
+                                                <text-property name="displayName">notes_41</text-property>
+                                                <expression name="expression" type="javascript">dataSetRow["notes_41"]</expression>
+                                                <property name="dataType">string</property>
+                                            </structure>
+                                            <structure>
+                                                <property name="name">id_roomType</property>
+                                                <text-property name="displayName">id_roomType</text-property>
+                                                <expression name="expression" type="javascript">dataSetRow["id_roomType"]</expression>
+                                                <property name="dataType">integer</property>
+                                            </structure>
+                                            <structure>
+                                                <property name="name">id_structure_43</property>
+                                                <text-property name="displayName">id_structure_43</text-property>
+                                                <expression name="expression" type="javascript">dataSetRow["id_structure_43"]</expression>
+                                                <property name="dataType">integer</property>
                                             </structure>
                                         </list-property>
                                         <column id="708">
@@ -3470,13 +3722,8 @@ where booking.id = ?]]></xml-property>
                                             <row id="704">
                                                 <cell id="705">
                                                     <property name="verticalAlign">bottom</property>
-                                                    <data id="710">
-                                                        <property name="fontWeight">bold</property>
-                                                        <property name="paddingRight">4pt</property>
-                                                        <structure name="numberFormat">
-                                                            <property name="category">Currency</property>
-                                                            <property name="pattern">€ ###0.00{RoundingMode=HALF_UP}</property>
-                                                        </structure>
+                                                    <data id="980">
+                                                        <property name="marginRight">6px</property>
                                                         <property name="textAlign">right</property>
                                                         <property name="resultSetColumn">extraSubtotal</property>
                                                     </data>

@@ -186,8 +186,8 @@ width:80%;
                   	<div class="type-text"><span><s:text name="room" />: </span><div class="c33r"><span id="price_room" ><s:property value="booking.roomSubtotal"/></span> &euro; </div></div>
                   	<div class="type-text"><span><s:text name="extras" />: </span><div class="c33r"><span id="extras_room" ><s:property value="booking.extraSubtotal"/></span> &euro; </div></div>
                   	<div class="type-text"><hr/></div>
-                  	<div class="type-text"><span class="green">&nbsp;<s:text name="adjustment" />: </span>
-                  	  <div class="c50r">
+                  	<div class="type-text">
+                  	  <div class="c80r">
              			<a href="#adjustment_anchor" class="add_adjustment" title="add adjustment"><img src="images/add-icon.png" alt="Add Adjustment" /><s:text name="addNewAdjustment" /></a>
               		  	<a name="adjustment_anchor"></a>
               		  </div>
@@ -209,8 +209,8 @@ width:80%;
                  	  </span> &euro;<!-- <input type="hidden" id="subtotal_room" name="booking.subtotal" value="<s:property value="%{ booking.roomSubtotal + booking.extraSubtotal + adjustmentsSubtotal}"/>" /> --></div>
                  	</div>
                   	<div class="type-text"><hr/></div>
-                    <div class="type-text"><span class="green">&nbsp;<s:text name="paymentReceived" />: </span>
-                     	<div class="c50r">
+                    <div class="type-text">
+                     	<div class="c80r">
              			 	<a href="#payment_anchor" class="add_payment" title="add payment"><img src="images/add-icon.png" alt="Add Payment" /><s:text name="addNewPayment" /></a>
               				<a name="payment_anchor"></a>
               			</div>
