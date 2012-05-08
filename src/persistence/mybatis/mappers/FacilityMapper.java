@@ -23,7 +23,8 @@ import model.Facility;
 public interface FacilityMapper {
 	public Integer insert(Facility facility);
 	public Integer update(Facility facility);
-	public Integer delete(Integer id);		
+	public Integer delete(Integer id);	
+	public List<Facility> findAll();
 	public Facility find(Integer id);	
 	public List<Facility> findByIdStructure(Map map);
 }

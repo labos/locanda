@@ -93,6 +93,12 @@
 		<constructor-arg value="structure" />
 	</bean>
 	
+	<bean id="solrServerFacility"
+		class="org.apache.solr.client.solrj.embedded.EmbeddedSolrServer">
+		<constructor-arg ref="multiCoreContainer" />
+		<constructor-arg value="facility" />
+	</bean>
+	
     <!-- enable autowire -->
     <context:annotation-config />
     

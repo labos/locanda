@@ -57,6 +57,17 @@ public class FacilityServiceImpl implements FacilityService{
 		return this.getFacilityMapper().update(facility);
 	}
 	
+	
+	
+	@Override
+	public List<Facility> findAll() {
+		List<Facility> facilities = null;
+		
+		facilities = this.getFacilityMapper().findAll();
+		
+		return facilities;
+	}
+
 	@Override
 	public Facility find(Integer id) {	
 		Facility ret = null;

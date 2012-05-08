@@ -27,6 +27,7 @@ public interface FacilityService {
 	public Integer update(Facility facility);
 	public Integer delete(Integer id);		
 	public Facility find(Integer id);
+	public List<Facility> findAll();
 	public List<Facility> findByIds(List<Integer> ids);	
 	public List<Facility> findByIdStructure(Integer id_structure,Integer offset, Integer rownum);
 	public List<Facility> findCheckedByIdStructure(Integer id_structure,Integer offset, Integer rownum);		

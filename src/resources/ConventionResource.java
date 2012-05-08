@@ -266,5 +266,7 @@ public class ConventionResource {
 	public void setSolrServerConvention(SolrServer solrServerConvention) {
 		this.solrServerConvention = solrServerConvention;
 	}  	
+	
+	
 
 }

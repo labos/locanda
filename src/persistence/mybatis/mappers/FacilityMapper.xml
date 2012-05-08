@@ -32,6 +32,10 @@ In case of controversy the competent court is the Court of Cagliari (Italy).
         DELETE from facility where id = #{id} 
     </delete>  
     
+    <select id="findAll"  resultType="model.Facility">
+        <include refid="findFacility"/>      
+    </select>
+    
     <select id="find" parameterType="int" resultType="model.Facility">
         <include refid="findFacility"/> where id = #{id}        
     </select>   
