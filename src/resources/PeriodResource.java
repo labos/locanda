@@ -20,6 +20,7 @@ import org.springframework.stereotype.Component;
 import com.sun.jersey.api.NotFoundException;
 
 import service.PeriodService;
+import service.SeasonService;
 import service.StructureService;
 
 @Path("/periods/")
@@ -31,6 +32,8 @@ public class PeriodResource {
 	private PeriodService periodService = null;
 	@Autowired
     private StructureService structureService = null;
+	@Autowired
+    private SeasonService seasonService = null;
 	
 	
 	@GET
@@ -56,9 +59,21 @@ public class PeriodResource {
 	@POST
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
-    public Period save(Period period) {
-       
-        this.getPeriodService().insertPeriod(period);
+    public Period save(Period period) {	
+		Boolean validDates = period.checkDates();
+		Boolean validYear = this.getPeriodService().checkYears(period);
+		Boolean overlap = this.getPeriodService().checkOverlappingPeriods(period);
+		
+		if (!validDates) {
+			throw new NotFoundException("Invalid dates: Date Out could be earlier than Date In, or could have a different year");
+		}
+		if (!validYear) {
+			throw new NotFoundException("Season's year does not match with periods' year");
+		}
+		if (overlap) {
+			throw new NotFoundException("Overlapping periods");
+		}
+		this.getPeriodService().insertPeriod(period);
         return period;
     }
    
@@ -66,9 +81,21 @@ public class PeriodResource {
     @Path("{id}")
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
-    public Period update(Period period) {        
-        
-    	this.getPeriodService().updatePeriod(period);
+    public Period update(Period period) {
+    	Boolean validDates = period.checkDates();
+		Boolean validYear = this.getPeriodService().checkYears(period);
+		Boolean overlap = this.getPeriodService().checkOverlappingPeriods(period);
+		
+		if (!validDates) {
+			throw new NotFoundException("Invalid dates: Date Out could be earlier than Date In, or could have a different year");
+		}
+		if (!validYear) {
+			throw new NotFoundException("Season's year does not match with periods' year");
+		}
+		if (overlap) {
+			throw new NotFoundException("Overlapping periods");
+		}
+		this.getPeriodService().updatePeriod(period);
         return period;
     }
     
@@ -90,6 +117,12 @@ public class PeriodResource {
 	}
 	public void setPeriodService(PeriodService periodService) {
 		this.periodService = periodService;
+	}
+	public SeasonService getSeasonService() {
+		return seasonService;
+	}
+	public void setSeasonService(SeasonService seasonService) {
+		this.seasonService = seasonService;
 	}
 	public StructureService getStructureService() {
 		return structureService;

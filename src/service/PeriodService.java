@@ -15,6 +15,7 @@
  *******************************************************************************/
 package service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.transaction.annotation.Transactional;
@@ -28,5 +29,9 @@ public interface PeriodService {
 	public Integer deletePeriod(Integer id_period);
 	public Integer deletePeriodsByIdSeason(Integer id_season);
 	public Period findPeriodById(Integer id_period);
-	public List<Period> findPeriodsByIdSeason(Integer id_season);	
+	public List<Period> findPeriodsByIdStructure(Integer id_structure);
+	public List<Period> findPeriodsByIdSeason(Integer id_season);
+	public Boolean includesDate(Period period, Date date);
+	public Boolean checkYears(Period period);
+	public Boolean checkOverlappingPeriods(Period period);
 }

@@ -23,9 +23,7 @@ import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServer;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.response.QueryResponse;
-import org.apache.solr.client.solrj.response.TermsResponse;
 import org.apache.solr.client.solrj.response.FacetField.Count;
-import org.apache.solr.client.solrj.response.TermsResponse.Term;
 import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -173,7 +171,7 @@ public class SeasonResource {
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
     public Season save(Season season) {
-       
+		
         this.getSeasonService().insertSeason(season);
         this.getStructureService().addPriceListsForSeason(season.getId_structure(), season.getId());
         try {
@@ -191,8 +189,12 @@ public class SeasonResource {
     @Path("{id}")
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
-    public Season update(Season season) {        
+    public Season update(Season season) {
+    	Boolean validYear = this.getSeasonService().checkYears(season);
         
+    	if (!validYear) {
+			throw new NotFoundException("Season's year does not match with periods' year");
+		}
     	try{
     	this.getSeasonService().updateSeason(season);
     	}catch(Exception ex){}	

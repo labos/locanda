@@ -95,31 +95,31 @@ public class SeasonAction extends ActionSupport implements SessionAware,UserAwar
 
 		for (Period currPeriod : this.getPeriods()) {
 			if ((currPeriod != null )){
-				if (! currPeriod.checkDates()){
-					this.getMessage().setResult(Message.ERROR);
-					this.getMessage().setDescription(getText("dateOutMoreDateInAction"));
-					return ERROR;
-				}
+//				if (! currPeriod.checkDates()){
+//					this.getMessage().setResult(Message.ERROR);
+//					this.getMessage().setDescription(getText("dateOutMoreDateInAction"));
+//					return ERROR;
+//				}
 				periodsWithoutNulls.add(currPeriod);				
 			}
 		}
 		this.getSeason().setPeriods(periodsWithoutNulls);
 		
-		if (!this.getStructureService().hasPeriodFreeForSeason(this.getIdStructure(), this.getSeason())) {
-			this.getMessage().setResult(Message.ERROR);
-			this.getMessage().setDescription(getText("periodOverlappedAction"));
-			return ERROR;
-		}	
+//		if (!this.getStructureService().hasPeriodFreeForSeason(this.getIdStructure(), this.getSeason())) {
+//			this.getMessage().setResult(Message.ERROR);
+//			this.getMessage().setDescription(getText("periodOverlappedAction"));
+//			return ERROR;
+//		}	
 		this.getSeason().setId_structure(this.getIdStructure());
 		
 		int currentYear = (this.getSeason().getYear() == null )?Calendar.getInstance().get(Calendar.YEAR): this.getSeason().getYear();		
 		this.getSeason().setYear(currentYear);
 		
-		if (!this.getSeasonService().checkYears(this.getSeason())) {
-			this.getMessage().setResult(Message.ERROR);
-			this.getMessage().setDescription(getText("periodYearError"));
-			return ERROR;
-		}
+//		if (!this.getSeasonService().checkYears(this.getSeason())) {
+//			this.getMessage().setResult(Message.ERROR);
+//			this.getMessage().setDescription(getText("periodYearError"));
+//			return ERROR;
+//		}
 		oldSeason = this.getSeasonService().findSeasonById(this.getSeason().getId());
 		if (oldSeason == null) {
 			//It's a new season

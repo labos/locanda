@@ -34,8 +34,8 @@ public interface SeasonService {
 	public Season findSeasonByDate(Integer structureId, Date date);
 	
 	public Boolean checkYears(Season season);
+	public Boolean includesDate(Season season, Date date);
 	public Integer insertSeason(Season season);
 	public Integer updateSeason(Season season);
 	public Integer deleteSeason(Integer seasonId);
-
 }

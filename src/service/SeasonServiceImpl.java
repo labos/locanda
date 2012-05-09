@@ -16,9 +16,7 @@
 package service;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,19 +38,24 @@ public class SeasonServiceImpl implements SeasonService{
 	@Autowired
 	private PeriodMapper periodMapper = null;
 	@Autowired
+	private PeriodService periodService = null;
+	@Autowired
 	private RoomPriceListService roomPriceListService = null;
 	@Autowired
 	private ExtraPriceListService extraPriceListService = null;
 	
 	
+	@Override
 	public List<Season> findAll(){
 		return this.seasonMapper.findAll();
 	}
 	
+	@Override
 	public List<Season> findSeasonsByIdStructure(Integer id_structure) {
 		return this.getSeasonMapper().findSeasonsByStructureId(id_structure);
 	}
 	
+	@Override
 	public List<Season> findSeasonsByYear(Integer id_structure,Integer year) {
 		Map params = new HashMap();
 		params.put("id_structure", id_structure);
@@ -61,10 +64,12 @@ public class SeasonServiceImpl implements SeasonService{
 		return this.getSeasonMapper().findSeasonsByYear(params);
 	}
 	
+	@Override
 	public Season findSeasonById(Integer seasonId) {
 		return this.getSeasonMapper().findSeasonById(seasonId);
 	}
 	
+	@Override
 	public Season findSeasonByName(Integer id_structure,String name) {
 		Map params = new HashMap();
 		params.put("id_structure", id_structure);
@@ -73,6 +78,7 @@ public class SeasonServiceImpl implements SeasonService{
 		return this.getSeasonMapper().findSeasonByName(params);
 	}
 	
+	@Override
 	public Season findSeasonByDate(Integer id_structure, Date date){
 		Season ret = null;
 		
@@ -84,43 +90,42 @@ public class SeasonServiceImpl implements SeasonService{
 		return ret;
 	}
 	
+	@Override
 	public Boolean checkYears(Season season) {
-		Integer year = null;
 		List<Period> periods = new ArrayList<Period>();
-		Boolean ret = false;
-		Calendar startCalendar = new GregorianCalendar();
-		Calendar endCalendar = new GregorianCalendar();
+		Boolean ret = true;
 		
-		year = season.getYear();
-		periods = season.getPeriods();
+		periods.addAll(this.getPeriodService().findPeriodsByIdSeason(season.getId()));
 		
 		for (Period eachPeriod : periods) {
-			startCalendar.setTime(eachPeriod.getStartDate());
-			endCalendar.setTime(eachPeriod.getEndDate());
-			if (startCalendar.get(Calendar.YEAR) == year && endCalendar.get(Calendar.YEAR) == year) {
-				ret = true;
+			if (!(eachPeriod.getStartYear().equals(season.getYear()))) {
+				ret = false;
 			}
 		}
 		return ret;
 	}
 	
+	@Override
 	public Boolean includesDate(Season season, Date date){
 		for(Period each: this.getPeriodMapper().findPeriodsByIdSeason(season.getId())){
-			if(each.includesDate(date)){
+			if(this.periodService.includesDate(each, date)){
 				return true;
 			}
 		}		
 		return false;
 	}
 	
+	@Override
 	public Integer insertSeason(Season season) {		
 		return this.getSeasonMapper().insertSeason(season);		
 	}
 	
+	@Override
 	public Integer updateSeason(Season season) {
 		return this.getSeasonMapper().updateSeason(season);
 	}
-
+	
+	@Override
 	public Integer deleteSeason(Integer seasonId) {
 		Integer ret = 0;
 		
@@ -140,6 +145,12 @@ public class SeasonServiceImpl implements SeasonService{
 	}
 	public void setPeriodMapper(PeriodMapper periodMapper) {
 		this.periodMapper = periodMapper;
+	}
+	public PeriodService getPeriodService() {
+		return periodService;
+	}
+	public void setPeriodService(PeriodService periodService) {
+		this.periodService = periodService;
 	}
 	public RoomPriceListService getRoomPriceListService() {
 		return roomPriceListService;

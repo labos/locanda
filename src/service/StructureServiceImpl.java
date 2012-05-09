@@ -26,7 +26,6 @@ import model.Structure;
 import model.listini.Convention;
 import model.listini.ExtraPriceList;
 import model.listini.ExtraPriceListItem;
-import model.listini.Period;
 import model.listini.RoomPriceList;
 import model.listini.RoomPriceListItem;
 import model.listini.Season;
@@ -107,8 +106,7 @@ public class StructureServiceImpl implements StructureService{
 		Double ret = 0.0;
 		ExtraPriceList priceList = null;
 		ExtraPriceList otherPriceList = null;
-		Season season = null;
-		Season otherSeason = null;
+		Season season = null;;
 		Double price = 0.0;
 		Double otherPrice = 0.0;
 		
@@ -119,7 +117,6 @@ public class StructureServiceImpl implements StructureService{
 		price = priceList.findExtraPrice(extra);
 		
 		//If a booking covers more than one season, considers the lowest price
-		otherSeason = this.getSeasonService().findSeasonByDate(id_structure,dateOut );
 		otherPriceList = this.getExtraPriceListService().findExtraPriceListByIdStructureAndIdSeasonAndIdRoomTypeAndIdConvention(
 				id_structure, season.getId(), roomType.getId(), convention.getId());
 		price = priceList.findExtraPrice(extra);
@@ -381,43 +378,6 @@ public class StructureServiceImpl implements StructureService{
 				return false;
 			}
 		}
-		return true;	
-	}
-
-	@Override
-	public Boolean hasPeriodFreeForSeason(Integer id_structure, Season aSeason) {
-		//Extracts all bookings related with the room with that roomId
-		List<Period> currentPeriods = new ArrayList<Period>();
-		Integer currentSeasonId = aSeason.getId();
-		List<Period> periods = aSeason.getPeriods();
-		for(Season each: this.getSeasonService().findSeasonsByIdStructure(id_structure)){
-			
-			if(currentSeasonId == null || ! currentSeasonId.equals(each.getId())){
-				currentPeriods.addAll(each.getPeriods());
-			}
-		}
-		
-		for (Period period : periods) {
-			List<Period> siblingPeriods = new ArrayList<Period>();
-			siblingPeriods.addAll(periods);
-			siblingPeriods.remove(period);
-			siblingPeriods.addAll(currentPeriods);
-			
-			for(Period aPeriod : siblingPeriods){
-				if(aPeriod.getEndDate().after(period.getStartDate()) && aPeriod.getStartDate().before(period.getEndDate())){
-					return false;
-				}
-				if(aPeriod.getStartDate().before(period.getEndDate()) && aPeriod.getEndDate().after(period.getStartDate())){
-					return false;
-				}
-				if (aPeriod.getEndDate().after(period.getEndDate()) && aPeriod.getStartDate().before(period.getStartDate())) {
-					return false;
-				}
-			}
-		}
-		//              dateIn |--------------------------| dateOut    dateIn |--------| dateOut
-		//       |------------------|    |---|     |--------------------------------------|    roomBookings
-		//             aBooking         aBooking         aBooking
 		return true;	
 	}
 	

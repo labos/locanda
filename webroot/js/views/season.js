@@ -131,7 +131,7 @@ window.PeriodRowView = Backbone.View.extend({
                 self.switchMode();
             },
             error: function (model, resp) {
-                $.jGrowl(resp, {
+                $.jGrowl(resp.responseText, {
                     header: this.alertKO,
                     theme: "notify-error"
                 });
