@@ -53,6 +53,12 @@
                 		<button class="btn_reset"><s:text name="cancel"/></button>
                     </div>
             </div>
+          	<div class="c50l">
+               <div class="type-text">
+                  <input type="checkbox" {{#availableOnline}}checked="checked"{{/availableOnline}} name="availableOnline" id="FormAvailableOnline" value="true" />
+                  <s:text name="onlineAvailable"/>
+               </div>
+			</div>
 		</form>
 	</script>
 
@@ -73,6 +79,11 @@
                 		<span>{{timePriceType}}+{{resourcePriceType}}</span>
                   	</div>
               	</div>
+			</div>
+          	<div class="c50l">
+               <div class="type-text">
+                  {{#availableOnline}}<s:text name="onlineAvailable"/>{{/availableOnline}}
+               </div>
 			</div>
 		</form>
 	</script>

@@ -26,6 +26,7 @@ import java.util.Map;
 import model.Booking;
 import model.Extra;
 import model.ExtraItem;
+import model.Image;
 import model.Room;
 import model.Structure;
 import model.listini.Convention;
@@ -42,6 +43,7 @@ import service.BookingService;
 import service.ConventionService;
 import service.ExtraService;
 import service.GuestService;
+import service.ImageService;
 import service.RoomService;
 import service.StructureService;
 
@@ -71,6 +73,8 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 	private RoomService roomService = null;
 	@Autowired
 	private ConventionService conventionService = null;
+	@Autowired
+	private ImageService imageService = null;
 	
 	@Actions({
 		@Action(value="/mobile",results = {
@@ -114,6 +118,7 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 	public String goOnlineBookingRooms(){
 		Structure structure = null;
 		List <Room> rooms = null;
+		List <Image> images = null;
 		Booking booking = null;
 		Date dateOut = null;
 		Convention defaultConvention = null;
@@ -146,6 +151,9 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 					this.getStructureService().hasRoomFreeInPeriod(structure.getId(),each.getId(), booking.getDateIn(), booking.getDateOut()) ) {
 				booking.setRoom(each);
 				each.setPrice(this.calculateTotalForBooking(structure.getId(), booking));
+				images = new ArrayList<Image>();
+				images = this.getImageService().findCheckedByIdRoom(each.getId(),0,10);
+				each.setImages(images);
 				rooms.add(each);
 			}
 		}	
@@ -380,6 +388,14 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 	public void setConventionService(ConventionService conventionService) {
 		this.conventionService = conventionService;
 	}
+	public ImageService getImageService() {
+		return imageService;
+	}
+
+	public void setImageService(ImageService imageService) {
+		this.imageService = imageService;
+	}
+
 	public Structure getStructure() {
 		return structure;
 	}

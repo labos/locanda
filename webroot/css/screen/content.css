@@ -1144,7 +1144,7 @@ outline:none;
 text-decoration:none;
 }
 
-div.type_rooms label,.facility label,#signup ul li,.sidebox_edit ul li,#edit-form input[type="radio"] {
+div.type_rooms label,.facility label,#signup ul li,.sidebox_edit ul li,#edit-form input[type="radio"],#edit-form input[type="checkbox"] {
 display:inline;
 }
 
