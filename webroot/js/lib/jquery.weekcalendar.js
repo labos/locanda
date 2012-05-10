@@ -427,7 +427,7 @@ $(function() {
          }
 
          //render calendar header
-         calendarHeaderHtml = "<table class=\"wc-header\"><tbody><tr><td class=\"wc-time-column-header\" width=\"70px\">&nbsp;"+ $.i18n("rooms")+ "</td>";
+         calendarHeaderHtml = "<table class=\"wc-header\"><tbody><tr><td class=\"wc-time-column-header\">&nbsp;"+ $.i18n("rooms")+ "</td>";
          for (var i = 1; i <= options.daysToShow; i++) {
          //create header of day as a column.
             calendarHeaderHtml += "<td class=\"wc-day-column-header wc-day-" + i + "\"></td>";
@@ -462,9 +462,9 @@ $(function() {
             calendarBodyHtml += "<div class=\"wc-hour-header " + bhClass + "\">"
             //create room column
             if (options.use24Hour) {
-               calendarBodyHtml += "<div class=\"wc-time-header-cell\" id=\"" + i + "\"><span>" + self._24HourForIndex(i) + "</span><input type=\"hidden\" name=\"id_room\" value=\""+ options.listRooms[i].id + "\" /><img src=\"images/" + options.listRooms[i].maxGuests + ".png\" /></div>";
+               calendarBodyHtml += "<div class=\"wc-time-header-cell\" id=\"" + i + "\"><span>&nbsp;" + self._24HourForIndex(i) + "</span><input type=\"hidden\" name=\"id_room\" value=\""+ options.listRooms[i].id + "\" /><img src=\"images/" + options.listRooms[i].maxGuests + ".png\" /></div>";
             } else {
-               calendarBodyHtml += "<div class=\"wc-time-header-cell\" id=\"" + i + "\"><span>" + self._hourForIndex(i) + "</span><span class=\"wc-am-pm\">" + self._amOrPm(i) + "</span></div>";
+               calendarBodyHtml += "<div class=\"wc-time-header-cell\" id=\"" + i + "\"><span>&nbsp;" + self._hourForIndex(i) + "</span><span class=\"wc-am-pm\">" + self._amOrPm(i) + "</span></div>";
             }
             calendarBodyHtml += "</div>";
          }
@@ -506,8 +506,7 @@ $(function() {
          $calendarContainer.find(".wc-time-slot").height(options.timeslotHeight - 1); //account for border
 
          $calendarContainer.find(".wc-time-header-cell").css({
-            height :  (options.timeslotHeight * options.timeslotsPerHour) - 11,
-            padding: 5
+            height :  (options.timeslotHeight * options.timeslotsPerHour) - 11
          });
 
 

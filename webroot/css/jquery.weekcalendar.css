@@ -29,12 +29,18 @@
 	border-top: 1px solid #aaa;
 	border-bottom: 1px solid #aaa;
 	width: 100%;
+	-webkit-box-shadow: 0px 1px 4px rgba(50, 50, 50, 0.6);
+	-moz-box-shadow:    0px 1px 4px rgba(50, 50, 50, 0.6);
+	box-shadow:         0px 1px 4px rgba(50, 50, 50, 0.6);
 	
 }
 
 .wc-header .wc-time-column-header {
+	width:9.09%;
 	background-color:#DAE6BC;
-	width: 9%;	
+	background-image:url('images/arrow-curve-bottom.png');
+	background-repeat:no-repeat;
+	background-position:80% 70%;
 	font-weight:600;
 }
 
@@ -44,8 +50,9 @@
 
 .wc-header .wc-day-column-header {
 	text-align: center;
-	padding: 0.4em;
 	font-size: 10px;
+	border-left: 1px solid #AAAAAA;
+	width: 9.09%;
 }
 .wc-header td {
 	background-color: #eee;	
@@ -53,29 +60,32 @@
 
 .wc-grid-timeslot-header {
 	border-right: 1px solid grey;
-	width: 9%;
+	width: 9.09%;
 	background: #eee;	
 }
 
 
 
 .wc-scrollable-grid {
-	overflow: auto;
 	overflow-x: hidden !important;
-	overflow-y: auto !important; 
+	/*overflow-y: auto !important; */
+	overflow-y: hidden !important;
 	position: relative;
 	background-color: #fff;
 	width: 100%;
+	max-height:380px;
 }
 
 
 table.wc-time-slots {
+	border-top:none;
 	width: 100%;
 	table-layout: fixed;
 	cursor: default;
 }
 
 .wc-day-column {
+	width:9.09%;
 	border-left: 1px solid #ddd;	
 	overflow: visible;
 	vertical-align: top;
@@ -100,7 +110,7 @@ table.wc-time-slots {
 
 .wc-time-header-cell {
 	position:relative;
-	padding: 5px;	
+	padding: 5px 0px 5px 0px;	
 	height: 80px; /* reference height */
 	text-align:left;
 	overflow:hidden;
