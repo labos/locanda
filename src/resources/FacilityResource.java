@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.servlet.ServletContext;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -16,13 +15,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.UriInfo;
-
 import model.Facility;
-import model.listini.Convention;
-
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServer;
 import org.apache.solr.client.solrj.SolrServerException;
@@ -89,7 +83,6 @@ public class FacilityResource {
 
 		try {
 			rsp = this.getSolrServerFacility().query(query);
-
 		} catch (SolrServerException e) {
 			e.printStackTrace();
 		}
@@ -146,10 +139,6 @@ public class FacilityResource {
 		return ret;
 	}
 	
-	
-	
-	
-	
 	@GET
 	@Path("{id}")
 	@Produces({MediaType.APPLICATION_JSON})	
@@ -160,7 +149,6 @@ public class FacilityResource {
 		if (facility == null) {
 			throw new WebApplicationException(404);
 		}
-		
 		return 	facility;	
 	}
 	
@@ -212,7 +200,6 @@ public class FacilityResource {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
 		return count;
 	 } 
 	
@@ -247,19 +234,14 @@ public class FacilityResource {
 	public FacilityService getFacilityService() {
 		return facilityService;
 	}
-
 	public void setFacilityService(FacilityService facilityService) {
 		this.facilityService = facilityService;
 	}
-
 	public SolrServer getSolrServerFacility() {
 		return solrServerFacility;
 	}
-
 	public void setSolrServerFacility(SolrServer solrServerFacility) {
 		this.solrServerFacility = solrServerFacility;
 	}
-
-		
 	
 }

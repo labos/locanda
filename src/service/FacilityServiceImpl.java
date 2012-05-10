@@ -53,18 +53,19 @@ public class FacilityServiceImpl implements FacilityService{
 	}	
 		
 	@Override
-	public Integer update(Facility facility) {		
-		return this.getFacilityMapper().update(facility);
+	public Integer update(Facility facility) {
+		Integer ret;
+		
+		ret = this.getFacilityMapper().update(facility);
+		this.getFacilityImageService().updateAssociatedImage(facility);
+		return ret;
 	}
-	
-	
 	
 	@Override
 	public List<Facility> findAll() {
 		List<Facility> facilities = null;
 		
 		facilities = this.getFacilityMapper().findAll();
-		
 		return facilities;
 	}
 

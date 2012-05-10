@@ -46,16 +46,14 @@ public class FacilityImageServiceImpl implements FacilityImageService{
 		File file = null;
 		byte[] data = null;
 		
-		//this.getApplicationContext().getResource("/images/image-default.png");
-				image = new Image();
-				image.setCaption(facility.getName());
-				image.setId_structure(facility.getId_structure());
-				file = new File();
-				file.setName("image-default.png");
+		image = new Image();
+		image.setCaption(facility.getName());
+		image.setId_structure(facility.getId_structure());
+		file = new File();
+		file.setName("image-default.png");
 		
 		try {
-			data = IOUtils.toByteArray(
-					this.getApplicationContext().getResource("/images/image-default.png").getInputStream());
+			data = IOUtils.toByteArray(this.getApplicationContext().getResource("/images/image-default.png").getInputStream());
 			file.setData(data);
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
@@ -71,7 +69,16 @@ public class FacilityImageServiceImpl implements FacilityImageService{
 	}
 	
 	@Override
-	public Integer insert(Integer id_facility,Integer id_image) {
+	public void updateAssociatedImage(Facility facility) {	//updates the caption of the associated image. called by the facility update method
+		Image image = null;
+		
+		image = this.imageService.findByIdFacility(facility.getId());
+		image.setCaption(facility.getName());
+		this.getImageService().update(image);
+	}
+	
+	@Override
+	public Integer insert(Integer id_facility, Integer id_image) {
 		Map map = null;			
 		
 		map = new HashMap();
