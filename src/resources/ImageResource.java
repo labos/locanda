@@ -1,6 +1,5 @@
 package resources;
 
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -17,14 +16,10 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.WebApplicationException;
-
 import javax.ws.rs.core.MediaType;
-
 
 import model.File;
 import model.Image;
-import model.listini.Convention;
-
 
 import org.apache.commons.io.IOUtils;
 import org.apache.solr.client.solrj.SolrQuery;
@@ -50,7 +45,6 @@ import service.ImageService;
 @Path("/images/")
 @Component
 @Scope("prototype")
-
 public class ImageResource {
 	@Autowired
 	private ImageService imageService = null;	
@@ -156,8 +150,6 @@ public class ImageResource {
 		return ret;
 	}
 	
-	
-	
 	@GET
 	@Path("{id}")
 	@Produces({MediaType.APPLICATION_JSON})  
@@ -258,8 +250,6 @@ public class ImageResource {
 		} catch (SolrServerException e) {
 			e.printStackTrace();
 		}
-
-
 		return str;
 	}
 	
@@ -344,15 +334,11 @@ public class ImageResource {
 	public void setImageService(ImageService imageService) {
 		this.imageService = imageService;
 	}
-
 	public SolrServer getSolrServerImage() {
 		return solrServerImage;
 	}
-
 	public void setSolrServerImage(SolrServer solrServerImage) {
 		this.solrServerImage = solrServerImage;
 	}
-	
-	
-	
+		
 }

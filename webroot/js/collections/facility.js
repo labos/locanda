@@ -33,7 +33,7 @@ window.Facilities = Backbone.Collection.extend({
     	this.setFilter("structure", this.idWrapper);
     },
     url: function () {
-        return 'rest/facilities/all'+ this.filter + this.from + this.to + '?term=' + this.term ;
+    	return 'rest/facilities/structure/' + this.idWrapper +  '/search' + this.from + this.to + '?term=' + this.term ;
     },
     setTerm: function (aTerm) {
         this.term = (typeof aTerm !== "undefined" && aTerm) ? aTerm : '';
