@@ -19,16 +19,19 @@ import java.io.Serializable;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.solr.client.solrj.beans.Field;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 @XmlRootElement
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Image implements Serializable{	
 	
+	@Field
 	private Integer id;
+	@Field
 	private String caption;	
 	private File file;
-	
+	@Field
 	private Integer id_structure;
 	private Integer id_room;
 	private Integer id_roomType;

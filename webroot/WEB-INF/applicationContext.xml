@@ -99,6 +99,12 @@
 		<constructor-arg value="facility" />
 	</bean>
 	
+	<bean id="solrServerImage"
+		class="org.apache.solr.client.solrj.embedded.EmbeddedSolrServer">
+		<constructor-arg ref="multiCoreContainer" />
+		<constructor-arg value="image" />
+	</bean>
+	
     <!-- enable autowire -->
     <context:annotation-config />
     

@@ -37,5 +37,6 @@
     <core name="season" 		instanceDir="season"/>
     <core name="structure" 		instanceDir="structure"/>
     <core name="facility" 		instanceDir="facility"/>
+    <core name="image" 			instanceDir="image"/>
   </cores>
 </solr>

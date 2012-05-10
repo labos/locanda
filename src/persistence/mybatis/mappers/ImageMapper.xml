@@ -32,7 +32,11 @@ In case of controversy the competent court is the Court of Cagliari (Italy).
     <delete id="delete" parameterType="int">
         DELETE FROM image WHERE id = #{id}
     </delete>   
-          
+      
+    <select id="findAll"  resultType="model.Image">
+        <include refid="selectImage"/> 
+    </select> 
+        
     <select id="find" parameterType="int" resultType="model.Image">
         <include refid="selectImage"/> WHERE id = #{id}
     </select> 

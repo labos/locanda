@@ -3,8 +3,10 @@ package resources;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -13,6 +15,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.WebApplicationException;
 
 import javax.ws.rs.core.MediaType;
@@ -20,9 +23,17 @@ import javax.ws.rs.core.MediaType;
 
 import model.File;
 import model.Image;
+import model.listini.Convention;
 
 
 import org.apache.commons.io.IOUtils;
+import org.apache.solr.client.solrj.SolrQuery;
+import org.apache.solr.client.solrj.SolrServer;
+import org.apache.solr.client.solrj.SolrServerException;
+import org.apache.solr.client.solrj.response.QueryResponse;
+import org.apache.solr.client.solrj.response.FacetField.Count;
+import org.apache.solr.common.SolrDocument;
+import org.apache.solr.common.SolrDocumentList;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -43,6 +54,109 @@ import service.ImageService;
 public class ImageResource {
 	@Autowired
 	private ImageService imageService = null;	
+	@Autowired
+	private SolrServer solrServerImage = null;
+	
+	
+	@PostConstruct
+    public void init(){
+    	List<Image> images;
+    	
+    	images = this.getImageService().findAll();
+    	try {
+			this.getSolrServerImage().addBeans(images);
+			this.getSolrServerImage().commit();
+		} catch (SolrServerException e) {			
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    }
+    
+    @GET
+    @Path("structure/{idStructure}/search/{start}/{rows}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public List<Image> search(@PathParam("idStructure") Integer idStructure,@PathParam("start") Integer start,@PathParam("rows") Integer rows, @QueryParam("term") String term){
+       
+    	List<Image> images;
+        SolrQuery query = null;
+        QueryResponse rsp = null;
+        SolrDocumentList solrDocumentList = null;
+        SolrDocument solrDocument = null;
+        Image anImage = null;
+        Integer id;             
+       
+        if(term.trim().equals("")){
+        	term = "*:*";
+        }
+        term = term + " AND id_structure:" + idStructure.toString();
+        query = new SolrQuery();   		
+        query.setQuery( term);
+        query.setStart(start);
+        query.setRows(rows);
+              
+        try {
+			rsp = this.getSolrServerImage().query( query );
+			
+		} catch (SolrServerException e) {
+			e.printStackTrace();			
+		}
+
+       images = new ArrayList<Image>();
+       if(rsp!=null){
+    	   solrDocumentList = rsp.getResults();
+           for(int i = 0; i <solrDocumentList.size(); i++){
+        	   solrDocument = solrDocumentList.get(i);
+        	   id = (Integer)solrDocument.getFieldValue("id");
+        	// System.out.println("----> "+solrDocument.getFieldValues("text")+" <-----");
+        	   anImage = this.getImageService().find(id);
+        	   if(anImage!=null){
+            	   images.add(anImage);       		   
+        	   }
+
+           }  
+       }       
+       return images;          
+    }
+    
+    @GET
+	@Path("structure/{idStructure}/suggest")
+	@Produces({ MediaType.APPLICATION_JSON })
+	public List<String> suggest(@PathParam("idStructure") Integer idStructure, @QueryParam("term") String term) {
+		SolrQuery query = null;
+		QueryResponse rsp = null;
+		List<String> ret = null;
+		List<Count> values = null;
+		
+		query = new SolrQuery();
+		query.setFacet(true);
+		query.setQuery("*:* AND id_structure:" + idStructure.toString());
+
+		query.addFacetField("text");
+		term = term.toLowerCase();
+		query.setFacetPrefix(term);
+
+		try {
+			rsp = this.getSolrServerImage().query(query);
+		} catch (SolrServerException e) {
+			e.printStackTrace();
+		}
+		ret = new ArrayList<String>();
+
+		if (rsp != null) {
+			values = rsp.getFacetField("text").getValues();
+			if(values!=null){
+				for(Count each: values){
+					if(each.getCount()>0){
+						ret.add(each.getName());
+					}
+				}	
+			}					
+		}
+		return ret;
+	}
+	
+	
 	
 	@GET
 	@Path("{id}")
@@ -83,6 +197,14 @@ public class ImageResource {
 		image.setFile(file);
 		
 		this.getImageService().insert(image);
+		try {
+			this.getSolrServerImage().addBean(image);			
+			this.getSolrServerImage().commit();			
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (SolrServerException e) {
+			e.printStackTrace();
+		}
 		return image;
 	}
 	
@@ -127,6 +249,15 @@ public class ImageResource {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		try {
+			this.getSolrServerImage().addBean(image);			
+			this.getSolrServerImage().commit();			
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (SolrServerException e) {
+			e.printStackTrace();
+		}
 
 
 		return str;
@@ -138,7 +269,15 @@ public class ImageResource {
     @Produces({MediaType.APPLICATION_JSON}) 
 	public Image updateImage(Image image) {
 		
-		this.getImageService().update(image);		
+		this.getImageService().update(image);	
+		try {
+			this.getSolrServerImage().addBean(image);			
+			this.getSolrServerImage().commit();			
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (SolrServerException e) {
+			e.printStackTrace();
+		}
 		return image;
 	}
 		
@@ -151,7 +290,16 @@ public class ImageResource {
     	count = this.getImageService().delete(id);
     	if(count == 0){
 			throw new NotFoundException("Error: the image has NOT been deleted");
-		}			
+		}
+    	
+    	try {
+			this.getSolrServerImage().deleteById(id.toString());
+			this.getSolrServerImage().commit();
+		} catch (SolrServerException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		return count;
     }   
 	
@@ -196,5 +344,15 @@ public class ImageResource {
 	public void setImageService(ImageService imageService) {
 		this.imageService = imageService;
 	}
+
+	public SolrServer getSolrServerImage() {
+		return solrServerImage;
+	}
+
+	public void setSolrServerImage(SolrServer solrServerImage) {
+		this.solrServerImage = solrServerImage;
+	}
+	
+	
 	
 }

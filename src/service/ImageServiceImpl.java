@@ -85,6 +85,14 @@ public class ImageServiceImpl implements ImageService{
 		return count; 
 	}
 	
+	
+	
+	@Override
+	public List<Image> findAll() {
+		
+		return this.getImageMapper().findAll();
+	}
+
 	@Override
 	public Image find(Integer id) {	
 		Image ret = null;

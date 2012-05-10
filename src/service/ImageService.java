@@ -26,6 +26,7 @@ public interface ImageService {
 	public Integer insert(Image image);		
 	public Integer update(Image image);		
 	public Integer delete(Integer id);
+	public List<Image> findAll();
 	public Image find(Integer id);	
 	public List<Image> findByIdStructure(Integer id_structure,Integer offset, Integer rownum);
 	public List<Image> findCheckedByIdStructure(Integer id_structure,Integer offset, Integer rownum);
