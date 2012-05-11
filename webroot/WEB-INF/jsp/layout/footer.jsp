@@ -96,6 +96,13 @@ if (locale != null){
 <script type='text/javascript' src='js/lib/jquery.jgrowl_minimized.js'></script>
 <!-- full skiplink functionality in webkit browsers -->
 <script src="yaml/core/js/yaml-focusfix.js" type="text/javascript"></script>
+<!--[if IE]>
+<style>
+.wc-scrollable-grid {
+	width: 99% !important;
+}
+</style>
+<![endif]-->   
 
 </body>
 </html>

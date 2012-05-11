@@ -134,6 +134,13 @@ window.EditImagesFacilitiesView = EditView.extend({
         });
 
 
+    },
+    clear: function(){
+		 this.resetModel(Entity.model({
+            id_structure: Entity.idStructure
+   		 }));
+		 $(this.el).undelegate("div", "click");
+   	 
     }
 
 });
