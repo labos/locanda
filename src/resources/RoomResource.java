@@ -165,31 +165,31 @@ public class RoomResource {
 	}
 	
 	@POST
-    @Consumes({MediaType.APPLICATION_JSON})
-    @Produces({MediaType.APPLICATION_JSON})
-    public Room save(Room room) {
+	@Consumes({ MediaType.APPLICATION_JSON })
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Room save(Room room) {
 		Integer idRoomType = 0;
-		
+
 		idRoomType = room.getId_roomType();
-	//	if (idRoomType != null) {
-		try{
+		// if (idRoomType != null) {
+		try {
 			room.setRoomType(this.getRoomTypeService().findRoomTypeById(idRoomType));
 			this.getRoomService().insertRoom(room);
-		}
-		catch (Exception e){
+			
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-			try {
-				this.getSolrServerRoom().addBean(room);			
-				this.getSolrServerRoom().commit();			
-			} catch (IOException e) {
-				e.printStackTrace();
-			} catch (SolrServerException e) {
-				e.printStackTrace();
-			}
-		
-        return room;
-    }
+		try {
+			this.getSolrServerRoom().addBean(room);
+			this.getSolrServerRoom().commit();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (SolrServerException e) {
+			e.printStackTrace();
+		}
+
+		return room;
+	}
    
     @PUT
     @Path("{id}")

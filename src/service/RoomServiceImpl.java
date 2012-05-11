@@ -44,6 +44,10 @@ public class RoomServiceImpl implements RoomService{
 	private ImageService imageService = null;
 	@Autowired
 	private RoomImageService roomImageService = null;
+	@Autowired
+	private RoomTypeFacilityService roomTypeFacilityService = null;
+	@Autowired
+	private RoomTypeImageService roomTypeImageService = null;
 	
 	
 	@Override
@@ -150,7 +154,23 @@ public class RoomServiceImpl implements RoomService{
 
 	@Override
 	public Integer insertRoom(Room room) {	
-		return this.getRoomMapper().insertRoom(room);
+		Integer count;
+		Integer id_room;
+		Integer id_roomType;
+				
+		count = this.getRoomMapper().insertRoom(room);
+		id_room = room.getId();
+		id_roomType = room.getRoomType().getId();
+		
+		for(Integer id_facility: this.getRoomTypeFacilityService().findIdFacilityByIdRoomType(id_roomType, 0, 10000)){
+			this.getRoomFacilityService().insert(id_room, id_facility);
+			
+		}
+		for(Integer id_image: this.getRoomTypeImageService().findIdImageByIdRoomType(id_roomType, 0, 10000)){
+			this.getRoomImageService().insert(id_room, id_image);
+		}
+		
+		return count;
 	}
 	
 	public RoomMapper getRoomMapper() {
@@ -189,5 +209,23 @@ public class RoomServiceImpl implements RoomService{
 	public void setRoomFacilityService(RoomFacilityService roomFacilityService) {
 		this.roomFacilityService = roomFacilityService;
 	}
+
+	public RoomTypeFacilityService getRoomTypeFacilityService() {
+		return roomTypeFacilityService;
+	}
+
+	public void setRoomTypeFacilityService(	RoomTypeFacilityService roomTypeFacilityService) {
+		this.roomTypeFacilityService = roomTypeFacilityService;
+	}
+
+	public RoomTypeImageService getRoomTypeImageService() {
+		return roomTypeImageService;
+	}
+
+	public void setRoomTypeImageService(RoomTypeImageService roomTypeImageService) {
+		this.roomTypeImageService = roomTypeImageService;
+	}
+	
+	
 	
 }
