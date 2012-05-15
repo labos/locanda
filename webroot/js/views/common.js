@@ -162,7 +162,7 @@
                  
              },
              error: function () {
-                 $.jGrowl($.i18n("seriousErrorDescr"),  { theme: "notify-error"  });
+                 $.jGrowl($.i18n("seriousErrorDescr"),  { theme: "notify-error",sticky: true  });
              }
          });
          return false;

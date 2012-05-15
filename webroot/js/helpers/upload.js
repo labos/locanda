@@ -270,12 +270,12 @@ $.fn.deprecatedBrowser = function () {
 				}
 				$().notify($.i18n("congratulation"), "");
 			} else {
-				$.jGrowl($.i18n("seriousError"), { theme: "notify-error"  });
+				$.jGrowl($.i18n("seriousError"), { theme: "notify-error", sticky: true  });
 				
 			}
 		},
 		onAbort: function (event, files, index, xhr, handler) {
-			$().notify($.i18n("warning"), $.i18n("uploadStopped"));
+			$.jGrowl($.i18n("uploadStopped"), { theme: "notify-error", sticky: true  });
 			handler.removeNode(handler.uploadRow);
 		},
 		onError: function (event, files, index, xhr, handler) {
@@ -321,7 +321,9 @@ $.fn.deprecatedBrowser = function () {
 				if (isNaN(readyState) || readyState < 2) {
 					handler.onAbort(event, files, index, xhr, handler);
 				}
-				$().notify($.i18n("warning"), errorMessage);
+				
+				$.jGrowl(errorMessage, { theme: "notify-error", sticky: true  });
+
 			}
 		},
 		previewSelector: ".image_preview",
@@ -353,13 +355,14 @@ $.fn.deprecatedBrowser = function () {
 							$().notify($.i18n("congratulation"), data_action.description);
 							$this.parents("li").remove();
 						} else if (data_action.result == "error") {
-							$().notify($.i18n("warning"), data_action.description);
+							$.jGrowl(data_action.description, { theme: "notify-error", sticky: true  });
 						} else {
 							$(".validationErrors").html(data_action);
 						}
 					},
 					error: function () {
-						$().notify($.i18n("seriousError"), $.i18n("seriousErrorDescription"));
+						$.jGrowl($.i18n("seriousErrorDescription"), { theme: "notify-error", sticky: true  });
+
 					}
 				});
 			}

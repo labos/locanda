@@ -37,15 +37,18 @@ $(document).ready(function () {
        	                    if (data_action.result == "success") {
        	                        $().notify($.i18n("congratulation"), data_action.description, _redirectAction);
        	                    } else if (data_action.result == "error") {
-       	                        $().notify($.i18n("warning"), data_action.description);
+       	                     $.jGrowl(data_action.description, {theme: "notify-error",sticky: true
+       	                    });
+       	                        
        	                    } else {
-       	                    	$().notify($.i18n("seriousError"), $.i18n("seriousErrorDescription"));
-       	                       
+          	                     $.jGrowl($.i18n("seriousErrorDescription"), {theme: "notify-error",sticky: true
+            	                    });      	                       
        	                    }
+       	       	            $(".ui-widget-overlay").css("height", heightbody);
        	                },
        	                error: function () {
-       	                    $().notify($.i18n("seriousError"), $.i18n("seriousErrorDescription"));
-       	                }
+     	                     $.jGrowl($.i18n("seriousErrorDescription"), {theme: "notify-error",sticky: true
+     	                    });         	                }
        	            });
        	        }
        	        else{
@@ -225,7 +228,7 @@ $(document).ready(function () {
             //make a new div overlay element
             //---$('body').append($('<div class="ui-widget-overlay"></div>'));
             $.jGrowl.defaults.position = 'center';
-            $.jGrowl.defaults.life = 300;
+            $.jGrowl.defaults.life = 1500;
             $.ajaxSetup({cache: false});
             		  }
             		});

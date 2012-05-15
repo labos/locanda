@@ -103,14 +103,12 @@ $(function () {
                 buttonImageOnly: true,
                 dateFormat: patternDate,
                 onClose: function (dateText, inst) {
-                    var numNights = 0;
-                    var closerDateInput = $(".datepicker").not($(this));
-                    var otherData = closerDateInput.datepicker("getDate");
-                    
-                    var selectedData = $(this).datepicker("getDate");
-                    if (selectedData && otherData) {
-                        numNights = Controllers.Booking.days_between_signed(otherData, selectedData);
-                        if (numNights <= 0) $().notify(this.alertKO, $.i18n("dateInVsdateOut"));
+                    var numNights = 0,
+               		dateInVal = $('input[name="booking.dateIn"]').datepicker('getDate'),
+               		dateOutVal = $('input[name="booking.dateOut"]').datepicker('getDate');
+                    if (dateInVal && dateOutVal) {
+                        numNights = Controllers.Booking.days_between_signed(dateInVal, dateOutVal);
+                        if (numNights <= 0) $.jGrowl( $.i18n("dateInVsdateOut"), { theme: "notify-error", sticky: true  });
                     }
                     $("#booking_duration").val(numNights);
                 }
@@ -249,7 +247,7 @@ $(function () {
                 var dd = $formParent.siblings("." + selector + "_row:last").length ? $formParent.siblings("." + selector + "_row:last") : $formParent;
                 // setup of cloned row to add
                 if (num_of_items >= numbermaxGuests) {
-                    $().notify($.i18n("warning"), $.i18n("nrGuestVsMaxGuest"));
+					$.jGrowl($.i18n("nrGuestVsMaxGuest"), { theme: "notify-error", sticky: true  });
                 }
                 var added = $("#to_add_" + selector + "").clone().insertAfter(dd).removeAttr("id").show();
                 added.html(added.html().replace(/__PVALUE__/ig, num_of_items));
@@ -270,7 +268,7 @@ $(function () {
                     var clicked = this;
                     // check if room was selected
                     if (!(parseInt($('#sel_rooms_list').val()) > 0)) {
-                        $().notify($.i18n("warning"), $.i18n("roomRequired"));
+    					$.jGrowl($.i18n("roomRequired"), { theme: "notify-error", sticky: true  });
                         return;
                     }
                     var formInput = $(clicked).parents().find(".yform.json").serialize();
@@ -289,7 +287,8 @@ $(function () {
                                 } else {
                                     $(clicked).removeAttr('checked');
                                 }
-                                $().notify($.i18n("warning"), data_action.description);
+            					$.jGrowl(data_action.description, { theme: "notify-error", sticky: true  });
+
                             } else {
                                 event.preventDefault();
                                 var validator = $(clicked).parents(".yform.json").validate();
@@ -300,7 +299,7 @@ $(function () {
                         error: function () {
                             event.preventDefault();
                             var validator = $(clicked).parents(".yform.json").validate();
-                            $().notify($.i18n("warning"), $.i18n("bookingOverlapping"));
+        					$.jGrowl($.i18n("bookingOverlapping"), { theme: "notify-error", sticky: true  });
                         },
                         dataType: 'json'
                     });
@@ -312,7 +311,7 @@ $(function () {
             $('#sel_rooms_list').change(function () {
                 // check in room was selected
                 if (!(parseInt($('#sel_rooms_list').val()) > 0)) {
-                    $().notify($.i18n("warning"), $.i18n("roomRequired"));
+					$.jGrowl( $.i18n("roomRequired"), { theme: "notify-error", sticky: true  });
                     return;
                 }
                 self.calculatePrice(this, 'updateRoom.action');
@@ -327,7 +326,7 @@ $(function () {
                 // save current dom that raieses a change event
                 var clicked = this;
                 if (!(parseInt($('#sel_rooms_list').val()) > 0)) {
-                    $().notify($.i18n("warning"), $.i18n("roomRequired"));
+					$.jGrowl( $.i18n("roomRequired"), { theme: "notify-error", sticky: true  });
                     return;
                 }
                 var formInput = $(clicked).parents().find(".yform.json").serialize();
@@ -343,19 +342,20 @@ $(function () {
                             var validator = $(clicked).parents(".yform.json").validate();
                             // check if previous date is null
                             $(clicked).val($(clicked).data("prevDate"));
-                            $().notify($.i18n("warning"), data_action.description);
+        					$.jGrowl( data_action.description, { theme: "notify-error", sticky: true  });
+
                         } else {
                             event.preventDefault();
                             var validator = $(clicked).parents(".yform.json").validate();
                             validator.resetForm();
-                            $().notify($.i18n("warning"), $.i18n("seriousErrorDescr"));
+        					$.jGrowl( $.i18n("seriousErrorDescr"), { theme: "notify-error", sticky: true  });
                             //$(".validationErrors").html($.i18n("bookingOverlapping"));
                         }
                     },
                     error: function () {
                         event.preventDefault();
                         var validator = $(clicked).parents(".yform.json").validate();
-                        $().notify($.i18n("warning"), $.i18n("bookingOverlapping"));
+    					$.jGrowl( $.i18n("bookingOverlapping"), { theme: "notify-error", sticky: true  });
                     },
                     dataType: 'json'
                 });
@@ -363,7 +363,7 @@ $(function () {
             $('#nr_guests').live('change', function () {
                 // check in room was selected
                 if (!(parseInt($('#sel_rooms_list').val()) > 0)) {
-                    $().notify($.i18n("warning"), $.i18n("roomRequired"));
+                	 $.jGrowl( $.i18n("roomRequired"), { theme: "notify-error", sticky: true  });
                     return;
                 }
                 self.calculatePrice(this, 'updateNrGuests.action');
@@ -371,7 +371,7 @@ $(function () {
             $('#convention').change(function () {
                 // check in room was selected
                 if (!(parseInt($('#sel_rooms_list').val()) > 0)) {
-                    $().notify($.i18n("warning"), $.i18n("roomRequired"));
+					$.jGrowl( $.i18n("roomRequired"), { theme: "notify-error", sticky: true  });
                     return;
                 }
                 self.calculatePrice(this, 'updateConvention.action');
@@ -461,18 +461,18 @@ $(function () {
                                 Controllers.Booking.updateSubtotal();
      
                             } else if (data_action.message.result == "error") {
-                                $().notify($.i18n("warning"), data_action.message.description);
+        	                     $.jGrowl(data_action.message.description, {theme: "notify-error",sticky: true});
                             } else {
                                 $(".validationErrors").html(data_action);
                             }
                         } catch (e) {
                             //an error in data returned...
-                        	   $().notify($.i18n("warning"), $.i18n("seriousErrorDescr"));
+   	                     	$.jGrowl($.i18n("seriousErrorDescr"), {theme: "notify-error",sticky: true});
                             //$(".validationErrors").html(data_action);
                         }
                     },
                     error: function () {
-                        $().notify($.i18n("seriousError"), $.i18n("seriousErrorDescr"));
+  	                     $.jGrowl($.i18n("seriousErrorDescr"), {theme: "notify-error",sticky: true});
                     }
                 });
             } //end ajax calling code
@@ -497,7 +497,7 @@ $(function () {
                     $('input:checkbox[name="bookingExtraIds"], .quantity').eventExtraChange();
                 },
                 error: function () {
-                    $().notify($.i18n("seriousError"), $.i18n("seriousErrorDescr"));
+	                     $.jGrowl($.i18n("seriousErrorDescr"), {theme: "notify-error",sticky: true});
                 }
             });
         }

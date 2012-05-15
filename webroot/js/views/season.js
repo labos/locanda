@@ -133,7 +133,8 @@ window.PeriodRowView = Backbone.View.extend({
             error: function (model, resp) {
                 $.jGrowl(resp.responseText, {
                     header: this.alertKO,
-                    theme: "notify-error"
+                    theme: "notify-error",
+                    sticky: true 
                 });
             }
         });
@@ -156,7 +157,8 @@ window.PeriodRowView = Backbone.View.extend({
                     textStatus.responseText || (textStatus.responseText = $.i18n("seriousErrorDescr"));
                     $.jGrowl(textStatus.responseText, {
                         header: this.alertKO,
-                        theme: "notify-error"
+                        theme: "notify-error",
+                        sticky: true 
                     });
                 }
             });

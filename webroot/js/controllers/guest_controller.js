@@ -133,7 +133,8 @@ $(function () {
             else {
                 $.jGrowl($.i18n("listGuestsRetrive"), {
                     header: this.alertKO,
-                    theme: "notify-error"
+                    theme: "notify-error",
+                    sticky: true
                 });
                
             }
@@ -144,7 +145,8 @@ $(function () {
             //if you cannot retrieve the list of rooms then...
             $.jGrowl($.i18n("seriousErrorDescription"), {
                 header: this.alertKO,
-                theme: "notify-error"
+                theme: "notify-error",
+                sticky: true
             });
            
         }

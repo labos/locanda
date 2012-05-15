@@ -284,7 +284,7 @@ $(function () {
            * @param {String} list of json Room objects.
            */
           listRoomsError: function () {
-              $().notify($.i18n("warning"), $.i18n("listRoomsRetrieve"));
+              $.jGrowl($.i18n("listRoomsRetrieve"), { theme: "notify-error",sticky: true});
           },
           /*
            * Get number of days between two dates.

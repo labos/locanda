@@ -362,7 +362,7 @@ window.EditGuestView = EditView.extend({
                 
             },
             error: function () {
-                $().notify(this.alertKO, $.i18n("seriousErrorDescr") + ' ');
+            	$.jGrowl($.i18n("seriousErrorDescr") + ' ', { header: this.alertOK,sticky: true });
             }
         });
         return false;

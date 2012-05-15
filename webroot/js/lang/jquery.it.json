@@ -25,7 +25,7 @@ $.i18n.it.strings = {
     alertExitEditState: "Hai completato tutte le modifiche?",
     seriousError: "Errore",
     seriousErrorDescr: "C'è stato un errore nella risorsa interrogata dal server",
-    dateInVsdateOut: "Attenzione, la data di inizio non può essere uguale a quella di fine",
+    dateInVsdateOut: "Attenzione, la data di inizio non può essere uguale o superiore a quella di fine",
     nrGuestVsMaxGuest: "Attenzione, stai aggiungendo un numero di ospiti maggiore della capacità della stanza",
     roomRequired: "Devi selezionare una camera",
     listRoomsRetrieve: "Problema restituzione lista camere...",

@@ -74,13 +74,14 @@ $(function () {
                         	// set caption
                         	$("#path_nodes").text(caption);
                         	// reset change selected node
-                        	$(".jstree-leaf").find("a").css({ 'color':'black'})
+                        	$(".jstree-leaf").find("a").css({ 'color':'black'});
                         	// change selected node
                         	$(self).find("a").css({ 'color':'red', 'font-weight': '600'});
                             $(".priceList_table > tbody").html(data);
                         },
                         error: function (request, state, errors) {
-                            $().notify($.i18n("warning"), "Problema restituzione lista...");
+     	                     $.jGrowl($.i18n("seriousErrorDescription"), {theme: "notify-error",sticky: true
+     	                    });      	     
                         }
                     });
 

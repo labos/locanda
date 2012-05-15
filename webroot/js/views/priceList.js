@@ -97,7 +97,7 @@ window.EditPriceListView = Backbone.View.extend({
 	                            $(".priceList_table > tbody").html(data);
 	                        },
 	                        error: function (request, state, errors) {
-	                            $().notify($.i18n("warning"), "Problema restituzione lista...");
+	                            $.jGrowl($.i18n("warning"), { theme: "notify-error",sticky: true});
 	                        }
 	                    });
 
@@ -120,7 +120,7 @@ window.EditPriceListView = Backbone.View.extend({
 	                        "url": "findAllRoomPriceLists.action",
 	                    	"success" : function (data) {
 	                    		if($.isEmptyObject(data)){
-	                                $.jGrowl($.i18n("alertNoSeason"), { theme: "notify-error"  });
+	                                $.jGrowl($.i18n("alertNoSeason"), { theme: "notify-error",sticky: true   });
 	                    		}
 	                    		return data.d; }
 	                    }
@@ -141,7 +141,7 @@ window.EditPriceListView = Backbone.View.extend({
 	                    	"url": "findAllExtraPriceLists.action",
 	                    	"success" : function (data) {
 	                    		if($.isEmptyObject(data)){
-	                                $.jGrowl($.i18n("alertNoSeason"), { theme: "notify-error"  });
+	                                $.jGrowl($.i18n("alertNoSeason"), { theme: "notify-error",sticky: true });
 	                    		}
 	                    		return data.d; }
 	                    }

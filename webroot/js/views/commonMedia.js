@@ -68,7 +68,8 @@ window.FacilityRowView = Backbone.View.extend({
                     textStatus.responseText || (textStatus.responseText = $.i18n("seriousErrorDescr"));
                     $.jGrowl($.i18n("seriousErrorDescr"), {
                         header: this.alertKO,
-                        theme: "notify-error"
+                        theme: "notify-error",
+                        sticky: true
                     });
                 }
             });
@@ -85,7 +86,8 @@ window.FacilityRowView = Backbone.View.extend({
                     textStatus.responseText || (textStatus.responseText = $.i18n("seriousErrorDescr"));
                     $.jGrowl($.i18n("seriousErrorDescr"), {
                         header: this.alertKO,
-                        theme: "notify-error"
+                        theme: "notify-error",
+                        sticky: true
                     });
                 }
             });
@@ -161,7 +163,8 @@ window.ImageRowView = Backbone.View.extend({
                     textStatus.responseText || (textStatus.responseText = $.i18n("seriousErrorDescr"));
                     $.jGrowl($.i18n("seriousErrorDescr"), {
                         header: this.alertKO,
-                        theme: "notify-error"
+                        theme: "notify-error",
+                        sticky: true
                     });
                 }
             });
@@ -179,7 +182,8 @@ window.ImageRowView = Backbone.View.extend({
                     textStatus.responseText || (textStatus.responseText = $.i18n("seriousErrorDescr"));
                     $.jGrowl($.i18n("seriousErrorDescr"), {
                         header: this.alertKO,
-                        theme: "notify-error"
+                        theme: "notify-error",
+                        sticky: true
                     });
                 }
             });
@@ -315,7 +319,8 @@ window.ImagesFacilitiesView = Backbone.View.extend({
                 error: function () {
                     $.jGrowl($.i18n("seriousErrorDescr"), {
                         header: this.alertKO,
-                        theme: "notify-error"
+                        theme: "notify-error",
+                        sticky: true
                     });
                     $(".add-new", self.el).removeClass("slider-loader");
                 }
@@ -343,7 +348,8 @@ window.ImagesFacilitiesView = Backbone.View.extend({
                 error: function () {
                     $.jGrowl($.i18n("seriousErrorDescr"), {
                         header: this.alertKO,
-                        theme: "notify-error"
+                        theme: "notify-error",
+                        sticky: true
                     });
                 }
             });
