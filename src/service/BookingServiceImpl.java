@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-
 import model.Adjustment;
 import model.Booking;
 import model.ExtraItem;
@@ -146,6 +145,26 @@ public class BookingServiceImpl implements BookingService {
 	@Override
 	public Integer countBookingsByIdGuest(Integer id_guest) {
 		return this.getBookingMapper().countBookingsByIdGuest(id_guest);
+	}
+	
+	@Override
+	public Integer countBookingsByIdSeason(Integer id_season) {
+		List<Booking> allStructureBookings = null;
+		List<Booking> bookings = new ArrayList<Booking>();
+		List<Date> bookingDates = null;
+		Season season = null;
+		
+		season = this.getSeasonService().findSeasonById(id_season);
+		allStructureBookings = this.findBookingsByIdStructure(season.getId_structure());
+		for (Booking aBooking : allStructureBookings) {	
+			bookingDates = aBooking.calculateBookingDates();
+			for(Date aBookingDate: bookingDates){
+				if(this.seasonService.includesDate(season, aBookingDate)) {
+					bookings.add(aBooking);
+				}
+			}
+		}
+		return bookings.size();
 	}
 
 	@Override

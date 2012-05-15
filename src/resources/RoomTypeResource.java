@@ -16,17 +16,13 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
-import model.Facility;
-import model.Image;
 import model.RoomType;
 
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServer;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.response.QueryResponse;
-import org.apache.solr.client.solrj.response.TermsResponse;
 import org.apache.solr.client.solrj.response.FacetField.Count;
-import org.apache.solr.client.solrj.response.TermsResponse.Term;
 import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -123,43 +119,41 @@ public class RoomTypeResource {
        return roomTypes;          
     }
     
-	 @GET
-		@Path("structure/{idStructure}/suggest")
-		@Produces({ MediaType.APPLICATION_JSON })
-		public List<String> suggest(@PathParam("idStructure") Integer idStructure,
-				@QueryParam("term") String term) {
-			SolrQuery query = null;
-			QueryResponse rsp = null;
-			List<String> ret = null;
-			List<Count> values = null;
+	@GET
+	@Path("structure/{idStructure}/suggest")
+	@Produces({ MediaType.APPLICATION_JSON })
+	public List<String> suggest(@PathParam("idStructure") Integer idStructure, @QueryParam("term") String term) {
+		SolrQuery query = null;
+		QueryResponse rsp = null;
+		List<String> ret = null;
+		List<Count> values = null;
 			
-			query = new SolrQuery();
-			query.setFacet(true);
-			query.setQuery("*:* AND id_structure:" + idStructure.toString());
+		query = new SolrQuery();
+		query.setFacet(true);
+		query.setQuery("*:* AND id_structure:" + idStructure.toString());
+		query.addFacetField("text");
+		term = term.toLowerCase();
+		query.setFacetPrefix(term);
 
-			query.addFacetField("text");
-			term = term.toLowerCase();
-			query.setFacetPrefix(term);
-
-			try {
-				rsp = this.getSolrServerRoomType().query(query);
-			} catch (SolrServerException e) {
-				e.printStackTrace();
-			}
-			ret = new ArrayList<String>();
-
-			if (rsp != null) {
-				values = rsp.getFacetField("text").getValues();
-				if(values!=null){
-					for(Count each: values){
-						if(each.getCount()>0){
-							ret.add(each.getName());
-						}
-					}	
-				}					
-			}
-			return ret;
+		try {
+			rsp = this.getSolrServerRoomType().query(query);
+		} catch (SolrServerException e) {
+			e.printStackTrace();
 		}
+		ret = new ArrayList<String>();
+
+		if (rsp != null) {
+			values = rsp.getFacetField("text").getValues();
+			if(values!=null){
+				for(Count each: values){
+					if(each.getCount()>0){
+						ret.add(each.getName());
+					}
+				}	
+			}					
+		}
+		return ret;
+	}
 	
 	@GET
 	@Path("{id}")

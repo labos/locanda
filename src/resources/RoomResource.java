@@ -118,8 +118,7 @@ public class RoomResource {
 	 @GET
 		@Path("structure/{idStructure}/suggest")
 		@Produces({ MediaType.APPLICATION_JSON })
-		public List<String> suggest(@PathParam("idStructure") Integer idStructure,
-				@QueryParam("term") String term) {
+		public List<String> suggest(@PathParam("idStructure") Integer idStructure, @QueryParam("term") String term) {
 			SolrQuery query = null;
 			QueryResponse rsp = null;
 			List<String> ret = null;
@@ -187,7 +186,6 @@ public class RoomResource {
 		} catch (SolrServerException e) {
 			e.printStackTrace();
 		}
-
 		return room;
 	}
    

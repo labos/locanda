@@ -149,7 +149,6 @@ public class ExtraResource {
    		return ret;
    	}
     
-       
     @GET
     @Path("{id}")
     @Produces({MediaType.APPLICATION_JSON})

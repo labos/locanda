@@ -32,6 +32,7 @@ import org.springframework.stereotype.Component;
 
 import com.sun.jersey.api.NotFoundException;
 
+import service.BookingService;
 import service.ExtraPriceListService;
 import service.PeriodService;
 import service.RoomPriceListService;
@@ -53,6 +54,8 @@ public class SeasonResource {
 	private ExtraPriceListService extraPriceListService = null;
 	@Autowired
     private StructureService structureService = null;
+	@Autowired
+    private BookingService bookingService = null;
 	@Autowired
     private SolrServer solrServerSeason = null;
 	
@@ -215,6 +218,10 @@ public class SeasonResource {
     public Integer delete(@PathParam("id") Integer id){
     	Integer count = 0;		
 		
+    	if(this.getBookingService().countBookingsByIdSeason(id) > 0){
+			throw new NotFoundException("The season you are trying to delete has periods matching with one or more bookings." +
+					" Please try to delete the associated bookings before.");
+		}
 		count = this.getSeasonService().deleteSeason(id);
 		this.getRoomPriceListService().deleteRoomPriceListsByIdSeason(id);
 		this.getExtraPriceListService().deleteExtraPriceListsByIdSeason(id);
@@ -261,6 +268,12 @@ public class SeasonResource {
 	}
 	public void setStructureService(StructureService structureService) {
 		this.structureService = structureService;
+	}
+	public BookingService getBookingService() {
+		return bookingService;
+	}
+	public void setBookingService(BookingService bookingService) {
+		this.bookingService = bookingService;
 	}
 	public SolrServer getSolrServerSeason() {
 		return solrServerSeason;
