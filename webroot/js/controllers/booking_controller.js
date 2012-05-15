@@ -83,7 +83,7 @@ $(function () {
             var date1_ms = date1.getTime(),
             	date2_ms = date2.getTime();
             // Calculate the difference in milliseconds
-            var difference_ms = date1_ms - date2_ms;
+            var difference_ms = date2_ms - date1_ms;
             // Convert back to days and return
             return Math.round(difference_ms / ONE_DAY);
         }
@@ -110,7 +110,7 @@ $(function () {
                     var selectedData = $(this).datepicker("getDate");
                     if (selectedData && otherData) {
                         numNights = Controllers.Booking.days_between_signed(otherData, selectedData);
-                        if (numNights == 0) $().notify(this.alertKO, $.i18n("dateInVsdateOut"));
+                        if (numNights <= 0) $().notify(this.alertKO, $.i18n("dateInVsdateOut"));
                     }
                     $("#booking_duration").val(numNights);
                 }
@@ -133,6 +133,12 @@ $(function () {
             		 event.preventDefault();
             	}
             }); 
+            
+            /* Add shared submit event listener */
+            $(".yform.json").submit(function (event) {
+                $(this).submitForm();
+                return false;
+            });
             
             /* adjustment and payments*/
             $.fn.getSelector = function () {

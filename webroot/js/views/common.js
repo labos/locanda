@@ -64,7 +64,7 @@
                  },
                  error: function (jqXHR, textStatus, errorThrown) {
                      textStatus.responseText || (textStatus.responseText = $.i18n("seriousErrorDescr"));
-                     $.jGrowl(textStatus.responseText, { header: this.alertKO, theme: "notify-error"  });
+                     $.jGrowl(textStatus.responseText, { header: this.alertKO, theme: "notify-error",sticky: true   });
                      
                  }
              });

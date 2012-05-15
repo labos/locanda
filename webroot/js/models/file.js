@@ -14,10 +14,10 @@
  * In case of controversy the competent court is the Court of Cagliari (Italy).
  *******************************************************************************/
 /*
- * @class Period
+ * @class File
  * @parent Backbone.Model
  * @constructor
- * Model to hold period to a season.
+ * Model to hold a file.
  * @tag models
  * @author LabOpenSource
  */

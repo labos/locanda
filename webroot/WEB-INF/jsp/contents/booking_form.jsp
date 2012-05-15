@@ -37,7 +37,7 @@ width:80%;
                              <div class="c20l">
                              <div class="subcl type-select">
                				 <label for="sel_rooms_list"><s:text name="room" /> <sup title="<s:text name="thisFileMandatory" />.">*</sup> </label>
-                			 <select size="1" id="sel_rooms_list" name="booking.room.id">
+                			 <select size="1" id="sel_rooms_list" class="required number" name="booking.room.id">
                   			 <s:iterator value="rooms" var="eachRoom" >
                    			   <option 
                    			   <s:if test="#eachRoom.id == booking.room.id">selected="selected"</s:if> 
@@ -45,7 +45,7 @@ width:80%;
                    			   </option>
                     		</s:iterator>
                     		<s:if test="booking.room == null">
-							  <option selected="selected" value="-1"><s:text name="selectOne"/></option>
+							  <option selected="selected" value=""><s:text name="selectOne"/></option>
 							</s:if>	
                     		</select>
             				</div>

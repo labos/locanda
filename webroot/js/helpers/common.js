@@ -91,7 +91,7 @@ $(document).ready(function () {
        	            },
        	            position: "center",
        	            speed: 2000,
-       	            life: 80,
+       	            life: 110,
        	            closeDuration: "fast",
        	            header: title,
        	            close: function () {
