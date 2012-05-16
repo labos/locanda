@@ -335,7 +335,6 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	
 	public void setNumNights(Integer numNight) {
 		this.numNights = numNight;
 	}
@@ -345,7 +344,6 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 	public void setBookingExtrasId(List<Integer> bookingExtrasId) {
 		this.bookingExtrasId = bookingExtrasId;
 	}
-	
 	public Integer getIdStructure() {
 		return idStructure;
 	}
@@ -391,11 +389,9 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 	public ImageService getImageService() {
 		return imageService;
 	}
-
 	public void setImageService(ImageService imageService) {
 		this.imageService = imageService;
 	}
-
 	public Structure getStructure() {
 		return structure;
 	}

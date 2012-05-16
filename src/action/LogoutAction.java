@@ -57,7 +57,6 @@ public class LogoutAction extends ActionSupport implements SessionAware,UserAwar
 	public void setSession(Map<String, Object> session) {
 		this.session = session;
 	}
-
 	public Integer getIdStructure() {
 		return idStructure;
 	}

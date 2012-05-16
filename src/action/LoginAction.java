@@ -42,7 +42,7 @@ import service.StructureService;
 import service.UserService;
 
 import com.opensymphony.xwork2.ActionSupport;
-//First  commit branch spike EJS
+
 @ParentPackage(value = "default")
 public class LoginAction extends ActionSupport implements SessionAware {
 	private Map<String, Object> session = null;
@@ -75,7 +75,9 @@ public class LoginAction extends ActionSupport implements SessionAware {
 			@Result(name = "input", location = "/WEB-INF/jsp/login.jsp"),
 			@Result(name = "loginSuccess", location = "/WEB-INF/jsp/homeLogged.jsp"),
 			@Result(name = "loginError", location = "/WEB-INF/jsp/login.jsp"),
-			@Result(name = "nullpointer", location = "/WEB-INF/jsp/login.jsp") }) })
+			@Result(name = "nullpointer", location = "/WEB-INF/jsp/login.jsp") 
+			}) 
+	})
 	public String execute() {
 		String ret = null;
 		User user = null;
@@ -114,7 +116,6 @@ public class LoginAction extends ActionSupport implements SessionAware {
 			addActionError(getText("loginError"));
 			ret = "loginError";
 		}
-
 		return ret;
 	}
 	

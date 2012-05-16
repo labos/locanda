@@ -17,8 +17,6 @@ package action;
 
 import java.util.Map;
 
-import model.internal.Message;
-
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Actions;
 import org.apache.struts2.convention.annotation.ParentPackage;
@@ -30,9 +28,9 @@ import com.opensymphony.xwork2.ActionSupport;
 @Result(name="notLogged", location="/WEB-INF/jsp/homeNotLogged.jsp")
 public class HelpAction extends ActionSupport implements SessionAware {
 	private Map<String, Object> session = null;
-	private Message message = new Message();
+//	private Message message = new Message();
 	
-	
+
 	@Actions({
 		@Action(value="/goAboutInfo",results = {
 				@Result(name="success",location="/WEB-INF/jsp/about.jsp")
@@ -42,18 +40,17 @@ public class HelpAction extends ActionSupport implements SessionAware {
 		return SUCCESS;
 	}
 
-
 	public Map<String, Object> getSession() {
 		return session;
 	}
 	public void setSession(Map<String, Object> session) {
 		this.session = session;
 	}
-	public Message getMessage() {
-		return message;
-	}
-	public void setMessage(Message message) {
-		this.message = message;
-	}
+//	public Message getMessage() {
+//		return message;
+//	}
+//	public void setMessage(Message message) {
+//		this.message = message;
+//	}
 		
 }
