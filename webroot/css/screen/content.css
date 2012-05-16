@@ -1178,3 +1178,18 @@ border:none;
 margin:20px 0px 0px 100px;
 font-weight:600;
 }
+
+.menu-dropdown {
+position: absolute;
+right: 2px;
+top: 5px;
+}
+
+.hlist a{
+padding: 5px 15px 3px 8px;	
+}
+#priceList_edit:focus,#priceList_edit:active{
+background:none;
+outline:none;
+
+}

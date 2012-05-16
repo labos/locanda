@@ -32,7 +32,7 @@
 		<form id="edit-form" class="yform json full" role="application">
         	<div class="c50l">
                   	<div class="type-text">	
-                  		<label for="FormCaption"><s:text name="name"/><sup title="This field is mandatory.">*</sup></label>
+                  		<label for="FormCaption"><s:text name="name"/><sup title="<s:text name="thisFileMandatory"/>.">*</sup></label>
                 		<input type="text" class="required" name="caption" id="FormCaption" value="{{caption}}" aria-required="true"/>
                   	</div>
                   	<div class="type-button">

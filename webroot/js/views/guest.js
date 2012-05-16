@@ -327,6 +327,7 @@ window.EditGuestView = EditView.extend({
         this.$(".datepicker").removeClass('hasDatepicker').datepicker("destroy");
 		this.$( 'input[name="birthDate"]' ).datepicker({
  			yearRange: "-110:+0",
+ 			maxDate:  new Date(),
 			changeMonth: true,
 			changeYear: true,
             showOn: "button",

@@ -19,6 +19,7 @@ $.i18n.it = {
 };
 $.i18n.it.strings = {
     congratulation: "Congratulazioni",
+    cancelSuccess: "Cancellazione avvenuta con successo",
     warning: "Attenzione",
     alertDelete: "Sei sicuro di voler cancellare?",
     alertExitWithoutSaving: "Sei sicuro di voler uscire senza salvare?",

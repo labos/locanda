@@ -963,7 +963,7 @@ $.ajax({
          	               "id":val.room.id,
          	               "start": date_in,
          	               "end": date_end ,
-         	               "title":val.booker.lastName  + ' ' + val.booker.firstName,
+         	               "title":(val.booker.lastName  + ' ' + val.booker.firstName).replace(/<\/?[^>]+>/gi, ''),
          	               "bookId": val.id,
          	               "confirmed": val.status,
       	               "bookerPhone": val.booker.phone,

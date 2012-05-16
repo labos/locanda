@@ -52,7 +52,7 @@ width:80%;
             				</div>
             				<div class="c20l">
             				<div class="subcl type-text">
-            				<label for="datepicker"><s:text name="dateIn" />: <sup title="This field is mandatory.">*</sup> </label>
+            				<label for="datepicker"><s:text name="dateIn" />: <sup title="<s:text name="thisFileMandatory"/>.">*</sup> </label>
 							<input type="text" name="booking.dateIn" class="datepicker required"  value="<s:date name="booking.dateIn" format="%{#session.datePattern}" />" style="display: inline;"/>
 							</div>
 							</div>
@@ -85,7 +85,44 @@ width:80%;
                        		 <option value="21">21 </option>
                        		 <option value="22">22 </option>
                        		 <option value="23">23 </option>
-                             </select>
+                       		 <option value="24">24 </option>
+                       		 <option value="25">25 </option>
+                       		 <option value="26">26 </option>
+                       		 <option value="27">27 </option>
+                       		 <option value="28">28 </option>
+                       		 <option value="29">29 </option>
+                       		 <option value="30">30 </option>
+                       		 <option value="31">31 </option>
+                       		 <option value="32">32 </option>
+                       		 <option value="33">33 </option>
+                       		 <option value="34">34 </option>
+                       		 <option value="35">35 </option>
+                       		 <option value="36">36 </option>
+                       		 <option value="37">37 </option>
+                       		 <option value="38">38 </option>
+                       		 <option value="39">39 </option>
+                       		 <option value="40">40 </option>
+                       		 <option value="41">41 </option>
+                       		 <option value="42">42 </option>
+                       		 <option value="43">43 </option>
+                       		 <option value="44">44 </option>
+                       		 <option value="45">45 </option>
+                       		 <option value="46">46 </option>
+                       		 <option value="47">47 </option>
+                       		 <option value="48">48 </option>
+                       		 <option value="49">49 </option>
+                       		 <option value="50">50 </option>
+                       		 <option value="51">51 </option>
+                       		 <option value="52">52 </option>
+                       		 <option value="53">53 </option>
+                       		 <option value="54">54 </option>
+                       		 <option value="55">55 </option>
+                       		 <option value="56">56 </option>
+                       		 <option value="57">57 </option>
+                       		 <option value="58">58 </option>
+                       		 <option value="59">59 </option>
+                       		 <option value="60">60 </option>
+                       		 </select>
                              </div>
                              </div>
                             <div class="c20l">
@@ -123,10 +160,10 @@ width:80%;
               <fieldset>
     <legend><s:text name="bookingDetails" />:</legend>
                 <input type="hidden" name="booking.booker.id" value="<s:property value="booking.booker.id"/>"/>
-	               <div class="type-text"><label for="lname"><s:text name="lastName" />: <sup title="This field is mandatory.">*</sup> </label> 
+	               <div class="type-text"><label for="lname"><s:text name="lastName" />: <sup title="<s:text name="thisFileMandatory"/>.">*</sup> </label> 
 	               <input type="text" name="booking.booker.lastName" id="lname" value="<s:property value="booking.booker.lastName"/>" class="required"/></div>
 
-                  <div class="type-text"><label for="fname"><s:text name="firstName" />: <sup title="This field is mandatory.">*</sup> </label> 
+                  <div class="type-text"><label for="fname"><s:text name="firstName" />: <sup title="<s:text name="thisFileMandatory"/>.">*</sup> </label> 
                   <input type="text" name="booking.booker.firstName" id="fname" value="<s:property value="booking.booker.firstName"/>" class="required"/></div>
                   
                   <a name="top_accordion"></a>

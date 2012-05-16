@@ -12,7 +12,7 @@
       <input type="hidden" name="dateArrival" value=""/>
       <div class="c33l">
         <div class="subcl type-select">
-          <label for="sel_rooms_list"><s:text name="nights"/><sup title="This field is mandatory.">*</sup></label>
+          <label for="sel_rooms_list"><s:text name="nights"/><sup title="<s:text name="thisFileMandatory"/>.">*</sup></label>
           <select name="booking.room.id" id="sel_rooms_list" size="1">
            	<option value="1">1</option>
             <option value="2">2</option>
@@ -22,7 +22,7 @@
       </div>
       <div class="c33l">
         <div class="subcl type-select">
-          <label for="sel_rooms_list"><s:text name="persons"/><sup title="This field is mandatory.">*</sup></label>
+          <label for="sel_rooms_list"><s:text name="persons"/><sup title="<s:text name="thisFileMandatory"/>.">*</sup></label>
           <select name="booking.room.id" id="sel_rooms_list" size="1">
             <option value="1">1</option>
             <option value="2">2</option>

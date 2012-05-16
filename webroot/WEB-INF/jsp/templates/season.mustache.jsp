@@ -23,13 +23,13 @@
 		<form id="edit-form" class="yform" role="application">
                 <div class="c50l">
                   	<div class="type-text">           
-       					<label for="FormYear"><s:text name="year"/><sup title="This field is mandatory.">*</sup></label>
+       					<label for="FormYear"><s:text name="year"/><sup title="<s:text name="thisFileMandatory"/>.">*</sup></label>
 						<select name="year">
 							{{#availableYears}}<option name="{{value}}" {{#selected}}selected="selected"{{/selected}}>{{value}}</option>{{/availableYears}}
 						</select>
       		      	</div> 
                   	<div class="type-text">	
-                  		<label for="FormName"><s:text name="name"/><sup title="This field is mandatory.">*</sup></label>
+                  		<label for="FormName"><s:text name="name"/><sup title="<s:text name="thisFileMandatory"/>.">*</sup></label>
                 		<input type="text" class="required" name="name" id="FormName" value="{{name}}" aria-required="true"/>
                  	</div>
                   	<div class="type-button">

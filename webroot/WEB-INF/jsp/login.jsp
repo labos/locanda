@@ -29,11 +29,11 @@
             <fieldset>
               <legend><s:text name="loginData" /></legend>
               <div class="type-text">
-                <label for="email"><s:text name="email"/><sup title="This field is mandatory.">*</sup></label>
+                <label for="email"><s:text name="email"/><sup title="<s:text name="thisFileMandatory"/>.">*</sup></label>
                 <input type="text" class="required email beauty" name="email" id="email" size="20"  aria-required="true"/>
               </div>
               <div class="type-text">
-                <label for="password"><s:text name="password"/><sup title="This field is mandatory.">*</sup></label>
+                <label for="password"><s:text name="password"/><sup title="<s:text name="thisFileMandatory"/>.">*</sup></label>
                 <input type="password" class="required beauty" name="password" id="password" size="20"  aria-required="true"/>
               </div>
             <div class="type-button">

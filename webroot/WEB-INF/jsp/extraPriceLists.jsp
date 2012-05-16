@@ -52,7 +52,7 @@ Entity = {name: "priceList",
 	  	    <fieldset>
           	  <legend>
           	    <span><s:text name="priceListEdit"/> -></span>
-          	    <a href="#" id="priceList_edit"><img src="images/sign-up-icon.png" alt="edit"/></a>
+          	    <a href="#" id="priceList_edit"><s:text name="edit"/></a>
           	    <span id="path_nodes"></span>
           	  </legend>
           	  <table class="full priceList_table">

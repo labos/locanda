@@ -60,7 +60,7 @@
              this.model.destroy({
                  success: function () {
                     
-                     $.jGrowl($.i18n("congratulation"), { header: this.alertOK });
+                     $.jGrowl($.i18n("cancelSuccess"), { header: this.alertOK });
                  },
                  error: function (jqXHR, textStatus, errorThrown) {
                      textStatus.responseText || (textStatus.responseText = $.i18n("seriousErrorDescr"));

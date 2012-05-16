@@ -37,11 +37,11 @@
                 <input type="text" size="20" id="firstname" name="surname" class="required" />
               </div>
               <div class="type-text">
-                <label for="email">E-Mail <sup title="This field is mandatory.">*</sup></label>
+                <label for="email">E-Mail <sup title="<s:text name="thisFileMandatory"/>.">*</sup></label>
                 <input type="text" aria-required="true" size="20" id="email" name="email" class="required"/>
               </div>
                 <div class="type-text">
-                <label for="phone">Telefono <sup title="This field is mandatory.">*</sup></label>
+                <label for="phone">Telefono <sup title="<s:text name="thisFileMandatory"/>.">*</sup></label>
                 <input type="text" aria-required="true" size="20" id="phone" name="phone" class="required"/>
               </div>
             </fieldset>

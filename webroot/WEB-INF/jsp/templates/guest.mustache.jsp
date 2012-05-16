@@ -23,11 +23,11 @@
 			<form id="edit-form" class="yform json full" role="application">
         		<div class="c50l">
                   	<div class="type-text">	
-                  		<label for="FormFirstName"><s:text name="firstName"/><sup title="This field is mandatory.">*</sup></label>
+                  		<label for="FormFirstName"><s:text name="firstName"/><sup title="<s:text name="thisFileMandatory"/>.">*</sup></label>
                 		<input type="text" class="required" name="firstName" id="FormFirstName" value="{{firstName}}" aria-required="true"/>
                   	</div>
                   	<div class="type-text">           
-       					<label for="FormLastName"><s:text name="lastName"/><sup title="This field is mandatory.">*</sup></label>
+       					<label for="FormLastName"><s:text name="lastName"/><sup title="<s:text name="thisFileMandatory"/>.">*</sup></label>
                     	<input type="text" class="required" name="lastName" id="FormLastName" value="{{lastName}}" aria-required="true"/>
       		      	</div>
 				  	<div class="type-select">
@@ -45,7 +45,7 @@
                       	<input type="text" name="birthPlace" id="FormBirthPlace" value="{{birthPlace}}" aria-required="true"/>
       		      	</div>
 				  	<div class="type-text">           
-       				  	<label for="FormPhone"><s:text name="phone"/><sup title="This field is mandatory.">*</sup></label>
+       				  	<label for="FormPhone"><s:text name="phone"/><sup title="<s:text name="thisFileMandatory"/>.">*</sup></label>
                       	<input type="text" class="required validPhone" name="phone" id="FormPhone" value="{{phone}}" aria-required="true"/>
       		      	</div>
                   	<div class="type-button">

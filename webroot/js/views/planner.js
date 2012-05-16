@@ -80,7 +80,7 @@ $(function () {
         		});
             	  
             	  $(".type_rooms").hide();
-            	  this.render()
+            	  this.render();
               }
     		  
     	  },

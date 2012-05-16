@@ -19,6 +19,7 @@ $.i18n.en = {
 };
 $.i18n.en.strings = {
     congratulation: "Congratulation",
+    cancelSuccess: "The deletion was successfully completed",
     warning: "Warning",
     alertDelete: "Do you REALLY want to delete it?",
     alertExitWithoutSaving: "Do you REALLY wanto to exit without saving?",

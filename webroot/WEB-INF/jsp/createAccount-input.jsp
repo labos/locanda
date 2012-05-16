@@ -32,19 +32,19 @@
 	  <fieldset>
 		<legend><s:text name="insertyourData" /></legend>
 		<div class="type-text">
-		  <label for="firstname"><s:text name="name"/><sup title="This field is mandatory.">*</sup></label>
+		  <label for="firstname"><s:text name="name"/><sup title="<s:text name="thisFileMandatory"/>.">*</sup></label>
 		  <input type="text" size="20" id="firstname" name="user.name" class="beauty required" value="<s:property value="user.name"/>"/>
 		</div>
 		<div class="type-text">
-		  <label for="surname"><s:text name="lastName"/><sup title="This field is mandatory.">*</sup></label>
+		  <label for="surname"><s:text name="lastName"/><sup title="<s:text name="thisFileMandatory"/>.">*</sup></label>
 		  <input type="text" size="20" id="surname" name="user.surname" class="beauty required" value="<s:property value="user.surname"/>"/>
 		</div>
 		<div class="type-text">
-		  <label for="email"><s:text name="email"/><sup title="This field is mandatory.">*</sup></label>
+		  <label for="email"><s:text name="email"/><sup title="<s:text name="thisFileMandatory"/>.">*</sup></label>
 		  <input type="text" aria-required="true" size="20" id="email" name="user.email" class="beauty required email" value="<s:property value="user.email"/>"/>
 		</div>
 		<div class="type-text">
-		  <label for="phone"><s:text name="phone"/><sup title="This field is mandatory.">*</sup></label>
+		  <label for="phone"><s:text name="phone"/><sup title="<s:text name="thisFileMandatory"/>.">*</sup></label>
 		  <input type="text" aria-required="true" size="20" id="phone" name="user.phone" class="beauty required validPhone" value="<s:property value="user.phone"/>"/>
 		</div>
 	  </fieldset>

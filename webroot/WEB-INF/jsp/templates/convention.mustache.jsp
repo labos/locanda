@@ -23,11 +23,11 @@
 		<form id="edit-form" class="yform json full" role="application">
                 <div class="c50l">
                   	<div class="type-text">	
-                  		<label for="FormName"><s:text name="name"/><sup title="This field is mandatory.">*</sup></label>
+                  		<label for="FormName"><s:text name="name"/><sup title="<s:text name="thisFileMandatory"/>.">*</sup></label>
                 		<input type="text" class="required" name="name" id="FormName" value="{{name}}" aria-required="true"/>
                   	</div>
                   	<div class="type-text">           
-       					<label for="FormCode"><s:text name="code"/><sup title="This field is mandatory.">*</sup></label>
+       					<label for="FormCode"><s:text name="code"/><sup title="<s:text name="thisFileMandatory"/>.">*</sup></label>
                     	<input type="text" class="required" name="activationCode" id="FormCode" value="{{activationCode}}" aria-required="true"/>
       		      	</div> 
 				  	<div class="type-text">	

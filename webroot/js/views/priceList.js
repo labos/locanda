@@ -53,7 +53,11 @@ window.EditPriceListView = Backbone.View.extend({
 	                var validator = $(this).parents(".yform.json").validate();
 	                validator.resetForm();
 	            });
-	            
+	            $("#priceList_edit").button({
+	                icons: {
+	                    primary: "ui-icon-pencil"
+	                }
+	            });
 	            
 	            $(".copy").live('click', function(event){
 	            	
@@ -130,8 +134,9 @@ window.EditPriceListView = Backbone.View.extend({
 	                    "dots": true,
 	                    "icons": true
 	                },
-	                "plugins": ["themes", "json_data"]
-	            });
+	                "plugins": ["themes", "json_data", "ui"]
+	            }).bind("select_node.jstree", function (e, data) {
+		            data.inst.toggle_node(data.rslt.obj); return false; });
 	            $(".extra_tree").jstree({
 	                "core": {
 	                    "initially_open": ["root"]
@@ -151,8 +156,9 @@ window.EditPriceListView = Backbone.View.extend({
 	                    "dots": true,
 	                    "icons": true
 	                },
-	                "plugins": ["themes", "json_data"]
-	            });
+	                "plugins": ["themes", "json_data", "ui"]
+	            }).bind("select_node.jstree", function (e, data) {
+	            data.inst.toggle_node(data.rslt.obj); return false; });
 	   
 	  }
 

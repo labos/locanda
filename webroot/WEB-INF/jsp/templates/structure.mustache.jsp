@@ -23,7 +23,7 @@
 		<form id="edit-form" class="yform json full" role="application">
           	<div class="c50l">   
             	  <div class="type-text">
-                  	<label for="FormName"><s:text name="name"/><sup title="This field is mandatory.">*</sup></label>
+                  	<label for="FormName"><s:text name="name"/><sup title="<s:text name="thisFileMandatory"/>.">*</sup></label>
                   	<input type="text" class="required" name="name" id="FormName" value="{{name}}" aria-required="true"  />
 					<input type="hidden" name="redirect_form" value="false" />
                   </div>
@@ -52,7 +52,7 @@
 			</div>
 			<div class="c50l">
               	  <div class="type-text">
-					<label for="FormEmail"><s:text name="email"/><sup title="This field is mandatory.">*</sup></label>
+					<label for="FormEmail"><s:text name="email"/><sup title="<s:text name="thisFileMandatory"/>.">*</sup></label>
                 	<input type="text" class="required email" name="email" id="FormEmail" value="{{email}}" aria-required="true" size="20" />
               	  </div>
               	  <div class="type-text">
@@ -60,7 +60,7 @@
                 	<input type="text" name="url" id="FormUrl" value="{{url}}" aria-required="true" />
               	  </div>
               	  <div class="type-text">
-					<label for="FormPhone"><s:text name="phone"/><sup title="This field is mandatory.">*</sup></label>
+					<label for="FormPhone"><s:text name="phone"/><sup title="<s:text name="thisFileMandatory"/>.">*</sup></label>
                 	<input type="text" class="required validPhone" name="phone" id="FormPhone" value="{{phone}}" aria-required="true" />
               	  </div>
               	  <div class="type-text">
@@ -80,11 +80,11 @@
 			<input type="hidden" name="redirect_form" value="false" />
           	<div class="c50l">
               <div class="type-text">
-              	<label for="FormPassword"><s:text name="password"></s:text><sup title="This field is mandatory.">*</sup></label>
+              	<label for="FormPassword"><s:text name="password"></s:text><sup title="<s:text name="thisFileMandatory"/>.">*</sup></label>
                 <input type="password" class="required" name="password" id="FormPassword" aria-required="true" />
               </div>
               <div class="type-text">
-                <label for="FormRetyped"><s:text name="reTypePassword"></s:text> <sup title="This field is mandatory.">*</sup></label>
+                <label for="FormRetyped"><s:text name="reTypePassword"></s:text> <sup title="<s:text name="thisFileMandatory"/>.">*</sup></label>
                 <input type="password" class="required" name="reTyped" id="FormRetyped"  aria-required="true" />
               </div>
               <div class="type-button">
