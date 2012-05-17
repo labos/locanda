@@ -45,8 +45,8 @@
                       	<input type="text" name="birthPlace" id="FormBirthPlace" value="{{birthPlace}}" aria-required="true"/>
       		      	</div>
 				  	<div class="type-text">           
-       				  	<label for="FormPhone"><s:text name="phone"/><sup title="<s:text name="thisFileMandatory"/>.">*</sup></label>
-                      	<input type="text" class="required validPhone" name="phone" id="FormPhone" value="{{phone}}" aria-required="true"/>
+       				 	 <label for="FormAddress"><s:text name="address"/></label>
+                      	<input type="text" name="address" id="FormAddress" value="{{address}}" aria-required="true"/>
       		      	</div>
                   	<div class="type-button">
                 	  	<button class="btn_save"><s:text name="save"/></button>
@@ -54,13 +54,13 @@
                     </div>
             	</div>
         		<div class="c50l">
+					<div class="type-text">           
+       				  	<label for="FormPhone"><s:text name="phone"/><sup title="<s:text name="thisFileMandatory"/>.">*</sup></label>
+                      	<input type="text" class="required validPhone" name="phone" id="FormPhone" value="{{phone}}" aria-required="true"/>
+      		      	</div>
 				  	<div class="type-text">           
        				  	<label for="FormEmail"><s:text name="email"/></label>
                       	<input type="text" class="email" name="email" id="FormEmail" value="{{email}}" aria-required="true"/>
-      		      	</div>
-				  	<div class="type-text">           
-       				 	 <label for="FormAddress"><s:text name="address"/></label>
-                      	<input type="text" name="address" id="FormAddress" value="{{address}}" aria-required="true"/>
       		      	</div>
 					<div class="type-select">
                 		<label for="FormCountry"><s:text name="country"/>:</label>
@@ -97,13 +97,31 @@
                    		<span>{{lastName}}</span>
       		   		</div> 
 			 		<div class="type-text">	
-               			<strong><s:text name="notes"/></strong>
-						<span>{{notes}}</span>		 
+               			<strong><s:text name="address"/></strong>
+						<span>{{address}}</span>		 
+                  	</div>
+					<div class="type-text">	
+               			<strong><s:text name="zipCode"/></strong>
+						<span>{{zipCode}}</span>		 
                   	</div>
               	</div>
 				<div class="c50l">
+					<div class="type-text">	
+               			<strong><s:text name="phone"/></strong>
+						<span>{{phone}}</span>		 
+                  	</div>
+					<div class="type-text">	
+               			<strong><s:text name="email"/></strong>
+						<span>{{email}}</span>		 
+                  	</div>
+					<div class="type-text">	
+               			<strong><s:text name="country"/></strong>
+						<span>{{country}}</span>		 
+                  	</div>
             		<div class="type-text">	
-                	</div>
+               			<strong><s:text name="notes"/></strong>
+						<span>{{notes}}</span>		 
+                  	</div>
 				</div>
 			</div>
 		</form>

@@ -14,8 +14,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
-import model.Facility;
-import model.Image;
 import model.Structure;
 import model.User;
 
@@ -23,9 +21,7 @@ import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServer;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.response.QueryResponse;
-import org.apache.solr.client.solrj.response.TermsResponse;
 import org.apache.solr.client.solrj.response.FacetField.Count;
-import org.apache.solr.client.solrj.response.TermsResponse.Term;
 import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,7 +49,6 @@ public class StructureResource {
     private SolrServer solrServerStructure = null;
 	@Autowired
 	private ApplicationContext applicationContext = null;
-	 
    
     
     @PostConstruct
@@ -87,7 +82,6 @@ public class StructureResource {
         if(term.trim().equals("")){
         	term = "*:*";
         }
-
         user = (User)RequestContextHolder.currentRequestAttributes().getAttribute("user", RequestAttributes.SCOPE_SESSION);
         term = term + " AND id_user:" + user.getId();
         query = new SolrQuery();   		
@@ -115,7 +109,6 @@ public class StructureResource {
        return structures;          
     }
     
-       
     @GET
     @Path("suggest")
     @Produces({MediaType.APPLICATION_JSON})
@@ -153,7 +146,6 @@ public class StructureResource {
    			}					
    		}
    		return ret;
-        
      }
 	
 	@GET
