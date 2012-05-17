@@ -31,17 +31,17 @@ $(function () {
                 $.each(payments, function (key, value) {
                     if ($(value).size() == 1) {
                         var value_contained = $(value).is('input') ? $(value).val() : $(value).text();
-                        subtotal += isNaN(parseInt(value_contained)) ? 0 : parseInt(value_contained);
+                        subtotal += isNaN(parseFloat(value_contained)) ? 0 : parseFloat(value_contained);
                     } //else if an array of doms was selected by selector
                     else {
                         $(value).each(function (k, v) {
                             var value_contained = $(v).is('input') ? $(v).val() : $(v).text();
-                            subtotal += isNaN(parseInt(value_contained)) ? 0 : parseInt(value_contained);
+                            subtotal += isNaN(parseFloat(value_contained)) ? 0 : parseFloat(value_contained);
                         });
                     }
                 });
                 // permanently update the subtotal
-                $(".subtotal_room").text(subtotal);
+                $(".subtotal_room").text(subtotal.toFixed(2));
                 Controllers.Booking.updateBalance();
             } catch (e) {
                 //nothing for now -- selector exceptions management
@@ -54,19 +54,19 @@ $(function () {
             try {
                 if ($(due).size() == 1) {
                     var value_contained = $(due).is('input') ? $(due).val() : $(due).text();
-                    subDue += isNaN(parseInt(value_contained)) ? 0 : parseInt(value_contained);
+                    subDue += isNaN(parseFloat(value_contained)) ? 0 : parseFloat(value_contained);
                 } //else if an array of doms was selected by selector
                 else {
                     $(due).each(function (k, v) {
                         var value_contained = $(v).is('input') ? $(v).val() : $(v).text();
-                        subDue += isNaN(parseInt(value_contained)) ? 0 : parseInt(value_contained);
+                        subDue += isNaN(parseFloat(value_contained)) ? 0 : parseFloat(value_contained);
                     });
                 }
                 //permanently update balance
-                var subtotal = isNaN(parseInt($(".subtotal_room").text())) ? 0 : parseInt($(".subtotal_room").text());
+                var subtotal = isNaN(parseFloat($(".subtotal_room").text())) ? 0 : parseFloat($(".subtotal_room").text());
                 var balanceDue = subtotal - subDue;
-                $("#balance_room").val(balanceDue);
-                $(".balance_room").html(balanceDue);
+                $("#balance_room").val(balanceDue.toFixed(2));
+                $(".balance_room").html(balanceDue.toFixed(2));
             } catch (e) {
                 //nothing for now -- 
             }
@@ -436,18 +436,18 @@ $(function () {
                                     }
                                 });
                                 if (maxGuests !== null && parseInt(maxGuests) > 0 && ($clicked.is("select#sel_rooms_list"))) {
-                                    var $dd = $(".guests-select");
+                                    var $dd = $(".guests-select"),
+                                    options ='';
                                     // number of guests variation
-                                    var added = new EJS({
-                                        url: 'js/views/booking/listNumGuests.ejs'
-                                    }).render({
-                                        lNumGuests: listNumGuests,
-                                        nGuests: nrGuests,
-                                        labels: {
-                                            labelNrGuests: $.i18n("guests")
-                                        }
-                                    });
-                                    $dd.html(added);
+                                    for(var i = 0; i < maxGuests; i++){
+                                    	options +='<option value="'+ listNumGuests[i] +'"' + 
+                                            ((listNumGuests[i] == nrGuests)? 'selected="selected"' : '') +
+                                             '>' + listNumGuests[i] + '</option>';
+                                          
+                                    }
+                                    $dd.html('<label for="nr_guests">' + $.i18n("guests") + '</label><select id="nr_guests"  name="booking.nrGuests">'
+                                    		+ options + '</select>' );
+
                                 }
                                 if (($clicked.is("select#booking_duration") || $clicked.is("select#nr_guests"))) {
                                     self.displayQuantitySelect($('input:checkbox[name="bookingExtraIds"]'));

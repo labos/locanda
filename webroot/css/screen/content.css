@@ -1189,7 +1189,6 @@ top: 5px;
 padding: 5px 15px 3px 8px;	
 }
 #priceList_edit:focus,#priceList_edit:active{
-background:none;
 outline:none;
 
 }
