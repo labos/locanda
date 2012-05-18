@@ -22,7 +22,7 @@
     <script id="edit-template" type="text/x-handlebars-template">
 		<form id="edit-form" class="yform" role="application">
                 <div class="c50l">
-                  	<div class="type-text">           
+                  	<div class="type-select">           
        					<label for="FormYear"><s:text name="year"/><sup title="<s:text name="thisFileMandatory"/>.">*</sup></label>
 						<select name="year">
 							{{#availableYears}}<option name="{{value}}" {{#selected}}selected="selected"{{/selected}}>{{value}}</option>{{/availableYears}}

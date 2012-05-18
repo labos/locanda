@@ -26,7 +26,7 @@
                   		<label for="FormName"><s:text name="name"/><sup title="<s:text name="thisFileMandatory"/>.">*</sup></label>
                 		<input type="text" class="required" name="name" id="FormName" value="{{name}}" aria-required="true"/>
                   	</div>
-                  	<div class="type-text">           
+                  	<div class="type-select">           
        					<label for="FormRoomType"><s:text name="roomType"/><sup title="<s:text name="thisFileMandatory"/>.">*</sup></label>
                     	<select name="id_roomType">
 							{{#availableRoomTypes}}<option value="{{value_id}}" {{#selected}}selected="selected"{{/selected}}>{{value_name}}</option>{{/availableRoomTypes}}

@@ -41,6 +41,7 @@ $(function() {
          timeslotsPerHour : 4,
          buttons : true,
          buttonText : {
+        	go: "by date",
             today : "today",
             lastWeek : "&nbsp;&lt;&nbsp;",
             nextWeek : "&nbsp;&gt;&nbsp;"
@@ -384,7 +385,8 @@ $(function() {
         
 
          if (options.buttons) {
-            calendarNavHtml = "<div class=\"wc-nav\"><span id=\"toolbar\" class=\"ui-widget-header ui-corner-all\">\
+            calendarNavHtml = "<div class=\"wc-nav\"><div  id=\"wc-search-date\"><span id=\"search-datepicker\"></span></div><span id=\"toolbar\" class=\"ui-widget-header ui-corner-all\">\
+                    <button class=\"wc-search-date\">" + options.buttonText.go + "</button>\
                     <button class=\"wc-today\">" + options.buttonText.today + "</button>\
                     <button class=\"wc-prev\">" + options.buttonText.lastWeek + "</button>\
                     <button class=\"wc-next\">" + options.buttonText.nextWeek + "</button>\
@@ -394,8 +396,10 @@ $(function() {
             
             $(calendarNavHtml).appendTo($calendarContainer);
             
-            
-            $(".wc-today").button({
+            $(".wc-search-date").button({
+                icons: {
+                    primary: "ui-icon-search"
+                }}).next().button({
                 icons: {
                     primary: "ui-icon-pin-s"
                 }}).next().button({
@@ -407,7 +411,31 @@ $(function() {
                              secondary: "ui-icon-triangle-1-e"
                     }
                 });
-            
+
+			$( "#search-datepicker" ).datepicker(
+    				{onSelect: function(dateText, inst) { self.element.weekCalendar("gotoWeek",new Date(dateText));  }}	
+    			);
+           	$( '#wc-search-date' ).dialog({
+           		width: $( "#search-datepicker" ).width() + 35,
+           		height: $( "#search-datepicker" ).height() + 100,
+           		autoOpen: false,
+    			dialogClass:"alert", 
+    			create: function(event, ui) {}
+    			
+    		});
+            $calendarContainer.find(".wc-search-date").click(function() {
+            	
+               	$( '#wc-search-date' ).dialog({
+               		autoOpen: true,
+        			show: "blind",
+        			hide: "explode"});
+            	/*
+            	$( '#wc-search-date' ).datepicker({
+        			onSelect: function(dateText, inst) { self.element.weekCalendar("gotoWeek",new Date(dateText));  }
+        		});
+            	*/
+                return false;
+             });            
 
             $calendarContainer.find(".wc-nav .wc-today").click(function() {
                self.element.weekCalendar("today");
@@ -462,7 +490,7 @@ $(function() {
             calendarBodyHtml += "<div class=\"wc-hour-header " + bhClass + "\">"
             //create room column
             if (options.use24Hour) {
-               calendarBodyHtml += "<div class=\"wc-time-header-cell\" id=\"" + i + "\"><span>&nbsp;" + self._24HourForIndex(i) + "</span><input type=\"hidden\" name=\"id_room\" value=\""+ options.listRooms[i].id + "\" /><img src=\"images/" + options.listRooms[i].maxGuests + ".png\" /></div>";
+               calendarBodyHtml += "<div class=\"wc-time-header-cell\" id=\"" + i + "\"><span>&nbsp;" + self._24HourForIndex(i) + "</span><input type=\"hidden\" name=\"id_room\" value=\""+ options.listRooms[i].id + "\" /><img src=\"images/" + options.listRooms[i].maxGuests + ".png\" /><span class=\"number-guests\">" + options.listRooms[i].maxGuests  +"</span></div>";
             } else {
                calendarBodyHtml += "<div class=\"wc-time-header-cell\" id=\"" + i + "\"><span>&nbsp;" + self._hourForIndex(i) + "</span><span class=\"wc-am-pm\">" + self._amOrPm(i) + "</span></div>";
             }

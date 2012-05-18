@@ -111,6 +111,7 @@ $(function () {
                   daysToShow: 10,
                   listRooms: self.list_rooms,
                   buttonText: {
+                  	  go: $.i18n("goOnADate"),
                       today: $.i18n("today"),
                       lastWeek: $.i18n("prev"),
                       nextWeek: $.i18n("next")
@@ -312,7 +313,7 @@ $(function () {
               var input_room_id = $('input[name="id_room"]').filter(function () {
                   return ($(this).val() == id);
               });
-              var name = $(input_room_id).siblings();
+              var name = $(input_room_id).siblings().first();
               if (name.text() != undefined) return name.text();
               else return '******';
           }

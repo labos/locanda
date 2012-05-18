@@ -89,6 +89,7 @@ $(function () {
                 daysToShow: 10,
                 listRooms: self.list_rooms,
                 buttonText: {
+                	go: $.i18n("goOnADate"),
                     today: $.i18n("today"),
                     lastWeek: $.i18n("prev"),
                     nextWeek: $.i18n("next")

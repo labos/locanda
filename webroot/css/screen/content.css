@@ -179,7 +179,7 @@
 
   table { width:auto; border-collapse:collapse; margin-bottom:0.1em; border-top:2px #888 solid; border-bottom:2px #888 solid; }
   table caption { font-variant:small-caps; }
-  table.full { width:100%; margin-top: 12px;}
+  table.full { width:100%; margin-top: 22px;}
   table.fixed { table-layout:fixed; }
 
   th,td { padding:0.5em; }
@@ -1190,5 +1190,16 @@ padding: 5px 15px 3px 8px;
 }
 #priceList_edit:focus,#priceList_edit:active{
 outline:none;
-
+}
+.number-guests{
+position: absolute;
+right:0;
+bottom:3px;
+font-size:10px;
+background-color:#B94A48;
+color:#fff;
+text-shadow:0 -1px 0 rgba(0, 0, 0, 0.25);
+-webkit-border-radius: 9px;
+-moz-border-radius: 9px;
+border-radius: 9px;
 }

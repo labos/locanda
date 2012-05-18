@@ -70,6 +70,7 @@ $.i18n.it.strings = {
     phone: "Telefono",
     address: "Indirizzo",
    	invoiceConfirm: "Attenzione, la fattura che stai per scaricare fà riferimento all'ultima prenotazione salvata.",
+    goOnADate: "Vai a una data",
     sunday: "Domenica",
     monday: "Lunedì",
     tuesday: "Martedì",

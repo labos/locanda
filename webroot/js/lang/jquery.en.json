@@ -70,6 +70,7 @@ $.i18n.en.strings = {
     phone: "Phone",
     address: "Address",
     invoiceConfirm: "Be careful, the invoice you are downloading refers to the last saved booking.",
+    goOnADate: "Go on a date",
     sunday: "Sunday",
     monday: "Monday",
     tuesday: "Tuesday",
