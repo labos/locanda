@@ -49,6 +49,7 @@ public class Extra implements Serializable{
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -65,6 +66,7 @@ public class Extra implements Serializable{
 			return false;
 		return true;
 	}
+	
 	public Integer getId() {
 		return id;
 	}

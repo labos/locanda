@@ -21,6 +21,66 @@
  * @tag views
  * @author LabOpenSource
  */
+window.RowView = Backbone.View.extend({
+     //... is a list tag.
+     tagName: "li",
+     indexTemplate: $("#row-template"),
+     // The DOM events specific to an row.
+     events: {
+         "click span.row-item-destroy": "remove",
+         "click .row-item": "edit"
+     },
+     initialize: function () {
+         this.model.bind('change', this.render, this);
+         this.model.bind('destroy', this.unrender, this);
+     },
+     // adds the property label to an object to allow internationalisation
+     translate: function (property) {
+ 		return {"label": $.i18n(property)};		
+     },
+     // Re-render the contents of the todo item.
+     render: function () {
+    	 var modelToRender = this.model.toJSON();
+    	 // set additional attributes to translate the price type names. Only for the view.
+    	 modelToRender.timePriceType = this.translate(this.model.get("timePriceType"));
+         modelToRender.resourcePriceType = this.translate(this.model.get("resourcePriceType"));
+         
+         $(this.el).html(Mustache.to_html(this.indexTemplate.html(), modelToRender));
+         return this;
+     },
+     // Switch this view into `"editing"` mode, displaying the input field.
+     edit: function (event) {
+         var $target = $(event.target);
+         if (!$target.is("span.row-item-destroy")) {
+             this.trigger("row:edit", this);
+         }
+     },
+     unrender: function () {
+         //clean up events raised from the view
+         this.unbind();
+         //clean up events from the DOM
+         $(this.el).remove();
+     },
+     // Remove this view from the DOM.
+     remove: function () {
+         if (confirm($.i18n("alertDelete"))) {
+             this.model.destroy({
+                 success: function () {  
+                     $.jGrowl($.i18n("cancelSuccess"), { header: this.alertOK });
+                 },
+                 error: function (jqXHR, textStatus, errorThrown) {
+                     textStatus.responseText || (textStatus.responseText = $.i18n("seriousErrorDescr"));
+                     $.jGrowl(textStatus.responseText, { header: this.alertKO, theme: "notify-error",sticky: true   }); 
+                 }
+             });
+         }
+     },
+     // clear all attributes from the model
+     clear: function () {
+         this.model.clear();
+     }
+ });
+
 window.EditExtraView = EditView.extend({
     events: {
         "submit form": "save",
@@ -28,39 +88,37 @@ window.EditExtraView = EditView.extend({
     },
     initialize: function () {
         this.model.bind('change', this.render, this);
-
     },
-
-    /**
-     * Initialize priceType properties added to model and only to be used in the template.
-     */
-    checkPriceType: function ( type) {
-    	if ( this.model.get("timePriceType") == type  || this.model.get("resourcePriceType" ) == type) {
-    		return {"value": type,"checked":"checked=\"checked\""};
-    		
+    // Initialize priceType properties added to model and only to be used in the template.  
+    checkPriceType: function (type) {
+    	if (this.model.get("timePriceType") == type  || this.model.get("resourcePriceType" ) == type) {
+    		return {"value": type,"checked":"checked=\"checked\""};		
     	} else {
         	return {"value": type,"checked":""};	
         }
-    
-    	
-    	
     },
-   
+    // adds the property label to an object to allow internationalisation
+    translate: function (property) {
+    		return {"label": $.i18n(property)};		
+    },
     render: function () {
         // render main edit view
         var modelToRender = this.model.toJSON();
-        this.checkPriceType();
-        // set additional attributes to display the radio buttons for price types. Only for the view.
+        
         if ( this.model.isNew() ){
-        	this.model.set({"timePriceType": "per Booking"},{silent: true});
-        	this.model.set({"resourcePriceType": "per Item"},{silent: true});
+        	this.model.set({"timePriceType": "extraPerBooking"},{silent: true});
+        	this.model.set({"resourcePriceType": "extraPerItem"},{silent: true});
         	        }
-        modelToRender.nightPriceType = this.checkPriceType( "per Night" );
-        modelToRender.weekPriceType = this.checkPriceType( "per Week" );
-        modelToRender.bookingPriceType = this.checkPriceType( "per Booking" );
-        modelToRender.roomPriceType = this.checkPriceType( "per Room" );
-        modelToRender.personPriceType = this.checkPriceType( "per Person" );
-        modelToRender.itemPriceType = this.checkPriceType( "per Item" );
+        // set additional attributes to display the radio buttons for price types. Only for the view.
+        modelToRender.nightPriceType = this.checkPriceType("extraPerNight");
+        modelToRender.weekPriceType = this.checkPriceType("extraPerWeek");
+        modelToRender.bookingPriceType = this.checkPriceType("extraPerBooking");
+        modelToRender.roomPriceType = this.checkPriceType("extraPerRoom" );
+        modelToRender.personPriceType = this.checkPriceType("extraPerPerson");
+        modelToRender.itemPriceType = this.checkPriceType("extraPerItem");
+        // set additional attributes to translate the price type names. Only for the view.
+        modelToRender.timePriceType = this.translate(this.model.get("timePriceType"));
+        modelToRender.resourcePriceType = this.translate(this.model.get("resourcePriceType"));
 
         $(this.el).html(Mustache.to_html(this.indexTemplate.html(), modelToRender));
         // add validation check

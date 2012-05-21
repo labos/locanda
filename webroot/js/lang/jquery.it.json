@@ -49,7 +49,7 @@ $.i18n.it.strings = {
     validPriceAlert: "Attenzione, devi inserire un prezzo valido",
     validPhoneAlert: "Attenzione, devi inserire un numero di telefono valido",
     alertCancel: "Attenzione le modifiche che hai effettuato non verranno salvate. Vuoi chiudere ugualmente?",
-    alertNoSeason: "Devi aggiungere almeno una stagione prima di creare un listo prezzi",
+    alertNoSeason: "Devi aggiungere almeno una stagione prima di creare un listino prezzi",
     today: "Oggi",
     prev: "Precedente",
     next: "Successivo",
@@ -69,7 +69,7 @@ $.i18n.it.strings = {
     bookerData: "Dati cliente",
     phone: "Telefono",
     address: "Indirizzo",
-   	invoiceConfirm: "Attenzione, la fattura che stai per scaricare fà riferimento all'ultima prenotazione salvata.",
+   	invoiceConfirm: "Attenzione, la fattura che stai per scaricare fa riferimento all'ultima prenotazione salvata.",
     goOnADate: "Vai a una data",
     sunday: "Domenica",
     monday: "Lunedì",
@@ -101,5 +101,11 @@ $.i18n.it.strings = {
     sep: "Set",
     oct: "Ott",
     nov: "Nov",
-    dec: "Dic"
+    dec: "Dic",
+    extraPerBooking: "per Prenotazione",
+	extraPerItem: "per Oggetto",
+	extraPerNight: "per Notte",
+	extraPerPerson: "per Persona",
+	extraPerRoom: "per Camera",
+	extraPerWeek: "per Settimana"
  };

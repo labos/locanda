@@ -20,7 +20,6 @@ import java.io.Serializable;
 public class ExtraItem implements Serializable{
 	
 	private Integer id;
-	
 	private Extra extra;
 	private Integer quantity = 0;
 	private Integer maxQuantity = 0;
@@ -36,6 +35,7 @@ public class ExtraItem implements Serializable{
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

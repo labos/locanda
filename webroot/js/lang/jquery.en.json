@@ -101,5 +101,11 @@ $.i18n.en.strings = {
     sep: "Sep",
     oct: "Oct",
     nov: "Nov",
-    dec: "Dec"
+    dec: "Dec",
+    extraPerBooking: "per Booling",
+	extraPerItem: "per Item",
+	extraPerNight: "per Night",
+	extraPerPerson: "per Person",
+	extraPerRoom: "per Room",
+	extraPerWeek: "per Week"
 };

@@ -76,13 +76,17 @@
                   	</div>
 					<div class="type-text">	
                   		<strong><s:text name="extraPriceType"/>:</strong>
-                		<span>{{timePriceType}}+{{resourcePriceType}}</span>
+                		<span>{{timePriceType.label}}/{{resourcePriceType.label}}</span>
+                  	</div>
+					<div class="type-text">	
+                  		<strong><s:text name="extraPriceType"/>:</strong>
+                		<span>{{timePriceType.label}}/{{resourcePriceType.label}}</span>
                   	</div>
               	</div>
 			</div>
           	<div class="c50l">
                <div class="type-text">
-                  {{#availableOnline}}<s:text name="onlineAvailable"/>{{/availableOnline}}
+                  {{#availableOnline}}<b><s:text name="onlineAvailable"/></b>{{/availableOnline}}
                </div>
 			</div>
 		</form>
@@ -93,7 +97,7 @@
 		<ul>
 			<li><b><s:text name="name"/>: </b>{{name}}</li>
 			<li><b><s:text name="description"/>: </b>{{description}}</li>
-			<li><b><s:text name="extraPriceType"/>: </b>{{timePriceType}}+{{resourcePriceType}}</li>
+			<li><b><s:text name="extraPriceType"/>: </b>{{timePriceType.label}}/{{resourcePriceType.label}}</li>
 			<li><input type="hidden" name="id" value="{{id}}"/></li>
 			<li>&nbsp;</li>
 		</ul>
