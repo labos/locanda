@@ -139,14 +139,18 @@ window.EditExtraView = EditView.extend({
             validator.resetForm();
             return false;
         });
-        //disables resource price type radio buttons set forcing it to "per Booking" when "per Item is selected"
-        $("input[name=resourcePriceType]").click(function() {
-        	if($('#radioItem').attr('checked')) {
-        		$("#radioBooking").attr('checked', 'checked');
-        		$("input[name=timePriceType]").attr('disabled', 'disabled');
-        		
-        	}else {$("input[name=timePriceType]").removeAttr('disabled');}
-        });
+        //disables resource price type radio buttons set forcing it to "per Booking" when "per Item is selected"       
+        if(this.model.get("resourcePriceType") == "extraPerItem")  {
+       		$("#radioBooking").attr('checked', 'checked');
+       		$("#radioNight, #radioWeek").attr('disabled', 'disabled');	
+       	}else {
+       		$("input[name=resourcePriceType]").click(function() {
+       			if($('#radioItem').attr('checked')) {
+       				$("#radioBooking").attr('checked', 'checked');
+       				$("#radioNight, #radioWeek").attr('disabled', 'disabled');
+       			}else {$("input[name=timePriceType]").removeAttr('disabled');}
+       		});
+       	};	
         this.delegateEvents();
         return this;
     }

@@ -78,10 +78,6 @@
                   		<strong><s:text name="extraPriceType"/>:</strong>
                 		<span>{{timePriceType.label}}/{{resourcePriceType.label}}</span>
                   	</div>
-					<div class="type-text">	
-                  		<strong><s:text name="extraPriceType"/>:</strong>
-                		<span>{{timePriceType.label}}/{{resourcePriceType.label}}</span>
-                  	</div>
               	</div>
 			</div>
           	<div class="c50l">
