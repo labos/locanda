@@ -32,19 +32,19 @@
                  	</div>
 					<div class="type-text">
 						<div class="c50l">
-							<input {{nightPriceType.checked}}
+							<input {{nightPriceType.checked}} id="radioNight"
 					    		type="radio" name="timePriceType" value="{{nightPriceType.value}}"/><s:text name="extraPerNight"/><br/>
-                        	<input {{weekPriceType.checked}}
+                        	<input {{weekPriceType.checked}} id="radioWeek"
 					    		type="radio" name="timePriceType" value="{{weekPriceType.value}}"/><s:text name="extraPerWeek"/><br/>
-                      		<input {{bookingPriceType.checked}}
+                      		<input {{bookingPriceType.checked}} id="radioBooking"
 				        		type="radio" name="timePriceType" value="{{bookingPriceType.value}}"/><s:text name="extraPerBooking"/>
 				    	</div>				 
 				    	<div class="c50l">
-							<input {{roomPriceType.checked}}
+							<input {{roomPriceType.checked}} id="radioRoom"
 					    		type="radio" name="resourcePriceType" value="{{roomPriceType.value}}"/><s:text name="extraPerRoom"/><br/>
-                        	<input {{personPriceType.checked}}
+                        	<input {{personPriceType.checked}} id="radioPerson"
 					    		type="radio" name="resourcePriceType" value="{{personPriceType.value}}"/><s:text name="extraPerPerson"/><br/>
-                        	<input {{itemPriceType.checked}}
+                        	<input {{itemPriceType.checked}} id="radioItem"
 					    		type="radio" name="resourcePriceType" value="{{itemPriceType.value}}"/><s:text name="extraPerItem"/><br/>
 				    	</div>
 					</div>

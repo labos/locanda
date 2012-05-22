@@ -34,7 +34,7 @@ window.RowView = Backbone.View.extend({
          this.model.bind('change', this.render, this);
          this.model.bind('destroy', this.unrender, this);
      },
-     // adds the property label to an object to allow internationalisation
+     // adds the property label to an object to allow internationalization
      translate: function (property) {
  		return {"label": $.i18n(property)};		
      },
@@ -97,7 +97,7 @@ window.EditExtraView = EditView.extend({
         	return {"value": type,"checked":""};	
         }
     },
-    // adds the property label to an object to allow internationalisation
+    // adds the property label to an object to allow internationalization
     translate: function (property) {
     		return {"label": $.i18n(property)};		
     },
@@ -106,8 +106,8 @@ window.EditExtraView = EditView.extend({
         var modelToRender = this.model.toJSON();
         
         if ( this.model.isNew() ){
-        	this.model.set({"timePriceType": "extraPerBooking"},{silent: true});
-        	this.model.set({"resourcePriceType": "extraPerItem"},{silent: true});
+        	this.model.set({"timePriceType": "extraPerNight"},{silent: true});
+        	this.model.set({"resourcePriceType": "extraPerPerson"},{silent: true});
         	        }
         // set additional attributes to display the radio buttons for price types. Only for the view.
         modelToRender.nightPriceType = this.checkPriceType("extraPerNight");
@@ -138,6 +138,14 @@ window.EditExtraView = EditView.extend({
             var validator = $(this).parents(".yform").validate();
             validator.resetForm();
             return false;
+        });
+        //disables resource price type radio buttons set forcing it to "per Booking" when "per Item is selected"
+        $("input[name=resourcePriceType]").click(function() {
+        	if($('#radioItem').attr('checked')) {
+        		$("#radioBooking").attr('checked', 'checked');
+        		$("input[name=timePriceType]").attr('disabled', 'disabled');
+        		
+        	}else {$("input[name=timePriceType]").removeAttr('disabled');}
         });
         this.delegateEvents();
         return this;
