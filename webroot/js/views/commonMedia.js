@@ -56,6 +56,7 @@ window.FacilityRowView = Backbone.View.extend({
    		 event.stopPropagation();
    	 }
         if (!$target.is(":checked")) {
+        	$target.attr("disabled", true);
             this.model.destroy({
                 success: function () {
                     $.jGrowl($.i18n("facilityUnCheckedSucces"), {
@@ -74,6 +75,7 @@ window.FacilityRowView = Backbone.View.extend({
                 }
             });
         } else {
+        	$target.attr("disabled", true);
             this.model.save(null, {
                 success: function () {
                     // trigger an update event.
@@ -151,6 +153,7 @@ window.ImageRowView = Backbone.View.extend({
       		 event.stopPropagation();
       	 }
         if (!$target.is(":checked")) {
+        	$target.attr("disabled", true);
             this.model.destroy({
                 success: function () {
                     $.jGrowl($.i18n("imageUnCheckedSuccess"), {
@@ -169,6 +172,7 @@ window.ImageRowView = Backbone.View.extend({
                 }
             });
         } else {
+        	$target.attr("disabled", true);
             this.model.save(null, {
                 success: function () {
                     // trigger an update event.
