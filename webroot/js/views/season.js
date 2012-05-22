@@ -46,6 +46,7 @@ window.PeriodRowView = Backbone.View.extend({
             modelToRender.startDate = this.convertDate(modelToRender.startDate);
         }
         // render model using template engine
+        
         $(this.el).html(Mustache.to_html(this.indexTemplate.html(), modelToRender));
         // add validation check
         this.$(".yform").validate();
@@ -125,7 +126,7 @@ window.PeriodRowView = Backbone.View.extend({
                 self.trigger("period:update", self);
                 // show a notification.
                 $.jGrowl($.i18n("congratulation"), {
-                    header: this.alertOK
+                    header: this.alertOK, position: 'top-right'
                 });
                 // switch to in Non-Edit mode
                 self.switchMode();
@@ -360,7 +361,7 @@ window.EditSeasonView = EditView.extend({
         if (this.model.isNew()) {
             this.renderNew();
         }
-
+        //add thirth parameter to pass i18n by partials:$.i18n[$.i18n.getLocale()].strings
         $(this.el).html(Mustache.to_html(this.indexTemplate.html(), modelToRender));
         // add validation check
         this.$(".yform").validate();
