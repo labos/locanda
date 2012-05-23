@@ -143,14 +143,13 @@ window.EditExtraView = EditView.extend({
         if(this.model.get("resourcePriceType") == "extraPerItem")  {
        		$("#radioBooking").attr('checked', 'checked');
        		$("#radioNight, #radioWeek").attr('disabled', 'disabled');	
-       	}else {
-       		$("input[name=resourcePriceType]").click(function() {
-       			if($('#radioItem').attr('checked')) {
-       				$("#radioBooking").attr('checked', 'checked');
-       				$("#radioNight, #radioWeek").attr('disabled', 'disabled');
-       			}else {$("input[name=timePriceType]").removeAttr('disabled');}
-       		});
-       	};	
+       	}; 
+       	$("input[name=resourcePriceType]").click(function() {
+       		if($('#radioItem').attr('checked')) {
+       			$("#radioBooking").attr('checked', 'checked');
+       			$("#radioNight, #radioWeek").attr('disabled', 'disabled');
+       		}else {$("input[name=timePriceType]").removeAttr('disabled');}
+       	});
         this.delegateEvents();
         return this;
     }
