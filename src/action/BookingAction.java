@@ -70,7 +70,7 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 	private String dateOut = null;
 	private List<Extra> extras = null;
 	private List<Convention> conventions = null;
-	private List<Integer> bookingExtraIds = new ArrayList();
+	private List bookingExtraIds = new ArrayList();
 	private Double adjustmentsSubtotal = 0.0;
 	private Double paymentsSubtotal = 0.0;
 	private Integer idStructure;
@@ -808,10 +808,10 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 	public void setExtras(List<Extra> extras) {
 		this.extras = extras;
 	}
-	public List<Integer> getBookingExtraIds() {
+	public List getBookingExtraIds() {
 		return bookingExtraIds;
 	}
-	public void setBookingExtraIds(List<Integer> bookingExtraIds) {
+	public void setBookingExtraIds(List bookingExtraIds) {
 		this.bookingExtraIds = bookingExtraIds;
 	}
 	public Double getAdjustmentsSubtotal() {
