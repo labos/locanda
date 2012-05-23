@@ -358,7 +358,7 @@ window.EditGuestView = EditView.extend({
                 if (is_new) {
                     self.collection.add(self.model);
                 }
-                $.jGrowl($.i18n("congratulation"), { header: this.alertOK, position: 'top-right' });
+                $.jGrowl($.i18n("congratulation"), { header: this.alertOK, position: 'top-right', position: 'top-right'  });
                 self.switchMode();
                 
             },

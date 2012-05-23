@@ -100,7 +100,13 @@ div.jGrowl div.jGrowl-notification, div.jGrowl div.jGrowl-closer {
 
 div.jGrowl div.jGrowl-notification {
 	min-height: 			40px;
-color: #fff;
+	color: #fff;
+	background: rgb(30, 196, 52);
+background: -moz-linear-gradient(90deg, rgb(30, 196, 52) 30%, rgb(34, 143, 38) 70%);
+background: -webkit-linear-gradient(90deg, rgb(30, 196, 52) 30%, rgb(34, 143, 38) 70%);
+background: -o-linear-gradient(90deg, rgb(30, 196, 52) 30%, rgb(34, 143, 38) 70%);
+background: -ms-linear-gradient(90deg, rgb(30, 196, 52) 30%, rgb(34, 143, 38) 70%);
+background: linear-gradient(90deg, rgb(30, 196, 52) 30%, rgb(34, 143, 38) 70%);
 }
 
 div.jGrowl div.jGrowl-notification div.jGrowl-header {

@@ -115,7 +115,7 @@
 			<div class="subcolumns period">
 				<div class="type-text">
 		      		<input type="hidden" name="id_season" value="{{id_season}}"/>
-					<span class="row-sub-item-destroy"></span>
+					{{#id}}<span class="row-sub-item-destroy"></span>{{/id}}
 					<div class="c33l">
 		    			<div class="subcl type-text">
 		      				<span><s:text name="from"/>:</span> 

@@ -66,7 +66,7 @@ window.RowView = Backbone.View.extend({
          if (confirm($.i18n("alertDelete"))) {
              this.model.destroy({
                  success: function () {  
-                     $.jGrowl($.i18n("cancelSuccess"), { header: this.alertOK });
+                     $.jGrowl($.i18n("cancelSuccess"), { header: this.alertOK, position: 'top-right'  });
                  },
                  error: function (jqXHR, textStatus, errorThrown) {
                      textStatus.responseText || (textStatus.responseText = $.i18n("seriousErrorDescr"));

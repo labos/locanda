@@ -150,7 +150,7 @@ window.PeriodRowView = Backbone.View.extend({
             this.model.destroy({
                 success: function () {
                     $.jGrowl($.i18n("cancelSuccess"), {
-                        header: this.alertOK
+                        header: this.alertOK, position: 'top-right' 
                     });
                     self.switchMode();
                 },

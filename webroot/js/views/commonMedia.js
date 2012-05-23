@@ -60,7 +60,7 @@ window.FacilityRowView = Backbone.View.extend({
             this.model.destroy({
                 success: function () {
                     $.jGrowl($.i18n("facilityUnCheckedSucces"), {
-                        header: this.alertOK
+                        header: this.alertOK, position: 'top-right' 
                     });
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
@@ -81,7 +81,7 @@ window.FacilityRowView = Backbone.View.extend({
                     // trigger an update event.
                     self.trigger("child:update", self);
                     $.jGrowl($.i18n("facilityCheckedSuccess"), {
-                        header: this.alertOK
+                        header: this.alertOK, position: 'top-right' 
                     });
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
@@ -157,7 +157,7 @@ window.ImageRowView = Backbone.View.extend({
             this.model.destroy({
                 success: function () {
                     $.jGrowl($.i18n("imageUnCheckedSuccess"), {
-                        header: this.alertOK
+                        header: this.alertOK, position: 'top-right' 
                     });
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
@@ -178,7 +178,7 @@ window.ImageRowView = Backbone.View.extend({
                     // trigger an update event.
                     self.trigger("child:update", self);
                     $.jGrowl($.i18n("imageCheckedSuccess"), {
-                        header: this.alertOK
+                        header: this.alertOK, position: 'top-right' 
                     });
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
