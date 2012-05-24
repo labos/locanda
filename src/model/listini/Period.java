@@ -36,7 +36,7 @@ public class Period implements Serializable{
 	private Integer id_season;
 	
 	public Boolean checkDates() {
-		Boolean startDateBeforeEndDate = DateUtils.truncatedCompareTo(this.getEndDate(), this.getStartDate(), Calendar.DAY_OF_MONTH) > 0;
+		Boolean startDateBeforeEndDate = DateUtils.truncatedCompareTo(this.getEndDate(), this.getStartDate(), Calendar.DAY_OF_MONTH) >= 0;
 		Boolean equalYears = this.getStartYear().equals(this.getEndYear());
 		Boolean ret = true;
 		

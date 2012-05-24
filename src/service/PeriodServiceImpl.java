@@ -119,8 +119,6 @@ public class PeriodServiceImpl implements PeriodService{
 		}
 			
 		for(Period anyOtherPeriod : periods){
-//			ret = anyOtherPeriod.getStartDate().compareTo(period.getEndDate()) <= 0
-//		                && anyOtherPeriod.getEndDate().compareTo(period.getStartDate()) >= 0;
 			if(anyOtherPeriod.getEndDate().compareTo(period.getStartDate()) >=0 && anyOtherPeriod.getStartDate().compareTo(period.getEndDate())<=0){
 				ret = true;
 			}
