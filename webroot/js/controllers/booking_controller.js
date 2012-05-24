@@ -110,7 +110,8 @@ $(function () {
                         numNights = Controllers.Booking.days_between_signed(dateInVal, dateOutVal);
                         if (numNights <= 0) $.jGrowl( $.i18n("dateInVsdateOut"), { theme: "notify-error", sticky: true  });
                     }
-                    $("#booking_duration").val(numNights);
+
+                  //--  $NumNights.val(numNights);
                 }
             });
             this.guest.getCustomers("input[name='booking.booker.lastName']", null);
@@ -218,6 +219,7 @@ $(function () {
                 	numNights = $(this).find(":selected").val(),
                		dateInVal = $('input[name="booking.dateIn"]').datepicker('getDate'),
                		$dateInDom = $('input[name="booking.dateIn"]');
+                $('input[name="booking.dateOut"]').data("prevDate", $('input[name="booking.dateOut"]').val());
                 if (dateInVal !== '' && $dateInDom.valid()) {
                     var dateInDate = new Date(dateInVal),
                     	millisO = dateInDate.getTime(),
@@ -321,6 +323,9 @@ $(function () {
             $('#booking_duration, input:text[name="booking.dateIn"], input:text[name="booking.dateOut"]').focus(function () {
                 // Store the current value on focus, before it changes
                 $(this).data("prevDate", $(this).val());
+                //store previous num nights
+                $NumNights = $("#booking_duration");
+                $NumNights.data("prevNumNights", $NumNights.val());
             }).change(function (event) {
                 // check in room was selected
                 // save current dom that raieses a change event
@@ -340,8 +345,14 @@ $(function () {
                         } else if (data_action.result == "error") {
                             event.preventDefault();
                             var validator = $(clicked).parents(".yform.json").validate();
-                            // check if previous date is null
-                            $(clicked).val($(clicked).data("prevDate"));
+
+                            if ((!$(clicked).is("select#booking_duration"))){
+                                $(clicked).val($(clicked).data("prevDate"));        	
+                            }else{
+                                $('input:text[name="booking.dateOut"]').val($('input:text[name="booking.dateOut"]').data("prevDate")); 
+                            }
+                            
+                            $("#booking_duration").val( $("#booking_duration").data("prevNumNights") );
         					$.jGrowl( data_action.description, { theme: "notify-error", sticky: true  });
 
                         } else {
