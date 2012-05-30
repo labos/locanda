@@ -59,6 +59,7 @@
 }
 
 .wc-grid-timeslot-header {
+	vertical-align: top;
 	border-right: 1px solid grey;
 	width: 9.09%;
 	background: #eee;	
@@ -67,13 +68,13 @@
 
 
 .wc-scrollable-grid {
-	overflow-x: hidden !important;
-	overflow-y: auto !important;
+	/* overflow-x: hidden !important;
+	overflow-y: auto !important;*/
 	/* overflow-y: hidden !important; */
 	position: relative;
 	background-color: #fff;
 	width: 99.9%;
-	max-height: 380px;
+	/* max-height: 380px; */
 }
 
 

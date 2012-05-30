@@ -116,8 +116,9 @@ $(function () {
                       lastWeek: $.i18n("prev"),
                       nextWeek: $.i18n("next")
                   },
-                  height: function () {
-                      return $(window).height() - $("h1").outerHeight() - 1;
+                  height: function () {            	  
+                	  return $(".wc-time-slots").height() + 140;
+                      //return $(window).height() - $("h1").outerHeight() - 1;
                   },
                   eventRender: function (calEvent, $event) {
                       if (calEvent.end.getTime() < new Date().getTime()) {
@@ -127,6 +128,11 @@ $(function () {
                               "border": "1px solid #888"
                           });
                       }
+                      
+                      
+                  },
+                  calendarAfterLoad : function(calendar) {
+                	 // $('.wc-scrollable-grid').jScrollPane();
                   },
                   draggable: function (calEvent, $event) {
                       return calEvent.readOnly != true;

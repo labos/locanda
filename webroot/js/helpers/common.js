@@ -97,6 +97,7 @@ $(document).ready(function () {
        	            life: 110,
        	            closeDuration: "fast",
        	            header: title,
+       	            position: 'top-right',
        	            close: function () {
        	                $(".ui-widget-overlay").hide();
        	            }
