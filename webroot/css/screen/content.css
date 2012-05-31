@@ -1116,6 +1116,10 @@ width:70%;
 margin-right:3px;
 }
 
+.edit-state-box .full div.type-text input.small_input {
+width:10%;
+}
+
 .hover-room-column {
 -webkit-box-shadow:6px 0 5px rgba(50,50,50,0.75)!important;
 -moz-box-shadow:6px 0 5px rgba(50,50,50,0.75)!important;

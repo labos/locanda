@@ -28,7 +28,7 @@
                   	</div>
                   	<div class="type-text">           
        					<label for="FormMax"><s:text name="maxGuests"/><sup title="<s:text name="thisFileMandatory"/>.">*</sup></label>
-                    	<input type="text" class="required number" name="maxGuests" id="FormMax" value="{{maxGuests}}" aria-required="true"/>
+                    	<input type="text" class="required number small_input" name="maxGuests" id="FormMax" value="{{maxGuests}}" aria-required="true"/>
       		      	</div> 
 				  	<div class="type-text">	
                   		<label for="FormNotes"><s:text name="notes"/></label>

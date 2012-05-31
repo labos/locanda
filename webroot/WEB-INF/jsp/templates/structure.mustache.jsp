@@ -56,7 +56,7 @@
                 	<input type="text" class="required email" name="email" id="FormEmail" value="{{email}}" aria-required="true" size="20" />
               	  </div>
               	  <div class="type-text">
-                	<label for="FormUrl"><s:text name="web"/></label>
+                	<label for="FormUrl"><s:text name="url"/></label>
                 	<input type="text" name="url" id="FormUrl" value="{{url}}" aria-required="true" />
               	  </div>
               	  <div class="type-text">
