@@ -36,7 +36,6 @@
 
 	<target name="propertySetter">
 		<available property="deployed" file="${tomcat.application.path}" type="dir"/>
-		<available property="resources" file="${tomcat.resource.path}" type="dir"/>
 	</target>
 	
 	<target name="clean" description="clean up build directory">
@@ -66,14 +65,6 @@
 		<replaceregexp file="${dist.path}/META-INF/context.xml" match="password=.*" replace ='password="${mysql.password}"'/>
 		<replaceregexp file="${dist.path}/WEB-INF/solr.properties" match="homeDir=.*" replace ='homeDir=${solr.dist.path}'/>
 		<replaceregexp file="${dist.path}/WEB-INF/solr.properties" match="configFile=.*" replace ='configFile=${solr.dist.path}/solr.xml'/>	
-	</target>
-	
-	<target name="resource_restore" depends="propertySetter" description="restore resources folder" if="resources">
-		<copy todir="${dist.path}">
-			<fileset dir="${tomcat.application.path}">
-				<include name="resources/"/>
-			</fileset>
-		</copy>
 	</target>
 	
 	<target name="compile" depends="init" description="compilation on bin folder">
@@ -135,7 +126,7 @@
 	</target>
 	
 	<taskdef name="undeploy" classname="org.apache.catalina.ant.UndeployTask" classpathref="ant-class.path"/>
-	<target name="undeploy" depends="propertySetter,resource_restore" description="Remove web application" if="deployed">
+	<target name="undeploy" depends="propertySetter" description="Remove web application" if="deployed">
 		<delete file="${tomcat.deploy.path}/${webappname}.war"></delete>
 		<undeploy url="${tomcat.manager.url}" username="${tomcat.username}" password="${tomcat.password}"
             path="/${webappname}"/>
@@ -186,6 +177,6 @@
 	
 	<target name="DB full update" depends="DB_drop, DB_create, DB_restore"></target>
 	
-	<target name="buildAll" depends="dist, resource_restore, stop, undeploy, compile, WAR build"></target>
+	<target name="buildAll" depends="dist, stop, undeploy, compile, WAR build"></target>
 	
 </project>

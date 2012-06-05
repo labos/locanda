@@ -22,7 +22,6 @@
 	<property name="tomcat.home.path" value="your_path"/>
 	<property name="tomcat.deploy.path" value="${tomcat.home.path}/webapps"/>
 	<property name="tomcat.application.path" value="${tomcat.deploy.path}/${webappname}"/>
-	<property name="tomcat.resource.path" value="${tomcat.application.path}/resources"/>
 	<property name="tomcat.username" value="your_user"/>
 	<property name="tomcat.password" value="your_pass"/>
 	<property name="tomcat.manager.url" value="http://${host}:8080/manager/text"/>
