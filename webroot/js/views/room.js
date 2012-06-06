@@ -35,6 +35,8 @@
              this.roomTypes.fetch({
                  success: function() {
                 	 self.initializeRoomTypes();
+                	 // render again if success is called after render method.
+                	 self.render();
                 	 },
              });
              this.facilitiesListView = new FacilitiesListView({

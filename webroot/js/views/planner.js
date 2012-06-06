@@ -118,6 +118,7 @@ $(function () {
                   },
                   height: function () {            	  
                 	  return $(".wc-time-slots").height() + 140;
+                	  //uncomment following line if you want a scroll activation.
                       //return $(window).height() - $("h1").outerHeight() - 1;
                   },
                   eventRender: function (calEvent, $event) {
@@ -132,7 +133,7 @@ $(function () {
                       
                   },
                   calendarAfterLoad : function(calendar) {
-                	 // $('.wc-scrollable-grid').jScrollPane();
+                	 //nothing
                   },
                   draggable: function (calEvent, $event) {
                       return calEvent.readOnly != true;
