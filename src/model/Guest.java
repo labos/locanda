@@ -18,6 +18,10 @@ package model;
 import java.io.Serializable;
 import java.util.Date;
 
+import model.Documento;
+import model.questura.Comune;
+import model.questura.Nazione;
+
 import javax.xml.bind.annotation.XmlRootElement;
 
 
@@ -54,6 +58,22 @@ public class Guest implements Serializable{
 	private String idNumber;
 	@Field
 	private Integer id_structure;
+
+	
+	
+	private Comune comuneDiNascita; //comune e prov 
+	
+	private Nazione statoNascita; //
+	
+	private Nazione cittadinanza;
+	private Integer id_cittadinanza; 
+	
+	private Comune residenza; //comune e prov
+	
+	private Nazione statoResidenza;
+	
+	
+	
 	
 	
 	@Override
@@ -79,6 +99,8 @@ public class Guest implements Serializable{
 			return false;
 		return true;
 	}
+		
+	
 	public Integer getId() {
 		return id;
 	}
@@ -163,5 +185,43 @@ public class Guest implements Serializable{
 	public void setBirthPlace(String birthPlace) {
 		this.birthPlace = birthPlace;
 	}
+	public Nazione getStatoNascita() {
+		return statoNascita;
+	}
+	public void setStatoNascita(Nazione statoNascita) {
+		this.statoNascita = statoNascita;
+	}
+	public Nazione getCittadinanza() {
+		return cittadinanza;
+	}
+	public void setCittadinanza(Nazione cittadinanza) {
+		this.cittadinanza = cittadinanza;
+	}
+	public Comune getResidenza() {
+		return residenza;
+	}
+	public void setResidenza(Comune residenza) {
+		this.residenza = residenza;
+	}
+	public Nazione getStatoResidenza() {
+		return statoResidenza;
+	}
+	public void setStatoResidenza(Nazione statoResidenza) {
+		this.statoResidenza = statoResidenza;
+	}
+	public Comune getComuneDiNascita() {
+		return comuneDiNascita;
+	}
+	public void setComuneDiNascita(Comune comuneDiNascita) {
+		this.comuneDiNascita = comuneDiNascita;
+	}
+	public Integer getId_cittadinanza() {
+		return id_cittadinanza;
+	}
+	public void setId_cittadinanza(Integer id_cittadinanza) {
+		this.id_cittadinanza = id_cittadinanza;
+	}
+	
+	
 	
 }

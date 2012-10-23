@@ -48,6 +48,7 @@ public class Booking implements Serializable{
 	private Integer id_convention = null;
 	private Integer id_room = null;
 	
+	private List<Alloggiato> registroAlloggiati;
 	
 	public Booking(){
 		this.extras = new ArrayList<Extra>();
@@ -55,6 +56,8 @@ public class Booking implements Serializable{
 		this.payments = new ArrayList<Payment>();
 		this.guests = new ArrayList<Guest>();
 		this.extraItems = new ArrayList<ExtraItem>();
+		this.registroAlloggiati = new ArrayList<Alloggiato>();
+		
 	}
 	
 	public Integer calculateNumNights(){
@@ -212,6 +215,12 @@ public class Booking implements Serializable{
 	public Boolean removeExtraItem(Guest anExtraItem){
 		return this.getExtraItems().remove(anExtraItem);
 	}
+	public Boolean addAlloggiato(Alloggiato guest){
+		return this.getRegistroAlloggiati().add(guest);
+	}
+	public Boolean removeAlloggiato(Alloggiato guest){
+		return this.getRegistroAlloggiati().remove(guest);
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -348,6 +357,14 @@ public class Booking implements Serializable{
 	}
 	public void setId_room(Integer id_room) {
 		this.id_room = id_room;
+	}
+
+	public List<Alloggiato> getRegistroAlloggiati() {
+		return registroAlloggiati;
+	}
+
+	public void setRegistroAlloggiati(List<Alloggiato> registroAlloggiati) {
+		this.registroAlloggiati = registroAlloggiati;
 	}
 
 }
