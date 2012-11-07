@@ -158,5 +158,6 @@
 	<classpathentry kind="lib" path="webroot/WEB-INF/lib/stax-api-1.0-2.jar"/>
 	<classpathentry kind="lib" path="webroot/WEB-INF/lib/commons-io-2.0.1.jar"/>
 	<classpathentry kind="lib" path="webroot/WEB-INF/lib/commons-lang-2.6.jar"/>
+	<classpathentry kind="lib" path="/home/asus/locandaHSQL/webroot/WEB-INF/lib/hsqldb.jar"/>
 	<classpathentry kind="output" path="webroot/WEB-INF/classes"/>
 </classpath>
