@@ -41,10 +41,13 @@
          -->
 
   <Resource name="jdbc/locanda" auth="Container" type="javax.sql.DataSource"
-               maxActive="100" maxIdle="30" maxWait="10000"
+               maxActive="100" 
+	       maxIdle="30" 
+	       maxWait="10000"
                username="SA" 
                password="" 
                driverClassName="org.hsqldb.jdbcDriver"
-               url="jdbc:hsqldb:hsql://localhost/locanda"/>
+               url="jdbc:hsqldb:hsql://localhost/locanda"
+	       />
 
 </Context>

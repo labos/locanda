@@ -17,7 +17,8 @@
 	<description>Locanda build file for Localhost</description>
 	
 	<import file="buildProperties.xml"/>
-	
+        <import file="rdbmsProperties.xml"/>	
+
 	<path id="class.path">
 		<fileset dir="${webroot.path}/lib" includes="*.jar"/>
 		<fileset dir="${tomcat.home.path}/lib" includes="*.jar"/>
@@ -50,7 +51,7 @@
 		<mkdir dir="${solr.dist.path}"/>
 	</target>
 	
-	<target name="dist" depends="init" description="initialization tasks">
+	<target name="dist" depends="init, rdbmsConfig" description="initialization tasks">
 		<copy todir="${dist.path}">
 			<fileset dir="${workdir.path}">
 				<include name="**"/>
@@ -61,14 +62,24 @@
 				<include name="**"/>
 			</fileset>
 		</copy>
-		<replaceregexp file="${dist.path}/META-INF/context.xml" match="username=.*" replace ='username="${mysql.username}"'/>
-		<replaceregexp file="${dist.path}/META-INF/context.xml" match="password=.*" replace ='password="${mysql.password}"'/>
+		<delete includeemptydirs="true">
+		  <fileset dir="${dist.path}/WEB-INF/classes/" includes="**/*"/>
+		</delete>
+		<replaceregexp file="${dist.path}/META-INF/context.xml" match="maxActive=.*" replace ='maxActive="${DBmaxActive}"'/>
+		<replaceregexp file="${dist.path}/META-INF/context.xml" match="maxIdle=.*" replace ='maxIdle="${DBmaxIdle}"'/>
+		<replaceregexp file="${dist.path}/META-INF/context.xml" match="maxWait=.*" replace ='maxWait="${DBmaxWait}"'/>
+		<replaceregexp file="${dist.path}/META-INF/context.xml" match="driverClassName=.*" replace ='driverClassName="${DBdriverClassName}"'/>
+		<replaceregexp file="${dist.path}/META-INF/context.xml" match="url=.*" replace ='url="${DBurl}"'/>
+
+		<replaceregexp file="${dist.path}/META-INF/context.xml" match="username=.*" replace ='username="${DBusername}"'/>
+		<replaceregexp file="${dist.path}/META-INF/context.xml" match="password=.*" replace ='password="${DBpassword}"'/>
 		<replaceregexp file="${dist.path}/WEB-INF/solr.properties" match="homeDir=.*" replace ='homeDir=${solr.dist.path}'/>
 		<replaceregexp file="${dist.path}/WEB-INF/solr.properties" match="configFile=.*" replace ='configFile=${solr.dist.path}/solr.xml'/>	
 	</target>
 	
-	<target name="compile" depends="init" description="compilation on bin folder">
-		<javac srcdir="${src.path}" destdir="${build.path}" includeantruntime="false" optimize="true">
+			
+	<target name="compile"  description="compilation on bin folder">
+		<javac failonerror="yes" srcdir="${src.path}" destdir="${build.path}" verbose="false" includeantruntime="false" optimize="true">
 			<classpath refid="class.path"/>
 		</javac>
 		<copy todir="${build.path}">
