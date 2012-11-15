@@ -56,9 +56,9 @@ public class RoomTypeAction extends ActionSupport implements SessionAware,UserAw
 	
 	@Actions({
 		@Action(value="/findAllRoomTypes",results = {
-				@Result(name="success",location="/WEB-INF/jsp/roomTypes.jsp"),
+				@Result(name="success",location="/WEB-INF/jsp/roomTypes.jsp")
 
-		}),
+				}),
 		@Action(value="/findAllRoomTypesJson",results = {
 				@Result(type ="json",name="success", params={"root","roomTypes"})
 				}) 

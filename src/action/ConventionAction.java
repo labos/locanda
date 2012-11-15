@@ -49,10 +49,10 @@ public class ConventionAction extends ActionSupport implements SessionAware,User
 	@Actions({
 		@Action(value="/findAllConventions",results = {
 				@Result(name="success",location="/WEB-INF/jsp/conventions.jsp")
-		}),
+				})
 //		@Action(value="/findAllConventionsJson",results = {
 //				@Result(type ="json",name="success", params={"root","conventions"})
-//		})
+//				})
 	})
 	public String findAllConventions(){
 //		List<Convention> filteredConventions = null;
