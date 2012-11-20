@@ -33,12 +33,13 @@
 	<!-- HyperSql configuration section  -->
 	<target name="hsql_PropertySetter" if="hsql">
 	  <echo message="Configuring variables for using HSQL rdbms"/>
-	  <property name="DBbin.path" location="hsql"/>
+	  <property name="DBbin.path" value="hsql"/>	
+	  <property name="DB.files" value="/tmp/locandaHsql"/>
 	  <property name="DBhost" value="${host}"/>
 	  <property name="DBport" value="3306"/>
 	  <property name="DBusername" value="SA"/>
 	  <property name="DBpassword" value=""/>
-	  <property name="DBdump.path" value="hsql"/>
+	  <property name="DBdump.path" value="/tmp/"/>
 	  <property name="DBdriverClassName" value="org.hsqldb.jdbcDriver"/>
 	  <property name="DBurl" value="jdbc:hsqldb:hsql://localhost/locanda"/>
 	</target>

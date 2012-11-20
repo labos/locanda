@@ -16,8 +16,8 @@
 <project name="Locanda" default="buildAll" basedir="..">
 	<description>Locanda build file for Localhost</description>
 	
-	<import file="buildProperties.xml"/>
-        <import file="rdbmsProperties.xml"/>	
+	<import file="buildPropertiesMyconfig.xml"/>
+    <import file="rdbmsProperties.xml"/>	
 
 	<path id="class.path">
 		<fileset dir="${webroot.path}/lib" includes="*.jar"/>
@@ -143,51 +143,89 @@
             path="/${webappname}"/>
 	</target>
 	
-	<target name="DB_dump">  
-    	<exec executable="mysqldump" output="${mysql.dump.path}/${webappname}.sql">  
-        	<arg value="--user=${mysql.username}" />  
-        	<arg value="--password=${mysql.password}" />  
-        	<arg value="--host=${mysql.host}" />  
-        	<arg value="--port=${mysql.port}" />   
+	<target name="buildAll" depends="dist, stop, undeploy, compile, WAR build"></target>
+
+
+
+
+
+	<target name="MySQL_dump" depends="rdbmsConfig" if="mysql">  
+    	<exec executable="mysqldump" output="${DBdump.path}/${webappname}.sql">  
+        	<arg value="--user=${DBusername}" />  
+        	<arg value="--password=${DBpassword}" />  
+        	<arg value="--host=${DBhost}" />  
+        	<arg value="--port=${DBport}" />   
         	<arg value="${webappname}" />  
     	</exec>  
 	</target>
 	
-	<target name="DB_restore">
-		<exec executable="mysql" input="${mysql.dump.path}/${webappname}.sql">
-   	    	<arg value="--user=${mysql.username}" />
-      		<arg value="--password=${mysql.password}" />
-			<arg value="--host=${mysql.host}" />  
-        	<arg value="--port=${mysql.port}" /> 
+	<target name="MySQL_restore" depends="rdbmsConfig" if="mysql">
+		<exec executable="mysql" input="${DBdump.path}/${webappname}.sql">
+   	    	<arg value="--user=${DBusername}" />
+      		<arg value="--password=${DBpassword}" />
+			<arg value="--host=${DBhost}" />  
+        	<arg value="--port=${DBport}" /> 
       		<arg value="${webappname}"/>
     	</exec>
 	</target>
 	
-	<target name="DB_drop">
+	<target name="MySQL_drop" depends="rdbmsConfig" if="mysql">
     	<exec executable="mysqladmin">
-      		<arg value="--user=${mysql.username}" />
-      		<arg value="--password=${mysql.password}" />
-			<arg value="--host=${mysql.host}" />  
-        	<arg value="--port=${mysql.port}" /> 
+      		<arg value="--user=${DBusername}" />
+      		<arg value="--password=${DBpassword}" />
+			<arg value="--host=${DBhost}" />  
+        	<arg value="--port=${DBport}" /> 
       		<arg value="--force"/>
       		<arg value="drop"/>
       		<arg value="${webappname}"/>
     	</exec>
   	</target>
  
-  	<target name="DB_create">
+  	<target name="MySQL_create" depends="rdbmsConfig" if="mysql">
     	<exec executable="mysqladmin">
-      		<arg value="--user=${mysql.username}" />
-      		<arg value="--password=${mysql.password}" />
-			<arg value="--host=${mysql.host}" />  
-        	<arg value="--port=${mysql.port}" /> 
+      		<arg value="--user=${DBusername}" />
+      		<arg value="--password=${DBpassword}" />
+			<arg value="--host=${DBhost}" />  
+        	<arg value="--port=${DBport}" /> 
       		<arg value="create"/>
       		<arg value="${webappname}"/>
     	</exec>
   	</target>
 	
-	<target name="DB full update" depends="DB_drop, DB_create, DB_restore"></target>
+	<target name="MySQL full update" if="mysql" depends="MySQL_drop, MySQL_create, MySQL_restore"></target>
+
 	
-	<target name="buildAll" depends="dist, stop, undeploy, compile, WAR build"></target>
+
+
+<!-- hslq targets -->
+
+	<target name="HSQL_start_server" depends="rdbmsConfig" if="hsql"> 
+	  <exec executable="${DBbin.path}/runserver.sh">  
+	  	<arg value="${DB.files}" />  
+	  </exec>  
+	</target>
+
+	<target name="HSQL_stop_server" depends="rdbmsConfig" if="hsql"> 
+	  <exec executable="${DBbin.path}/runserver.sh">  
+	  	<arg value="stop" />  
+	  </exec>  
+	</target>
+
+
+	<target name="HSQL_dump"  depends="rdbmsConfig" if="hsql">  
+	  <exec executable="${DBbin.path}/dump.sh" >  
+        	<arg value="${DBdump.path}/${webappname}Dump.hsql" />  
+	  </exec>  
+	</target>
+	
+	
+		
+	<target name="HSQL_restore" depends="rdbmsConfig" if="hsql">
+	  <exec executable="${DBbin.path}/sqltool.sh">
+	    <arg value="${DBbin.path}/locanda.hsql" />
+	  </exec>
+	</target>
+	
+
 	
 </project>

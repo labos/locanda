@@ -14,22 +14,23 @@
 #    In case of controversy the competent court is the Court of Cagliari (Italy).
 
 
-#FILE=/tmp/mydb
 
-FILE=${1}
-NDB=0
-DBNAME=locanda
+# USAGE:
+# dump.sh /my/outfile
+
+
+USER="SA"
+PASSWD="\"\""
+OUTFILE=$1
 BASEDIR=$(dirname $0)
 
 usage(){
     app=`basename $0`
-    echo "Usage: "
-    echo "  - ${app} hsqlDataBaseFile [dataBaseName]";
-    echo "  - ${app} stop";
+    echo "Usage: ${app} dumpFile";
     exit 1
 }
 
-if [ "$#" -lt 1 ] || [ "$#" -gt 2 ]; then
+if [ "$#" -ne 1 ]; then
     usage;
 fi
 
@@ -37,18 +38,11 @@ if [ $1 = "-h" -o $1 = "--h" -o $1 = "-help" -o $1 = "--help" ]; then
     usage;
 fi
 
+echo java -jar ${BASEDIR}/lib/sqltool.jar --inlineRc=url=jdbc:hsqldb:hsql://localhost/locanda,user=SA,password="" --sql="SCRIPT '${OUTFILE}';"
 
-if [ $1 = "stop" ]; then
 
-    java -jar ${BASEDIR}/lib/sqltool.jar --inlineRc=url=jdbc:hsqldb:hsql://localhost/locanda,user=SA,password="" --sql="SHUTDOWN;"
-    exit 0
-fi
+java -jar ${BASEDIR}/lib/sqltool.jar --inlineRc=url=jdbc:hsqldb:hsql://localhost/locanda,user=SA,password="" --sql="SCRIPT '${OUTFILE}';"
 
-if [ "$#" -eq 2 ]; then
-    DBNAME=$2;
-fi
 
-echo java -cp ${BASEDIR}/hsqldb.jar org.hsqldb.server.Server --database.${NDB} file:${FILE} --dbname.${NDB} ${DBNAME}
 
-java -cp ${BASEDIR}/lib/hsqldb.jar org.hsqldb.server.Server --database.${NDB} file:${FILE} --dbname.${NDB} ${DBNAME}
 

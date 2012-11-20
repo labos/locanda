@@ -34,11 +34,5 @@
 	<property name="build.path" value="${webroot.path}/classes"/>
 	<property name="src.path" value="src"/>
 	
-	<property name="mysql.bin.path" location="/usr/bin"/>
-	<property name="mysql.host" value="${host}"/>
-	<property name="mysql.port" value="3306"/>
-	<property name="mysql.username" value="your_user"/>
-	<property name="mysql.password" value="your_pass"/>
-	<property name="mysql.dump.path" value="sql"/>
 	
 </project>
