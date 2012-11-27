@@ -24,8 +24,8 @@ LOCANDADIST="${TMPDIR}locanda-${LOCANDAVERSION}_dist"
 MAX=100
 IDLE=30
 WAIT=10000
-USERNAME="SA"
-PASSWORD=""
+USERNAME="LOCANDA"
+PASSWORD="LOCANDA"
 DRIVERCLASS="org.hsqldb.jdbcDriver"
 URL="jdbc:hsqldb:hsql://localhost/locanda"
 
@@ -90,11 +90,13 @@ interactiveEdit(){
     while [ ! $IST = y ]; do {
 	    echo "\nSetting Parameters"
 	    
-	    echo "Username:"
+	    echo "Username: [LOCANDA]"
 	    read USERNAME
-	    
-	    echo "Password:"
+	    USERNAME="${USERNAME:=LOCANDA}"
+
+	    echo "Password: [LOCANDA]"
 	    read PASSWORD
+	    PASSWORD="${PASSWORD:=LOCANDA}"
 
 	    echo "Max connections: Default [100]"
 	    read MAX
@@ -129,9 +131,6 @@ interactiveEdit(){
 	    echo "Correct? y/[n]"
 	    read IST
 	    IST="${IST:="n"}"
-
-
-
 	}
     done
 }
@@ -163,6 +162,7 @@ done
 case ${DB} in
     1)
 	echo "HSQL"
+	echo "Please install hsql service, you it can found in data/hsql dir"
 	interactiveEdit $HSQLDRIVERCLASS $HSQLURL
 	;;
     2)
