@@ -35,8 +35,38 @@ HSQLDRIVERCLASS="org.hsqldb.jdbcDriver"
 MYSQLURL="jdbc:mysql://localhost:3306/locanda"
 MYSQLDRIVERCLASS="com.mysql.jdbc.Driver"
 
+SOLRP=$HOME
 
 
+
+solrConfig(){
+    IST=n
+    while [ ! $IST = y ]; do {
+	    echo "\nWhere do you want to put the solr folder?"
+	    
+	    echo "Default [$HOME]"
+	    read SOLRP
+	    SOLRP="${SOLRP:=$HOME}"
+
+	    
+	    echo "This is your solr path. Correct? y/[n]"
+	    echo "${SOLRP}"
+	    read IST
+	    IST="${IST:="n"}"
+
+	}
+    done
+
+
+    ESOLRP=`echo ${SOLRP} | sed -e 's/\/$//'|  sed -f ${BASEDIR}/data/f2b.sed  ` 
+    
+    echo "\nCreating configuration files"
+    cat  ${BASEDIR}/data/solr.properties |
+    sed -e "s/SOLRPATH/${ESOLRP}/" >  ${LOCANDADIST}/WEB-INF/solr.properties 
+
+    echo "\nExtracting data in ${SOLRP}"
+    tar -zxvf ${BASEDIR}/data/solr.tar.gz -C ${SOLRP} > /dev/null 2>&1
+}
 
 
 clean(){
@@ -74,16 +104,25 @@ edit(){
 } 
 
 install(){
+    IST=n
+    while [ ! $IST = y ]; do {
+	    echo "Where do you want to install locanda.war?"
+	    echo "must be in you Tomcat app directory: [${CATALINA_HOME}/webapps/]"
+	    read INSTALLDIR
+	    INSTALLDIR="${INSTALLDIR:=${CATALINA_HOME}/webapps/}"
 
-    if [ ! -z ${CATALINA_HOME} ]; then
-	echo "Install Locanda in $CATALINA_HOME/webapps/";
-	mv -i ${TMPDIR}/locanda.war $CATALINA_HOME/webapps/;
-	echo "\n Installation complete! Now you can run Locanda"
-    else
-	echo "Please install Tomcat and set your CATALINA_HOME"
-	echo "The variable CATALINA_HOME don't set. Aborting installation.";
-    fi
+	    echo "\n Would you like to install locanda in ${INSTALLDIR} ??"
+	    echo "Correct? y/[n]"
+	    read IST
+	    IST="${IST:="n"}"
+	}
+    done
+    
+    echo "Installing locanda ..."
+    mv -i ${TMPDIR}/locanda.war ${INSTALLDIR};
+
 }
+
 
 interactiveEdit(){
     IST=n
@@ -176,10 +215,13 @@ esac
 
 clean
 extract
+solrConfig
 edit
 warbuild
 install
 #clean
+
+echo "Enjoy Locanda!"
 
 exit 0
 
