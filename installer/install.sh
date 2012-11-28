@@ -39,6 +39,49 @@ SOLRP=$HOME
 
 
 
+#$1 user (root mysql)
+#$2 passwd 
+#$3 host
+#$4 port
+#$5 NEWMYSQLUSER
+#$6 NEWMYSQLPASSWD
+mysqlLocandaCreate(){
+    echo "Creating Database Locanda on mysql://$3:$4"
+    mysqladmin --user=$1 --password=$2 --host=$3 --port=$4 create locanda
+    
+    if [ $? = 0 ]; then
+	echo "\nCreating schemas..."
+	mysql --user=$1 --password=$2 --host=$3 --port=$4 locanda <  ${BASEDIR}/data/locanda.sql
+	
+    else
+	echo "\nDatabase locanda alredy exist"
+	echo "would you drop and restore a new one? y/[n]"
+	read IST
+	IST="${IST:="n"}"
+	
+	if [ $IST = 'y' ]; then
+	    echo "Dropping and restoring..."
+	    echo " Dropping Database."
+	    mysqladmin --user=$1 --password=$2 --host=$3 --port=$4 --force drop locanda
+	    echo " Creating Database."
+	    mysqladmin --user=$1 --password=$2 --host=$3 --port=$4 create locanda
+	    echo " Creating Schemas."
+	    mysql --user=$1 --password=$2 --host=$3 --port=$4 locanda <  ${BASEDIR}/data/locanda.sql
+	    
+	fi
+    fi
+
+    echo "Now we create a new MySqlUser for locanda database."
+    echo "Creating "
+    echo "\t user:\t $5"
+    echo "\t password:\t $6"
+    echo "User can SELECT, INSERT, DELETE, UPDATE"
+    cat ${BASEDIR}/data/newuser.sql | sed -e "s/newuser/$5/" | sed -e "s/password/$6/" > ${TMPDIR}/newuser.sql
+    mysql --user=$1 --password=$2 --host=$3 --port=$4 <  ${TMPDIR}/newuser.sql
+    
+}
+
+
 solrConfig(){
     IST=n
     while [ ! $IST = y ]; do {
@@ -179,7 +222,10 @@ interactiveEdit(){
 
 
 
-echo "Welcome MESSAGE HERE"
+
+
+
+echo "Welcome to locanda installation:"
 
 
 DB="0"
@@ -207,6 +253,19 @@ case ${DB} in
     2)
 	echo "MySQL"
 	interactiveEdit  $MYSQLDRIVERCLASS $MYSQLURL
+	echo "\nNow insert your admin credential for MySql"
+	echo "we configure a new user and set the locanda database"
+	echo "Username: "
+	read MADMIN
+	echo "Password: "
+	read MPASSWD
+	echo "Host: [localhost] "
+	read MHOST
+	MHOST="${MHOST:=localhost}"
+	echo "Port: [3306] "
+	read MPORT
+	MPORT="${MPORT:=3306}"
+	mysqlLocandaCreate ${MADMIN} ${MPASSWD} ${MHOST} ${MPORT} ${USERNAME} ${PASSWORD}
 	;;
 esac
 
