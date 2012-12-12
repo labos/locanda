@@ -1,0 +1,40 @@
+this file is the README of the dir hsql
+this directory contains software that is only for dev purpose.
+
+
+Contents:
+
+- dump.sh: 
+  this is an unix utility for dumping you locanda database (when obviously the local server is running)
+  to write the current db status in a ascii hsql file you giust run
+  $ dump.sh outfile 
+  where outfile is the file in wich you want to write the db
+   
+
+- locanda.hsql:
+  this file contain the locanda hsql db decription and the initialization values
+
+
+- runserver.sh:
+  this is an unix utility for running you locanda database server
+  to run the db giust run
+  $ runserver.sh /my/path/mydatafileset 
+  if is your first run time the empty locanda db is created, if you have alredy create your db in 'mydatafileset' 
+  the server is restored.
+  the dafault values to connection are: 
+  url localhost:3036
+  username SA
+  password ""
+  if you want to stop the hsql server run
+  $ runserver.sh stop
+
+- sqltool.sh:
+  this utility is used with the file locanda.hsql to init the db to startup values 
+  (when the local server is running)
+  $ sqltool.sh ./locanda.hsql 
+
+The lib directory contains the java hsql server used by shell programs
+If you want call these file using your jvm, please refer hsql rdbms docs.
+./lib/:
+	hsqldb.jar
+	sqltool.jar
