@@ -1,0 +1,23 @@
+Locanda Build Guide (with Maven)
+
+-Clone the project from GitHub (https://github.com/labos/locanda)
+-In the project root, there are three .properties file to be customized:
+	-global.properties	-> resources paths
+	-mysql.properties 	-> mySQL connection parameters
+	-hsql.properties 	-> HSQL connection parameters
+
+-To deploy the webapp, in the shell from the project directory type:
+	-mvn clean install			to create the build in Locanda_Target folder
+	-mvn clean tomcat7:deploy	to create the build in Locanda_Target folder and deploy it in a running Tomcat7 server
+
+-to accomplish the latter task, you previously need to:
+	-configure your Tomcat server in ${tomcat.home}/conf/tomcat-users.xml by adding a user with the roles "manager-script" and "manager-gui"
+	-edit the Maven user config file (${user.home}/.m2/settings.xml) uncommenting the "server" tag and putting "tomcat_server" as id and your manager username and 		  password, like this:
+
+		<server>
+       	 	<id>tomcat_server</id>
+        	<username>tomcat</username>
+        	<password>tomcat</password>
+		</server>
+
+

@@ -1,5 +1,5 @@
 INSTALLATION NOTES
 1)copy hsqldaemon.sh and lib directory in you favorite bin path.
 2)put hsqldaemon.cfg in /etc
-3)copy or create a new hsql database set files in accordtng to your hsqldaemon.cfg configuration
+3)copy or create a new hsql database set files in according to your hsqldaemon.cfg configuration
 4)run hsqldaemon.sh start or put the service in your init (eg /etc/rc.d; /etc/init.d/ rc*.s) scripts/services (its depends on your linux system) 
