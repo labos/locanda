@@ -27,7 +27,6 @@ import service.StructureService;
 @Component
 @Scope("prototype")
 public class PeriodResource {
-	
 	@Autowired
 	private PeriodService periodService = null;
 	@Autowired

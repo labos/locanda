@@ -4,12 +4,12 @@
 	<groupId>labos</groupId>
 	<artifactId>locanda</artifactId>
 	<version>0.3</version>
-	
+
 	<properties>
 		<resource.folder>${project.build.directory}/${project.name}_resources</resource.folder>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
-	
+
 	<profiles>
 		<profile>
 			<id>hsql</id>
@@ -18,10 +18,57 @@
 					<filter>global.properties</filter>
 					<filter>hsql.properties</filter>
 				</filters>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>exec-maven-plugin</artifactId>
+						<version>1.2.1</version> 
+						<executions>
+							<!-- <execution> 
+								<phase>compile</phase> 
+								<goals> 
+									<goal>java</goal> 
+								</goals> 
+								<configuration> 
+									<mainClass>org.hsqldb.server.Server</mainClass> 
+									<arguments> 
+										<argument>-database.0</argument> 
+										<argument>file:hsql/locanda.sql</argument> 
+										<argument>-dbname.0</argument> 
+										<argument>locanda</argument>
+										<argument>&amp;</argument>
+									</arguments> 
+								</configuration>
+							</execution>  -->
+							<!-- <execution>
+								<phase>compile</phase>
+								<goals>
+									<goal>exec</goal>
+								</goals>
+								<configuration>
+									<executable>hsql/runserver.sh</executable>
+									<arguments>
+										<argument>locanda.sql</argument>
+										<argument>&amp;</argument>
+									</arguments>
+								</configuration>
+							</execution> -->
+						</executions>
+					</plugin>
+				</plugins>
 			</build>
+			<dependencies>
+				<dependency>
+					<groupId>org.hsqldb</groupId>
+					<artifactId>hsqldb</artifactId>
+					<version>2.2.9</version>
+					<scope>runtime</scope>
+				</dependency>
+			</dependencies>
+
 		</profile>
 	</profiles>
-	
+
 	<build>
 		<sourceDirectory>src</sourceDirectory>
 		<directory>${basedir}/${project.name}_target</directory>
@@ -43,24 +90,6 @@
 			</resource>
 		</resources>
 		<plugins>
-			<!-- <plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>properties-maven-plugin</artifactId>
-				<version>1.0-alpha-2</version>
-				<executions>
-					<execution>
-						<phase>initialize</phase>
-						<goals>
-							<goal>read-project-properties</goal>
-						</goals>
-						<configuration>
-							<files>
-								<file>global.properties</file>
-							</files>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin> -->
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>2.3.2</version>
@@ -75,10 +104,10 @@
 				<version>2.3</version>
 				<configuration>
 					<archive>
-           				<manifest>
-              				<addClasspath>true</addClasspath>
-            			</manifest>
-          			</archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+						</manifest>
+					</archive>
 					<webXml>webroot\WEB-INF\web.xml</webXml>
 					<webResources>
 						<resource>
@@ -103,7 +132,7 @@
 			</plugin>
 		</plugins>
 	</build>
-	
+
 	<dependencies>
 		<dependency>
 			<groupId>org.apache.struts</groupId>
@@ -360,12 +389,6 @@
 			<artifactId>tomcat-catalina</artifactId>
 			<version>7.0.33</version>
 			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.hsqldb</groupId>
-			<artifactId>hsqldb</artifactId>
-			<version>2.2.9</version>
-			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.tomcat</groupId>

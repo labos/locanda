@@ -40,7 +40,6 @@ import service.RoomTypeService;
 @Component
 @Scope("prototype")
 public class RoomResource {
-	
 	@Autowired
     private RoomService roomService = null;
 	@Autowired

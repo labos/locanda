@@ -26,7 +26,6 @@ import com.sun.jersey.api.NotFoundException;
 @Path("/structureFacilities/")
 @Component
 @Scope("prototype")
-
 public class StructureFacilityResource {	
 	@Autowired
 	private FacilityService facilityService = null;

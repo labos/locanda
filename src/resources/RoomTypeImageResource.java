@@ -1,8 +1,5 @@
 package resources;
 
-
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -12,49 +9,24 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.WebApplicationException;
-
 import javax.ws.rs.core.MediaType;
 
-
-import model.File;
 import model.Image;
-
-
-import org.apache.commons.io.IOUtils;
-import org.codehaus.jackson.JsonGenerationException;
-import org.codehaus.jackson.jaxrs.JacksonJsonProvider;
-import org.codehaus.jackson.map.JsonMappingException;
-import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jettison.json.JSONArray;
-import org.codehaus.jettison.json.JSONException;
-import org.codehaus.jettison.json.JSONObject;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
-
 import com.sun.jersey.api.NotFoundException;
-import com.sun.jersey.core.header.FormDataContentDisposition;
-import com.sun.jersey.multipart.FormDataParam;
-
-
-import service.FacilityImageService;
 import service.ImageService;
-import service.RoomImageService;
 import service.RoomTypeImageService;
 import service.RoomTypeService;
-import service.StructureImageService;
 
 @Path("/roomTypeImages/")
 @Component
 @Scope("prototype")
-
 public class RoomTypeImageResource {
 	@Autowired
 	private ImageService imageService = null;
@@ -104,7 +76,6 @@ public class RoomTypeImageResource {
  		return map;
 	}
 	
-			
 	@DELETE
     @Path("{id}")
 	@Produces({MediaType.APPLICATION_JSON})   
@@ -121,28 +92,20 @@ public class RoomTypeImageResource {
 	public ImageService getImageService() {
 		return imageService;
 	}
-
 	public void setImageService(ImageService imageService) {
 		this.imageService = imageService;
 	}
-
-	
 	public RoomTypeImageService getRoomTypeImageService() {
 		return roomTypeImageService;
 	}
-
 	public void setRoomTypeImageService(RoomTypeImageService roomTypeImageService) {
 		this.roomTypeImageService = roomTypeImageService;
 	}
-
 	public RoomTypeService getRoomTypeService() {
 		return roomTypeService;
 	}
-
 	public void setRoomTypeService(RoomTypeService roomTypeService) {
 		this.roomTypeService = roomTypeService;
 	}	
-	
-	
-	
+		
 }

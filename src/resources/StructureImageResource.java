@@ -28,7 +28,6 @@ import com.sun.jersey.api.NotFoundException;
 @Path("/structureImages/")
 @Component
 @Scope("prototype")
-
 public class StructureImageResource {
 	@Autowired
 	private ImageService imageService = null;
@@ -93,15 +92,12 @@ public class StructureImageResource {
 	public ImageService getImageService() {
 		return imageService;
 	}
-
 	public void setImageService(ImageService imageService) {
 		this.imageService = imageService;
 	}
-
 	public StructureImageService getStructureImageService() {
 		return structureImageService;
 	}
-
 	public void setStructureImageService(StructureImageService structureImageService) {
 		this.structureImageService = structureImageService;
 	}	

@@ -39,7 +39,6 @@ import service.StructureService;
 @Component
 @Scope("prototype")
 public class ExtraResource {
-   
     @Autowired
     private ExtraService extraService = null;
     @Autowired

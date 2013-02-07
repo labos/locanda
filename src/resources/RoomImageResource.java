@@ -1,7 +1,5 @@
 package resources;
 
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -31,7 +29,6 @@ import com.sun.jersey.api.NotFoundException;
 @Path("/roomImages/")
 @Component
 @Scope("prototype")
-
 public class RoomImageResource {
 	@Autowired
 	private ImageService imageService = null;
@@ -101,23 +98,18 @@ public class RoomImageResource {
 	public ImageService getImageService() {
 		return imageService;
 	}
-
 	public void setImageService(ImageService imageService) {
 		this.imageService = imageService;
 	}
-
 	public RoomImageService getRoomImageService() {
 		return roomImageService;
 	}
-
 	public void setRoomImageService(RoomImageService roomImageService) {
 		this.roomImageService = roomImageService;
 	}
-
 	public RoomService getRoomService() {
 		return roomService;
 	}
-
 	public void setRoomService(RoomService roomService) {
 		this.roomService = roomService;
 	}	

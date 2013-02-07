@@ -38,7 +38,6 @@ import service.StructureService;
 @Component
 @Scope("prototype")
 public class GuestResource {
-   
     @Autowired
     private GuestService guestService = null;
     @Autowired

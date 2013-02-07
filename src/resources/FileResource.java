@@ -35,9 +35,9 @@ public class FileResource {
 	@Autowired
 	private FileService fileService;
 	
+	
 	@GET
 	@Path("{id}")
-	
 	public Response getFile(@PathParam("id") Integer id) {
 		model.File file = null;
 		
@@ -105,8 +105,6 @@ public class FileResource {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-
 		return str;
 	}
 

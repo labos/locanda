@@ -43,7 +43,6 @@ import service.StructureService;
 @Component
 @Scope("prototype")
 public class SeasonResource {
-	
 	@Autowired
 	private SeasonService seasonService = null;
 	@Autowired

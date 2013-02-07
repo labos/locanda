@@ -15,27 +15,18 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import model.Facility;
-import model.Image;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import service.FacilityService;
-import service.ImageService;
 import service.RoomFacilityService;
 import service.RoomService;
-import service.RoomTypeFacilityService;
-import service.RoomTypeService;
-import service.StructureFacilityService;
-import service.StructureImageService;
-
 import com.sun.jersey.api.NotFoundException;
 
 @Path("/roomFacilities/")
 @Component
 @Scope("prototype")
-
 public class RoomFacilityResource {	
 	@Autowired
 	private FacilityService facilityService = null;
@@ -106,35 +97,20 @@ public class RoomFacilityResource {
 	public FacilityService getFacilityService() {
 		return facilityService;
 	}
-
-
 	public void setFacilityService(FacilityService facilityService) {
 		this.facilityService = facilityService;
 	}
-
-
 	public RoomFacilityService getRoomFacilityService() {
 		return roomFacilityService;
 	}
-
-
 	public void setRoomFacilityService(RoomFacilityService roomFacilityService) {
 		this.roomFacilityService = roomFacilityService;
 	}
-
-
 	public RoomService getRoomService() {
 		return roomService;
 	}
-
-
 	public void setRoomService(RoomService roomService) {
 		this.roomService = roomService;
 	}
-
-
-
-	
-	
 	
 }
