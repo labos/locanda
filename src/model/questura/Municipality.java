@@ -17,7 +17,7 @@ package model.questura;
 
 import java.io.Serializable;
 import java.util.Date;
-
+import model.questura.Location;
 import javax.xml.bind.annotation.XmlRootElement;
 
 
@@ -27,14 +27,18 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 @XmlRootElement
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class TipoDocumento implements Serializable{
+public class Municipality implements Location,Serializable{
 	
 	@Field
 	private Integer id;
 	@Field
-	private String codice;
+	private Integer policeCode;
 	@Field
-	private String descrizione;
+	private String description;
+	@Field
+	private String province;
+	@Field
+	private Date expiryDate;
 	
 	@Override
 	public int hashCode() {
@@ -51,7 +55,7 @@ public class TipoDocumento implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		TipoDocumento other = (TipoDocumento) obj;
+		Municipality other = (Municipality) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -67,17 +71,29 @@ public class TipoDocumento implements Serializable{
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public String getCodice() {
-		return codice;
+	public Integer getPoliceCode() {
+		return policeCode;
 	}
-	public void setCodice(String codice) {
-		this.codice = codice;
+	public void setPoliceCode(Integer code) {
+		this.policeCode = code;
 	}
-	public String getDescrizione() {
-		return descrizione;
+	public String getDescription() {
+		return description;
 	}
-	public void setDescrizione(String descrizione) {
-		this.descrizione = descrizione;
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	public String getProvince() {
+		return province;
+	}
+	public void setProvince(String province) {
+		this.province = province;
+	}
+	public Date getExpiryDate() {
+		return expiryDate;
+	}
+	public void setExpiryDate(Date date) {
+		this.expiryDate = date;
 	}
 		
 }

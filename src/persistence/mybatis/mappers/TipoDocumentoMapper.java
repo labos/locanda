@@ -17,9 +17,9 @@ package persistence.mybatis.mappers;
 
 import java.util.List;
 
-import model.questura.TipoDocumento;
+import model.questura.IdentificationType;
 
 
 public interface TipoDocumentoMapper {
-	public List<TipoDocumento> findAll();
+	public List<IdentificationType> findAll();
 }

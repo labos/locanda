@@ -18,7 +18,7 @@ package model;
 import java.io.Serializable;
 import java.util.Date;
 
-import model.questura.CodiceAlloggiato;
+import model.questura.HousedType;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -29,19 +29,21 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 @XmlRootElement
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Alloggiato implements Serializable{
-	
+public class Housed implements Serializable{
 	@Field
 	private Integer id;
 	@Field
 	private Integer idBooking;
 	private Guest guest;
-	private CodiceAlloggiato codiceAlloggiato;
+	private HousedType housedType;
 
-	private Date fromDate;
-	private Date toDate;
+	private Date checkInDate;
+	private Date checkOutDate;
 	
+	private Boolean exported;
+	private Boolean deleted;
 	
+	private String idSired;
 	
 	
 	@Override
@@ -59,7 +61,7 @@ public class Alloggiato implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Alloggiato other = (Alloggiato) obj;
+		Housed other = (Housed) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -79,24 +81,47 @@ public class Alloggiato implements Serializable{
 	public void setGuest(Guest guest) {
 		this.guest = guest;
 	}
-	public CodiceAlloggiato getCodiceAlloggiato() {
-		return codiceAlloggiato;
+	public HousedType getHousedType() {
+		return housedType;
 	}
-	public void setCodiceAlloggiato(CodiceAlloggiato codiceAlloggiato) {
-		this.codiceAlloggiato = codiceAlloggiato;
+	public void setHousedType(HousedType type) {
+		this.housedType = type;
 	}
-	public Date getFromDate() {
-		return fromDate;
+	public Date getCheckInDate() {
+		return checkInDate;
 	}
-	public void setFromDate(Date fromDate) {
-		this.fromDate = fromDate;
+	public void setCheckInDate(Date date) {
+		this.checkInDate = date;
 	}
-	public Date getToDate() {
-		return toDate;
+	public Date getCheckOutDate() {
+		return checkOutDate;
 	}
-	public void setToDate(Date toDate) {
-		this.toDate = toDate;
+	public void setCheckOutDate(Date date) {
+		this.checkOutDate = date;
 	}
-	
+	public Integer getIdBooking() {
+		return idBooking;
+	}
+	public void setIdBooking(Integer idBooking) {
+		this.idBooking = idBooking;
+	}
+	public Boolean getExported() {
+		return exported;
+	}
+	public void setExported(Boolean exported) {
+		this.exported = exported;
+	}
+	public Boolean getDeleted() {
+		return deleted;
+	}
+	public void setDeleted(Boolean deleted) {
+		this.deleted = deleted;
+	}
+	public String getIdSired() {
+		return idSired;
+	}
+	public void setIdSired(String idSired) {
+		this.idSired = idSired;
+	}
 	
 }

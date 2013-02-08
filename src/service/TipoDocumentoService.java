@@ -17,9 +17,9 @@ package service;
 
 import java.util.List;
 import org.springframework.transaction.annotation.Transactional;
-import model.questura.TipoDocumento;
+import model.questura.IdentificationType;
 
 @Transactional
 public interface TipoDocumentoService {
-	public List<TipoDocumento> findAll();
+	public List<IdentificationType> findAll();
 }

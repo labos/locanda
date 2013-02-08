@@ -16,10 +16,10 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
-import model.questura.TipoDocumento;
-import model.questura.CodiceAlloggiato;
-import model.questura.Comune;
-import model.questura.Nazione;
+import model.questura.IdentificationType;
+import model.questura.HousedType;
+import model.questura.Municipality;
+import model.questura.Country;
 
 
 
@@ -74,7 +74,7 @@ public class QuesturaResource {
     @GET
     @Path("documento/all")
     @Produces({MediaType.APPLICATION_JSON})
-    public List<TipoDocumento> getDocumenti(){
+    public List<IdentificationType> getDocumenti(){
         return this.getDocumentoService().findAll();
         
     }
@@ -82,21 +82,21 @@ public class QuesturaResource {
     @GET
     @Path("codicealloggiato/all")
     @Produces({MediaType.APPLICATION_JSON})
-    public List<CodiceAlloggiato> getCodiceAlloggiati(){
+    public List<HousedType> getCodiceAlloggiati(){
         return this.getCodiceAlloggiatoService().findAll();
     }
     
     @GET
     @Path("nazione/all")
     @Produces({MediaType.APPLICATION_JSON})
-    public List<Nazione> getNazioni(){
+    public List<Country> getNazioni(){
         return this.getNazioneService().findAll();
     }
     
     @GET
     @Path("comune/all")
     @Produces({MediaType.APPLICATION_JSON})
-    public List<Comune> getComuni(){
+    public List<Municipality> getComuni(){
         return this.getComuneService().findAll();
     }
     

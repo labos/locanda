@@ -17,8 +17,8 @@ package persistence.mybatis.mappers;
 
 import java.util.List;
 
-import model.questura.Nazione;
+import model.questura.Country;
 
 public interface NazioneMapper {
-	public List<Nazione> findAll();
+	public List<Country> findAll();
 }

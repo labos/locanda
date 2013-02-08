@@ -18,13 +18,11 @@ package model;
 import java.io.Serializable;
 import java.util.Date;
 
-import model.Documento;
-import model.questura.Comune;
-import model.questura.Nazione;
+import model.questura.IdentificationType;
+import model.questura.Municipality;
+import model.questura.Country;
 
 import javax.xml.bind.annotation.XmlRootElement;
-
-
 
 import org.apache.solr.client.solrj.beans.Field;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
@@ -32,7 +30,6 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 @XmlRootElement
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Guest implements Serializable{
-	
 	@Field
 	private Integer id;
 	@Field
@@ -55,25 +52,19 @@ public class Guest implements Serializable{
 	@Field
 	private String notes;
 	@Field
-	private String idNumber;
-	@Field
 	private Integer id_structure;
 
+	private Country countryOfBirth;
+	private Municipality municipalityOfBirth; 
+	private Country countryOfResidence;
+	private Municipality municipalityOfResidence; 
+	private Country citizenship;
+	private Integer id_citizenship;
 	
-	
-	private Comune comuneDiNascita; //comune e prov 
-	
-	private Nazione statoNascita; //
-	
-	private Nazione cittadinanza;
-	private Integer id_cittadinanza; 
-	
-	private Comune residenza; //comune e prov
-	
-	private Nazione statoResidenza;
-	
-	
-	
+	@Field
+	private String idNumber;
+	private IdentificationType idType;
+	private Municipality idPlace;
 	
 	
 	@Override
@@ -185,43 +176,53 @@ public class Guest implements Serializable{
 	public void setBirthPlace(String birthPlace) {
 		this.birthPlace = birthPlace;
 	}
-	public Nazione getStatoNascita() {
-		return statoNascita;
+	public Country getCountryOfBirth() {
+		return countryOfBirth;
 	}
-	public void setStatoNascita(Nazione statoNascita) {
-		this.statoNascita = statoNascita;
+	public void setCountryOfBirth(Country countryOfBirth) {
+		this.countryOfBirth = countryOfBirth;
 	}
-	public Nazione getCittadinanza() {
-		return cittadinanza;
+	public Municipality getMunicipalityOfBirth() {
+		return municipalityOfBirth;
 	}
-	public void setCittadinanza(Nazione cittadinanza) {
-		this.cittadinanza = cittadinanza;
+	public void setMunicipalityOfBirth(Municipality municipalityOfBirth) {
+		this.municipalityOfBirth = municipalityOfBirth;
 	}
-	public Comune getResidenza() {
-		return residenza;
+	public Country getCountryOfResidence() {
+		return countryOfResidence;
 	}
-	public void setResidenza(Comune residenza) {
-		this.residenza = residenza;
+	public void setCountryOfResidence(Country countryOfResidence) {
+		this.countryOfResidence = countryOfResidence;
 	}
-	public Nazione getStatoResidenza() {
-		return statoResidenza;
+	public Municipality getMunicipalityOfResidence() {
+		return municipalityOfResidence;
 	}
-	public void setStatoResidenza(Nazione statoResidenza) {
-		this.statoResidenza = statoResidenza;
+	public void setMunicipalityOfResidence(Municipality municipalityOfResidence) {
+		this.municipalityOfResidence = municipalityOfResidence;
 	}
-	public Comune getComuneDiNascita() {
-		return comuneDiNascita;
+	public Country getCitizenship() {
+		return citizenship;
 	}
-	public void setComuneDiNascita(Comune comuneDiNascita) {
-		this.comuneDiNascita = comuneDiNascita;
+	public void setCitizenship(Country citizenship) {
+		this.citizenship = citizenship;
 	}
-	public Integer getId_cittadinanza() {
-		return id_cittadinanza;
+	public Integer getId_citizenship() {
+		return id_citizenship;
 	}
-	public void setId_cittadinanza(Integer id_cittadinanza) {
-		this.id_cittadinanza = id_cittadinanza;
+	public void setId_citizenship(Integer id_citizenship) {
+		this.id_citizenship = id_citizenship;
 	}
-	
-	
+	public IdentificationType getIdType() {
+		return idType;
+	}
+	public void setIdType(IdentificationType idType) {
+		this.idType = idType;
+	}
+	public Municipality getIdPlace() {
+		return idPlace;
+	}
+	public void setIdPlace(Municipality idPlace) {
+		this.idPlace = idPlace;
+	}
 	
 }

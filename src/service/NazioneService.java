@@ -17,9 +17,9 @@ package service;
 
 import java.util.List;
 import org.springframework.transaction.annotation.Transactional;
-import model.questura.Nazione;
+import model.questura.Country;
 
 @Transactional
 public interface NazioneService {
-	public List<Nazione> findAll();
+	public List<Country> findAll();
 }

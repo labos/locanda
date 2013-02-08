@@ -16,25 +16,21 @@
 package model.questura;
 
 import java.io.Serializable;
-import java.util.Date;
-
 import javax.xml.bind.annotation.XmlRootElement;
-
-
 
 import org.apache.solr.client.solrj.beans.Field;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 @XmlRootElement
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class CodiceAlloggiato implements Serializable{
+public class HousedType implements Serializable{
 	
 	@Field
 	private Integer id;
 	@Field
-	private Integer codice;
+	private Integer code;
 	@Field
-	private String descrizione;
+	private String description;
 	
 	@Override
 	public int hashCode() {
@@ -51,7 +47,7 @@ public class CodiceAlloggiato implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		CodiceAlloggiato other = (CodiceAlloggiato) obj;
+		HousedType other = (HousedType) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -67,17 +63,17 @@ public class CodiceAlloggiato implements Serializable{
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public Integer getCodice() {
-		return codice;
+	public Integer getCode() {
+		return code;
 	}
-	public void setCodice(Integer codice) {
-		this.codice = codice;
+	public void setCode(Integer code) {
+		this.code = code;
 	}
-	public String getDescrizione() {
-		return descrizione;
+	public String getDescription() {
+		return description;
 	}
-	public void setDescrizione(String descrizione) {
-		this.descrizione = descrizione;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 		
 }

@@ -48,7 +48,9 @@ public class Booking implements Serializable{
 	private Integer id_convention = null;
 	private Integer id_room = null;
 	
-	private List<Alloggiato> registroAlloggiati;
+	private List<Housed> housedList;
+	private Guest groupLeader;
+	
 	
 	public Booking(){
 		this.extras = new ArrayList<Extra>();
@@ -56,8 +58,7 @@ public class Booking implements Serializable{
 		this.payments = new ArrayList<Payment>();
 		this.guests = new ArrayList<Guest>();
 		this.extraItems = new ArrayList<ExtraItem>();
-		this.registroAlloggiati = new ArrayList<Alloggiato>();
-		
+		this.housedList = new ArrayList<Housed>();	
 	}
 	
 	public Integer calculateNumNights(){
@@ -215,11 +216,11 @@ public class Booking implements Serializable{
 	public Boolean removeExtraItem(Guest anExtraItem){
 		return this.getExtraItems().remove(anExtraItem);
 	}
-	public Boolean addAlloggiato(Alloggiato guest){
-		return this.getRegistroAlloggiati().add(guest);
+	public Boolean addAlloggiato(Housed guest){
+		return this.getHousedList().add(guest);
 	}
-	public Boolean removeAlloggiato(Alloggiato guest){
-		return this.getRegistroAlloggiati().remove(guest);
+	public Boolean removeAlloggiato(Housed guest){
+		return this.getHousedList().remove(guest);
 	}
 	@Override
 	public int hashCode() {
@@ -358,13 +359,17 @@ public class Booking implements Serializable{
 	public void setId_room(Integer id_room) {
 		this.id_room = id_room;
 	}
-
-	public List<Alloggiato> getRegistroAlloggiati() {
-		return registroAlloggiati;
+	public List<Housed> getHousedList() {
+		return housedList;
 	}
-
-	public void setRegistroAlloggiati(List<Alloggiato> registroAlloggiati) {
-		this.registroAlloggiati = registroAlloggiati;
+	public void setHousedList(List<Housed> housedList) {
+		this.housedList = housedList;
 	}
-
+	public Guest getGroupLeader() {
+		return groupLeader;
+	}
+	public void setGroupLeader(Guest groupLeader) {
+		this.groupLeader = groupLeader;
+	}
+	
 }

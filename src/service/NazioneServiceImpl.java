@@ -17,7 +17,7 @@ package service;
 
 import java.util.List;
 
-import model.questura.Nazione;
+import model.questura.Country;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,7 +32,7 @@ public class NazioneServiceImpl implements NazioneService{
 		
 		
 	@Override
-	public List<Nazione> findAll() {
+	public List<Country> findAll() {
 		return this.getNazioneMapper().findAll();
 	}
 

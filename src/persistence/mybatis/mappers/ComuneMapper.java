@@ -17,10 +17,10 @@ package persistence.mybatis.mappers;
 
 import java.util.List;
 
-import model.questura.Comune;
+import model.questura.Municipality;
 
 public interface ComuneMapper {
-	public List<Comune> findAll();
+	public List<Municipality> findAll();
 	public List<String> getAllProvincia();
 //	public List<CodiceAlloggiato> findCodiceAlloggiatoByIdStructure(Integer id_structure);
 //	public Guest findGuestById(Integer id);

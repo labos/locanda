@@ -17,12 +17,12 @@ package persistence.mybatis.mappers;
 
 import java.util.List;
 
-import model.questura.CodiceAlloggiato;
+import model.questura.HousedType;
 
 public interface CodiceAlloggiatoMapper {
-	public List<CodiceAlloggiato> findAll();
+	public List<HousedType> findAll();
 //	public List<CodiceAlloggiato> findCodiceAlloggiatoByIdStructure(Integer id_structure);
 //	public Guest findGuestById(Integer id);
-	public Integer insertCodiceAlloggiato(CodiceAlloggiato codiceAlloggiato);
+	public Integer insertCodiceAlloggiato(HousedType codiceAlloggiato);
 
 }

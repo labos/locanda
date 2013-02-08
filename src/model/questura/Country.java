@@ -17,7 +17,9 @@ package model.questura;
 
 import java.io.Serializable;
 import java.util.Date;
-import model.questura.Luogo;
+import model.questura.Location;
+
+
 import javax.xml.bind.annotation.XmlRootElement;
 
 
@@ -27,18 +29,18 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 @XmlRootElement
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Comune implements Luogo,Serializable{
+public class Country implements Location,Serializable{
 	
 	@Field
 	private Integer id;
 	@Field
-	private Integer codice;
+	private Integer policeCode;
 	@Field
-	private String descrizione;
+	private String description;
 	@Field
-	private String provincia;
+	private String province;
 	@Field
-	private Date dataFineVal;
+	private Date expiryDate;
 	
 	@Override
 	public int hashCode() {
@@ -55,7 +57,7 @@ public class Comune implements Luogo,Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Comune other = (Comune) obj;
+		Country other = (Country) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -71,29 +73,29 @@ public class Comune implements Luogo,Serializable{
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public Integer getCodice() {
-		return codice;
+	public Integer getPoliceCode() {
+		return policeCode;
 	}
-	public void setCodice(Integer codice) {
-		this.codice = codice;
+	public void setPoliceCode(Integer code) {
+		this.policeCode = code;
 	}
-	public String getDescrizione() {
-		return descrizione;
+	public String getDescription() {
+		return description;
 	}
-	public void setDescrizione(String descrizione) {
-		this.descrizione = descrizione;
+	public void setDescription(String description) {
+		this.description = description;
 	}
-	public String getProvincia() {
-		return provincia;
+	public String getProvince() {
+		return province;
 	}
-	public void setProvincia(String provincia) {
-		this.provincia = provincia;
+	public void setProvince(String province) {
+		this.province = province;
 	}
-	public Date getDataFineVal() {
-		return dataFineVal;
+	public Date getExpiryDate() {
+		return expiryDate;
 	}
-	public void setDataFineVal(Date dataFineVal) {
-		this.dataFineVal = dataFineVal;
+	public void setExpiryDate(Date date) {
+		this.expiryDate = date;
 	}
 		
 }

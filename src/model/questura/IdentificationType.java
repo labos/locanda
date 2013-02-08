@@ -16,31 +16,20 @@
 package model.questura;
 
 import java.io.Serializable;
-import java.util.Date;
-import model.questura.Luogo;
-
-
 import javax.xml.bind.annotation.XmlRootElement;
-
-
 
 import org.apache.solr.client.solrj.beans.Field;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 @XmlRootElement
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Nazione implements Luogo,Serializable{
-	
+public class IdentificationType implements Serializable{
 	@Field
 	private Integer id;
 	@Field
-	private Integer codice;
+	private String policeCode;
 	@Field
-	private String descrizione;
-	@Field
-	private String provincia;
-	@Field
-	private Date dataFineVal;
+	private String description;
 	
 	@Override
 	public int hashCode() {
@@ -57,7 +46,7 @@ public class Nazione implements Luogo,Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Nazione other = (Nazione) obj;
+		IdentificationType other = (IdentificationType) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -73,29 +62,17 @@ public class Nazione implements Luogo,Serializable{
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public Integer getCodice() {
-		return codice;
+	public String getPoliceCode() {
+		return policeCode;
 	}
-	public void setCodice(Integer codice) {
-		this.codice = codice;
+	public void setCodice(String code) {
+		this.policeCode = code;
 	}
-	public String getDescrizione() {
-		return descrizione;
+	public String getDescription() {
+		return description;
 	}
-	public void setDescrizione(String descrizione) {
-		this.descrizione = descrizione;
-	}
-	public String getProvincia() {
-		return provincia;
-	}
-	public void setProvincia(String provincia) {
-		this.provincia = provincia;
-	}
-	public Date getDataFineVal() {
-		return dataFineVal;
-	}
-	public void setDataFineVal(Date dataFineVal) {
-		this.dataFineVal = dataFineVal;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 		
 }

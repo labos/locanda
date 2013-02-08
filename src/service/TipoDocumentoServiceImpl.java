@@ -17,7 +17,7 @@ package service;
 
 import java.util.List;
 
-import model.questura.TipoDocumento;
+import model.questura.IdentificationType;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,7 +32,7 @@ public class TipoDocumentoServiceImpl implements TipoDocumentoService{
 		
 		
 	@Override
-	public List<TipoDocumento> findAll() {
+	public List<IdentificationType> findAll() {
 		return this.getTipoDocumentoMapper().findAll();
 	}
 	

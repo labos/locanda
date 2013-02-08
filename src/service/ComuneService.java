@@ -17,10 +17,10 @@ package service;
 
 import java.util.List;
 import org.springframework.transaction.annotation.Transactional;
-import model.questura.Comune;
+import model.questura.Municipality;
 
 @Transactional
 public interface ComuneService {
-	public List<Comune> findAll();
+	public List<Municipality> findAll();
 	public List<String> getAllProvincia();
 }

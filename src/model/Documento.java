@@ -17,10 +17,10 @@ package model;
 
 import java.io.Serializable;
 
-import model.questura.Comune;
-import model.questura.Nazione;
-import model.questura.TipoDocumento;
-import model.questura.Luogo;
+import model.questura.Municipality;
+import model.questura.Country;
+import model.questura.IdentificationType;
+import model.questura.Location;
 
 
 import javax.xml.bind.annotation.XmlRootElement;
@@ -37,11 +37,11 @@ public class Documento implements Serializable{
 	
 	private Integer id;
 	@Field
-	private TipoDocumento tipoDocumento;
+	private IdentificationType tipoDocumento;
 	@Field
 	private String numeroDocumento; //max 20 char
 	@Field
-	private Luogo luogoRilascio; //Nazione OR Comune Type
+	private Location luogoRilascio; //Nazione OR Comune Type
 	
 	
 	
@@ -74,10 +74,10 @@ public class Documento implements Serializable{
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public TipoDocumento getTipoDocumento() {
+	public IdentificationType getTipoDocumento() {
 		return tipoDocumento;
 	}
-	public void setTipoDocumento(TipoDocumento tipoDocumento) {
+	public void setTipoDocumento(IdentificationType tipoDocumento) {
 		this.tipoDocumento = tipoDocumento;
 	}
 	public String getNumeroDocumento() {
@@ -86,10 +86,10 @@ public class Documento implements Serializable{
 	public void setNumeroDocumento(String numeroDocumento) {
 		this.numeroDocumento = numeroDocumento;
 	}
-	public Luogo getLuogoRilascio() {
+	public Location getLuogoRilascio() {
 		return luogoRilascio;
 	}
-	public void setLuogoRilascio(Luogo luogoRilascio) {
+	public void setLuogoRilascio(Location luogoRilascio) {
 		this.luogoRilascio = luogoRilascio;
 	}
 	

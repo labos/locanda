@@ -17,10 +17,10 @@ package service;
 
 import java.util.List;
 import org.springframework.transaction.annotation.Transactional;
-import model.questura.CodiceAlloggiato;
+import model.questura.HousedType;
 
 @Transactional
 public interface CodiceAlloggiatoService {
-	public List<CodiceAlloggiato> findAll();
-	public Integer insertGuest(CodiceAlloggiato codiceAlloggiato);
+	public List<HousedType> findAll();
+	public Integer insertGuest(HousedType codiceAlloggiato);
 }

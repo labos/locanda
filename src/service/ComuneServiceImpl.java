@@ -18,7 +18,7 @@ package service;
 import java.util.List;
 import java.util.Collections;
 
-import model.questura.Comune;
+import model.questura.Municipality;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,7 +33,7 @@ public class ComuneServiceImpl implements ComuneService{
 		
 		
 	@Override
-	public List<Comune> findAll() {
+	public List<Municipality> findAll() {
 		return this.getComuneMapper().findAll();
 	}
 

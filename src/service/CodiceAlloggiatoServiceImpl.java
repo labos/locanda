@@ -17,7 +17,7 @@ package service;
 
 import java.util.List;
 
-import model.questura.CodiceAlloggiato;
+import model.questura.HousedType;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,12 +31,12 @@ public class CodiceAlloggiatoServiceImpl implements CodiceAlloggiatoService{
 	
 		
 	@Override
-	public Integer insertGuest(CodiceAlloggiato codiceAlloggiato) {
+	public Integer insertGuest(HousedType codiceAlloggiato) {
 		return this.getCodiceAlloggiatoMapper().insertCodiceAlloggiato(codiceAlloggiato);
 	}
 	
 	@Override
-	public List<CodiceAlloggiato> findAll() {
+	public List<HousedType> findAll() {
 		return this.getCodiceAlloggiatoMapper().findAll();
 	}
 	
