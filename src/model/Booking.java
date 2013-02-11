@@ -49,7 +49,7 @@ public class Booking implements Serializable{
 	private Integer id_room = null;
 	
 	private List<Housed> housedList;
-	private Guest groupLeader;
+	private Housed groupLeader;
 	
 	
 	public Booking(){
@@ -365,10 +365,10 @@ public class Booking implements Serializable{
 	public void setHousedList(List<Housed> housedList) {
 		this.housedList = housedList;
 	}
-	public Guest getGroupLeader() {
+	public Housed getGroupLeader() {
 		return groupLeader;
 	}
-	public void setGroupLeader(Guest groupLeader) {
+	public void setGroupLeader(Housed groupLeader) {
 		this.groupLeader = groupLeader;
 	}
 	
