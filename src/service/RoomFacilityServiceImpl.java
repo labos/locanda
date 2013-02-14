@@ -16,25 +16,13 @@
 package service;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import persistence.mybatis.mappers.FacilityMapper;
-import persistence.mybatis.mappers.ImageMapper;
 import persistence.mybatis.mappers.RoomFacilityMapper;
-import persistence.mybatis.mappers.RoomTypeFacilityMapper;
-import persistence.mybatis.mappers.StructureFacilityMapper;
-
-import model.Facility;
-import model.Image;
 
 @Service
 public class RoomFacilityServiceImpl implements RoomFacilityService{
@@ -49,7 +37,6 @@ public class RoomFacilityServiceImpl implements RoomFacilityService{
 		map.put("id_room", id_room);
 		map.put("id_facility", id_facility);
 		return this.getRoomFacilityMapper().insert(map);
-		
 	}
 		
 	@Override
@@ -68,7 +55,6 @@ public class RoomFacilityServiceImpl implements RoomFacilityService{
 		return ret;		
 	}
 
-
 	@Override
 	public Integer findIdByIdRoomAndIdFacility(Integer id_room,	Integer id_facility) {
 		Map map = null;
@@ -86,30 +72,22 @@ public class RoomFacilityServiceImpl implements RoomFacilityService{
 		return this.getRoomFacilityMapper().delete(id);
 	}
 
-
-
 	@Override
 	public Integer deleteByIdRoom(Integer id_room) {
 		
 		return this.getRoomFacilityMapper().deleteByIdRoom(id_room);
 	}
 
-
-
 	@Override
 	public Integer deleteByIdFacility(Integer id_facility) {		
 		return this.getRoomFacilityMapper().deleteByIdFacility(id_facility);
 	}
 
-	
 	public RoomFacilityMapper getRoomFacilityMapper() {
 		return roomFacilityMapper;
 	}
-
-
 	public void setRoomFacilityMapper(RoomFacilityMapper roomFacilityMapper) {
 		this.roomFacilityMapper = roomFacilityMapper;
 	}
 
-		
 }

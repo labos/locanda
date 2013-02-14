@@ -66,7 +66,7 @@ public class RoomTypeFacilityResource {
 	@POST	
 	@Consumes({MediaType.APPLICATION_JSON})
 	@Produces({MediaType.APPLICATION_JSON}) 
-	public Map insertRoomTpeFacility(Map map){
+	public Map insertRoomTypeFacility(Map map){
 		Integer id_roomType = null;
 		Integer id_facility;
 		Integer id;

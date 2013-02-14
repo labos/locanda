@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.1.61, for debian-linux-gnu (i486)
+-- MySQL dump 10.13  Distrib 5.5.29, for debian-linux-gnu (x86_64)
 --
 -- Host: localhost    Database: locanda
 -- ------------------------------------------------------
--- Server version	5.1.61-0ubuntu0.10.04.1
+-- Server version	5.5.29-0ubuntu0.12.04.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -14,8 +14,6 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-
-
 
 --
 -- Table structure for table `adjustment`
@@ -306,6 +304,30 @@ LOCK TABLES `file` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `groupLeader`
+--
+
+DROP TABLE IF EXISTS `groupLeader`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `groupLeader` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `idGuest` int(11) DEFAULT NULL,
+  `idBooking` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `groupLeader`
+--
+
+LOCK TABLES `groupLeader` WRITE;
+/*!40000 ALTER TABLE `groupLeader` DISABLE KEYS */;
+/*!40000 ALTER TABLE `groupLeader` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `guest`
 --
 
@@ -338,6 +360,34 @@ CREATE TABLE `guest` (
 LOCK TABLES `guest` WRITE;
 /*!40000 ALTER TABLE `guest` DISABLE KEYS */;
 /*!40000 ALTER TABLE `guest` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `housed`
+--
+
+DROP TABLE IF EXISTS `housed`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `housed` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `idBooking` int(11) DEFAULT NULL,
+  `checkInDate` date DEFAULT NULL,
+  `checkOutDate` date DEFAULT NULL,
+  `exported` tinyint(4) DEFAULT NULL,
+  `deleted` tinyint(4) DEFAULT NULL,
+  `idSired` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `housed`
+--
+
+LOCK TABLES `housed` WRITE;
+/*!40000 ALTER TABLE `housed` DISABLE KEYS */;
+/*!40000 ALTER TABLE `housed` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -503,7 +553,7 @@ CREATE TABLE `roomImage` (
   `id_room` int(11) DEFAULT NULL,
   `id_image` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -634,7 +684,7 @@ CREATE TABLE `roomTypeImage` (
   `id_roomType` int(11) DEFAULT NULL,
   `id_image` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -789,4 +839,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2012-04-03 10:52:23
+-- Dump completed on 2013-02-14 12:05:50
