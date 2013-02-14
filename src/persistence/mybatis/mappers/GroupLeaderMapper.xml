@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+Copyright 2011 - Sardegna Ricerche, Distretto ICT, Pula, Italy
+
+Licensed under the EUPL, Version 1.1.
+You may not use this work except in compliance with the Licence.
+You may obtain a copy of the Licence at:
+
+http://www.osor.eu/eupl
+
+Unless required by applicable law or agreed to in  writing, software distributed under the Licence is distributed on an "AS IS" basis,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the Licence for the specific language governing permissions and limitations under the Licence.
+In case of controversy the competent court is the Court of Cagliari (Italy).
+-->
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="persistence.mybatis.mappers.GroupLeaderMapper">
+    <cache/>
+    	
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="map">
+        insert into groupLeader(id_booking,id_housed) values(#{id_booking},#{id_housed})
+    </insert>    
+    
+    <delete id="delete" parameterType="int">
+        DELETE from groupLeader where id = #{id}
+    </delete>
+    
+    <delete id="deleteByIdBooking" parameterType="int">
+        DELETE from roomImage where id_booking = #{id_booking}
+    </delete> 
+    
+    <select id="findGroupLeaderByIdBooking" parameterType="map" resultType="map">
+        select id,id_booking,id_housed from groupLeader where id_booking = #{id_booking} LIMIT #{offset}, #{rownum}
+    </select>
+            
+</mapper>

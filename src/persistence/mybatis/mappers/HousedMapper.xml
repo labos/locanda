@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright 2011 - Sardegna Ricerche, Distretto ICT, Pula, Italy
+
+Licensed under the EUPL, Version 1.1.
+You may not use this work except in compliance with the Licence.
+You may obtain a copy of the Licence at:
+
+http://www.osor.eu/eupl
+
+Unless required by applicable law or agreed to in  writing, software distributed under the Licence is distributed on an "AS IS" basis,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the Licence for the specific language governing permissions and limitations under the Licence.
+In case of controversy the competent court is the Court of Cagliari (Italy).
+-->
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="persistence.mybatis.mappers.HousedMapper">
+    <cache/>
+    
+    <select id="findHousedByIdBooking" parameterType="int" resultType="model.Housed">
+        <include refid="selectHoused"/>WHERE id_booking = #{id_booking}
+    </select>
+    
+    <select id="findHousedById" parameterType="int" resultType="model.Housed">
+        <include refid="selectHoused"/>WHERE id = #{id}
+    </select>
+    
+    <select id="findAll" resultType="model.Housed">
+        <include refid="selectHoused"/> 
+    </select>
+    
+    <sql id="selectHoused">
+        SELECT id,idBooking,idGuest,idHousedType,checkInDate,checkOutDate,exported,deleted,idSired FROM housed
+    </sql>
+    
+    <insert id="insertHoused" parameterType="model.Housed" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO housed(id,idBooking,idGuest,idHousedType,checkInDate,checkOutDate,exported,deleted,idSired) values
+        (#{idBooking},#{idGuest},#{idHousedType},#{checkInDate},#{checkOutDate},#{exported},#{deleted},#{idSired})
+    </insert>
+    
+    <update id="updateHoused" parameterType="model.Housed">
+        UPDATE housed set
+        idBooking= #{idBooking},idGuest= #{idGuest},idHousedType= #{idHousedType},checkInDate= #{checkInDate},checkOutDate=#{checkOutDate},exported=#{exported},deleted=#{deleted},idSired=#{idSired}
+        WHERE id = #{id}
+    </update>
+    
+    <delete id="deleteHoused" parameterType="int">
+        DELETE FROM housed WHERE id= #{id}
+    </delete>
+    
+</mapper>
