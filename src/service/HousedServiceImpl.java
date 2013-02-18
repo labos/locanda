@@ -15,19 +15,29 @@
  *******************************************************************************/
 package service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import model.Guest;
 import model.Housed;
+import model.questura.HousedType;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import persistence.mybatis.mappers.GuestMapper;
 import persistence.mybatis.mappers.HousedMapper;
+import persistence.mybatis.mappers.HousedTypeMapper;
 
 @Service
 public class HousedServiceImpl implements HousedService{
 	@Autowired
 	private HousedMapper housedMapper;
+	@Autowired
+	private GuestMapper guestMapper;
+	@Autowired
+	private HousedTypeMapper housedtypeMapper;
 	
 	public List<Housed> findHousedByIdBooking(Integer id_booking) {
 		return this.getHousedMapper().findHousedByIdBooking(id_booking);
@@ -39,8 +49,40 @@ public class HousedServiceImpl implements HousedService{
 	}
 	
 	@Override
-	public Housed findHousedById(Integer id) {		
-		return this.getHousedMapper().findHousedById(id);
+	public Housed findHousedById(Integer id) {
+		Housed ret = null;
+		Guest guest = null;
+		HousedType housedType = null;
+		
+		ret = this.getHousedMapper().findHousedById(id);
+		guest = this.getGuestMapper().findGuestById(ret.getId_guest());
+		ret.setGuest(guest);
+		housedType = this.getHousedtypeMapper().findHousedTypeById(ret.getId_housedType());
+		ret.setHousedType(housedType);
+		
+		return ret;
+	}
+	
+	@Override
+	public Housed findHousedByIdBookingAndIdGuest(Integer id_booking, Integer id_guest) {
+		Map map = null;
+		Housed ret = null;
+		Guest guest = null;
+		HousedType housedType = null;
+				
+		map = new HashMap();
+		map.put("id_booking", id_booking);
+		map.put("id_guest", id_guest);
+		
+		ret = this.getHousedMapper().findHousedByIdBookingAndIdGuest(map);
+		
+		
+		guest = this.getGuestMapper().findGuestById(ret.getId_guest());
+		ret.setGuest(guest);
+		housedType = this.getHousedtypeMapper().findHousedTypeById(ret.getId_housedType());
+		ret.setHousedType(housedType);
+		
+		return ret;
 	}
 	
 	@Override
@@ -64,5 +106,17 @@ public class HousedServiceImpl implements HousedService{
 	public void setHousedMapper(HousedMapper housedMapper) {
 		this.housedMapper = housedMapper;
 	}
-
+	public GuestMapper getGuestMapper() {
+		return guestMapper;
+	}
+	public void setGuestMapper(GuestMapper guestMapper) {
+		this.guestMapper = guestMapper;
+	}
+	public HousedTypeMapper getHousedtypeMapper() {
+		return housedtypeMapper;
+	}
+	public void setHousedtypeMapper(HousedTypeMapper housedtypeMapper) {
+		this.housedtypeMapper = housedtypeMapper;
+	}
+	
 }

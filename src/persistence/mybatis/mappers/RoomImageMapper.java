@@ -18,8 +18,6 @@ package persistence.mybatis.mappers;
 import java.util.List;
 import java.util.Map;
 
-import model.Image;
-
 public interface RoomImageMapper {	
 	public Integer insert(Map map);
 	

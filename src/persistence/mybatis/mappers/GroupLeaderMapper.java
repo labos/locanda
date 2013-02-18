@@ -17,14 +17,16 @@ package persistence.mybatis.mappers;
 
 import java.util.Map;
 
-import model.Housed;
+import model.GroupLeader;
 
 public interface GroupLeaderMapper {	
 	public Integer insert(Map map);
+	public Integer update(GroupLeader groupLeader);
 	
 	public Integer delete(Integer id);
 	public Integer deleteByIdBooking(Integer id_booking);
-		
-	public Housed findGroupLeaderByIdBooking(Integer id_booking);
+	
+	public GroupLeader findGroupLeaderByIdBooking(Integer id_booking);
+	public Integer findIdByIdBookingAndIdHoused(Map map);
 	
 }

@@ -30,6 +30,7 @@ public class Booking implements Serializable{
 	private Integer id;
 	
 	private Guest booker;
+	private Booker aBooker;
 	private Integer nrGuests = 1;
 	private Room room;
 	private Date dateIn;
@@ -50,6 +51,7 @@ public class Booking implements Serializable{
 	
 	private List<Housed> housedList;
 	private Housed groupLeader;
+	private GroupLeader aGroupLeader;
 	
 	
 	public Booking(){
@@ -257,6 +259,12 @@ public class Booking implements Serializable{
 	public void setBooker(Guest guest) {
 		this.booker = guest;
 	}
+	public Booker getaBooker() {
+		return aBooker;
+	}
+	public void setaBooker(Booker aBooker) {
+		this.aBooker = aBooker;
+	}
 	public Integer getNrGuests() {
 		return nrGuests;
 	}
@@ -370,6 +378,12 @@ public class Booking implements Serializable{
 	}
 	public void setGroupLeader(Housed groupLeader) {
 		this.groupLeader = groupLeader;
+	}
+	public GroupLeader getaGroupLeader() {
+		return aGroupLeader;
+	}
+	public void setaGroupLeader(GroupLeader aGroupLeader) {
+		this.aGroupLeader = aGroupLeader;
 	}
 	
 }

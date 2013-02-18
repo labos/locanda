@@ -125,6 +125,32 @@ INSERT INTO `convention` VALUES (43,'Nessuna Convenzione','Nessuna Convenzione',
 UNLOCK TABLES;
 
 --
+-- Table structure for table `country`
+--
+
+DROP TABLE IF EXISTS `country`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `country` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `policeCode` varchar(45) DEFAULT NULL,
+  `description` varchar(45) DEFAULT NULL,
+  `province` varchar(45) DEFAULT NULL,
+  `expiryDate` date DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `country`
+--
+
+LOCK TABLES `country` WRITE;
+/*!40000 ALTER TABLE `country` DISABLE KEYS */;
+/*!40000 ALTER TABLE `country` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `extra`
 --
 
@@ -312,8 +338,8 @@ DROP TABLE IF EXISTS `groupLeader`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `groupLeader` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `idGuest` int(11) DEFAULT NULL,
-  `idBooking` int(11) DEFAULT NULL,
+  `id_booking` int(11) DEFAULT NULL,
+  `id_housed` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -371,7 +397,9 @@ DROP TABLE IF EXISTS `housed`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `housed` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `idBooking` int(11) DEFAULT NULL,
+  `id_booking` int(11) DEFAULT NULL,
+  `id_guest` int(11) DEFAULT NULL,
+  `id_housedType` int(11) DEFAULT NULL,
   `checkInDate` date DEFAULT NULL,
   `checkOutDate` date DEFAULT NULL,
   `exported` tinyint(4) DEFAULT NULL,
@@ -388,6 +416,55 @@ CREATE TABLE `housed` (
 LOCK TABLES `housed` WRITE;
 /*!40000 ALTER TABLE `housed` DISABLE KEYS */;
 /*!40000 ALTER TABLE `housed` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `housedType`
+--
+
+DROP TABLE IF EXISTS `housedType`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `housedType` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `code` int(11) DEFAULT NULL,
+  `description` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `housedType`
+--
+
+LOCK TABLES `housedType` WRITE;
+/*!40000 ALTER TABLE `housedType` DISABLE KEYS */;
+INSERT INTO `housedType` VALUES (1,16,'OSPITE SINGOLO'),(2,17,'CAPOFAMIGLIA'),(3,18,'CAPOGRUPPO'),(4,19,'FAMILIARE'),(5,20,'MEMBRO GRUPPO');
+/*!40000 ALTER TABLE `housedType` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `identificationType`
+--
+
+DROP TABLE IF EXISTS `identificationType`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `identificationType` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `policeCode` varchar(45) DEFAULT NULL,
+  `description` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `identificationType`
+--
+
+LOCK TABLES `identificationType` WRITE;
+/*!40000 ALTER TABLE `identificationType` DISABLE KEYS */;
+/*!40000 ALTER TABLE `identificationType` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -436,6 +513,32 @@ CREATE TABLE `imageFile` (
 LOCK TABLES `imageFile` WRITE;
 /*!40000 ALTER TABLE `imageFile` DISABLE KEYS */;
 /*!40000 ALTER TABLE `imageFile` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `municipality`
+--
+
+DROP TABLE IF EXISTS `municipality`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `municipality` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `policeCode` varchar(45) DEFAULT NULL,
+  `description` varchar(45) DEFAULT NULL,
+  `province` varchar(45) DEFAULT NULL,
+  `expiryDate` date DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `municipality`
+--
+
+LOCK TABLES `municipality` WRITE;
+/*!40000 ALTER TABLE `municipality` DISABLE KEYS */;
+/*!40000 ALTER TABLE `municipality` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -839,4 +942,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-02-14 12:05:50
+-- Dump completed on 2013-02-18 15:47:35

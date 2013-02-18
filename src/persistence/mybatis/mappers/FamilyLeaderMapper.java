@@ -13,19 +13,19 @@
  * See the Licence for the specific language governing permissions and limitations under the Licence.
  * In case of controversy the competent court is the Court of Cagliari (Italy).
  *******************************************************************************/
-package service;
+package persistence.mybatis.mappers;
 
-import java.util.List;
-import org.springframework.transaction.annotation.Transactional;
+import java.util.Map;
+
 import model.Housed;
 
-@Transactional
-public interface HousedService {
-	public List<Housed> findAll();
-	public Housed findHousedById(Integer id);
-	public Housed findHousedByIdBookingAndIdGuest(Integer id_booking, Integer id_guest);
-	public List<Housed> findHousedByIdBooking(Integer id_structure);
-	public Integer insertHoused(Housed housed);
-	public Integer updateHoused(Housed housed);
-	public Integer deleteHoused(Integer id);
+public interface FamilyLeaderMapper {	
+	public Integer insert(Map map);
+	
+	public Integer delete(Integer id);
+	public Integer deleteByIdBooking(Integer id_booking);
+		
+	public Housed findFamilyLeaderByIdBooking(Integer id_booking);
+	public Integer findIdByIdBookingAndIdHoused(Map map);
+	
 }

@@ -33,10 +33,11 @@ public class Housed implements Serializable{
 	@Field
 	private Integer id;
 	@Field
-	private Integer idBooking;
+	private Integer id_booking;
 	private Guest guest;
+	private Integer id_guest;
 	private HousedType housedType;
-
+	private Integer id_housedType;
 	private Date checkInDate;
 	private Date checkOutDate;
 	
@@ -81,11 +82,23 @@ public class Housed implements Serializable{
 	public void setGuest(Guest guest) {
 		this.guest = guest;
 	}
+	public Integer getId_guest() {
+		return id_guest;
+	}
+	public void setId_guest(Integer id_guest) {
+		this.id_guest = id_guest;
+	}
 	public HousedType getHousedType() {
 		return housedType;
 	}
 	public void setHousedType(HousedType type) {
 		this.housedType = type;
+	}
+	public Integer getId_housedType() {
+		return id_housedType;
+	}
+	public void setId_housedType(Integer id_housedType) {
+		this.id_housedType = id_housedType;
 	}
 	public Date getCheckInDate() {
 		return checkInDate;
@@ -99,11 +112,11 @@ public class Housed implements Serializable{
 	public void setCheckOutDate(Date date) {
 		this.checkOutDate = date;
 	}
-	public Integer getIdBooking() {
-		return idBooking;
+	public Integer getId_booking() {
+		return id_booking;
 	}
-	public void setIdBooking(Integer idBooking) {
-		this.idBooking = idBooking;
+	public void setId_booking(Integer id_booking) {
+		this.id_booking = id_booking;
 	}
 	public Boolean getExported() {
 		return exported;

@@ -24,6 +24,10 @@ In case of controversy the competent court is the Court of Cagliari (Italy).
         <include refid="selectHoused"/>WHERE id_booking = #{id_booking}
     </select>
     
+    <select id="findHousedByIdBookingAndIdGuest" parameterType="map" resultType="model.Housed">
+        <include refid="selectHoused"/>WHERE id_booking = #{id_booking} AND id_guest = #{id_guest}
+    </select>
+    
     <select id="findHousedById" parameterType="int" resultType="model.Housed">
         <include refid="selectHoused"/>WHERE id = #{id}
     </select>
@@ -33,17 +37,17 @@ In case of controversy the competent court is the Court of Cagliari (Italy).
     </select>
     
     <sql id="selectHoused">
-        SELECT id,idBooking,idGuest,idHousedType,checkInDate,checkOutDate,exported,deleted,idSired FROM housed
+        SELECT id,id_booking,id_guest,id_housedType,checkInDate,checkOutDate,exported,deleted,idSired FROM housed
     </sql>
     
     <insert id="insertHoused" parameterType="model.Housed" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO housed(id,idBooking,idGuest,idHousedType,checkInDate,checkOutDate,exported,deleted,idSired) values
-        (#{idBooking},#{idGuest},#{idHousedType},#{checkInDate},#{checkOutDate},#{exported},#{deleted},#{idSired})
+        INSERT INTO housed(id,id_booking,id_guest,id_housedType,checkInDate,checkOutDate,exported,deleted,idSired) values
+        (#{id_booking},#{id_guest},#{id_housedType},#{checkInDate},#{checkOutDate},#{exported},#{deleted},#{idSired})
     </insert>
     
     <update id="updateHoused" parameterType="model.Housed">
         UPDATE housed set
-        idBooking= #{idBooking},idGuest= #{idGuest},idHousedType= #{idHousedType},checkInDate= #{checkInDate},checkOutDate=#{checkOutDate},exported=#{exported},deleted=#{deleted},idSired=#{idSired}
+        id_booking= #{id_booking},id_guest= #{id_guest},id_housedType= #{id_housedType},checkInDate= #{checkInDate},checkOutDate=#{checkOutDate},exported=#{exported},deleted=#{deleted},idSired=#{idSired}
         WHERE id = #{id}
     </update>
     

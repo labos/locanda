@@ -16,6 +16,7 @@
 package persistence.mybatis.mappers;
 
 import java.util.List;
+import java.util.Map;
 
 import model.Housed;
 
@@ -23,6 +24,7 @@ public interface HousedMapper {
 	public List<Housed> findAll();
 	public List<Housed> findHousedByIdBooking(Integer id_booking);
 	public Housed findHousedById(Integer id);
+	public Housed findHousedByIdBookingAndIdGuest(Map map);
 	public Integer insertHoused(Housed housed);
 	public Integer updateHoused(Housed housed);
 	public Integer deleteHoused(Integer id);

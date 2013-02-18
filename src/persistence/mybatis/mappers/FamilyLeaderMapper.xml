@@ -18,33 +18,27 @@ In case of controversy the competent court is the Court of Cagliari (Italy).
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="persistence.mybatis.mappers.GroupLeaderMapper">
+<mapper namespace="persistence.mybatis.mappers.FamilyLeaderMapper">
     <cache/>
     	
 	<insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="map">
-        insert into groupLeader(id_booking,id_housed) values(#{id_booking},#{id_housed})
-    </insert>   
-    
-    <update id="updateGroupLeader" parameterType="model.GroupLeader">
-        UPDATE groupLeader set
-        id_booking= #{id_booking},id_housed= #{id_housed}
-        WHERE id = #{id}
-    </update> 
+        insert into familyLeader(id_booking,id_housed) values(#{id_booking},#{id_housed})
+    </insert>    
     
     <delete id="delete" parameterType="int">
-        DELETE from groupLeader where id = #{id}
+        DELETE from familyLeader where id = #{id}
     </delete>
     
     <delete id="deleteByIdBooking" parameterType="int">
-        DELETE from groupLeader where id_booking = #{id_booking}
+        DELETE from familyLeader where id_booking = #{id_booking}
     </delete> 
     
-    <select id="findGroupLeaderByIdBooking" parameterType="int" resultType="model.GroupLeader">
-        select id,id_booking,id_housed from groupLeader where id_booking = #{id_booking}
+    <select id="findFamilyLeaderByIdBooking" parameterType="map" resultType="map">
+        select id,id_booking,id_housed from familyLeader where id_booking = #{id_booking} LIMIT #{offset}, #{rownum}
     </select>
     
     <select id="findIdByIdBookingAndIdHoused" parameterType="map" resultType="int">
-        select id from groupLeader where id_booking = #{id_booking} AND id_housed = #{id_housed}
+        select id from familyLeader where id_booking = #{id_booking} AND id_housed = #{id_housed}
     </select>
             
 </mapper>

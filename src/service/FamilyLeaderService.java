@@ -15,17 +15,18 @@
  *******************************************************************************/
 package service;
 
-import java.util.List;
-import org.springframework.transaction.annotation.Transactional;
 import model.Housed;
 
+import org.springframework.transaction.annotation.Transactional;
+
 @Transactional
-public interface HousedService {
-	public List<Housed> findAll();
-	public Housed findHousedById(Integer id);
-	public Housed findHousedByIdBookingAndIdGuest(Integer id_booking, Integer id_guest);
-	public List<Housed> findHousedByIdBooking(Integer id_structure);
-	public Integer insertHoused(Housed housed);
-	public Integer updateHoused(Housed housed);
-	public Integer deleteHoused(Integer id);
+public interface FamilyLeaderService {	
+	public Integer insert(Integer id_room,Integer id_image);
+	
+	public Housed findFamilyLeaderByIdBooking(Integer id_booking);
+	public Integer findIdByIdBookingAndIdHoused(Integer id_booking,	Integer id_housed);
+	
+	public Integer delete(Integer id);
+	public Integer deleteByIdBooking(Integer id_booking);		
+	
 }
