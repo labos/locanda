@@ -27,6 +27,6 @@ public interface GroupLeaderMapper {
 	public Integer deleteByIdBooking(Integer id_booking);
 	
 	public GroupLeader findGroupLeaderByIdBooking(Integer id_booking);
-	public Integer findIdByIdBookingAndIdHoused(Map map);
+	public GroupLeader findGroupLeaderByIdBookingAndIdHoused(Map map);
 	
 }

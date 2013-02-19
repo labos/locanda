@@ -37,10 +37,21 @@ public class HousedServiceImpl implements HousedService{
 	@Autowired
 	private GuestMapper guestMapper;
 	@Autowired
-	private HousedTypeMapper housedtypeMapper;
+	private HousedTypeMapper housedTypeMapper;
 	
 	public List<Housed> findHousedByIdBooking(Integer id_booking) {
-		return this.getHousedMapper().findHousedByIdBooking(id_booking);
+		List<Housed> ret;
+		Guest guest = null;
+		HousedType housedType = null;
+		
+		ret =  this.getHousedMapper().findHousedByIdBooking(id_booking);
+		for (Housed each : ret) {
+			guest = this.getGuestMapper().findGuestById(each.getId_guest());
+			each.setGuest(guest);
+			housedType = this.getHousedTypeMapper().findHousedTypeById(each.getId_housedType());
+			each.setHousedType(housedType);
+		}
+		return ret;
 	}
 	
 	@Override
@@ -57,7 +68,7 @@ public class HousedServiceImpl implements HousedService{
 		ret = this.getHousedMapper().findHousedById(id);
 		guest = this.getGuestMapper().findGuestById(ret.getId_guest());
 		ret.setGuest(guest);
-		housedType = this.getHousedtypeMapper().findHousedTypeById(ret.getId_housedType());
+		housedType = this.getHousedTypeMapper().findHousedTypeById(ret.getId_housedType());
 		ret.setHousedType(housedType);
 		
 		return ret;
@@ -79,7 +90,7 @@ public class HousedServiceImpl implements HousedService{
 		
 		guest = this.getGuestMapper().findGuestById(ret.getId_guest());
 		ret.setGuest(guest);
-		housedType = this.getHousedtypeMapper().findHousedTypeById(ret.getId_housedType());
+		housedType = this.getHousedTypeMapper().findHousedTypeById(ret.getId_housedType());
 		ret.setHousedType(housedType);
 		
 		return ret;
@@ -112,11 +123,11 @@ public class HousedServiceImpl implements HousedService{
 	public void setGuestMapper(GuestMapper guestMapper) {
 		this.guestMapper = guestMapper;
 	}
-	public HousedTypeMapper getHousedtypeMapper() {
-		return housedtypeMapper;
+	public HousedTypeMapper getHousedTypeMapper() {
+		return housedTypeMapper;
 	}
-	public void setHousedtypeMapper(HousedTypeMapper housedtypeMapper) {
-		this.housedtypeMapper = housedtypeMapper;
+	public void setHousedTypeMapper(HousedTypeMapper housedTypeMapper) {
+		this.housedTypeMapper = housedTypeMapper;
 	}
 	
 }

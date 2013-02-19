@@ -36,12 +36,16 @@ public class GroupLeaderServiceImpl implements GroupLeaderService{
 		
 	@Override
 	public Integer insert(Integer id_booking, Integer id_housed) {
-		Map map = null;		
+		Map map = null;	
+		Integer id;
 		
 		map = new HashMap();
+		map.put("id",-1);
 		map.put("id_booking",id_booking );
 		map.put("id_housed",id_housed);
-		return this.getGroupLeaderMapper().insert(map);
+		this.getGroupLeaderMapper().insert(map);
+		id = (Integer)map.get("id");
+		return id;
 	}	
 	
 	@Override
@@ -64,14 +68,16 @@ public class GroupLeaderServiceImpl implements GroupLeaderService{
 	}
 	
 	@Override
-	public Integer findIdByIdBookingAndIdHoused(Integer id_booking,	Integer id_housed) {
+	public GroupLeader findGroupLeaderByIdBookingAndIdHoused(Integer id_booking, Integer id_housed) {
+		GroupLeader ret = null;
 		Map map = null;
-		
 		map = new HashMap();
-		map.put("id_room", id_booking);
-		map.put("id_facility", id_housed);
+		map.put("id_booking", id_booking);
+		map.put("id_housed", id_housed);
 		
-		return this.getGroupLeaderMapper().findIdByIdBookingAndIdHoused(map);
+		ret = this.getGroupLeaderMapper().findGroupLeaderByIdBookingAndIdHoused(map);
+		
+		return ret;
 	}
 
 	@Override

@@ -24,7 +24,7 @@ public interface GroupLeaderService {
 	public Integer update(GroupLeader groupLeader);
 	
 	public GroupLeader findGroupLeaderByIdBooking(Integer id_booking);
-	public Integer findIdByIdBookingAndIdHoused(Integer id_booking,	Integer id_housed);
+	public GroupLeader findGroupLeaderByIdBookingAndIdHoused(Integer id_booking, Integer id_housed);
 	
 	public Integer delete(Integer id);
 	public Integer deleteByIdBooking(Integer id_booking);		
