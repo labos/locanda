@@ -67,14 +67,24 @@ public class GuestAction extends ActionSupport implements SessionAware,UserAware
 //						this.getIdStructure()));
 		return SUCCESS;		
 	}
-	
 	@Actions({
 		@Action(value="/goUpdateGuestsFromPlanner",results = {
 				@Result(name="success",location="/WEB-INF/jsp/contents/guests_form.jsp")
 		}) 
 	})
-	
-	
+	public String goUpdateGuestsFromPlanner(){
+//		List<Integer> listYears = new ArrayList<Integer>();
+//		Integer currentYear = Calendar.getInstance().get(Calendar.YEAR);
+//		
+//		for (int i=1900; i<=currentYear; i++) {
+//			listYears.add(i);
+//		}
+//		this.setYears(listYears);
+//		this.setGuests(
+//				this.getGuestService().findGuestsByIdStructure(
+//						this.getIdStructure()));
+		return SUCCESS;		
+	}
 //	
 //	@Actions({
 //		@Action(value="/findAllGuestsJson",results = {
@@ -248,5 +258,59 @@ public class GuestAction extends ActionSupport implements SessionAware,UserAware
 	public void setIdStructure(Integer idStructure) {
 		this.idStructure = idStructure;
 	}
-
+//	public Message getMessage() {
+//		return message;
+//	}
+//	public void setMessage(Message message) {
+//		this.message = message;
+//	}
+//	public Integer getId() {
+//		return id;
+//	}
+//	public void setId(Integer id) {
+//		this.id = id;
+//	}
+//	public List<Guest> getGuests() {
+//		return guests;
+//	}
+//	public void setGuests(List<Guest> guests) {
+//		this.guests = guests;
+//	}
+//	public Guest getGuest() {
+//		return guest;
+//	}
+//	public void setGuest(Guest guest) {
+//		this.guest = guest;
+//	}
+//	public List<Booking> getBookings() {
+//		return bookings;
+//	}
+//	public void setBookings(List<Booking> bookings) {
+//		this.bookings = bookings;
+//	}
+//	public String getTerm() {
+//		return term;
+//	}
+//	public void setTerm(String term) {
+//		this.term = term;
+//	}
+//	public List<Integer> getYears() {
+//		return years;
+//	}
+//	public void setYears(List<Integer> years) {
+//		this.years = years;
+//	}
+//	public GuestService getGuestService() {
+//		return guestService;
+//	}
+//	public void setGuestService(GuestService guestService) {
+//		this.guestService = guestService;
+//	}
+//	public BookingService getBookingService() {
+//		return bookingService;
+//	}
+//	public void setBookingService(BookingService bookingService) {
+//		this.bookingService = bookingService;
+//	}
+//	
 }

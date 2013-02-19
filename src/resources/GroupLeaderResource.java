@@ -38,12 +38,12 @@ public class GroupLeaderResource {
     private HousedTypeMapper housedTypeMapper = null;
 
     @GET
-    @Path("booking/{idBooking}")
+    @Path("booking/{id_booking}")
     @Produces({MediaType.APPLICATION_JSON})
-    public GroupLeader getGroupLeader(@PathParam("idBooking") Integer idBooking){
+    public GroupLeader getGroupLeader(@PathParam("id_booking") Integer id_booking){
     	GroupLeader ret = null;
     	
-    	ret = this.getGroupLeaderService().findGroupLeaderByIdBooking(idBooking);
+    	ret = this.getGroupLeaderService().findGroupLeaderByIdBooking(id_booking);
         return ret;
     }
 
