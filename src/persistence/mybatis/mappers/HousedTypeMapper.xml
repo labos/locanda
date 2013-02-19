@@ -20,11 +20,11 @@ In case of controversy the competent court is the Court of Cagliari (Italy).
 <mapper namespace="persistence.mybatis.mappers.HousedTypeMapper">
     <cache/>
     
-    <select id="findHousedTypeById" parameterType="int" resultType="model.HousedType">
+    <select id="findHousedTypeById" parameterType="int" resultType="model.questura.HousedType">
         <include refid="selectHousedType"/>WHERE id = #{id}
     </select>
     
-    <select id="findHousedTypeByDescription" parameterType="string" resultType="model.HousedType">
+    <select id="findHousedTypeByDescription" parameterType="string" resultType="model.questura.HousedType">
         <include refid="selectHousedType"/>WHERE description = #{description}
     </select>
     
