@@ -86,8 +86,6 @@ public class HousedServiceImpl implements HousedService{
 		map.put("id_guest", id_guest);
 		
 		ret = this.getHousedMapper().findHousedByIdBookingAndIdGuest(map);
-		
-		
 		guest = this.getGuestMapper().findGuestById(ret.getId_guest());
 		ret.setGuest(guest);
 		housedType = this.getHousedTypeMapper().findHousedTypeById(ret.getId_housedType());

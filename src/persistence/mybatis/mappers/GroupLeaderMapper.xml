@@ -25,7 +25,7 @@ In case of controversy the competent court is the Court of Cagliari (Italy).
         insert into groupLeader(id_booking,id_housed) values(#{id_booking},#{id_housed})
     </insert>   
     
-    <update id="updateGroupLeader" parameterType="model.GroupLeader">
+    <update id="update" parameterType="model.GroupLeader">
         UPDATE groupLeader set
         id_booking= #{id_booking},id_housed= #{id_housed}
         WHERE id = #{id}

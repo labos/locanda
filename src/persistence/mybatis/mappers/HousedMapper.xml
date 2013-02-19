@@ -41,7 +41,7 @@ In case of controversy the competent court is the Court of Cagliari (Italy).
     </sql>
     
     <insert id="insertHoused" parameterType="model.Housed" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO housed(id,id_booking,id_guest,id_housedType,checkInDate,checkOutDate,exported,deleted,idSired) values
+        INSERT INTO housed(id_booking,id_guest,id_housedType,checkInDate,checkOutDate,exported,deleted,idSired) values
         (#{id_booking},#{id_guest},#{id_housedType},#{checkInDate},#{checkOutDate},#{exported},#{deleted},#{idSired})
     </insert>
     

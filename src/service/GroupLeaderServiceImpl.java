@@ -62,8 +62,10 @@ public class GroupLeaderServiceImpl implements GroupLeaderService{
 		Housed housed = null;
 		
 		ret = this.getGroupLeaderMapper().findGroupLeaderByIdBooking(id_booking);
-		housed = this.getHousedMapper().findHousedById(ret.getId_housed());
-		ret.setHoused(housed);
+		if (ret != null) {
+			housed = this.getHousedMapper().findHousedById(ret.getId_housed());
+			ret.setHoused(housed);
+		}
 		return ret;
 	}
 	
