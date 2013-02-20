@@ -32,7 +32,8 @@ public class GroupLeaderServiceImpl implements GroupLeaderService{
 	@Autowired
 	private GroupLeaderMapper groupLeaderMapper = null;
 	@Autowired
-	private HousedMapper housedMapper = null;
+	private HousedService housedService = null;
+	
 		
 	@Override
 	public Integer insert(Integer id_booking, Integer id_housed) {
@@ -63,7 +64,8 @@ public class GroupLeaderServiceImpl implements GroupLeaderService{
 		
 		ret = this.getGroupLeaderMapper().findGroupLeaderByIdBooking(id_booking);
 		if (ret != null) {
-			housed = this.getHousedMapper().findHousedById(ret.getId_housed());
+			//housed = this.getHousedMapper().findHousedById(ret.getId_housed());
+			housed = this.getHousedService().findHousedById(ret.getId_housed());
 			ret.setHoused(housed);
 		}
 		return ret;
@@ -98,11 +100,16 @@ public class GroupLeaderServiceImpl implements GroupLeaderService{
 	public void setGroupLeaderMapper(GroupLeaderMapper groupLeaderMapper) {
 		this.groupLeaderMapper = groupLeaderMapper;
 	}
-	public HousedMapper getHousedMapper() {
-		return housedMapper;
+	
+	
+	public HousedService getHousedService() {
+		return housedService;
 	}
-	public void setHousedMapper(HousedMapper housedMapper) {
-		this.housedMapper = housedMapper;
+
+	public void setHousedService(HousedService housedService) {
+		this.housedService = housedService;
 	}
+	
+	
 	
 }
