@@ -24,7 +24,7 @@ public interface HousedService {
 	public List<Housed> findAll();
 	public Housed findHousedById(Integer id);
 	public Housed findHousedByIdBookingAndIdGuest(Integer id_booking, Integer id_guest);
-	public List<Housed> findHousedByIdBooking(Integer id_structure);
+	public List<Housed> findHousedByIdBooking(Integer id_booking);
 	public Integer insertHoused(Housed housed);
 	public Integer updateHoused(Housed housed);
 	public Integer deleteHoused(Integer id);

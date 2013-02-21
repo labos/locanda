@@ -17,6 +17,8 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import model.Guest;
+import model.Housed;
+
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServer;
 import org.apache.solr.client.solrj.SolrServerException;
@@ -32,6 +34,7 @@ import com.sun.jersey.api.NotFoundException;
 
 import service.BookingService;
 import service.GuestService;
+import service.HousedService;
 import service.StructureService;
 
 @Path("/guests/")
@@ -46,6 +49,8 @@ public class GuestResource {
     private BookingService bookingService = null;
     @Autowired
     private SolrServer solrServerGuest = null;
+    @Autowired 
+    private HousedService housedService = null;
    
     
     @PostConstruct
@@ -142,6 +147,31 @@ public class GuestResource {
    		}
    		return ret;
    	}
+        
+    
+    @GET
+    @Path("structure/{idStructure}/housed")
+    @Produces({MediaType.APPLICATION_JSON})
+    public List<Guest> findHousedGuests(@PathParam("idStructure") Integer idStructure){
+        List<Guest> guests = null;
+        Guest aGuest = null;
+        List<Housed> housedList = null;       
+        
+        housedList = this.getHousedService().findAll();
+        guests = new ArrayList<Guest>();
+        
+        for(Housed each: housedList){
+        	aGuest = this.getGuestService().findGuestById(each.getId_guest());
+        	if(aGuest.getId_structure().equals(idStructure)){
+        		guests.add(aGuest);
+        	}        	
+        }
+           
+       return guests;          
+    }
+    
+    
+   
     
     @GET
     @Path("{id}")
@@ -237,6 +267,16 @@ public class GuestResource {
 	}
 	public void setSolrServerGuest(SolrServer solrServerGuest) {
 		this.solrServerGuest = solrServerGuest;
+	}
+
+	public HousedService getHousedService() {
+		return housedService;
+	}
+
+	public void setHousedService(HousedService housedService) {
+		this.housedService = housedService;
 	}  	
+	
+	
 
 }
