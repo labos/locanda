@@ -1,5 +1,6 @@
 package resources;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -81,15 +82,22 @@ public class HousedResource {
     	Integer id;
     	Integer id_booking = null;
 		Integer id_guest = null;
+		Long checkInDate = null;
+		Long checkOutDate = null;
+		
 		Housed housed = null;
 		
 		id = (Integer)map.get("id");
 		id_booking = (Integer)map.get("id_booking");
 		id_guest = (Integer)map.get("id_guest");
+		checkInDate = (Long)map.get("checkInDate");
+		checkOutDate = (Long)map.get("checkOutDate");
 		
 		housed = this.getHousedService().findHousedById(id);
-		//TODO: date format to be set
+		
 		housed.setId_guest(id_guest);
+		housed.setCheckInDate(new Date(checkInDate));
+		housed.setCheckOutDate(new Date(checkOutDate));
     	
     	this.getHousedService().updateHoused(housed);
         return id;

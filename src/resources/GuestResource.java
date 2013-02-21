@@ -165,13 +165,9 @@ public class GuestResource {
         	if(aGuest.getId_structure().equals(idStructure)){
         		guests.add(aGuest);
         	}        	
-        }
-           
+        }           
        return guests;          
-    }
-    
-    
-   
+    }   
     
     @GET
     @Path("{id}")
