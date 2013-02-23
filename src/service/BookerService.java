@@ -15,15 +15,16 @@
  *******************************************************************************/
 package service;
 
+import model.Booker;
 import model.Guest;
 
 import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
 public interface BookerService {
-	public Integer insertBooker(Guest booker, Integer id_booking);
-	public Integer updateBooker(Guest booker, Integer id_booking);
-	public Integer deleteBookerByIdBooking(Integer id_booking);
-	public Integer findIdBookerByIdBooking(Integer id_booking);
+	public Integer insert(Integer id_guest, Integer  id_booking);	
+	public Integer deleteBookerByIdBooking(Integer id_booking);	
+	public Booker findBookerByIdBooking(Integer id_booking);
+	public Integer update(Booker booker);
 	
 }

@@ -17,8 +17,11 @@ package persistence.mybatis.mappers;
 
 import java.util.Map;
 
+import model.Booker;
+
 public interface BookerMapper {
-	public Integer insertBooker(Map map);
+	public Booker findBookerByIdBooking(Integer id_booking);
+	public Integer update(Booker booker);
+	public Integer insert(Map map);
 	public Integer deleteBookerByIdBooking(Integer id_booking);
-	public Integer findIdBookerByIdBooking(Integer id_booking);
 }

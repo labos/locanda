@@ -20,6 +20,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import model.Adjustment;
+import model.Booker;
 import model.Booking;
 import model.ExtraItem;
 import model.Guest;
@@ -69,7 +70,7 @@ public class BookingServiceImpl implements BookingService {
 		
 		booking = this.getBookingMapper().findBookingById(id);
 		
-		id_guest = this.getBookerService().findIdBookerByIdBooking(id);
+		id_guest = this.getBookerService().findBookerByIdBooking(id).getId_guest();
 		booker = this.getGuestService().findGuestById(id_guest);
 		booking.setBooker(booker);
 		
@@ -196,6 +197,7 @@ public class BookingServiceImpl implements BookingService {
 			this.getPaymentService().insertPayment(payment);
 		}		
 		
+		/*
 		oldBooker = this.getGuestService().findGuestById(booking.getBooker().getId());
 		if(oldBooker == null){
 			//It's a new guest and must be added
@@ -203,7 +205,21 @@ public class BookingServiceImpl implements BookingService {
 		}else{
 			//It's an existing guest and must be updated
 			this.getBookerService().updateBooker(booking.getBooker(),booking.getId());
-		}	
+		}*/
+		
+		//Il booker ora è un Guest che già esiste. 
+		Booker booker = null;
+		
+		booker = this.getBookerService().findBookerByIdBooking(booking.getId());
+		if(booker == null) {
+			//Si tratta del primo save e devo associare il booker al booking appena creato. 
+			//L'update viene gestito in REST per cui non è necessario fare l'update in questo metodo della action
+			Integer id_guest = booking.getBooker().getId();
+			Integer id_booking = booking.getId();
+			this.getBookerService().insert(id_guest, id_booking);
+			
+			
+		}
 		return ret;
 	}
 
@@ -259,7 +275,8 @@ public class BookingServiceImpl implements BookingService {
 
 		// The Online Booker online is always a new guest and I have to add it every time
 		// TO BE FIXED
-		this.getBookerService().insertBooker(booking.getBooker(),booking.getId());
+		//Rivedere il booking online
+		//this.getBookerService().insertBooker(booking.getBooker(),booking.getId());
 		return ret;
 
 	}

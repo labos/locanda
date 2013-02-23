@@ -24,6 +24,7 @@ import org.springframework.stereotype.Service;
 import persistence.mybatis.mappers.BookerMapper;
 import persistence.mybatis.mappers.GuestMapper;
 
+import model.Booker;
 import model.Guest;
 
 @Service
@@ -33,34 +34,28 @@ public class BookerServiceImpl implements BookerService{
 	@Autowired 
 	private BookerMapper bookerMapper = null;
 
-	@Override
-	public Integer insertBooker(Guest booker, Integer id_booking) {
-		Integer ret = 0;
-		Map map = null;
-		
-		this.getGuestMapper().insertGuest(booker);
-		map = new HashMap();
-		map.put("id_booking", id_booking);
-		map.put("id_guest",booker.getId());
-		ret = this.getBookerMapper().insertBooker(map);
-		
-		return ret;
-	}
+	
 	
 	@Override
-	public Integer updateBooker(Guest booker, Integer id_booking) {
+	public Integer insert(Integer id_guest, Integer id_booking) {
 		Integer ret = 0;
 		Map map = null;
 		
-		this.getGuestMapper().updateGuest(booker);
 		map = new HashMap();
-		map.put("id_booking", id_booking);
-		map.put("id_guest",booker.getId());
-		this.getBookerMapper().deleteBookerByIdBooking(id_booking);
-		ret = this.getBookerMapper().insertBooker(map);
+		map.put("id_guest",id_guest);
+		map.put("id_booking", id_booking);		
+		ret = this.getBookerMapper().insert(map);
 		
 		return ret;
 	}
+
+
+	@Override
+	public Integer update(Booker booker) {
+		
+		return this.getBookerMapper().update(booker);
+	}
+	
 
 	@Override
 	public Integer deleteBookerByIdBooking(Integer id_booking) {
@@ -68,12 +63,18 @@ public class BookerServiceImpl implements BookerService{
 		return this.getBookerMapper().deleteBookerByIdBooking(id_booking);
 	}
 
-	@Override
-	public Integer findIdBookerByIdBooking(Integer id_booking) {
-		
-		return this.getBookerMapper().findIdBookerByIdBooking(id_booking);
-	}
 	
+	@Override
+	public Booker findBookerByIdBooking(Integer id_booking) {
+		Booker ret = null;
+		Guest guest = null;
+		
+		ret = this.getBookerMapper().findBookerByIdBooking(id_booking);
+		guest = this.getGuestMapper().findGuestById(ret.getId_guest());
+		ret.setGuest(guest);
+		return ret;
+	}
+
 	public GuestMapper getGuestMapper() {
 		return guestMapper;
 	}

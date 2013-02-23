@@ -20,17 +20,25 @@ In case of controversy the competent court is the Court of Cagliari (Italy).
 <mapper namespace="persistence.mybatis.mappers.BookerMapper">
     <cache/>
     
-    <insert id="insertBooker" parameterType="map">
+    <select id="findBookerByIdBooking" resultType="model.Booker" parameterType="int">
+        select id, id_booking, id_guest from booker where id_booking = #{id_booking}
+    </select>    
+    
+    
+    <update id="update" parameterType="model.Booker">
+        UPDATE booker set
+        id_booking= #{id_booking},id_guest= #{id_guest} 
+        WHERE id = #{id}
+    </update>  
+    
+    
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="map">
         insert into booker(id_booking,id_guest) values(#{id_booking},#{id_guest})
-    </insert>
+    </insert> 
     
-    
+        
     <delete id="deleteBookerByIdBooking" parameterType="int">
-        delete from booker where id_booking = #{id_booking}
-    </delete>
-    
-    <select id="findIdBookerByIdBooking" resultType="int" parameterType="int">
-        select id_guest from booker where id_booking = #{id_booking}
-    </select>
+        DELETE from booker where id_booking = #{id_booking}
+    </delete>    
     
 </mapper>

@@ -6,6 +6,7 @@ public class Booker implements Serializable {
 	private Integer id;
 	private Integer id_booking;
 	private Guest guest;
+	private Integer id_guest;
 	
 	
 	public Integer getId() {
@@ -25,6 +26,12 @@ public class Booker implements Serializable {
 	}
 	public void setGuest(Guest guest) {
 		this.guest = guest;
+	}
+	public Integer getId_guest() {
+		return id_guest;
+	}
+	public void setId_guest(Integer id_guest) {
+		this.id_guest = id_guest;
 	}
 	
 	
