@@ -70,8 +70,10 @@ public class BookerServiceImpl implements BookerService{
 		Guest guest = null;
 		
 		ret = this.getBookerMapper().findBookerByIdBooking(id_booking);
-		guest = this.getGuestMapper().findGuestById(ret.getId_guest());
-		ret.setGuest(guest);
+		if (ret != null) {
+			guest = this.getGuestMapper().findGuestById(ret.getId_guest());
+			ret.setGuest(guest);
+		}
 		return ret;
 	}
 

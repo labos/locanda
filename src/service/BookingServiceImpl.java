@@ -172,11 +172,13 @@ public class BookingServiceImpl implements BookingService {
 	public Integer saveUpdateBooking(Booking booking) {	
 		Integer ret = 0;
 		Guest oldBooker = null;
+		//System.out.println("saveupdatebooking");
 		
 		ret = this.getBookingMapper().updateBooking(booking);
 		if(ret.equals(0)){
 			ret = this.getBookingMapper().insertBooking(booking);
 		}
+		System.out.println("saveupdatebooking");
 		
 		this.getExtraItemService().deleteExtraItemsByIdBooking(booking.getId());
 		for(ExtraItem extraItem: booking.getExtraItems()){
@@ -207,7 +209,7 @@ public class BookingServiceImpl implements BookingService {
 			this.getBookerService().updateBooker(booking.getBooker(),booking.getId());
 		}*/
 		
-		//Il booker ora è un Guest che già esiste. 
+//		//Il booker ora è un Guest che già esiste. 
 		Booker booker = null;
 		
 		booker = this.getBookerService().findBookerByIdBooking(booking.getId());

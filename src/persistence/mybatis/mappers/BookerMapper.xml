@@ -20,8 +20,12 @@ In case of controversy the competent court is the Court of Cagliari (Italy).
 <mapper namespace="persistence.mybatis.mappers.BookerMapper">
     <cache/>
     
-    <select id="findBookerByIdBooking" resultType="model.Booker" parameterType="int">
-        select id, id_booking, id_guest from booker where id_booking = #{id_booking}
+    <sql id="selectBooker">
+        SELECT id,id_booking,id_guest FROM booker
+    </sql>
+    
+    <select id="findBookerByIdBooking" parameterType="int" resultType="model.Booker" >
+        <include refid="selectBooker"/> where id_booking = #{id_booking}
     </select>    
     
     
