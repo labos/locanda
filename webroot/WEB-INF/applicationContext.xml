@@ -105,6 +105,12 @@
 		<constructor-arg value="image" />
 	</bean>
 	
+	<bean id="solrServerHoused"
+		class="org.apache.solr.client.solrj.embedded.EmbeddedSolrServer">
+		<constructor-arg ref="multiCoreContainer" />
+		<constructor-arg value="housed" />
+	</bean>
+	
     <!-- enable autowire -->
     <context:annotation-config />
     
