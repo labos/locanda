@@ -136,7 +136,7 @@ public class GuestResource {
    		ret = new ArrayList<String>();
 
    		if (rsp != null) {
-   			values = rsp.getFacetField("text").getValues();
+   			values = rsp.getFacetField("text").getValues();   			
    			if(values!=null){
    				for(Count each: values){
    					if(each.getCount()>0){

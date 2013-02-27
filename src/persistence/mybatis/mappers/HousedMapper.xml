@@ -40,18 +40,18 @@ In case of controversy the competent court is the Court of Cagliari (Italy).
         SELECT id,id_booking,id_guest,id_housedType,checkInDate,checkOutDate,exported,deleted,idSired FROM housed
     </sql>
     
-    <insert id="insertHoused" parameterType="model.Housed" useGeneratedKeys="true" keyProperty="id">
+    <insert id="insert" parameterType="model.Housed" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO housed(id_booking,id_guest,id_housedType,checkInDate,checkOutDate,exported,deleted,idSired) values
         (#{id_booking},#{id_guest},#{id_housedType},#{checkInDate},#{checkOutDate},#{exported},#{deleted},#{idSired})
     </insert>
     
-    <update id="updateHoused" parameterType="model.Housed">
+    <update id="update" parameterType="model.Housed">
         UPDATE housed set
         id_booking= #{id_booking},id_guest= #{id_guest},id_housedType= #{id_housedType},checkInDate= #{checkInDate},checkOutDate=#{checkOutDate},exported=#{exported},deleted=#{deleted},idSired=#{idSired}
         WHERE id = #{id}
     </update>
     
-    <delete id="deleteHoused" parameterType="int">
+    <delete id="delete" parameterType="int">
         DELETE FROM housed WHERE id= #{id}
     </delete>
     

@@ -95,18 +95,18 @@ public class HousedServiceImpl implements HousedService{
 	}
 	
 	@Override
-	public Integer insertHoused(Housed housed) {
-		return this.getHousedMapper().insertHoused(housed);
+	public Integer insert(Housed housed) {
+		return this.getHousedMapper().insert(housed);
 	}
 	
 	@Override
-	public Integer updateHoused(Housed housed) {
-		return this.getHousedMapper().updateHoused(housed);
+	public Integer update(Housed housed) {
+		return this.getHousedMapper().update(housed);
 	}
 
 	@Override
-	public Integer deleteHoused(Integer id) {
-		return this.getHousedMapper().deleteHoused(id);
+	public Integer delete(Integer id) {
+		return this.getHousedMapper().delete(id);
 	}
 
 	public HousedMapper getHousedMapper() {

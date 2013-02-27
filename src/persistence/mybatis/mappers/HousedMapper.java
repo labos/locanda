@@ -25,7 +25,7 @@ public interface HousedMapper {
 	public List<Housed> findHousedByIdBooking(Integer id_booking);
 	public Housed findHousedById(Integer id);
 	public Housed findHousedByIdBookingAndIdGuest(Map map);
-	public Integer insertHoused(Housed housed);
-	public Integer updateHoused(Housed housed);
-	public Integer deleteHoused(Integer id);
+	public Integer insert(Housed housed);
+	public Integer update(Housed housed);
+	public Integer delete(Integer id);
 }

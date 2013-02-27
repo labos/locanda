@@ -68,7 +68,7 @@ public class GroupLeaderResource {
  		id = this.getGroupLeaderService().insert(id_booking, housed.getId());
  		housed.setHousedType(housedType);
  		housed.setId_housedType(housedType.getId());
- 		this.getHousedService().updateHoused(housed);
+ 		this.getHousedService().update(housed);
  		return id;
 	}
     
@@ -93,7 +93,7 @@ public class GroupLeaderResource {
     	housedType = this.getHousedTypeMapper().findHousedTypeByDescription(groupType);
     	housed.setHousedType(housedType);
     	housed.setId_housedType(housedType.getId());
-    	this.getHousedService().updateHoused(housed);
+    	this.getHousedService().update(housed);
     	
     	groupLeader = this.getGroupLeaderService().findGroupLeaderByIdBooking(id_booking);
     	groupLeader.setId_housed(housed.getId());

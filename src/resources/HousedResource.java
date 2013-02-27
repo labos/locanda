@@ -68,7 +68,7 @@ public class HousedResource {
 		housed.setId_booking(id_booking);
 		housed.setId_guest(id_guest);
  		
- 		this.getHousedService().insertHoused(housed);
+ 		this.getHousedService().insert(housed);
  		id = housed.getId();
  		return id;
 	}
@@ -82,24 +82,27 @@ public class HousedResource {
     	Integer id;
     	Integer id_booking = null;
 		Integer id_guest = null;
-		Long checkInDate = null;
-		Long checkOutDate = null;
+		Long checkInDateMillis = null;
+		Long checkOutDateMillis = null;
 		
 		Housed housed = null;
 		
 		id = (Integer)map.get("id");
 		id_booking = (Integer)map.get("id_booking");
 		id_guest = (Integer)map.get("id_guest");
-		checkInDate = (Long)map.get("checkInDate");
-		checkOutDate = (Long)map.get("checkOutDate");
+		checkInDateMillis = (Long)map.get("checkInDate");
+		checkOutDateMillis = (Long)map.get("checkOutDate");
 		
 		housed = this.getHousedService().findHousedById(id);
 		
 		housed.setId_guest(id_guest);
-		housed.setCheckInDate(new Date(checkInDate));
-		housed.setCheckOutDate(new Date(checkOutDate));
-    	
-    	this.getHousedService().updateHoused(housed);
+		if(checkInDateMillis!=null){
+			housed.setCheckInDate(new Date(checkInDateMillis));
+		}
+		if(checkOutDateMillis!=null){
+			housed.setCheckOutDate(new Date(checkOutDateMillis));
+		}    	
+    	this.getHousedService().update(housed);
         return id;
     }
    
@@ -124,7 +127,7 @@ public class HousedResource {
     		throw new NotFoundException("The housed you are trying to delete is the leader of the group associated with this booking" +
     										"Please change the group/family leader first.");
     	}
-		count = this.getHousedService().deleteHoused(id);
+		count = this.getHousedService().delete(id);
 		return count;
     }  
     
