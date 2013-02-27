@@ -111,7 +111,7 @@ CREATE TABLE `convention` (
   `activationCode` varchar(255) DEFAULT NULL,
   `id_structure` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -120,7 +120,7 @@ CREATE TABLE `convention` (
 
 LOCK TABLES `convention` WRITE;
 /*!40000 ALTER TABLE `convention` DISABLE KEYS */;
-INSERT INTO `convention` VALUES (43,'Nessuna Convenzione','Nessuna Convenzione','thisconventionshouldntneverberemoved',2);
+INSERT INTO `convention` VALUES (43,'Nessuna Convenzione','Nessuna Convenzione','thisconventionshouldntneverberemoved',2),(44,'Nessuna Convenzione','Nessuna Convenzione','thisconventionshouldntneverberemoved',1);
 /*!40000 ALTER TABLE `convention` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -370,14 +370,21 @@ CREATE TABLE `guest` (
   `address` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
   `country` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
   `zipCode` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
-  `notes` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
-  `idNumber` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
-  `id_structure` int(11) DEFAULT NULL,
   `gender` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
   `birthDate` date DEFAULT NULL,
   `birthPlace` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
+  `notes` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
+  `idNumber` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
+  `id_structure` int(11) DEFAULT NULL,
+  `id_countryOfBirth` int(11) DEFAULT NULL,
+  `id_municipalityOfBirth` int(11) DEFAULT NULL,
+  `id_countryOfResidence` int(11) DEFAULT NULL,
+  `id_municipalityOfResidence` int(11) DEFAULT NULL,
+  `id_citizenship` int(11) DEFAULT NULL,
+  `id_idType` int(11) DEFAULT NULL,
+  `id_idPlace` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -848,7 +855,7 @@ CREATE TABLE `structure` (
   `notes` varchar(255) DEFAULT NULL,
   `id_user` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -857,6 +864,7 @@ CREATE TABLE `structure` (
 
 LOCK TABLES `structure` WRITE;
 /*!40000 ALTER TABLE `structure` DISABLE KEYS */;
+INSERT INTO `structure` VALUES (1,'Locanda','labopensource@gmail.com',NULL,'+39 070 92432684',NULL,NULL,NULL,NULL,NULL,'Example structure. Please overwrite data with your own!',1);
 /*!40000 ALTER TABLE `structure` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -924,7 +932,7 @@ CREATE TABLE `user` (
   `password` varchar(255) DEFAULT NULL,
   `creationDate` date DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -945,4 +953,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-02-20 14:45:55
+-- Dump completed on 2013-02-27 14:42:04

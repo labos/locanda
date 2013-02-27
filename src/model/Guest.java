@@ -55,16 +55,22 @@ public class Guest implements Serializable{
 	private Integer id_structure;
 
 	private Country countryOfBirth;
-	private Municipality municipalityOfBirth; 
+	private Integer id_countryOfBirth;
+	private Municipality municipalityOfBirth;
+	private Integer id_municipalityOfBirth;
 	private Country countryOfResidence;
+	private Integer id_countryOfResidence;
 	private Municipality municipalityOfResidence; 
+	private Integer id_municipalityOfResidence;
 	private Country citizenship;
 	private Integer id_citizenship;
 	
 	@Field
 	private String idNumber;
 	private IdentificationType idType;
+	private Integer id_idType;
 	private Municipality idPlace;
+	private Integer id_idPlace;
 	
 	
 	@Override
@@ -200,6 +206,30 @@ public class Guest implements Serializable{
 	public void setMunicipalityOfResidence(Municipality municipalityOfResidence) {
 		this.municipalityOfResidence = municipalityOfResidence;
 	}
+	public Integer getId_countryOfBirth() {
+		return id_countryOfBirth;
+	}
+	public void setId_countryOfBirth(Integer id_countryOfBirth) {
+		this.id_countryOfBirth = id_countryOfBirth;
+	}
+	public Integer getId_municipalityOfBirth() {
+		return id_municipalityOfBirth;
+	}
+	public void setId_municipalityOfBirth(Integer id_municipalityOfBirth) {
+		this.id_municipalityOfBirth = id_municipalityOfBirth;
+	}
+	public Integer getId_countryOfResidence() {
+		return id_countryOfResidence;
+	}
+	public void setId_countryOfResidence(Integer id_countryOfResidence) {
+		this.id_countryOfResidence = id_countryOfResidence;
+	}
+	public Integer getId_municipalityOfResidence() {
+		return id_municipalityOfResidence;
+	}
+	public void setId_municipalityOfResidence(Integer id_municipalityOfResidence) {
+		this.id_municipalityOfResidence = id_municipalityOfResidence;
+	}
 	public Country getCitizenship() {
 		return citizenship;
 	}
@@ -223,6 +253,18 @@ public class Guest implements Serializable{
 	}
 	public void setIdPlace(Municipality idPlace) {
 		this.idPlace = idPlace;
+	}
+	public Integer getId_idType() {
+		return id_idType;
+	}
+	public void setId_idType(Integer id_idType) {
+		this.id_idType = id_idType;
+	}
+	public Integer getId_idPlace() {
+		return id_idPlace;
+	}
+	public void setId_idPlace(Integer id_idPlace) {
+		this.id_idPlace = id_idPlace;
 	}
 	
 }
