@@ -98,7 +98,7 @@ public class GuestResource {
 		}
         
         guests = new ArrayList<Guest>();
-        if(housed.equals("true")){        	
+        if(housed!=null && housed.equals("true")){       	
             if(rsp!=null){
         	   solrDocumentList = rsp.getResults();
                for(int i = 0; i <solrDocumentList.size(); i++){
