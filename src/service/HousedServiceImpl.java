@@ -54,6 +54,27 @@ public class HousedServiceImpl implements HousedService{
 		return ret;
 	}
 	
+	
+	
+	@Override
+	public List<Housed> findHousedByIdGuest(Integer id_guest) {
+		List<Housed> ret;
+		Guest guest = null;
+		HousedType housedType = null;
+		
+		ret =  this.getHousedMapper().findHousedByIdGuest(id_guest);
+		/*
+		for (Housed each : ret) {
+			guest = this.getGuestMapper().findGuestById(each.getId_guest());
+			each.setGuest(guest);
+			housedType = this.getHousedTypeMapper().findHousedTypeById(each.getId_housedType());
+			each.setHousedType(housedType);
+		}*/
+		return ret;
+	}
+
+
+
 	@Override
 	public List<Housed> findAll() {
 		return this.getHousedMapper().findAll();

@@ -71,7 +71,8 @@ public class GuestResource {
     @GET
     @Path("structure/{idStructure}/search/{start}/{rows}")
     @Produces({MediaType.APPLICATION_JSON})
-    public List<Guest> search(@PathParam("idStructure") Integer idStructure,@PathParam("start") Integer start,@PathParam("rows") Integer rows, @QueryParam("term") String term){
+    public List<Guest> search(
+    		@PathParam("idStructure") Integer idStructure,@PathParam("start") Integer start,@PathParam("rows") Integer rows, @QueryParam("term") String term,@QueryParam("housed") String housed){
         List<Guest> guests = null;
         SolrQuery query = null;
         QueryResponse rsp = null;
@@ -95,18 +96,36 @@ public class GuestResource {
 		} catch (SolrServerException e) {
 			e.printStackTrace();			
 		}
-
+        
         guests = new ArrayList<Guest>();
-        if(rsp!=null){
-    	   solrDocumentList = rsp.getResults();
-           for(int i = 0; i <solrDocumentList.size(); i++){
-        	   solrDocument = solrDocumentList.get(i);
-        	   id = (Integer)solrDocument.getFieldValue("id");
-        	  // System.out.println("----> "+solrDocument.getFieldValues("text")+" <-----");
-        	   aGuest = this.getGuestService().findGuestById(id);
-        	   guests.add(aGuest);
-           }  
-       }       
+        if(housed.equals("true")){        	
+            if(rsp!=null){
+        	   solrDocumentList = rsp.getResults();
+               for(int i = 0; i <solrDocumentList.size(); i++){
+            	   solrDocument = solrDocumentList.get(i);
+            	   id = (Integer)solrDocument.getFieldValue("id");
+            	  // System.out.println("----> "+solrDocument.getFieldValues("text")+" <-----");
+            	   if(this.getHousedService().findHousedByIdGuest(id).size()>0){
+            		   aGuest = this.getGuestService().findGuestById(id);
+                	   guests.add(aGuest);
+            	   }
+            	  
+               }  
+           }     
+        	
+        }else{
+        	if(rsp!=null){
+         	   solrDocumentList = rsp.getResults();
+                for(int i = 0; i <solrDocumentList.size(); i++){
+             	   solrDocument = solrDocumentList.get(i);
+             	   id = (Integer)solrDocument.getFieldValue("id");
+             	   aGuest = this.getGuestService().findGuestById(id);
+                   guests.add(aGuest);
+             	}  
+            }    
+        	
+        }
+          
        return guests;          
     }
     
@@ -158,6 +177,7 @@ public class GuestResource {
         List<Housed> housedList = null;       
         
         housedList = this.getHousedService().findAll();
+        
         guests = new ArrayList<Guest>();
         
         for(Housed each: housedList){
