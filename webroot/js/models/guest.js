@@ -44,9 +44,13 @@ window.Guest = Backbone.Model.extend({
 });
 
 window.Autocompletes = AutocompleteCollection.extend({
-
     url: function () {
-        return 'rest/guests/structure/' + this.idWrapper + '/suggest' + this.term;
+    	if (GetQueryStringParams('housed')=='true') {
+    		return 'rest/guests/housed/structure/' + this.idWrapper + '/suggest' + this.term + "&housed=true";
+    	} else {
+    		return 'rest/guests/housed/structure/' + this.idWrapper + '/suggest' + this.term;
+    	}
     }
 });
+
 

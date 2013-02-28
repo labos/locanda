@@ -44,4 +44,4 @@ Entity = {name: "planner",
 <jsp:include page="contents/booking_form.jsp"/>
             </div>     
           </div>
-<jsp:include page="layout/footer.jsp"/>     
+<jsp:include page="layout/footer.jsp"/>

@@ -54,6 +54,7 @@
 <script type='text/javascript' src="js/lib/backbone.js"></script>
 <script type='text/javascript' src="js/lib/mustache.js"></script>
 <script type='text/javascript' src='js/lib/jquery.overlay.min.js'></script>
+<script type='text/javascript' src='js/lib/jquery.colorbox.js'></script>
 
 <%
 //Locale locale = (locale)request.getSession().getAttribute(Globals.LOCALE_KEY);

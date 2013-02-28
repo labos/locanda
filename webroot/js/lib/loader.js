@@ -18,7 +18,7 @@
 ( typeof Entity !== "undefined" && typeof Entity.model !== "undefined" ) || ( Entity = {name:"default", editView:null} );
 
 //load common js scripts
-steal("../helpers/common.js", "../helpers/autocomplete.js");
+steal("../helpers/common.js", "../helpers/autocomplete.js","../models/country.js","../models/municipality.js").then("../collections/country.js","../collections/municipality.js");
 // conditional file loading section
 if ( Entity.name == "roomType" || Entity.name == "room" || Entity.name == "structure") {
     steal("../../css/rcarousel.css","../views/commonMedia.js");
@@ -43,7 +43,7 @@ if ( Entity.name == "image" ) {
     then("../helpers/upload.js");
 }
 if (Entity.name == "planner") {
-    steal("../helpers/autocomplete.js").then("../../css/jquery.weekcalendar.css","../../css/calendar.css","../models/guest.js","../controllers/guest_controller.js").then("../controllers/booking_controller.js","jquery.weekcalendar.js");
+    steal("../helpers/autocomplete.js").then("../../css/jquery.weekcalendar.css","../../css/calendar.css","../models/guest.js","../controllers/guest_controller.js","../models/housed.js").then("../collections/housed.js").then("../controllers/booking_controller.js","jquery.weekcalendar.js");
 }
 if (Entity.name == "season") {
     steal("../models/period.js").
@@ -58,3 +58,7 @@ then("../collections/" + Entity.name + ".js").
 then("../views/common.js").
 then("../views/" + Entity.name + ".js").
 then("../routers/common.js");
+
+if (Entity.name == "planner") {
+    steal("../views/housed.js");
+}

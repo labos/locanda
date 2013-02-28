@@ -46,7 +46,6 @@ $(function () {
                 $(this).parents(".yform").submitForm("deleteGuest.action");
             });
             
-            
             //add notify functionality as tooltip for input text
             $("#room_name_id, #max_guests_id, #price_room_id").mousedown(function () {
                 $.jGrowl("close");

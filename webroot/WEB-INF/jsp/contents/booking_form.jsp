@@ -160,41 +160,38 @@ width:80%;
               <fieldset>
     <legend><s:text name="bookingDetails" />:</legend>
                 <input type="hidden" name="booking.booker.id" value="<s:property value="booking.booker.id"/>"/>
-	               <div class="type-text"><label for="lname"><s:text name="lastName"/>: <sup title="<s:text name="thisFileMandatory"/>.">*</sup> </label> 
-	               <input type="text" name="booking.booker.lastName" id="lname" value="<s:property value="booking.booker.lastName"/>" class="required"/></div>
-
-                  <div class="type-text"><label for="fname"><s:text name="firstName"/>: <sup title="<s:text name="thisFileMandatory"/>.">*</sup> </label> 
-                  <input type="text" name="booking.booker.firstName" id="fname" value="<s:property value="booking.booker.firstName"/>" class="required"/></div>
-                  
-                  <a name="top_accordion"></a>
-               	<div id="accordion">
-              		<h2><a href="#top_accordion"><s:text name="bookerDetails" /></a></h2>
-               		<div>
-               			<div class="type-text">
-                  			
-                 		</div>
-               			<div class="type-text"><label for="phone"><s:text name="phone"/>:</label> 
-                  			<input type="text" name="booking.booker.phone" class="validPhone" id="phone" value="<s:property value="booking.booker.phone"/>"/>
-                  		</div>
-               			<div class="type-text"><label for="email"><s:text name="email"/>:</label> 
-                 			<input type="text" name="booking.booker.email" class="email" id="email" value="<s:property value="booking.booker.email"/>" />
-                 		</div>
-                   		<div class="type-text"><label for="notes">Note:</label> 
-                  		  	<textarea name="booking.notes" id="notes"><s:property value="booking.notes"/></textarea>
-                  		  	<input type="hidden" name="booking.booker.address" class="validPhone" id="phone" value="<s:property value="booking.booker.address"/>"/>               		
-                 			<input type="hidden" name="booking.booker.zipCode" id="zipCode" value="<s:property value="booking.booker.zipCode"/>" />              
-                  			<input type="hidden" name="booking.booker.country" id="country" value="<s:property value="booking.booker.country"/>"/>               
-                 			<input type="hidden" name="booking.booker.idNumber" id="idNumber" value="<s:property value="booking.booker.idNumber"/>" />                 	
-                 			<input type="hidden" name="booking.booker.birthDate" id="birthDate" value="<s:property value="booking.booker.birthDate"/>" />           
-                 			<input type="hidden" name="booking.booker.birthPlace" id="birthPlace" value="<s:property value="booking.booker.birthPlace"/>" />
-                  	  	</div>
-               		</div>
-                </div>
-                <!--  END ACCORDION  -->
+                <jsp:include page="../templates/housed.mustache.jsp"/>
                 
-                <!-- START SECOND ACCORDION -->  
-                      <div class="type-select guests-select">
-                      	<s:select label="%{getText('guests')}"
+                <s:if test="booking.id != null">
+                	<div id="accordion">
+                		<h2><a href="#top_accordion"><s:text name="bookerDetails" /></a></h2>
+                		<div id="selectbooker-list"></div>
+                		<h2><a href="#top_accordion"><s:text name="groupleaderDetails" /></a></h2>
+                		<div id="selectgroupleader-list"></div>
+                	</div>
+                	<div id="selecthouseds-list"></div>
+		        	<script>
+		        		window.SelectBookerWidget = new SelectBookerView({
+                        	idStructure: Entity.idStructure,
+                        	modifing: true,
+                        	id_booking: <s:property value="booking.id"/>
+                    	});
+                    	window.SelectGroupLeaderWidget = new SelectGroupLeaderView({
+                    		idStructure: Entity.idStructure,
+                    	});
+                    	window.ListHousedWidget = new ListHousedView({
+                    		idStructure: Entity.idStructure,
+                    		id_booking: <s:property value="booking.id"/>
+                    	});
+		        	</script>
+                </s:if>
+                <s:else>
+                	<div id="accordion">
+                		<h2><a href="#top_accordion"><s:text name="bookerDetails" /></a></h2>
+                		<div id="selectbooker-list"></div>
+                	</div>
+                	<div class="type-select guests-select">
+		              	<s:select label="%{getText('guests')}"
 							        name="booking.nrGuests"
 							        list="listNumGuests"
 									headerKey="booking.nrGuests"
@@ -203,9 +200,21 @@ width:80%;
 							        required="true"
 							        id="nr_guests"/>
 							        
-                	  </div>                 
-                  	
-                  	  <!--  END SECOND ACCORDION -->	  
+		        	</div>
+		        	<script>
+						setTimeout(function() {
+							window.SelectBookerWidget = new SelectBookerView({
+					        	idStructure: Entity.idStructure,
+					    	});
+					    },3000);
+					</script>
+                </s:else>
+                
+	            
+              	
+                
+                	
+               			
                   <div class="type-text"><hr/></div>	  
                   <div class="type-select extraCheckList"><label for="">Extras:</label>
                       	<jsp:include page="extraQuantity_select.jsp" />     	  

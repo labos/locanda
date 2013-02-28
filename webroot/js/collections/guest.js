@@ -33,7 +33,11 @@ window.Guests = Backbone.Collection.extend({
     	this.setTerm(null);
     },
     url: function () {
-        return 'rest/guests/structure/' + this.idWrapper +  '/search' + this.from + this.to + '?term=' + this.term ;
+    	if (GetQueryStringParams('housed')=='true') {
+    		return 'rest/guests/structure/' + this.idWrapper +  '/search' + this.from + this.to + '?term=' + this.term +"&housed=true";
+    	} else {
+    		return 'rest/guests/structure/' + this.idWrapper +  '/search' + this.from + this.to + '?term=' + this.term ;
+    	}
     },
     setTerm: function (aTerm) {
         this.term = (typeof aTerm !== "undefined" && aTerm) ? aTerm : '';

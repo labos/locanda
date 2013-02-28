@@ -131,7 +131,9 @@ $(function () {
             	if (!confirm($.i18n("invoiceConfirm"))) {
             		 event.preventDefault();
             	}
-            }); 
+            });
+            
+            
             
             /* Add shared submit event listener */
             $(".yform.json").submit(function (event) {

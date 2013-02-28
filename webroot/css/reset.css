@@ -98,3 +98,53 @@ padding-bottom:12px;
 caption,th,.ui-autocomplete {
 text-align:left;
 }
+
+.float_left {
+	float:left;
+}
+
+.float_right {
+	float:right;
+}
+
+.set_booker {
+	margin-top:0px !important;
+}
+
+.set_groupleader {
+	margin-top:0px !important;
+}
+
+.set_guests {
+	margin-top:10px !important;
+	margin-left:10px !important;
+}
+
+.housed_inputdate {
+	max-width: 70%;
+}
+
+
+#selectbooker-list ul {
+	margin: 0px !important;
+}
+
+#selectbooker-list ul li {
+	margin: 0px !important;
+}
+
+#selectgroupleader-list ul {
+	margin: 0px !important;
+}
+
+#selectgroupleader-list ul li {
+	margin: 0px !important;
+}
+
+#selecthouseds-list ul {
+	margin: 0px !important;
+}
+
+#selecthouseds-list ul li {
+	margin: 0px !important;
+}
