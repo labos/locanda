@@ -38,7 +38,7 @@ window.SelectBookerView = RowView.extend({
         		iframe:true,
         		width:980,
         		height:450,
-        		href:'goUpdateGuestsFromPlanner.action?sect=guests&callback=setbooker&housed=true',
+        		href:'goUpdateGuestsFromPlanner.action?sect=guests&callback=setbooker&housed=false',
         		onOpen:function() {
         			//$('.ui-dialog .ui-widget').hide();
         			//$('.ui-widget-overlay').hide();
@@ -329,7 +329,7 @@ window.ListHousedView = RowView.extend({
         		iframe:true,
         		width:980,
         		height:450,
-        		href:'goUpdateGuestsFromPlanner.action?sect=guests&callback=setguests&housed=true',
+        		href:'goUpdateGuestsFromPlanner.action?sect=guests&callback=setguests&housed=false',
         		onOpen:function() {
         			//$('.ui-dialog .ui-widget').hide();
         			//$('.ui-widget-overlay').hide();
