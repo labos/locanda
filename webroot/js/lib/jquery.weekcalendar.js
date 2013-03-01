@@ -987,16 +987,26 @@ $.ajax({
    			    var date_end = new Date( date_end_rendered_ms);
    			    //check if room is valid
    			    if ( val.room ){
+   			    	var title ='',
+   			    		bookerPhone='',
+   			    		bookerAddress='',
+   			    		bookerEmail='';
+   			    	if(val.booker && val.booker.lastName && val.booker.firstName ){
+   			    		title = val.booker.lastName  + ' ' + val.booker.firstName;
+   			    		bookerPhone = val.booker.phone;
+   			    		bookerAddress= val.booker.address;
+   			    		bookerEmail= val.booker.email;
+   			    	}
       		    	 list_bookings.push( {
          	               "id":val.room.id,
          	               "start": date_in,
          	               "end": date_end ,
-         	               "title":(val.booker.lastName  + ' ' + val.booker.firstName).replace(/<\/?[^>]+>/gi, ''),
+         	               "title":(title).replace(/<\/?[^>]+>/gi, ''),
          	               "bookId": val.id,
          	               "confirmed": val.status,
-      	               "bookerPhone": val.booker.phone,
-      	               "bookerAddress": val.booker.address,
-      	               "bookerEmail": val.booker.email
+      	               "bookerPhone": bookerPhone,
+      	               "bookerAddress": bookerAddress,
+      	               "bookerEmail": bookerEmail
       		    	 		
          	            });
    			    	

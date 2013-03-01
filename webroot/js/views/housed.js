@@ -358,7 +358,7 @@ window.ListHousedView = RowView.extend({
         		dateFormat: 'dd/mm/yy',
         		onSelect: function(dateString, instance) {
         			//get from hidden the correct id of housed
-        			var current_id = parseInt($(v).parent().parent().parent().parent().parent().parent().find("input:hidden['name=id']").val());
+        			var current_id = parseInt($(v).parent().parent().parent().parent().parent().parent().find("input:hidden['name=housedid']").val());
         			var model = that.collection.get({id:current_id});
         			//update with selected date.
         			var date = $(v).val();
@@ -410,7 +410,7 @@ window.ListHousedView = RowView.extend({
     	e.stopPropagation();
     	//clear date checkin/checkout
     	//get from hidden the correct id of housed
-    	var hidden_id = $(e.currentTarget).parent().parent().parent().parent().parent().parent().parent().find("input:hidden['name=id']");
+    	var hidden_id = $(e.currentTarget).parent().parent().parent().parent().parent().parent().parent().find("input:hidden['name=housedid']");
     	var input = $(e.currentTarget).parent().find('input:text');
 		var current_id = parseInt(hidden_id.val());
 		var model = this.collection.get({id:current_id});

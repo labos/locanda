@@ -51,7 +51,6 @@
 		<a class="set_groupleader" href="#"><s:text name="selectGroupLeader" /></a>
 		{{#data}}
 			<div class="clear">&nbsp;</div>
-			<form>
 				<div class="clear">
 					<div class="float_left">
 	  					<input type="radio" name="groupType" value="CAPOFAMIGLIA" {{#data.family}}checked="checked"{{/data.family}} /> Famiglia<br/>
@@ -77,7 +76,6 @@
 						</ul>
 					</div>
 				</div>
-			</form>
 		{{/data}}
 		{{^data}}
 			<div class="clear">Nessuna selezione</div>
@@ -100,7 +98,7 @@
 			{{#hs}}
 				<li>
 					<div class="row-item">
-						<input type="hidden" name="id" value="{{id}}"/>
+						<input type="hidden" name="housedid" value="{{id}}"/>
 					  	<ul>
 							<li><b><s:text name="firstName"/>: </b>{{guest.firstName}}</li>
 							<li><b><s:text name="lastName"/>: </b>{{guest.lastName}}</li><li><b><s:text name="notes"/>: </b>{{guest.notes}}</li>

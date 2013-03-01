@@ -1216,3 +1216,15 @@ border-radius: 9px;
 .jGrowl-message{
 font-weight:600;
 }
+.subcolumns.period {
+    background: none repeat scroll 0 0 #EEEEEE;
+    border-bottom: 1px dashed #6699CC;
+    color: #003399;
+    font-size: 14px;
+    font-weight: normal;
+    padding: 10px 8px;
+    width: 99%;
+}
+ul.periodDates-list li{
+border-bottom:1px dotted grey
+}

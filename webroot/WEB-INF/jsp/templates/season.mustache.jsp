@@ -139,7 +139,7 @@
 
 	<script id="periods-view-template" type="text/x-handlebars-template" >
 		<div class="subcolumns period">
-			<div class="c33l">
+			<div class="c25l">
 		      	<strong><s:text name="from"/>:</strong>
 			</div>
 			<div class="c33l">
@@ -147,7 +147,7 @@
 			</div>
 		</div>
 		<div class="wrapper">
-			<ul></ul>
+			<ul class="periodDates-list"></ul>
 			<div class="add-new">
 				<button class="btn_add"><s:text name="periodAddNew"/></button>
 			</div>
