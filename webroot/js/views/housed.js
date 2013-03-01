@@ -324,23 +324,50 @@ window.ListHousedView = RowView.extend({
                 primary: "ui-icon-arrowreturnthick-1-s"
             }
         }).click(function(event){
-        	//show colorbox for setGuests
-        	$.colorbox({
-        		iframe:true,
-        		width:980,
-        		height:450,
-        		href:'goUpdateGuestsFromPlanner.action?sect=guests&callback=setguests&housed=false',
-        		onOpen:function() {
-        			//$('.ui-dialog .ui-widget').hide();
-        			//$('.ui-widget-overlay').hide();
-        		},
-        		onCleanup: function() {
-        			//$('.ui-dialog .ui-widget').show();
-        			//$('.ui-widget-overlay').show();
-        			//$('.btn_save').hide();
-        			//$('.canc_booking').hide();
-        		}
-        	});
+            /* Check max number of guests before adding a new housed */        	
+        	$.ajax({
+	    		type:'GET',
+	    		url:'rest/housed/booking/' +that.id_booking +'/maxGuests',
+	    		success: function(data) {
+	    			//default is false..
+	    			var addNewGuestPermission = false;
+	    			
+	    			if (typeof parseInt(data) == "number" && parseInt(data) >  that.collection.size()) {
+
+	    				addNewGuestPermission = true;
+	    			}
+	    			else{
+	    				addNewGuestPermission = false;
+	    				$.jGrowl($.i18n("alertOverwriteGuest") + ' ', {theme: "notify-error",sticky: true   });   				
+	    				
+	    			}
+	    			if (addNewGuestPermission) {
+	    	         	//show colorbox for setGuests
+	    	        	$.colorbox({
+	    	        		iframe:true,
+	    	        		width:980,
+	    	        		height:450,
+	    	        		href:'goUpdateGuestsFromPlanner.action?sect=guests&callback=setguests&housed=false',
+	    	        		onOpen:function() {
+	    	        			//$('.ui-dialog .ui-widget').hide();
+	    	        			//$('.ui-widget-overlay').hide();
+	    	        		},
+	    	        		onCleanup: function() {
+	    	        			//$('.ui-dialog .ui-widget').show();
+	    	        			//$('.ui-widget-overlay').show();
+	    	        			//$('.btn_save').hide();
+	    	        			//$('.canc_booking').hide();
+	    	        		}
+	    	        	});
+	    				
+	    			}
+	    		},
+	    		error: function(xhr) {
+	    			console.log(xhr)
+	    		}
+	    	});
+      
+
         });
         
         //UI for slideup/slideDown
@@ -445,10 +472,12 @@ window.ListHousedView = RowView.extend({
     	});
     },
     del: function(e) {
-    	var id = $(e.currentTarget).parent().find(":hidden").get(0).value;
-    	var m = this.collection.get(id);
+    	var that = this,
+    		id = $(e.currentTarget).parent().find(":hidden").get(0).value;
+    		m = this.collection.get(id);
     	m.destroy({
     		success: function(model, data){
+    			that.collection.remove(model);
     		},
     		error: function(model, xhr) {
     			alert(xhr.responseText);

@@ -24,6 +24,7 @@ $.i18n.en.strings = {
     alertDelete: "Do you REALLY want to delete it?",
     alertExitWithoutSaving: "Do you REALLY wanto to exit without saving?",
     alertExitEditState: "Have you finished your changes?",
+    alertOverwriteGuest: "Please delete a guest before add a new guest", 
     seriousError: "Error",
     seriousErrorDescr: "there was a problem in the resource server call",
     dateInVsdateOut: "Please note, the start date can not be equal to that of the end",
