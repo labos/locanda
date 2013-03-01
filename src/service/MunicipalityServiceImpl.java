@@ -33,6 +33,16 @@ public class MunicipalityServiceImpl implements MunicipalityService{
 	public List<Municipality> findAll() {
 		return this.getMunicipalityMapper().findAll();
 	}
+	
+	
+
+	@Override
+	public List<Municipality> findMunicipalitiesByProvince(String province) {
+		
+		return this.getMunicipalityMapper().findMunicipalitiesByProvince(province);
+	}
+
+
 
 	public MunicipalityMapper getMunicipalityMapper() {
 		return municipalityMapper;

@@ -22,4 +22,5 @@ import model.questura.Municipality;
 @Transactional
 public interface MunicipalityService {
 	public List<Municipality> findAll();
+	public List<Municipality> findMunicipalitiesByProvince(String province);
 }

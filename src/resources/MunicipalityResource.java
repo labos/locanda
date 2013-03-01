@@ -3,6 +3,7 @@ package resources;
 import java.util.List;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
@@ -27,6 +28,16 @@ public class MunicipalityResource {
     	List<Municipality> ret = null;
     	
     	ret = this.getMunicipalityService().findAll();
+        return ret;
+    }
+    
+    @GET
+    @Path("province/{province}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public List<Municipality> findMunicipalitiesByProvince(@PathParam("province") String province){
+    	List<Municipality> ret = null;
+    	
+    	ret = this.getMunicipalityService().findMunicipalitiesByProvince(province);
         return ret;
     }
 
