@@ -14,12 +14,15 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import model.Booking;
 import model.GroupLeader;
 import model.Housed;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
+
+import persistence.mybatis.mappers.BookingMapper;
 
 import service.BookingService;
 import service.GroupLeaderService;
@@ -39,7 +42,8 @@ public class HousedResource {
     @Autowired
     private BookingService bookingService = null;
     @Autowired
-    private GroupLeaderService groupLeaderService = null;
+    private GroupLeaderService groupLeaderService = null;    
+    
     
     @GET
     @Path("booking/{idBooking}")
@@ -48,6 +52,21 @@ public class HousedResource {
     	List<Housed> ret = null;
     	
     	ret = this.getHousedService().findHousedByIdBooking(idBooking);
+    	return ret;
+    }
+    
+    @GET
+    @Path("booking/{idBooking}/maxGuests")
+    @Produces({MediaType.APPLICATION_JSON})
+    public Integer findMaxNumberOfGuestsByIdBooking(@PathParam("idBooking") Integer idBooking) {
+    	Integer ret = null;
+    	Booking booking = null;
+    	
+    	booking = this.getBookingService().findBookingById(idBooking);
+    	if(booking!=null){
+    		ret = booking.getRoom().getRoomType().getMaxGuests();
+    	}
+    	
     	return ret;
     }
  
@@ -154,6 +173,8 @@ public class HousedResource {
 	}
 	public void setGroupLeaderService(GroupLeaderService groupLeaderService) {
 		this.groupLeaderService = groupLeaderService;
-	}	
+	}
+	
+	
 
 }
