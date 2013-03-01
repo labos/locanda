@@ -120,22 +120,22 @@ public class Booking implements Serializable{
 		
 		numNights = this.calculateNumNights();
 		System.out.println(extra.getTimePriceType());	
-		if (extra.getTimePriceType().equals("per Night")) {
-			if (extra.getResourcePriceType().equals("per Room")) {
+		if (extra.getTimePriceType().equals("extraPerNight")) {
+			if (extra.getResourcePriceType().equals("extraPerRoom")) {
 				ret = numNights;
 			}
 			else ret = numNights * this.getNrGuests(); 			//per Person - "per Item" cannot exist
 		}
-		else if (extra.getTimePriceType().equals("per Week")) {
-			if (extra.getResourcePriceType().equals("per Room")) {
+		else if (extra.getTimePriceType().equals("extraPerWeek")) {
+			if (extra.getResourcePriceType().equals("extraPerRoom")) {
 				ret = numNights/7 + 1;						//per week extra cannot be "divided"
 			}
 			else ret = (numNights/7 + 1) * this.getNrGuests();	//per Person - "per Item" cannot exist
 		}else {												//per Booking
-			if (extra.getResourcePriceType().equals("per Room")) {
+			if (extra.getResourcePriceType().equals("extraPerRoom")) {
 				ret = 1;									//So far, a Booking is associated with only one Room
 			}
-			else if (extra.getResourcePriceType().equals("per Person")) {
+			else if (extra.getResourcePriceType().equals("extraPerPerson")) {
 				ret = this.getNrGuests();
 			}
 			else ret = 10; //per Item
