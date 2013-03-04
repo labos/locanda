@@ -16,11 +16,15 @@
 package service;
 
 import java.util.List;
+
+import javax.ws.rs.PathParam;
+
 import org.springframework.transaction.annotation.Transactional;
 import model.questura.Municipality;
 
 @Transactional
 public interface MunicipalityService {
 	public List<Municipality> findAll();
+	public Municipality findById(Integer id);
 	public List<Municipality> findMunicipalitiesByProvince(String province);
 }

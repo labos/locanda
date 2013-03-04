@@ -32,6 +32,16 @@ public class MunicipalityResource {
     }
     
     @GET
+    @Path("{id}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public Municipality findById(@PathParam("id") Integer id){
+    	Municipality ret = null;
+    	
+    	ret = this.getMunicipalityService().findById(id);
+        return ret;
+    }
+    
+    @GET
     @Path("province/{province}")
     @Produces({MediaType.APPLICATION_JSON})
     public List<Municipality> findMunicipalitiesByProvince(@PathParam("province") String province){

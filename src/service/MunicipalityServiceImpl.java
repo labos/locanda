@@ -42,6 +42,16 @@ public class MunicipalityServiceImpl implements MunicipalityService{
 		return this.getMunicipalityMapper().findMunicipalitiesByProvince(province);
 	}
 
+	
+
+	@Override
+	public Municipality findById(Integer id) {
+		Municipality ret = null;
+		
+		ret = this.getMunicipalityMapper().findById(id);
+		return ret;
+	}
+
 
 
 	public MunicipalityMapper getMunicipalityMapper() {
