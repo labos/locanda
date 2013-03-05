@@ -47,8 +47,8 @@
                   	<span><s:text name="onlineWidgetPaste"/></span>
              	  </div>
                   <div class="type-text">
-                  	<textarea readonly="readonly" id="text-widget" rows="5" cols="30">
-                  	  <iframe height="900" width="400" marginheight="0" marginwidth="0" src="http://localhost:8080/locanda/goOnlineBookingCalendar.action?idStructure=<s:property value="idStructure"/>" scrolling="no"/>
+                  	<textarea readonly="readonly" id="text-widget" rows="5" cols="30"> 
+                  	  <iframe height="900" width="400" marginheight="0" marginwidth="0" src="<%= request.getScheme() + "://" + request.getServerName() +":"+ Integer.toString(request.getServerPort()) + request.getContextPath( )%>/goOnlineBookingCalendar.action?idStructure=<s:property value="idStructure"/>" scrolling="no"/>
         			</textarea>
              	  </div>
              	  <div class="type-check">

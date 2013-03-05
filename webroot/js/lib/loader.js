@@ -43,7 +43,7 @@ if ( Entity.name == "image" ) {
     then("../helpers/upload.js");
 }
 if (Entity.name == "planner") {
-    steal("../helpers/autocomplete.js").then("../../css/jquery.weekcalendar.css","../../css/calendar.css","../models/guest.js","../controllers/guest_controller.js","../models/housed.js").then("../collections/housed.js").then("../controllers/booking_controller.js","jquery.weekcalendar.js");
+    steal("../helpers/autocomplete.js").then("../../css/jquery.weekcalendar.css","../../css/calendar.css","../models/housed.js").then("../collections/housed.js").then("../controllers/booking_controller.js","jquery.weekcalendar.js");
 }
 if (Entity.name == "season") {
     steal("../models/period.js").

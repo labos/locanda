@@ -92,7 +92,7 @@ $(function () {
         init: function (lang, patternDate) {
             var self = this,
             ONE_DAY = 1000 * 60 * 60 * 24;
-            this.guest = new Controllers.Guest();
+            //this.guest = new Controllers.Guest();
             this.alertOK = $.i18n("congratulation");
             this.alertKO = $.i18n("warning");
            
@@ -114,7 +114,7 @@ $(function () {
                   //--  $NumNights.val(numNights);
                 }
             });
-            this.guest.getCustomers("input[name='booking.booker.lastName']", null);
+            //this.guest.getCustomers("input[name='booking.booker.lastName']", null);
             $(".btn_checked").button({
                 disabled: true
             });
