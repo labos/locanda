@@ -15,25 +15,23 @@
  *******************************************************************************/
 
 /*
- * @class Countries
+ * @class IdentificationType
  * @parent Backbone.Collection
  * @constructor
- * Collection for Countries.
+ * Collection for IdentificationTypes.
  * @tag models
  * @author LabOpenSource
  */
 
-window.Countries = Backbone.Collection.extend({
-    model: Country,
+window.IdentificationTypes = Backbone.Collection.extend({
+    model: IdentificationType,
     initialize: function (models, options) {
-    	this.fetch({
-    		async:false, //Countries are important!!! Waiting for...
-    	});
+    	this.fetch();
     },
     url: function () {
         return this.baseUrl;
     },
-    baseUrl: 'rest/countries/',
+    baseUrl: 'rest/identificationTypes/',
 });
 
-window.AllCountries = new Countries([],Entity.idStructure);
+window.AllIdentificationTypes = new IdentificationTypes([],Entity.idStructure);

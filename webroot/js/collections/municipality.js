@@ -15,53 +15,26 @@
  *******************************************************************************/
 
 /*
- * @class Guests
+ * @class Municipalities
  * @parent Backbone.Collection
  * @constructor
- * Collection for guests.
+ * Collection for Municipalities.
  * @tag models
  * @author LabOpenSource
  */
 
-TM = [
-      {name: 'Nulvi', code: 'AF'},
-      {name: 'Sassari', code: 'AX'},
-      {name: 'Cagliari', code: 'AL'},
-      ];
-
 window.Municipalities = Backbone.Collection.extend({
     model: Municipality,
+    provinceCode: null,
     initialize: function (models, options) {
-    	this.setIdWrapper(options.idStructure);
-    	this.setFrom(0);
-    	this.setTo(10);
-    	this.setTerm(null);
+    	this.provinceCode = options.provinceCode
     },
     url: function () {
-        return 'rest/municipalities/structure/' + this.idWrapper +  '/search' + this.from + this.to + '?term=' + this.term ;
+    	if (this.provinceCode) {
+    		return this.baseUrl +'province/' + this.provinceCode
+    	} else {
+    		return this.baseUrl;
+    	}
     },
-    setTerm: function (aTerm) {
-        this.term = (typeof aTerm !== "undefined" && aTerm) ? aTerm : '';
-    },
-    setIdWrapper: function (id) {
-        this.idWrapper = (typeof id === "number") ? id : '';
-    },
-    getIdWrapper: function () {
-        return this.idWrapper;
-    },
-    setFrom: function (begin) {
-        this.from = (typeof begin === "number") ? '/' + begin : '';
-    },
-    setTo: function (end) {
-        this.to = (typeof end === "number") ? '/' + end : '';
-    },
-    setFilter: function (attribute, value) {
-        this.filter = "";
-        if (arguments.length === 2 && attribute !== undefined && value !== undefined) {
-            this.filter = (attribute && value) ? '/' + attribute + '/' + value : "";
-        }
-        return this;
-    },
+    baseUrl: 'rest/municipalities/',
 });
-
-window.AllMunicipalities = new Municipalities(TM,Entity.idStructure);

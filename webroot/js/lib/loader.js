@@ -18,7 +18,7 @@
 ( typeof Entity !== "undefined" && typeof Entity.model !== "undefined" ) || ( Entity = {name:"default", editView:null} );
 
 //load common js scripts
-steal("../helpers/common.js", "../helpers/autocomplete.js","../models/country.js","../models/municipality.js").then("../collections/country.js","../collections/municipality.js");
+steal("../helpers/common.js", "../helpers/autocomplete.js");
 // conditional file loading section
 if ( Entity.name == "roomType" || Entity.name == "room" || Entity.name == "structure") {
     steal("../../css/rcarousel.css","../views/commonMedia.js");
@@ -48,6 +48,10 @@ if (Entity.name == "planner") {
 if (Entity.name == "season") {
     steal("../models/period.js").
     then("../collections/period.js");
+}
+if (Entity.name == "guest") {
+	steal("../models/country.js","../models/municipality.js","../models/identificationtype.js").
+	then("../collections/country.js","../collections/municipality.js","../collections/identificationtype.js");
 }
 // end conditional file loading section
 

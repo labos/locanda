@@ -20,7 +20,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
    
     <script id="edit-template" type="text/x-handlebars-template">
-			<form id="edit-form" class="yform json full" role="application">
+			<form id="edit-form" class="yform json full" role="application" style="max-height:300px; overflow-y:scroll;">
         		<div class="c50l">
                   	<div class="type-text">	
                   		<label for="FormFirstName"><s:text name="firstName"/><sup title="<s:text name="thisFileMandatory"/>.">*</sup></label>
@@ -40,13 +40,21 @@
                   		<label for="FormBirthDay"><s:text name="birthDay"/>:</label>
 						<input type="text" name="birthDate" value="{{birthDate}}"  class="datepicker"/>
 					</div>
-					<div class="type-text">           
-       				  	<label for="FormBirthPlace"><s:text name="birthPlace"/></label>
-                      	<input type="text" name="birthPlace" id="FormBirthPlace" value="{{birthPlace}}" aria-required="true"/>
+				  	<div class="type-select">           
+       				 	<label><s:text name="Citizenship"/>:</label>
+                	  	<select name="id_citizenship" id="FormCitizenship" size="1" aria-required="true">
+							{{#availableCitizenships}}<option value="{{id}}" {{#selected}}selected="selected"{{/selected}}>{{description}}</option>{{/availableCitizenships}}
+						</select>
       		      	</div>
-				  	<div class="type-text">           
-       				 	 <label for="FormAddress"><s:text name="address"/></label>
-                      	<input type="text" name="address" id="FormAddress" value="{{address}}" aria-required="true"/>
+      		      	<div class="type-select">
+                  		<label><s:text name="IdentificationType"/>:</label>
+						<select name="id_idType" id="IdentificationTypeSelector">
+							{{#availableIdentificationTypes}}<option value="{{id}}" {{#selected}}selected="selected"{{/selected}}>{{description}}</option>{{/availableIdentificationTypes}}
+						</select>
+					</div>
+					<div class="type-text">           
+       				  	<label for="FormIdNumber"><s:text name="idNumber"/></label>
+                      	<input type="text"name="idNumber" id="FormIdNumber" value="{{idNumber}}" aria-required="true"/>
       		      	</div>
                   	<div class="type-button">
                 	  	<button class="btn_save"><s:text name="save"/></button>
@@ -62,20 +70,52 @@
        				  	<label for="FormEmail"><s:text name="email"/></label>
                       	<input type="text" class="email" name="email" id="FormEmail" value="{{email}}" aria-required="true"/>
       		      	</div>
-					<div class="type-select">
-                		<label for="FormCountry"><s:text name="country"/>:</label>
-                	  	<select  name="country" id="FormCountry" size="1" aria-required="true">
-							{{#availableCountries}}<option value="{{code}}" {{#selected}}selected="selected"{{/selected}}>{{name}}</option>{{/availableCountries}}
+					<div class="type-select" id="FormBirth">
+						<input type="hidden" name="id_municipalityOfBirth" id="id_municipalityOfBirth" value="{{#id_municipalityOfBirth}}{{id_municipalityOfBirth}}{{/id_municipalityOfBirth}}" />
+                		<label><s:text name="BirthCountry"/>:</label>
+                	  	<select name="id_countryOfBirth" id="Formid_countryOfBirth" size="1" aria-required="true">
+							{{#availableCountriesBirth}}<option value="{{id}}" {{#selected}}selected="selected"{{/selected}}>{{description}}</option>{{/availableCountriesBirth}}
 						</select>
+						<div id="BirthProvinceSelector" class="clear none">
+							<label><s:text name="BirthProvince"/>:</label>
+							<select name="FormBirthProvince" id="FormBirthProvinceSelector">
+								<option value="">Seleziona la provincia</option>
+								<option value="SS">Sassari</option>
+								<option value="NU">Nuoro</option>
+								<option value="OR">Oristano</option>
+								<option value="CA">Cagliari</option>
+							</select>
+						</div>
+						<div id="BirthPlaceSelector" class="clear none">
+							<label><s:text name="BirthPlace"/>:</label>
+							<select id="FormBirthPlace" aria-required="true"></select>       
+	      		      	</div>
              	 	</div>
-				  	<div class="type-text">           
-       				  	<label for="FormZipCode"><s:text name="zipCode"/></label>
-                      	<input type="text" name="zipCode" id="FormZipCode" value="{{zipCode}}" aria-required="true"/>
-      		      	</div>
-				  	<div class="type-text">           
-       				  	<label for="FormIdNumber"><s:text name="idNumber"/></label>
-                      	<input type="text"name="idNumber" id="FormIdNumber" value="{{idNumber}}" aria-required="true"/>
-      		      	</div>
+             	 	<div class="type-select" id="FormResidence">
+						<input type="hidden" name="id_municipalityOfResidence" id="id_municipalityOfResidence" value="{{#id_municipalityOfResidence}}{{id_municipalityOfResidence}}{{/id_municipalityOfResidence}}" />
+                		<label><s:text name="ResidenceCountry"/>:</label>
+                	  	<select name="id_countryOfResidence" id="Formid_countryOfResidence" size="1" aria-required="true">
+							{{#availableCountriesResidence}}<option value="{{id}}" {{#selected}}selected="selected"{{/selected}}>{{description}}</option>{{/availableCountriesResidence}}
+						</select>
+						<div id="ResidenceProvinceSelector" class="clear none">
+							<label><s:text name="ResidenceProvince"/>:</label>
+							<select name="FormResidenceProvince" id="FormResidenceProvinceSelector">
+								<option value="">Seleziona la provincia</option>
+								<option value="SS">Sassari</option>
+								<option value="NU">Nuoro</option>
+								<option value="OR">Oristano</option>
+								<option value="CA">Cagliari</option>
+							</select>
+						</div>
+						<div id="ResidencePlaceSelector" class="clear none">
+							<label><s:text name="ResidencePlace"/>:</label>
+							<select id="FormResidencePlace" aria-required="true"></select>
+							<div class="type-text">           
+		       				 	<label for="FormAddress"><s:text name="address"/></label>
+		                      	<input type="text" name="address" id="FormAddress" value="{{address}}" aria-required="true"/>
+		      		      	</div>
+	      		      	</div>
+             	 	</div>
 				  	<div class="type-text">	
                   	  	<label for="FormNotes"><s:text name="notes"/></label>
 					  	<textarea name="notes" id="FormNotes">{{notes}}</textarea>		 
@@ -95,14 +135,10 @@
                		<div class="type-text">           
        					<strong><s:text name="lastName"/></strong>
                    		<span>{{lastName}}</span>
-      		   		</div> 
-			 		<div class="type-text">	
-               			<strong><s:text name="address"/></strong>
-						<span>{{address}}</span>		 
-                  	</div>
-					<div class="type-text">	
-               			<strong><s:text name="zipCode"/></strong>
-						<span>{{zipCode}}</span>		 
+      		   		</div>
+      		   		<div class="type-text">	
+               			<strong><s:text name="notes"/></strong>
+						<span>{{notes}}</span>		 
                   	</div>
               	</div>
 				<div class="c50l">
@@ -113,14 +149,6 @@
 					<div class="type-text">	
                			<strong><s:text name="email"/></strong>
 						<span>{{email}}</span>		 
-                  	</div>
-					<div class="type-text">	
-               			<strong><s:text name="country"/></strong>
-						<span>{{country}}</span>		 
-                  	</div>
-            		<div class="type-text">	
-               			<strong><s:text name="notes"/></strong>
-						<span>{{notes}}</span>		 
                   	</div>
 				</div>
 			</div>

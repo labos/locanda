@@ -107,6 +107,10 @@ text-align:left;
 	float:right;
 }
 
+.none {
+	display:none;
+}
+
 .set_booker {
 	margin-top:0px !important;
 }
