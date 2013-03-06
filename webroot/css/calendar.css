@@ -37,6 +37,10 @@ text-align:center;
 padding:.5em 2em;
 }
 
+#event_edit_container form.yform {
+    padding: 0;
+}
+
 label {
 display:block;
 margin-top:0;

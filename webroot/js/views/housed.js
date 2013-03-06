@@ -69,8 +69,8 @@ window.SelectBookerView = RowView.extend({
         			var json = $.parseJSON(JSON.stringify(data, undefined, 2));
         			return that.render(json);
         		},
-        		error: function() {
-        			$.jGrowl($.i18n("seriousErrorDescr") + '', { header: this.alertOK,sticky: true });
+        		error: function(xhr) {
+        			debugAjax(xhr.responseText);
         		}
         	});
     	}
@@ -96,8 +96,8 @@ window.SelectBookerView = RowView.extend({
         			//var json = $.parseJSON(JSON.stringify(data, undefined, 2));
         			that.get();
         		},
-        		error: function() {
-        			$.jGrowl($.i18n("seriousErrorDescr") + '', { header: this.alertOK,sticky: true });
+        		error: function(xhr) {
+        			debugAjax(xhr.responseText);
         		}
         	});
     	}
@@ -185,8 +185,8 @@ window.SelectGroupLeaderView = RowView.extend({
     		success:function(data) {
     			that.get();
     		},
-    		error: function() {
-    			$.jGrowl($.i18n("seriousErrorDescr") + '', { header: this.alertOK,sticky: true });
+    		error: function(xhr) {
+    			debugAjax(xhr.responseText);
     		}
     	});
     },
@@ -209,8 +209,8 @@ window.SelectGroupLeaderView = RowView.extend({
     				that.render();
     			}
     		},
-    		error: function() {
-    			$.jGrowl($.i18n("seriousErrorDescr") + '', { header: this.alertOK,sticky: true });
+    		error: function(xhr) {
+    			debugAjax(xhr.responseText);
     		}
     	});
     },
@@ -236,8 +236,8 @@ window.SelectGroupLeaderView = RowView.extend({
         			//var json = $.parseJSON(JSON.stringify(data, undefined, 2));
         			that.get();
         		},
-        		error: function() {
-        			$.jGrowl($.i18n("seriousErrorDescr") + '', { header: this.alertOK,sticky: true });
+        		error: function(xhr) {
+        			debugAjax(xhr.responseText);
         		}
         	});
     	} 
@@ -259,9 +259,9 @@ window.SelectGroupLeaderView = RowView.extend({
 	    			//var json = $.parseJSON(JSON.stringify(data, undefined, 2));
 	    			that.get();
 	    		},
-	    		error: function() {
-        			$.jGrowl($.i18n("seriousErrorDescr") + '', { header: this.alertOK,sticky: true });
-        		}
+	    		error: function(xhr) {
+	    			debugAjax(xhr.responseText);
+	    		}
 	    	});
     	}
     }
@@ -362,9 +362,9 @@ window.ListHousedView = RowView.extend({
 	    				
 	    			}
 	    		},
-	    		error: function() {
-        			$.jGrowl($.i18n("seriousErrorDescr") + '', { header: this.alertOK,sticky: true });
-        		}
+	    		error: function(xhr) {
+	    			console.log(xhr)
+	    		}
 	    	});
       
 
@@ -411,15 +411,17 @@ window.ListHousedView = RowView.extend({
         	    		data: JSON.stringify(pdata),
         	    		success: function(data) {
         	    			if (checkin) {
+        	    				console.log('update checkin');
         	    				model.set({checkInDate:datein})
         	    			}
         	    			if (checkout) {
+        	    				console.log('update checkout');
         	    				model.set({checkOutDate:dateout});
         	    			}
         	    		},
-        	    		error: function() {
-                			$.jGrowl($.i18n("seriousErrorDescr") + '', { header: this.alertOK,sticky: true });
-                		}
+        	    		error: function(xhr) {
+        	    			console.log(xhr)
+        	    		}
         	    	});
         		}
         	});
@@ -464,8 +466,8 @@ window.ListHousedView = RowView.extend({
     		success: function(data) {
     			$(input).get(0).value = '';
     		},
-    		error: function() {
-    			$.jGrowl($.i18n("seriousErrorDescr") + '', { header: this.alertOK,sticky: true });
+    		error: function(xhr) {
+    			console.log(xhr)
     		}
     	});
     },
@@ -477,8 +479,8 @@ window.ListHousedView = RowView.extend({
     		success: function(model, data){
     			that.collection.remove(model);
     		},
-    		error: function() {
-    			$.jGrowl($.i18n("delHousedGroupLoader") + '', { header: this.alertOK,sticky: true });
+    		error: function(model, xhr) {
+    			alert(xhr.responseText);
     		}
     	});
     },
@@ -510,8 +512,8 @@ window.ListHousedView = RowView.extend({
         		new_model.isNew = false;
     			that.collection.add([new_model]);
     		},
-    		error: function() {
-    			$.jGrowl($.i18n("seriousErrorDescr") + '', { header: this.alertOK,sticky: true });
+    		error: function(xhr) {
+    			console.log(xhr)
     		}
     	});
     }
