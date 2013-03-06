@@ -75,6 +75,7 @@ public class HousedResource {
 	@Produces({MediaType.APPLICATION_JSON}) 
 	public Integer insertHoused(Map map){
     	Housed housed = null;
+    	Booking booking = null;
     	
     	Integer id_booking = null;
 		Integer id_guest = null;
@@ -83,10 +84,14 @@ public class HousedResource {
  		id_booking = (Integer)map.get("id_booking");
 		id_guest = (Integer)map.get("id_guest");
 
+		
 		housed = new Housed();
 		housed.setId_booking(id_booking);
 		housed.setId_guest(id_guest);
- 		
+		booking = this.getBookingService().findBookingById(id_booking);
+ 		housed.setCheckInDate(booking.getDateIn());
+ 		housed.setCheckOutDate(booking.getDateOut());
+		
  		this.getHousedService().insert(housed);
  		id = housed.getId();
  		return id;
