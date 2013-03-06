@@ -50,6 +50,17 @@ public class MunicipalityResource {
     	ret = this.getMunicipalityService().findMunicipalitiesByProvince(province);
         return ret;
     }
+    
+    @GET
+    @Path("provinces")
+    @Produces({MediaType.APPLICATION_JSON})
+    public List<String> findAllProvinces(){
+    	List<String> ret = null;
+    	
+    	ret = this.getMunicipalityService().findAllProvinces();
+    	
+    	return ret;
+    }
 
 	public MunicipalityService getMunicipalityService() {
 		return municipalityService;

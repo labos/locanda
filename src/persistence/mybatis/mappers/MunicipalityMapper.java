@@ -21,6 +21,7 @@ import model.questura.Municipality;
 
 public interface MunicipalityMapper {
 	public List<Municipality> findAll();
+	public List<String> findAllProvinces();
 	public Municipality findById(Integer id);
 	public List<Municipality> findMunicipalitiesByProvince(String province);
 }
