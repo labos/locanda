@@ -26,7 +26,11 @@
 window.IdentificationTypes = Backbone.Collection.extend({
     model: IdentificationType,
     initialize: function (models, options) {
-    	this.fetch();
+    	this.fetch({
+    		error: function() {
+    			$.jGrowl($.i18n("seriousErrorDescr") + '', { header: this.alertOK,sticky: true });
+    		}
+    	});
     },
     url: function () {
         return this.baseUrl;

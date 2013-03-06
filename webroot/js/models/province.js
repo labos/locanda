@@ -13,30 +13,16 @@
  * See the Licence for the specific language governing permissions and limitations under the Licence.
  * In case of controversy the competent court is the Court of Cagliari (Italy).
  *******************************************************************************/
-
 /*
- * @class Countries
- * @parent Backbone.Collection
+ * @class Province
+ * @parent Backbone.Model
  * @constructor
- * Collection for Countries.
+ * Model to hold a Province.
  * @tag models
  * @author LabOpenSource
  */
 
-window.Countries = Backbone.Collection.extend({
-    model: Country,
-    initialize: function (models, options) {
-    	this.fetch({
-    		async:false, //Countries are important!!! Waiting for...
-    		error: function() {
-    			$.jGrowl($.i18n("seriousErrorDescr") + '', { header: this.alertOK,sticky: true });
-    		}
-    	});
+window.Province = Backbone.Model.extend({
+    initialize: function () {
     },
-    url: function () {
-        return this.baseUrl;
-    },
-    baseUrl: 'rest/countries/',
 });
-
-window.AllCountries = new Countries([],Entity.idStructure);

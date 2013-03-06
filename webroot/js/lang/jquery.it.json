@@ -27,6 +27,7 @@ $.i18n.it.strings = {
     alertOverwriteGuest: "Hai già inserito il numero massimo di ospiti. Cancellane uno prima di aggiungerlo",
     seriousError: "Errore",
     seriousErrorDescr: "C'è stato un errore nella risorsa interrogata dal server",
+    delHousedGroupLoader: "Non è possibile eliminare l'alloggiato in quanto è impostato come Capogruppo!",
     dateInVsdateOut: "Attenzione, la data di inizio non può essere uguale o superiore a quella di fine",
     nrGuestVsMaxGuest: "Attenzione, stai aggiungendo un numero di ospiti maggiore della capacità della stanza",
     roomRequired: "Devi selezionare una camera",

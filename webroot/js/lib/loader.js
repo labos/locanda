@@ -50,8 +50,8 @@ if (Entity.name == "season") {
     then("../collections/period.js");
 }
 if (Entity.name == "guest") {
-	steal("../models/country.js","../models/municipality.js","../models/identificationtype.js").
-	then("../collections/country.js","../collections/municipality.js","../collections/identificationtype.js");
+	steal("../models/country.js","../models/province.js","../models/municipality.js","../models/identificationtype.js").
+	then("../collections/country.js","../collections/province.js","../collections/municipality.js","../collections/identificationtype.js");
 }
 // end conditional file loading section
 

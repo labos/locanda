@@ -80,10 +80,9 @@
 							<label><s:text name="BirthProvince"/>:</label>
 							<select name="FormBirthProvince" id="FormBirthProvinceSelector">
 								<option value="">Seleziona la provincia</option>
-								<option value="SS">Sassari</option>
-								<option value="NU">Nuoro</option>
-								<option value="OR">Oristano</option>
-								<option value="CA">Cagliari</option>
+								{{#ITProvinces}}
+									<option value="{{code}}">{{description}}</option>
+								{{/ITProvinces}}
 							</select>
 						</div>
 						<div id="BirthPlaceSelector" class="clear none">

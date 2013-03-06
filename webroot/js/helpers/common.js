@@ -253,6 +253,8 @@ $(document).ready(function () {
 
 /* Special usefull functions */
 function GetQueryStringParams(sParam) {
+	//this function read querystrings params by name
+	//return StringValue
 	var sPageURL = window.location.search.substring(1);
     var sURLVariables = sPageURL.split('&');
     for (var i = 0; i < sURLVariables.length; i++) {
@@ -261,8 +263,4 @@ function GetQueryStringParams(sParam) {
     		return sParameterName[1];
     	}
     }
-}
-
-function debugAjax(html) {
-	$('body').append('<div id="debugdiv" style="clear:both;"><div style="clear:both; height:30px; color:red;"><a href="#" onclick="$(\'#debugdiv\').remove();">Chiudi</a></div><div style="clear:both">'+html+'</div></div>');
 }

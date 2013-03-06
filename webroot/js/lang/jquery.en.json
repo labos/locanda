@@ -27,6 +27,7 @@ $.i18n.en.strings = {
     alertOverwriteGuest: "Please delete a guest before add a new guest", 
     seriousError: "Error",
     seriousErrorDescr: "there was a problem in the resource server call",
+    delHousedGroupLoader: "Impossible to delete this housed because it's a Groupleader!",
     dateInVsdateOut: "Please note, the start date can not be equal to that of the end",
     nrGuestVsMaxGuest: "Be careful, you're adding a number of guests exceeding the capacity of the room",
     roomRequired: "You must select a room",

@@ -8,6 +8,7 @@
  */
 window.EditGuestView = EditView.extend({
 	countryDefaultId: 1, //Italy
+	ITProvinces: [], //All italian provinces
 	MunicipalityOfBirthCollection: null, //instance of Municipality for birth
 	MunicipalityOfResidenceCollection: null, //instance of Municipality for residence
 	IdentificationTypeCollection: AllIdentificationTypes, //instance of IdentificationType
@@ -25,6 +26,7 @@ window.EditGuestView = EditView.extend({
     	var that = this;
         this.model.bind('change', this.render, this);
         this.id = null;
+        this.ITProvinces = AllProvinces.toJSON();
         this.availableCitizenships = [];
         this.availableCountriesBirth = [];
         this.availableCountriesResidence = [];
@@ -170,7 +172,6 @@ window.EditGuestView = EditView.extend({
     	var that = this;
     	//reset fields
     	$('#id_municipalityOfBirth').get(0).value='';
-    	$('#FormAddress').get(0).value = '';
     	$('#BirthPlaceSelector').addClass('none'); //container of placeselection
     	var select = $(e.currentTarget);
     	var current_province_code = select.val();
@@ -183,7 +184,10 @@ window.EditGuestView = EditView.extend({
     		this.MunicipalityOfBirthCollection.fetch({
     			success: function() {
     				that.populateFormBirthPlace();
-    			}
+    			},
+    			error: function() {
+        			$.jGrowl($.i18n("seriousErrorDescr") + '', { header: this.alertOK,sticky: true });
+        		}
     		});
     	}
     },
@@ -269,7 +273,10 @@ window.EditGuestView = EditView.extend({
     		this.MunicipalityOfResidenceCollection.fetch({
     			success: function() {
     				that.populateFormResidencePlace();
-    			}
+    			},
+    			error: function() {
+        			$.jGrowl($.i18n("seriousErrorDescr") + '', { header: this.alertOK,sticky: true });
+        		}
     		});
     	}
     },
@@ -314,7 +321,8 @@ window.EditGuestView = EditView.extend({
     	var that = this;
         // render main edit view
         var modelToRender = this.model.toJSON();
-        // set additional attribute to display Citizenship/countries/identification types
+        // set additional attribute to display Citizenship/countries/Provinces/identification types
+        modelToRender.ITProvinces = this.ITProvinces;
         modelToRender.availableCitizenships = this.setCitizenships(this.model.get("id_citizenship"));
         modelToRender.availableCountriesBirth = this.setCountriesBirth(this.model.get("id_countryOfBirth"));
         modelToRender.availableCountriesResidence = this.setCountriesResidence(this.model.get("id_countryOfResidence"));
@@ -395,7 +403,10 @@ window.EditGuestView = EditView.extend({
                     		that.MunicipalityOfBirthCollection.fetch({
                     			success: function() {
                     				that.populateFormBirthPlace();
-                    			}
+                    			},
+                    			error: function() {
+                        			$.jGrowl($.i18n("seriousErrorDescr") + '', { header: this.alertOK,sticky: true });
+                        		}
                     		});
                 			
                 		}
@@ -403,6 +414,9 @@ window.EditGuestView = EditView.extend({
         			
         			
         		},
+        		error: function() {
+        			$.jGrowl($.i18n("seriousErrorDescr") + '', { header: this.alertOK,sticky: true });
+        		}
         	}); 
         } else {
         	this.selectedCountryOfBirth({currentTarget:'#Formid_countryOfBirth'});
@@ -428,7 +442,10 @@ window.EditGuestView = EditView.extend({
                     		that.MunicipalityOfResidenceCollection.fetch({
                     			success: function() {
                     				that.populateFormResidencePlace();
-                    			}
+                    			},
+                    			error: function() {
+                        			$.jGrowl($.i18n("seriousErrorDescr") + '', { header: this.alertOK,sticky: true });
+                        		}
                     		});
                 			
                 		}

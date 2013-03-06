@@ -15,19 +15,30 @@
  *******************************************************************************/
 
 /*
- * @class Countries
+ * @class Provinces
  * @parent Backbone.Collection
  * @constructor
- * Collection for Countries.
+ * Collection for Provinces.
  * @tag models
  * @author LabOpenSource
  */
 
-window.Countries = Backbone.Collection.extend({
-    model: Country,
+window.Provinces = Backbone.Collection.extend({
+    model: Province,
     initialize: function (models, options) {
-    	this.fetch({
-    		async:false, //Countries are important!!! Waiting for...
+    	var that = this;
+    	$.ajax({
+    		async:false, //Provinces are important!!! Waiting for...
+    		url:that.baseUrl,
+    		success: function(data) {
+    			var r = [];
+    			var json = eval(data);
+    			for (p in json) {
+    				r.push({code:json[p],description:json[p]});
+    			};
+    			that.reset();
+    			that.add(r);
+    		},
     		error: function() {
     			$.jGrowl($.i18n("seriousErrorDescr") + '', { header: this.alertOK,sticky: true });
     		}
@@ -36,7 +47,7 @@ window.Countries = Backbone.Collection.extend({
     url: function () {
         return this.baseUrl;
     },
-    baseUrl: 'rest/countries/',
+    baseUrl: 'rest/municipalities/provinces',
 });
 
-window.AllCountries = new Countries([],Entity.idStructure);
+window.AllProvinces = new Provinces([],Entity.idStructure);

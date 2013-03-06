@@ -14,10 +14,10 @@
  * In case of controversy the competent court is the Court of Cagliari (Italy).
  *******************************************************************************/
 /*
- * @class Housed
+ * @class Municipality
  * @parent Backbone.Model
  * @constructor
- * Model to hold a Housed.
+ * Model to hold a Municipality.
  * @tag models
  * @author LabOpenSource
  */
