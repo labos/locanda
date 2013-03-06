@@ -478,6 +478,8 @@ window.ListHousedView = RowView.extend({
     	m.destroy({
     		success: function(model, data){
     			that.collection.remove(model);
+    			//change number of guests on the select
+    			that.$('#nr_guests').val(that.collection.size()).change();
     		},
     		error: function(model, xhr) {
     			alert(xhr.responseText);
@@ -511,6 +513,8 @@ window.ListHousedView = RowView.extend({
     			new_model.id = parseInt(data);
         		new_model.isNew = false;
     			that.collection.add([new_model]);
+    			//change number of guests on the select
+    			that.$('#nr_guests').val(that.collection.size()).change();
     		},
     		error: function(xhr) {
     			console.log(xhr)
