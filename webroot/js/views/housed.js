@@ -10,6 +10,7 @@ window.SelectBookerView = RowView.extend({
 	ajax: null,
 	modifing: false, //a special init param for update with rest or not
 	id_booking: 0,
+	id_booker:0,
 	indexTemplate: "#selectbooker-template",
 	el: '#selectbooker-list',
     initialize: function (options) {
@@ -63,11 +64,13 @@ window.SelectBookerView = RowView.extend({
         		this.ajax.abort();
         	} catch(e) {}
         	this.ajax = $.ajax({
-        		url:'rest/guests/'+id,
+        		url:'rest/booker/booking/'+ that.id_booking,
         		data:{},
         		success:function(data) {
         			var json = $.parseJSON(JSON.stringify(data, undefined, 2));
-        			return that.render(json);
+        			//set current booker id
+        			that.id_booker = json.id;
+        			return that.render(json.guest);
         		},
         		error: function(xhr) {
         			debugAjax(xhr.responseText);
@@ -86,10 +89,11 @@ window.SelectBookerView = RowView.extend({
         	} catch(e) {}
     		this.ajax = $.ajax({
         		type:'PUT',
-        		url:'rest/booker/'+model.id,
+        		url:'rest/booker/'+ that.id_booker,
         		contentType: "application/json",
         		data: JSON.stringify({
-        			id_booking: this.id_booking,
+        			id: that.id_booker,
+        			id_booking: that.id_booking,
         			id_guest: model.id,
         		}),
         		success:function(data) {
