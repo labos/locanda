@@ -406,7 +406,13 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 		this.filterGuests();	
 		booking.setGuests(this.getBooking().getGuests());
 		*/
-		booker = this.getBooking().getBooker();		
+		booker = this.getBooking().getBooker();	
+		if(booker.getId() == null){
+			this.getMessage().setResult(Message.ERROR);
+			this.getMessage().setDescription(getText("bookingAddErrorNoBookerAction"));
+			return ERROR;
+		}
+		
 		booker.setId_structure(this.getIdStructure());
 		booking.setBooker(booker);
 		
