@@ -173,10 +173,17 @@ $(function () {
                           show: "blind",
                           closeOnEscape: true,
                           title: $.i18n("newBookingForRoom") + ": " + room_name,
-                          close: function () {
-                              $dialogContent.dialog("destroy");
-                              $dialogContent.hide();
-                              $('#calendar').weekCalendar("removeUnsavedEvents");
+                          beforeClose: function( event, ui ) {
+                              
+                            	  if(confirm($.i18n("alertCancel"))){
+                                      $dialogContent.dialog("destroy");
+                                      self.$calendar.weekCalendar("refresh");
+                                      //$('#calendar').weekCalendar("removeUnsavedEvents");
+                            	  }else{
+                            		  return false;
+                            	  }
+                             
+                              
                           },
                           buttons: [
                                    {text: $.i18n("save"),
@@ -227,9 +234,19 @@ $(function () {
                           position: 'top',
                           closeOnEscape: false,
                           title: $.i18n("modifyBooking") + " - " + room_name,
-                          close: function () {
-                              $dialogContent.dialog("destroy");
-                              $dialogContent.hide();
+                          beforeClose: function( event, ui ) {
+                              if (self.booking.modified)  {
+                            	  if(confirm($.i18n("alertCancel"))){
+                                      $dialogContent.dialog("destroy");
+                                      self.$calendar.weekCalendar("refresh");  
+                            	  }else{
+                            		  return false;
+                            	  }
+                              }
+                              else{
+                                  $dialogContent.dialog("destroy");
+                                  self.$calendar.weekCalendar("refresh");
+                              }
                           },
                           buttons: [
                                     {
