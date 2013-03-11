@@ -44,7 +44,7 @@
 		<li><a class="skip" href="#nav">Skip to navigation (Press Enter).</a></li>
 		<li><a class="skip" href="#col3">Skip to main content (Press Enter).</a></li>
 	</ul>
-	<s:url action="logout" var="url_logout"></s:url>
+	 
 	<s:url action="home" var="url_home"></s:url>
 	<s:url action="findAllRooms" var="url_findallroom"></s:url>
 	<s:url action="findAllRoomTypes" var="url_findallroomtypes"></s:url>
@@ -58,6 +58,7 @@
 	<s:url action="goFindAllRoomPriceLists" var="url_findallroompricelists"></s:url>
 	<s:url action="goFindAllExtraPriceLists" var="url_findallextrapricelists"></s:url>
 	<s:url action="goOnlineBookings" var="url_onlinebookings"></s:url>
+	<s:url action="goExport" var="url_export"></s:url>
 	<s:url action="goAboutInfo" var="url_about"></s:url>
 
 	<div class="page_margins">
@@ -99,6 +100,7 @@
 								<li class="ui-menu-item"><a href="<s:property value="url_findallfacilities"/>?sect=settings"><s:text name="facilities" /></a></li>
 								<li class="ui-menu-item"><a href="<s:property value="url_findallimages"/>?sect=settings"><s:text name="images" /></a></li>
 								<li class="ui-menu-item"><a href="<s:property value="url_details"/>?sect=settings"><s:text name="structureSettings" /></a></li>
+								<li class="ui-menu-item"><a href="<s:property value="url_export"/>?sect=settings"><s:text name="exportPage" /></a></li>
 							</ul>
 						</li>
 						<li><a href="#"><s:text name="help" /><span class="menu-dropdown ui-button-icon-secondary ui-icon ui-icon-triangle-1-s"></span></a>
