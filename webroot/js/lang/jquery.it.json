@@ -25,6 +25,7 @@ $.i18n.it.strings = {
     alertExitWithoutSaving: "Sei sicuro di voler uscire senza salvare?",
     alertExitEditState: "Hai completato tutte le modifiche?",
     alertOverwriteGuest: "Hai già inserito il numero massimo di ospiti. Cancellane uno prima di aggiungerlo",
+    alreadyHoused: "Ospite già selezionato per questa prenotazione!",
     seriousError: "Errore",
     seriousErrorDescr: "C'è stato un errore nella risorsa interrogata dal server",
     delHousedGroupLoader: "Non è possibile eliminare l'alloggiato in quanto è impostato come Capogruppo!",

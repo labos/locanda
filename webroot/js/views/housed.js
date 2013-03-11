@@ -7,10 +7,8 @@
  * @author LabOpenSource
  */
 window.SelectBookerView = RowView.extend({
-	ajax: null,
 	modifing: false, //a special init param for update with rest or not
 	id_booking: 0,
-	id_booker:0,
 	indexTemplate: "#selectbooker-template",
 	el: '#selectbooker-list',
     initialize: function (options) {
@@ -22,6 +20,7 @@ window.SelectBookerView = RowView.extend({
         this.get();
     },
     render: function (model) {
+    	var that = this;
     	if (model) {
     		$(this.el).html(Mustache.to_html($(this.indexTemplate).html(), {data:model}));
     	} else {
@@ -38,7 +37,7 @@ window.SelectBookerView = RowView.extend({
         	$.colorbox({
         		iframe:true,
         		width:980,
-        		height:450,
+        		height:560,
         		href:'goUpdateGuestsFromPlanner.action?sect=guests&callback=setbooker&housed=false',
         		onOpen:function() {
         			//$('.ui-dialog .ui-widget').hide();
@@ -49,6 +48,9 @@ window.SelectBookerView = RowView.extend({
         			//$('.ui-widget-overlay').show();
         			//$('.btn_save').hide();
         			//$('.canc_booking').hide();
+        			
+        			//refresh this widget
+        			that.get();
         		}
         	});
         });
@@ -60,20 +62,15 @@ window.SelectBookerView = RowView.extend({
     	var that = this;
     	var id = $('input:hidden[name="booking.booker.id"]').get(0).value;
     	if (id != "" && id > 0) {
-    		try {
-        		this.ajax.abort();
-        	} catch(e) {}
-        	this.ajax = $.ajax({
-        		url:'rest/booker/booking/'+ that.id_booking,
+    		$.ajax({
+        		url:'rest/guests/'+id,
         		data:{},
         		success:function(data) {
         			var json = $.parseJSON(JSON.stringify(data, undefined, 2));
-        			//set current booker id
-        			that.id_booker = json.id;
-        			return that.render(json.guest);
+        			return that.render(json);
         		},
-        		error: function(xhr) {
-        			debugAjax(xhr.responseText);
+        		error: function() {
+        			$.jGrowl($.i18n("seriousErrorDescr") + '', { header: this.alertOK,sticky: true });
         		}
         	});
     	}
@@ -84,24 +81,20 @@ window.SelectBookerView = RowView.extend({
     	$('input:hidden[name="booking.booker.id"]').get(0).value = model.id;
     	if (this.modifing == true) {
     		//if a mod.. call rest/PUT
-    		try {
-        		this.ajax.abort();
-        	} catch(e) {}
-    		this.ajax = $.ajax({
+    		$.ajax({
         		type:'PUT',
-        		url:'rest/booker/'+ that.id_booker,
+        		url:'rest/booker/'+model.id,
         		contentType: "application/json",
         		data: JSON.stringify({
-        			id: that.id_booker,
-        			id_booking: that.id_booking,
+        			id_booking: this.id_booking,
         			id_guest: model.id,
         		}),
         		success:function(data) {
         			//var json = $.parseJSON(JSON.stringify(data, undefined, 2));
         			that.get();
         		},
-        		error: function(xhr) {
-        			debugAjax(xhr.responseText);
+        		error: function() {
+        			$.jGrowl($.i18n("seriousErrorDescr") + '', { header: this.alertOK,sticky: true });
         		}
         	});
     	}
@@ -120,7 +113,6 @@ window.SelectBookerView = RowView.extend({
  * @author LabOpenSource
  */
 window.SelectGroupLeaderView = RowView.extend({
-	ajax:null,
 	indexTemplate: "#selectgroupleader-template",
 	el: '#selectgroupleader-list',
 	current_groupLeader:null,
@@ -131,6 +123,7 @@ window.SelectGroupLeaderView = RowView.extend({
     	'click input:radio[name="groupType"]':'switchgroupType'
     },
     render: function (model, housedType) {
+    	var that = this;
     	if (model) {
     		//if for family/group
     		if (housedType) {
@@ -152,7 +145,7 @@ window.SelectGroupLeaderView = RowView.extend({
         	$.colorbox({
         		iframe:true,
         		width:980,
-        		height:450,
+        		height:560,
         		href:'goUpdateGuestsFromPlanner.action?sect=guests&callback=setgroupleader&housed=true',
         		onOpen:function() {
         			//$('.ui-dialog .ui-widget').hide();
@@ -163,6 +156,7 @@ window.SelectGroupLeaderView = RowView.extend({
         			//$('.ui-widget-overlay').show();
         			//$('.btn_save').hide();
         			//$('.canc_booking').hide();
+        			that.get();
         		}
         	});
         });
@@ -174,10 +168,7 @@ window.SelectGroupLeaderView = RowView.extend({
     	var that = this;
     	var id_booking = parseInt($('input:hidden[name="booking.id"]').get(0).value);
     	var current_groupType = $(e.currentTarget).val();
-    	try {
-    		this.ajax.abort();
-    	} catch(e) {}
-		this.ajax = $.ajax({
+    	$.ajax({
     		type:'PUT',
     		url:'rest/groupLeader/'+that.current_groupLeader.id,
     		contentType: "application/json",
@@ -189,8 +180,8 @@ window.SelectGroupLeaderView = RowView.extend({
     		success:function(data) {
     			that.get();
     		},
-    		error: function(xhr) {
-    			debugAjax(xhr.responseText);
+    		error: function() {
+    			$.jGrowl($.i18n("seriousErrorDescr") + '', { header: this.alertOK,sticky: true });
     		}
     	});
     },
@@ -198,10 +189,7 @@ window.SelectGroupLeaderView = RowView.extend({
     	//get current groupLeader
     	var that = this;
     	var id_booking = parseInt($('input:hidden[name="booking.id"]').get(0).value);
-    	try {
-    		this.ajax.abort();
-    	} catch(e) {}
-    	this.ajax = $.ajax({
+    	$.ajax({
     		url:'rest/groupLeader/booking/'+id_booking,
     		data:{},
     		success:function(data) {
@@ -213,8 +201,8 @@ window.SelectGroupLeaderView = RowView.extend({
     				that.render();
     			}
     		},
-    		error: function(xhr) {
-    			debugAjax(xhr.responseText);
+    		error: function() {
+    			$.jGrowl($.i18n("seriousErrorDescr") + '', { header: this.alertOK,sticky: true });
     		}
     	});
     },
@@ -224,10 +212,7 @@ window.SelectGroupLeaderView = RowView.extend({
     	var id_booking = parseInt($('input:hidden[name="booking.id"]').get(0).value);
     	//if already present
     	if (that.current_groupLeader) {
-    		try {
-        		this.ajax.abort();
-        	} catch(e) {}
-    		this.ajax = $.ajax({
+    		$.ajax({
         		type:'PUT',
         		url:'rest/groupLeader/'+that.current_groupLeader.id,
         		contentType: "application/json",
@@ -240,17 +225,14 @@ window.SelectGroupLeaderView = RowView.extend({
         			//var json = $.parseJSON(JSON.stringify(data, undefined, 2));
         			that.get();
         		},
-        		error: function(xhr) {
-        			debugAjax(xhr.responseText);
+        		error: function() {
+        			$.jGrowl($.i18n("seriousErrorDescr") + '', { header: this.alertOK,sticky: true });
         		}
         	});
     	} 
     	//new selection
     	else {
-	    	try {
-	    		this.ajax.abort();
-	    	} catch(e) {}
-	    	this.ajax = $.ajax({
+	    	$.ajax({
 	    		type:'POST',
 	    		url:'rest/groupLeader',
 	    		contentType: "application/json",
@@ -263,9 +245,9 @@ window.SelectGroupLeaderView = RowView.extend({
 	    			//var json = $.parseJSON(JSON.stringify(data, undefined, 2));
 	    			that.get();
 	    		},
-	    		error: function(xhr) {
-	    			debugAjax(xhr.responseText);
-	    		}
+	    		error: function() {
+        			$.jGrowl($.i18n("seriousErrorDescr") + '', { header: this.alertOK,sticky: true });
+        		}
 	    	});
     	}
     }
@@ -350,7 +332,7 @@ window.ListHousedView = RowView.extend({
 	    	        	$.colorbox({
 	    	        		iframe:true,
 	    	        		width:980,
-	    	        		height:450,
+	    	        		height:560,
 	    	        		href:'goUpdateGuestsFromPlanner.action?sect=guests&callback=setguests&housed=false',
 	    	        		onOpen:function() {
 	    	        			//$('.ui-dialog .ui-widget').hide();
@@ -361,14 +343,15 @@ window.ListHousedView = RowView.extend({
 	    	        			//$('.ui-widget-overlay').show();
 	    	        			//$('.btn_save').hide();
 	    	        			//$('.canc_booking').hide();
+	    	        			that.render();
 	    	        		}
 	    	        	});
 	    				
 	    			}
 	    		},
-	    		error: function(xhr) {
-	    			console.log(xhr)
-	    		}
+	    		error: function() {
+        			$.jGrowl($.i18n("seriousErrorDescr") + '', { header: this.alertOK,sticky: true });
+        		}
 	    	});
       
 
@@ -405,27 +388,22 @@ window.ListHousedView = RowView.extend({
         					checkInDate: datein,
         					checkOutDate: dateout,
         			};
-        			try {
-        	    		that.ajax.abort();
-        	    	} catch(e) {}
-        	    	that.ajax = $.ajax({
+        	    	$.ajax({
         	    		type:'PUT',
         	    		url:'rest/housed/'+model.get("id"),
         	    		contentType: "application/json",
         	    		data: JSON.stringify(pdata),
         	    		success: function(data) {
         	    			if (checkin) {
-        	    				console.log('update checkin');
         	    				model.set({checkInDate:datein})
         	    			}
         	    			if (checkout) {
-        	    				console.log('update checkout');
         	    				model.set({checkOutDate:dateout});
         	    			}
         	    		},
-        	    		error: function(xhr) {
-        	    			console.log(xhr)
-        	    		}
+        	    		error: function() {
+                			$.jGrowl($.i18n("seriousErrorDescr") + '', { header: this.alertOK,sticky: true });
+                		}
         	    	});
         		}
         	});
@@ -459,10 +437,7 @@ window.ListHousedView = RowView.extend({
     		pdata.checkOutDate = null;
     		model.set({"checkOutDate":null});
     	}
-		try {
-    		this.ajax.abort();
-    	} catch(e) {}
-    	this.ajax = $.ajax({
+		$.ajax({
     		type:'PUT',
     		url:'rest/housed/'+model.get("id"),
     		contentType: "application/json",
@@ -470,26 +445,34 @@ window.ListHousedView = RowView.extend({
     		success: function(data) {
     			$(input).get(0).value = '';
     		},
-    		error: function(xhr) {
-    			console.log(xhr)
+    		error: function() {
+    			$.jGrowl($.i18n("seriousErrorDescr") + '', { header: this.alertOK,sticky: true });
     		}
     	});
     },
     del: function(e) {
     	var that = this,
-    		id = $(e.currentTarget).parent().find(":hidden").get(0).value;
-    		m = this.collection.get(id);
+    	id = $(e.currentTarget).parent().find(":hidden").get(0).value;
+    	m = this.collection.get(id);
     	m.destroy({
     		success: function(model, data){
     			that.collection.remove(model);
     		},
-    		error: function(model, xhr) {
-    			alert(xhr.responseText);
+    		error: function() {
+    			$.jGrowl($.i18n("delHousedGroupLoader") + '', { header: this.alertOK,sticky: true });
     		}
     	});
     },
     select: function(model) {
     	//add a housed by received guest model
+    	//check if already present
+    	var c = this.collection.toJSON();
+    	for (m in c) {
+    		if (c[m].guest.id==model.id) {
+    			$.jGrowl($.i18n("alreadyHoused") + '', { header: this.alertOK,sticky: true });
+    			return false;
+    		}
+    	}
     	var that = this;
     	var pdata = {};
     	pdata.id_guest = model.id;
@@ -503,10 +486,7 @@ window.ListHousedView = RowView.extend({
         	exported: false,
         	deleted: false
         };
-    	try {
-    		this.ajax.abort();
-    	} catch(e) {}
-    	this.ajax = $.ajax({
+    	$.ajax({
     		type:'POST',
     		url:'rest/housed',
     		contentType: "application/json",
@@ -516,8 +496,8 @@ window.ListHousedView = RowView.extend({
         		new_model.isNew = false;
     			that.collection.add([new_model]);
     		},
-    		error: function(xhr) {
-    			console.log(xhr)
+    		error: function() {
+    			$.jGrowl($.i18n("seriousErrorDescr") + '', { header: this.alertOK,sticky: true });
     		}
     	});
     }

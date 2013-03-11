@@ -20,7 +20,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
    
     <script id="edit-template" type="text/x-handlebars-template">
-			<form id="edit-form" class="yform json full" role="application" style="max-height:300px; overflow-y:scroll;">
+			<form id="edit-form" class="yform json full" role="application" style="max-height:400px; overflow-y:scroll;">
         		<div class="c50l">
                   	<div class="type-text">	
                   		<label for="FormFirstName"><s:text name="firstName"/><sup title="<s:text name="thisFileMandatory"/>.">*</sup></label>
@@ -100,10 +100,9 @@
 							<label><s:text name="ResidenceProvince"/>:</label>
 							<select name="FormResidenceProvince" id="FormResidenceProvinceSelector">
 								<option value="">Seleziona la provincia</option>
-								<option value="SS">Sassari</option>
-								<option value="NU">Nuoro</option>
-								<option value="OR">Oristano</option>
-								<option value="CA">Cagliari</option>
+								{{#ITProvinces}}
+									<option value="{{code}}">{{description}}</option>
+								{{/ITProvinces}}
 							</select>
 						</div>
 						<div id="ResidencePlaceSelector" class="clear none">

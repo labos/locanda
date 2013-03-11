@@ -212,7 +212,6 @@ table.wc-time-slots {
 .wc-cal-event .wc-title {
 	position: relative;	
 	font-size: 10px;
-	min-height: 15px;
 }
 
 .wc-container .ui-resizable-s {

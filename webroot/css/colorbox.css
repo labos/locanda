@@ -84,3 +84,13 @@
 .cboxIE6 #cboxMiddleRight {
     _behavior: expression(this.src = this.src ? this.src : this.currentStyle.backgroundImage.split('"')[1], this.style.background = "none", this.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(src=" + this.src + ", sizingMethod='scale')");
 }
+
+#colorbox #cboxClose
+{
+top: 0;
+right: 0;
+}
+#cboxLoadedContent{
+margin-top:28px;
+margin-bottom:0;
+}
