@@ -15,6 +15,8 @@
  *******************************************************************************/
 package service;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -73,6 +75,35 @@ public class HousedServiceImpl implements HousedService{
 		return ret;
 	}
 
+	
+
+	@Override
+	public Housed findMostRecentHousedByIdGuest(Integer id_guest) {
+		Housed ret = null;
+		List<Housed> housedList = null;
+		
+		housedList = this.getHousedMapper().findHousedByIdGuest(id_guest);
+		Comparator<Housed> comparator = new Comparator<Housed>() {
+
+			@Override
+			public int compare(Housed o1, Housed o2) {
+				int retComparator = 0;
+				
+				if(o1.getCheckInDate()!=null && o2.getCheckInDate()!=null){
+					retComparator = o1.getCheckInDate().compareTo(o2.getCheckOutDate());
+				}				
+				return retComparator;
+			}
+			
+		};
+		
+		Collections.sort(housedList, comparator);
+		
+		ret = housedList.get(housedList.size() - 1);
+		
+		return ret;
+	}
+
 
 
 	@Override
@@ -114,6 +145,8 @@ public class HousedServiceImpl implements HousedService{
 		
 		return ret;
 	}
+	
+	
 	
 	@Override
 	public Integer insert(Housed housed) {

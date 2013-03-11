@@ -1,5 +1,6 @@
 package resources;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.ws.rs.Consumes;
@@ -57,12 +58,15 @@ public class GroupLeaderResource {
 		Integer id;
 		Housed housed = null;
 		HousedType housedType = null;
+		List<Housed> housedList = null;
 		
 		id_booking = (Integer)map.get("id_booking");
 		id_guest = (Integer)map.get("id_guest");
 		groupType = (String)map.get("groupType");
 		
-		housed = this.getHousedService().findHousedByIdBookingAndIdGuest(id_booking, id_guest);
+				
+		//housed = this.getHousedService().findHousedByIdBookingAndIdGuest(id_booking, id_guest);
+		housed = this.getHousedService().findMostRecentHousedByIdGuest(id_guest);
 		
 		housedType = this.getHousedTypeMapper().findHousedTypeByDescription(groupType);
  		id = this.getGroupLeaderService().insert(id_booking, housed.getId());
@@ -89,7 +93,8 @@ public class GroupLeaderResource {
 		id_guest = (Integer)map.get("id_guest");
 		groupType = (String)map.get("groupType");
 		
-    	housed = this.getHousedService().findHousedByIdBookingAndIdGuest(id_booking, id_guest);
+    	//housed = this.getHousedService().findHousedByIdBookingAndIdGuest(id_booking, id_guest);
+		housed = this.getHousedService().findMostRecentHousedByIdGuest(id_guest);
     	housedType = this.getHousedTypeMapper().findHousedTypeByDescription(groupType);
     	housed.setHousedType(housedType);
     	housed.setId_housedType(housedType.getId());

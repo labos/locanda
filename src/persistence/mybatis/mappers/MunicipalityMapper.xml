@@ -25,7 +25,7 @@ In case of controversy the competent court is the Court of Cagliari (Italy).
     </select>
     
     <select id="findAllProvinces" resultType="string">
-        SELECT DISTINCT province FROM municipality     
+        SELECT DISTINCT province FROM municipality  ORDER BY province ASC   
     </select>
     
     <select id="findMunicipalitiesByProvince"  parameterType="string"  resultType="model.questura.Municipality">
