@@ -25,6 +25,7 @@ $(document).ready(function () {
        	        var formInput = $(this).serialize();
        	        var hrefAction = action || $(this).attr("action");
        	        var _redirectAction = $(this).find('input:hidden[name="redirect_form"]').val();
+       	        var self = this;
        	        _redirectAction = (_redirectAction == null) ? "home.action" : _redirectAction;
        	        //if form is valid
        	        if ($(this).valid()) {
@@ -36,19 +37,22 @@ $(document).ready(function () {
        	                    var title_notification = null;
        	                    if (data_action.result == "success") {
        	                        $().notify($.i18n("congratulation"), data_action.description, _redirectAction);
+       	                     $(self).trigger("submitForm",{ type: "success" }); 
        	                    } else if (data_action.result == "error") {
        	                     $.jGrowl(data_action.description, {theme: "notify-error",sticky: true
        	                    });
-       	                        
+       	                     $(self).trigger("submitForm",{ type: "unsuccess" });   
        	                    } else {
           	                     $.jGrowl($.i18n("seriousErrorDescription"), {theme: "notify-error",sticky: true
-            	                    });      	                       
+            	                    });
+          	                     $(self).trigger("submitForm",{ type: "error" });
        	                    }
        	       	            $(".ui-widget-overlay").css("height", heightbody);
        	                },
        	                error: function () {
      	                     $.jGrowl($.i18n("seriousErrorDescription"), {theme: "notify-error",sticky: true
-     	                    });         	                }
+     	                    });  
+     	                     	$(self).trigger("submitForm",{ type: "error" })}
        	            });
        	        }
        	        else{
@@ -227,8 +231,8 @@ $(document).ready(function () {
             }); 
             
             $('#support').click(function () {
-                $('<iframe src="https://docs.google.com/spreadsheet/embeddedform?formkey=dFF4RUt5UURpRlV0SzVFT1lmODR3UFE6MQ" width="760" height="592" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>')
-                .dialog({ minWidth: 300, minHeight:350 });
+                $('<iframe src="https://docs.google.com/forms/d/1XQxvy0KFqKlOI_0ZHrvzl2KcIaoZaXervD7Y4u7rrnM/viewform?embedded=true" width="380" height="320" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>')
+                .dialog({ minWidth: 340, minHeight:380 });
             }); 
             
             /* General settings */

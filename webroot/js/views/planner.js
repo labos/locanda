@@ -164,6 +164,13 @@ $(function () {
                           $(".btn_save").hide();
                           $(".canc_booking").hide();
                           $(".btn_check_in").hide();
+                          //handle form submit event 
+                          $dialogContent.find(".yform.json").bind('submitForm', function(e,data){
+                        	  if(data.type == "success"){
+                        		  $(this).unbind('submitForm');
+                                  $dialogContent.dialog("close");
+                                  self.$calendar.weekCalendar("refresh");
+                        	  }});
                       }).dialog({
                           open: function (event, ui) {
                               $(".btn_save").hide();
@@ -220,8 +227,16 @@ $(function () {
                           self.booking = new Controllers.Booking(I18NSettings.lang, I18NSettings.datePattern);
                           $(".btn_save").hide();
                           $(".canc_booking").hide();
+                          //handle form submit event 
+                          $dialogContent.find(".yform.json").bind('submitForm', function(e,data){
+                        	  if(data.type == "success"){
+                        		  $(this).unbind('submitForm');
+                                  $dialogContent.dialog("close");
+                                  self.$calendar.weekCalendar("refresh");
+                        	  }});
                       }).dialog({
-                          open: function (event, ui) {},
+                          open: function (event, ui) {               	  
+                          },
                           modal: true,
                           width: 790,
                           position: 'top',

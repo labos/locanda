@@ -324,7 +324,7 @@ window.ListHousedView = RowView.extend({
 	    			}
 	    			else{
 	    				addNewGuestPermission = false;
-	    				$.jGrowl($.i18n("alertOverwriteGuest") + ' ', {theme: "notify-error",sticky: true   });   				
+	    				$.jGrowl($.i18n("alertOverwriteGuest") + ' ', {theme: "notify-error"});   				
 	    				
 	    			}
 	    			if (addNewGuestPermission) {
