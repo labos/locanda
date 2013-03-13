@@ -57,12 +57,12 @@ public class BookerResource {
 		Integer id_guest = null;
 		Booker booker = null;
 		
-		id = (Integer)map.get("id");
+		//id = (Integer)map.get("id");
 		id_booking = (Integer)map.get("id_booking");
 		id_guest = (Integer)map.get("id_guest");
-		booker = new Booker();
-		booker.setId(id);
-		booker.setId_booking(id_booking);
+		
+		booker = this.getBookerService().findBookerByIdBooking(id_booking);
+		
 		booker.setId_guest(id_guest);
 		
     	ret = this.getBookerService().update(booker);
