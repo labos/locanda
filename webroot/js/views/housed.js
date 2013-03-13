@@ -480,8 +480,8 @@ window.ListHousedView = RowView.extend({
     	var new_model = {
         	booking: null,
         	guest: model,
-        	checkin_date: null,
-        	checkout_date: null,
+        	checkinDate: null,
+        	checkoutDate: null,
         	housedType: 'family',
         	exported: false,
         	deleted: false
@@ -492,7 +492,9 @@ window.ListHousedView = RowView.extend({
     		contentType: "application/json",
     		data: JSON.stringify(pdata),
     		success: function(data) {
-    			new_model.id = parseInt(data);
+    			new_model.id = parseInt(data.id);
+    			new_model.checkInDate = data.checkInDate;
+    			new_model.checkOutDate = data.checkOutDate;
         		new_model.isNew = false;
     			that.collection.add([new_model]);
     		},

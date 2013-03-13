@@ -23,6 +23,7 @@ $(document).ready(function () {
        	    $.fn.submitForm = function (action) {
        	        //setting for input form fields
        	        var formInput = $(this).serialize();
+       	        var heightbody = $('body').height();
        	        var hrefAction = action || $(this).attr("action");
        	        var _redirectAction = $(this).find('input:hidden[name="redirect_form"]').val();
        	        var self = this;
