@@ -55,7 +55,7 @@ public class GroupLeaderResource {
 		Integer id_booking = null;
 		Integer id_guest = null;
 		String groupType = null;
-		Integer id;
+		Integer ret;
 		Housed housed = null;
 		HousedType housedType = null;
 		List<Housed> housedList = null;
@@ -65,17 +65,25 @@ public class GroupLeaderResource {
 		groupType = (String)map.get("groupType");
 		
 				
-		//housed = this.getHousedService().findHousedByIdBookingAndIdGuest(id_booking, id_guest);
-		housed = this.getHousedService().findMostRecentHousedByIdGuest(id_guest);
+		housed = this.getHousedService().findMostRecentHousedByIdGuest(id_guest);		
 		
-		housedType = this.getHousedTypeMapper().findHousedTypeByDescription(groupType);
- 		id = this.getGroupLeaderService().insert(id_booking, housed.getId());
+ 		ret = this.getGroupLeaderService().insert(id_booking, housed.getId());
+ 		housedType = this.getHousedTypeMapper().findHousedTypeByDescription(groupType);
  		housed.setHousedType(housedType);
  		housed.setId_housedType(housedType.getId());
- 		this.getHousedService().update(housed);
- 		return id;
+ 		this.getHousedService().update(housed); 		
+ 		
+ 		//We set the new housed as a group leader in his/her own booking
+		GroupLeader newGroupLeader = this.getGroupLeaderService().findGroupLeaderByIdBooking(housed.getId_booking());
+		if(newGroupLeader == null){
+			//The new chosen housed is not a group leader in his/her booking. Let's add the new group leader
+			this.getGroupLeaderService().insert(housed.getId_booking(), housed.getId());
+		}
+ 		
+ 		return ret;
 	}
     
+    /*
     @PUT
     @Path("{id}")
 	@Consumes({MediaType.APPLICATION_JSON})
@@ -93,8 +101,7 @@ public class GroupLeaderResource {
 		id_guest = (Integer)map.get("id_guest");
 		groupType = (String)map.get("groupType");
 		
-    	//housed = this.getHousedService().findHousedByIdBookingAndIdGuest(id_booking, id_guest);
-		housed = this.getHousedService().findMostRecentHousedByIdGuest(id_guest);
+    	housed = this.getHousedService().findMostRecentHousedByIdGuest(id_guest);
     	housedType = this.getHousedTypeMapper().findHousedTypeByDescription(groupType);
     	housed.setHousedType(housedType);
     	housed.setId_housedType(housedType.getId());
@@ -103,7 +110,64 @@ public class GroupLeaderResource {
     	groupLeader = this.getGroupLeaderService().findGroupLeaderByIdBooking(id_booking);
     	groupLeader.setId_housed(housed.getId());
     	
-		ret = this.groupLeaderService.update(groupLeader);
+		ret = this.getGroupLeaderService().update(groupLeader);
+    	return ret;
+    }*/
+    
+    @PUT
+    @Path("{id}")
+	@Consumes({MediaType.APPLICATION_JSON})
+	@Produces({MediaType.APPLICATION_JSON}) 
+	public Integer updateGroupLeader(Map map){
+    	Integer ret;
+    	Integer id_booking = null;
+		Integer id_guest = null;
+		String groupType = null;
+		Housed currentHoused = null;
+		Housed housed = null;
+		HousedType housedType = null;
+		GroupLeader groupLeader = null;
+		Boolean housedChanged = false;
+		
+		id_booking = (Integer)map.get("id_booking");
+		id_guest = (Integer)map.get("id_guest");
+		groupType = (String)map.get("groupType");
+		
+		groupLeader = this.getGroupLeaderService().findGroupLeaderByIdBooking(id_booking);
+		currentHoused = groupLeader.getHoused();
+		
+		housedChanged = (id_guest != currentHoused.getId_guest());
+		if(housedChanged){
+			//We are choosing a new housed for this group leader
+			housed = this.getHousedService().findMostRecentHousedByIdGuest(id_guest);	
+			
+		}else{
+			//We are not changing the housed for this group leader
+			housed = currentHoused;			
+		}
+		//We Update the housed type (i.e. from family to group). We don't check if the housed type has changed, We update anyway
+		housedType = this.getHousedTypeMapper().findHousedTypeByDescription(groupType);
+    	housed.setHousedType(housedType);
+    	housed.setId_housedType(housedType.getId());
+    	ret = this.getHousedService().update(housed);    	
+		
+    	if(housedChanged){
+    		//We Update the housed in all the group leaders of the same group of persons
+    		List<GroupLeader> groupLeadersToUpdate = this.getGroupLeaderService().findByIdHoused(currentHoused.getId());
+    		for(GroupLeader each: groupLeadersToUpdate){
+    			each.setId_housed(housed.getId());
+    			ret = ret + this.getGroupLeaderService().update(each);
+    		} 
+    		//We set the new housed as a group leader in his/her own booking
+    		GroupLeader newGroupLeader = this.getGroupLeaderService().findGroupLeaderByIdBooking(housed.getId_booking());
+    		if(newGroupLeader == null){
+    			//The new chosen housed is not a group leader in his/her booking. Let's add the new group leader
+    			this.getGroupLeaderService().insert(housed.getId_booking(), housed.getId());
+    		}
+    		
+    		
+    	}		
+		
     	return ret;
     }
       

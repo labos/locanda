@@ -16,6 +16,7 @@
 package service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import model.GroupLeader;
@@ -82,6 +83,14 @@ public class GroupLeaderServiceImpl implements GroupLeaderService{
 		ret = this.getGroupLeaderMapper().findGroupLeaderByIdBookingAndIdHoused(map);
 		
 		return ret;
+	}
+	
+	
+
+	@Override
+	public List<GroupLeader> findByIdHoused(Integer id_housed) {
+		
+		return this.getGroupLeaderMapper().findByIdHoused(id_housed);
 	}
 
 	@Override

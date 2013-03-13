@@ -118,10 +118,13 @@ public class HousedServiceImpl implements HousedService{
 		HousedType housedType = null;
 		
 		ret = this.getHousedMapper().findHousedById(id);
-		guest = this.getGuestMapper().findGuestById(ret.getId_guest());
-		ret.setGuest(guest);
-		housedType = this.getHousedTypeMapper().findHousedTypeById(ret.getId_housedType());
-		ret.setHousedType(housedType);
+		if(ret!=null){
+			guest = this.getGuestMapper().findGuestById(ret.getId_guest());
+			ret.setGuest(guest);
+			housedType = this.getHousedTypeMapper().findHousedTypeById(ret.getId_housedType());
+			ret.setHousedType(housedType);			
+		}
+		
 		
 		return ret;
 	}

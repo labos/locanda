@@ -15,15 +15,18 @@
  *******************************************************************************/
 package service;
 
+import java.util.List;
+
 import model.GroupLeader;
 import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
 public interface GroupLeaderService {	
-	public Integer insert(Integer id_room,Integer id_image);
+	public Integer insert(Integer id_booking, Integer id_housed);
 	public Integer update(GroupLeader groupLeader);
 	
 	public GroupLeader findGroupLeaderByIdBooking(Integer id_booking);
+	public List<GroupLeader> findByIdHoused(Integer id_housed);
 	public GroupLeader findGroupLeaderByIdBookingAndIdHoused(Integer id_booking, Integer id_housed);
 	
 	public Integer delete(Integer id);

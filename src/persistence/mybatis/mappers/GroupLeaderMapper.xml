@@ -46,5 +46,9 @@ In case of controversy the competent court is the Court of Cagliari (Italy).
     <select id="findGroupLeaderByIdBookingAndIdHoused" parameterType="map" resultType="model.GroupLeader">
         select id,id_booking,id_housed from groupLeader where id_booking = #{id_booking} and id_housed = #{id_housed}
     </select>
+    
+     <select id="findByIdHoused" parameterType="int" resultType="model.GroupLeader">
+        select id,id_booking,id_housed from groupLeader where id_housed = #{id_housed}
+    </select>
             
 </mapper>
