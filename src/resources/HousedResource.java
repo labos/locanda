@@ -70,6 +70,7 @@ public class HousedResource {
     	return ret;
     }
  
+    /*
     @POST	
 	@Consumes({MediaType.APPLICATION_JSON})
 	@Produces({MediaType.APPLICATION_JSON}) 
@@ -95,9 +96,35 @@ public class HousedResource {
  		this.getHousedService().insert(housed);
  		id = housed.getId();
  		return id;
+	}*/
+    
+    @POST	
+	@Consumes({MediaType.APPLICATION_JSON})
+	@Produces({MediaType.APPLICATION_JSON}) 
+	public Housed insertHoused(Map map){
+    	Housed housed = null;
+    	Booking booking = null;
+    	
+    	Integer id_booking = null;
+		Integer id_guest = null;
+ 		
+ 		id_booking = (Integer)map.get("id_booking");
+		id_guest = (Integer)map.get("id_guest");
+
+		
+		housed = new Housed();
+		housed.setId_booking(id_booking);
+		housed.setId_guest(id_guest);
+		booking = this.getBookingService().findBookingById(id_booking);
+ 		housed.setCheckInDate(booking.getDateIn());
+ 		housed.setCheckOutDate(booking.getDateOut());
+		
+ 		this.getHousedService().insert(housed);
+ 		
+ 		return housed;
 	}
     
-    
+    /*
     @PUT
     @Path("{id}")
     @Consumes({MediaType.APPLICATION_JSON})
@@ -128,6 +155,38 @@ public class HousedResource {
 		}    	
     	this.getHousedService().update(housed);
         return id;
+    }*/
+    
+    @PUT
+    @Path("{id}")
+    @Consumes({MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_JSON})
+    public Housed update(Map map) {
+    	Integer id;
+    	Integer id_booking = null;
+		Integer id_guest = null;
+		Long checkInDateMillis = null;
+		Long checkOutDateMillis = null;
+		
+		Housed housed = null;
+		
+		id = (Integer)map.get("id");
+		id_booking = (Integer)map.get("id_booking");
+		id_guest = (Integer)map.get("id_guest");
+		checkInDateMillis = (Long)map.get("checkInDate");
+		checkOutDateMillis = (Long)map.get("checkOutDate");
+		
+		housed = this.getHousedService().findHousedById(id);
+		
+		housed.setId_guest(id_guest);
+		if(checkInDateMillis!=null){
+			housed.setCheckInDate(new Date(checkInDateMillis));
+		}
+		if(checkOutDateMillis!=null){
+			housed.setCheckOutDate(new Date(checkOutDateMillis));
+		}    	
+    	this.getHousedService().update(housed);
+        return housed;
     }
    
     @DELETE
