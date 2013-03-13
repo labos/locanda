@@ -134,8 +134,7 @@ window.PeriodRowView = Backbone.View.extend({
             error: function (model, resp) {
                 $.jGrowl(resp.responseText, {
                     header: this.alertKO,
-                    theme: "notify-error",
-                    sticky: true 
+                    theme: "notify-error"
                 });
             }
         });

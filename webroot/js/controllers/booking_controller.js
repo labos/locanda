@@ -95,7 +95,8 @@ $(function () {
             //this.guest = new Controllers.Guest();
             this.alertOK = $.i18n("congratulation");
             this.alertKO = $.i18n("warning");
-           
+            // Set variable to store if current booking form values are modified
+            this.modified = false;
             /* booking section initialization */
             $(".datepicker").datepicker({
                 showOn: "button",
@@ -157,6 +158,7 @@ $(function () {
             	/* prepare selector string for class with whitespaces and adjust subtotal or balance*/
                 var new_subtotal = null;
                 if ($(this).valid()) {
+                	self.modified = true;
                     if ($(this).getSelector() == "adjustment") {
                         Controllers.Booking.updateSubtotal(); /* end code for subtotal calculation */
                     } else {
@@ -174,6 +176,7 @@ $(function () {
                 var selector = $(this).getSelector();
                 $(this).parents("." + selector + "_row").find(".extra_value_" + selector + "").val(0);
                 Controllers.Booking.updateSubtotal();
+            	self.modified = true;
                 $(this).closest("." + selector + "_row").remove();
             });
             
@@ -193,6 +196,7 @@ $(function () {
                 added.find(".erase_" + selector + "").click(function () {
                     $(this).parents("." + selector + "_row").find(".extra_value_" + selector + "").val(0);
                     Controllers.Booking.updateSubtotal();
+                	self.modified = true;
                     $(this).closest("." + selector + "_row").remove();
                 });
                 added.find(".extra_value_" + selector + "").keyup(function () { 
@@ -201,6 +205,7 @@ $(function () {
                     /* adjust subtotal ... */
                     var new_subtotal = null;
                     if ($(this).valid()) {
+                    	self.modified = true;
                         if ($(this).getSelector() == "adjustment") {
                         	Controllers.Booking.updateSubtotal(); 
                         } else {
@@ -389,6 +394,11 @@ $(function () {
                 }
                 self.calculatePrice(this, 'updateConvention.action');
             });
+            
+            $('#booking_status').change(function () {
+            	self.modified = true;
+            	
+            });
         },
         /**
          * Get new prices for booking.
@@ -409,6 +419,7 @@ $(function () {
                         var title_notification = null;
                         try {
                             if (data_action.message.result == "success") {
+                            	self.modified = true;
                                 //update dom values here
                                 var roomSubTotal = data_action.booking.roomSubtotal;
                                 var extraSubTotal = data_action.booking.extraSubtotal;
