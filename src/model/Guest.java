@@ -96,12 +96,12 @@ public class Guest implements Serializable{
 	
 	public Boolean canBeMember() {
 		Boolean ret = true;
-		if (this.id_countryOfBirth == 1 && 
+		if (this.id_countryOfBirth == 1 && 			//Born in Italy 
 				(this.id_municipalityOfBirth == null || this.id_municipalityOfBirth.equals(0))
 				) {
 			ret = false;
 		}
-		if (this.id_countryOfResidence == 1 && 
+		if (this.id_countryOfResidence == 1 && 		//Lives in Italy
 				(this.id_municipalityOfResidence == null || this.id_municipalityOfResidence.equals(0))
 				) {
 			ret = false;
@@ -111,8 +111,14 @@ public class Guest implements Serializable{
 	
 	public Boolean canBeSingleOrLeader() {
 		Boolean ret = true;
-		if (!this.canBeMember() || this.getId_idType() == null || this.getIdNumber().equals("")) {
-			ret = false;
+		if (this.getId_citizenship() == 1) {  	//Italian citizenship
+			if (!this.canBeMember() || this.getId_idType() == null || this.getId_idPlace() == null || this.getIdNumber().equals("")) {
+				ret = false;
+			}
+		}else { 								//foreign citizens
+			if (!this.canBeMember() || this.getId_idType() == null || this.getIdNumber().equals("")) {
+				ret = false;
+			}
 		}
 		return ret;
 	}
