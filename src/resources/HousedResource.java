@@ -16,16 +16,16 @@ import javax.ws.rs.core.MediaType;
 
 import model.Booking;
 import model.GroupLeader;
+import model.Guest;
 import model.Housed;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import persistence.mybatis.mappers.BookingMapper;
-
 import service.BookingService;
 import service.GroupLeaderService;
+import service.GuestService;
 import service.HousedService;
 import service.StructureService;
 
@@ -42,7 +42,9 @@ public class HousedResource {
     @Autowired
     private BookingService bookingService = null;
     @Autowired
-    private GroupLeaderService groupLeaderService = null;    
+    private GroupLeaderService groupLeaderService = null;
+    @Autowired
+    private GuestService guestService = null; 
     
     
     @GET
@@ -104,13 +106,28 @@ public class HousedResource {
 	public Housed insertHoused(Map map){
     	Housed housed = null;
     	Booking booking = null;
+    	Guest guest = null;
+    	GroupLeader groupLeader = null;
     	
     	Integer id_booking = null;
 		Integer id_guest = null;
  		
  		id_booking = (Integer)map.get("id_booking");
 		id_guest = (Integer)map.get("id_guest");
-
+		
+		guest = this.getGuestService().findGuestById(id_guest);
+		groupLeader = this.getGroupLeaderService().findGroupLeaderByIdBooking(id_booking);
+		if (groupLeader == null) {
+			if (!guest.canBeSingleOrLeader()) {
+				throw new NotFoundException("The guest you are trying to house does not have all the requested fields." +
+												"Please fill all these fields before adding this guest as housed");
+			}
+		}else {
+			if (!guest.canBeMember()) {
+			throw new NotFoundException("The guest you are trying to house does not have all the requested fields." +
+											"Please fill all these fields before adding this guest as housed");
+			}
+		}
 		
 		housed = new Housed();
 		housed.setId_booking(id_booking);
@@ -238,7 +255,11 @@ public class HousedResource {
 	public void setGroupLeaderService(GroupLeaderService groupLeaderService) {
 		this.groupLeaderService = groupLeaderService;
 	}
+	public GuestService getGuestService() {
+		return guestService;
+	}
+	public void setGuestService(GuestService guestService) {
+		this.guestService = guestService;
+	}
 	
-	
-
 }

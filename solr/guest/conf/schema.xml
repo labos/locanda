@@ -36,7 +36,6 @@
   	<field name="email"    		type="string"   	indexed="true"  stored="false"  multiValued="false"/>
   	<field name="phone"    		type="string"   	indexed="true"  stored="false"  multiValued="false"/>
   	<field name="address"    	type="string"   	indexed="true"  stored="false"  multiValued="false"/>
-  	<field name="country"    	type="string"   	indexed="true"  stored="false"  multiValued="false"/>
 	<field name="zipCode"    	type="string"   	indexed="true"  stored="false"  multiValued="false"/>
 	<field name="notes"    		type="string"   	indexed="true"  stored="false"  multiValued="false"/>
 	<field name="idNumber"      type="string"   	indexed="true"  stored="false"  multiValued="false"/>
@@ -57,7 +56,6 @@
  <copyField source="lastName" 	dest="text"/>
  <copyField source="email" 		dest="text"/>
  <copyField source="address" 	dest="text"/>
- <copyField source="country" 	dest="text"/>
  <copyField source="zipCode" 	dest="text"/>
  <copyField source="idNumber" 	dest="text"/>
  

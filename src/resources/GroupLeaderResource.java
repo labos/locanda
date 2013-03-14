@@ -13,8 +13,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import model.Booking;
 import model.GroupLeader;
+import model.Guest;
 import model.Housed;
 import model.questura.HousedType;
 
@@ -22,9 +22,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import com.sun.jersey.api.NotFoundException;
+
 import persistence.mybatis.mappers.HousedTypeMapper;
 
 import service.GroupLeaderService;
+import service.GuestService;
 import service.HousedService;
 
 @Path("/groupLeader/")
@@ -37,6 +40,8 @@ public class GroupLeaderResource {
     private GroupLeaderService groupLeaderService = null;
 	@Autowired
     private HousedTypeMapper housedTypeMapper = null;
+	@Autowired
+    private GuestService guestService = null; 
 
     @GET
     @Path("booking/{id_booking}")
@@ -59,12 +64,18 @@ public class GroupLeaderResource {
 		Housed housed = null;
 		HousedType housedType = null;
 		List<Housed> housedList = null;
+		Guest guest = null;
 		
 		id_booking = (Integer)map.get("id_booking");
 		id_guest = (Integer)map.get("id_guest");
 		groupType = (String)map.get("groupType");
 		
-				
+		guest = this.getGuestService().findGuestById(id_guest);
+		if (!guest.canBeSingleOrLeader()) {
+			throw new NotFoundException("The guest you are trying to house does not have all the requested fields." +
+											"Please fill all these fields before adding this guest as housed");
+		}
+		
 		housed = this.getHousedService().findMostRecentHousedByIdGuest(id_guest);		
 		
  		ret = this.getGroupLeaderService().insert(id_booking, housed.getId());
@@ -128,6 +139,7 @@ public class GroupLeaderResource {
 		HousedType housedType = null;
 		GroupLeader groupLeader = null;
 		Boolean housedChanged = false;
+		Guest guest = null;
 		
 		id_booking = (Integer)map.get("id_booking");
 		id_guest = (Integer)map.get("id_guest");
@@ -135,6 +147,13 @@ public class GroupLeaderResource {
 		
 		groupLeader = this.getGroupLeaderService().findGroupLeaderByIdBooking(id_booking);
 		currentHoused = groupLeader.getHoused();
+		
+		//checking first if the guest associated with the new housed can be a Leader
+		guest = this.getGuestService().findGuestById(id_guest);
+		if (!guest.canBeSingleOrLeader()) {
+			throw new NotFoundException("The guest you are trying to house does not have all the requested fields." +
+											"Please fill all these fields before adding this guest as housed");
+		}
 		
 		housedChanged = (id_guest != currentHoused.getId_guest());
 		if(housedChanged){
@@ -145,7 +164,7 @@ public class GroupLeaderResource {
 			//We are not changing the housed for this group leader
 			housed = currentHoused;			
 		}
-		//We Update the housed type (i.e. from family to group). We don't check if the housed type has changed, We update anyway
+		//We Update the housed type (i.e. from family to group). We don't check if the housed type has changed, we update it anyway
 		housedType = this.getHousedTypeMapper().findHousedTypeByDescription(groupType);
     	housed.setHousedType(housedType);
     	housed.setId_housedType(housedType.getId());
@@ -164,10 +183,7 @@ public class GroupLeaderResource {
     			//The new chosen housed is not a group leader in his/her booking. Let's add the new group leader
     			this.getGroupLeaderService().insert(housed.getId_booking(), housed.getId());
     		}
-    		
-    		
     	}		
-		
     	return ret;
     }
       
@@ -198,6 +214,12 @@ public class GroupLeaderResource {
 	}
 	public void setHousedTypeMapper(HousedTypeMapper housedTypeMapper) {
 		this.housedTypeMapper = housedTypeMapper;
-	}	
+	}
+	public GuestService getGuestService() {
+		return guestService;
+	}
+	public void setGuestService(GuestService guestService) {
+		this.guestService = guestService;
+	}
 
 }

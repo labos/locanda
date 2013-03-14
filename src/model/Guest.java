@@ -38,15 +38,12 @@ public class Guest implements Serializable{
 	private String lastName;
 	private String gender;
 	private Date birthDate;
-	private String birthPlace;
 	@Field
 	private String email;
 	@Field
 	private String phone;
 	@Field
 	private String address;
-	@Field
-	private String country;
 	@Field
 	private String zipCode;
 	@Field
@@ -96,7 +93,29 @@ public class Guest implements Serializable{
 			return false;
 		return true;
 	}
-		
+	
+	public Boolean canBeMember() {
+		Boolean ret = true;
+		if (this.id_countryOfBirth == 1 && 
+				(this.id_municipalityOfBirth == null || this.id_municipalityOfBirth.equals(0))
+				) {
+			ret = false;
+		}
+		if (this.id_countryOfResidence == 1 && 
+				(this.id_municipalityOfResidence == null || this.id_municipalityOfResidence.equals(0))
+				) {
+			ret = false;
+		}
+		return ret;
+	}
+	
+	public Boolean canBeSingleOrLeader() {
+		Boolean ret = true;
+		if (!this.canBeMember() || this.getId_idType() == null || this.getIdNumber().equals("")) {
+			ret = false;
+		}
+		return ret;
+	}
 	
 	public Integer getId() {
 		return id;
@@ -134,12 +153,6 @@ public class Guest implements Serializable{
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	public String getCountry() {
-		return country;
-	}
-	public void setCountry(String country) {
-		this.country = country;
-	}
 	public String getZipCode() {
 		return zipCode;
 	}
@@ -175,12 +188,6 @@ public class Guest implements Serializable{
 	}
 	public void setBirthDate(Date birthDate) {
 		this.birthDate = birthDate;
-	}
-	public String getBirthPlace() {
-		return birthPlace;
-	}
-	public void setBirthPlace(String birthPlace) {
-		this.birthPlace = birthPlace;
 	}
 	public Country getCountryOfBirth() {
 		return countryOfBirth;
