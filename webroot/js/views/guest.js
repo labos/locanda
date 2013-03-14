@@ -11,6 +11,7 @@ window.EditGuestView = EditView.extend({
 	ITProvinces: [], //All italian provinces
 	MunicipalityOfBirthCollection: null, //instance of Municipality for birth
 	MunicipalityOfResidenceCollection: null, //instance of Municipality for residence
+	MunicipalityOfCitizenshipCollection: null, //instance of Municipality for citizenship
 	IdentificationTypeCollection: AllIdentificationTypes, //instance of IdentificationType
     events: {
         "submit form": "save",
@@ -21,50 +22,62 @@ window.EditGuestView = EditView.extend({
         "change #Formid_countryOfResidence":"selectedCountryOfResidence",
         "change #FormResidenceProvinceSelector":"selectedProvinceOfResidence",
         "change #FormResidencePlace":"updateFormResidencePlace",
+        "change #Formid_countryOfCitizenship":"selectedCountryOfCitizenship",
+        "change #FormIdentificationTypeProvinceSelector":"selectedProvinceOfIdentificationType",
+        "change #FormIdentificationTypePlace":"updateFormIdentificationTypePlace",
+        "change #IdentificationTypeSelector":'selectedIdentificationType'
     },
     initialize: function () {
     	var that = this;
         this.model.bind('change', this.render, this);
         this.id = null;
         this.ITProvinces = AllProvinces.toJSON();
-        this.availableCitizenships = [];
+        this.availableCountriesCitizenship = [];
         this.availableCountriesBirth = [];
         this.availableCountriesResidence = [];
-        this.initializeCitizenships();
+        this.initializeCountriesCitizenship();
         this.initializeCountriesBirth();
         this.initializeCountriesResidence();
         this.initializeIdentificationTypes();
         
-        //function to send guest id on parent
-		$(".btn_select_guest").click(function(event){
-			var id = 0;
-			try {
-				id = that.model.get("id");
-			} catch(e) {
-				console.log(e);
-			}
-			if (id > 0) {
-				//call correct callback
-				var cb = GetQueryStringParams('callback');
-				if (cb == 'setbooker') {
-					parent.window.SelectBookerWidget.select(that.model.toJSON());
-					parent.$.colorbox.close();
-				} else if (cb == 'setgroupleader') {
-					parent.window.SelectGroupLeaderWidget.select(that.model.toJSON());
-					parent.$.colorbox.close();
-				} else if (cb == 'setguests') {
-					parent.window.ListHousedWidget.select(that.model.toJSON());
-					parent.$.colorbox.close();
-				}
-			}
-		});
+        //if open for editing or select
+        var edit = GetQueryStringParams('editguest');
+        if (edit=='true') {
+        	$(".btn_add_form").hide();
+        	$(".btn_select_guest").hide();
+        } else {
+        	$(".btn_add_form").show();
+        	//function to send guest id on parent
+    		$(".btn_select_guest").show().click(function(event){
+    			var id = 0;
+    			try {
+    				id = that.model.get("id");
+    			} catch(e) {
+    				console.log(e);
+    			}
+    			if (id > 0) {
+    				//call correct callback
+    				var cb = GetQueryStringParams('callback');
+    				if (cb == 'setbooker') {
+    					parent.window.SelectBookerWidget.select(that.model.toJSON());
+    					parent.$.colorbox.close();
+    				} else if (cb == 'setgroupleader') {
+    					parent.window.SelectGroupLeaderWidget.select(that.model.toJSON());
+    					parent.$.colorbox.close();
+    				} else if (cb == 'setguests') {
+    					parent.window.ListHousedWidget.select(that.model.toJSON());
+    					parent.$.colorbox.close();
+    				}
+    			}
+    		});
+        }
         
     },
     /**
      * Initialize availableCitizenship property added to model  and only to be used in the template.
      */
-    initializeCitizenships: function () {
-    	this.availableCitizenships=AllCountries.toJSON();
+    initializeCountriesCitizenship: function () {
+    	this.availableCountriesCitizenship=AllCountries.toJSON();
     },
     /**
      * Initialize availableCountries property added to model  and only to be used in the template.
@@ -87,15 +100,15 @@ window.EditGuestView = EditView.extend({
     /**
      * Set the saved Citizenship in the list of available countries.
      */
-    setCitizenships: function (aCountryId) {
+    setCountriesCitizenship: function (aCountryId) {
     	aCountry = (aCountryId && aCountryId > 0) ? parseInt(aCountryId) : 0;
-    	_.each(this.availableCitizenships, function (val) {
+    	_.each(this.availableCountriesCitizenship, function (val) {
             val.selected = false;
             if (val.id == aCountry) {
                 val.selected = true;
             }
         });
-        return this.availableCitizenships;
+        return this.availableCountriesCitizenship;
     },
     /**
      * Set the saved country in the list of available countries.
@@ -135,6 +148,25 @@ window.EditGuestView = EditView.extend({
             }
         });
         return this.availableIdentificationTypes;
+    },
+    /*
+     * On select identification type
+     */
+    selectedIdentificationType: function(e) {
+    	var select = $(e.currentTarget);
+    	var current_id = select.val();
+    	
+    	//if identificationtype is not null
+    	if (current_id != '') {
+    		//if current citizenship Italy
+    		if ($('#Formid_countryOfCitizenship option:selected').val() == this.countryDefaultId) {
+    			$('#FormCitizenship').show();
+    		} else {
+    			$('#FormCitizenship').hide();
+    		}
+    	} else {
+    		$('#FormCitizenship').hide();
+    	}
     },
     /**
      * On select country show a select for province.
@@ -312,6 +344,91 @@ window.EditGuestView = EditView.extend({
     	$('#FormAddress').get(0).value = '';
     },
     /**
+     * On select country show a select for province.
+     * Only if Italy.
+     */
+    selectedCountryOfCitizenship: function(e) {
+    	var select = $(e.currentTarget);
+    	var current_id = parseInt(select.val());
+    	
+    	//reset fields.
+    	$.each($('#FormIdentificationTypeProvinceSelector option'),function(i,v){
+    		if (i==0) {
+    			$(v).attr("selected","selected");
+    		} else {
+    			$(v).attr("selected",false);
+    		}
+    	});
+    	try {
+    		//on init this field not exists!
+    		$('#id_idPlace').get(0).value='';
+    	} catch(e){};
+    	
+    	
+    	if (current_id==this.countryDefaultId) {
+    		$('#IdentificationTypeProvinceSelector').removeClass('none');
+    	} else {
+    		$('#IdentificationTypeProvinceSelector').addClass('none');
+    		$('#IdentificationTypePlaceSelector').addClass('none');
+    	}
+    },
+    /**
+     * On select province of Residence populate Municipality.
+     * Only if Italy.
+     */
+    selectedProvinceOfIdentificationType: function(e) {
+    	var that = this;
+    	//reset fields
+    	$('#id_idPlace').get(0).value='';
+    	$('#IdentificationTypePlaceSelector').addClass('none'); //container of placeselection
+    	var select = $(e.currentTarget);
+    	var current_province_code = select.val();
+    	if (current_province_code != "") {
+    		//get municipalities
+    		this.MunicipalityOfCitizenshipCollection = new Municipalities([],{
+    			provinceCode: current_province_code
+    		});
+    		this.MunicipalityOfCitizenshipCollection.reset();
+    		this.MunicipalityOfCitizenshipCollection.fetch({
+    			success: function() {
+    				that.populateFormIdentificationTypePlace();
+    			},
+    			error: function() {
+        			$.jGrowl($.i18n("seriousErrorDescr") + '', { header: this.alertOK,sticky: true });
+        		}
+    		});
+    	}
+    },
+    /**
+     * populate Residence Municipality set current selected by model.
+     * Only if Italy.
+     */
+    populateFormIdentificationTypePlace: function() {
+    	var that = this;
+    	var select = $('#FormIdentificationTypePlace');
+    	if (this.MunicipalityOfCitizenshipCollection) {
+    		select.html('');
+    		select.append('<option value="0">Scegli la città</option>');
+    		$.each(this.MunicipalityOfCitizenshipCollection.toJSON(), function(i,v){
+    			var selected = (that.model.get("id_idPlace")==v.id) ? 'selected="selected"':'';
+    			select.append('<option value="'+v.id+'" '+selected+'>'+v.description+'</option>');
+    		});
+    		$('#IdentificationTypePlaceSelector').removeClass('none')
+    	}
+    },
+    /**
+     * Update Hidden for Citizenship Municipality (Fake it's the id place for document).
+     * 
+     * Only if Italy.
+     */
+    updateFormIdentificationTypePlace: function(e) {
+    	var that = this;
+    	var select = $(e.currentTarget);
+    	var current_id = parseInt(select.val());
+    	var current_text = select.find("option:selected").text();
+    	$('#id_idPlace').get(0).value=current_id;
+    },
+    /**
      * Initialize guest properties added to model and only to be used in the template.
      */
     checkGender: function ( type) {
@@ -323,7 +440,7 @@ window.EditGuestView = EditView.extend({
         var modelToRender = this.model.toJSON();
         // set additional attribute to display Citizenship/countries/Provinces/identification types
         modelToRender.ITProvinces = this.ITProvinces;
-        modelToRender.availableCitizenships = this.setCitizenships(this.model.get("id_citizenship"));
+        modelToRender.availableCountriesCitizenship = this.setCountriesCitizenship(this.model.get("id_citizenship"));
         modelToRender.availableCountriesBirth = this.setCountriesBirth(this.model.get("id_countryOfBirth"));
         modelToRender.availableCountriesResidence = this.setCountriesResidence(this.model.get("id_countryOfResidence"));
         modelToRender.availableIdentificationTypes = this.setIdentificationTypes(this.model.get("id_idType"));
@@ -456,6 +573,42 @@ window.EditGuestView = EditView.extend({
         	}); 
         } else {
         	this.selectedCountryOfResidence({currentTarget:'#Formid_countryOfResidence'});
+        }
+        if (that.model.get("id_idPlace")) {
+        	//AJAX CALL for get province of municipality
+        	$.ajax({
+        		url:'rest/municipalities/'+this.model.get("id_idPlace"),
+        		data:{},
+        		success:function(data) {
+        			var json = $.parseJSON(JSON.stringify(data, undefined, 2));
+        			
+        			//update province
+        			$.each($('#FormIdentificationTypeProvinceSelector option'), function(i,v) {
+                		if ($(v).attr("value")==json.province) {
+                			$(v).attr("selected","selected");
+                			$('#IdentificationTypeProvinceSelector').removeClass('none');
+                			//update municipality
+                    		that.MunicipalityOfCitizenshipCollection = new Municipalities([],{
+                    			provinceCode: json.province
+                    		});
+                    		that.MunicipalityOfCitizenshipCollection.reset();
+                    		that.MunicipalityOfCitizenshipCollection.fetch({
+                    			success: function() {
+                    				that.populateFormIdentificationTypePlace();
+                    			},
+                    			error: function() {
+                        			$.jGrowl($.i18n("seriousErrorDescr") + '', { header: this.alertOK,sticky: true });
+                        		}
+                    		});
+                			
+                		}
+                	});
+        			
+        			
+        		},
+        	}); 
+        } else {
+        	this.selectedCountryOfCitizenship({currentTarget:'#Formid_countryOfCitizenship'});
         }
     },
     // save new item or update existing item.

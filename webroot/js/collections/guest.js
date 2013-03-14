@@ -35,6 +35,8 @@ window.Guests = Backbone.Collection.extend({
     url: function () {
     	if (GetQueryStringParams('housed')=='true') {
     		return 'rest/guests/structure/' + this.idWrapper +  '/search' + this.from + this.to + '?term=' + this.term +"&housed=true";
+    	} else if (GetQueryStringParams('id')) {
+    		return 'rest/guests/'+GetQueryStringParams('id');
     	} else {
     		return 'rest/guests/structure/' + this.idWrapper +  '/search' + this.from + this.to + '?term=' + this.term ;
     	}

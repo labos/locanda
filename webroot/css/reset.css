@@ -107,6 +107,10 @@ text-align:left;
 	float:right;
 }
 
+.clear {
+	clear:both;
+}
+
 .none {
 	display:none;
 }
@@ -151,4 +155,12 @@ text-align:left;
 
 #selecthouseds-list ul li {
 	margin: 0px !important;
+}
+
+.bookerdetails {
+	cursor:pointer;
+}
+
+.groupleaderdetails {
+	cursor:pointer;
 }

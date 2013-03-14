@@ -11,6 +11,9 @@ window.SelectBookerView = RowView.extend({
 	id_booking: 0,
 	indexTemplate: "#selectbooker-template",
 	el: '#selectbooker-list',
+	events: {
+		'click .bookerdetails':'editBooker',
+	},
     initialize: function (options) {
     	this.modifing = options.modifing;
     	if (options.id_booking) { 
@@ -101,6 +104,28 @@ window.SelectBookerView = RowView.extend({
     	
     	//update frontend
     	this.render(model);
+    },
+    editBooker: function(e) {
+    	//open lightbox for editing a guest
+    	$.colorbox({
+    		iframe:true,
+    		width:980,
+    		height:560,
+    		href:'goUpdateGuestsFromPlanner.action?sect=guests&callback=setbooker&housed=false&editguest=true&id='+$('input:hidden[name="booking.booker.id"]').get(0).value,
+    		onOpen:function() {
+    			//$('.ui-dialog .ui-widget').hide();
+    			//$('.ui-widget-overlay').hide();
+    		},
+    		onCleanup: function() {
+    			//$('.ui-dialog .ui-widget').show();
+    			//$('.ui-widget-overlay').show();
+    			//$('.btn_save').hide();
+    			//$('.canc_booking').hide();
+    			
+    			//refresh this widget
+    			refresh_all_housedwidgets();
+    		}
+    	});
     }
 });
 
@@ -120,7 +145,9 @@ window.SelectGroupLeaderView = RowView.extend({
     	this.get();
     },
     events: {
-    	'click input:radio[name="groupType"]':'switchgroupType'
+    	'click input:radio[name="groupType"]':'switchgroupType',
+    	'click .groupleaderdetails':'editGroupLeader',
+    	'click .groupleader_clear':'del',
     },
     render: function (model, housedType) {
     	var that = this;
@@ -160,6 +187,7 @@ window.SelectGroupLeaderView = RowView.extend({
         		}
         	});
         });
+        
         return this;
     },
     switchgroupType: function(e) {
@@ -250,6 +278,45 @@ window.SelectGroupLeaderView = RowView.extend({
         		}
 	    	});
     	}
+    },
+    del: function(e) {
+    	//remove a group leader
+    	var that = this;
+    	$.ajax({
+    		type:'DELETE',
+    		url:'rest/groupLeader/'+that.current_groupLeader.id,
+    		contentType: "application/json",
+    		success:function(data) {
+    			//var json = $.parseJSON(JSON.stringify(data, undefined, 2));
+    			that.get();
+    		},
+    		error: function() {
+    			$.jGrowl($.i18n("seriousErrorDescr") + '', { header: this.alertOK,sticky: true });
+    		}
+    	});
+    },
+    editGroupLeader: function(e) {
+    	//open lightbox for editing a guest
+    	var that = this;
+    	$.colorbox({
+    		iframe:true,
+    		width:980,
+    		height:560,
+    		href:'goUpdateGuestsFromPlanner.action?sect=guests&callback=setgroupleader&housed=false&editguest=true&id='+that.current_groupLeader.housed.guest.id,
+    		onOpen:function() {
+    			//$('.ui-dialog .ui-widget').hide();
+    			//$('.ui-widget-overlay').hide();
+    		},
+    		onCleanup: function() {
+    			//$('.ui-dialog .ui-widget').show();
+    			//$('.ui-widget-overlay').show();
+    			//$('.btn_save').hide();
+    			//$('.canc_booking').hide();
+    			
+    			//refresh this widget
+    			refresh_all_housedwidgets();
+    		}
+    	});
     }
 });
 
@@ -270,6 +337,12 @@ window.ListHousedView = RowView.extend({
         "click span.row-item-destroy": "del",
         "click .housed_cleardate":"clearDate",
         "click .housed_selectdate":"showDateSelector",
+        'click .houseddetails':'editHoused',
+    },
+    refresh: function() {
+    	this.collection.fetch({
+        	url:'rest/housed/booking/'+this.id_booking
+        });
     },
     initialize: function (options) {
     	this.id_booking = options.id_booking;
@@ -502,5 +575,42 @@ window.ListHousedView = RowView.extend({
     			$.jGrowl($.i18n("seriousErrorDescr") + '', { header: this.alertOK,sticky: true });
     		}
     	});
+    },
+    editHoused: function(e) {
+    	//get from hidden the correct id of housed
+    	var hidden_id = $(e.currentTarget).parent().parent().find("input:hidden['name=guestid']");
+    	//open lightbox for editing current guest of Housed
+    	$.colorbox({
+    		iframe:true,
+    		width:980,
+    		height:560,
+    		href:'goUpdateGuestsFromPlanner.action?sect=guests&callback=setguests&housed=false&editguest=true&id='+hidden_id.val(),
+    		onOpen:function() {
+    			//$('.ui-dialog .ui-widget').hide();
+    			//$('.ui-widget-overlay').hide();
+    		},
+    		onCleanup: function() {
+    			//$('.ui-dialog .ui-widget').show();
+    			//$('.ui-widget-overlay').show();
+    			//$('.btn_save').hide();
+    			//$('.canc_booking').hide();
+    			
+    			//refresh this widget
+    			refresh_all_housedwidgets();
+    		}
+    	});
     }
 });
+
+function refresh_all_housedwidgets() {
+	//special global function for refresh all instances of widgets
+	try {
+		window.SelectBookerWidget.get();
+	} catch(e){};
+	try {
+		window.SelectGroupLeaderWidget.get();
+	} catch(e){};
+	try {
+		window.ListHousedWidget.refresh();
+	} catch(e){};
+}

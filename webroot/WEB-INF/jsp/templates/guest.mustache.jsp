@@ -20,7 +20,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
    
     <script id="edit-template" type="text/x-handlebars-template">
-			<form id="edit-form" class="yform json full" role="application" style="max-height:400px; overflow-y:scroll;">
+			<form id="edit-form" class="yform json full" role="application" style="max-height:300px; overflow-y:scroll;">
         		<div class="c50l">
                   	<div class="type-text">	
                   		<label for="FormFirstName"><s:text name="firstName"/><sup title="<s:text name="thisFileMandatory"/>.">*</sup></label>
@@ -40,22 +40,37 @@
                   		<label for="FormBirthDay"><s:text name="birthDay"/>:</label>
 						<input type="text" name="birthDate" value="{{birthDate}}"  class="datepicker"/>
 					</div>
-				  	<div class="type-select">           
-       				 	<label><s:text name="Citizenship"/>:</label>
-                	  	<select name="id_citizenship" id="FormCitizenship" size="1" aria-required="true">
-							{{#availableCitizenships}}<option value="{{id}}" {{#selected}}selected="selected"{{/selected}}>{{description}}</option>{{/availableCitizenships}}
-						</select>
-      		      	</div>
-      		      	<div class="type-select">
-                  		<label><s:text name="IdentificationType"/>:</label>
-						<select name="id_idType" id="IdentificationTypeSelector">
-							{{#availableIdentificationTypes}}<option value="{{id}}" {{#selected}}selected="selected"{{/selected}}>{{description}}</option>{{/availableIdentificationTypes}}
+					<div class="type-select">
+                  		<label><s:text name="Citizenship"/>:</label>
+                	  	<select name="id_citizenship" id="Formid_countryOfCitizenship" size="1" aria-required="true">
+							{{#availableCountriesCitizenship}}<option value="{{id}}" {{#selected}}selected="selected"{{/selected}}>{{description}}</option>{{/availableCountriesCitizenship}}
 						</select>
 					</div>
-					<div class="type-text">           
-       				  	<label for="FormIdNumber"><s:text name="idNumber"/></label>
-                      	<input type="text"name="idNumber" id="FormIdNumber" value="{{idNumber}}" aria-required="true"/>
-      		      	</div>
+					<div class="type-select" id="FormIdentificationTypeContainer">
+						<label><s:text name="IdentificationType"/>:</label>
+						<select name="id_idType" id="IdentificationTypeSelector">
+							<option value="">Seleziona il tipo di documento</option>
+							{{#availableIdentificationTypes}}<option value="{{id}}" {{#selected}}selected="selected"{{/selected}}>{{description}}</option>{{/availableIdentificationTypes}}
+						</select>
+						<label for="FormIdNumber"><s:text name="idNumber"/></label>
+                  		<input type="text"name="idNumber" id="FormIdNumber" value="{{idNumber}}" aria-required="true"/>
+					</div>
+					<div class="type-select" id="FormIdentificationType">
+						<input type="hidden" name="id_idPlace" id="id_idPlace" value="{{#id_idPlace}}{{id_idPlace}}{{/id_idPlace}}" />
+						<div id="IdentificationTypeProvinceSelector" class="clear none">
+							<label><s:text name="IdentificationTypeProvince"/>:</label>
+							<select name="FormIdentificationTypeProvince" id="FormIdentificationTypeProvinceSelector">
+								<option value="">Seleziona la provincia</option>
+								{{#ITProvinces}}
+									<option value="{{code}}">{{description}}</option>
+								{{/ITProvinces}}
+							</select>
+						</div>
+						<div id="IdentificationTypePlaceSelector" class="clear none">
+							<label><s:text name="IdentificationTypePlace"/>:</label>
+							<select id="FormIdentificationTypePlace" aria-required="true"></select>
+	      		      	</div>
+             	 	</div>
                   	<div class="type-button">
                 	  	<button class="btn_save"><s:text name="save"/></button>
                 	  	<button class="btn_reset"><s:text name="cancel"/></button>

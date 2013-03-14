@@ -69,10 +69,10 @@
 	<div id="col1" role="complementary">
 		<div class="clearfix" id="col1_content">
 			<div>
-				<button class="btn_add_form">
+				<button class="btn_add_form" style="display:none;">
 					<s:text name="addNew" />
 				</button>
-				<button class="btn_select_guest" id="btnselectG">
+				<button class="btn_select_guest" style="display:none;" id="btnselectG">
 					<s:text name="selectGuest" />
 				</button>
 			</div>

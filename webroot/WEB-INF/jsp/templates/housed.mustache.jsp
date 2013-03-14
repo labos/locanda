@@ -22,7 +22,7 @@
 	<script id="selectbooker-template" type="text/x-handlebars-template">
 		<a class="set_booker" href="#"><s:text name="selectBooker" /></a>
 		{{#data}}
-			<div class="clear">
+			<div class="clear bookerdetails">
 				<ul>
 					<li>
 						<b><s:text name="firstName"/>:</b> {{firstName}}<br/>
@@ -56,7 +56,7 @@
 	  					<input type="radio" name="groupType" value="CAPOFAMIGLIA" {{#data.family}}checked="checked"{{/data.family}} /> Famiglia<br/>
 						<input type="radio" name="groupType" value="CAPOGRUPPO" {{#data.group}}checked="checked"{{/data.group}} /> Gruppo
 	  				</div>
-	  				<div class="float_left">
+	  				<div class="float_left groupleaderdetails">
 						<ul>
 							<li>
 								<b><s:text name="firstName"/>:</b> {{firstName}}<br/>
@@ -74,6 +74,9 @@
 								<b><s:text name="notes"/>:</b> {{notes}}<br/>
 							</li>
 						</ul>
+					</div>
+					<div class="float_left">
+						<img title="Rimuovi" alt="Rimuovi" src="images/delete.png" class="groupleader_clear">
 					</div>
 				</div>
 		{{/data}}
@@ -99,9 +102,11 @@
 				<li>
 					<div class="row-item">
 						<input type="hidden" name="housedid" value="{{id}}"/>
+						<input type="hidden" name="guestid" value="{{guest.id}}"/>
 					  	<ul>
-							<li><b><s:text name="firstName"/>: </b>{{guest.firstName}}</li>
-							<li><b><s:text name="lastName"/>: </b>{{guest.lastName}}</li><li><b><s:text name="notes"/>: </b>{{guest.notes}}</li>
+							<li class="houseddetails"><b><s:text name="firstName"/>: </b>{{guest.firstName}}</li>
+							<li class="houseddetails"><b><s:text name="lastName"/>: </b>{{guest.lastName}}</li>
+							<li class="houseddetails"><b><s:text name="notes"/>: </b>{{guest.notes}}</li>
 					  		<li>
 					  			<div class="housed_accordion">
 					  				<h2><a href="#"><s:text name="selectHousedDates" /></a></h2>

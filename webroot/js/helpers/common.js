@@ -268,4 +268,5 @@ function GetQueryStringParams(sParam) {
     		return sParameterName[1];
     	}
     }
+    return null;
 }

@@ -14,25 +14,33 @@
  * In case of controversy the competent court is the Court of Cagliari (Italy).
 --%>
 <?xml version="1.0" encoding="UTF-8" ?>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib uri="/struts-tags" prefix="s" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<script>
-	Entity = {
-		name : "export",
-		model : null,
-		collection : null,
-		editView : null,
-		idStructure : <s:property value="#session.user.structure.id"/>
-	};
+   
+<script id="export-template" type="text/x-handlebars-template">
+	<div class="float_left">
+		<div class="clear">
+			<select id="exportsList">
+				<option value="">Fake select</option>
+				<option value="1">Fake select</option>
+			</select>
+		</div>
+		<div class="clear">
+			<input type="text" id="dateExport" name="dateExport" value="" class="datepicker required hasDatepicker" readonly="readonly">
+		</div>
+		<div class="clear">
+			<label id="startexportdate">Dalle...</label>
+			<label id="endexportdate">Alle...</label>
+		</div>
+	</div>
+	<div class="float_left">
+		<button class="btn_export_questura">
+			<s:text name="exportQuestura" />
+		</button>
+		<button class="btn_export_sired">
+			<s:text name="exportSired" />
+		</button>
+	</div>
 </script>
-		
-<jsp:include page="layout/header_menu.jsp"/>
-      
-<jsp:include page="templates/export.mustache.jsp"/>
-
-<div id="main">
-	<div id="export-widget"></div>
-</div>
-      
-<jsp:include page="layout/footer.jsp" />     
