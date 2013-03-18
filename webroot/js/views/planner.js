@@ -168,8 +168,8 @@ $(function () {
                           $dialogContent.find(".yform.json").bind('submitForm', function(e,data){
                         	  if(data.type == "success"){
                         		  $(this).unbind('submitForm');
+                        		  self.booking.modified = false;
                                   $dialogContent.dialog("close");
-                                  self.$calendar.weekCalendar("refresh");
                         	  }});
                       }).dialog({
                           open: function (event, ui) {
@@ -181,16 +181,20 @@ $(function () {
                           closeOnEscape: true,
                           title: $.i18n("newBookingForRoom") + ": " + room_name,
                           beforeClose: function( event, ui ) {
-                              
+                              if (self.booking.modified)  {
                             	  if(confirm($.i18n("alertCancel"))){
                                       $dialogContent.dialog("destroy");
-                                      self.$calendar.weekCalendar("refresh");
-                                      //$('#calendar').weekCalendar("removeUnsavedEvents");
+                                      self.$calendar.weekCalendar("removeUnsavedEvents");
+                                      self.$calendar.weekCalendar("refresh");  
                             	  }else{
                             		  return false;
                             	  }
-                             
-                              
+                              }
+                                  else{
+                                      $dialogContent.dialog("destroy");
+                                      self.$calendar.weekCalendar("removeUnsavedEvents");
+                                      self.$calendar.weekCalendar("refresh");
+                                  }
                           },
                           buttons: [
                                    {text: $.i18n("save"),
@@ -202,10 +206,10 @@ $(function () {
                                    },
                                    {text: $.i18n("erase"),
                                     click: function() {      
-                                  	  if(confirm($.i18n("alertCancel"))) {
+                                
                                             $dialogContent.dialog("close");
                                             self.$calendar.weekCalendar("removeEvent", calEvent.id);
-                                        }
+
                                      }
                                     }
                                     ]
@@ -240,7 +244,6 @@ $(function () {
                         		  $(this).unbind('submitForm');
                         		  self.booking.modified = false;
                                   $dialogContent.dialog("close");
-                                  self.$calendar.weekCalendar("refresh");
                         	  }});
                       }).dialog({
                           open: function (event, ui) {               	  
@@ -254,6 +257,7 @@ $(function () {
                               if (self.booking.modified)  {
                             	  if(confirm($.i18n("alertCancel"))){
                                       $dialogContent.dialog("destroy");
+                                      self.$calendar.weekCalendar("removeUnsavedEvents");
                                       self.$calendar.weekCalendar("refresh");  
                             	  }else{
                             		  return false;
@@ -261,6 +265,7 @@ $(function () {
                               }
                               else{
                                   $dialogContent.dialog("destroy");
+                                  self.$calendar.weekCalendar("removeUnsavedEvents");
                                   self.$calendar.weekCalendar("refresh");
                               }
                           },
@@ -279,17 +284,14 @@ $(function () {
                                         click: function() {
                                             if (confirm($.i18n("alertDelete"))) {
                                                 $dialogContent.find(".yform.json").submitForm("deleteBooking.action");
-                                                $dialogContent.dialog("close");
+                                                
                                             }
                                         }
                                     },
                                     {
                                         text: $.i18n("close"),
                                         click: function() {
-                                            if (confirm($.i18n("alertCancel"))) {
                                                 $dialogContent.dialog("close");
-                                                self.$calendar.weekCalendar("refresh");
-                                            }
                                         }
                                     }
                                     ]                        

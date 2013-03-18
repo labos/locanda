@@ -145,7 +145,7 @@ $(document).ready(function () {
             });
             $("#accordion2").accordion({
                 collapsible: true,
-                active: 0,
+                active: true,
                 animated: 'bounceslide',
                 autoHeight: false
             });

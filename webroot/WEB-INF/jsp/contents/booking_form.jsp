@@ -215,11 +215,13 @@ width:80%;
                 
                 	
                			
-                  <div class="type-text"><hr/></div>	  
+                  <div class="type-text"><hr/></div>	
+                    <div id="accordion2">
+                		<h2><a href="#top_accordion">Extras</a></h2>  
                   <div class="type-select extraCheckList"><label for="">Extras:</label>
                       	<jsp:include page="extraQuantity_select.jsp" />     	  
                   </div>
-                  
+                  </div>
                   <div class="type-select">
                   	<label for="convention"><s:text name="convention" />: </label> 
                     <select name="booking.convention.id" id="convention" class="required">
