@@ -360,7 +360,7 @@ $(function () {
                             }
                             
                             $("#booking_duration").val( $("#booking_duration").data("prevNumNights") );
-        					$.jGrowl( data_action.description, { theme: "notify-error", sticky: true  });
+        					$.jGrowl( data_action.description, { theme: "notify-error" });
 
                         } else {
                             event.preventDefault();
