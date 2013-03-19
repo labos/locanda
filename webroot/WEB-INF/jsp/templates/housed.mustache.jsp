@@ -43,7 +43,7 @@
 			</div>
 		{{/data}}
 		{{^data}}
-			<div class="clear">Nessuna selezione</div>
+			<div class="clear"><s:text name="bookerAbsent" /></div>
 		{{/data}}
 	</script>
 	
@@ -53,8 +53,8 @@
 			<div class="clear">&nbsp;</div>
 				<div class="clear">
 					<div class="float_left">
-	  					<input type="radio" name="groupType" value="CAPOFAMIGLIA" {{#data.family}}checked="checked"{{/data.family}} /> Famiglia<br/>
-						<input type="radio" name="groupType" value="CAPOGRUPPO" {{#data.group}}checked="checked"{{/data.group}} /> Gruppo
+	  					<input type="radio" name="groupType" value="CAPOFAMIGLIA" {{#data.family}}checked="checked"{{/data.family}} /> <s:text name="family" /><br/>
+						<input type="radio" name="groupType" value="CAPOGRUPPO" {{#data.group}}checked="checked"{{/data.group}} /> <s:text name="group" />
 	  				</div>
 	  				<div class="float_left groupleaderdetails">
 						<ul>
@@ -81,7 +81,7 @@
 				</div>
 		{{/data}}
 		{{^data}}
-			<div class="clear">Nessuna selezione</div>
+			<div class="clear"><s:text name="groupleaderAbsent" /></div>
 		{{/data}}
 	</script>
 	

@@ -37,19 +37,19 @@
 						</select>
 				  	</div>
 				  	<div class="type-select">
-                  		<label for="FormBirthDay"><s:text name="birthDay"/>:</label>
+                  		<label for="FormBirthDay"><s:text name="birthDate"/>:</label>
 						<input type="text" name="birthDate" value="{{birthDate}}"  class="datepicker"/>
 					</div>
 					<div class="type-select">
-                  		<label><s:text name="Citizenship"/>:</label>
+                  		<label><s:text name="citizenship"/>:</label>
                 	  	<select name="id_citizenship" id="Formid_countryOfCitizenship" size="1" aria-required="true">
 							{{#availableCountriesCitizenship}}<option value="{{id}}" {{#selected}}selected="selected"{{/selected}}>{{description}}</option>{{/availableCountriesCitizenship}}
 						</select>
 					</div>
 					<div class="type-select" id="FormIdentificationTypeContainer">
-						<label><s:text name="IdentificationType"/>:</label>
-						<select name="id_idType" id="IdentificationTypeSelector">
-							<option value="">Seleziona il tipo di documento</option>
+						<label><s:text name="identificationType"/>:</label>
+						<select name="id_idType" id="identificationTypeSelector">
+							<option value=""><s:text name="selectIDType"/></option>
 							{{#availableIdentificationTypes}}<option value="{{id}}" {{#selected}}selected="selected"{{/selected}}>{{description}}</option>{{/availableIdentificationTypes}}
 						</select>
 						<label for="FormIdNumber"><s:text name="idNumber"/></label>
@@ -58,16 +58,16 @@
 					<div class="type-select" id="FormIdentificationType">
 						<input type="hidden" name="id_idPlace" id="id_idPlace" value="{{#id_idPlace}}{{id_idPlace}}{{/id_idPlace}}" />
 						<div id="IdentificationTypeProvinceSelector" class="clear none">
-							<label><s:text name="IdentificationTypeProvince"/>:</label>
+							<label><s:text name="identificationTypeProvince"/>:</label>
 							<select name="FormIdentificationTypeProvince" id="FormIdentificationTypeProvinceSelector">
-								<option value="">Seleziona la provincia</option>
+								<option value=""><s:text name="selectProvince"/></option>
 								{{#ITProvinces}}
 									<option value="{{code}}">{{description}}</option>
 								{{/ITProvinces}}
 							</select>
 						</div>
 						<div id="IdentificationTypePlaceSelector" class="clear none">
-							<label><s:text name="IdentificationTypePlace"/>:</label>
+							<label><s:text name="identificationTypePlace"/>:</label>
 							<select id="FormIdentificationTypePlace" aria-required="true"></select>
 	      		      	</div>
              	 	</div>
@@ -87,41 +87,41 @@
       		      	</div>
 					<div class="type-select" id="FormBirth">
 						<input type="hidden" name="id_municipalityOfBirth" id="id_municipalityOfBirth" value="{{#id_municipalityOfBirth}}{{id_municipalityOfBirth}}{{/id_municipalityOfBirth}}" />
-                		<label><s:text name="BirthCountry"/>:</label>
+                		<label><s:text name="birthCountry"/>:</label>
                 	  	<select name="id_countryOfBirth" id="Formid_countryOfBirth" size="1" aria-required="true">
 							{{#availableCountriesBirth}}<option value="{{id}}" {{#selected}}selected="selected"{{/selected}}>{{description}}</option>{{/availableCountriesBirth}}
 						</select>
 						<div id="BirthProvinceSelector" class="clear none">
-							<label><s:text name="BirthProvince"/>:</label>
+							<label><s:text name="birthProvince"/>:</label>
 							<select name="FormBirthProvince" id="FormBirthProvinceSelector">
-								<option value="">Seleziona la provincia</option>
+								<option value=""><s:text name="selectProvince"/></option>
 								{{#ITProvinces}}
 									<option value="{{code}}">{{description}}</option>
 								{{/ITProvinces}}
 							</select>
 						</div>
 						<div id="BirthPlaceSelector" class="clear none">
-							<label><s:text name="BirthPlace"/>:</label>
+							<label><s:text name="birthPlace"/>:</label>
 							<select id="FormBirthPlace" aria-required="true"></select>       
 	      		      	</div>
              	 	</div>
              	 	<div class="type-select" id="FormResidence">
 						<input type="hidden" name="id_municipalityOfResidence" id="id_municipalityOfResidence" value="{{#id_municipalityOfResidence}}{{id_municipalityOfResidence}}{{/id_municipalityOfResidence}}" />
-                		<label><s:text name="ResidenceCountry"/>:</label>
+                		<label><s:text name="residenceCountry"/>:</label>
                 	  	<select name="id_countryOfResidence" id="Formid_countryOfResidence" size="1" aria-required="true">
 							{{#availableCountriesResidence}}<option value="{{id}}" {{#selected}}selected="selected"{{/selected}}>{{description}}</option>{{/availableCountriesResidence}}
 						</select>
 						<div id="ResidenceProvinceSelector" class="clear none">
-							<label><s:text name="ResidenceProvince"/>:</label>
+							<label><s:text name="residenceProvince"/>:</label>
 							<select name="FormResidenceProvince" id="FormResidenceProvinceSelector">
-								<option value="">Seleziona la provincia</option>
+								<option value=""><s:text name="selectProvince"/></option>
 								{{#ITProvinces}}
 									<option value="{{code}}">{{description}}</option>
 								{{/ITProvinces}}
 							</select>
 						</div>
 						<div id="ResidencePlaceSelector" class="clear none">
-							<label><s:text name="ResidencePlace"/>:</label>
+							<label><s:text name="residencePlace"/>:</label>
 							<select id="FormResidencePlace" aria-required="true"></select>
 							<div class="type-text">           
 		       				 	<label for="FormAddress"><s:text name="address"/></label>
