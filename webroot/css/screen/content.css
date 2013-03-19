@@ -1228,3 +1228,6 @@ font-weight:600;
 ul.periodDates-list li{
 border-bottom:1px dotted grey
 }
+.type-select.extraCheckList{
+	margin-top: -2px !important;
+}

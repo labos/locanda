@@ -40,6 +40,10 @@ In case of controversy the competent court is the Court of Cagliari (Italy).
         <include refid="selectRoom"/>WHERE id_structure = #{id_structure}
     </select>
     
+    <select id="findRoomsByIdStructureOrdered" parameterType="int" resultType="model.Room">
+        <include refid="selectRoom"/>WHERE id_structure = #{id_structure} ORDER by id_roomType ASC
+    </select>
+    
     <select id="findRoomIdsByIdStructure" parameterType="int" resultType="int">
         <include refid="selectRoomId"/>WHERE id_structure = #{id_structure}
     </select>

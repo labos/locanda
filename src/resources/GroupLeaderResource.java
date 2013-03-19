@@ -1,6 +1,7 @@
 package resources;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.ws.rs.Consumes;
@@ -19,7 +20,9 @@ import model.Housed;
 import model.questura.HousedType;
 
 import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Scope;
+//import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Component;
 
 import com.sun.jersey.api.NotFoundException;
@@ -42,6 +45,8 @@ public class GroupLeaderResource {
     private HousedTypeMapper housedTypeMapper = null;
 	@Autowired
     private GuestService guestService = null; 
+	//@Autowired
+	// private MessageSource messageSource;
 
     @GET
     @Path("booking/{id_booking}")
@@ -69,11 +74,15 @@ public class GroupLeaderResource {
 		id_booking = (Integer)map.get("id_booking");
 		id_guest = (Integer)map.get("id_guest");
 		groupType = (String)map.get("groupType");
-		
+		//Locale locale = LocaleContextHolder.getLocale();
 		guest = this.getGuestService().findGuestById(id_guest);
 		if (!guest.canBeSingleOrLeader()) {
 			throw new NotFoundException("The guest you are trying to house does not have all the requested fields." +
-											"Please fill all these fields before adding this guest as housed");
+					"Please fill all these fields before adding this guest as housed"
+					
+					);
+			
+			//messageSource.getMessage("selectHousedDates", null, "Default",null)
 		}
 		
 		housed = this.getHousedService().findMostRecentHousedByIdGuest(id_guest);		
