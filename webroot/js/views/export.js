@@ -120,8 +120,12 @@ window.ExportView = Backbone.View.extend({
 				that.availableDates = json;
 				that.renderAvailableDates();
 			},
-			error: function() {
-				$.jGrowl($.i18n("seriousErrorDescr") + ' ', { header: this.alertOK,sticky: true });
+			error: function(data) {
+				if (data.status==404) {
+    				$.jGrowl(data.responseText, { theme: "notify-error",header: this.alertOK,sticky: true });
+    			} else {
+    				$.jGrowl($.i18n("seriousErrorDescr") + '', { theme: "notify-error",header: this.alertOK,sticky: true });
+    			}
 			}
 		});
 	},

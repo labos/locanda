@@ -97,7 +97,11 @@ window.SelectBookerView = RowView.extend({
         			that.get();
         		},
         		error: function() {
-        			$.jGrowl($.i18n("seriousErrorDescr") + '', {theme: "notify-error", header: this.alertOK,sticky: true });
+        			if (data.status==404) {
+        				$.jGrowl(data.responseText, { theme: "notify-error",header: this.alertOK,sticky: true });
+        			} else {
+        				$.jGrowl($.i18n("seriousErrorDescr") + '', { theme: "notify-error",header: this.alertOK,sticky: true });
+        			}
         		}
         	});
     	}
@@ -209,7 +213,11 @@ window.SelectGroupLeaderView = RowView.extend({
     			that.get();
     		},
     		error: function(data) {
-    			$.jGrowl(data.responseText || $.i18n("seriousErrorDescr")  + '', {theme: "notify-error", header: this.alertOK,sticky: true });
+    			if (data.status==404) {
+    				$.jGrowl(data.responseText, { theme: "notify-error",header: this.alertOK,sticky: true });
+    			} else {
+    				$.jGrowl($.i18n("seriousErrorDescr") + '', { theme: "notify-error",header: this.alertOK,sticky: true });
+    			}
     		}
     	});
     },
@@ -254,7 +262,11 @@ window.SelectGroupLeaderView = RowView.extend({
         			that.get();
         		},
         		error: function(data) {
-        			$.jGrowl(data.responseText || $.i18n("seriousErrorDescr") + '', {theme: "notify-error", header: this.alertOK,sticky: true });
+        			if (data.status==404) {
+        				$.jGrowl(data.responseText, { theme: "notify-error",header: this.alertOK,sticky: true });
+        			} else {
+        				$.jGrowl($.i18n("seriousErrorDescr") + '', { theme: "notify-error",header: this.alertOK,sticky: true });
+        			}
         		}
         	});
     	} 
@@ -274,7 +286,11 @@ window.SelectGroupLeaderView = RowView.extend({
 	    			that.get();
 	    		},
 	    		error: function(data) {
-        			$.jGrowl(data.responseText || $.i18n("seriousErrorDescr") + '', {theme: "notify-error", header: this.alertOK,sticky: true });
+	    			if (data.status==404) {
+	    				$.jGrowl(data.responseText, { theme: "notify-error",header: this.alertOK,sticky: true });
+	    			} else {
+	    				$.jGrowl($.i18n("seriousErrorDescr") + '', { theme: "notify-error",header: this.alertOK,sticky: true });
+	    			}
         		}
 	    	});
     	}
@@ -290,8 +306,12 @@ window.SelectGroupLeaderView = RowView.extend({
     			//var json = $.parseJSON(JSON.stringify(data, undefined, 2));
     			that.get();
     		},
-    		error: function() {
-    			$.jGrowl($.i18n("seriousErrorDescr") + '', {theme: "notify-error", header: this.alertOK,sticky: true });
+    		error: function(data) {
+    			if (data.status==404) {
+    				$.jGrowl(data.responseText, { theme: "notify-error",header: this.alertOK,sticky: true });
+    			} else {
+    				$.jGrowl($.i18n("seriousErrorDescr") + '', { theme: "notify-error",header: this.alertOK,sticky: true });
+    			}
     		}
     	});
     },
@@ -423,7 +443,11 @@ window.ListHousedView = RowView.extend({
 	    			}
 	    		},
 	    		error: function(data) {
-        			$.jGrowl( $.i18n("seriousErrorDescr") + '', { theme: "notify-error",header: this.alertOK,sticky: true });
+	    			if (data.status==404) {
+	    				$.jGrowl(data.responseText, { theme: "notify-error",header: this.alertOK,sticky: true });
+	    			} else {
+	    				$.jGrowl($.i18n("seriousErrorDescr") + '', { theme: "notify-error",header: this.alertOK,sticky: true });
+	    			}
         		}
 	    	});
       
@@ -474,8 +498,12 @@ window.ListHousedView = RowView.extend({
         	    				model.set({checkOutDate:dateout});
         	    			}
         	    		},
-        	    		error: function() {
-                			$.jGrowl($.i18n("seriousErrorDescr") + '', {theme: "notify-error", header: this.alertOK,sticky: true });
+        	    		error: function(data) {
+        	    			if (data.status==404) {
+        	    				$.jGrowl(data.responseText, { theme: "notify-error",header: this.alertOK,sticky: true });
+        	    			} else {
+        	    				$.jGrowl($.i18n("seriousErrorDescr") + '', { theme: "notify-error",header: this.alertOK,sticky: true });
+        	    			}
                 		}
         	    	});
         		}
@@ -518,8 +546,12 @@ window.ListHousedView = RowView.extend({
     		success: function(data) {
     			$(input).get(0).value = '';
     		},
-    		error: function() {
-    			$.jGrowl($.i18n("seriousErrorDescr") + '', {theme: "notify-error", header: this.alertOK,sticky: true });
+    		error: function(data) {
+    			if (data.status==404) {
+    				$.jGrowl(data.responseText, { theme: "notify-error",header: this.alertOK,sticky: true });
+    			} else {
+    				$.jGrowl($.i18n("seriousErrorDescr") + '', { theme: "notify-error",header: this.alertOK,sticky: true });
+    			}
     		}
     	});
     },
@@ -572,7 +604,11 @@ window.ListHousedView = RowView.extend({
     			that.collection.add([new_model]);
     		},
     		error: function(data) {
-    			$.jGrowl(data.responseText || $.i18n("seriousErrorDescr") + '', { theme: "notify-error",header: this.alertOK,sticky: true });
+    			if (data.status==404) {
+    				$.jGrowl(data.responseText, { theme: "notify-error",header: this.alertOK,sticky: true });
+    			} else {
+    				$.jGrowl($.i18n("seriousErrorDescr") + '', { theme: "notify-error",header: this.alertOK,sticky: true });
+    			}
     		}
     	});
     },

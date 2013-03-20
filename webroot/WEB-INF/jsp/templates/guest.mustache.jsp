@@ -18,7 +18,11 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="/struts-tags" prefix="s" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-   
+
+<script id="municipalitySelect-template" type="text/x-handlebars-template">
+	<option value="0">Scegli</option>
+</script>
+
     <script id="edit-template" type="text/x-handlebars-template">
 			<form id="edit-form" class="yform json full" role="application" style="max-height:300px; overflow-y:scroll;">
         		<div class="c50l">

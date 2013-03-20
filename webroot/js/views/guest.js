@@ -231,8 +231,7 @@ window.EditGuestView = EditView.extend({
     	var that = this;
     	var select = $('#FormBirthPlace');
     	if (this.MunicipalityOfBirthCollection) {
-    		select.html('');
-    		select.append('<option value="0">Scegli la città</option>');
+    		select.html(Mustache.to_html($('#municipalitySelect-template').html(),{}));
     		$.each(this.MunicipalityOfBirthCollection.toJSON(), function(i,v){
     			var selected = (that.model.get("id_municipalityOfBirth")==v.id) ? 'selected="selected"':'';
     			select.append('<option value="'+v.id+'" '+selected+'>'+v.description+'</option>');
@@ -320,8 +319,7 @@ window.EditGuestView = EditView.extend({
     	var that = this;
     	var select = $('#FormResidencePlace');
     	if (this.MunicipalityOfResidenceCollection) {
-    		select.html('');
-    		select.append('<option value="0">Scegli la città</option>');
+    		select.html(Mustache.to_html($('#municipalitySelect-template').html(),{}));
     		$.each(this.MunicipalityOfResidenceCollection.toJSON(), function(i,v){
     			var selected = (that.model.get("id_municipalityOfResidence")==v.id) ? 'selected="selected"':'';
     			select.append('<option value="'+v.id+'" '+selected+'>'+v.description+'</option>');
@@ -407,8 +405,7 @@ window.EditGuestView = EditView.extend({
     	var that = this;
     	var select = $('#FormIdentificationTypePlace');
     	if (this.MunicipalityOfCitizenshipCollection) {
-    		select.html('');
-    		select.append('<option value="0">Scegli la città</option>');
+    		select.html(Mustache.to_html($('#municipalitySelect-template').html(),{}));
     		$.each(this.MunicipalityOfCitizenshipCollection.toJSON(), function(i,v){
     			var selected = (that.model.get("id_idPlace")==v.id) ? 'selected="selected"':'';
     			select.append('<option value="'+v.id+'" '+selected+'>'+v.description+'</option>');
@@ -634,8 +631,12 @@ window.EditGuestView = EditView.extend({
                 self.switchMode();
                 
             },
-            error: function () {
-            	$.jGrowl($.i18n("seriousErrorDescr") + ' ', { header: this.alertOK,sticky: true });
+            error: function (data) {
+            	if (data.status==404) {
+    				$.jGrowl(data.responseText, { theme: "notify-error",header: this.alertOK,sticky: true });
+    			} else {
+    				$.jGrowl($.i18n("seriousErrorDescr") + '', { theme: "notify-error",header: this.alertOK,sticky: true });
+    			}
             }
         });
         return false;
