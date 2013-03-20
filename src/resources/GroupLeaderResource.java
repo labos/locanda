@@ -85,7 +85,7 @@ public class GroupLeaderResource {
 			//messageSource.getMessage("selectHousedDates", null, "Default",null)
 		}
 		
-		housed = this.getHousedService().findMostRecentHousedByIdGuest(id_guest);		
+		housed = this.getHousedService().findMostRecentHousedByIdGuest(id_guest);			
 		
  		ret = this.getGroupLeaderService().insert(id_booking, housed.getId());
  		housedType = this.getHousedTypeMapper().findHousedTypeByDescription(groupType);
@@ -155,6 +155,11 @@ public class GroupLeaderResource {
 		groupType = (String)map.get("groupType");
 		
 		groupLeader = this.getGroupLeaderService().findGroupLeaderByIdBooking(id_booking);
+		//NUOVA PARTE
+		if(groupLeader==null){
+			throw new NotFoundException("Si  verificato un problema nell'aggiornamento del group leader");
+		}
+		
 		currentHoused = groupLeader.getHoused();
 		
 		//checking first if the guest associated with the new housed can be a Leader

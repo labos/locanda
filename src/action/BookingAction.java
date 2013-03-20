@@ -720,6 +720,7 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 	public String deleteBooking() {
 		Integer count = 0;
 		
+		
 		count = this.getBookingService().deleteBooking(this.getBooking().getId());
 		if(count > 0 ){
 			this.getMessage().setResult(Message.SUCCESS);
