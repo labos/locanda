@@ -73,7 +73,7 @@ window.SelectBookerView = RowView.extend({
         			return that.render(json);
         		},
         		error: function() {
-        			$.jGrowl($.i18n("seriousErrorDescr") + '', { header: this.alertOK,sticky: true });
+        			$.jGrowl($.i18n("seriousErrorDescr") + '', {theme: "notify-error", header: this.alertOK,sticky: true });
         		}
         	});
     	}
@@ -97,7 +97,7 @@ window.SelectBookerView = RowView.extend({
         			that.get();
         		},
         		error: function() {
-        			$.jGrowl($.i18n("seriousErrorDescr") + '', { header: this.alertOK,sticky: true });
+        			$.jGrowl($.i18n("seriousErrorDescr") + '', {theme: "notify-error", header: this.alertOK,sticky: true });
         		}
         	});
     	}
@@ -208,8 +208,8 @@ window.SelectGroupLeaderView = RowView.extend({
     		success:function(data) {
     			that.get();
     		},
-    		error: function() {
-    			$.jGrowl($.i18n("seriousErrorDescr") + '', { header: this.alertOK,sticky: true });
+    		error: function(data) {
+    			$.jGrowl(data.responseText || $.i18n("seriousErrorDescr")  + '', {theme: "notify-error", header: this.alertOK,sticky: true });
     		}
     	});
     },
@@ -230,7 +230,7 @@ window.SelectGroupLeaderView = RowView.extend({
     			}
     		},
     		error: function() {
-    			$.jGrowl($.i18n("seriousErrorDescr") + '', { header: this.alertOK,sticky: true });
+    			$.jGrowl($.i18n("seriousErrorDescr") + '', {theme: "notify-error", header: this.alertOK,sticky: true });
     		}
     	});
     },
@@ -253,8 +253,8 @@ window.SelectGroupLeaderView = RowView.extend({
         			//var json = $.parseJSON(JSON.stringify(data, undefined, 2));
         			that.get();
         		},
-        		error: function() {
-        			$.jGrowl($.i18n("seriousErrorDescr") + '', { header: this.alertOK,sticky: true });
+        		error: function(data) {
+        			$.jGrowl(data.responseText || $.i18n("seriousErrorDescr") + '', {theme: "notify-error", header: this.alertOK,sticky: true });
         		}
         	});
     	} 
@@ -273,8 +273,8 @@ window.SelectGroupLeaderView = RowView.extend({
 	    			//var json = $.parseJSON(JSON.stringify(data, undefined, 2));
 	    			that.get();
 	    		},
-	    		error: function() {
-        			$.jGrowl($.i18n("seriousErrorDescr") + '', { header: this.alertOK,sticky: true });
+	    		error: function(data) {
+        			$.jGrowl(data.responseText || $.i18n("seriousErrorDescr") + '', {theme: "notify-error", header: this.alertOK,sticky: true });
         		}
 	    	});
     	}
@@ -291,7 +291,7 @@ window.SelectGroupLeaderView = RowView.extend({
     			that.get();
     		},
     		error: function() {
-    			$.jGrowl($.i18n("seriousErrorDescr") + '', { header: this.alertOK,sticky: true });
+    			$.jGrowl($.i18n("seriousErrorDescr") + '', {theme: "notify-error", header: this.alertOK,sticky: true });
     		}
     	});
     },
@@ -422,8 +422,8 @@ window.ListHousedView = RowView.extend({
 	    				
 	    			}
 	    		},
-	    		error: function() {
-        			$.jGrowl($.i18n("seriousErrorDescr") + '', { header: this.alertOK,sticky: true });
+	    		error: function(data) {
+        			$.jGrowl( $.i18n("seriousErrorDescr") + '', { theme: "notify-error",header: this.alertOK,sticky: true });
         		}
 	    	});
       
@@ -475,7 +475,7 @@ window.ListHousedView = RowView.extend({
         	    			}
         	    		},
         	    		error: function() {
-                			$.jGrowl($.i18n("seriousErrorDescr") + '', { header: this.alertOK,sticky: true });
+                			$.jGrowl($.i18n("seriousErrorDescr") + '', {theme: "notify-error", header: this.alertOK,sticky: true });
                 		}
         	    	});
         		}
@@ -519,7 +519,7 @@ window.ListHousedView = RowView.extend({
     			$(input).get(0).value = '';
     		},
     		error: function() {
-    			$.jGrowl($.i18n("seriousErrorDescr") + '', { header: this.alertOK,sticky: true });
+    			$.jGrowl($.i18n("seriousErrorDescr") + '', {theme: "notify-error", header: this.alertOK,sticky: true });
     		}
     	});
     },
@@ -571,8 +571,8 @@ window.ListHousedView = RowView.extend({
         		new_model.isNew = false;
     			that.collection.add([new_model]);
     		},
-    		error: function() {
-    			$.jGrowl($.i18n("seriousErrorDescr") + '', { header: this.alertOK,sticky: true });
+    		error: function(data) {
+    			$.jGrowl(data.responseText || $.i18n("seriousErrorDescr") + '', { theme: "notify-error",header: this.alertOK,sticky: true });
     		}
     	});
     },
