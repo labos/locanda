@@ -111,6 +111,7 @@ public class HousedServiceImpl implements HousedService{
 		return this.getHousedMapper().findAll();
 	}
 	
+	
 	@Override
 	public Housed findHousedById(Integer id) {
 		Housed ret = null;

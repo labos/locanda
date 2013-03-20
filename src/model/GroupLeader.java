@@ -8,6 +8,31 @@ public class GroupLeader implements Serializable {
 	private Housed housed;
 	private Integer id_housed;
 	
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((id_housed == null) ? 0 : id_housed.hashCode());
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		GroupLeader other = (GroupLeader) obj;
+		if (id_housed == null) {
+			if (other.id_housed != null)
+				return false;
+		} else if (!id_housed.equals(other.id_housed))
+			return false;
+		return true;
+	}
 	public Integer getId() {
 		return id;
 	}
