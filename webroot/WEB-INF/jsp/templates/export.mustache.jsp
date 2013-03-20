@@ -22,20 +22,20 @@
 
 <script id="export-exportDateList-template" type="text/x-handlebars-template">
 	{{#populated}}
-		<option value="">Select a Date</option>
+		<option value=""><s:text name="selectDate"/></option>
 	{{/populated}}
 	{{#dates}}
 		<option value="{{ts}}">{{date}}</option>
 	{{/dates}}
 	{{^dates}}
-		<option value="">No Dates</option>
+		<option value=""><s:text name="dateAbsent"/></option>
 	{{/dates}}
 </script>
 
 <script id="export-checkResult-template" type="text/x-handlebars-template">
 	{{#bookings}}
 		<div class="clear">
-			<a href="#">Prenotazione: {{id}}</a>
+			<a href="#"><s:text name="booking"/>: {{id}}</a>
 		</div>
 	{{/bookings}}
 </script>
@@ -67,14 +67,17 @@
 	<div class="float_left">&nbsp;</div>
 	<div class="clear">&nbsp;</div>
 	<div class="clear none" id="dateInfo">
-		<span>Esportazione dalle ore</span>
-		<span id="startexporttime"></span>
-		<span>del</span>
-		<span id="startexportdate"></span>
-		<span>alle ore</span>
-		<span id="endexporttime"></span>
-		<span>del</span>
-		<span id="endexportdate"></span>
+		<span><s:text name="exportFrom"/></span>
+		<b>	<span id="startexporttime"></span>
+			<span>--</span>
+			<span id="startexportdate"></span>
+		</b>
+		<span><s:text name="to"/></span>
+		<b>
+			<span id="endexporttime"></span>
+			<span>--</span>
+			<span id="endexportdate"></span>
+		</b>
 	</div>
 	<div class="clear">&nbsp;</div>
 	<div id="checkResult" class="borders-light"></div>

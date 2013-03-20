@@ -44,7 +44,8 @@
 		<li><a class="skip" href="#nav">Skip to navigation (Press Enter).</a></li>
 		<li><a class="skip" href="#col3">Skip to main content (Press Enter).</a></li>
 	</ul>
-	 
+	
+	<s:url action="logout" var="url_logout"></s:url> 
 	<s:url action="home" var="url_home"></s:url>
 	<s:url action="findAllRooms" var="url_findallroom"></s:url>
 	<s:url action="findAllRoomTypes" var="url_findallroomtypes"></s:url>
