@@ -110,5 +110,6 @@ $.i18n.it.strings = {
 	extraPerNight: "per Notte",
 	extraPerPerson: "per Persona",
 	extraPerRoom: "per Camera",
-	extraPerWeek: "per Settimana"
+	extraPerWeek: "per Settimana",
+	exportDateError: "Seleziona una data valida per l'esportazione"
  };

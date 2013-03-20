@@ -32,7 +32,12 @@
 <jsp:include page="templates/export.mustache.jsp"/>
 
 <div id="main">
-	<div id="export-widget"></div>
+	<div class="clear">&nbsp;</div>
+	<div id="export-widget">
+		<div style="text-align: center"><img src="images/loading.gif"/></div>
+	</div>
+	<div class="clear">&nbsp;</div>
+	<div id="event_edit_container"><div style="text-align: center"><img src="images/loading.gif"/></div></div>
 </div>
       
 <jsp:include page="layout/footer.jsp" />     

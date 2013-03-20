@@ -53,6 +53,9 @@ if (Entity.name == "guest") {
 	steal("../models/country.js","../models/province.js","../models/municipality.js","../models/identificationtype.js").
 	then("../collections/country.js","../collections/province.js","../collections/municipality.js","../collections/identificationtype.js");
 }
+if (Entity.name == "export") {
+    steal("../helpers/autocomplete.js").then("../../css/jquery.weekcalendar.css","../../css/calendar.css","../models/housed.js").then("../collections/housed.js").then("../controllers/booking_controller.js","jquery.weekcalendar.js");
+}
 // end conditional file loading section
 
 
@@ -64,5 +67,8 @@ then("../views/" + Entity.name + ".js").
 then("../routers/common.js");
 
 if (Entity.name == "planner") {
+    steal("../views/housed.js");
+}
+if (Entity.name == "export") {
     steal("../views/housed.js");
 }

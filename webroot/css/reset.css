@@ -115,6 +115,15 @@ text-align:left;
 	display:none;
 }
 
+.padding-light {
+	padding:15px;
+}
+
+.borders-light {
+	border: 1px solid grey;
+	border-radius: 5px;
+}
+
 .set_booker {
 	margin-top:0px !important;
 }
@@ -163,4 +172,16 @@ text-align:left;
 
 .groupleaderdetails {
 	cursor:pointer;
+}
+
+#export-widget {
+	min-height:200px;
+	width:760px;
+	margin: 0 auto;
+}
+
+#checkResult {
+	width:760px;
+	height: 150px;
+	overflow-y: auto;
 }

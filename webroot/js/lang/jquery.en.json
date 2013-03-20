@@ -110,5 +110,6 @@ $.i18n.en.strings = {
 	extraPerNight: "per Night",
 	extraPerPerson: "per Person",
 	extraPerRoom: "per Room",
-	extraPerWeek: "per Week"
+	extraPerWeek: "per Week",
+	exportDateError: "Select a valid date for export"
 };
