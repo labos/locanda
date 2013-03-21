@@ -614,7 +614,7 @@ window.ListHousedView = RowView.extend({
     },
     editHoused: function(e) {
     	//get from hidden the correct id of housed
-    	var hidden_id = $(e.currentTarget).parent().parent().find("input:hidden['name=guestid']");
+    	var hidden_id = $(e.currentTarget).parent().parent().find("input:hidden[name='guestid']");
     	//open lightbox for editing current guest of Housed
     	$.colorbox({
     		iframe:true,

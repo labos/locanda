@@ -113,8 +113,9 @@ window.ExportView = Backbone.View.extend({
 	 */
 	initDates: function() {
 		var that = this;
+		var id_structure = Entity.idStructure;
 		$.ajax({
-			url:'rest/export/structure/1/dates/available',
+			url:'rest/export/structure/'+id_structure+'/dates/available',
 			success: function(data) {
 				var json = eval(data);
 				that.availableDates = json;
@@ -200,20 +201,7 @@ window.ExportView = Backbone.View.extend({
             closeOnEscape: false,
             title: $.i18n("modifyBooking"),
             beforeClose: function( event, ui ) {
-                if (self.booking.modified)  {
-              	  if(confirm($.i18n("alertCancel"))){
-                        $dialogContent.dialog("destroy");
-                        //self.$calendar.weekCalendar("removeUnsavedEvents");
-                        //self.$calendar.weekCalendar("refresh");  
-              	  }else{
-              		  return false;
-              	  }
-                }
-                else{
-                    $dialogContent.dialog("destroy");
-                    //self.$calendar.weekCalendar("removeUnsavedEvents");
-                    //self.$calendar.weekCalendar("refresh");
-                }
+            	$dialogContent.dialog("destroy");
             },
             buttons: [
                       {
@@ -268,9 +256,10 @@ window.ExportView = Backbone.View.extend({
 	checkExportQuestura: function(e) {
 		var that = this;
 		var d = this.getDate();
+		var id_structure = Entity.idStructure;
 		if (d) {
 			$.ajax({
-				url:'rest/export/structure/1/check/questura/?date='+d,
+				url:'rest/export/structure/'+id_structure+'/check/questura/?date='+d,
 				success:function(data) {
 					var json = eval(data);
 					return that.renderBookings(data);
@@ -283,9 +272,10 @@ window.ExportView = Backbone.View.extend({
 	checkExportSired: function(e) {
 		var that = this;
 		var d = this.getDate();
+		var id_structure = Entity.idStructure;
 		if (d) {
 			$.ajax({
-				url:'rest/export/structure/1/check/sired/?date='+d,
+				url:'rest/export/structure/'+id_structure+'/check/sired/?date='+d,
 				success:function(data) {
 					var json = eval(data);
 					return that.renderBookings(data);
@@ -297,16 +287,18 @@ window.ExportView = Backbone.View.extend({
 	},
 	doExportQuestura: function(e) {
 		var d = this.getDate();
+		var id_structure = Entity.idStructure;
 		if (d) {
-			window.location='rest/export/structure/1/do/questura?date='+d;
+			window.location='rest/export/structure/'+id_structure+'/do/questura?date='+d;
 		} else {
 			$.jGrowl($.i18n("exportDateError") + ' ', { header: this.alertOK,sticky: true });
 		}
 	},
 	doExportSired: function(e) {
 		var d = this.getDate();
+		var id_structure = Entity.idStructure;
 		if (d) {
-			window.location='rest/export/structure/1/do/sired?date='+d;
+			window.location='rest/export/structure/'+id_structure+'/do/sired?date='+d;
 		} else {
 			$.jGrowl($.i18n("exportDateError") + ' ', { header: this.alertOK,sticky: true });
 		}
