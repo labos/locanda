@@ -120,7 +120,7 @@ CREATE TABLE `convention` (
 
 LOCK TABLES `convention` WRITE;
 /*!40000 ALTER TABLE `convention` DISABLE KEYS */;
-INSERT INTO `convention` VALUES ('','Nessuna Convenzione','Nessuna Convenzione','thisconventionshouldntneverberemoved',1);
+INSERT INTO `convention` VALUES (1,'Nessuna Convenzione','Nessuna Convenzione','thisconventionshouldntneverberemoved',1);
 /*!40000 ALTER TABLE `convention` ENABLE KEYS */;
 UNLOCK TABLES;
 

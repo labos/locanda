@@ -30,6 +30,7 @@ import model.Guest;
 import model.Payment;
 import model.Room;
 import model.RoomType;
+import model.GroupLeader;
 import model.UserAware;
 import model.internal.Message;
 import model.listini.Convention;
@@ -47,6 +48,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import service.BookingService;
 import service.ConventionService;
 import service.ExtraService;
+import service.GroupLeaderService;
 import service.GuestService;
 import service.RoomService;
 import service.SeasonService;
@@ -89,6 +91,8 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 	private ConventionService conventionService = null;
 	@Autowired
 	private SeasonService seasonService = null;
+	@Autowired
+	private GroupLeaderService groupLeaderService = null;
 	
 	@Actions({
 		@Action(
@@ -720,7 +724,15 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 	public String deleteBooking() {
 		Integer count = 0;
 		
-		
+		// check groupleader
+		GroupLeader groupLeader = null;
+		groupLeader = this.getGroupLeaderService().findGroupLeaderByIdBooking(this.getBooking().getId());
+		if(groupLeader != null){
+			this.getMessage().setResult(Message.ERROR);
+			this.getMessage().setDescription(getText("bookingDeleteWithGroupLeaderErrorAction"));
+			return "error";
+			
+		}
 		count = this.getBookingService().deleteBooking(this.getBooking().getId());
 		if(count > 0 ){
 			this.getMessage().setResult(Message.SUCCESS);
@@ -892,6 +904,14 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 	}
 	public void setSeasonService(SeasonService seasonService) {
 		this.seasonService = seasonService;
+	}
+
+	public GroupLeaderService getGroupLeaderService() {
+		return groupLeaderService;
+	}
+
+	public void setGroupLeaderService(GroupLeaderService groupLeaderService) {
+		this.groupLeaderService = groupLeaderService;
 	}
 		
 }
