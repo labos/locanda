@@ -32,6 +32,10 @@ In case of controversy the competent court is the Court of Cagliari (Italy).
         select id_booking from booker where id_guest = #{id_booker}
     </select>
     
+    <select id="findBookingIdsByIdHousedGroupLeader" resultType="int" parameterType="int">
+        select id_booking from groupLeader where id_housed = #{id_housed}
+    </select>
+    
     <sql id="selectBooking">
         select id,nrGuests,dateIn,dateOut,roomSubtotal,extraSubtotal,notes,status,id_convention,id_room,id_structure from booking
     </sql>

@@ -29,6 +29,7 @@ public interface BookingService {
 	public List<Booking> findBookingsByIdStructure(Integer id_structure);
 	public List<Integer> findBookingIdsByIdBooker(Integer id_booker);
 	public List<Booking> findBookingsByIdBooker(Integer id_booker);
+	public List<Booking> findBookingIdsByIdHousedGroupLeader(Integer id_housed);
 	
 	public Integer countBookingsByIdConvention(Integer id_convention);
 	public Integer countBookingsByIdRoom(Integer id_room);

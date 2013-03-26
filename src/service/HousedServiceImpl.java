@@ -25,6 +25,7 @@ import model.Guest;
 import model.Housed;
 import model.questura.HousedType;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,6 +41,7 @@ public class HousedServiceImpl implements HousedService{
 	private GuestMapper guestMapper;
 	@Autowired
 	private HousedTypeMapper housedTypeMapper;
+	private static Logger logger = Logger.getLogger(Logger.class);
 	
 	public List<Housed> findHousedByIdBooking(Integer id_booking) {
 		List<Housed> ret;
@@ -142,10 +144,13 @@ public class HousedServiceImpl implements HousedService{
 		map.put("id_guest", id_guest);
 		
 		ret = this.getHousedMapper().findHousedByIdBookingAndIdGuest(map);
+
+		if(ret!=null){
 		guest = this.getGuestMapper().findGuestById(ret.getId_guest());
 		ret.setGuest(guest);
 		housedType = this.getHousedTypeMapper().findHousedTypeById(ret.getId_housedType());
 		ret.setHousedType(housedType);
+		}
 		
 		return ret;
 	}

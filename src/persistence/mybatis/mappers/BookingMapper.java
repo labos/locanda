@@ -22,7 +22,8 @@ import model.Booking;
 public interface BookingMapper {
 	public Booking findBookingById(Integer id);
 	public List<Integer> findBookingIdsByIdStructure(Integer id_structure);
-	public List<Integer> findBookingIdsByIdBooker(Integer id_booker);	
+	public List<Integer> findBookingIdsByIdBooker(Integer id_booker);
+	public List<Integer> findBookingIdsByIdHousedGroupLeader(Integer id_housed);	
 	public Integer countBookingsByIdConvention(Integer id_convention);
 	public Integer countBookingsByIdRoom(Integer id_room);
 	public Integer countBookingsByIdExtra(Integer id_extra);

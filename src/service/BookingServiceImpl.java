@@ -69,26 +69,28 @@ public class BookingServiceImpl implements BookingService {
 		Room room = null;
 		
 		booking = this.getBookingMapper().findBookingById(id);
+		if(booking!= null){
+
+			id_guest = this.getBookerService().findBookerByIdBooking(id).getId_guest();
+			booker = this.getGuestService().findGuestById(id_guest);
+			booking.setBooker(booker);
+			
+			extraItems = this.getExtraItemService().findExtraItemsByIdBooking(id);
+			booking.setExtraItems(extraItems);
+			
+			adjustments = this.getAdjustmentService().findAdjustmentsByIdBooking(id);
+			booking.setAdjustments(adjustments);
+			
+			payments = this.getPaymentService().findPaymentsByIdBooking(id);
+			booking.setPayments(payments);
+			
+			room = this.getRoomService().findRoomById(booking.getId_room());
+			booking.setRoom(room);
+			
+			convention = this.getConventionService().findConventionById(booking.getId_convention());
+			booking.setConvention(convention);
 		
-		id_guest = this.getBookerService().findBookerByIdBooking(id).getId_guest();
-		booker = this.getGuestService().findGuestById(id_guest);
-		booking.setBooker(booker);
-		
-		extraItems = this.getExtraItemService().findExtraItemsByIdBooking(id);
-		booking.setExtraItems(extraItems);
-		
-		adjustments = this.getAdjustmentService().findAdjustmentsByIdBooking(id);
-		booking.setAdjustments(adjustments);
-		
-		payments = this.getPaymentService().findPaymentsByIdBooking(id);
-		booking.setPayments(payments);
-		
-		room = this.getRoomService().findRoomById(booking.getId_room());
-		booking.setRoom(room);
-		
-		convention = this.getConventionService().findConventionById(booking.getId_convention());
-		booking.setConvention(convention);
-		
+			}
 		return booking;
 	}
 	
@@ -126,7 +128,22 @@ public class BookingServiceImpl implements BookingService {
 			bookings.add(booking);
 		}
 		return bookings;
-	}	
+	}
+	
+	@Override
+	public List<Booking> findBookingIdsByIdHousedGroupLeader(Integer id_housed) {
+		List<Booking> bookings = null;
+		Booking booking = null;
+		
+		bookings = new ArrayList<Booking>();
+		for(Integer id: this.getBookingMapper().findBookingIdsByIdHousedGroupLeader(id_housed)){
+			booking = this.findBookingById(id);
+			if(booking != null){
+				bookings.add(booking);		
+			}
+		}
+		return bookings;
+	}
 	
 	@Override
 	public Integer countBookingsByIdConvention(Integer id_convention) {

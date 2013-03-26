@@ -27,6 +27,7 @@ import model.ExtraItem;
 import model.Booking;
 import model.Extra;
 import model.Guest;
+import model.Housed;
 import model.Payment;
 import model.Room;
 import model.RoomType;
@@ -36,6 +37,7 @@ import model.internal.Message;
 import model.listini.Convention;
 import model.listini.Season;
 
+import org.apache.log4j.Logger;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Actions;
 import org.apache.struts2.convention.annotation.InterceptorRef;
@@ -50,6 +52,7 @@ import service.ConventionService;
 import service.ExtraService;
 import service.GroupLeaderService;
 import service.GuestService;
+import service.HousedService;
 import service.RoomService;
 import service.SeasonService;
 import service.StructureService;
@@ -93,6 +96,9 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 	private SeasonService seasonService = null;
 	@Autowired
 	private GroupLeaderService groupLeaderService = null;
+	@Autowired
+	private HousedService housedService = null;
+	private static Logger logger = Logger.getLogger(Logger.class);
 	
 	@Actions({
 		@Action(
@@ -726,11 +732,43 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 		
 		// check groupleader
 		GroupLeader groupLeader = null;
+		Housed housed = null;
+		List<Booking> bookings= null;
+		String bookingListPresence = "";
+		Boolean bookingPresence = false;
 		groupLeader = this.getGroupLeaderService().findGroupLeaderByIdBooking(this.getBooking().getId());
+		logger.info("**** bookingaction, found a groupleader " + groupLeader);
 		if(groupLeader != null){
-			this.getMessage().setResult(Message.ERROR);
-			this.getMessage().setDescription(getText("bookingDeleteWithGroupLeaderErrorAction"));
-			return "error";
+			housed = this.getHousedService().findHousedByIdBookingAndIdGuest(this.getBooking().getId(), groupLeader.getHoused().getId_guest());
+			logger.info("**** housed  found " + housed + "with id:" + housed.getId());
+
+			//check if groupleader is housed
+			if(housed != null){
+			//search for groupleader presence in bookings
+				bookings = this.getBookingService().findBookingIdsByIdHousedGroupLeader(housed.getId());
+				logger.info("**** bookingaction, booking length " + bookings.size());
+			// check if groupleader is housed in existing booking
+			if(bookings.size() == 0){
+				this.getMessage().setResult(Message.ERROR);
+				this.getMessage().setDescription("You cannot delete this booking because there is a group leader not housed in any booking");
+				return "error";
+			}
+			//scan all bookings found	
+				for(Booking each: bookings){
+					if(each.getId()!= this.getBooking().getId()){
+						bookingListPresence += "\n***(" + getText("room") + ": " + each.getRoom().getName() + " " + each.getDateIn() + " - " + each.getDateOut() +")";
+						bookingPresence = true;
+					}
+				}
+				logger.info("**** bookingaction, bookpresence = " +bookingPresence);	
+			if(bookingPresence == true){
+				this.getMessage().setResult(Message.ERROR);
+				this.getMessage().setDescription(getText("bookingDeleteWithGroupLeaderErrorAction") + bookingListPresence);
+				return "error";
+			}
+
+			}
+
 			
 		}
 		count = this.getBookingService().deleteBooking(this.getBooking().getId());
@@ -912,6 +950,14 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 
 	public void setGroupLeaderService(GroupLeaderService groupLeaderService) {
 		this.groupLeaderService = groupLeaderService;
+	}
+
+	public HousedService getHousedService() {
+		return housedService;
+	}
+
+	public void setHousedService(HousedService housedService) {
+		this.housedService = housedService;
 	}
 		
 }
