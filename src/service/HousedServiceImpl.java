@@ -171,6 +171,10 @@ public class HousedServiceImpl implements HousedService{
 	public Integer delete(Integer id) {
 		return this.getHousedMapper().delete(id);
 	}
+	@Override
+	public Integer deleteHousedByIdBooking(Integer id_booking) {
+		return this.getHousedMapper().deleteHousedByIdBooking(id_booking);
+	}
 
 	public HousedMapper getHousedMapper() {
 		return housedMapper;
@@ -190,5 +194,6 @@ public class HousedServiceImpl implements HousedService{
 	public void setHousedTypeMapper(HousedTypeMapper housedTypeMapper) {
 		this.housedTypeMapper = housedTypeMapper;
 	}
+
 	
 }

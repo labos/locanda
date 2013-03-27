@@ -740,10 +740,11 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 		logger.info("**** bookingaction, found a groupleader " + groupLeader);
 		if(groupLeader != null){
 			housed = this.getHousedService().findHousedByIdBookingAndIdGuest(this.getBooking().getId(), groupLeader.getHoused().getId_guest());
-			logger.info("**** housed  found " + housed + "with id:" + housed.getId());
 
 			//check if groupleader is housed
 			if(housed != null){
+				logger.info("**** housed  found " + housed + "with id:" + housed.getId());
+
 			//search for groupleader presence in bookings
 				bookings = this.getBookingService().findBookingIdsByIdHousedGroupLeader(housed.getId());
 				logger.info("**** bookingaction, booking length " + bookings.size());
@@ -755,7 +756,8 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 			}
 			//scan all bookings found	
 				for(Booking each: bookings){
-					if(each.getId()!= this.getBooking().getId()){
+
+					if(!each.getId().equals(this.getBooking().getId())){
 						bookingListPresence += "\n***(" + getText("room") + ": " + each.getRoom().getName() + " " + each.getDateIn() + " - " + each.getDateOut() +")";
 						bookingPresence = true;
 					}

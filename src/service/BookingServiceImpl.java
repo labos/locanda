@@ -57,7 +57,11 @@ public class BookingServiceImpl implements BookingService {
 	private RoomService roomService = null;
 	@Autowired
 	private ConventionService conventionService = null;
-
+	@Autowired
+	private HousedService housedService = null;
+	@Autowired
+	private GroupLeaderService groupLeaderService = null;
+	
 	public Booking findBookingById(Integer id){
 		Booking booking = null;
 		Integer id_guest;
@@ -253,6 +257,8 @@ public class BookingServiceImpl implements BookingService {
 		this.getAdjustmentService().deleteAdjustmentsByIdBooking(id);
 		this.getPaymentService().deletePaymentsByIdBooking(id);
 		this.getBookerService().deleteBookerByIdBooking(id);
+		this.getHousedService().deleteHousedByIdBooking(id);
+		this.getGroupLeaderService().deleteByIdBooking(id);
 		return this.getBookingMapper().deleteBooking(id);
 	}
 	
@@ -359,5 +365,21 @@ public class BookingServiceImpl implements BookingService {
 	}
 	public void setConventionService(ConventionService conventionService) {
 		this.conventionService = conventionService;
+	}
+
+	public HousedService getHousedService() {
+		return housedService;
+	}
+
+	public void setHousedService(HousedService housedService) {
+		this.housedService = housedService;
+	}
+
+	public GroupLeaderService getGroupLeaderService() {
+		return groupLeaderService;
+	}
+
+	public void setGroupLeaderService(GroupLeaderService groupLeaderService) {
+		this.groupLeaderService = groupLeaderService;
 	}
 }

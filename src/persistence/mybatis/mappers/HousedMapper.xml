@@ -59,4 +59,8 @@ In case of controversy the competent court is the Court of Cagliari (Italy).
         DELETE FROM housed WHERE id= #{id}
     </delete>
     
+    <delete id="deleteHousedByIdBooking" parameterType="int">
+        delete from housed where id_booking = #{id_booking}
+    </delete>
+    
 </mapper>

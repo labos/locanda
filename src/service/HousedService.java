@@ -30,4 +30,5 @@ public interface HousedService {
 	public Integer insert(Housed housed);
 	public Integer update(Housed housed);
 	public Integer delete(Integer id);
+	public Integer deleteHousedByIdBooking(Integer id_booking);
 }
