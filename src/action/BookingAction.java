@@ -790,7 +790,7 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 			groupLeaders = this.getGroupLeaderService().findByIdHoused(each.getId());
 			
 	    	if (groupLeaders.size() > 0) {
-				logger.info("**** bookingaction, found a groupleader in housedInBooking = " + groupLeader.getId_booking());	
+				logger.info("**** bookingaction, found groupleaders size = " + groupLeaders.size());	
 
 	    		Booking bookingGroupLeader = null;
 	    		groupLeadersPresence = true;
