@@ -49,12 +49,15 @@ public class HousedServiceImpl implements HousedService{
 		HousedType housedType = null;
 		
 		ret =  this.getHousedMapper().findHousedByIdBooking(id_booking);
+
 		for (Housed each : ret) {
 			guest = this.getGuestMapper().findGuestById(each.getId_guest());
+			logger.info("**** found housed with guest = " + guest);	
 			each.setGuest(guest);
 			housedType = this.getHousedTypeMapper().findHousedTypeById(each.getId_housedType());
 			each.setHousedType(housedType);
 		}
+		logger.info("**** found housed list = " + ret);	
 		return ret;
 	}
 	

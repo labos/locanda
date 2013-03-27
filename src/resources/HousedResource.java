@@ -214,7 +214,8 @@ public class HousedResource {
     	Housed housed = null;
     	Integer id_booking;
     	GroupLeader groupLeader = null;
-		
+		List <GroupLeader> groupLeaders = null;
+		String message = "";
 //		if(this.getBookingService().countGroupLeaderByIdHoused(id) > 0){
 //			throw new NotFoundException("The housed you are trying to delete is the leader of the group associated with this booking" +
 //					" Please change the group/family leader first.");
@@ -222,10 +223,25 @@ public class HousedResource {
     	
     	housed = this.getHousedService().findHousedById(id);
     	id_booking = housed.getId_booking();
+    	groupLeaders = this.getGroupLeaderService().findByIdHoused(id);
+    	/*
     	groupLeader = this.getGroupLeaderService().findGroupLeaderByIdBookingAndIdHoused(id_booking, id);
     	if (groupLeader != null) {
-    		throw new NotFoundException("The housed you are trying to delete is the leader of the group associated with this booking" +
-    										"Please change the group/family leader first.");
+    		message = "The housed you are trying to delete is the leader of the group associated with this booking" +
+    										"Please change the group/family leader first.";
+    	}
+    	*/
+    	
+    	if (groupLeaders.size() > 0) {
+    		Booking booking = null;
+    		message = "The housed you are trying to delete is the leader of the group associated with following bookings: \n";
+    		//get all bookings
+    		for(GroupLeader each: groupLeaders){
+    			booking = this.getBookingService().findBookingById(each.getId_booking());
+    			message+=  "\n***(room: " + booking.getRoom().getName() + " " + booking.getDateIn() + " - " + booking.getDateOut() +")" ;
+    			
+    		}
+    		throw new NotFoundException(message);
     	}
 		count = this.getHousedService().delete(id);
 		return count;

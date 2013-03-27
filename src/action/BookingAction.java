@@ -57,6 +57,7 @@ import service.RoomService;
 import service.SeasonService;
 import service.StructureService;
 import com.opensymphony.xwork2.ActionSupport;
+import com.sun.jersey.api.NotFoundException;
 
 @ParentPackage( value="default")
 @InterceptorRefs({
@@ -733,12 +734,20 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 		// check groupleader
 		GroupLeader groupLeader = null;
 		Housed housed = null;
+		Booking booking = null;
 		List<Booking> bookings= null;
-		String bookingListPresence = "";
-		Boolean bookingPresence = false;
+		List<Housed> housedInBooking = null;
+		String groupLeaderinBookingPresenceMessage = "";
+		Boolean groupLeaderinBookingPresence = false;
+		Boolean groupLeadersPresence = false;
+		String  groupLeadersPresenceMessage = "";
+		List<GroupLeader> groupLeaders = null;
+
+		
 		groupLeader = this.getGroupLeaderService().findGroupLeaderByIdBooking(this.getBooking().getId());
 		logger.info("**** bookingaction, found a groupleader " + groupLeader);
 		if(groupLeader != null){
+			//if groupleader has not an housed following fail
 			housed = this.getHousedService().findHousedByIdBookingAndIdGuest(this.getBooking().getId(), groupLeader.getHoused().getId_guest());
 
 			//check if groupleader is housed
@@ -758,14 +767,14 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 				for(Booking each: bookings){
 
 					if(!each.getId().equals(this.getBooking().getId())){
-						bookingListPresence += "\n***(" + getText("room") + ": " + each.getRoom().getName() + " " + each.getDateIn() + " - " + each.getDateOut() +")";
-						bookingPresence = true;
+						groupLeaderinBookingPresenceMessage += "\n***(" + getText("room") + ": " + each.getRoom().getName() + " " + each.getDateIn() + " - " + each.getDateOut() +")";
+						groupLeaderinBookingPresence = true;
 					}
 				}
-				logger.info("**** bookingaction, bookpresence = " +bookingPresence);	
-			if(bookingPresence == true){
+				logger.info("**** bookingaction, bookpresence = " +groupLeaderinBookingPresence);	
+			if(groupLeaderinBookingPresence == true){
 				this.getMessage().setResult(Message.ERROR);
-				this.getMessage().setDescription(getText("bookingDeleteWithGroupLeaderErrorAction") + bookingListPresence);
+				this.getMessage().setDescription(getText("bookingDeleteWithGroupLeaderErrorAction") + groupLeaderinBookingPresenceMessage);
 				return "error";
 			}
 
@@ -773,6 +782,35 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 
 			
 		}
+		
+		// check for groupLeader in each housed
+		housedInBooking = this.getHousedService().findHousedByIdBooking(this.getBooking().getId());
+		for(Housed each: housedInBooking){
+
+			groupLeaders = this.getGroupLeaderService().findByIdHoused(each.getId());
+			
+	    	if (groupLeaders.size() > 0) {
+				logger.info("**** bookingaction, found a groupleader in housedInBooking = " + groupLeader.getId_booking());	
+
+	    		Booking bookingGroupLeader = null;
+	    		groupLeadersPresence = true;
+	    		//get all bookings info
+	    		for(GroupLeader aGroupLeader: groupLeaders){
+	    			bookingGroupLeader = this.getBookingService().findBookingById(aGroupLeader.getId_booking());
+	    			groupLeadersPresenceMessage+=  "\n***(room: " + bookingGroupLeader.getRoom().getName() + " " + bookingGroupLeader.getDateIn() + " - " + bookingGroupLeader.getDateOut() +")" ;
+	    			
+	    		}
+	    	}
+			
+	
+		}
+		
+		if(groupLeadersPresence == true){
+			this.getMessage().setResult(Message.ERROR);
+			this.getMessage().setDescription(getText("bookingDeleteWithGroupLeaderErrorAction") + groupLeadersPresenceMessage);
+			return "error";
+		}
+		
 		count = this.getBookingService().deleteBooking(this.getBooking().getId());
 		if(count > 0 ){
 			this.getMessage().setResult(Message.SUCCESS);

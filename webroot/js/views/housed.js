@@ -563,8 +563,13 @@ window.ListHousedView = RowView.extend({
     		success: function(model, data){
     			that.collection.remove(model);
     		},
-    		error: function() {
-    			$.jGrowl($.i18n("delHousedGroupLoader") + '', { header: this.alertOK,sticky: true });
+    		
+    		error: function(jqXHR, textStatus, errorThrown)  {
+    			if (textStatus.status==404) {
+    				$.jGrowl(textStatus.responseText, { theme: "notify-error",header: this.alertOK,sticky: true });
+    			} else {
+    				$.jGrowl($.i18n("delHousedGroupLoader")  + '', { theme: "notify-error",header: this.alertOK,sticky: true });
+    			}
     		}
     	});
     },
