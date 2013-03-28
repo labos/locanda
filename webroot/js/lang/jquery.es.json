@@ -13,11 +13,11 @@
  * See the Licence for the specific language governing permissions and limitations under the Licence.
  * In case of controversy the competent court is the Court of Cagliari (Italy).
  *******************************************************************************/
-$.i18n.it = {
+$.i18n.es = {
     numeralBase: 2406,
     numeralPrefix: "u0",
 };
-$.i18n.it.strings = {
+$.i18n.es.strings = {
     congratulation: "Felicidades",
     cancelSuccess: "Cancelado correctamente",
     warning: "Atención",
