@@ -234,6 +234,7 @@ window.SelectGroupLeaderView = RowView.extend({
     				that.current_groupLeader = json;
     				that.render(json.housed.guest, json.housed.housedType);
     			} else {
+    				that.current_groupLeader = null;
     				that.render();
     			}
     		},

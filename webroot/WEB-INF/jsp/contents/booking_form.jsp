@@ -169,6 +169,17 @@ width:80%;
                 		<h2><a href="#top_accordion"><s:text name="groupleaderDetails" /></a></h2>
                 		<div id="selectgroupleader-list"></div>
                 	</div>
+                	<div class="type-select guests-select">
+			          	<s:select label="%{getText('guests')}"
+							        name="booking.nrGuests"
+							        list="listNumGuests"
+									headerKey="booking.nrGuests"
+							        multiple="false"
+							        size="1"
+							        required="true"
+							        id="nr_guests"/>
+							        
+			    	</div>
                 	<div id="selecthouseds-list"></div>
 		        	<script>
 		        		window.SelectBookerWidget = new SelectBookerView({
@@ -201,13 +212,6 @@ width:80%;
 							        id="nr_guests"/>
 							        
 		        	</div>
-		        	<script>
-						setTimeout(function() {
-							window.SelectBookerWidget = new SelectBookerView({
-					        	idStructure: Entity.idStructure,
-					    	});
-					    },3000);
-					</script>
                 </s:else>
                 
 	            
@@ -344,3 +348,18 @@ width:80%;
                   	  	 <div class="c10r"><label>&nbsp;</label><a href="#" class="erase_guest" title="erase"><img src="images/delete.png" alt="Delete Guest" /><s:text name="deleteGuest" /></a>
               			</div>
                   	  </div>
+                  	  
+<s:if test="booking.id == null">
+	<script>
+		var readyStateCheckInterval = setInterval(function() {
+		    if (document.readyState === "complete") {
+		    	try {
+			        window.SelectBookerWidget = new SelectBookerView({
+			        	idStructure: Entity.idStructure,
+			    	});
+			        clearInterval(readyStateCheckInterval);
+			    } catch(e) {}
+		    }
+		}, 100);
+	</script>
+</s:if>

@@ -86,17 +86,6 @@
 	</script>
 	
 	<script id="selecthouseds-template" type="text/x-handlebars-template">
-		<div class="type-select guests-select">
-          	<s:select label="%{getText('guests')}"
-				        name="booking.nrGuests"
-				        list="listNumGuests"
-						headerKey="booking.nrGuests"
-				        multiple="false"
-				        size="1"
-				        required="true"
-				        id="nr_guests"/>
-				        
-    	</div>
 		<ul>
 			{{#hs}}
 				<li>
