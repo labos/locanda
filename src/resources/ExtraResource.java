@@ -34,6 +34,7 @@ import service.BookingService;
 import service.ExtraPriceListService;
 import service.ExtraService;
 import service.StructureService;
+import utils.I18nUtils;
 
 @Path("/extras/")
 @Component
@@ -201,13 +202,12 @@ public class ExtraResource {
     	Integer count = 0;		
 		
 		if(this.getBookingService().countBookingsByIdExtra(id) > 0){
-			throw new NotFoundException("The extra you are trying to delete has links to one or more bookings." +
-					" Please try to delete the associated bookings before.");
+			throw new NotFoundException(I18nUtils.getProperty("extraDeleteBookingError"));
 		}
 		count = this.getExtraService().deleteExtra(id);
 		this.getExtraPriceListService().deleteExtraPriceListItemsByIdExtra(id);
 		if(count == 0){
-			throw new NotFoundException("Error: the extra has NOT been deleted");
+			throw new NotFoundException(I18nUtils.getProperty("extraDeleteErrorAction"));
 		}
 		
 		try {

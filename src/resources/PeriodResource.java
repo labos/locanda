@@ -22,6 +22,7 @@ import com.sun.jersey.api.NotFoundException;
 import service.PeriodService;
 import service.SeasonService;
 import service.StructureService;
+import utils.I18nUtils;
 
 @Path("/periods/")
 @Component
@@ -64,13 +65,13 @@ public class PeriodResource {
 		Boolean overlap = this.getPeriodService().checkOverlappingPeriods(period);
 		
 		if (!validDates) {
-			throw new NotFoundException("Invalid dates: Date Out could be earlier than Date In, or could have a different year");
+			throw new NotFoundException(I18nUtils.getProperty("periodDatesError"));
 		}
 		if (!validYear) {
-			throw new NotFoundException("Season's year does not match with periods' year");
+			throw new NotFoundException(I18nUtils.getProperty("periodYearError"));
 		}
 		if (overlap) {
-			throw new NotFoundException("Overlapping periods");
+			throw new NotFoundException(I18nUtils.getProperty("periodOverlappedAction"));
 		}
 		this.getPeriodService().insertPeriod(period);
         return period;
@@ -86,13 +87,13 @@ public class PeriodResource {
 		Boolean overlap = this.getPeriodService().checkOverlappingPeriods(period);
 		
 		if (!validDates) {
-			throw new NotFoundException("Invalid dates: Date Out could be earlier than Date In, or could have a different year");
+			throw new NotFoundException(I18nUtils.getProperty("periodDatesError"));
 		}
 		if (!validYear) {
-			throw new NotFoundException("Season's year does not match with periods' year");
+			throw new NotFoundException(I18nUtils.getProperty("periodYearError"));
 		}
 		if (overlap) {
-			throw new NotFoundException("Overlapping periods");
+			throw new NotFoundException(I18nUtils.getProperty("periodOverlappedAction"));
 		}
 		this.getPeriodService().updatePeriod(period);
         return period;
@@ -106,7 +107,7 @@ public class PeriodResource {
 		
 		count = this.getPeriodService().deletePeriod(id);
 		if(count == 0){
-			throw new NotFoundException("Error: the period has NOT been deleted");
+			throw new NotFoundException(I18nUtils.getProperty("periodDeleteError"));
 		}
 		return count;
     }

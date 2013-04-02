@@ -36,6 +36,7 @@ import service.BookingService;
 import service.GuestService;
 import service.HousedService;
 import service.StructureService;
+import utils.I18nUtils;
 
 @Path("/guests/")
 @Component
@@ -242,12 +243,11 @@ public class GuestResource {
     	Integer count = 0;		
 		
 		if(this.getBookingService().countBookingsByIdGuest(id) > 0){
-			throw new NotFoundException("The guest you are trying to delete has links to one or more bookings." +
-					" Please try to delete the associated bookings before.");
+			throw new NotFoundException(I18nUtils.getProperty("guestDeleteBookingError"));
 		}
 		count = this.getGuestService().deleteGuest(id);
 		if(count == 0){
-			throw new NotFoundException("Error: the guest has NOT been deleted");
+			throw new NotFoundException(I18nUtils.getProperty("guestDeleteErrorAction"));
 		}
 		try {
 			this.getSolrServerGuest().deleteById(id.toString());

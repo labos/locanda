@@ -41,6 +41,7 @@ import com.sun.jersey.api.NotFoundException;
 import com.sun.jersey.core.header.FormDataContentDisposition;
 import com.sun.jersey.multipart.FormDataParam;
 import service.ImageService;
+import utils.I18nUtils;
 
 @Path("/images/")
 @Component
@@ -279,7 +280,7 @@ public class ImageResource {
 		
     	count = this.getImageService().delete(id);
     	if(count == 0){
-			throw new NotFoundException("Error: the image has NOT been deleted");
+			throw new NotFoundException(I18nUtils.getProperty("imageDeleteError"));
 		}
     	
     	try {

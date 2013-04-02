@@ -35,6 +35,7 @@ import service.FacilityService;
 import service.ImageService;
 import service.RoomService;
 import service.RoomTypeService;
+import utils.I18nUtils;
 
 @Path("/rooms/")
 @Component
@@ -214,12 +215,11 @@ public class RoomResource {
     	Integer count = 0;
 		
     	if(this.getBookingService().countBookingsByIdRoom(id)>0){
-    		throw new NotFoundException("The room you are trying to delete has links to one or more bookings." +
-					" Please try to delete the associated bookings before.");
+    		throw new NotFoundException(I18nUtils.getProperty("roomDeleteWithBookingError"));
 		}
 		count = this.getRoomService().deleteRoom(id);
 		if(count == 0){
-			throw new NotFoundException("Error: the room has NOT been deleted");
+			throw new NotFoundException(I18nUtils.getProperty("roomDeleteErrorAction"));
 		}
 		try {
 			this.getSolrServerRoom().deleteById(id.toString());

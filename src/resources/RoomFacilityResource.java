@@ -22,6 +22,8 @@ import org.springframework.stereotype.Component;
 import service.FacilityService;
 import service.RoomFacilityService;
 import service.RoomService;
+import utils.I18nUtils;
+
 import com.sun.jersey.api.NotFoundException;
 
 @Path("/roomFacilities/")
@@ -89,7 +91,7 @@ public class RoomFacilityResource {
 		
     	count = this.getRoomFacilityService().delete(id);
     	if(count == 0){
-			throw new NotFoundException("Error: the room facility has NOT been deleted");
+			throw new NotFoundException(I18nUtils.getProperty("roomFacilityDeleteError"));
 		}			
 		return count;
     }   

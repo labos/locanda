@@ -3,6 +3,8 @@ package resources;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.MissingResourceException;
+import java.util.ResourceBundle;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -23,12 +25,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+
+import org.apache.log4j.Logger;
 import service.BookingService;
 import service.GroupLeaderService;
 import service.GuestService;
 import service.HousedService;
 import service.StructureService;
+import utils.I18nUtils;
 
+import com.opensymphony.xwork2.ActionContext;
 import com.sun.jersey.api.NotFoundException;
 
 @Path("/housed/")
@@ -46,6 +52,8 @@ public class HousedResource {
     @Autowired
     private GuestService guestService = null; 
     
+	private static Logger logger = Logger.getLogger(Logger.class);
+	
     
     @GET
     @Path("booking/{idBooking}")
@@ -119,13 +127,11 @@ public class HousedResource {
 		groupLeader = this.getGroupLeaderService().findGroupLeaderByIdBooking(id_booking);
 		if (groupLeader == null) {
 			if (!guest.canBeSingleOrLeader()) {
-				throw new NotFoundException("The guest you are trying to house does not have all the requested fields." +
-												"Please fill all these fields before adding this guest as housed");
+				throw new NotFoundException(I18nUtils.getProperty("canBeSingleOrLeader"));
 			}
 		}else {
 			if (!guest.canBeMember()) {
-			throw new NotFoundException("The guest you are trying to house does not have all the requested fields." +
-											"Please fill all these fields before adding this guest as housed");
+			throw new NotFoundException(I18nUtils.getProperty("canBeMember"));
 			}
 		}
 		
@@ -234,11 +240,11 @@ public class HousedResource {
     	
     	if (groupLeaders.size() > 0) {
     		Booking booking = null;
-    		message = "The housed you are trying to delete is the leader of the group associated with following bookings: \n";
+    		message =I18nUtils.getProperty("housedDeleteIsGroupLeaderError");
     		//get all bookings
     		for(GroupLeader each: groupLeaders){
     			booking = this.getBookingService().findBookingById(each.getId_booking());
-    			message+=  "\n***(room: " + booking.getRoom().getName() + " " + booking.getDateIn() + " - " + booking.getDateOut() +")" ;
+    			message+=  "\n***(" + I18nUtils.getProperty("room") + ": " + booking.getRoom().getName() + " " + booking.getDateIn() + " - " + booking.getDateOut() +")" ;
     			
     		}
     		throw new NotFoundException(message);
@@ -277,5 +283,21 @@ public class HousedResource {
 	public void setGuestService(GuestService guestService) {
 		this.guestService = guestService;
 	}
+	/*
+	public static String getPropertyValue(String key)  
+    {  
+		String lang = (String) (ActionContext.getContext().getSession().get("WW_TRANS_I18N_LOCALE") != null ? "en" : ActionContext.getContext().getSession().get("WW_TRANS_I18N_LOCALE"));
+		
+		//String localizedKeyValue = LocalizedTextUtil.findDefaultText(key, ActionContext.getContext().getLocale());
+        ResourceBundle bundle = ResourceBundle.getBundle("global_" + lang);  
+        String strVal = ActionContext.getContext().getSession().get("WW_TRANS_I18N_LOCALE") + bundle.getString(key);  
+        if (strVal == null)  
+        {  
+            strVal = "";  
+        }  
+        bundle = null;  
+        return strVal;  
+    } 
+	*/
 	
 }

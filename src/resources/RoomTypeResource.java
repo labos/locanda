@@ -38,6 +38,7 @@ import service.RoomPriceListService;
 import service.RoomService;
 import service.RoomTypeService;
 import service.StructureService;
+import utils.I18nUtils;
 
 @Path("/roomTypes/")
 @Component
@@ -215,14 +216,13 @@ public class RoomTypeResource {
     	Integer count = 0;		
 		
 		if(this.getRoomService().countRoomsByIdRoomType(id) > 0){
-			throw new NotFoundException("The room type you are trying to delete has links to one or more room types." +
-					" Please try to delete the associated rooms before.");
+			throw new NotFoundException(I18nUtils.getProperty("roomTypeDeleteRoomError"));
 		}
 		count = this.getRoomTypeService().deleteRoomType(id);
 		this.getRoomPriceListService().deleteRoomPriceListsByIdRoomType(id);
 		this.getExtraPriceListService().deleteExtraPriceListsByIdRoomType(id);
 		if(count == 0){
-			throw new NotFoundException("Error: the room type has NOT been deleted");
+			throw new NotFoundException(I18nUtils.getProperty("roomTypeDeleteErrorAction"));
 		}
 		try {
 			this.getSolrServerRoomType().deleteById(id.toString());

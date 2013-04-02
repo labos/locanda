@@ -35,6 +35,7 @@ import service.ConventionService;
 import service.ExtraPriceListService;
 import service.RoomPriceListService;
 import service.StructureService;
+import utils.I18nUtils;
 
 @Path("/conventions/")
 @Component
@@ -207,14 +208,13 @@ public class ConventionResource {
     	Integer count = 0;		
 		
 		if(this.getBookingService().countBookingsByIdConvention(id) > 0){
-			throw new NotFoundException("The convention you are trying to delete has links to one or more bookings." +
-					" Please try to delete the associated bookings before.");
+			throw new NotFoundException(I18nUtils.getProperty("conventionDeleteBookingError"));
 		}
 		count = this.getConventionService().deleteConvention(id);
 		this.getRoomPriceListService().deleteRoomPriceListsByIdSeason(id);
 		this.getExtraPriceListService().deleteExtraPriceListsByIdSeason(id);
 		if(count == 0){
-			throw new NotFoundException("Error: the convention has NOT been deleted");
+			throw new NotFoundException(I18nUtils.getProperty("conventionDeleteErrorAction"));
 		}	
 		try {
 			this.getSolrServerConvention().deleteById(id.toString());

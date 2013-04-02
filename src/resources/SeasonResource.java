@@ -38,6 +38,7 @@ import service.PeriodService;
 import service.RoomPriceListService;
 import service.SeasonService;
 import service.StructureService;
+import utils.I18nUtils;
 
 @Path("/seasons/")
 @Component
@@ -218,14 +219,13 @@ public class SeasonResource {
     	Integer count = 0;		
 		
     	if(this.getBookingService().countBookingsByIdSeason(id) > 0){
-			throw new NotFoundException("The season you are trying to delete has periods matching with one or more bookings." +
-					" Please try to delete the associated bookings before.");
+			throw new NotFoundException(I18nUtils.getProperty("seasonDeleteWithBookingError"));
 		}
 		count = this.getSeasonService().deleteSeason(id);
 		this.getRoomPriceListService().deleteRoomPriceListsByIdSeason(id);
 		this.getExtraPriceListService().deleteExtraPriceListsByIdSeason(id);
 		if(count == 0){
-			throw new NotFoundException("Error: the season has NOT been deleted");
+			throw new NotFoundException(I18nUtils.getProperty("seasonDeleteErrorAction"));
 		}
 		try {
 			this.getSolrServerSeason().deleteById(id.toString());

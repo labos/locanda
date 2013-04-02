@@ -22,6 +22,7 @@ import org.springframework.stereotype.Component;
 
 import service.ImageService;
 import service.StructureImageService;
+import utils.I18nUtils;
 
 import com.sun.jersey.api.NotFoundException;
 
@@ -84,7 +85,7 @@ public class StructureImageResource {
 		
     	count = this.getStructureImageService().delete(id);
     	if(count == 0){
-			throw new NotFoundException("Error: the structure image has NOT been deleted");
+			throw new NotFoundException(I18nUtils.getProperty("structureImageDeleteErrorAction"));
 		}			
 		return count;
     }   

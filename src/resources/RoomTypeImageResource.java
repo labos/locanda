@@ -23,6 +23,7 @@ import com.sun.jersey.api.NotFoundException;
 import service.ImageService;
 import service.RoomTypeImageService;
 import service.RoomTypeService;
+import utils.I18nUtils;
 
 @Path("/roomTypeImages/")
 @Component
@@ -84,7 +85,7 @@ public class RoomTypeImageResource {
 		
     	count = this.getRoomTypeImageService().delete(id);
     	if(count == 0){
-			throw new NotFoundException("Error: the roomType image has NOT been deleted");
+			throw new NotFoundException(I18nUtils.getProperty("roomTypeImageDeleteErrorAction"));
 		}			
 		return count;
     }   

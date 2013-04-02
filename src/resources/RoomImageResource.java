@@ -23,6 +23,7 @@ import org.springframework.stereotype.Component;
 import service.ImageService;
 import service.RoomImageService;
 import service.RoomService;
+import utils.I18nUtils;
 
 import com.sun.jersey.api.NotFoundException;
 
@@ -90,7 +91,7 @@ public class RoomImageResource {
 		
     	count = this.getRoomImageService().delete(id);
     	if(count == 0){
-			throw new NotFoundException("Error: the room image has NOT been deleted");
+			throw new NotFoundException(I18nUtils.getProperty("roomImageDeleteErrorAction"));
 		}			
 		return count;
     }   

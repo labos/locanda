@@ -32,6 +32,7 @@ import persistence.mybatis.mappers.HousedTypeMapper;
 import service.GroupLeaderService;
 import service.GuestService;
 import service.HousedService;
+import utils.I18nUtils;
 
 @Path("/groupLeader/")
 @Component
@@ -77,10 +78,7 @@ public class GroupLeaderResource {
 		//Locale locale = LocaleContextHolder.getLocale();
 		guest = this.getGuestService().findGuestById(id_guest);
 		if (!guest.canBeSingleOrLeader()) {
-			throw new NotFoundException("The guest you are trying to house does not have all the requested fields." +
-					"Please fill all these fields before adding this guest as housed"
-					
-					);
+			throw new NotFoundException(I18nUtils.getProperty("canBeSingleOrLeader"));
 			
 			//messageSource.getMessage("selectHousedDates", null, "Default",null)
 		}
@@ -157,7 +155,7 @@ public class GroupLeaderResource {
 		groupLeader = this.getGroupLeaderService().findGroupLeaderByIdBooking(id_booking);
 		//NUOVA PARTE
 		if(groupLeader==null){
-			throw new NotFoundException("Si  verificato un problema nell'aggiornamento del group leader");
+			throw new NotFoundException(I18nUtils.getProperty("groupleaderUpdateError"));
 		}
 		
 		currentHoused = groupLeader.getHoused();
@@ -165,8 +163,7 @@ public class GroupLeaderResource {
 		//checking first if the guest associated with the new housed can be a Leader
 		guest = this.getGuestService().findGuestById(id_guest);
 		if (!guest.canBeSingleOrLeader()) {
-			throw new NotFoundException("The guest you are trying to house does not have all the requested fields." +
-											"Please fill all these fields before adding this guest as housed");
+			throw new NotFoundException(I18nUtils.getProperty("canBeSingleOrLeader"));
 		}
 		
 		housedChanged = (id_guest != currentHoused.getId_guest());

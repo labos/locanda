@@ -21,6 +21,8 @@ import org.springframework.stereotype.Component;
 
 import service.FacilityService;
 import service.StructureFacilityService;
+import utils.I18nUtils;
+
 import com.sun.jersey.api.NotFoundException;
 
 @Path("/structureFacilities/")
@@ -83,7 +85,7 @@ public class StructureFacilityResource {
 		
     	count = this.getStructureFacilityService().delete(id);
     	if(count == 0){
-			throw new NotFoundException("Error: the structure facility has NOT been deleted");
+			throw new NotFoundException(I18nUtils.getProperty("structureFacilityDeleteErrorAction"));
 		}			
 		return count;
     }   

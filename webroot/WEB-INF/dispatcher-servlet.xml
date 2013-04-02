@@ -34,8 +34,11 @@
      xmlns:tx="http://www.springframework.org/schema/tx"
      xmlns:jdbc="http://www.springframework.org/schema/jdbc"
      xmlns:context="http://www.springframework.org/schema/context"
+     xmlns:mvc="http://www.springframework.org/schema/mvc"
      xmlns:jee="http://www.springframework.org/schema/jee"
      xsi:schemaLocation="
+     http://www.springframework.org/schema/mvc
+     http://www.springframework.org/schema/mvc/spring-mvc.xsd
      http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
      http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
      http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.0.xsd
@@ -46,7 +49,23 @@
   	<bean id="localeChangeInterceptor" class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
          <property name="paramName" value="request_locale" />
 	</bean>
+<!-- 	<mvc:interceptors>
+  <mvc:interceptor>
+     <mvc:mapping path="/locale*"/>
+         <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor" >
+             <property name="paramName" value="request_locale" />
+         </bean>
+    </mvc:interceptor>
+</mvc:interceptors>
+-->
     <bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver">
      <property name="defaultLocale" value="en" />
 	</bean>
+	<bean id="mappingHandler" class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping" >
+    <property name="interceptors">
+       <list>
+        <ref bean="localeChangeInterceptor" />
+       </list>
+    </property>
+</bean>
 </beans>
