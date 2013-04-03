@@ -1,5 +1,7 @@
 package resources;
 
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +23,7 @@ import model.GroupLeader;
 import model.Guest;
 import model.Housed;
 
+import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -122,6 +125,29 @@ public class HousedResource {
  		
  		id_booking = (Integer)map.get("id_booking");
 		id_guest = (Integer)map.get("id_guest");
+		booking = this.getBookingService().findBookingById(id_booking);
+		
+		//code for retrieving the active bookings TODO: extract to a service method
+		List<Booking> activeBookings = null;
+    	Date today = null;
+    	List<Booking> allBookings = null;
+		
+		allBookings = this.getBookingService().findBookingsByIdStructure(booking.getId_structure());
+		activeBookings = new ArrayList<Booking>();
+		today = new Date();
+		//ACTIVE BOOKINGS 
+		for(Booking each: allBookings){
+			if((DateUtils.truncatedCompareTo(each.getDateIn(), today, Calendar.DAY_OF_MONTH) <= 0) &&
+					(DateUtils.truncatedCompareTo(today, each.getDateOut(), Calendar.DAY_OF_MONTH) < 0) ){
+				activeBookings.add(each);
+			}
+		}
+		Housed aHoused = null;	//check if the guest is already housed in another active booking
+		aHoused = this.getHousedService().findMostRecentHousedByIdGuest(id_guest);
+		if (aHoused != null && activeBookings.contains(this.getBookingService().findBookingById(aHoused.getId_booking()))) {
+			throw new NotFoundException("The guest you are trying to house is already housed in another active booking." +
+											"Please remove him from that booking if you want to associate him to this one");
+		}
 		
 		guest = this.getGuestService().findGuestById(id_guest);
 		groupLeader = this.getGroupLeaderService().findGroupLeaderByIdBooking(id_booking);
@@ -138,12 +164,11 @@ public class HousedResource {
 		housed = new Housed();
 		housed.setId_booking(id_booking);
 		housed.setId_guest(id_guest);
-		booking = this.getBookingService().findBookingById(id_booking);
+		
  		housed.setCheckInDate(booking.getDateIn());
  		housed.setCheckOutDate(booking.getDateOut());
 		
  		this.getHousedService().insert(housed);
- 		
  		return housed;
 	}
     

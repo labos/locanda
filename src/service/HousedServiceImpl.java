@@ -61,8 +61,6 @@ public class HousedServiceImpl implements HousedService{
 		return ret;
 	}
 	
-	
-	
 	@Override
 	public List<Housed> findHousedByIdGuest(Integer id_guest) {
 		List<Housed> ret;
@@ -79,8 +77,6 @@ public class HousedServiceImpl implements HousedService{
 		}*/
 		return ret;
 	}
-
-	
 
 	@Override
 	public Housed findMostRecentHousedByIdGuest(Integer id_guest) {
@@ -99,23 +95,21 @@ public class HousedServiceImpl implements HousedService{
 				}				
 				return retComparator;
 			}
-			
 		};
 		
 		Collections.sort(housedList, comparator);
 		
+		if (housedList.size() == 0) {
+			return null;
+		}
 		ret = housedList.get(housedList.size() - 1);
-		
 		return ret;
 	}
-
-
 
 	@Override
 	public List<Housed> findAll() {
 		return this.getHousedMapper().findAll();
 	}
-	
 	
 	@Override
 	public Housed findHousedById(Integer id) {
@@ -130,8 +124,6 @@ public class HousedServiceImpl implements HousedService{
 			housedType = this.getHousedTypeMapper().findHousedTypeById(ret.getId_housedType());
 			ret.setHousedType(housedType);			
 		}
-		
-		
 		return ret;
 	}
 	
@@ -158,18 +150,14 @@ public class HousedServiceImpl implements HousedService{
 		return ret;
 	}
 	
-	
-	
 	@Override
 	public Integer insert(Housed housed) {
 		return this.getHousedMapper().insert(housed);
 	}
-	
 	@Override
 	public Integer update(Housed housed) {
 		return this.getHousedMapper().update(housed);
 	}
-
 	@Override
 	public Integer delete(Integer id) {
 		return this.getHousedMapper().delete(id);
@@ -178,7 +166,7 @@ public class HousedServiceImpl implements HousedService{
 	public Integer deleteHousedByIdBooking(Integer id_booking) {
 		return this.getHousedMapper().deleteHousedByIdBooking(id_booking);
 	}
-
+	
 	public HousedMapper getHousedMapper() {
 		return housedMapper;
 	}
