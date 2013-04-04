@@ -26,6 +26,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.solr.client.solrj.beans.Field;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import org.codehaus.jackson.map.annotate.JsonDeserialize;
+
+import utils.JsonDateDeserializer;
 
 @XmlRootElement
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -192,6 +195,7 @@ public class Guest implements Serializable{
 	public Date getBirthDate() {
 		return birthDate;
 	}
+	@JsonDeserialize(using=JsonDateDeserializer.class)
 	public void setBirthDate(Date birthDate) {
 		this.birthDate = birthDate;
 	}

@@ -3,6 +3,8 @@
  */
 package utils;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
@@ -34,9 +36,26 @@ public final class I18nUtils {
         }
         catch (MissingResourceException missingResourceException)
         {
-                    logger.info("Resource Bundle not found " +  missingResourceException.getMessage());
+              logger.info("Resource Bundle not found " +  missingResourceException.getMessage());
         }
         return value;
+    }
+	
+	public static String getDatePattern()
+    {
+		String value = null;
+		Object langObject = ActionContext.getContext().getSession().get("datePattern");
+		if(langObject == null ){
+			SimpleDateFormat sdf = (SimpleDateFormat) DateFormat.getDateInstance(
+					DateFormat.LONG, ActionContext.getContext().getLocale());
+			value = sdf.toPattern();
+		}
+		else{
+			value = langObject.toString();
+		}
+		
+		return value;
+		
     }
 
 }
