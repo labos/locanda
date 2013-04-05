@@ -109,6 +109,21 @@ public class RoomServiceImpl implements RoomService{
 	}
 	
 	@Override
+	public List<Room> findRoomsByIdStructureOrdered(Integer id_structure) {	
+		List<Room> rooms = null;
+		RoomType roomType = null;
+		
+		rooms = this.getRoomMapper().findRoomsByIdStructureOrdered(id_structure);
+		for(Room each: rooms){
+			roomType = this.getRoomTypeMapper().findRoomTypeById(each.getId_roomType());
+			//roomType.setImages(this.getImageService().findCheckedByIdRoomType(roomType.getId()));
+			each.setRoomType(roomType);
+			//each.setImages(this.getImageService().findCheckedByIdRoom(each.getId()));
+		}
+		return rooms;
+	}
+	
+	@Override
 	public List<Integer> findRoomIdsByIdStructure(Integer id_structure) {	
 		return this.getRoomMapper().findRoomIdsByIdStructure(id_structure);
 	}

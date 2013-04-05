@@ -87,7 +87,7 @@ public class RoomAction extends ActionSupport implements SessionAware,UserAware{
 	})
 	public String findAllRooms() {
 		
-		this.setRooms(this.getRoomService().findRoomsByIdStructure(this.getIdStructure()));
+		this.setRooms(this.getRoomService().findRoomsByIdStructureOrdered(this.getIdStructure()));
 		for(Room aRoom: this.getRooms()){
 			aRoom.setFacilities(this.getFacilityService().findCheckedByIdRoom(aRoom.getId(),0,100));
 		}
