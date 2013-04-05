@@ -29,6 +29,7 @@ import model.questura.HousedExport;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.output.StringBuilderWriter;
 import org.apache.commons.lang3.time.DateUtils;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -50,6 +51,8 @@ public class ExportResource {
 	private HousedService housedService = null;
 	@Autowired
 	private HousedExportService housedExportService = null;	
+	private static Logger logger = Logger.getLogger(Logger.class);
+
 	@GET
     @Path("structure/{idStructure}/dates/available")
     @Produces({MediaType.APPLICATION_JSON})
@@ -200,6 +203,7 @@ public class ExportResource {
 		List<HousedExport> housedExportList = null;
 		Date checkinDate = null;
 		Date exportDate  = null;
+		Set<Booking> toExportBookings = null;
 		StringBuilder sb = null;
 		List<GroupLeader> groupLeaders = null;
 		List<GroupLeader> mainGroupLeaders = null;
@@ -224,11 +228,11 @@ public class ExportResource {
 		}
 		*/
 		
-		activeBookings = new ArrayList<Booking>();
+		toExportBookings = new HashSet<Booking>();	
 		for(HousedExport each : housedExportList){
-			activeBookings.add(this.getBookingService().findBookingById(each.getHoused().getId_booking()));
+			toExportBookings.add(this.getBookingService().findBookingById(each.getHoused().getId_booking()));
 		}
-			
+		activeBookings = new ArrayList<Booking>(toExportBookings);	
 		
 		//GROUP LEADERS
 		groupLeaders = new ArrayList<GroupLeader>();
@@ -248,17 +252,18 @@ public class ExportResource {
 				simpleBookings.add(each);
 			}
 		}
-		
+		logger.info("#####Grouplears size: " + groupLeaders.size());
+		logger.info("#####MainGrouplears size: " + mainGroupLeaders.size());
 		//CREO I GRUPPI
 		List<Group> groups = new ArrayList<Group>();
 		
-		for(GroupLeader mainGroupLeader: mainGroupLeaders){
+		for(GroupLeader aGroupLeader: groupLeaders){
 			Group group = new Group();
-			group.setLeader(mainGroupLeader.getHoused());
+			group.setLeader(aGroupLeader.getHoused());
 			
 			//Membri dello stesso booking dove si trova il leader
-			for(Housed housed:  this.getHousedService().findHousedByIdBooking(mainGroupLeader.getId_booking())){
-				if(this.housedIsIncludedInHousedExportList(housed, housedExportList) && !housed.equals(mainGroupLeader)){
+			for(Housed housed:  this.getHousedService().findHousedByIdBooking(aGroupLeader.getId_booking())){
+				if(this.housedIsIncludedInHousedExportList(housed, housedExportList) && !housed.equals(aGroupLeader)){
 					group.getMembers().add(housed);
 				}
 			}
@@ -267,7 +272,7 @@ public class ExportResource {
 			List<Integer> linkedBookingIds = new ArrayList<Integer>();
 			
 			for(GroupLeader groupLeader: groupLeaders){
-				if( (!groupLeader.getId().equals(mainGroupLeader.getId())) && (groupLeader.getId_housed().equals(mainGroupLeader.getId_housed()))  ){
+				if( (!groupLeader.getId().equals(aGroupLeader.getId())) && (groupLeader.getId_housed().equals(aGroupLeader.getId_housed()))  ){
 					linkedBookingIds.add(groupLeader.getId_booking());
 				}
 			}
@@ -284,6 +289,8 @@ public class ExportResource {
 			
 			groups.add(group);			
 		}
+		logger.info("#####groups size: " + groups.size());
+
 		
 		sb = new StringBuilder();
 		//STAMPO I GRUPPI

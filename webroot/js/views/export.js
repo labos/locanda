@@ -298,7 +298,7 @@ window.ExportView = Backbone.View.extend({
 		var d = this.getDate();
 		var id_structure = Entity.idStructure;
 		if (d) {
-			window.location='rest/export/structure/'+id_structure+'/do/sired?date='+d;
+			window.location='rest/export/structure/'+id_structure+'/do/sired?date='+d;		
 		} else {
 			$.jGrowl($.i18n("exportDateError") + ' ', { header: this.alertOK,sticky: true });
 		}

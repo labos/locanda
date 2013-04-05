@@ -18,6 +18,7 @@ import javax.ws.rs.core.MediaType;
 
 import model.Guest;
 import model.Housed;
+import model.questura.HousedExport;
 
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServer;
@@ -34,6 +35,7 @@ import com.sun.jersey.api.NotFoundException;
 
 import service.BookingService;
 import service.GuestService;
+import service.HousedExportService;
 import service.HousedService;
 import service.StructureService;
 import utils.I18nUtils;
@@ -52,7 +54,8 @@ public class GuestResource {
     private SolrServer solrServerGuest = null;
     @Autowired 
     private HousedService housedService = null;
-   
+    @Autowired
+    private HousedExportService housedExportService = null; 
     
     @PostConstruct
     public void init(){
@@ -222,8 +225,26 @@ public class GuestResource {
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
     public Guest update(Guest guest) {  
+ 		HousedExport housedExport  = null;
     	try{
     		this.getGuestService().updateGuest(guest);
+    		
+     		//update housed export if current guest is housed
+     		//deleted housed are not considered
+     		for(Housed each : this.getHousedService().findHousedByIdGuest(guest.getId())){
+     			housedExport = this.getHousedExportService().findByIdHoused(each.getId());
+     			if( housedExport != null){
+     	     		if(!housedExport.getExported()){
+     	     			housedExport.setMode(1);	
+     	     		}else{
+     	     			housedExport.setMode(2);
+     	     		}
+     	     		housedExport.setExported(false);
+     	     		this.getHousedExportService().update(housedExport);
+     			}
+     		}
+     		
+
     	}catch(Exception ex){}	
     	try {
 			this.getSolrServerGuest().addBean(guest);			
@@ -291,6 +312,14 @@ public class GuestResource {
 
 	public void setHousedService(HousedService housedService) {
 		this.housedService = housedService;
+	}
+
+	public HousedExportService getHousedExportService() {
+		return housedExportService;
+	}
+
+	public void setHousedExportService(HousedExportService housedExportService) {
+		this.housedExportService = housedExportService;
 	}  	
 	
 	
