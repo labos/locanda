@@ -51,10 +51,16 @@ public class ExportResource {
     public List<Date> availableDatesForExport(@PathParam("idStructure") Integer idStructure){
 		List<Date> dates = null;
 		Date date = null;
+		Date startDate = null;
 		
-		date = new Date();
-		dates = new ArrayList<Date>();
-		dates.add(date);		
+		
+		startDate = DateUtils.addDays(new Date(), -15);
+		dates = new ArrayList<Date>();		
+		for(int i= 0; i<=30; i++){
+			date = DateUtils.addDays(startDate, i);
+			dates.add(date);
+		}
+		
 		return dates;	
 	
 	}
@@ -105,8 +111,7 @@ public class ExportResource {
 		for(Booking each: allBookings){
 			if( (DateUtils.truncatedCompareTo(each.getDateIn(), exportDate, Calendar.DAY_OF_MONTH) <= 0) &&
 					(DateUtils.truncatedCompareTo(exportDate,each.getDateOut(), Calendar.DAY_OF_MONTH) < 0) ){
-				activeBookings.add(each);
-				
+				activeBookings.add(each);				
 			}
 		}
 		
