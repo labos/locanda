@@ -5,9 +5,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.MissingResourceException;
-import java.util.ResourceBundle;
-
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -37,7 +34,6 @@ import service.HousedService;
 import service.StructureService;
 import utils.I18nUtils;
 
-import com.opensymphony.xwork2.ActionContext;
 import com.sun.jersey.api.NotFoundException;
 
 @Path("/housed/")
@@ -82,34 +78,6 @@ public class HousedResource {
     	
     	return ret;
     }
- 
-    /*
-    @POST	
-	@Consumes({MediaType.APPLICATION_JSON})
-	@Produces({MediaType.APPLICATION_JSON}) 
-	public Integer insertHoused(Map map){
-    	Housed housed = null;
-    	Booking booking = null;
-    	
-    	Integer id_booking = null;
-		Integer id_guest = null;
- 		Integer id = null;
- 		
- 		id_booking = (Integer)map.get("id_booking");
-		id_guest = (Integer)map.get("id_guest");
-
-		
-		housed = new Housed();
-		housed.setId_booking(id_booking);
-		housed.setId_guest(id_guest);
-		booking = this.getBookingService().findBookingById(id_booking);
- 		housed.setCheckInDate(booking.getDateIn());
- 		housed.setCheckOutDate(booking.getDateOut());
-		
- 		this.getHousedService().insert(housed);
- 		id = housed.getId();
- 		return id;
-	}*/
     
     @POST	
 	@Consumes({MediaType.APPLICATION_JSON})
@@ -131,33 +99,44 @@ public class HousedResource {
 		List<Booking> activeBookings = null;
     	Date today = null;
     	List<Booking> allBookings = null;
-		
-		allBookings = this.getBookingService().findBookingsByIdStructure(booking.getId_structure());
-		activeBookings = new ArrayList<Booking>();
+    	
+//		allBookings = this.getBookingService().findBookingsByIdStructure(booking.getId_structure());
+//		activeBookings = new ArrayList<Booking>();
 		today = new Date();
-		//ACTIVE BOOKINGS 
-		for(Booking each: allBookings){
-			if((DateUtils.truncatedCompareTo(each.getDateIn(), today, Calendar.DAY_OF_MONTH) <= 0) &&
-					(DateUtils.truncatedCompareTo(today, each.getDateOut(), Calendar.DAY_OF_MONTH) < 0) ){
-				activeBookings.add(each);
+		
+		if (today.before(booking.getDateIn())) {	//you cannot add a housed before the check-in date
+			throw new NotFoundException(I18nUtils.getProperty("checkHousedInsert"));
+		}
+		
+			if (this.getHousedService().checkOverlappingHoused(booking, this.getHousedService().findHousedByIdGuest(id_guest))) {
+				throw new NotFoundException("The guest you are trying to house is already housed in another active booking." +
+						"Please remove him from that booking if you want to associate him to this one");
 			}
-		}
-		Housed aHoused = null;	//check if the guest is already housed in another active booking
-		aHoused = this.getHousedService().findMostRecentHousedByIdGuest(id_guest);
-		if (aHoused != null && activeBookings.contains(this.getBookingService().findBookingById(aHoused.getId_booking()))) {
-			throw new NotFoundException("The guest you are trying to house is already housed in another active booking." +
-											"Please remove him from that booking if you want to associate him to this one");
-		}
+		
+			
+		
+//		//ACTIVE BOOKINGS 
+//		for(Booking each: allBookings){
+//			if((DateUtils.truncatedCompareTo(each.getDateIn(), today, Calendar.DAY_OF_MONTH) <= 0) &&
+//					(DateUtils.truncatedCompareTo(today, each.getDateOut(), Calendar.DAY_OF_MONTH) < 0) ){
+//				activeBookings.add(each);
+//			}
+//		}
+//		Housed aHoused = null;	//check if the guest is already housed in another active booking
+//		aHoused = this.getHousedService().findMostRecentHousedByIdGuest(id_guest);
+//		if (aHoused != null && activeBookings.contains(this.getBookingService().findBookingById(aHoused.getId_booking()))) {
+//			
+//		}
 		
 		guest = this.getGuestService().findGuestById(id_guest);
 		groupLeader = this.getGroupLeaderService().findGroupLeaderByIdBooking(id_booking);
 		if (groupLeader == null) {
 			if (!guest.canBeSingleOrLeader()) {
-				throw new NotFoundException(I18nUtils.getProperty("canBeSingleOrLeader"));
+				throw new NotFoundException(I18nUtils.getProperty("checkCanBeSingleOrLeader"));
 			}
 		}else {
 			if (!guest.canBeMember()) {
-			throw new NotFoundException(I18nUtils.getProperty("canBeMember"));
+			throw new NotFoundException(I18nUtils.getProperty("checkCanBeSingleOrLeader"));
 			}
 		}
 		
@@ -172,39 +151,6 @@ public class HousedResource {
  		return housed;
 	}
     
-    /*
-    @PUT
-    @Path("{id}")
-    @Consumes({MediaType.APPLICATION_JSON})
-    @Produces({MediaType.APPLICATION_JSON})
-    public Integer update(Map map) {
-    	Integer id;
-    	Integer id_booking = null;
-		Integer id_guest = null;
-		Long checkInDateMillis = null;
-		Long checkOutDateMillis = null;
-		
-		Housed housed = null;
-		
-		id = (Integer)map.get("id");
-		id_booking = (Integer)map.get("id_booking");
-		id_guest = (Integer)map.get("id_guest");
-		checkInDateMillis = (Long)map.get("checkInDate");
-		checkOutDateMillis = (Long)map.get("checkOutDate");
-		
-		housed = this.getHousedService().findHousedById(id);
-		
-		housed.setId_guest(id_guest);
-		if(checkInDateMillis!=null){
-			housed.setCheckInDate(new Date(checkInDateMillis));
-		}
-		if(checkOutDateMillis!=null){
-			housed.setCheckOutDate(new Date(checkOutDateMillis));
-		}    	
-    	this.getHousedService().update(housed);
-        return id;
-    }*/
-    
     @PUT
     @Path("{id}")
     @Consumes({MediaType.APPLICATION_JSON})
@@ -215,6 +161,7 @@ public class HousedResource {
 		Integer id_guest = null;
 		Long checkInDateMillis = null;
 		Long checkOutDateMillis = null;
+		Booking booking = null;
 		
 		Housed housed = null;
 		
@@ -227,12 +174,25 @@ public class HousedResource {
 		housed = this.getHousedService().findHousedById(id);
 		
 		housed.setId_guest(id_guest);
+		
+		booking = this.getBookingService().findBookingById(id_booking);
+		 
 		if(checkInDateMillis!=null){
-			housed.setCheckInDate(new Date(checkInDateMillis));
+			Date dateIn = new Date(checkInDateMillis);
+			if (dateIn.before(booking.getDateIn())) {	//you cannot change a date before the global check-in date
+				throw new NotFoundException(I18nUtils.getProperty("checkHousedDateIn"));
+			}
+			housed.setCheckInDate(dateIn);
 		}
+		
 		if(checkOutDateMillis!=null){
-			housed.setCheckOutDate(new Date(checkOutDateMillis));
+			Date dateOut = new Date(checkOutDateMillis);
+			if (dateOut.after(booking.getDateOut())){	//you cannot change a date after the global check-out date
+				throw new NotFoundException(I18nUtils.getProperty("checkHousedDateOut"));
+			}
+			housed.setCheckOutDate(dateOut);
 		}    	
+		
     	this.getHousedService().update(housed);
         return housed;
     }

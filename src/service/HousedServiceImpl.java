@@ -21,6 +21,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import model.Booking;
 import model.Guest;
 import model.Housed;
 import model.questura.HousedType;
@@ -103,6 +104,16 @@ public class HousedServiceImpl implements HousedService{
 			return null;
 		}
 		ret = housedList.get(housedList.size() - 1);
+		return ret;
+	}
+	
+	@Override
+	public Boolean checkOverlappingHoused(Booking booking, Guest guest) {
+		Boolean ret = false;
+		List<Housed> housedGuests = null;
+		
+    	housedGuests = this.findHousedByIdGuest(guest.getId());
+		
 		return ret;
 	}
 
