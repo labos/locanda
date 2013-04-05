@@ -2,7 +2,7 @@
 --
 -- Host: localhost    Database: locanda
 -- ------------------------------------------------------
--- Server version	5.5.29-0ubuntu0.12.04.1
+-- Server version	5.5.29-0ubuntu0.12.04.2
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -111,7 +111,7 @@ CREATE TABLE `convention` (
   `activationCode` varchar(255) DEFAULT NULL,
   `id_structure` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -138,7 +138,7 @@ CREATE TABLE `country` (
   `province` varchar(45) DEFAULT NULL,
   `expiryDate` date DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=287 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -427,6 +427,31 @@ LOCK TABLES `housed` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `housedExport`
+--
+
+DROP TABLE IF EXISTS `housedExport`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `housedExport` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_housed` int(11) DEFAULT NULL,
+  `mode` int(11) DEFAULT NULL,
+  `exported` tinyint(4) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `housedExport`
+--
+
+LOCK TABLES `housedExport` WRITE;
+/*!40000 ALTER TABLE `housedExport` DISABLE KEYS */;
+/*!40000 ALTER TABLE `housedExport` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `housedType`
 --
 
@@ -538,7 +563,7 @@ CREATE TABLE `municipality` (
   `province` varchar(45) DEFAULT NULL,
   `expiryDate` date DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=22025 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -855,7 +880,7 @@ CREATE TABLE `structure` (
   `notes` varchar(255) DEFAULT NULL,
   `id_user` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -932,7 +957,7 @@ CREATE TABLE `user` (
   `password` varchar(255) DEFAULT NULL,
   `creationDate` date DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -953,4 +978,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-02-27 14:42:04
+-- Dump completed on 2013-04-05 11:54:09
