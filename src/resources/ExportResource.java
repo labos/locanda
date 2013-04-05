@@ -201,8 +201,13 @@ public class ExportResource {
 		Date checkinDate = null;
 		Date exportDate  = null;
 		StringBuilder sb = null;
+		List<GroupLeader> groupLeaders = null;
+		List<GroupLeader> mainGroupLeaders = null;
+		List<Booking> simpleBookings = null;
+		List<Booking> activeBookings = null;
 		
 		exportDate = new Date(Long.parseLong(date));
+		
 		housedExportList = new ArrayList<HousedExport>();
 		for(HousedExport each : this.getHousedExportService().findByIdStructureAndExported(idStructure, false) ){
 			if(each.getHoused() != null){
@@ -214,22 +219,114 @@ public class ExportResource {
 		}
 		
 		
-		sb = new StringBuilder();
-		for(HousedExport each : housedExportList){
+		/*for(HousedExport each : housedExportList){
 			sb.append(each.getHoused().getId() + " " + each.getHoused().getCheckInDate() + "\n");
 		}
+		*/
 		
+		activeBookings = new ArrayList<Booking>();
+		for(HousedExport each : housedExportList){
+			activeBookings.add(this.getBookingService().findBookingById(each.getHoused().getId_booking()));
+		}
+			
+		
+		//GROUP LEADERS
+		groupLeaders = new ArrayList<GroupLeader>();
+		simpleBookings = new ArrayList<Booking>();
+		mainGroupLeaders = new ArrayList<GroupLeader>();
+		
+		
+		for(Booking each: activeBookings){	
+			GroupLeader groupLeader = null;
+			groupLeader = this.getGroupLeaderService().findGroupLeaderByIdBooking(each.getId());
+			if(groupLeader!=null){
+				groupLeaders.add(groupLeader);
+				if(groupLeader.getId_booking().equals(groupLeader.getHoused().getId_booking())){
+					mainGroupLeaders.add(groupLeader);
+				}
+			}else{
+				simpleBookings.add(each);
+			}
+		}
+		
+		//CREO I GRUPPI
+		List<Group> groups = new ArrayList<Group>();
+		
+		for(GroupLeader mainGroupLeader: mainGroupLeaders){
+			Group group = new Group();
+			group.setLeader(mainGroupLeader.getHoused());
+			
+			//Membri dello stesso booking dove si trova il leader
+			for(Housed housed:  this.getHousedService().findHousedByIdBooking(mainGroupLeader.getId_booking())){
+				if(this.housedIsIncludedInHousedExportList(housed, housedExportList) && !housed.equals(mainGroupLeader)){
+					group.getMembers().add(housed);
+				}
+			}
+			
+			//Membri dei booking collegati
+			List<Integer> linkedBookingIds = new ArrayList<Integer>();
+			
+			for(GroupLeader groupLeader: groupLeaders){
+				if( (!groupLeader.getId().equals(mainGroupLeader.getId())) && (groupLeader.getId_housed().equals(mainGroupLeader.getId_housed()))  ){
+					linkedBookingIds.add(groupLeader.getId_booking());
+				}
+			}
+			
+			for(Integer idBooking: linkedBookingIds){
+				/*group.getMembers().addAll(
+				    this.getHousedService().findHousedByIdBooking(idBooking));*/
+				for(Housed each: this.getHousedService().findHousedByIdBooking(idBooking)){
+					if(this.housedIsIncludedInHousedExportList(each, housedExportList)){
+						group.getMembers().add(each);
+					}
+				}
+			}
+			
+			groups.add(group);			
+		}
+		
+		sb = new StringBuilder();
+		//STAMPO I GRUPPI
+		for(Group each: groups){
+			sb.append(each.printGroup() + "\n");
+		}
+		
+		//STAMPO I BOOKING SEMPLICI
+		
+		for(Booking each: simpleBookings){
+			for(Housed housed: this.getHousedService().findHousedByIdBooking(each.getId())){
+				if(this.housedIsIncludedInHousedExportList(housed, housedExportList)){
+					sb.append(housed.getGuest().getFirstName() + "  Ospite Singolo" + "\n");
+				}
+			}
+			
+		}
+		
+		
+		String str = sb.toString();
+	    
 		for(HousedExport each : housedExportList){
 			each.setExported(true);
 			this.getHousedExportService().update(each);
 		}
-		String str = sb.toString();
-				
+		
 		ResponseBuilder response = Response.ok((Object) str);
 		response.header("Content-Disposition",
 			"attachment; filename=\"file_from_server_sired.txt\"");
 		return response.build();
  
+	}
+	
+	public Boolean housedIsIncludedInHousedExportList(Housed housed, List<HousedExport> housedExportList ){
+		Boolean ret = false;
+		
+		for(HousedExport each : housedExportList){
+			if(each.getId_housed().equals(housed.getId()) ){
+				return true;
+			}
+		}
+		return ret;
+		
 	}
 
 	public BookingService getBookingService() {
