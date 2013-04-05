@@ -107,6 +107,7 @@ public class HousedServiceImpl implements HousedService{
 		return ret;
 	}
 	
+	//TODO: write the logic
 	@Override
 	public Boolean checkOverlappingHoused(Booking booking, Guest guest) {
 		Boolean ret = false;
