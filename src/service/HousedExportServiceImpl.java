@@ -72,7 +72,7 @@ public class HousedExportServiceImpl implements HousedExportService{
 		
 		ret = this.getHousedExportMapper().findByExported(exported);
 		for(HousedExport each: ret){
-			each.setHoused(this.getHousedService().findHousedById(each.getId_housed()));
+			each.setHoused(this.getHousedService().findHousedByIdIncludingDeleted(each.getId_housed()));
 		}
 		return ret;
 	}

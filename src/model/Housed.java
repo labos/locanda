@@ -42,7 +42,7 @@ public class Housed implements Serializable{
 	private Date checkOutDate;
 	
 	private Boolean exported;
-	private Boolean deleted;
+	private Boolean deleted = false;
 	
 	private String idSired;
 	

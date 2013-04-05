@@ -213,6 +213,7 @@ public class ExportResource {
 			}
 		}
 		
+		
 		sb = new StringBuilder();
 		for(HousedExport each : housedExportList){
 			sb.append(each.getHoused().getId() + " " + each.getHoused().getCheckInDate() + "\n");

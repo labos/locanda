@@ -21,26 +21,34 @@ In case of controversy the competent court is the Court of Cagliari (Italy).
     <cache/>
     
     <select id="findHousedByIdBooking" parameterType="int" resultType="model.Housed">
-        <include refid="selectHoused"/>WHERE id_booking = #{id_booking}
+        <include refid="selectHoused"/> AND id_booking = #{id_booking}
     </select>
     
     <select id="findHousedByIdGuest" parameterType="int" resultType="model.Housed">
-        <include refid="selectHoused"/>WHERE id_guest = #{id_guest}
+        <include refid="selectHoused"/> AND id_guest = #{id_guest}
     </select>
     
     <select id="findHousedByIdBookingAndIdGuest" parameterType="map" resultType="model.Housed">
-        <include refid="selectHoused"/>WHERE id_booking = #{id_booking} AND id_guest = #{id_guest}
+        <include refid="selectHoused"/> AND id_booking = #{id_booking} AND id_guest = #{id_guest}
     </select>
     
     <select id="findHousedById" parameterType="int" resultType="model.Housed">
-        <include refid="selectHoused"/>WHERE id = #{id}
+        <include refid="selectHoused"/> AND id = #{id}
     </select>
+ 
+    <select id="findHousedByIdIncludingDeleted" parameterType="int" resultType="model.Housed">
+        <include refid="selectHousedIncludingDeleted"/> WHERE id = #{id}
+    </select>   
     
     <select id="findAll" resultType="model.Housed">
         <include refid="selectHoused"/> 
     </select>
     
     <sql id="selectHoused">
+        SELECT id,id_booking,id_guest,id_housedType,checkInDate,checkOutDate,exported,deleted,idSired FROM housed WHERE deleted=0
+    </sql>
+    
+    <sql id="selectHousedIncludingDeleted">
         SELECT id,id_booking,id_guest,id_housedType,checkInDate,checkOutDate,exported,deleted,idSired FROM housed
     </sql>
     
@@ -56,11 +64,11 @@ In case of controversy the competent court is the Court of Cagliari (Italy).
     </update>
     
     <delete id="delete" parameterType="int">
-        DELETE FROM housed WHERE id= #{id}
+        UPDATE housed set deleted=1 WHERE id= #{id}
     </delete>
     
     <delete id="deleteHousedByIdBooking" parameterType="int">
-        delete from housed where id_booking = #{id_booking}
+        UPDATE housed set deleted=1 where id_booking = #{id_booking}
     </delete>
     
 </mapper>

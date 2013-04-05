@@ -140,6 +140,22 @@ public class HousedServiceImpl implements HousedService{
 	}
 	
 	@Override
+	public Housed findHousedByIdIncludingDeleted(Integer id) {
+		Housed ret = null;
+		Guest guest = null;
+		HousedType housedType = null;
+		
+		ret = this.getHousedMapper().findHousedByIdIncludingDeleted(id);
+		if(ret!=null){
+			guest = this.getGuestMapper().findGuestById(ret.getId_guest());
+			ret.setGuest(guest);
+			housedType = this.getHousedTypeMapper().findHousedTypeById(ret.getId_housedType());
+			ret.setHousedType(housedType);			
+		}
+		return ret;
+	}
+
+	@Override
 	public Housed findHousedByIdBookingAndIdGuest(Integer id_booking, Integer id_guest) {
 		Map map = null;
 		Housed ret = null;
