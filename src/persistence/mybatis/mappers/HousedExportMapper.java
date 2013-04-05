@@ -15,10 +15,17 @@
  *******************************************************************************/
 package persistence.mybatis.mappers;
 
+import java.util.List;
+
 import model.questura.HousedExport;
 
 public interface HousedExportMapper {
 	public Integer insert(HousedExport housedExport);
 	public Integer update(HousedExport housedExport);
 	public Integer delete(Integer id);
+	public HousedExport findById(Integer id);
+	public HousedExport findByIdHoused(Integer id_housed);
+	public List<HousedExport> findByExported(Boolean exported);
+
+
 }

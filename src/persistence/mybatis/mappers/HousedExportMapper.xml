@@ -26,13 +26,27 @@ In case of controversy the competent court is the Court of Cagliari (Italy).
     </insert>   
     
     <update id="update" parameterType="model.questura.HousedExport">
-        UPDATE housedExport set
-        id_housed= #{id_housed},mode= #{mode},exported= #{exported},
-        WHERE id = #{id}
+        UPDATE housedExport set id_housed= #{id_housed},mode= #{mode},exported= #{exported} WHERE id = #{id}
     </update> 
     
     <delete id="delete" parameterType="int">
         DELETE from housedExport where id = #{id}
     </delete>
+    
+    <select id="findById" parameterType="int" resultType="model.questura.HousedExport">
+        <include refid="selectHousedExport"/> WHERE id= #{id}
+    </select>
+    
+   	<select id="findByIdHoused" parameterType="int" resultType="model.questura.HousedExport">
+        <include refid="selectHousedExport"/> WHERE id_housed = #{id_housed}
+    </select>
+    
+    <select id="findByExported" parameterType="int" resultType="model.questura.HousedExport">
+        <include refid="selectHousedExport"/> WHERE exported = #{exported}
+    </select>
+    
+    <sql id="selectHousedExport">
+        SELECT id,id_housed,mode,exported FROM housedExport
+    </sql>
     
 </mapper>

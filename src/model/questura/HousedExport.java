@@ -1,6 +1,9 @@
 package model.questura;
 
 import javax.xml.bind.annotation.XmlRootElement;
+
+import model.Housed;
+
 import org.apache.solr.client.solrj.beans.Field;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
@@ -12,6 +15,7 @@ public class HousedExport {
 	private Integer id;
 	@Field
 	private Integer id_housed;
+	private Housed housed = null;
 	@Field
 	private Integer mode;
 	@Field
@@ -72,5 +76,13 @@ public class HousedExport {
 
 	public void setExported(Boolean exported) {
 		this.exported = exported;
+	}
+
+	public Housed getHoused() {
+		return housed;
+	}
+
+	public void setHoused(Housed housed) {
+		this.housed = housed;
 	}
 }

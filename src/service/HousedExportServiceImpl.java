@@ -15,6 +15,9 @@
  *******************************************************************************/
 package service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import model.questura.HousedExport;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +29,8 @@ import persistence.mybatis.mappers.HousedExportMapper;
 public class HousedExportServiceImpl implements HousedExportService{
 	@Autowired
 	private HousedExportMapper housedExportMapper;
+	@Autowired
+	private HousedService housedService = null;
 	
 	@Override
 	public Integer insert(HousedExport housedExport) {
@@ -45,6 +50,46 @@ public class HousedExportServiceImpl implements HousedExportService{
 	}
 	public void setHousedExportMapper(HousedExportMapper housedExportMapper) {
 		this.housedExportMapper = housedExportMapper;
+	}
+	public HousedService getHousedService() {
+		return housedService;
+	}
+	public void setHousedService(HousedService housedService) {
+		this.housedService = housedService;
+	}
+	@Override
+	public HousedExport findById(Integer id) {
+		return this.getHousedExportMapper().findById(id);
+	}
+	@Override
+	public HousedExport findByIdHoused(Integer id_housed) {
+		return this.getHousedExportMapper().findByIdHoused(id_housed);
+	}
+	
+	@Override
+	public List<HousedExport> findByExported(Boolean exported) {
+		List <HousedExport> ret = null;
+		
+		ret = this.getHousedExportMapper().findByExported(exported);
+		for(HousedExport each: ret){
+			each.setHoused(this.getHousedService().findHousedById(each.getId_housed()));
+		}
+		return ret;
+	}
+	@Override
+	public List<HousedExport> findByIdStructureAndExported(Integer id_structure, Boolean exported) {
+		List<HousedExport> ret = null;
+		
+		ret = new ArrayList<HousedExport>();
+		//gli housed cancellati non riesco ad associarli alla struttura
+		for(HousedExport each: this.findByExported(exported)){
+			if(each.getHoused() != null && each.getHoused().getGuest().getId_structure().equals(id_structure)){
+				ret.add(each);
+			}
+		}
+		
+		
+		return ret;
 	}
 	
 }

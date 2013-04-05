@@ -15,6 +15,8 @@
  *******************************************************************************/
 package service;
 
+import java.util.List;
+
 import model.questura.HousedExport;
 
 import org.springframework.transaction.annotation.Transactional;
@@ -24,4 +26,8 @@ public interface HousedExportService {
 	public Integer insert(HousedExport housedExport);
 	public Integer update(HousedExport housedExport);
 	public Integer delete(Integer id);
+	public HousedExport findById(Integer id);
+	public HousedExport findByIdHoused(Integer id_housed);
+	public List<HousedExport> findByExported(Boolean exported);
+	public List<HousedExport> findByIdStructureAndExported(Integer id_structure, Boolean exported);
 }

@@ -7,7 +7,9 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -22,6 +24,7 @@ import model.Booking;
 import model.Group;
 import model.GroupLeader;
 import model.Housed;
+import model.questura.HousedExport;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.output.StringBuilderWriter;
@@ -32,6 +35,7 @@ import org.springframework.stereotype.Component;
 
 import service.BookingService;
 import service.GroupLeaderService;
+import service.HousedExportService;
 import service.HousedService;
 
 @Path("/export/")
@@ -44,24 +48,24 @@ public class ExportResource {
 	private GroupLeaderService groupLeaderService = null;
 	@Autowired
 	private HousedService housedService = null;
-	
+	@Autowired
+	private HousedExportService housedExportService = null;	
 	@GET
     @Path("structure/{idStructure}/dates/available")
     @Produces({MediaType.APPLICATION_JSON})
     public List<Date> availableDatesForExport(@PathParam("idStructure") Integer idStructure){
-		List<Date> dates = null;
-		Date date = null;
-		Date startDate = null;
+		Set<Date> ret = null;
+		List <HousedExport> housedExportList = null;
+		Date checkinDate = null;
 		
-		
-		startDate = DateUtils.addDays(new Date(), -15);
-		dates = new ArrayList<Date>();		
-		for(int i= 0; i<=30; i++){
-			date = DateUtils.addDays(startDate, i);
-			dates.add(date);
+		ret = new HashSet<Date>();		
+		housedExportList = this.getHousedExportService().findByIdStructureAndExported(idStructure, false);
+		for(HousedExport each : housedExportList){
+			checkinDate = each.getHoused().getCheckInDate();
+			ret.add(DateUtils.truncate(checkinDate, Calendar.DAY_OF_MONTH));
 		}
 		
-		return dates;	
+		return new ArrayList<Date>(ret);	
 	
 	}
 	
@@ -193,9 +197,32 @@ public class ExportResource {
 	@Path("structure/{idStructure}/do/sired")
 	@Produces("text/plain")
 	public Response exportFileSired(@PathParam("idStructure") Integer idStructure,@QueryParam("date") String date) {
- 
-				
-		String str = "questo è il file di export per il sired";
+		List<HousedExport> housedExportList = null;
+		Date checkinDate = null;
+		Date exportDate  = null;
+		StringBuilder sb = null;
+		
+		exportDate = new Date(Long.parseLong(date));
+		housedExportList = new ArrayList<HousedExport>();
+		for(HousedExport each : this.getHousedExportService().findByIdStructureAndExported(idStructure, false) ){
+			if(each.getHoused() != null){
+				checkinDate = each.getHoused().getCheckInDate();
+			}
+			if(checkinDate != null && DateUtils.truncatedCompareTo(checkinDate, exportDate, Calendar.DAY_OF_MONTH) == 0){
+				housedExportList.add(each);
+			}
+		}
+		
+		sb = new StringBuilder();
+		for(HousedExport each : housedExportList){
+			sb.append(each.getHoused().getId() + " " + each.getHoused().getCheckInDate() + "\n");
+		}
+		
+		for(HousedExport each : housedExportList){
+			each.setExported(true);
+			this.getHousedExportService().update(each);
+		}
+		String str = sb.toString();
 				
 		ResponseBuilder response = Response.ok((Object) str);
 		response.header("Content-Disposition",
@@ -230,6 +257,16 @@ public class ExportResource {
 
 	public void setHousedService(HousedService housedService) {
 		this.housedService = housedService;
+	}
+
+
+	public HousedExportService getHousedExportService() {
+		return housedExportService;
+	}
+
+
+	public void setHousedExportService(HousedExportService housedExportService) {
+		this.housedExportService = housedExportService;
 	}
 	
 	

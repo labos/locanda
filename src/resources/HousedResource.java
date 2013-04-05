@@ -18,6 +18,7 @@ import model.Booking;
 import model.GroupLeader;
 import model.Guest;
 import model.Housed;
+import model.questura.HousedExport;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,7 @@ import org.springframework.stereotype.Component;
 import service.BookingService;
 import service.GroupLeaderService;
 import service.GuestService;
+import service.HousedExportService;
 import service.HousedService;
 import service.StructureService;
 import utils.I18nUtils;
@@ -47,7 +49,8 @@ public class HousedResource {
     private GroupLeaderService groupLeaderService = null;
     @Autowired
     private GuestService guestService = null; 
-    
+    @Autowired
+    private HousedExportService housedExportService = null; 
 	private static Logger logger = Logger.getLogger(Logger.class);
 	
     
@@ -124,6 +127,13 @@ public class HousedResource {
  		housed.setCheckOutDate(booking.getDateOut());
 		
  		this.getHousedService().insert(housed);
+ 		
+ 		HousedExport housedExport  = null;
+ 		housedExport = new HousedExport();
+ 		housedExport.setId_housed(housed.getId());
+ 		housedExport.setMode(1);
+ 		housedExport.setExported(false);
+ 		this.getHousedExportService().insert(housedExport);
  		return housed;
 	}
     
@@ -170,6 +180,16 @@ public class HousedResource {
 		}    	
 		
     	this.getHousedService().update(housed);
+
+ 		HousedExport housedExport  = null;
+ 		housedExport = this.getHousedExportService().findByIdHoused(housed.getId());
+ 		if(!housedExport.getExported()){
+ 			housedExport.setMode(1);	
+ 		}else{
+ 			housedExport.setMode(2);
+ 		}
+ 		housedExport.setExported(false);
+ 		this.getHousedExportService().update(housedExport);
         return housed;
     }
    
@@ -211,6 +231,17 @@ public class HousedResource {
     		throw new NotFoundException(message);
     	}
 		count = this.getHousedService().delete(id);
+		
+		HousedExport housedExport  = null;
+ 		housedExport = this.getHousedExportService().findByIdHoused(id);
+ 		if(!housedExport.getExported()){
+ 			this.getHousedExportService().delete(housedExport.getId());	
+ 		}else{
+ 			housedExport.setMode(3);
+ 	 		housedExport.setExported(false);
+ 	 		this.getHousedExportService().update(housedExport);
+ 		}
+		
 		return count;
     }  
     
@@ -243,6 +274,14 @@ public class HousedResource {
 	}
 	public void setGuestService(GuestService guestService) {
 		this.guestService = guestService;
+	}
+
+	public HousedExportService getHousedExportService() {
+		return housedExportService;
+	}
+
+	public void setHousedExportService(HousedExportService housedExportService) {
+		this.housedExportService = housedExportService;
 	}
 	/*
 	public static String getPropertyValue(String key)  
