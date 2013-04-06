@@ -261,12 +261,24 @@ public class ExportResource {
 		List<Group> groups = new ArrayList<Group>();
 		
 		for(GroupLeader aGroupLeader: groupLeaders){
-			Group group = new Group();
-			group.setLeader(aGroupLeader.getHoused());
+			//check if current grupLeader is already present
+			Group group = null;
+			Boolean alreadyInGroups = false; //required to choose if add a new group
+			for(Group each : groups){
+				if(each.getLeader().equals(aGroupLeader.getHoused())){
+					 group = each;
+					 alreadyInGroups = true;
+				}
+			}
+			if(!alreadyInGroups){
+				group = new Group();
+				group.setLeader(aGroupLeader.getHoused());
+			}
+
 			
 
 			for(Housed housed:  this.getHousedService().findHousedByIdBooking(aGroupLeader.getId_booking())){
-				if(this.housedIsIncludedInHousedExportList(housed, housedExportList) && !housed.equals(aGroupLeader)){
+				if(this.housedIsIncludedInHousedExportList(housed, housedExportList) && !housed.equals(aGroupLeader.getHoused())){
 					HousedType anHousedType = new HousedType();
 					//a group member
 					if(aGroupLeader.getHoused().getHousedType().getCode() == 17){
@@ -281,6 +293,7 @@ public class ExportResource {
 			}
 			
 			//Membri dei booking collegati
+			/*
 			List<Integer> linkedBookingIds = new ArrayList<Integer>();
 			
 			for(GroupLeader groupLeader: groupLeaders){
@@ -290,8 +303,8 @@ public class ExportResource {
 			}
 			
 			for(Integer idBooking: linkedBookingIds){
-				/*group.getMembers().addAll(
-				    this.getHousedService().findHousedByIdBooking(idBooking));*/
+				//group.getMembers().addAll(
+				//   this.getHousedService().findHousedByIdBooking(idBooking));
 				for(Housed each: this.getHousedService().findHousedByIdBooking(idBooking)){
 					if(this.housedIsIncludedInHousedExportList(each, housedExportList)){
 						HousedType anHousedType = new HousedType();
@@ -302,8 +315,11 @@ public class ExportResource {
 					}
 				}
 			}
-			
-			groups.add(group);			
+		*/
+			if(!alreadyInGroups){
+				groups.add(group);	
+			}
+		
 		}
 		logger.info("#####groups size: " + groups.size());
 
