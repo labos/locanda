@@ -22,10 +22,12 @@ public class Group {
 		sb.append(guestQuesturaFormatter.getRowRegione());
 		//sb.append(this.getLeader().getGuest().getFirstName() + "   " + this.getLeader().getHousedType().getDescription() + "\n" );
 		for(Housed each: members){
+			if(!each.equals(this.getLeader())){
 			guestQuesturaFormatter = new GuestQuesturaFormatter();
 			//guestQuesturaFormatter.setModalita(1);
 			guestQuesturaFormatter.setDataFromHousedForRegione(each);
 			sb.append(guestQuesturaFormatter.getRowRegione());
+			}
 			//sb.append(each.getGuest().getFirstName() + " Membro Gruppo o Famiglia"  + "\n");
 		}
 		

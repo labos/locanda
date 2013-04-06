@@ -104,7 +104,7 @@ public class GuestQuesturaFormatter implements Serializable{
 		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 		String regione = "";
 		regione = regione.concat(formatter.format(dataDiPartenza));
-		regione = regione.concat(tipoTurismo + mezzoDiTrasporto + Integer.toString(camereOccupate) + Integer.toString(camereDisponibili) +Integer.toString(lettiDisponibili));
+		regione = regione.concat(tipoTurismo + mezzoDiTrasporto + fillString(Integer.toString(camereOccupate),3) + fillString(Integer.toString(camereDisponibili),3) + fillString(Integer.toString(lettiDisponibili),4));
 		regione = regione.concat(Integer.toString(tassaSoggiorno) + codiceIdPosizione +Integer.toString(modalita));
 		return questura + regione + "\n";
 	}
@@ -132,7 +132,7 @@ public class GuestQuesturaFormatter implements Serializable{
 		this.setDataDiPartenza(housed.getCheckOutDate());
 		this.setTipoTurismo("tipoturismo");
 		this.setMezzoDiTrasporto("aereo");
-		this.setCamereOccupate(2);
+		this.setCamereOccupate(1);
 		this.setCamereDisponibili(7);
 		this.setLettiDisponibili(14);
 		this.setTassaSoggiorno(0);
