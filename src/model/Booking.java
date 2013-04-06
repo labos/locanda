@@ -156,7 +156,8 @@ public class Booking implements Serializable{
 				i = i + 1;
 				current  = DateUtils.addDays(this.getDateIn(), i );
 			}	
-		}		
+		}	
+		
 		return bookingDates;
 	}
 	

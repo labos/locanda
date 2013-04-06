@@ -29,6 +29,13 @@ public class IdentificationTypeServiceImpl implements IdentificationTypeService{
 	@Autowired
 	private IdentificationTypeMapper identificationTypeMapper;
 	
+	
+	
+	@Override
+	public IdentificationType findById(Integer id) {
+		return this.getIdentificationTypeMapper().findById(id);
+	}
+
 	@Override
 	public List<IdentificationType> findAll() {
 		return this.getIdentificationTypeMapper().findAll();

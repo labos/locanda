@@ -22,5 +22,6 @@ import model.questura.Country;
 
 @Transactional
 public interface CountryService {
+	public Country findById(Integer id);	
 	public List<Country> findAll();
 }

@@ -24,6 +24,10 @@ In case of controversy the competent court is the Court of Cagliari (Italy).
         <include refid="selectCountry"/>      
     </select>
     
+    <select id="findById" parameterType="int" resultType="model.questura.Country">
+        <include refid="selectCountry"/>  WHERE id = #{id}    
+    </select>
+    
     <sql id="selectCountry">
         SELECT id,policeCode,description,province,expiryDate FROM country
     </sql>

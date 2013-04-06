@@ -39,9 +39,10 @@ public class HousedServiceImpl implements HousedService{
 	@Autowired
 	private HousedMapper housedMapper;
 	@Autowired
-	private GuestMapper guestMapper;
+	private GuestService guestService;
 	@Autowired
 	private HousedTypeMapper housedTypeMapper;
+	
 	private static Logger logger = Logger.getLogger(Logger.class);
 	
 	public List<Housed> findHousedByIdBooking(Integer id_booking) {
@@ -52,7 +53,7 @@ public class HousedServiceImpl implements HousedService{
 		ret =  this.getHousedMapper().findHousedByIdBooking(id_booking);
 
 		for (Housed each : ret) {
-			guest = this.getGuestMapper().findGuestById(each.getId_guest());
+			guest = this.getGuestService().findGuestById(each.getId_guest());
 			logger.info("**** found housed with guest = " + guest);	
 			each.setGuest(guest);
 			housedType = this.getHousedTypeMapper().findHousedTypeById(each.getId_housedType());
@@ -131,7 +132,7 @@ public class HousedServiceImpl implements HousedService{
 		
 		ret = this.getHousedMapper().findHousedById(id);
 		if(ret!=null){
-			guest = this.getGuestMapper().findGuestById(ret.getId_guest());
+			guest = this.getGuestService().findGuestById(ret.getId_guest());
 			ret.setGuest(guest);
 			housedType = this.getHousedTypeMapper().findHousedTypeById(ret.getId_housedType());
 			ret.setHousedType(housedType);			
@@ -147,7 +148,7 @@ public class HousedServiceImpl implements HousedService{
 		
 		ret = this.getHousedMapper().findHousedByIdIncludingDeleted(id);
 		if(ret!=null){
-			guest = this.getGuestMapper().findGuestById(ret.getId_guest());
+			guest = this.getGuestService().findGuestById(ret.getId_guest());
 			ret.setGuest(guest);
 			housedType = this.getHousedTypeMapper().findHousedTypeById(ret.getId_housedType());
 			ret.setHousedType(housedType);			
@@ -169,7 +170,7 @@ public class HousedServiceImpl implements HousedService{
 		ret = this.getHousedMapper().findHousedByIdBookingAndIdGuest(map);
 
 		if(ret!=null){
-		guest = this.getGuestMapper().findGuestById(ret.getId_guest());
+		guest = this.getGuestService().findGuestById(ret.getId_guest());
 		ret.setGuest(guest);
 		housedType = this.getHousedTypeMapper().findHousedTypeById(ret.getId_housedType());
 		ret.setHousedType(housedType);
@@ -201,18 +202,22 @@ public class HousedServiceImpl implements HousedService{
 	public void setHousedMapper(HousedMapper housedMapper) {
 		this.housedMapper = housedMapper;
 	}
-	public GuestMapper getGuestMapper() {
-		return guestMapper;
-	}
-	public void setGuestMapper(GuestMapper guestMapper) {
-		this.guestMapper = guestMapper;
-	}
+	
 	public HousedTypeMapper getHousedTypeMapper() {
 		return housedTypeMapper;
 	}
 	public void setHousedTypeMapper(HousedTypeMapper housedTypeMapper) {
 		this.housedTypeMapper = housedTypeMapper;
 	}
+
+	public GuestService getGuestService() {
+		return guestService;
+	}
+
+	public void setGuestService(GuestService guestService) {
+		this.guestService = guestService;
+	}
+	
 
 	
 }

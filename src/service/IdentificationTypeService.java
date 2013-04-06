@@ -21,5 +21,6 @@ import model.questura.IdentificationType;
 
 @Transactional
 public interface IdentificationTypeService {
+	public IdentificationType findById(Integer id);
 	public List<IdentificationType> findAll();
 }

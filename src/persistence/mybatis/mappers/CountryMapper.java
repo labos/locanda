@@ -20,5 +20,6 @@ import java.util.List;
 import model.questura.Country;
 
 public interface CountryMapper {
+	public Country findById(Integer id);	
 	public List<Country> findAll();
 }

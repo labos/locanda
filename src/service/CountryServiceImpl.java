@@ -29,6 +29,13 @@ public class CountryServiceImpl implements CountryService{
 	@Autowired
 	private CountryMapper countryMapper;
 	
+	
+	
+	@Override
+	public Country findById(Integer id) {
+		return this.getCountryMapper().findById(id);
+	}
+
 	@Override
 	public List<Country> findAll() {
 		return this.getCountryMapper().findAll();

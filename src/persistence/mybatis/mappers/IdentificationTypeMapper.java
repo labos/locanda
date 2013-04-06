@@ -20,5 +20,6 @@ import java.util.List;
 import model.questura.IdentificationType;
 
 public interface IdentificationTypeMapper {
+	public IdentificationType findById(Integer id);
 	public List<IdentificationType> findAll();
 }

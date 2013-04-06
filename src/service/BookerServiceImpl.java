@@ -30,7 +30,7 @@ import model.Guest;
 @Service
 public class BookerServiceImpl implements BookerService{
 	@Autowired
-	private GuestMapper guestMapper = null;
+	private GuestService guestService = null;
 	@Autowired 
 	private BookerMapper bookerMapper = null;
 
@@ -71,22 +71,28 @@ public class BookerServiceImpl implements BookerService{
 		
 		ret = this.getBookerMapper().findBookerByIdBooking(id_booking);
 		if (ret != null) {
-			guest = this.getGuestMapper().findGuestById(ret.getId_guest());
+			guest = this.getGuestService().findGuestById(ret.getId_guest());
 			ret.setGuest(guest);
 		}
 		return ret;
 	}
 
-	public GuestMapper getGuestMapper() {
-		return guestMapper;
-	}
-	public void setGuestMapper(GuestMapper guestMapper) {
-		this.guestMapper = guestMapper;
-	}
+	
 	public BookerMapper getBookerMapper() {
 		return bookerMapper;
 	}
 	public void setBookerMapper(BookerMapper bookerMapper) {
 		this.bookerMapper = bookerMapper;
 	}
+
+
+	public GuestService getGuestService() {
+		return guestService;
+	}
+
+
+	public void setGuestService(GuestService guestService) {
+		this.guestService = guestService;
+	}
+	
 }

@@ -20,6 +20,10 @@ In case of controversy the competent court is the Court of Cagliari (Italy).
 <mapper namespace="persistence.mybatis.mappers.IdentificationTypeMapper">
     <cache/>
     
+    <select id="findById" parameterType="int"  resultType="model.questura.IdentificationType">
+        <include refid="selectIdentificationType"/>  WHERE id = #{id}    
+    </select>
+    
     <select id="findAll" resultType="model.questura.IdentificationType">
         <include refid="selectIdentificationType"/>      
     </select>

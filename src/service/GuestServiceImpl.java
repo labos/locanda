@@ -15,6 +15,7 @@
  *******************************************************************************/
 package service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import model.Guest;
@@ -27,24 +28,62 @@ import persistence.mybatis.mappers.GuestMapper;
 public class GuestServiceImpl implements GuestService{
 	@Autowired
 	private GuestMapper guestMapper;
+	@Autowired
+	private MunicipalityService municipalityService;
+	@Autowired
+	private CountryService countryService;
+	@Autowired
+	private IdentificationTypeService identificationTypeService;
 	
 	public List<Guest> findGuestsByIdStructure(Integer id_structure) {
-		return this.getGuestMapper().findGuestsByIdStructure(id_structure);
+		List<Guest> ret = null;
+		
+		ret = this.getGuestMapper().findGuestsByIdStructure(id_structure);
+		for(Guest each: ret){
+			this.retrieveLinkedObjectsFor(each);
+		}
+		return ret; 
+	}
+	
+		
+	@Override
+	public List<Guest> findAll() {
+		List<Guest> ret = null;
+		
+		ret = this.getGuestMapper().findAll();
+		for(Guest each: ret){
+			this.retrieveLinkedObjectsFor(each);
+		}
+		
+		return ret; 
+	}
+	
+	@Override
+	public Guest findGuestById(Integer id) {	
+		Guest ret = null;
+		
+		ret = this.getGuestMapper().findGuestById(id);		
+		this.retrieveLinkedObjectsFor(ret);
+		
+		return ret;
+	}
+	
+	private void retrieveLinkedObjectsFor(Guest guest){
+		guest.setMunicipalityOfBirth(this.getMunicipalityService().findById(guest.getId_municipalityOfBirth()));
+		guest.setCountryOfBirth(this.getCountryService().findById(guest.getId_countryOfBirth()));
+		
+		guest.setMunicipalityOfResidence(this.getMunicipalityService().findById(guest.getId_municipalityOfResidence()));
+		guest.setCountryOfResidence(this.getCountryService().findById(guest.getId_countryOfResidence()));
+		
+		guest.setCitizenship(this.getCountryService().findById(guest.getId_citizenship()));
+		
+		guest.setIdType(this.getIdentificationTypeService().findById(guest.getId_idType()));
+		
 	}
 	
 	@Override
 	public Integer insertGuest(Guest guest) {
 		return this.getGuestMapper().insertGuest(guest);
-	}
-	
-	@Override
-	public List<Guest> findAll() {
-		return this.getGuestMapper().findAll();
-	}
-	
-	@Override
-	public Guest findGuestById(Integer id) {		
-		return this.getGuestMapper().findGuestById(id);
 	}
 	
 	@Override
@@ -63,5 +102,30 @@ public class GuestServiceImpl implements GuestService{
 	public void setGuestMapper(GuestMapper guestMapper) {
 		this.guestMapper = guestMapper;
 	}
+
+	public MunicipalityService getMunicipalityService() {
+		return municipalityService;
+	}
+
+	public void setMunicipalityService(MunicipalityService municipalityService) {
+		this.municipalityService = municipalityService;
+	}
+
+	public CountryService getCountryService() {
+		return countryService;
+	}
+
+	public void setCountryService(CountryService countryService) {
+		this.countryService = countryService;
+	}
+
+	public IdentificationTypeService getIdentificationTypeService() {
+		return identificationTypeService;
+	}
+
+	public void setIdentificationTypeService(
+			IdentificationTypeService identificationTypeService) {
+		this.identificationTypeService = identificationTypeService;
+	}	
 
 }
