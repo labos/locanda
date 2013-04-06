@@ -67,7 +67,7 @@ public class GuestQuesturaFormatter implements Serializable{
 	private int lettiDisponibili;		// 4 chars
 	private int tassaSoggiorno;			// 1 char (1=yes, 0=no)
 	private String codiceIdPosizione;	// 10 char
-	private int modalita;				// 1 char (1=Nuovo, 2=Variazione, 2=Eliminazione)
+	private int modalita = 1;				// 1 char (1=Nuovo, 2=Variazione, 2=Eliminazione)
 	
 	
 	
@@ -106,39 +106,42 @@ public class GuestQuesturaFormatter implements Serializable{
 		regione = regione.concat(formatter.format(dataDiPartenza));
 		regione = regione.concat(tipoTurismo + mezzoDiTrasporto + Integer.toString(camereOccupate) + Integer.toString(camereDisponibili) +Integer.toString(lettiDisponibili));
 		regione = regione.concat(Integer.toString(tassaSoggiorno) + codiceIdPosizione +Integer.toString(modalita));
-		return questura + regione;
+		return questura + regione + "\n";
 	}
 	
-	public void setDataFromHoused(Housed housed){
+	public void setDataFromHousedForRegione(Housed housed){
 		Guest guest = null;
 		guest = housed.getGuest();
-		this.setTipoAllogiato(14);
+		this.setTipoAllogiato(housed.getHousedType()!=null? housed.getHousedType().getCode() : 16);
 		this.setDataArrivo(housed.getCheckInDate());
 		this.setCognome(guest.getLastName());
 		this.setNome(guest.getFirstName());
 		this.setSesso(guest.getGender());
 		this.setDataDiNascita(guest.getBirthDate());
-		this.setComuneDiNascita("Santulussurgiu");
-		this.setProvinciaDiNascita("CAGLIARI");
-		this.setStatoDiNascita("Italia");
-		this.setCittadinanza("Italiana");
-		this.setComuneResidenza("Selargius");
-		this.setProvinciaResidenza("Cagliari");
-		this.setStatoResidenza("Italia");
-		this.setIndirizzo("Via delle fresche frasche, n1");
-		this.setTipoDocumento("Patente");
-		this.setNumeroDocumento("CC123456lkjdf");
-		this.setLuogoRilascioDocumento("Villanovaforru");
+		this.setComuneDiNascita(guest.getMunicipalityOfBirth()!=null?guest.getMunicipalityOfBirth().getPoliceCode().toString() : "");
+		this.setProvinciaDiNascita(guest.getMunicipalityOfBirth()!=null?guest.getMunicipalityOfBirth().getProvince() : "");
+		this.setStatoDiNascita(guest.getCountryOfBirth()!=null? guest.getCountryOfBirth().getPoliceCode().toString() : "");
+		this.setCittadinanza(guest.getCountryOfBirth()!=null?guest.getCitizenship().getPoliceCode().toString() : "");
+		this.setComuneResidenza(guest.getMunicipalityOfResidence()!=null?guest.getMunicipalityOfResidence().getPoliceCode().toString() : "");
+		this.setProvinciaResidenza(guest.getMunicipalityOfResidence()!=null?guest.getMunicipalityOfResidence().getProvince() : "");
+		this.setStatoResidenza(guest.getCountryOfResidence()!=null ? guest.getCountryOfResidence().getPoliceCode().toString() : "");
+		this.setIndirizzo(guest.getAddress());
+		this.setTipoDocumento(guest.getIdType()!=null ?guest.getIdType().getPoliceCode() : "");
+		this.setNumeroDocumento(guest.getIdNumber()!=null? guest.getIdNumber() : "" );
+		this.setLuogoRilascioDocumento(guest.getIdPlace()!=null ?guest.getIdPlace().getPoliceCode().toString() : "");
 		this.setDataDiPartenza(housed.getCheckOutDate());
-		this.setTipoTurismo("scout");
-		this.setMezzoDiTrasporto("auto");
+		this.setTipoTurismo("tipoturismo");
+		this.setMezzoDiTrasporto("aereo");
 		this.setCamereOccupate(2);
 		this.setCamereDisponibili(7);
 		this.setLettiDisponibili(14);
-		this.setTassaSoggiorno(3);
-		this.setCodiceIdPosizione("2gf");
-		this.setModalita(1);
+		this.setTassaSoggiorno(0);
+		this.setCodiceIdPosizione(housed.getId().toString());
 		
+	}
+		
+	public void setDataFromHousedForQuestura(Housed housed){
+		// to be implemented
 	}
 	
 	@Override

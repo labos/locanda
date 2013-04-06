@@ -26,6 +26,7 @@ import model.GroupLeader;
 import model.GuestQuesturaFormatter;
 import model.Housed;
 import model.questura.HousedExport;
+import model.questura.HousedType;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.output.StringBuilderWriter;
@@ -266,6 +267,10 @@ public class ExportResource {
 			//Membri dello stesso booking dove si trova il leader
 			for(Housed housed:  this.getHousedService().findHousedByIdBooking(aGroupLeader.getId_booking())){
 				if(this.housedIsIncludedInHousedExportList(housed, housedExportList) && !housed.equals(aGroupLeader)){
+					HousedType anHousedType = new HousedType();
+					//a group member
+					anHousedType.setCode(20);
+					housed.setHousedType(anHousedType);
 					group.getMembers().add(housed);
 				}
 			}
@@ -284,6 +289,10 @@ public class ExportResource {
 				    this.getHousedService().findHousedByIdBooking(idBooking));*/
 				for(Housed each: this.getHousedService().findHousedByIdBooking(idBooking)){
 					if(this.housedIsIncludedInHousedExportList(each, housedExportList)){
+						HousedType anHousedType = new HousedType();
+						//a group member
+						anHousedType.setCode(20);
+						each.setHousedType(anHousedType);
 						group.getMembers().add(each);
 					}
 				}
@@ -295,18 +304,24 @@ public class ExportResource {
 
 		
 		sb = new StringBuilder();
-		guestQuesturaFormatter = new GuestQuesturaFormatter();
+		
 		//STAMPO I GRUPPI
 		for(Group each: groups){
-			sb.append(each.printGroup() + "\n");
+			sb.append(each.printGroup());
 		}
 		
 		//STAMPO I BOOKING SEMPLICI
-		
+		// ATTENZIONE: ci vuole un findHousedByIdBookingIncludingDeleted
 		for(Booking each: simpleBookings){
 			for(Housed housed: this.getHousedService().findHousedByIdBooking(each.getId())){
 				if(this.housedIsIncludedInHousedExportList(housed, housedExportList)){
-					guestQuesturaFormatter.setDataFromHoused(housed);
+					guestQuesturaFormatter = new GuestQuesturaFormatter();
+					HousedType anHousedType = new HousedType();
+					//a group member
+					anHousedType.setCode(16);
+					housed.setHousedType(anHousedType);
+					guestQuesturaFormatter.setModalita(this.getHousedExportService().findByIdHoused(housed.getId()).getMode());
+					guestQuesturaFormatter.setDataFromHousedForRegione(housed);
 					sb.append(guestQuesturaFormatter.getRowRegione());
 				}
 			}

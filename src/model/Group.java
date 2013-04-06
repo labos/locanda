@@ -17,11 +17,14 @@ public class Group {
 		GuestQuesturaFormatter guestQuesturaFormatter = null;
 		
 		guestQuesturaFormatter = new GuestQuesturaFormatter();
-		guestQuesturaFormatter.setDataFromHoused(this.getLeader());
+		//guestQuesturaFormatter.setModalita(1);
+		guestQuesturaFormatter.setDataFromHousedForRegione(this.getLeader());
 		sb.append(guestQuesturaFormatter.getRowRegione());
 		//sb.append(this.getLeader().getGuest().getFirstName() + "   " + this.getLeader().getHousedType().getDescription() + "\n" );
 		for(Housed each: members){
-			guestQuesturaFormatter.setDataFromHoused(each);
+			guestQuesturaFormatter = new GuestQuesturaFormatter();
+			//guestQuesturaFormatter.setModalita(1);
+			guestQuesturaFormatter.setDataFromHousedForRegione(each);
 			sb.append(guestQuesturaFormatter.getRowRegione());
 			//sb.append(each.getGuest().getFirstName() + " Membro Gruppo o Famiglia"  + "\n");
 		}
