@@ -23,6 +23,7 @@ import javax.ws.rs.core.Response.ResponseBuilder;
 import model.Booking;
 import model.Group;
 import model.GroupLeader;
+import model.GuestQuesturaFormatter;
 import model.Housed;
 import model.questura.HousedExport;
 
@@ -209,6 +210,7 @@ public class ExportResource {
 		List<GroupLeader> mainGroupLeaders = null;
 		List<Booking> simpleBookings = null;
 		List<Booking> activeBookings = null;
+		GuestQuesturaFormatter guestQuesturaFormatter = null;
 		
 		exportDate = new Date(Long.parseLong(date));
 		
@@ -293,6 +295,7 @@ public class ExportResource {
 
 		
 		sb = new StringBuilder();
+		guestQuesturaFormatter = new GuestQuesturaFormatter();
 		//STAMPO I GRUPPI
 		for(Group each: groups){
 			sb.append(each.printGroup() + "\n");
@@ -303,7 +306,8 @@ public class ExportResource {
 		for(Booking each: simpleBookings){
 			for(Housed housed: this.getHousedService().findHousedByIdBooking(each.getId())){
 				if(this.housedIsIncludedInHousedExportList(housed, housedExportList)){
-					sb.append(housed.getGuest().getFirstName() + "  Ospite Singolo" + "\n");
+					guestQuesturaFormatter.setDataFromHoused(housed);
+					sb.append(guestQuesturaFormatter.getRowRegione());
 				}
 			}
 			

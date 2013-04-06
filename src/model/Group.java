@@ -14,10 +14,16 @@ public class Group {
 	
 	public String printGroup(){
 		StringBuilder sb = new StringBuilder();
+		GuestQuesturaFormatter guestQuesturaFormatter = null;
 		
-		sb.append(this.getLeader().getGuest().getFirstName() + "   " + this.getLeader().getHousedType().getDescription() + "\n" );
+		guestQuesturaFormatter = new GuestQuesturaFormatter();
+		guestQuesturaFormatter.setDataFromHoused(this.getLeader());
+		sb.append(guestQuesturaFormatter.getRowRegione());
+		//sb.append(this.getLeader().getGuest().getFirstName() + "   " + this.getLeader().getHousedType().getDescription() + "\n" );
 		for(Housed each: members){
-			sb.append(each.getGuest().getFirstName() + " Membro Gruppo o Famiglia"  + "\n");
+			guestQuesturaFormatter.setDataFromHoused(each);
+			sb.append(guestQuesturaFormatter.getRowRegione());
+			//sb.append(each.getGuest().getFirstName() + " Membro Gruppo o Famiglia"  + "\n");
 		}
 		
 		return sb.toString();

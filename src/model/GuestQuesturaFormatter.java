@@ -102,11 +102,44 @@ public class GuestQuesturaFormatter implements Serializable{
 	public String getRowRegione(){
 		String questura = this.getRowQuestura();
 		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-		String regione = "todo";
+		String regione = "";
+		regione = regione.concat(formatter.format(dataDiPartenza));
+		regione = regione.concat(tipoTurismo + mezzoDiTrasporto + Integer.toString(camereOccupate) + Integer.toString(camereDisponibili) +Integer.toString(lettiDisponibili));
+		regione = regione.concat(Integer.toString(tassaSoggiorno) + codiceIdPosizione +Integer.toString(modalita));
 		return questura + regione;
 	}
 	
-	
+	public void setDataFromHoused(Housed housed){
+		Guest guest = null;
+		guest = housed.getGuest();
+		this.setTipoAllogiato(14);
+		this.setDataArrivo(housed.getCheckInDate());
+		this.setCognome(guest.getLastName());
+		this.setNome(guest.getFirstName());
+		this.setSesso(guest.getGender());
+		this.setDataDiNascita(guest.getBirthDate());
+		this.setComuneDiNascita("Santulussurgiu");
+		this.setProvinciaDiNascita("CAGLIARI");
+		this.setStatoDiNascita("Italia");
+		this.setCittadinanza("Italiana");
+		this.setComuneResidenza("Selargius");
+		this.setProvinciaResidenza("Cagliari");
+		this.setStatoResidenza("Italia");
+		this.setIndirizzo("Via delle fresche frasche, n1");
+		this.setTipoDocumento("Patente");
+		this.setNumeroDocumento("CC123456lkjdf");
+		this.setLuogoRilascioDocumento("Villanovaforru");
+		this.setDataDiPartenza(housed.getCheckOutDate());
+		this.setTipoTurismo("scout");
+		this.setMezzoDiTrasporto("auto");
+		this.setCamereOccupate(2);
+		this.setCamereDisponibili(7);
+		this.setLettiDisponibili(14);
+		this.setTassaSoggiorno(3);
+		this.setCodiceIdPosizione("2gf");
+		this.setModalita(1);
+		
+	}
 	
 	@Override
 	public int hashCode() {
@@ -243,6 +276,78 @@ public class GuestQuesturaFormatter implements Serializable{
 	}
 	public void setLuogoRilascioDocumento(String luogoRilascioDocumento){
 		this.luogoRilascioDocumento = fillString(luogoRilascioDocumento,9);
+	}
+
+	public Date getDataDiPartenza() {
+		return dataDiPartenza;
+	}
+
+	public void setDataDiPartenza(Date dataDiPartenza) {
+		this.dataDiPartenza = dataDiPartenza;
+	}
+
+	public String getTipoTurismo() {
+		return tipoTurismo;
+	}
+
+	public void setTipoTurismo(String tipoTurismo) {
+		this.tipoTurismo = fillString(tipoTurismo,30);
+	}
+
+	public String getMezzoDiTrasporto() {
+		return mezzoDiTrasporto;
+	}
+
+	public void setMezzoDiTrasporto(String mezzoDiTrasporto) {
+		this.mezzoDiTrasporto = fillString(mezzoDiTrasporto,30);
+	}
+
+	public int getCamereOccupate() {
+		return camereOccupate;
+	}
+
+	public void setCamereOccupate(int camereOccupate) {
+		this.camereOccupate = camereOccupate;
+	}
+
+	public int getCamereDisponibili() {
+		return camereDisponibili;
+	}
+
+	public void setCamereDisponibili(int camereDisponibili) {
+		this.camereDisponibili = camereDisponibili;
+	}
+
+	public int getLettiDisponibili() {
+		return lettiDisponibili;
+	}
+
+	public void setLettiDisponibili(int lettiDisponibili) {
+		this.lettiDisponibili = lettiDisponibili;
+	}
+
+	public int getTassaSoggiorno() {
+		return tassaSoggiorno;
+	}
+
+	public void setTassaSoggiorno(int tassaSoggiorno) {
+		this.tassaSoggiorno = tassaSoggiorno;
+	}
+
+	public String getCodiceIdPosizione() {
+		return codiceIdPosizione;
+	}
+
+	public void setCodiceIdPosizione(String codiceIdPosizione) {
+		this.codiceIdPosizione = fillString(codiceIdPosizione,10);
+	}
+
+	public int getModalita() {
+		return modalita;
+	}
+
+	public void setModalita(int modalita) {
+		this.modalita = modalita;
 	}
 	
 	
