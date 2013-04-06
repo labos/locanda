@@ -80,6 +80,18 @@ public class GuestQuesturaFormatter implements Serializable{
 		
 	}
 	
+	//return a filled string for numerical value
+	private String fillNumerical(Integer num, int fixedSize){
+		String result = "                                                                                                                        ";
+		String s = "";
+		if(!num.equals(0)){
+			s = Integer.toString(num);
+		}
+		result = s.concat(result);
+		return result.substring(0, fixedSize);
+		
+	}
+	
 	/**
 	 * get the resulting row (236 chars)
 	 * you need to append a (CR+LF) characters at the end of the row
@@ -104,13 +116,14 @@ public class GuestQuesturaFormatter implements Serializable{
 		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 		String regione = "";
 		regione = regione.concat(formatter.format(dataDiPartenza));
-		regione = regione.concat(tipoTurismo + mezzoDiTrasporto + fillString(Integer.toString(camereOccupate),3) + fillString(Integer.toString(camereDisponibili),3) + fillString(Integer.toString(lettiDisponibili),4));
+		regione = regione.concat(tipoTurismo + mezzoDiTrasporto + fillNumerical(camereOccupate,3) + fillNumerical(camereDisponibili,3) + fillNumerical(lettiDisponibili,4));
 		regione = regione.concat(Integer.toString(tassaSoggiorno) + codiceIdPosizione +Integer.toString(modalita));
 		return questura + regione + "\n";
 	}
 	
 	public void setDataFromHousedForRegione(Housed housed){
 		Guest guest = null;
+		Integer housedTypeCode;
 		guest = housed.getGuest();
 		this.setTipoAllogiato(housed.getHousedType()!=null? housed.getHousedType().getCode() : 16);
 		this.setDataArrivo(housed.getCheckInDate());
@@ -132,9 +145,19 @@ public class GuestQuesturaFormatter implements Serializable{
 		this.setDataDiPartenza(housed.getCheckOutDate());
 		this.setTipoTurismo("tipoturismo");
 		this.setMezzoDiTrasporto("aereo");
+		housedTypeCode = housed.getHousedType().getCode();
+		
+		if(housedTypeCode == 19 || housedTypeCode == 20){
+			this.setCamereOccupate(0);
+			this.setCamereDisponibili(0);
+			this.setLettiDisponibili(0);
+		}
+		else{
 		this.setCamereOccupate(1);
 		this.setCamereDisponibili(7);
 		this.setLettiDisponibili(14);
+		}
+		
 		this.setTassaSoggiorno(0);
 		this.setCodiceIdPosizione(housed.getId().toString());
 		

@@ -264,12 +264,17 @@ public class ExportResource {
 			Group group = new Group();
 			group.setLeader(aGroupLeader.getHoused());
 			
-			//Membri dello stesso booking dove si trova il leader
+
 			for(Housed housed:  this.getHousedService().findHousedByIdBooking(aGroupLeader.getId_booking())){
 				if(this.housedIsIncludedInHousedExportList(housed, housedExportList) && !housed.equals(aGroupLeader)){
 					HousedType anHousedType = new HousedType();
 					//a group member
-					anHousedType.setCode(20);
+					if(aGroupLeader.getHoused().getHousedType().getCode() == 17){
+						anHousedType.setCode(19);
+					}else{
+						anHousedType.setCode(20);
+					}
+					
 					housed.setHousedType(anHousedType);
 					group.getMembers().add(housed);
 				}
