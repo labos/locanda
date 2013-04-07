@@ -150,6 +150,7 @@ public class ExportResource {
 					anHousedType.setCode(20);
 				}
 				aMember.getHoused().setHousedType(anHousedType);	
+				guestQuesturaFormatter.setNumGiorniPermanenza(this.calculateLengthOfStay(aMember));
 				guestQuesturaFormatter.setDataFromHousedForQuestura(aMember.getHoused());
 				sb.append(guestQuesturaFormatter.getRowQuestura(false));
 
