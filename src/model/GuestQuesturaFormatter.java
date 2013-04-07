@@ -152,12 +152,7 @@ public class GuestQuesturaFormatter implements Serializable{
 			this.setCamereDisponibili(0);
 			this.setLettiDisponibili(0);
 		}
-		else{
-		this.setCamereOccupate(1);
-		this.setCamereDisponibili(7);
-		this.setLettiDisponibili(14);
-		}
-		
+	
 		this.setTassaSoggiorno(0);
 		this.setCodiceIdPosizione(housed.getId().toString());
 		

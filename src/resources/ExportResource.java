@@ -38,6 +38,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import service.BookingService;
+import service.ExportService;
 import service.GroupLeaderService;
 import service.HousedExportService;
 import service.HousedService;
@@ -54,6 +55,8 @@ public class ExportResource {
 	private HousedService housedService = null;
 	@Autowired
 	private HousedExportService housedExportService = null;	
+	@Autowired
+	private ExportService exportService = null;	
 	private static Logger logger = Logger.getLogger(Logger.class);
 
 	@GET
@@ -210,14 +213,16 @@ public class ExportResource {
 		StringBuilder sb = null;
 		List<GroupLeader> groupLeaders = null;
 		List<Booking> simpleBookings = null;
-		GuestQuesturaFormatter guestQuesturaFormatter = null;
 		List<Group> groups = null;
 		Set<Housed> housedLeaderSet = null;
 		List<HousedExportGroup> housedExportGroupList = null;
 		List<HousedExport> housedExportSingleList = null;
-		
-		
+		Integer availableRooms;
+		Integer availableBeds;
+	
 		exportDate = new Date(Long.parseLong(date));
+		availableRooms =this.getExportService().calculateAvailableNumberOfRoomsForStructureInDate(idStructure, exportDate);
+		availableBeds = this.getExportService().calculateAvailableNumberOfBedsForStructureInDate(idStructure, exportDate);
 		
 		housedExportList = new ArrayList<HousedExport>();
 		for(HousedExport each : this.getHousedExportService().findByIdStructureAndExported(idStructure, false) ){
@@ -271,6 +276,47 @@ public class ExportResource {
 		housedExportSingleList = new ArrayList<HousedExport>();		
 		housedExportSingleList = this.findHousedExportSingleList(housedExportList);
 		
+		sb = new StringBuilder();
+
+		for(HousedExportGroup each : housedExportGroupList){
+			
+			GuestQuesturaFormatter guestQuesturaFormatterLeader = new GuestQuesturaFormatter();
+			guestQuesturaFormatterLeader.setModalita(each.getHousedExportLeader().getMode());
+			guestQuesturaFormatterLeader.setCamereOccupate(1);
+			guestQuesturaFormatterLeader.setCamereDisponibili(availableRooms);
+			guestQuesturaFormatterLeader.setLettiDisponibili(availableBeds);
+			guestQuesturaFormatterLeader.setDataFromHousedForRegione(each.getHousedExportLeader().getHoused());
+			sb.append(guestQuesturaFormatterLeader.getRowRegione());
+			for(HousedExport aMember: each.getHousedExportMembers()){
+
+				GuestQuesturaFormatter guestQuesturaFormatter = new GuestQuesturaFormatter();
+				HousedType anHousedType = new HousedType();
+				if(each.getHousedExportLeader().getHoused().getHousedType().getCode() == 17){
+					anHousedType.setCode(19);
+				}else{
+					anHousedType.setCode(20);
+				}
+				aMember.getHoused().setHousedType(anHousedType);	
+				guestQuesturaFormatter.setDataFromHousedForRegione(aMember.getHoused());
+				sb.append(guestQuesturaFormatter.getRowRegione());
+
+			}
+			
+		}
+		
+		for(HousedExport each : housedExportSingleList){
+			GuestQuesturaFormatter guestQuesturaFormatter = new GuestQuesturaFormatter();
+			HousedType anHousedType = new HousedType();
+			anHousedType.setCode(16);
+			each.getHoused().setHousedType(anHousedType);	
+			guestQuesturaFormatter.setModalita(each.getMode());
+			guestQuesturaFormatter.setCamereOccupate(1);
+			guestQuesturaFormatter.setCamereDisponibili(availableRooms);
+			guestQuesturaFormatter.setLettiDisponibili(availableBeds);
+			guestQuesturaFormatter.setDataFromHousedForRegione(each.getHoused());
+			sb.append(guestQuesturaFormatter.getRowRegione());
+			
+		}
 		
 		//STAMPO I GRUPPI
 		
@@ -478,6 +524,16 @@ public class ExportResource {
 
 	public void setHousedExportService(HousedExportService housedExportService) {
 		this.housedExportService = housedExportService;
+	}
+
+
+	public ExportService getExportService() {
+		return exportService;
+	}
+
+
+	public void setExportService(ExportService exportService) {
+		this.exportService = exportService;
 	}
 	
 	
