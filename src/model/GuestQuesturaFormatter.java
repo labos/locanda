@@ -127,8 +127,8 @@ public class GuestQuesturaFormatter implements Serializable{
 		guest = housed.getGuest();
 		this.setTipoAllogiato(housed.getHousedType()!=null? housed.getHousedType().getCode() : 16);
 		this.setDataArrivo(housed.getCheckInDate());
-		this.setCognome(guest.getLastName());
-		this.setNome(guest.getFirstName());
+		this.setCognome("");
+		this.setNome("");
 		this.setSesso(guest.getGender());
 		this.setDataDiNascita(guest.getBirthDate());
 		this.setComuneDiNascita(guest.getMunicipalityOfBirth()!=null?guest.getMunicipalityOfBirth().getPoliceCode().toString() : "");
