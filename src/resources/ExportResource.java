@@ -24,13 +24,10 @@ import model.Booking;
 import model.GroupLeader;
 import model.GuestQuesturaFormatter;
 import model.Housed;
-import model.questura.Group;
 import model.questura.HousedExport;
 import model.questura.HousedExportGroup;
 import model.questura.HousedType;
 
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.output.StringBuilderWriter;
 import org.apache.commons.lang3.time.DateUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
