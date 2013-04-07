@@ -107,94 +107,76 @@ public class ExportResource {
 	@Path("structure/{idStructure}/do/questura")
 	@Produces("text/plain")
 	public Response exportFileQuestura(@PathParam("idStructure") Integer idStructure,@QueryParam("date") String date) {
-		List<Booking> allBookings = null;
-		List<Booking> activeBookings = null;
-		Date exportDate = null;
-		List<GroupLeader> groupLeaders = null;
-		List<GroupLeader> mainGroupLeaders = null;
-		List<Booking> simpleBookings = null;
+		List<HousedExport> housedExportList = null;
+		Date exportDate  = null;
 		StringBuilder sb = null;
+		List<HousedExportGroup> housedExportGroupList = null;		
+		List<HousedExport> housedExportSingleList = null;
+		Integer availableRooms;
+		Integer availableBeds;
 		
-		
-		allBookings = this.getBookingService().findBookingsByIdStructure(idStructure);
-		activeBookings = new ArrayList<Booking>();
-		
+	
 		exportDate = new Date(Long.parseLong(date));
-		//ACTIVE BOOKINGS 
-		for(Booking each: allBookings){
-			if( (DateUtils.truncatedCompareTo(each.getDateIn(), exportDate, Calendar.DAY_OF_MONTH) <= 0) &&
-					(DateUtils.truncatedCompareTo(exportDate,each.getDateOut(), Calendar.DAY_OF_MONTH) < 0) ){
-				activeBookings.add(each);				
-			}
-		}
 		
-		//GROUP LEADERS
-		groupLeaders = new ArrayList<GroupLeader>();
-		simpleBookings = new ArrayList<Booking>();
-		mainGroupLeaders = new ArrayList<GroupLeader>();
+		housedExportList = this.findHousedExportList(idStructure, exportDate);
+				
+		//CREO I GRUPPI HousedExportGroup			
+		housedExportGroupList = this.findHousedExportGroups(housedExportList);
 		
+		//CREO LA LISTA DEGLI HOUSED EXPORT Singoli
+		housedExportSingleList = this.findHousedExportSingleList(housedExportList);
 		
-		for(Booking each: activeBookings){	
-			GroupLeader groupLeader = null;
-			groupLeader = this.getGroupLeaderService().findGroupLeaderByIdBooking(each.getId());
-			if(groupLeader!=null){
-				groupLeaders.add(groupLeader);
-				if(groupLeader.getId_booking().equals(groupLeader.getHoused().getId_booking())){
-					mainGroupLeaders.add(groupLeader);
-				}
-			}else{
-				simpleBookings.add(each);
-			}
-		}
-		
-		//CREO I GRUPPI
-		List<Group> groups = new ArrayList<Group>();
-		
-		for(GroupLeader mainGroupLeader: mainGroupLeaders){
-			Group group = new Group();
-			group.setLeader(mainGroupLeader.getHoused());
-			
-			//Membri dello stesso booking dove si trova il leader
-			for(Housed housed:  this.getHousedService().findHousedByIdBooking(mainGroupLeader.getId_booking())){
-				if(!housed.equals(mainGroupLeader)){
-					group.getMembers().add(housed);
-				}
-			}
-			
-			//Membri dei booking collegati
-			List<Integer> linkedBookingIds = new ArrayList<Integer>();
-			
-			for(GroupLeader groupLeader: groupLeaders){
-				if( (!groupLeader.getId().equals(mainGroupLeader.getId())) && (groupLeader.getId_housed().equals(mainGroupLeader.getId_housed()))  ){
-					linkedBookingIds.add(groupLeader.getId_booking());
-				}
-			}
-			
-			for(Integer idBooking: linkedBookingIds){
-				group.getMembers().addAll(
-				    this.getHousedService().findHousedByIdBooking(idBooking));
-			}
-			
-			groups.add(group);			
-		}
+		availableRooms =this.getExportService().calculateAvailableNumberOfRoomsForStructureInDate(idStructure, exportDate);
+		availableBeds = this.getExportService().calculateAvailableNumberOfBedsForStructureInDate(idStructure, exportDate);
 		
 		sb = new StringBuilder();
-		//STAMPO I GRUPPI
-		for(Group each: groups){
-			sb.append(each.printGroup() + "\n");
+		
+		for(HousedExportGroup each : housedExportGroupList){			
+			GuestQuesturaFormatter guestQuesturaFormatterLeader = new GuestQuesturaFormatter();
+			guestQuesturaFormatterLeader.setModalita(each.getHousedExportLeader().getMode());
+			guestQuesturaFormatterLeader.setCamereOccupate(this.calculateNumberOfOccupiedRoomsForGroup(each));
+			guestQuesturaFormatterLeader.setCamereDisponibili(availableRooms);
+			guestQuesturaFormatterLeader.setLettiDisponibili(availableBeds);
+			guestQuesturaFormatterLeader.setDataFromHousedForQuestura(each.getHousedExportLeader().getHoused());
+			sb.append(guestQuesturaFormatterLeader.getRowQuestura(false));
+			for(HousedExport aMember: each.getHousedExportMembers()){
+
+				GuestQuesturaFormatter guestQuesturaFormatter = new GuestQuesturaFormatter();
+				HousedType anHousedType = new HousedType();
+				if(each.getHousedExportLeader().getHoused().getHousedType().getCode() == 17){
+					anHousedType.setCode(19);
+				}else{
+					anHousedType.setCode(20);
+				}
+				aMember.getHoused().setHousedType(anHousedType);	
+				guestQuesturaFormatter.setDataFromHousedForQuestura(aMember.getHoused());
+				sb.append(guestQuesturaFormatter.getRowQuestura(false));
+
+			}
+			
 		}
 		
-		//STAMPO I BOOKING SEMPLICI
-		
-		for(Booking each: simpleBookings){
-			for(Housed housed: this.getHousedService().findHousedByIdBooking(each.getId())){
-				sb.append(housed.getGuest().getFirstName() + "  Ospite Singolo" + "\n");
-			}
+		for(HousedExport each : housedExportSingleList){
+			GuestQuesturaFormatter guestQuesturaFormatter = new GuestQuesturaFormatter();
+			HousedType anHousedType = new HousedType();
+			anHousedType.setCode(16);
+			each.getHoused().setHousedType(anHousedType);	
+			guestQuesturaFormatter.setModalita(each.getMode());
+			guestQuesturaFormatter.setCamereOccupate(1);
+			guestQuesturaFormatter.setCamereDisponibili(availableRooms);
+			guestQuesturaFormatter.setLettiDisponibili(availableBeds);
+			guestQuesturaFormatter.setDataFromHousedForQuestura(each.getHoused());
+			sb.append(guestQuesturaFormatter.getRowQuestura(false));
 			
 		}
 		
 		String str = sb.toString();
-				
+	    
+		for(HousedExport each : housedExportList){
+			each.setExported(true);
+			this.getHousedExportService().update(each);
+		}
+		
 		ResponseBuilder response = Response.ok((Object) str);
 		response.header("Content-Disposition",
 			"attachment; filename=\"file_from_server_questura.txt\"");

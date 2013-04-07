@@ -40,6 +40,7 @@ public class GuestQuesturaFormatter implements Serializable{
 	 */
 	private Integer tipoAllogiato; 	// values in range[16-20] 
 	private Date dataArrivo;	 	// gg/mm/aaaa
+	private Integer numGiorniPermanenza;  // 2 chars max valore:30
 	private String cognome; 		// 50 chars
 	private String nome; 			// 30 chars
 	private String sesso;			// 1  chars (M,F)
@@ -96,29 +97,39 @@ public class GuestQuesturaFormatter implements Serializable{
 	 * get the resulting row (236 chars)
 	 * you need to append a (CR+LF) characters at the end of the row
 	 */
-	public String getRowQuestura(){
+
+	public String getRowRegione(){
 		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+		String regione = "";
 		String s = "";
-				
+		
 		s = s.concat(Integer.toString(tipoAllogiato));
 		s = s.concat(formatter.format(dataArrivo));
 		s = s.concat(cognome + nome + sesso);
 		s = s.concat(formatter.format(dataDiNascita));
 		s = s.concat(comuneDiNascita + provinciaDiNascita + statoDiNascita);
-		s = s.concat(cittadinanza + comuneResidenza + provinciaResidenza + statoResidenza);
-		s = s.concat(indirizzo + tipoDocumento + numeroDocumento + luogoRilascioDocumento);
-		
-		return s;
-	}
-	
-	public String getRowRegione(){
-		String questura = this.getRowQuestura();
-		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-		String regione = "";
+		s = s.concat(cittadinanza);
+		regione = regione.concat(comuneResidenza + provinciaResidenza + statoResidenza);
+		regione = regione.concat(indirizzo + tipoDocumento + numeroDocumento + luogoRilascioDocumento);
 		regione = regione.concat(formatter.format(dataDiPartenza));
 		regione = regione.concat(tipoTurismo + mezzoDiTrasporto + fillNumerical(camereOccupate,3) + fillNumerical(camereDisponibili,3) + fillNumerical(lettiDisponibili,4));
 		regione = regione.concat(Integer.toString(tassaSoggiorno) + codiceIdPosizione +Integer.toString(modalita));
-		return questura + regione + "\n";
+		return s + regione + "\r\n";
+	}
+	
+	public String getRowQuestura(Boolean isLast){
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+		String s = "";
+		s = s.concat(Integer.toString(tipoAllogiato));
+		s = s.concat(formatter.format(dataArrivo));
+		s = s.concat(fillNumerical(numGiorniPermanenza, 2));
+		s = s.concat(cognome + nome + sesso);
+		s = s.concat(formatter.format(dataDiNascita));
+		s = s.concat(comuneDiNascita + provinciaDiNascita + statoDiNascita);
+		s = s.concat(cittadinanza);		
+		s = s.concat(tipoDocumento + numeroDocumento + luogoRilascioDocumento);
+		s.concat((isLast)? "" : "\r\n");
+		return  s;
 	}
 	
 	public void setDataFromHousedForRegione(Housed housed){
@@ -159,7 +170,43 @@ public class GuestQuesturaFormatter implements Serializable{
 	}
 		
 	public void setDataFromHousedForQuestura(Housed housed){
-		// to be implemented
+		Guest guest = null;
+		Integer housedTypeCode;
+		guest = housed.getGuest();
+		this.setTipoAllogiato(housed.getHousedType()!=null? housed.getHousedType().getCode() : 16);
+		this.setDataArrivo(housed.getCheckInDate());
+		this.setCognome(guest.getLastName());
+		this.setNome(guest.getFirstName());
+		this.setSesso(guest.getGender());
+		this.setDataDiNascita(guest.getBirthDate());
+		this.setComuneDiNascita(guest.getMunicipalityOfBirth()!=null?guest.getMunicipalityOfBirth().getPoliceCode().toString() : "");
+		this.setProvinciaDiNascita(guest.getMunicipalityOfBirth()!=null?guest.getMunicipalityOfBirth().getProvince() : "");
+		this.setStatoDiNascita(guest.getCountryOfBirth()!=null? guest.getCountryOfBirth().getPoliceCode().toString() : "");
+		this.setCittadinanza(guest.getCountryOfBirth()!=null?guest.getCitizenship().getPoliceCode().toString() : "");
+		housedTypeCode = housed.getHousedType().getCode();
+		if(housedTypeCode == 19 || housedTypeCode == 20){
+
+			this.setComuneResidenza("");
+			this.setProvinciaResidenza("");
+			this.setStatoResidenza("");
+			this.setIndirizzo("");
+			this.setTipoDocumento("");
+			this.setNumeroDocumento("");
+			this.setLuogoRilascioDocumento("");	
+			
+		}
+		else{
+			this.setComuneResidenza(guest.getMunicipalityOfResidence()!=null?guest.getMunicipalityOfResidence().getPoliceCode().toString() : "");
+			this.setProvinciaResidenza(guest.getMunicipalityOfResidence()!=null?guest.getMunicipalityOfResidence().getProvince() : "");
+			this.setStatoResidenza(guest.getCountryOfResidence()!=null ? guest.getCountryOfResidence().getPoliceCode().toString() : "");
+			this.setIndirizzo(guest.getAddress());
+			this.setTipoDocumento(guest.getIdType()!=null ?guest.getIdType().getPoliceCode() : "");
+			this.setNumeroDocumento(guest.getIdNumber()!=null? guest.getIdNumber() : "" );
+			this.setLuogoRilascioDocumento(guest.getIdPlace()!=null ?guest.getIdPlace().getPoliceCode().toString() : "");		
+			
+			
+		}
+
 	}
 	
 	@Override
@@ -224,7 +271,11 @@ public class GuestQuesturaFormatter implements Serializable{
 		return sesso;
 	}
 	public void setSesso(String sesso){
-		this.sesso = fillString(sesso, 1);
+		String numSex = "1";
+		if(numSex == "F"){
+			numSex = "2";
+		}
+		this.sesso = fillString(numSex, 1);
 	}
 	public Date getDataDiNascita(){
 		return dataDiNascita;
@@ -369,6 +420,14 @@ public class GuestQuesturaFormatter implements Serializable{
 
 	public void setModalita(int modalita) {
 		this.modalita = modalita;
+	}
+
+	public Integer getNumGiorniPermanenza() {
+		return numGiorniPermanenza;
+	}
+
+	public void setNumGiorniPermanenza(Integer numGiorniPermanenza) {
+		this.numGiorniPermanenza = numGiorniPermanenza;
 	}
 	
 	
