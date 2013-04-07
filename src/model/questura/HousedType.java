@@ -25,6 +25,12 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class HousedType implements Serializable{
 	
+	public static Integer OSPITE_SINGOLO = 16;
+	public static Integer CAPOFAMIGLIA = 17;
+	public static Integer CAPOGRUPPO = 18;
+	public static Integer FAMILIARE = 19;
+	public static Integer MEMBRO_GRUPPO = 20;
+	
 	@Field
 	private Integer id;
 	@Field

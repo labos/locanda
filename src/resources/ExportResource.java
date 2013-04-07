@@ -141,10 +141,10 @@ public class ExportResource {
 
 				GuestQuesturaFormatter guestQuesturaFormatter = new GuestQuesturaFormatter();
 				HousedType anHousedType = new HousedType();
-				if(each.getHousedExportLeader().getHoused().getHousedType().getCode() == 17){
-					anHousedType.setCode(19);
+				if(each.getHousedExportLeader().getHoused().getHousedType().getCode() == HousedType.CAPOFAMIGLIA){
+					anHousedType.setCode(HousedType.FAMILIARE);
 				}else{
-					anHousedType.setCode(20);
+					anHousedType.setCode(HousedType.MEMBRO_GRUPPO);
 				}
 				aMember.getHoused().setHousedType(anHousedType);	
 				guestQuesturaFormatter.setNumGiorniPermanenza(this.calculateLengthOfStay(aMember));
@@ -158,7 +158,7 @@ public class ExportResource {
 		for(HousedExport each : housedExportSingleList){
 			GuestQuesturaFormatter guestQuesturaFormatter = new GuestQuesturaFormatter();
 			HousedType anHousedType = new HousedType();
-			anHousedType.setCode(16);
+			anHousedType.setCode(HousedType.OSPITE_SINGOLO);
 			each.getHoused().setHousedType(anHousedType);	
 			guestQuesturaFormatter.setModalita(each.getMode());
 			guestQuesturaFormatter.setCamereOccupate(1);
@@ -224,10 +224,10 @@ public class ExportResource {
 
 				GuestQuesturaFormatter guestQuesturaFormatter = new GuestQuesturaFormatter();
 				HousedType anHousedType = new HousedType();
-				if(each.getHousedExportLeader().getHoused().getHousedType().getCode() == 17){
-					anHousedType.setCode(19);
+				if(each.getHousedExportLeader().getHoused().getHousedType().getCode() == HousedType.CAPOFAMIGLIA){
+					anHousedType.setCode(HousedType.FAMILIARE);
 				}else{
-					anHousedType.setCode(20);
+					anHousedType.setCode(HousedType.MEMBRO_GRUPPO);
 				}
 				aMember.getHoused().setHousedType(anHousedType);	
 				guestQuesturaFormatter.setDataFromHousedForRegione(aMember.getHoused());
@@ -240,7 +240,7 @@ public class ExportResource {
 		for(HousedExport each : housedExportSingleList){
 			GuestQuesturaFormatter guestQuesturaFormatter = new GuestQuesturaFormatter();
 			HousedType anHousedType = new HousedType();
-			anHousedType.setCode(16);
+			anHousedType.setCode(HousedType.OSPITE_SINGOLO);
 			each.getHoused().setHousedType(anHousedType);	
 			guestQuesturaFormatter.setModalita(each.getMode());
 			guestQuesturaFormatter.setCamereOccupate(1);
