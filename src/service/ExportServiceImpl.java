@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import model.Booking;
+import model.Room;
 import model.RoomType;
 
 import org.apache.commons.lang3.time.DateUtils;
@@ -42,8 +43,9 @@ public class ExportServiceImpl implements ExportService{
 		Integer totalNumberOfBeds = 0;
 		Integer numberOfOccupiedBeds = 0;
 		
-		for(RoomType each: this.getRoomTypeService().findRoomTypesByIdStructure(id_structure)){
-			totalNumberOfBeds = totalNumberOfBeds + each.getMaxGuests();
+		for(Room each: this.getRoomService().findRoomsByIdStructure(id_structure)){
+			totalNumberOfBeds = totalNumberOfBeds + each.getRoomType().getMaxGuests();
+			
 		}
 		
 		for(Booking each: this.activeBookingsForStructureInDate(id_structure, date)){
