@@ -78,6 +78,7 @@ public class GuestServiceImpl implements GuestService{
 		guest.setCitizenship(this.getCountryService().findById(guest.getId_citizenship()));
 		
 		guest.setIdType(this.getIdentificationTypeService().findById(guest.getId_idType()));
+		guest.setIdPlace(this.getMunicipalityService().findById(guest.getId_idPlace()));
 		
 	}
 	
