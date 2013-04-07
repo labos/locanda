@@ -128,7 +128,10 @@ public class GuestQuesturaFormatter implements Serializable{
 		s = s.concat(comuneDiNascita + provinciaDiNascita + statoDiNascita);
 		s = s.concat(cittadinanza);		
 		s = s.concat(tipoDocumento + numeroDocumento + luogoRilascioDocumento);
-		s.concat((isLast)? "" : "\r\n");
+		if(!isLast){
+			s = s + "\r\n";
+		}
+
 		return  s;
 	}
 	
