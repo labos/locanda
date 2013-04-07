@@ -137,6 +137,7 @@ public class ExportResource {
 			guestQuesturaFormatterLeader.setCamereOccupate(this.calculateNumberOfOccupiedRoomsForGroup(each));
 			guestQuesturaFormatterLeader.setCamereDisponibili(availableRooms);
 			guestQuesturaFormatterLeader.setLettiDisponibili(availableBeds);
+			guestQuesturaFormatterLeader.setNumGiorniPermanenza(this.calculateLengthOfStay(each.getHousedExportLeader()));
 			guestQuesturaFormatterLeader.setDataFromHousedForQuestura(each.getHousedExportLeader().getHoused());
 			sb.append(guestQuesturaFormatterLeader.getRowQuestura(false));
 			for(HousedExport aMember: each.getHousedExportMembers()){
@@ -165,6 +166,7 @@ public class ExportResource {
 			guestQuesturaFormatter.setCamereOccupate(1);
 			guestQuesturaFormatter.setCamereDisponibili(availableRooms);
 			guestQuesturaFormatter.setLettiDisponibili(availableBeds);
+			guestQuesturaFormatter.setNumGiorniPermanenza(this.calculateLengthOfStay(each));
 			guestQuesturaFormatter.setDataFromHousedForQuestura(each.getHoused());
 			sb.append(guestQuesturaFormatter.getRowQuestura(false));
 			
@@ -404,7 +406,33 @@ public class ExportResource {
 		return ret;
 	}
 	
-	
+	private Integer calculateLengthOfStay(HousedExport housedExport){
+		//30 is the max length of stay 
+		Integer ret = 30;
+		
+		Date checkinDate = null;
+		Date checkOutDate = null;
+		
+		checkinDate = housedExport.getHoused().getCheckInDate();
+		checkOutDate = housedExport.getHoused().getCheckOutDate();
+		
+		if(checkinDate!=null && checkOutDate!=null){
+			List<Date> bookingDates = null; 
+			Date current = null;
+			Integer i = 0;
+			
+			bookingDates = new ArrayList<Date>();
+			
+			current  = DateUtils.addDays(checkinDate, i );		
+			while(DateUtils.truncatedCompareTo(current, checkOutDate,Calendar.DAY_OF_MONTH ) < 0){
+				bookingDates.add(current);
+				i = i + 1;
+				current  = DateUtils.addDays(checkinDate, i );
+			}	
+			ret = bookingDates.size();
+		}		
+		return ret;
+	}
 
 	public BookingService getBookingService() {
 		return bookingService;
