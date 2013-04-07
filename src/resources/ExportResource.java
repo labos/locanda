@@ -229,7 +229,8 @@ public class ExportResource {
 				}else{
 					anHousedType.setCode(HousedType.MEMBRO_GRUPPO);
 				}
-				aMember.getHoused().setHousedType(anHousedType);	
+				aMember.getHoused().setHousedType(anHousedType);
+				guestQuesturaFormatter.setModalita(aMember.getMode());
 				guestQuesturaFormatter.setDataFromHousedForRegione(aMember.getHoused());
 				sb.append(guestQuesturaFormatter.getRowRegione());
 

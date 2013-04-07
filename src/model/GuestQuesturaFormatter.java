@@ -147,17 +147,37 @@ public class GuestQuesturaFormatter implements Serializable{
 		this.setNome("");
 		this.setSesso(guest.getGender());
 		this.setDataDiNascita(guest.getBirthDate());
-		this.setComuneDiNascita(guest.getMunicipalityOfBirth()!=null?guest.getMunicipalityOfBirth().getPoliceCode().toString() : "");
-		this.setProvinciaDiNascita(guest.getMunicipalityOfBirth()!=null?guest.getMunicipalityOfBirth().getProvince() : "");
 		this.setStatoDiNascita(guest.getCountryOfBirth()!=null? guest.getCountryOfBirth().getPoliceCode().toString() : "");
+		//check for italian housed
+		if( guest.getCountryOfBirth()!=null && guest.getCountryOfBirth().getPoliceCode()==100000100){
+			this.setComuneDiNascita(guest.getMunicipalityOfBirth()!=null?guest.getMunicipalityOfBirth().getPoliceCode().toString() : "");
+			this.setProvinciaDiNascita(guest.getMunicipalityOfBirth()!=null?guest.getMunicipalityOfBirth().getProvince() : "");	
+		}else{
+			this.setComuneDiNascita("");
+			this.setProvinciaDiNascita("");	
+		}
 		this.setCittadinanza(guest.getCountryOfBirth()!=null?guest.getCitizenship().getPoliceCode().toString() : "");
+		
+		if( guest.getCountryOfResidence()!=null && guest.getCountryOfResidence().getPoliceCode()==100000100){
 		this.setComuneResidenza(guest.getMunicipalityOfResidence()!=null?guest.getMunicipalityOfResidence().getPoliceCode().toString() : "");
 		this.setProvinciaResidenza(guest.getMunicipalityOfResidence()!=null?guest.getMunicipalityOfResidence().getProvince() : "");
+		}else{
+			this.setComuneResidenza("");
+			this.setProvinciaResidenza("");
+		}
 		this.setStatoResidenza(guest.getCountryOfResidence()!=null ? guest.getCountryOfResidence().getPoliceCode().toString() : "");
+		/* UNCOMMENT FOR TEST */
+		/*
 		this.setIndirizzo(guest.getAddress());
 		this.setTipoDocumento(guest.getIdType()!=null ?guest.getIdType().getPoliceCode() : "");
 		this.setNumeroDocumento(guest.getIdNumber()!=null? guest.getIdNumber() : "" );
 		this.setLuogoRilascioDocumento(guest.getIdPlace()!=null ?guest.getIdPlace().getPoliceCode().toString() : "");
+		*/
+		this.setIndirizzo("");
+		this.setTipoDocumento("");
+		this.setNumeroDocumento("");
+		this.setLuogoRilascioDocumento("");
+		
 		this.setDataDiPartenza(housed.getCheckOutDate());
 		this.setTipoTurismo("tipoturismo");
 		this.setMezzoDiTrasporto("aereo");
@@ -184,9 +204,16 @@ public class GuestQuesturaFormatter implements Serializable{
 		this.setNome(guest.getFirstName());
 		this.setSesso(guest.getGender());
 		this.setDataDiNascita(guest.getBirthDate());
-		this.setComuneDiNascita(guest.getMunicipalityOfBirth()!=null?guest.getMunicipalityOfBirth().getPoliceCode().toString() : "");
-		this.setProvinciaDiNascita(guest.getMunicipalityOfBirth()!=null?guest.getMunicipalityOfBirth().getProvince() : "");
 		this.setStatoDiNascita(guest.getCountryOfBirth()!=null? guest.getCountryOfBirth().getPoliceCode().toString() : "");
+		//check for italian housed
+		if( guest.getCountryOfBirth()!=null && guest.getCountryOfBirth().getPoliceCode()==100000100){
+			this.setComuneDiNascita(guest.getMunicipalityOfBirth()!=null?guest.getMunicipalityOfBirth().getPoliceCode().toString() : "");
+			this.setProvinciaDiNascita(guest.getMunicipalityOfBirth()!=null?guest.getMunicipalityOfBirth().getProvince() : "");	
+		}
+		else{
+			this.setComuneDiNascita("");
+			this.setProvinciaDiNascita("");		
+		}
 		this.setCittadinanza(guest.getCountryOfBirth()!=null?guest.getCitizenship().getPoliceCode().toString() : "");
 		housedTypeCode = housed.getHousedType().getCode();
 		if(housedTypeCode == HousedType.FAMILIARE || housedTypeCode == HousedType.MEMBRO_GRUPPO){
@@ -277,7 +304,7 @@ public class GuestQuesturaFormatter implements Serializable{
 	}
 	public void setSesso(String sesso){
 		String numSex = "1";
-		if(numSex == "F"){
+		if(sesso.equals("F")){
 			numSex = "2";
 		}
 		this.sesso = fillString(numSex, 1);
