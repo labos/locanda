@@ -1,11 +1,15 @@
-package model;
+package model.questura;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import model.GuestQuesturaFormatter;
+import model.Housed;
+
 public class Group {
 	private Housed leader = null;
 	private List<Housed> members = null;
+	private Integer numberOfOccupiedRooms = 0;
 	
 	public Group(){
 		this.members = new ArrayList<Housed>();
@@ -46,8 +50,16 @@ public class Group {
 	public void setMembers(List<Housed> members) {
 		this.members = members;
 	}
-	
-	
+
+
+	public Integer getNumberOfOccupiedRooms() {
+		return numberOfOccupiedRooms;
+	}
+
+
+	public void setNumberOfOccupiedRooms(Integer numberOfOccupiedRooms) {
+		this.numberOfOccupiedRooms = numberOfOccupiedRooms;
+	}	
 	
 
 }

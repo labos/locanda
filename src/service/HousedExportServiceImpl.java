@@ -81,14 +81,11 @@ public class HousedExportServiceImpl implements HousedExportService{
 		List<HousedExport> ret = null;
 		
 		ret = new ArrayList<HousedExport>();
-		//gli housed cancellati non riesco ad associarli alla struttura
 		for(HousedExport each: this.findByExported(exported)){
 			if(each.getHoused() != null && each.getHoused().getGuest().getId_structure().equals(id_structure)){
 				ret.add(each);
 			}
-		}
-		
-		
+		}		
 		return ret;
 	}
 	

@@ -21,11 +21,12 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
 
 import model.Booking;
-import model.Group;
 import model.GroupLeader;
 import model.GuestQuesturaFormatter;
 import model.Housed;
+import model.questura.Group;
 import model.questura.HousedExport;
+import model.questura.HousedExportGroup;
 import model.questura.HousedType;
 
 import org.apache.commons.io.FileUtils;
@@ -205,63 +206,97 @@ public class ExportResource {
 		List<HousedExport> housedExportList = null;
 		Date checkinDate = null;
 		Date exportDate  = null;
-		Set<Booking> toExportBookings = null;
+		Set<Booking> bookingExportSet = null;
 		StringBuilder sb = null;
 		List<GroupLeader> groupLeaders = null;
-		List<GroupLeader> mainGroupLeaders = null;
 		List<Booking> simpleBookings = null;
-		List<Booking> activeBookings = null;
 		GuestQuesturaFormatter guestQuesturaFormatter = null;
+		List<Group> groups = null;
+		Set<Housed> housedLeaderSet = null;
+		List<HousedExportGroup> housedExportGroupList = null;
+		List<HousedExport> housedExportSingleList = null;
+		
 		
 		exportDate = new Date(Long.parseLong(date));
 		
 		housedExportList = new ArrayList<HousedExport>();
 		for(HousedExport each : this.getHousedExportService().findByIdStructureAndExported(idStructure, false) ){
-			if(each.getHoused() != null){
-				checkinDate = each.getHoused().getCheckInDate();
-			}
+			checkinDate = each.getHoused().getCheckInDate();
 			if(checkinDate != null && DateUtils.truncatedCompareTo(checkinDate, exportDate, Calendar.DAY_OF_MONTH) == 0){
 				housedExportList.add(each);
 			}
-		}
+		}		
 		
-		
-		/*for(HousedExport each : housedExportList){
-			sb.append(each.getHoused().getId() + " " + each.getHoused().getCheckInDate() + "\n");
-		}
-		*/
-		
-		toExportBookings = new HashSet<Booking>();	
+		bookingExportSet = new HashSet<Booking>();	
 		for(HousedExport each : housedExportList){
-			toExportBookings.add(this.getBookingService().findBookingById(each.getHoused().getId_booking()));
+			bookingExportSet.add(this.getBookingService().findBookingById(each.getHoused().getId_booking()));
 		}
-		activeBookings = new ArrayList<Booking>(toExportBookings);	
-		
+				
 		//GROUP LEADERS
 		groupLeaders = new ArrayList<GroupLeader>();
-		simpleBookings = new ArrayList<Booking>();
-		mainGroupLeaders = new ArrayList<GroupLeader>();
-		
-		
-		for(Booking each: activeBookings){	
+		for(Booking each: bookingExportSet){	
 			GroupLeader groupLeader = null;
 			groupLeader = this.getGroupLeaderService().findGroupLeaderByIdBooking(each.getId());
-			if(groupLeader!=null){
+			if(groupLeader!=null && this.housedIsIncludedInHousedExportList(groupLeader.getHoused(), housedExportList)){
 				groupLeaders.add(groupLeader);
-				if(groupLeader.getId_booking().equals(groupLeader.getHoused().getId_booking())){
-					mainGroupLeaders.add(groupLeader);
-				}
-			}else{
+			}
+		}
+		logger.info("#####Group leaders size: " + groupLeaders.size());
+		
+		// HOUSED LEADER SET		
+		housedLeaderSet = new HashSet<Housed>();
+		for(GroupLeader each: groupLeaders){
+			housedLeaderSet.add(each.getHoused());
+		}
+		
+		//CREO I GRUPPI HousedExportGroup
+		housedExportGroupList = new ArrayList<HousedExportGroup>();
+		for(Housed each: housedLeaderSet){
+			HousedExport housedExportLeader = null;
+			List<HousedExport> housedExportMembers = null;			
+			HousedExportGroup housedExportGroup = null;
+			
+			housedExportGroup = new HousedExportGroup();
+			
+			housedExportLeader = this.findHousedExportByHousedInHousedExportList(each, housedExportList);
+			housedExportGroup.setHousedExportLeader(housedExportLeader);
+			housedExportMembers = this.findHousedExportMembersOfHousedExportLeader(housedExportLeader, housedExportList);
+			housedExportGroup.getHousedExportMembers().addAll(housedExportMembers);		
+			
+			housedExportGroupList.add(housedExportGroup);			
+		}
+		
+		
+		//CREO LA LISTA DEGLI HOUSED EXPORT Singoli
+		housedExportSingleList = new ArrayList<HousedExport>();		
+		housedExportSingleList = this.findHousedExportSingleList(housedExportList);
+		
+		
+		//STAMPO I GRUPPI
+		
+		//STAMPO GLI HOUSED EXPORT SINGOLI
+		
+		/*
+		
+		//SIMPLE BOOKINGS Da RIVEdere
+		simpleBookings = new ArrayList<Booking>();
+		for(Booking each: bookingExportSet){	
+			GroupLeader groupLeader = null;
+			groupLeader = this.getGroupLeaderService().findGroupLeaderByIdBooking(each.getId());
+			if(groupLeader ==null){
 				simpleBookings.add(each);
 			}
 		}
-		logger.info("#####Grouplears size: " + groupLeaders.size());
-		logger.info("#####MainGrouplears size: " + mainGroupLeaders.size());
+		logger.info("#####Simple Booking size: " + simpleBookings.size());	
+		
+		
+		
+		
 		//CREO I GRUPPI
-		List<Group> groups = new ArrayList<Group>();
+		groups = new ArrayList<Group>();
 		
 		for(GroupLeader aGroupLeader: groupLeaders){
-			//check if current grupLeader is already present
+			//check if current groupLeader is already present
 			Group group = null;
 			Boolean alreadyInGroups = false; //required to choose if add a new group
 			for(Group each : groups){
@@ -275,7 +310,7 @@ public class ExportResource {
 				group.setLeader(aGroupLeader.getHoused());
 			}
 
-			
+		 
 
 			for(Housed housed:  this.getHousedService().findHousedByIdBooking(aGroupLeader.getId_booking())){
 				if(this.housedIsIncludedInHousedExportList(housed, housedExportList) && !housed.equals(aGroupLeader.getHoused())){
@@ -292,30 +327,7 @@ public class ExportResource {
 				}
 			}
 			
-			//Membri dei booking collegati
-			/*
-			List<Integer> linkedBookingIds = new ArrayList<Integer>();
 			
-			for(GroupLeader groupLeader: groupLeaders){
-				if( (!groupLeader.getId().equals(aGroupLeader.getId())) && (groupLeader.getId_housed().equals(aGroupLeader.getId_housed()))  ){
-					linkedBookingIds.add(groupLeader.getId_booking());
-				}
-			}
-			
-			for(Integer idBooking: linkedBookingIds){
-				//group.getMembers().addAll(
-				//   this.getHousedService().findHousedByIdBooking(idBooking));
-				for(Housed each: this.getHousedService().findHousedByIdBooking(idBooking)){
-					if(this.housedIsIncludedInHousedExportList(each, housedExportList)){
-						HousedType anHousedType = new HousedType();
-						//a group member
-						anHousedType.setCode(20);
-						each.setHousedType(anHousedType);
-						group.getMembers().add(each);
-					}
-				}
-			}
-		*/
 			if(!alreadyInGroups){
 				groups.add(group);	
 			}
@@ -349,6 +361,7 @@ public class ExportResource {
 			
 		}
 		
+		*/
 		
 		String str = sb.toString();
 	    
@@ -364,7 +377,7 @@ public class ExportResource {
  
 	}
 	
-	public Boolean housedIsIncludedInHousedExportList(Housed housed, List<HousedExport> housedExportList ){
+	private Boolean housedIsIncludedInHousedExportList(Housed housed, List<HousedExport> housedExportList ){
 		Boolean ret = false;
 		
 		for(HousedExport each : housedExportList){
@@ -375,6 +388,59 @@ public class ExportResource {
 		return ret;
 		
 	}
+	
+	private HousedExport findHousedExportByHousedInHousedExportList(Housed housed, List<HousedExport> housedExportList ){
+		HousedExport ret = null;
+		
+		for(HousedExport each: housedExportList){
+			if(each.getHoused().equals(housed)){
+				return each;
+			}
+		}
+		
+		return ret;
+	}
+	
+	private List<HousedExport> findHousedExportMembersOfHousedExportLeader(HousedExport housedExportLeader, List<HousedExport> housedExportList ){
+		List<HousedExport> ret = null;
+		
+		
+		ret = new ArrayList<HousedExport>();
+		for(HousedExport each: housedExportList){
+			GroupLeader eachGroupLeader = null;
+			if(!each.equals(housedExportLeader)){
+				eachGroupLeader = this.getGroupLeaderService().findGroupLeaderByIdBooking(each.getHoused().getId_booking());
+				if(eachGroupLeader!=null && eachGroupLeader.getHoused().equals(housedExportLeader.getHoused())){
+					ret.add(each);
+				}
+			}
+			
+		}
+		return ret;
+	}
+	
+	private List<HousedExport> findHousedExportSingleList(List<HousedExport> housedExportList ){
+		List<HousedExport> ret = null;
+		
+		
+		ret = new ArrayList<HousedExport>();
+		for(HousedExport each: housedExportList){
+			GroupLeader eachGroupLeader = null;
+			eachGroupLeader = this.getGroupLeaderService().findGroupLeaderByIdBooking(each.getHoused().getId_booking());
+			
+			if(eachGroupLeader == null){
+				ret.add(each);
+			}else{
+				if(!this.housedIsIncludedInHousedExportList(eachGroupLeader.getHoused(), housedExportList)){
+					ret.add(each);
+				}
+			}
+			
+		}
+		return ret;
+	}
+	
+	
 
 	public BookingService getBookingService() {
 		return bookingService;
