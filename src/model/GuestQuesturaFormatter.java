@@ -24,6 +24,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 
 
+import model.questura.HousedType;
+
 import org.apache.solr.client.solrj.beans.Field;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
@@ -139,7 +141,7 @@ public class GuestQuesturaFormatter implements Serializable{
 		Guest guest = null;
 		Integer housedTypeCode;
 		guest = housed.getGuest();
-		this.setTipoAllogiato(housed.getHousedType()!=null? housed.getHousedType().getCode() : 16);
+		this.setTipoAllogiato(housed.getHousedType()!=null? housed.getHousedType().getCode() : HousedType.OSPITE_SINGOLO);
 		this.setDataArrivo(housed.getCheckInDate());
 		this.setCognome("");
 		this.setNome("");
@@ -161,7 +163,7 @@ public class GuestQuesturaFormatter implements Serializable{
 		this.setMezzoDiTrasporto("aereo");
 		housedTypeCode = housed.getHousedType().getCode();
 		
-		if(housedTypeCode == 19 || housedTypeCode == 20){
+		if(housedTypeCode == HousedType.FAMILIARE || housedTypeCode == HousedType.MEMBRO_GRUPPO){
 			this.setCamereOccupate(0);
 			this.setCamereDisponibili(0);
 			this.setLettiDisponibili(0);
@@ -176,7 +178,7 @@ public class GuestQuesturaFormatter implements Serializable{
 		Guest guest = null;
 		Integer housedTypeCode;
 		guest = housed.getGuest();
-		this.setTipoAllogiato(housed.getHousedType()!=null? housed.getHousedType().getCode() : 16);
+		this.setTipoAllogiato(housed.getHousedType()!=null? housed.getHousedType().getCode() : HousedType.OSPITE_SINGOLO);
 		this.setDataArrivo(housed.getCheckInDate());
 		this.setCognome(guest.getLastName());
 		this.setNome(guest.getFirstName());
@@ -187,7 +189,7 @@ public class GuestQuesturaFormatter implements Serializable{
 		this.setStatoDiNascita(guest.getCountryOfBirth()!=null? guest.getCountryOfBirth().getPoliceCode().toString() : "");
 		this.setCittadinanza(guest.getCountryOfBirth()!=null?guest.getCitizenship().getPoliceCode().toString() : "");
 		housedTypeCode = housed.getHousedType().getCode();
-		if(housedTypeCode == 19 || housedTypeCode == 20){
+		if(housedTypeCode == HousedType.FAMILIARE || housedTypeCode == HousedType.MEMBRO_GRUPPO){
 
 			this.setComuneResidenza("");
 			this.setProvinciaResidenza("");
