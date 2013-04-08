@@ -297,8 +297,12 @@ window.ExportView = Backbone.View.extend({
 	doExportSired: function(e) {
 		var d = this.getDate();
 		var id_structure = Entity.idStructure;
+		var force = "false";
 		if (d) {
-			window.location='rest/export/structure/'+id_structure+'/do/sired?date='+d;		
+			if ($('.exportType:checked').val()==1){
+				force = "true";
+			}
+			window.location='rest/export/structure/'+id_structure+'/do/sired?date='+d+'&force=' + force;		
 		} else {
 			$.jGrowl($.i18n("exportDateError") + ' ', { header: this.alertOK,sticky: true });
 		}

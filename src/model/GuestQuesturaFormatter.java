@@ -183,7 +183,7 @@ public class GuestQuesturaFormatter implements Serializable{
 		this.setMezzoDiTrasporto("aereo");
 		housedTypeCode = housed.getHousedType().getCode();
 		
-		if(housedTypeCode == HousedType.FAMILIARE || housedTypeCode == HousedType.MEMBRO_GRUPPO){
+		if(housedTypeCode.equals(HousedType.FAMILIARE) || housedTypeCode.equals(HousedType.MEMBRO_GRUPPO)){
 			this.setCamereOccupate(0);
 			this.setCamereDisponibili(0);
 			this.setLettiDisponibili(0);

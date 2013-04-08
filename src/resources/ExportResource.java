@@ -187,7 +187,7 @@ public class ExportResource {
 	@GET
 	@Path("structure/{idStructure}/do/sired")
 	@Produces("text/plain")
-	public Response exportFileSired(@PathParam("idStructure") Integer idStructure,@QueryParam("date") String date) {
+	public Response exportFileSired(@PathParam("idStructure") Integer idStructure,@QueryParam("date") String date,@QueryParam("force") Boolean force) {
 		List<HousedExport> housedExportList = null;
 		Date exportDate  = null;
 		StringBuilder sb = null;
@@ -196,7 +196,7 @@ public class ExportResource {
 		Integer availableRooms;
 		Integer availableBeds;
 		
-	
+		logger.info("#####FORCE:" + force);
 		exportDate = new Date(Long.parseLong(date));
 		
 		housedExportList = this.findHousedExportList(idStructure, exportDate);
@@ -267,6 +267,22 @@ public class ExportResource {
 	}
 	
 	private List<HousedExport> findHousedExportList(Integer idStructure, Date exportDate){
+		List<HousedExport> ret = null;
+		Date checkinDate = null;
+				
+		ret = new ArrayList<HousedExport>();
+		for(HousedExport each : this.getHousedExportService().findByIdStructureAndExported(idStructure, false) ){
+			checkinDate = each.getHoused().getCheckInDate();
+			if(checkinDate != null && DateUtils.truncatedCompareTo(checkinDate, exportDate, Calendar.DAY_OF_MONTH) == 0){
+				ret.add(each);
+			}
+		}	
+		
+		return ret;
+		
+	}
+	
+	private List<HousedExport> findHousedExportListForcing(Integer idStructure, Date exportDate){
 		List<HousedExport> ret = null;
 		Date checkinDate = null;
 				

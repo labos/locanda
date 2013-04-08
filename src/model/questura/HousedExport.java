@@ -1,5 +1,7 @@
 package model.questura;
 
+import java.io.Serializable;
+
 import javax.xml.bind.annotation.XmlRootElement;
 
 import model.Housed;
@@ -9,7 +11,7 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 @XmlRootElement
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class HousedExport {
+public class HousedExport implements Serializable{
 
 	@Field
 	private Integer id;
