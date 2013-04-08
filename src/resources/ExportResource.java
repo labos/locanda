@@ -103,7 +103,7 @@ public class ExportResource {
 	@GET
 	@Path("structure/{idStructure}/do/questura")
 	@Produces("text/plain")
-	public Response exportFileQuestura(@PathParam("idStructure") Integer idStructure,@QueryParam("date") String date) {
+	public Response exportFileQuestura(@PathParam("idStructure") Integer idStructure,@QueryParam("date") String date,@QueryParam("force") Boolean force) {
 		List<HousedExport> housedExportList = null;
 		Date exportDate  = null;
 		StringBuilder sb = null;
@@ -114,9 +114,13 @@ public class ExportResource {
 		
 	
 		exportDate = new Date(Long.parseLong(date));
-		
-		housedExportList = this.findHousedExportList(idStructure, exportDate);
-				
+		force = true;
+		if(force.equals(true)){
+			housedExportList = this.findHousedExportListForcing(idStructure, exportDate);
+		}else{
+			housedExportList = this.findHousedExportList(idStructure, exportDate);
+		}
+			
 		//CREO I GRUPPI HousedExportGroup			
 		housedExportGroupList = this.findHousedExportGroups(housedExportList);
 		
@@ -200,7 +204,7 @@ public class ExportResource {
 		exportDate = new Date(Long.parseLong(date));
 		
 		
-		
+		force = true;
 		if(force.equals(true)){
 			housedExportList = this.findHousedExportListForcing(idStructure, exportDate);
 		}else{
