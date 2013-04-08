@@ -141,7 +141,7 @@ public class ExportResource {
 
 				GuestQuesturaFormatter guestQuesturaFormatter = new GuestQuesturaFormatter();
 				HousedType anHousedType = new HousedType();
-				if(each.getHousedExportLeader().getHoused().getHousedType().getCode() == HousedType.CAPOFAMIGLIA){
+				if(each.getHousedExportLeader().getHoused().getHousedType().getCode().equals(HousedType.CAPOFAMIGLIA)){
 					anHousedType.setCode(HousedType.FAMILIARE);
 				}else{
 					anHousedType.setCode(HousedType.MEMBRO_GRUPPO);
@@ -224,7 +224,7 @@ public class ExportResource {
 
 				GuestQuesturaFormatter guestQuesturaFormatter = new GuestQuesturaFormatter();
 				HousedType anHousedType = new HousedType();
-				if(each.getHousedExportLeader().getHoused().getHousedType().getCode() == HousedType.CAPOFAMIGLIA){
+				if(each.getHousedExportLeader().getHoused().getHousedType().getCode().equals(HousedType.CAPOFAMIGLIA)){
 					anHousedType.setCode(HousedType.FAMILIARE);
 				}else{
 					anHousedType.setCode(HousedType.MEMBRO_GRUPPO);
