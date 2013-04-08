@@ -199,7 +199,13 @@ public class ExportResource {
 		logger.info("#####FORCE:" + force);
 		exportDate = new Date(Long.parseLong(date));
 		
-		housedExportList = this.findHousedExportList(idStructure, exportDate);
+		
+		
+		if(force.equals(true)){
+			housedExportList = this.findHousedExportListForcing(idStructure, exportDate);
+		}else{
+			housedExportList = this.findHousedExportList(idStructure, exportDate);
+		}
 				
 		//CREO I GRUPPI HousedExportGroup			
 		housedExportGroupList = this.findHousedExportGroups(housedExportList);
@@ -293,6 +299,14 @@ public class ExportResource {
 				ret.add(each);
 			}
 		}	
+		
+		for(HousedExport each : this.getHousedExportService().findByIdStructureAndExported(idStructure, true) ){
+			checkinDate = each.getHoused().getCheckInDate();
+			if(checkinDate != null && DateUtils.truncatedCompareTo(checkinDate, exportDate, Calendar.DAY_OF_MONTH) == 0){
+				ret.add(each);
+			}
+		}	
+		
 		
 		return ret;
 		
