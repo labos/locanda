@@ -359,6 +359,9 @@ window.ListHousedView = RowView.extend({
         "click .housed_cleardate":"clearDate",
         "click .housed_selectdate":"showDateSelector",
         'click .houseddetails':'editHoused',
+        "change #Formid_tourismType":"selectedTourismType",
+        "change #Formid_transport":"selectedTransport",
+        "change #Formid_touristTax":'checkTouristTax'
     },
     refresh: function() {
     	this.collection.fetch({
@@ -462,8 +465,13 @@ window.ListHousedView = RowView.extend({
             animated: 'bounceslide',
             autoHeight: false
         });
-        
-        
+        $(".housed_options_accordion").accordion({
+            collapsible: true,
+            active: true,
+            animated: 'bounceslide',
+            autoHeight: false
+        });
+                
         //UI DatePicker
         $.each($('.housed_inputdate'),function(i,v){
         	$(v).datepicker({
@@ -641,6 +649,106 @@ window.ListHousedView = RowView.extend({
     			refresh_all_housedwidgets();
     		}
     	});
+    },
+    selectedTourismType: function(e){
+    	var select = $(e.currentTarget),
+    		current_tourism_type = parseInt(select.val()),
+     	//get from hidden the correct id of housed
+    		hidden_id = $(e.currentTarget).parent().parent().parent().parent().parent().parent().parent().find("input:hidden['name=housedid']"),
+		current_id = parseInt(hidden_id.val()),
+		model = this.collection.get({id:current_id}); 	
+	    	//create data to send
+	    	pdata = {
+					id: model.get("id"),
+					id_booking: this.id_booking,
+					id_guest: model.get("guest").id,
+					id_tourismType: current_tourism_type
+			};
+
+		$.ajax({
+    		type:'PUT',
+    		url:'rest/housed/'+model.get("id"),
+    		contentType: "application/json",
+    		data: JSON.stringify(pdata),
+    		success: function(data) {
+    			$(input).get(0).value = '';
+    		},
+    		error: function(data) {
+    			if (data.status==404) {
+    				$.jGrowl(data.responseText, { theme: "notify-error",header: this.alertOK,sticky: true });
+    			} else {
+    				$.jGrowl($.i18n("seriousErrorDescr") + '', { theme: "notify-error",header: this.alertOK,sticky: true });
+    			}
+    		}
+    	});	
+    	
+    },
+    selectedTransport: function(e){
+    	var select = $(e.currentTarget),
+		current_transport = parseInt(select.val()),
+ 	//get from hidden the correct id of housed
+		hidden_id = $(e.currentTarget).parent().parent().parent().parent().parent().parent().parent().find("input:hidden['name=housedid']"),
+	current_id = parseInt(hidden_id.val()),
+	model = this.collection.get({id:current_id}); 	
+    	//create data to send
+    	pdata = {
+				id: model.get("id"),
+				id_booking: this.id_booking,
+				id_guest: model.get("guest").id,
+				id_transport: current_transport
+		};
+
+	$.ajax({
+		type:'PUT',
+		url:'rest/housed/'+model.get("id"),
+		contentType: "application/json",
+		data: JSON.stringify(pdata),
+		success: function(data) {
+			$(input).get(0).value = '';
+		},
+		error: function(data) {
+			if (data.status==404) {
+				$.jGrowl(data.responseText, { theme: "notify-error",header: this.alertOK,sticky: true });
+			} else {
+				$.jGrowl($.i18n("seriousErrorDescr") + '', { theme: "notify-error",header: this.alertOK,sticky: true });
+			}
+		}
+	});	
+    },
+    checkTouristTax: function(e){
+     	var checkbox = $(e.currentTarget),
+		current_touristTax = $(checkbox).is(":checked") ? 1 : 0,
+ 	//get from hidden the correct id of housed
+		hidden_id = $(e.currentTarget).parent().parent().parent().parent().parent().parent().parent().find("input:hidden['name=housedid']"),
+	current_id = parseInt(hidden_id.val()),
+	model = this.collection.get({id:current_id}); 
+       
+
+    	//create data to send
+    	pdata = {
+				id: model.get("id"),
+				id_booking: this.id_booking,
+				id_guest: model.get("guest").id,
+				touristTax: current_touristTax
+		};
+
+	$.ajax({
+		type:'PUT',
+		url:'rest/housed/'+model.get("id"),
+		contentType: "application/json",
+		data: JSON.stringify(pdata),
+		success: function(data) {
+			$(input).get(0).value = '';
+		},
+		error: function(data) {
+			if (data.status==404) {
+				$.jGrowl(data.responseText, { theme: "notify-error",header: this.alertOK,sticky: true });
+			} else {
+				$.jGrowl($.i18n("seriousErrorDescr") + '', { theme: "notify-error",header: this.alertOK,sticky: true });
+			}
+		}
+	});	
+    	
     }
 });
 

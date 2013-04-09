@@ -234,7 +234,15 @@ public class GuestQuesturaFormatter implements Serializable{
 			this.setIndirizzo(guest.getAddress());
 			this.setTipoDocumento(guest.getIdType()!=null ?guest.getIdType().getPoliceCode() : "");
 			this.setNumeroDocumento(guest.getIdNumber()!=null? guest.getIdNumber() : "" );
-			this.setLuogoRilascioDocumento(guest.getIdPlace()!=null ?guest.getIdPlace().getPoliceCode().toString() : "");		
+			
+			if( guest.getCountryOfBirth()!=null && guest.getCountryOfBirth().getPoliceCode()==100000100){
+				this.setLuogoRilascioDocumento(guest.getIdPlace()!=null ?guest.getIdPlace().getPoliceCode().toString() : "");		
+
+			}
+			else{
+				this.setLuogoRilascioDocumento(guest.getCountryOfBirth()!=null? guest.getCountryOfBirth().getPoliceCode().toString() : "");		
+
+			}
 			
 			
 		}

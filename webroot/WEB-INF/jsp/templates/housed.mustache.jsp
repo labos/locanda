@@ -115,6 +115,37 @@
 						  			</div>
 					  			</div>
 					  		</li>
+					  		<li>
+					<div class="housed_options_accordion">
+                		<h2><a href="#top_accordion"><s:text name="housedOptions"/></a></h2>
+					<div class="clear">
+					<div class="type-select">
+                  		<label><s:text name="tourismType"/>:</label>
+                	  		<select name="id_tourismType" id="Formid_tourismType" size="1" aria-required="true">
+						<option value="0" >Scegli</option>
+						<option value="1" >Affari/Congressuale</option>
+						<option value="2" >Culturale</option>
+						<option value="3" >Sportivo</option>
+						{{#availableTourismType}}<option value="{{id}}" {{#selected}}selected="selected"{{/selected}}>{{description}}</option>{{/availableTourismType}}
+						</select>
+					</div>
+					<div class="type-select">
+                  		<label><s:text name="transport"/>:</label>
+                	  		<select name="id_transport" id="Formid_transport" size="1" aria-required="true">
+						<option value="0" >Scegli</option>
+						<option value="1" >Automobile</option>
+						<option value="2" >Aereo</option>
+						<option value="3" >Nave</option>							
+						{{#availableTransport}}<option value="{{id}}" {{#selected}}selected="selected"{{/selected}}>{{description}}</option>{{/availableTransport}}
+						</select>
+					</div>
+					<div class="type-check">
+						<input type="checkbox" value="1" id="Formid_touristTax" />
+                  		<b><s:text name="touristTax" /></b>
+					</div>
+					</div>				
+					</div>
+					  		</li>
 					  	</ul>
 					  	<span class="row-item-destroy"></span>
 					</div>
