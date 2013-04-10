@@ -702,6 +702,7 @@ window.ListHousedView = RowView.extend({
 		url:'rest/housed/'+model.get("id"),
 		contentType: "application/json",
 		data: JSON.stringify(pdata),
+    	checkinDate: null,
 		success: function(data) {
 		},
 		error: function(data) {
@@ -715,7 +716,7 @@ window.ListHousedView = RowView.extend({
     },
     checkTouristTax: function(e){
      	var checkbox = $(e.currentTarget),
-		current_touristTax = $(checkbox).is(":checked") ? 1 : 0,
+		current_touristTax = $(checkbox).is(":checked") ? true : false,
  	//get from hidden the correct id of housed
 		hidden_id = $(e.currentTarget).parent().parent().parent().parent().parent().parent().parent().find("input:hidden['name=housedid']"),
 	current_id = parseInt(hidden_id.val()),

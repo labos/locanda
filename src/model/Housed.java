@@ -43,8 +43,11 @@ public class Housed implements Serializable{
 	
 	private Boolean exported;
 	private Boolean deleted = false;
+	private Boolean touristTax;
 	
 	private String idSired;
+	private Integer id_tourismType;
+	private Integer id_transport;
 	
 	
 	@Override
@@ -130,11 +133,29 @@ public class Housed implements Serializable{
 	public void setDeleted(Boolean deleted) {
 		this.deleted = deleted;
 	}
+	public Boolean getTouristTax() {
+		return touristTax;
+	}
+	public void setTouristTax(Boolean touristTax) {
+		this.touristTax = touristTax;
+	}
 	public String getIdSired() {
 		return idSired;
 	}
 	public void setIdSired(String idSired) {
 		this.idSired = idSired;
+	}
+	public Integer getId_tourismType() {
+		return id_tourismType;
+	}
+	public void setId_tourismType(Integer id_tourismType) {
+		this.id_tourismType = id_tourismType;
+	}
+	public Integer getId_transport() {
+		return id_transport;
+	}
+	public void setId_transport(Integer id_transport) {
+		this.id_transport = id_transport;
 	}
 	
 }

@@ -408,11 +408,14 @@ CREATE TABLE `housed` (
   `id_booking` int(11) DEFAULT NULL,
   `id_guest` int(11) DEFAULT NULL,
   `id_housedType` int(11) DEFAULT NULL,
+  `id_tourismType` int(11) DEFAULT NULL,
+  `id_transport` int(11) DEFAULT NULL,
   `checkInDate` date DEFAULT NULL,
   `checkOutDate` date DEFAULT NULL,
   `exported` tinyint(4) DEFAULT NULL,
   `deleted` tinyint(4) DEFAULT NULL,
   `idSired` int(11) DEFAULT NULL,
+  `touristTax` tinyint(4) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -978,4 +981,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-04-05 11:54:09
+-- Dump completed on 2013-04-10 11:45:43

@@ -144,6 +144,9 @@ public class HousedResource {
     	Integer id;
     	Integer id_booking = null;
 		Integer id_guest = null;
+		Integer id_tourismType = null;
+		Integer id_transport = null;
+		Boolean touristTax = false;
 		Long checkInDateMillis = null;
 		Long checkOutDateMillis = null;
 		Booking booking = null;
@@ -153,12 +156,25 @@ public class HousedResource {
 		id = (Integer)map.get("id");
 		id_booking = (Integer)map.get("id_booking");
 		id_guest = (Integer)map.get("id_guest");
+		id_tourismType = (Integer)map.get("id_tourismType");
+		id_transport = (Integer)map.get("id_transport");
+		touristTax = (Boolean)map.get("touristTax");
 		checkInDateMillis = (Long)map.get("checkInDate");
 		checkOutDateMillis = (Long)map.get("checkOutDate");
 		
 		housed = this.getHousedService().findHousedById(id);
 		
 		housed.setId_guest(id_guest);
+		
+		if (id_tourismType!=null) {
+			housed.setId_tourismType(id_tourismType);
+		}
+		if (id_transport!=null) {
+			housed.setId_transport(id_transport);
+		}
+		if (touristTax!=null) {
+			housed.setTouristTax(touristTax);
+		}
 		
 		booking = this.getBookingService().findBookingById(id_booking);
 		 

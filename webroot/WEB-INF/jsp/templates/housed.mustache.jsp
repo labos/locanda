@@ -124,8 +124,8 @@
                 	  		<select name="id_tourismType" id="Formid_tourismType" size="1" aria-required="true">
 						<option value="0" >Scegli</option>
 						<option value="1" >Affari/Congressuale</option>
-						<option value="2" >Culturale</option>
-						<option value="3" >Sportivo</option>
+						<option value="2" >Piacere/Culturale</option>
+						<option value="3" >Piacere/Sportivo</option>
 						{{#availableTourismType}}<option value="{{id}}" {{#selected}}selected="selected"{{/selected}}>{{description}}</option>{{/availableTourismType}}
 						</select>
 					</div>
@@ -135,12 +135,13 @@
 						<option value="0" >Scegli</option>
 						<option value="1" >Automobile</option>
 						<option value="2" >Aereo</option>
-						<option value="3" >Nave</option>							
+						<option value="3" >Nave</option>
+						<option value="4" >Treno</option>							
 						{{#availableTransport}}<option value="{{id}}" {{#selected}}selected="selected"{{/selected}}>{{description}}</option>{{/availableTransport}}
 						</select>
 					</div>
 					<div class="type-check">
-						<input type="checkbox" value="1" id="Formid_touristTax" />
+						<input type="checkbox" value="true" id="Formid_touristTax" />
                   		<b><s:text name="touristTax" /></b>
 					</div>
 					</div>				

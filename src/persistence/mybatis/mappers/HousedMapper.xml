@@ -45,7 +45,7 @@ In case of controversy the competent court is the Court of Cagliari (Italy).
     </select>
     
     <sql id="selectHoused">
-        SELECT id,id_booking,id_guest,id_housedType,checkInDate,checkOutDate,exported,deleted,idSired FROM housed WHERE deleted=0
+        SELECT id,id_booking,id_guest,id_housedType,id_tourismType,id_transport,checkInDate,checkOutDate,exported,deleted,touristTax,idSired FROM housed WHERE deleted=0
     </sql>
     
     <sql id="selectHousedIncludingDeleted">
@@ -53,13 +53,13 @@ In case of controversy the competent court is the Court of Cagliari (Italy).
     </sql>
     
     <insert id="insert" parameterType="model.Housed" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO housed(id_booking,id_guest,id_housedType,checkInDate,checkOutDate,exported,deleted,idSired) values
-        (#{id_booking},#{id_guest},#{id_housedType},#{checkInDate},#{checkOutDate},#{exported},#{deleted},#{idSired})
+        INSERT INTO housed(id_booking,id_guest,id_housedType,id_tourismType,id_transport,checkInDate,checkOutDate,exported,deleted,touristTax,idSired) values
+        (#{id_booking},#{id_guest},#{id_housedType},#{id_tourismType},#{id_transport},#{checkInDate},#{checkOutDate},#{exported},#{deleted},#{touristTax},#{idSired})
     </insert>
     
     <update id="update" parameterType="model.Housed">
         UPDATE housed set
-        id_booking= #{id_booking},id_guest= #{id_guest},id_housedType= #{id_housedType},checkInDate= #{checkInDate},checkOutDate=#{checkOutDate},exported=#{exported},deleted=#{deleted},idSired=#{idSired}
+        id_booking= #{id_booking},id_guest= #{id_guest},id_housedType= #{id_housedType},id_tourismType= #{id_tourismType},id_transport= #{id_transport},checkInDate= #{checkInDate},checkOutDate=#{checkOutDate},exported=#{exported},deleted=#{deleted},touristTax=#{touristTax},idSired=#{idSired}
         WHERE id = #{id}
     </update>
     
