@@ -66,8 +66,8 @@ public class HousedServiceImpl implements HousedService{
 	@Override
 	public List<Housed> findHousedByIdGuest(Integer id_guest) {
 		List<Housed> ret;
-		Guest guest = null;
-		HousedType housedType = null;
+//		Guest guest = null;
+//		HousedType housedType = null;
 		
 		ret =  this.getHousedMapper().findHousedByIdGuest(id_guest);
 		/*
@@ -108,13 +108,29 @@ public class HousedServiceImpl implements HousedService{
 		return ret;
 	}
 	
-	//TODO: write the logic
 	@Override
 	public Boolean checkOverlappingHoused(Booking booking, Guest guest) {
 		Boolean ret = false;
 		List<Housed> housedGuests = null;
 		
     	housedGuests = this.findHousedByIdGuest(guest.getId());
+    	for (Housed eachHoused : housedGuests) {
+			
+    		if (eachHoused.getCheckOutDate().after(booking.getDateIn())	 &&	eachHoused.getCheckInDate().before(booking.getDateOut())) {
+    			ret = true;
+    		}	
+    		if (eachHoused.getCheckInDate().before(booking.getDateOut()) &&	eachHoused.getCheckOutDate().after(booking.getDateIn())){
+    			ret = true;
+    		}
+    		if (eachHoused.getCheckOutDate().after(booking.getDateOut())  && eachHoused.getCheckInDate().before(booking.getDateIn())){
+    			ret = true;
+    		}	
+    	}
+    		
+		//								booking												booking
+		//              DateIn |---------------------------| DateOut    			DateIn |--------| DateOut
+		//       |------------------|    |---------|     |--------------------------------------|    periods
+		//          eachHoused       	  eachHoused         		eachHoused
 		
 		return ret;
 	}
@@ -219,5 +235,4 @@ public class HousedServiceImpl implements HousedService{
 	}
 	
 
-	
 }

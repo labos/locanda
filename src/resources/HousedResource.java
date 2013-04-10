@@ -102,10 +102,9 @@ public class HousedResource {
 			throw new NotFoundException(I18nUtils.getProperty("checkHousedInsert"));
 		}
 		
-			if (this.getHousedService().checkOverlappingHoused(booking, this.getGuestService().findGuestById(id_guest))) {
-				throw new NotFoundException("The guest you are trying to house is already housed in another active booking." +
-						"Please remove him from that booking if you want to associate him to this one");
-			}
+		if (this.getHousedService().checkOverlappingHoused(booking, this.getGuestService().findGuestById(id_guest))) {
+			throw new NotFoundException(I18nUtils.getProperty("checkOverlappingHoused"));
+		}
 		
 		guest = this.getGuestService().findGuestById(id_guest);
 		groupLeader = this.getGroupLeaderService().findGroupLeaderByIdBooking(id_booking);
