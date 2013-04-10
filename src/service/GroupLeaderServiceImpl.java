@@ -58,6 +58,20 @@ public class GroupLeaderServiceImpl implements GroupLeaderService{
 		return ret;
 	}
 	
+	
+	@Override
+	public GroupLeader findGroupLeaderById(Integer id) {
+		GroupLeader ret = null;
+		Housed housed = null;
+		
+		ret = this.getGroupLeaderMapper().findGroupLeaderById(id);
+		if (ret != null) {
+			housed = this.getHousedService().findHousedById(ret.getId_housed());
+			ret.setHoused(housed);
+		}
+		return ret;
+	}
+
 	@Override
 	public GroupLeader findGroupLeaderByIdBooking(Integer id_booking) {
 		GroupLeader ret = null;

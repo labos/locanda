@@ -1,5 +1,6 @@
 package resources;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -17,8 +18,10 @@ import javax.ws.rs.core.MediaType;
 import model.GroupLeader;
 import model.Guest;
 import model.Housed;
+import model.questura.HousedExport;
 import model.questura.HousedType;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Scope;
@@ -31,6 +34,7 @@ import persistence.mybatis.mappers.HousedTypeMapper;
 
 import service.GroupLeaderService;
 import service.GuestService;
+import service.HousedExportService;
 import service.HousedService;
 import utils.I18nUtils;
 
@@ -46,8 +50,9 @@ public class GroupLeaderResource {
     private HousedTypeMapper housedTypeMapper = null;
 	@Autowired
     private GuestService guestService = null; 
-	//@Autowired
-	// private MessageSource messageSource;
+	@Autowired
+	private HousedExportService housedExportService = null;
+	private static Logger logger = Logger.getLogger(Logger.class);
 
     @GET
     @Path("booking/{id_booking}")
@@ -70,6 +75,7 @@ public class GroupLeaderResource {
 		Housed housed = null;
 		HousedType housedType = null;
 		List<Housed> housedList = null;
+		List<GroupLeader> groupLeadersInvolved = null;
 		Guest guest = null;
 		
 		id_booking = (Integer)map.get("id_booking");
@@ -91,13 +97,15 @@ public class GroupLeaderResource {
  		housed.setId_housedType(housedType.getId());
  		this.getHousedService().update(housed); 		
  		
+ 		groupLeadersInvolved = new ArrayList<GroupLeader>();
  		//We set the new housed as a group leader in his/her own booking
 		GroupLeader newGroupLeader = this.getGroupLeaderService().findGroupLeaderByIdBooking(housed.getId_booking());
 		if(newGroupLeader == null){
 			//The new chosen housed is not a group leader in his/her booking. Let's add the new group leader
 			this.getGroupLeaderService().insert(housed.getId_booking(), housed.getId());
 		}
- 		
+ 		groupLeadersInvolved.addAll(this.groupLeaderService.findByIdHoused(housed.getId()));
+ 		this.setExportLinkedHoused(groupLeadersInvolved);
  		return ret;
 	}
     
@@ -147,7 +155,8 @@ public class GroupLeaderResource {
 		GroupLeader groupLeader = null;
 		Boolean housedChanged = false;
 		Guest guest = null;
-		
+		List<GroupLeader> groupLeadersInvolved = null;
+				
 		id_booking = (Integer)map.get("id_booking");
 		id_guest = (Integer)map.get("id_guest");
 		groupType = (String)map.get("groupType");
@@ -180,7 +189,8 @@ public class GroupLeaderResource {
     	housed.setHousedType(housedType);
     	housed.setId_housedType(housedType.getId());
     	ret = this.getHousedService().update(housed);    	
-		
+	groupLeadersInvolved = new ArrayList<GroupLeader>();
+	
     	if(housedChanged){
     		//We Update the housed in all the group leaders of the same group of persons
     		List<GroupLeader> groupLeadersToUpdate = this.getGroupLeaderService().findByIdHoused(currentHoused.getId());
@@ -193,8 +203,13 @@ public class GroupLeaderResource {
     		if(newGroupLeader == null){
     			//The new chosen housed is not a group leader in his/her booking. Let's add the new group leader
     			this.getGroupLeaderService().insert(housed.getId_booking(), housed.getId());
+    			//groupLeadersInvolved.add(newGroupLeader);
     		}
-    	}		
+    		
+    		
+    	}
+    	groupLeadersInvolved.addAll(this.getGroupLeaderService().findByIdHoused(housed.getId()));
+    	this.setExportLinkedHoused(groupLeadersInvolved);
     	return ret;
     }
       
@@ -203,10 +218,46 @@ public class GroupLeaderResource {
     @Produces({MediaType.APPLICATION_JSON})   
     public Integer delete(@PathParam("id") Integer id){
     	Integer ret = 0;		
-		
+		this.setExportLinkedHoused(this.groupLeaderService.findGroupLeaderById(id));
 		ret = this.getGroupLeaderService().delete(id);
 		return ret;
-    }   
+    }
+    
+    private void setExportLinkedHoused(List<GroupLeader> groupLeaders){
+    logger.info("##### - founds " + groupLeaders.size() + " to update");
+    	for(GroupLeader aGroupLeader : groupLeaders){
+        	List<Housed> housedToUpdate = this.housedService.findHousedByIdBooking(aGroupLeader.getId_booking());
+            for(Housed each: housedToUpdate){
+            	HousedExport housedExport  = null;
+         		housedExport = this.getHousedExportService().findByIdHoused(each.getId());
+         		if(!housedExport.getExported()){
+         			housedExport.setMode(1);	
+         		}else{
+         			housedExport.setMode(2);
+         		}
+         		housedExport.setExported(false);
+         		this.getHousedExportService().update(housedExport);
+            }
+    		
+    	}
+    	
+    }
+    private void setExportLinkedHoused(GroupLeader groupLeader){
+    	if(groupLeader != null){
+    	List<Housed> housedToUpdate = this.housedService.findHousedByIdBooking(groupLeader.getId_booking());
+    for(Housed each: housedToUpdate){
+    	HousedExport housedExport  = null;
+ 		housedExport = this.getHousedExportService().findByIdHoused(each.getId());
+ 		if(!housedExport.getExported()){
+ 			housedExport.setMode(1);	
+ 		}else{
+ 			housedExport.setMode(2);
+ 		}
+ 		housedExport.setExported(false);
+		this.getHousedExportService().update(housedExport);
+    }
+    	}
+    }
    
     public HousedService getHousedService() {
 		return housedService;
@@ -231,6 +282,14 @@ public class GroupLeaderResource {
 	}
 	public void setGuestService(GuestService guestService) {
 		this.guestService = guestService;
+	}
+
+	public HousedExportService getHousedExportService() {
+		return housedExportService;
+	}
+
+	public void setHousedExportService(HousedExportService housedExportService) {
+		this.housedExportService = housedExportService;
 	}
 
 }

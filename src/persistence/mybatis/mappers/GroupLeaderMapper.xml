@@ -39,6 +39,10 @@ In case of controversy the competent court is the Court of Cagliari (Italy).
         DELETE from groupLeader where id_booking = #{id_booking}
     </delete> 
     
+    <select id="findGroupLeaderById" parameterType="int" resultType="model.GroupLeader">
+        select id,id_booking,id_housed from groupLeader where id = #{id}
+    </select> 
+    
     <select id="findGroupLeaderByIdBooking" parameterType="int" resultType="model.GroupLeader">
         select id,id_booking,id_housed from groupLeader where id_booking = #{id_booking}
     </select>

@@ -671,7 +671,6 @@ window.ListHousedView = RowView.extend({
     		contentType: "application/json",
     		data: JSON.stringify(pdata),
     		success: function(data) {
-    			$(input).get(0).value = '';
     		},
     		error: function(data) {
     			if (data.status==404) {
@@ -704,7 +703,6 @@ window.ListHousedView = RowView.extend({
 		contentType: "application/json",
 		data: JSON.stringify(pdata),
 		success: function(data) {
-			$(input).get(0).value = '';
 		},
 		error: function(data) {
 			if (data.status==404) {
@@ -738,7 +736,6 @@ window.ListHousedView = RowView.extend({
 		contentType: "application/json",
 		data: JSON.stringify(pdata),
 		success: function(data) {
-			$(input).get(0).value = '';
 		},
 		error: function(data) {
 			if (data.status==404) {

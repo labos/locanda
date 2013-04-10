@@ -30,5 +30,6 @@ public interface GroupLeaderMapper {
 	public GroupLeader findGroupLeaderByIdBooking(Integer id_booking);
 	public GroupLeader findGroupLeaderByIdBookingAndIdHoused(Map map);
 	public List<GroupLeader> findByIdHoused(Integer id_housed);
+	public GroupLeader findGroupLeaderById(Integer id);
 	
 }
