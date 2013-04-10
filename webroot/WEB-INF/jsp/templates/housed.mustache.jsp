@@ -144,7 +144,8 @@
 						<input type="checkbox" value="true" id="Formid_touristTax" />
                   		<b><s:text name="touristTax" /></b>
 					</div>
-					</div>				
+					</div>
+					<span class="housed-row-tag"></span>
 					</div>
 					  		</li>
 					  	</ul>
