@@ -145,10 +145,10 @@
                   		<b><s:text name="touristTax" /></b>
 					</div>
 					</div>
-					<span class="housed-row-tag"></span>
 					</div>
 					  		</li>
 					  	</ul>
+						<span class="housed-row-tag"></span>
 					  	<span class="row-item-destroy"></span>
 					</div>
 				</li>

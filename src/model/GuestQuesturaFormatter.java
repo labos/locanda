@@ -17,6 +17,8 @@ package model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.text.SimpleDateFormat;
 import java.lang.String;
 import java.lang.Integer;
@@ -26,6 +28,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import model.questura.HousedType;
 
+import org.apache.log4j.Logger;
 import org.apache.solr.client.solrj.beans.Field;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
@@ -71,7 +74,7 @@ public class GuestQuesturaFormatter implements Serializable{
 	private int tassaSoggiorno;			// 1 char (1=yes, 0=no)
 	private String codiceIdPosizione;	// 10 char
 	private int modalita = 1;				// 1 char (1=Nuovo, 2=Variazione, 2=Eliminazione)
-	
+	private static Logger logger = Logger.getLogger(Logger.class);
 	
 	
 	
@@ -113,7 +116,7 @@ public class GuestQuesturaFormatter implements Serializable{
 		s = s.concat(cittadinanza);
 		regione = regione.concat(comuneResidenza + provinciaResidenza + statoResidenza);
 		regione = regione.concat(indirizzo + tipoDocumento + numeroDocumento + luogoRilascioDocumento);
-		regione = regione.concat(formatter.format(dataDiPartenza));
+		regione = regione.concat(dataDiPartenza != null ? formatter.format(dataDiPartenza) : fillString("", 10));
 		regione = regione.concat(tipoTurismo + mezzoDiTrasporto + fillNumerical(camereOccupate,3) + fillNumerical(camereDisponibili,3) + fillNumerical(lettiDisponibili,4));
 		regione = regione.concat(Integer.toString(tassaSoggiorno) + codiceIdPosizione +Integer.toString(modalita));
 		return s + regione + "\r\n";
@@ -140,7 +143,20 @@ public class GuestQuesturaFormatter implements Serializable{
 	public void setDataFromHousedForRegione(Housed housed){
 		Guest guest = null;
 		Integer housedTypeCode;
+		Map<Integer, String> tourismType = new HashMap<>();
+		Map<Integer, String> transport = new HashMap<>();
+		tourismType.put(0, "generic tourism");
+		tourismType.put(1, "Affari/Congressuale");
+		tourismType.put(2, "Culturale");
+		tourismType.put(3, "Sportivo");
+		transport.put(0, "transport generic");
+		transport.put(1, "Automobile");
+		transport.put(2, "Aereo");
+		transport.put(3, "Nave");
+		transport.put(4, "Treno");
+		
 		guest = housed.getGuest();
+		
 		this.setTipoAllogiato(housed.getHousedType()!=null? housed.getHousedType().getCode() : HousedType.OSPITE_SINGOLO);
 		this.setDataArrivo(housed.getCheckInDate());
 		this.setCognome("");
@@ -178,9 +194,11 @@ public class GuestQuesturaFormatter implements Serializable{
 		this.setNumeroDocumento("");
 		this.setLuogoRilascioDocumento("");
 		
+		logger.info("#### tipoTurismo: " + housed.getId_tourismType());
+		logger.info("#### Trasporto: " + housed.getId_transport());
 		this.setDataDiPartenza(housed.getCheckOutDate());
-		this.setTipoTurismo("tipoturismo");
-		this.setMezzoDiTrasporto("aereo");
+		this.setTipoTurismo(tourismType.get(housed.getId_tourismType()!= null ? (Integer)housed.getId_tourismType() : 0));
+		this.setMezzoDiTrasporto(transport.get(housed.getId_transport()!= null ? (Integer)housed.getId_transport() : 0));
 		housedTypeCode = housed.getHousedType().getCode();
 		
 		if(housedTypeCode.equals(HousedType.FAMILIARE) || housedTypeCode.equals(HousedType.MEMBRO_GRUPPO)){

@@ -49,7 +49,7 @@ In case of controversy the competent court is the Court of Cagliari (Italy).
     </sql>
     
     <sql id="selectHousedIncludingDeleted">
-        SELECT id,id_booking,id_guest,id_housedType,checkInDate,checkOutDate,exported,deleted,idSired FROM housed
+        SELECT id,id_booking,id_guest,id_housedType,id_tourismType,id_transport,checkInDate,checkOutDate,exported,deleted,touristTax,idSired FROM housed
     </sql>
     
     <insert id="insert" parameterType="model.Housed" useGeneratedKeys="true" keyProperty="id">
