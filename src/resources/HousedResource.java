@@ -102,7 +102,8 @@ public class HousedResource {
 			throw new NotFoundException(I18nUtils.getProperty("checkHousedInsert"));
 		}
 		
-		if (this.getHousedService().checkOverlappingHoused(booking, this.getGuestService().findGuestById(id_guest))) {
+		//check if that guest is already housed in another active booking
+		if (this.getHousedService().checkOverlappingHoused(booking.getDateIn(), booking.getDateOut(), this.getGuestService().findGuestById(id_guest))) {
 			throw new NotFoundException(I18nUtils.getProperty("checkOverlappingHoused"));
 		}
 		
@@ -183,6 +184,9 @@ public class HousedResource {
 			if (dateIn.before(booking.getDateIn())) {	//you cannot change a date before the global check-in date
 				throw new NotFoundException(I18nUtils.getProperty("checkHousedDateIn"));
 			}
+			if (this.getHousedService().checkOverlappingHoused(dateIn, booking.getDateOut(), this.getGuestService().findGuestById(id_guest))) {
+				throw new NotFoundException(I18nUtils.getProperty("checkOverlappingHoused"));
+			}
 			housed.setCheckInDate(dateIn);
 		}
 		
@@ -190,6 +194,9 @@ public class HousedResource {
 			Date dateOut = new Date(checkOutDateMillis);
 			if (dateOut.after(booking.getDateOut())){	//you cannot change a date after the global check-out date
 				throw new NotFoundException(I18nUtils.getProperty("checkHousedDateOut"));
+			}
+			if (this.getHousedService().checkOverlappingHoused(booking.getDateIn(), dateOut, this.getGuestService().findGuestById(id_guest))) {
+				throw new NotFoundException(I18nUtils.getProperty("checkOverlappingHoused"));
 			}
 			housed.setCheckOutDate(dateOut);
 		} else {

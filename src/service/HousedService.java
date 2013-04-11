@@ -15,10 +15,10 @@
  *******************************************************************************/
 package service;
 
+import java.util.Date;
 import java.util.List;
 import org.springframework.transaction.annotation.Transactional;
 
-import model.Booking;
 import model.Guest;
 import model.Housed;
 
@@ -31,7 +31,7 @@ public interface HousedService {
 	public List<Housed> findHousedByIdBooking(Integer id_booking);
 	public List<Housed> findHousedByIdGuest(Integer id_guest);
 	public Housed findMostRecentHousedByIdGuest(Integer id_guest);
-	public Boolean checkOverlappingHoused(Booking booking, Guest guest);
+	public Boolean checkOverlappingHoused(Date checkInDate, Date checkOutDate, Guest guest);
 	public Integer insert(Housed housed);
 	public Integer update(Housed housed);
 	public Integer delete(Integer id);

@@ -17,6 +17,7 @@ package service;
 
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -108,20 +109,20 @@ public class HousedServiceImpl implements HousedService{
 	}
 	
 	@Override
-	public Boolean checkOverlappingHoused(Booking booking, Guest guest) {
+	public Boolean checkOverlappingHoused(Date checkInDate, Date checkOutDate, Guest guest) {
 		Boolean ret = false;
 		List<Housed> housedGuests = null;
 		
     	housedGuests = this.findHousedByIdGuest(guest.getId());
     	for (Housed eachHoused : housedGuests) {
 			
-    		if (eachHoused.getCheckOutDate().after(booking.getDateIn())	 &&	eachHoused.getCheckInDate().before(booking.getDateOut())) {
+    		if (eachHoused.getCheckOutDate().after(checkInDate)	 &&	eachHoused.getCheckInDate().before(checkOutDate)) {
     			ret = true;
     		}	
-    		if (eachHoused.getCheckInDate().before(booking.getDateOut()) &&	eachHoused.getCheckOutDate().after(booking.getDateIn())){
+    		if (eachHoused.getCheckInDate().before(checkOutDate) &&	eachHoused.getCheckOutDate().after(checkInDate)){
     			ret = true;
     		}
-    		if (eachHoused.getCheckOutDate().after(booking.getDateOut())  && eachHoused.getCheckInDate().before(booking.getDateIn())){
+    		if (eachHoused.getCheckOutDate().after(checkOutDate)  && eachHoused.getCheckInDate().before(checkInDate)){
     			ret = true;
     		}	
     	}
