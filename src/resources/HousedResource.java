@@ -192,7 +192,9 @@ public class HousedResource {
 				throw new NotFoundException(I18nUtils.getProperty("checkHousedDateOut"));
 			}
 			housed.setCheckOutDate(dateOut);
-		}    	
+		} else {
+			housed.setCheckOutDate(null);
+		} 	
 		
     	this.getHousedService().update(housed);
 
