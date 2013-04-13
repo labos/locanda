@@ -240,6 +240,8 @@ public class GuestResource {
      	     			housedExport.setMode(2);
      	     		}
      	     		housedExport.setExported(false);
+     	     		housedExport.setExportedQuestura(false);
+
      	     		this.getHousedExportService().update(housedExport);
      			}
      		}

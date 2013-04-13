@@ -22,11 +22,11 @@ In case of controversy the competent court is the Court of Cagliari (Italy).
     <cache/>
     	
 	<insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="map">
-        INSERT into housedExport(id_housed,mode,exported) values(#{id_housed},#{mode},#{exported})
+        INSERT into housedExport(id_housed,mode,exported,exportedQuestura) values(#{id_housed},#{mode},#{exported},#{exportedQuestura})
     </insert>   
     
     <update id="update" parameterType="model.questura.HousedExport">
-        UPDATE housedExport set id_housed= #{id_housed},mode= #{mode},exported= #{exported} WHERE id = #{id}
+        UPDATE housedExport set id_housed= #{id_housed},mode= #{mode},exported= #{exported},exportedQuestura=#{exportedQuestura} WHERE id = #{id}
     </update> 
     
     <delete id="delete" parameterType="int">
@@ -45,8 +45,12 @@ In case of controversy the competent court is the Court of Cagliari (Italy).
         <include refid="selectHousedExport"/> WHERE exported = #{exported}
     </select>
     
+    <select id="findByExportedQuestura" parameterType="int" resultType="model.questura.HousedExport">
+        <include refid="selectHousedExport"/> WHERE exportedQuestura = #{exportedQuestura}
+    </select>
+    
     <sql id="selectHousedExport">
-        SELECT id,id_housed,mode,exported FROM housedExport
+        SELECT id,id_housed,mode,exported,exportedQuestura FROM housedExport
     </sql>
     
 </mapper>

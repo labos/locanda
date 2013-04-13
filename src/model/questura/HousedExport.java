@@ -22,6 +22,8 @@ public class HousedExport implements Serializable{
 	private Integer mode;
 	@Field
 	private Boolean exported;
+	@Field
+	private Boolean exportedQuestura;
 
 	@Override
 	public int hashCode() {
@@ -86,5 +88,13 @@ public class HousedExport implements Serializable{
 
 	public void setHoused(Housed housed) {
 		this.housed = housed;
+	}
+
+	public Boolean getExportedQuestura() {
+		return exportedQuestura;
+	}
+
+	public void setExportedQuestura(Boolean exportedQuestura) {
+		this.exportedQuestura = exportedQuestura;
 	}
 }

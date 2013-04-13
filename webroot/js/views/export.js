@@ -9,9 +9,12 @@
 window.ExportView = Backbone.View.extend({
 	el: $('#export-widget'),
 	availableDates:[], //timestamps of available dates
+	availableDatesQuestura:[], //timestamps of available dates for questura export
 	events: {
 		'change #exportDateList':'selectedDateExport',
+		'change #exportDateListQuestura':'selectedDateExportQuestura',
 		'click .exportType':'changeExportType',
+		'click .exportTypeQuestura':'changeExportTypeQuestura',
 		'click .btn_check_questura':'checkExportQuestura',
 		'click .btn_check_sired':'checkExportSired',
 		'click .btn_export_questura':'doExportQuestura',
@@ -51,6 +54,22 @@ window.ExportView = Backbone.View.extend({
     		}
     	}
     },
+    /*
+     * Get date in timestamp format to post
+     */
+    getDateQuestura: function() {
+    	if ($('.exportTypeQuestura:checked').val()==0){
+    		var d = $('#exportDateListQuestura option:selected').val();
+    		if (d!='') {
+    			return parseInt(d);
+    		}
+    	} else {
+    		var d = $('#dateExportQuestura').val();
+    		if (d!='') {
+    			return this.unconvertDate(d);
+    		}
+    	}
+    },
 	initialize: function(options) {
 		this.render();
 	},
@@ -81,7 +100,7 @@ window.ExportView = Backbone.View.extend({
 		
 		// initialize and render datepickers.
         this.$(".datepicker").removeClass('hasDatepicker').datepicker("destroy");
-		this.$( 'input[name="dateExport"]' ).datepicker({
+		this.$( 'input[name="dateExport"],input[name="dateExportQuestura"]' ).datepicker({
  			maxDate:  new Date(),
 			changeMonth: true,
 			changeYear: true,
@@ -92,6 +111,7 @@ window.ExportView = Backbone.View.extend({
             onSelect: function() {
             	that.clearResult();
             	that.renderDateinfo();
+            	that.renderDateinfoQuestura();	
             }
 		});
 		
@@ -101,6 +121,10 @@ window.ExportView = Backbone.View.extend({
 	changeExportType: function(e) {
 		this.clearResult();
 		this.renderDateinfo();
+	},
+	changeExportTypeQuestura: function(e) {
+		this.clearResult();
+		this.renderDateinfoQuestura();
 	},
 	/*
 	 * Clear the result
@@ -129,6 +153,23 @@ window.ExportView = Backbone.View.extend({
     			}
 			}
 		});
+		
+		//call to get available dates for questura
+		$.ajax({
+			url:'rest/export/structure/'+id_structure+'/dates/availableQuestura',
+			success: function(data) {
+				var json = eval(data);
+				that.availableDatesQuestura = json;
+				that.renderAvailableDatesQuestura();
+			},
+			error: function(data) {
+				if (data.status==404) {
+    				$.jGrowl(data.responseText, { theme: "notify-error",header: this.alertOK,sticky: true });
+    			} else {
+    				$.jGrowl($.i18n("seriousErrorDescr") + '', { theme: "notify-error",header: this.alertOK,sticky: true });
+    			}
+			}
+		});
 	},
 	/*
 	 * Render DateList selector
@@ -148,6 +189,25 @@ window.ExportView = Backbone.View.extend({
 			model.populated = true;
 		}
 		$('#exportDateList').html(Mustache.to_html($('#export-exportDateList-template').html(),model));
+	},
+	/*
+	 * Render DateList selector
+	 */
+	renderAvailableDatesQuestura: function() {
+		var model = {}
+		//set dates
+		var dates = [];
+		for (t in this.availableDatesQuestura) {
+			var ts = this.availableDatesQuestura[t];
+			//convert
+			var d = this.convertDate(ts);
+			dates.push({date:d,ts:ts});
+		}
+		if (dates.length > 0) {
+			model.dates = dates;
+			model.populated = true;
+		}
+		$('#exportDateListQuestura').html(Mustache.to_html($('#export-exportDateList-template').html(),model));
 	},
 	/*
 	 * Render Bookings result
@@ -250,12 +310,31 @@ window.ExportView = Backbone.View.extend({
 			$('#dateInfo').removeClass('none');
 		}
 	},
+	renderDateinfoQuestura: function() {
+		$('#dateInfo').addClass('none');
+		var d = this.getDateQuestura();
+		if (d) {
+			//update visual date
+			var time_start = '00:00';
+			var date_start = this.convertDate((d-86400000));
+			var time_end = '23:59';
+			var date_end = this.convertDate(d);
+			$('#startexporttime').html(time_start);
+			$('#startexportdate').html(date_start);
+			$('#endexporttime').html(time_end);
+			$('#endexportdate').html(date_end);
+			$('#dateInfo').removeClass('none');
+		}
+	},
 	selectedDateExport: function(e) {
 		this.renderDateinfo();
 	},
+	selectedDateExportQuestura: function(e) {
+		this.renderDateinfoQuestura();
+	},
 	checkExportQuestura: function(e) {
 		var that = this;
-		var d = this.getDate();
+		var d = this.getDateQuestura();
 		var id_structure = Entity.idStructure;
 		if (d) {
 			$.ajax({
@@ -286,11 +365,11 @@ window.ExportView = Backbone.View.extend({
 		}
 	},
 	doExportQuestura: function(e) {
-		var d = this.getDate();
+		var d = this.getDateQuestura();
 		var id_structure = Entity.idStructure;
 		var force = "false";
 		if (d) {
-			if ($('.exportType:checked').val()==1){
+			if ($('.exportTypeQuestura:checked').val()==1){
 				force = "true";
 			}
 			window.location='rest/export/structure/'+id_structure+'/do/questura?date='+d+'&force=' + force;

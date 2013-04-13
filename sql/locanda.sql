@@ -441,6 +441,7 @@ CREATE TABLE `housedExport` (
   `id_housed` int(11) DEFAULT NULL,
   `mode` int(11) DEFAULT NULL,
   `exported` tinyint(4) DEFAULT NULL,
+  `exportedQuestura` tinyint(4) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;

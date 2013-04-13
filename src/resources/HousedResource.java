@@ -133,6 +133,7 @@ public class HousedResource {
  		housedExport.setId_housed(housed.getId());
  		housedExport.setMode(1);
  		housedExport.setExported(false);
+ 		housedExport.setExportedQuestura(false);
  		this.getHousedExportService().insert(housedExport);
  		return housed;
 	}
@@ -213,6 +214,8 @@ public class HousedResource {
  			housedExport.setMode(2);
  		}
  		housedExport.setExported(false);
+ 		housedExport.setExportedQuestura(false);
+
  		this.getHousedExportService().update(housedExport);
         return housed;
     }
@@ -263,6 +266,8 @@ public class HousedResource {
  		}else{
  			housedExport.setMode(3);
  	 		housedExport.setExported(false);
+ 	 		housedExport.setExportedQuestura(false);
+
  	 		this.getHousedExportService().update(housedExport);
  		}
 		

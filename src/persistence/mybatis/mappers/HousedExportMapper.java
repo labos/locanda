@@ -26,6 +26,7 @@ public interface HousedExportMapper {
 	public HousedExport findById(Integer id);
 	public HousedExport findByIdHoused(Integer id_housed);
 	public List<HousedExport> findByExported(Boolean exported);
+	public List<HousedExport> findByExportedQuestura(Boolean exported);
 
 
 }

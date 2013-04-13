@@ -75,7 +75,25 @@ public class ExportResource {
 	
 	}
 	
+	@GET
+    @Path("structure/{idStructure}/dates/availableQuestura")
+    @Produces({MediaType.APPLICATION_JSON})
+    public List<Date> availableDatesForExportQuestura(@PathParam("idStructure") Integer idStructure){
+		Set<Date> ret = null;
+		List <HousedExport> housedExportList = null;
+		Date checkinDate = null;
 		
+		ret = new HashSet<Date>();		
+		housedExportList = this.getHousedExportService().findByIdStructureAndExportedQuestura(idStructure, false);
+		for(HousedExport each : housedExportList){
+			checkinDate = each.getHoused().getCheckInDate();
+			ret.add(DateUtils.truncate(checkinDate, Calendar.DAY_OF_MONTH));
+		}
+		
+		return new ArrayList<Date>(ret);	
+	
+	}
+	
 	@GET
     @Path("structure/{idStructure}/check/questura")
     @Produces({MediaType.APPLICATION_JSON})
@@ -177,7 +195,7 @@ public class ExportResource {
 		String str = sb.toString();
 	    
 		for(HousedExport each : housedExportList){
-			each.setExported(true);
+			each.setExportedQuestura(true);
 			this.getHousedExportService().update(each);
 		}
 		

@@ -287,6 +287,7 @@ public class BookingServiceImpl implements BookingService {
 	 		}else{
 	 			housedExport.setMode(3);
 	 	 		housedExport.setExported(false);
+	 	 		housedExport.setExportedQuestura(false);
 	 	 		this.getHousedExportService().update(housedExport);
 	 		}	
 		}

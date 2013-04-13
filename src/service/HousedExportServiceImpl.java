@@ -88,5 +88,27 @@ public class HousedExportServiceImpl implements HousedExportService{
 		}		
 		return ret;
 	}
+	@Override
+	public List<HousedExport> findByExportedQuestura(Boolean exported) {
+		List <HousedExport> ret = null;
+		
+		ret = this.getHousedExportMapper().findByExportedQuestura(exported);
+		for(HousedExport each: ret){
+			each.setHoused(this.getHousedService().findHousedByIdIncludingDeleted(each.getId_housed()));
+		}
+		return ret;
+	}
+	@Override
+	public List<HousedExport> findByIdStructureAndExportedQuestura(Integer id_structure, Boolean exported) {
+		List<HousedExport> ret = null;
+		
+		ret = new ArrayList<HousedExport>();
+		for(HousedExport each: this.findByExportedQuestura(exported)){
+			if(each.getHoused() != null && each.getHoused().getGuest().getId_structure().equals(id_structure)){
+				ret.add(each);
+			}
+		}		
+		return ret;
+	}
 	
 }

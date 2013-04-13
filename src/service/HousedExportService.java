@@ -29,5 +29,8 @@ public interface HousedExportService {
 	public HousedExport findById(Integer id);
 	public HousedExport findByIdHoused(Integer id_housed);
 	public List<HousedExport> findByExported(Boolean exported);
+	public List<HousedExport> findByExportedQuestura(Boolean exported);
 	public List<HousedExport> findByIdStructureAndExported(Integer id_structure, Boolean exported);
+	public List<HousedExport> findByIdStructureAndExportedQuestura(Integer id_structure, Boolean exported);
+
 }

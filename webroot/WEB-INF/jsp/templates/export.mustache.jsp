@@ -42,6 +42,7 @@
 
 <script id="export-template" type="text/x-handlebars-template">
 	<div class="float_left borders-light padding-light">
+	<h1><s:text name="exportSired"/></h1>
 		<div class="clear">
 			<input type="radio" name="exportType" class="exportType" value="0" checked="checked"/>
 			<span>
@@ -64,8 +65,34 @@
 			</div>
 		</div>
 	</div>
-	<div class="float_left">&nbsp;</div>
-	<div class="clear">&nbsp;</div>
+
+<!-- questura export -->
+	<div class="float_right borders-light padding-light">
+	<h1><s:text name="exportQuestura"/></h1>
+		<div class="clear">
+			<input type="radio" name="exportType" class="exportTypeQuestura" value="0" checked="checked"/>
+			<span>
+				<s:text name="exportDateSelected"/>
+			</span>
+			<div class="clear">&nbsp;</div>
+			<div class="clear">
+				<select id="exportDateListQuestura" name="exportDateList"></select>
+			</div>
+		</div>
+		<div class="clear">&nbsp;</div>
+		<div class="clear">
+			<input type="radio" name="exportType" class="exportType" value="1"/>
+			<span>
+				<s:text name="exportForceDateSelected"/>
+			</span>
+			<div class="clear">&nbsp;</div>
+			<div class="clear">
+				<input type="text" id="dateExportQuestura" name="dateExportQuestura" value="" class="datepicker required hasDatepicker" readonly="readonly">
+			</div>
+		</div>
+	</div>
+<!-- end questura export -->
+
 	<div class="clear none" id="dateInfo">
 		<span><s:text name="exportFrom"/></span>
 		<b>	<span id="startexporttime"></span>
@@ -83,20 +110,7 @@
 	<div id="checkResult" class="borders-light"></div>
 	<div class="clear">&nbsp;</div>
 	<div class="clear">
-		<div class="float_left" style="padding-left:40px;">
-			<div class="clear">
-				<button class="btn_check_questura">
-					<s:text name="checkQuestura" />
-				</button>
-			</div>
-			<div class="clear">&nbsp;</div>
-			<div class="clear">
-				<button class="btn_export_questura">
-					<s:text name="exportQuestura" />
-				</button>
-			</div>
-		</div>
-		<div class="float_right" style="padding-right:40px;">
+		<div class="float_left" style="padding-right:40px;">
 			<div class="clear">
 				<button class="btn_check_sired">
 					<s:text name="checkSired" />
@@ -106,6 +120,19 @@
 			<div class="clear">
 				<button class="btn_export_sired">
 					<s:text name="exportSired" />
+				</button>
+			</div>
+		</div>
+		<div class="float_right" style="padding-left:40px;">
+			<div class="clear">
+				<button class="btn_check_questura">
+					<s:text name="checkQuestura" />
+				</button>
+			</div>
+			<div class="clear">&nbsp;</div>
+			<div class="clear">
+				<button class="btn_export_questura">
+					<s:text name="exportQuestura" />
 				</button>
 			</div>
 		</div>
