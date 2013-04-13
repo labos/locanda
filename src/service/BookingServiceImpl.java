@@ -24,17 +24,27 @@ import model.Booker;
 import model.Booking;
 import model.ExtraItem;
 import model.Guest;
+import model.Housed;
 import model.Payment;
 import model.Room;
 import model.listini.Convention;
 import model.listini.RoomPriceList;
 import model.listini.Season;
+import model.questura.HousedExport;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import persistence.mybatis.mappers.BookingMapper;
 
+/**
+ * @author utente
+ *
+ */
+/**
+ * @author utente
+ *
+ */
 @Service
 public class BookingServiceImpl implements BookingService {
 	@Autowired
@@ -61,6 +71,8 @@ public class BookingServiceImpl implements BookingService {
 	private HousedService housedService = null;
 	@Autowired
 	private GroupLeaderService groupLeaderService = null;
+	@Autowired
+	private HousedExportService housedExportService = null;
 	
 	public Booking findBookingById(Integer id){
 		Booking booking = null;
@@ -257,9 +269,28 @@ public class BookingServiceImpl implements BookingService {
 		this.getAdjustmentService().deleteAdjustmentsByIdBooking(id);
 		this.getPaymentService().deletePaymentsByIdBooking(id);
 		this.getBookerService().deleteBookerByIdBooking(id);
+		//set exported as deleted
+		this.updateHousedExport(id);
 		this.getHousedService().deleteHousedByIdBooking(id);
 		this.getGroupLeaderService().deleteByIdBooking(id);
 		return this.getBookingMapper().deleteBooking(id);
+	}
+	
+	private void updateHousedExport(Integer id_booking){
+		List <Housed> housedListToDelete = null;
+		HousedExport housedExport  = null;
+		housedListToDelete = this.getHousedService().findHousedByIdBooking(id_booking);
+		for(Housed each : housedListToDelete){
+	 		housedExport = this.getHousedExportService().findByIdHoused(each.getId());
+	 		if(!housedExport.getExported()){
+	 			this.getHousedExportService().delete(housedExport.getId());	
+	 		}else{
+	 			housedExport.setMode(3);
+	 	 		housedExport.setExported(false);
+	 	 		this.getHousedExportService().update(housedExport);
+	 		}	
+		}
+
 	}
 	
 	public Double calculateRoomSubtotalForBooking(Integer id_structure, Booking booking) {
@@ -381,5 +412,13 @@ public class BookingServiceImpl implements BookingService {
 
 	public void setGroupLeaderService(GroupLeaderService groupLeaderService) {
 		this.groupLeaderService = groupLeaderService;
+	}
+
+	public HousedExportService getHousedExportService() {
+		return housedExportService;
+	}
+
+	public void setHousedExportService(HousedExportService housedExportService) {
+		this.housedExportService = housedExportService;
 	}
 }
