@@ -134,9 +134,9 @@ public class ExportResource {
 		exportDate = new Date(Long.parseLong(date));
 		force = true;
 		if(force.equals(true)){
-			housedExportList = this.findHousedExportListForcing(idStructure, exportDate);
+			housedExportList = this.findHousedExportQuesturaListForcing(idStructure, exportDate);
 		}else{
-			housedExportList = this.findHousedExportList(idStructure, exportDate);
+			housedExportList = this.findHousedExportQuesturaListForcing(idStructure, exportDate);
 		}
 			
 		//CREO I GRUPPI HousedExportGroup			
@@ -192,8 +192,11 @@ public class ExportResource {
 			
 		}
 		
+		if(sb.length() > 2){
+			sb.deleteCharAt(sb.length()-2);
+		}
 		String str = sb.toString();
-	    
+
 		for(HousedExport each : housedExportList){
 			each.setExportedQuestura(true);
 			this.getHousedExportService().update(each);
@@ -323,6 +326,30 @@ public class ExportResource {
 		}	
 		
 		for(HousedExport each : this.getHousedExportService().findByIdStructureAndExported(idStructure, true) ){
+			checkinDate = each.getHoused().getCheckInDate();
+			if(checkinDate != null && DateUtils.truncatedCompareTo(checkinDate, exportDate, Calendar.DAY_OF_MONTH) == 0){
+				ret.add(each);
+			}
+		}	
+		
+		
+		return ret;
+		
+	}
+	
+	private List<HousedExport> findHousedExportQuesturaListForcing(Integer idStructure, Date exportDate){
+		List<HousedExport> ret = null;
+		Date checkinDate = null;
+				
+		ret = new ArrayList<HousedExport>();
+		for(HousedExport each : this.getHousedExportService().findByIdStructureAndExportedQuestura(idStructure, false) ){
+			checkinDate = each.getHoused().getCheckInDate();
+			if(checkinDate != null && DateUtils.truncatedCompareTo(checkinDate, exportDate, Calendar.DAY_OF_MONTH) == 0){
+				ret.add(each);
+			}
+		}	
+		
+		for(HousedExport each : this.getHousedExportService().findByIdStructureAndExportedQuestura(idStructure, true) ){
 			checkinDate = each.getHoused().getCheckInDate();
 			if(checkinDate != null && DateUtils.truncatedCompareTo(checkinDate, exportDate, Calendar.DAY_OF_MONTH) == 0){
 				ret.add(each);
