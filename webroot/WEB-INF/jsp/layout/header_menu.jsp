@@ -93,7 +93,7 @@
 						<li id="guests"><a href="<s:property value="url_findallguest"/>?sect=guests"><s:text name="guests" /></a></li>
 						<li id="settings"><a href="#"><s:text name="settings" /><span class="menu-dropdown ui-button-icon-secondary ui-icon ui-icon-triangle-1-s"></span></a>
 							<ul class="sub_menu ui-menu ui-widget ui-widget-content ui-corner-all">
-								<li class="ui-menu-item"><a href="<s:property value="url_onlinebookings"/>?sect=settings"><s:text name="onlineBooking" /></a></li>
+								<!--<li class="ui-menu-item"><a href="<s:property value="url_onlinebookings"/>?sect=settings"><s:text name="onlineBooking" /></a></li>-->
 								<li class="ui-menu-item"><a href="<s:property value="url_findallseasons"/>?sect=settings"><s:text name="seasons" /></a></li>
 								<li class="ui-menu-item"><a href="<s:property value="url_findallroompricelists"/>?sect=settings"><s:text name="roomPriceLists" /></a></li>
 								<li class="ui-menu-item"><a href="<s:property value="url_findallextrapricelists"/>?sect=settings"><s:text name="extraPriceLists" /></a></li>

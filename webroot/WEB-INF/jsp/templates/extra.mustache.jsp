@@ -55,8 +55,9 @@
             </div>
           	<div class="c50l">
                <div class="type-text">
-                  <input type="checkbox" {{#availableOnline}}checked="checked"{{/availableOnline}} name="availableOnline" id="FormAvailableOnline" value="true" />
+                <!--  <input type="checkbox" {{#availableOnline}}checked="checked"{{/availableOnline}} name="availableOnline" id="FormAvailableOnline" value="true" />
                   <s:text name="onlineAvailable"/>
+				-->
                </div>
 			</div>
 		</form>
@@ -82,7 +83,7 @@
 			</div>
           	<div class="c50l">
                <div class="type-text">
-                  {{#availableOnline}}<b><s:text name="onlineAvailable"/></b>{{/availableOnline}}
+                 <!-- {{#availableOnline}}<b><s:text name="onlineAvailable"/></b>{{/availableOnline}}-->
                </div>
 			</div>
 		</form>
