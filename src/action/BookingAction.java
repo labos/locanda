@@ -57,7 +57,6 @@ import service.RoomService;
 import service.SeasonService;
 import service.StructureService;
 import com.opensymphony.xwork2.ActionSupport;
-import com.sun.jersey.api.NotFoundException;
 
 @ParentPackage( value="default")
 @InterceptorRefs({
@@ -734,7 +733,6 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 		// check groupleader
 		GroupLeader groupLeader = null;
 		Housed housed = null;
-		Booking booking = null;
 		List<Booking> bookings= null;
 		List<Housed> housedInBooking = null;
 		String groupLeaderinBookingPresenceMessage = "";
@@ -760,7 +758,7 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 			// check if groupleader is housed in existing booking
 			if(bookings.size() == 0){
 				this.getMessage().setResult(Message.ERROR);
-				this.getMessage().setDescription("You cannot delete this booking because there is a group leader not housed in any booking");
+				this.getMessage().setDescription(getText("bookingDeleteWithGroupLeaderNotHousedErrorAction"));
 				return "error";
 			}
 			//scan all bookings found	
