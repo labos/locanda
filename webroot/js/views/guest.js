@@ -479,7 +479,11 @@ window.EditGuestView = EditView.extend({
             showOn: "button",
             buttonImage: "images/calendar.gif",
             buttonImageOnly: true,
-            dateFormat: I18NSettings.datePattern
+            dateFormat: I18NSettings.datePattern,
+            onChangeMonthYear:function(y, m, i){                                
+                var d = i.selectedDay;
+                $(this).datepicker('setDate', new Date(y, m - 1, d));
+            }
 		});
 		
         // call for render associated views

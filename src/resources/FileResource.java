@@ -69,6 +69,7 @@ public class FileResource {
 			e.printStackTrace();
 		}
 		this.getFileService().update(file);
+		file.setData(new byte[0]);
 		return file;
 	}
 	
