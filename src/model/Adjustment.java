@@ -24,7 +24,7 @@ public class Adjustment implements Serializable{
 	
 	private Date date;
 	private String description;
-	private Double amount;
+	private Double amount = 0.0;
 	private Integer id_booking;
 	
 		
