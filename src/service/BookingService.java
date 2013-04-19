@@ -15,6 +15,7 @@
  *******************************************************************************/
 package service;
 
+import java.util.Date;
 import java.util.List;
 
 import model.Booking;
@@ -27,6 +28,7 @@ public interface BookingService {
 	public Booking findBookingById(Integer id);
 	public List<Integer> findBookingIdsByIdStructure(Integer id_structure);
 	public List<Booking> findBookingsByIdStructure(Integer id_structure);
+	public List<Booking> findAllBookingsByStartDateAndLengthOfStay(Integer id_structure, Date startDate, Integer lengthOfStay);
 	public List<Integer> findBookingIdsByIdBooker(Integer id_booker);
 	public List<Booking> findBookingsByIdBooker(Integer id_booker);
 	public List<Booking> findBookingIdsByIdHousedGroupLeader(Integer id_housed);

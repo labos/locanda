@@ -27,6 +27,7 @@ window.IdentificationTypes = Backbone.Collection.extend({
     model: IdentificationType,
     initialize: function (models, options) {
     	this.fetch({
+    		async:false,
     		error: function() {
     			$.jGrowl($.i18n("seriousErrorDescr") + '', { header: this.alertOK,sticky: true });
     		}

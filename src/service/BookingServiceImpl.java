@@ -116,6 +116,13 @@ public class BookingServiceImpl implements BookingService {
 	}
 
 	@Override
+	public List<Booking> findAllBookingsByStartDateAndLengthOfStay(
+			Integer id_structure, Date startDate, Integer lengthOfStay) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
 	public List<Booking> findBookingsByIdStructure(Integer id_structure) {
 		List<Booking> bookings = null;
 		Booking booking = null;

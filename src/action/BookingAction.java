@@ -79,6 +79,7 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 	private Double adjustmentsSubtotal = 0.0;
 	private Double paymentsSubtotal = 0.0;
 	private Integer idStructure;
+	private String dateStart = null;
 	private List<Integer> listNumGuests = null;
 	@Autowired
 	private ExtraService extraService = null;
@@ -583,6 +584,21 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 		this.setBookings(this.getBookingService().findBookingsByIdStructure(this.getIdStructure()));
 		return SUCCESS;		
 	}	
+	
+	@Actions({
+		@Action(value="/findAllBookingsByStartDateAndLengthOfStay",results = {
+				@Result(type ="json",name="success", params={"root","bookings"})
+		}) 
+	})
+	public String findAllBookingsByStartDateAndLengthOfStay(){
+		if (this.getDateStart() != null && this.getDateStart().length() > 1) {
+			Date startDateBookings = new Date(Long.parseLong(this.getDateStart()));
+			this.setBookings(this.getBookingService().findBookingsByIdStructure(this.getIdStructure()));
+		
+		}
+		return ERROR;
+	
+	}	
 
 	@Actions({
 		@Action(value="/checkBookingDates",results = {
@@ -996,6 +1012,14 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 
 	public void setHousedService(HousedService housedService) {
 		this.housedService = housedService;
+	}
+
+	public String getDateStart() {
+		return dateStart;
+	}
+
+	public void setDateStart(String dateStart) {
+		this.dateStart = dateStart;
 	}
 		
 }
