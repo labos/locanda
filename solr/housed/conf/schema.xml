@@ -49,8 +49,6 @@
  <!-- SolrQueryParser configuration: defaultOperator="AND|OR" -->
  <solrQueryParser defaultOperator="OR"/>
 
- <copyField source="name" 			dest="text"/>
  <copyField source="description" 	dest="text"/>
  <copyField source="activationCode" dest="text"/>
 </schema>
-

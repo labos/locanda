@@ -41,11 +41,9 @@ public class Housed implements Serializable{
 	private Date checkInDate;
 	private Date checkOutDate;
 	
-	private Boolean exported;
 	private Boolean deleted = false;
 	private Boolean touristTax;
 	
-	private String idSired;
 	private Integer id_tourismType;
 	private Integer id_transport;
 	
@@ -121,12 +119,6 @@ public class Housed implements Serializable{
 	public void setId_booking(Integer id_booking) {
 		this.id_booking = id_booking;
 	}
-	public Boolean getExported() {
-		return exported;
-	}
-	public void setExported(Boolean exported) {
-		this.exported = exported;
-	}
 	public Boolean getDeleted() {
 		return deleted;
 	}
@@ -138,12 +130,6 @@ public class Housed implements Serializable{
 	}
 	public void setTouristTax(Boolean touristTax) {
 		this.touristTax = touristTax;
-	}
-	public String getIdSired() {
-		return idSired;
-	}
-	public void setIdSired(String idSired) {
-		this.idSired = idSired;
 	}
 	public Integer getId_tourismType() {
 		return id_tourismType;

@@ -384,7 +384,7 @@ CREATE TABLE `guest` (
   `id_idType` int(11) DEFAULT NULL,
   `id_idPlace` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -412,10 +412,8 @@ CREATE TABLE `housed` (
   `id_transport` int(11) DEFAULT NULL,
   `checkInDate` date DEFAULT NULL,
   `checkOutDate` date DEFAULT NULL,
-  `exported` tinyint(4) DEFAULT NULL,
   `deleted` tinyint(4) DEFAULT NULL,
-  `idSired` int(11) DEFAULT NULL,
-  `touristTax` tinyint(4) DEFAULT NULL,
+  `touristTax` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -946,6 +944,54 @@ LOCK TABLES `structureImage` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `tourismType`
+--
+
+DROP TABLE IF EXISTS `tourismType`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tourismType` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tourismType`
+--
+
+LOCK TABLES `tourismType` WRITE;
+/*!40000 ALTER TABLE `tourismType` DISABLE KEYS */;
+INSERT INTO `tourismType` VALUES (1,'Balneare'),(2,'Enogastronomico'),(3,'Culturale'),(4,'Parchi Tematici'),(5,'Sociale'),(6,'Sportivo'),(7,'Affari/Congressuale'),(8,'Fitness'),(9,'Scolastico'),(10,'Religioso'),(11,'Altro');
+/*!40000 ALTER TABLE `tourismType` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `transport`
+--
+
+DROP TABLE IF EXISTS `transport`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `transport` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `transport`
+--
+
+LOCK TABLES `transport` WRITE;
+/*!40000 ALTER TABLE `transport` DISABLE KEYS */;
+INSERT INTO `transport` VALUES (1,'Automobile'),(2,'Aereo'),(3,'Treno'),(4,'Autobus'),(5,'Barca/Nave'),(6,'Moto'),(7,'Bicicletta'),(8,'Fly & Drive'),(9,'Altro');
+/*!40000 ALTER TABLE `transport` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `user`
 --
 
@@ -982,4 +1028,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-04-10 11:45:43
+-- Dump completed on 2013-04-18 16:38:58
