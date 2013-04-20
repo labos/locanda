@@ -1,8 +1,15 @@
 package model.questura;
 
-import org.apache.solr.client.solrj.beans.Field;
+import java.io.Serializable;
 
-public class TourismType {
+import javax.xml.bind.annotation.XmlRootElement;
+
+import org.apache.solr.client.solrj.beans.Field;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
+@XmlRootElement
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class TourismType implements Serializable{
 	
 	@Field
 	private Integer id;

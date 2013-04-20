@@ -23,9 +23,11 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import model.Booker;
 import model.Booking;
 import model.Extra;
 import model.ExtraItem;
+import model.Guest;
 import model.Image;
 import model.Room;
 import model.Structure;
@@ -55,6 +57,7 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 	
 	private List<Room> rooms = null;
 	private Booking booking = null;
+	private Guest onlineGuest = null;
 	private Integer id;
 	private Integer numNights = 1;
 	private List<Extra> extras;
@@ -75,7 +78,6 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 	private ConventionService conventionService = null;
 	@Autowired
 	private ImageService imageService = null;
-	
 	@Actions({
 		@Action(value="/mobile",results = {
 				@Result(name="success",location="/WEB-INF/jsp/online/widget1.jsp"),
@@ -242,11 +244,13 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 		this.setStructure(structure);
 		
 		booking = (Booking) this.getSession().get("onlineBooking");
-		
-		this.getBooking().getBooker().setId_structure(structure.getId());
-		this.getBooking().getBooker().setAddress(getText("guestNoAddress"));
-		booking.setBooker(this.getBooking().getBooker());		
-		if (this.getBookingService().saveOnlineBooking(booking) == 0 ) {
+		//create an online guest
+		this.getOnlineGuest().setId_structure(structure.getId());
+		this.getGuestService().insertGuest(this.getOnlineGuest());
+		booking.setBooker(this.getOnlineGuest());
+	
+		if (this.getBookingService().saveOnlineBooking(booking,this.getOnlineGuest()) == 0 ) {
+			
 			this.getSession().put("onlineBooking", null);
 			addActionError("This booking cannot be saved");
 			return ERROR;
@@ -397,6 +401,14 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 	}
 	public void setStructure(Structure structure) {
 		this.structure = structure;
+	}
+
+	public Guest getOnlineGuest() {
+		return onlineGuest;
+	}
+
+	public void setOnlineGuest(Guest onlineGuest) {
+		this.onlineGuest = onlineGuest;
 	}
 	
 }

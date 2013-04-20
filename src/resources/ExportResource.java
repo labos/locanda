@@ -27,6 +27,8 @@ import model.Housed;
 import model.questura.HousedExport;
 import model.questura.HousedExportGroup;
 import model.questura.HousedType;
+import model.questura.TourismType;
+import model.questura.Transport;
 
 import org.apache.commons.lang3.time.DateUtils;
 import org.apache.log4j.Logger;
@@ -39,6 +41,8 @@ import service.ExportService;
 import service.GroupLeaderService;
 import service.HousedExportService;
 import service.HousedService;
+import service.TourismTypeService;
+import service.TransportService;
 
 @Path("/export/")
 @Component
@@ -54,6 +58,10 @@ public class ExportResource {
 	private HousedExportService housedExportService = null;	
 	@Autowired
 	private ExportService exportService = null;	
+	@Autowired
+	private TourismTypeService tourismTypeService = null;
+	@Autowired
+	private TransportService transportService = null;
 	private static Logger logger = Logger.getLogger(Logger.class);
 
 	@GET
@@ -249,6 +257,12 @@ public class ExportResource {
 			guestQuesturaFormatterLeader.setCamereOccupate(this.calculateNumberOfOccupiedRoomsForGroup(each));
 			guestQuesturaFormatterLeader.setCamereDisponibili(availableRooms);
 			guestQuesturaFormatterLeader.setLettiDisponibili(availableBeds);
+			TourismType tourismType = this.getTourismTypeService().findById(each.getHousedExportLeader().getHoused().getId_tourismType());
+			Transport transport = this.getTransportService().findById(each.getHousedExportLeader().getHoused().getId_transport());
+			guestQuesturaFormatterLeader.setTipoTurismo(tourismType != null? tourismType.getName() : "");
+			guestQuesturaFormatterLeader.setMezzoDiTrasporto(transport != null? transport.getName() : "");
+			Integer tourismTax = each.getHousedExportLeader().getHoused().getTouristTax() ? 1 : 0;
+			guestQuesturaFormatterLeader.setTassaSoggiorno(tourismTax);
 			guestQuesturaFormatterLeader.setDataFromHousedForRegione(each.getHousedExportLeader().getHoused());
 			sb.append(guestQuesturaFormatterLeader.getRowRegione());
 			for(HousedExport aMember: each.getHousedExportMembers()){
@@ -262,6 +276,12 @@ public class ExportResource {
 				}
 				aMember.getHoused().setHousedType(anHousedType);
 				guestQuesturaFormatter.setModalita(aMember.getMode());
+				TourismType tourismTypeMember = this.getTourismTypeService().findById(aMember.getHoused().getId_tourismType());
+				Transport transportMember = this.getTransportService().findById(aMember.getHoused().getId_transport());
+				guestQuesturaFormatter.setTipoTurismo(tourismTypeMember != null? tourismTypeMember.getName() : "");
+				guestQuesturaFormatter.setMezzoDiTrasporto(transportMember != null? transportMember.getName() : "");
+				Integer tourismTaxMember = aMember.getHoused().getTouristTax() ? 1 : 0;
+				guestQuesturaFormatter.setTassaSoggiorno(tourismTaxMember);
 				guestQuesturaFormatter.setDataFromHousedForRegione(aMember.getHoused());
 				sb.append(guestQuesturaFormatter.getRowRegione());
 
@@ -278,6 +298,12 @@ public class ExportResource {
 			guestQuesturaFormatter.setCamereOccupate(1);
 			guestQuesturaFormatter.setCamereDisponibili(availableRooms);
 			guestQuesturaFormatter.setLettiDisponibili(availableBeds);
+			TourismType tourismTypeSingle = this.getTourismTypeService().findById(each.getHoused().getId_tourismType());
+			Transport transportSingle = this.getTransportService().findById(each.getHoused().getId_transport());
+			guestQuesturaFormatter.setTipoTurismo(tourismTypeSingle != null? tourismTypeSingle.getName() : "");
+			guestQuesturaFormatter.setMezzoDiTrasporto(transportSingle != null? transportSingle.getName() : "");
+			Integer tourismTaxSingle = each.getHoused().getTouristTax() ? 1 : 0;
+			guestQuesturaFormatter.setTassaSoggiorno(tourismTaxSingle);
 			guestQuesturaFormatter.setDataFromHousedForRegione(each.getHoused());
 			sb.append(guestQuesturaFormatter.getRowRegione());
 			
@@ -558,6 +584,22 @@ public class ExportResource {
 
 	public void setExportService(ExportService exportService) {
 		this.exportService = exportService;
+	}
+
+	public TourismTypeService getTourismTypeService() {
+		return tourismTypeService;
+	}
+
+	public void setTourismTypeService(TourismTypeService tourismTypeService) {
+		this.tourismTypeService = tourismTypeService;
+	}
+
+	public TransportService getTransportService() {
+		return transportService;
+	}
+
+	public void setTransportService(TransportService transportService) {
+		this.transportService = transportService;
 	}
 	
 	

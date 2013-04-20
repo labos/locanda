@@ -354,6 +354,8 @@ window.ListHousedView = RowView.extend({
 	indexTemplate: "#selecthouseds-template",
 	id_booking:0,
 	el: '#selecthouseds-list',
+	tourismTypeCollection : null,
+	transportCollection : null,
     events: {
         "click span.row-item-destroy": "del",
         "click .housed_cleardate":"clearDate",
@@ -378,6 +380,47 @@ window.ListHousedView = RowView.extend({
         this.collection.fetch({
         	url:'rest/housed/booking/'+options.id_booking
         });
+        /*this.availableTourismTypes = [];
+        this.availableTransports = [];
+        this.initializeTourismTypes();
+        this.initializeTranports();*/
+    },
+    getTourismTypes: function () {
+    		return AllTourismTypes.toJSON();
+    },
+    /**
+     * Initialize availableTrans property added to model  and only to be used in the template.
+     */
+    getTranports: function () {
+    		return AllTransports.toJSON();
+    },
+    /**
+     * Set the saved TourismType in the list of available tourism types.
+     */
+    setTourismTypes: function (aTourismTypeId) {
+    	var aTourismType = (aTourismTypeId && aTourismTypeId > 0) ? parseInt(aTourismTypeId) : 0,
+    		dropDownListTourismTypes = this.getTourismTypes();
+    	_.each(dropDownListTourismTypes, function (val) {
+            val.selected = false;
+            if (val.id == aTourismType) {
+                val.selected = true;
+            }
+        });
+        return dropDownListTourismTypes;
+    },
+    /**
+     * Set the saved TourismType in the list of available tourism types.
+     */
+    setTransports: function (aTransportId) {
+    var 	aTransport = (aTransportId && aTransportId > 0) ? parseInt(aTransportId) : 0,
+    		dropDownListTransports = this.getTranports();
+    	_.each(dropDownListTransports, function (val) {
+            val.selected = false;
+            if (val.id == aTransport) {
+                val.selected = true;
+            }
+        });
+        return dropDownListTransports;
     },
     /**
      * Convert date in local format.
@@ -397,6 +440,9 @@ window.ListHousedView = RowView.extend({
     	for (c in coll) {
     		coll[c].checkInDate = (coll[c].checkInDate) ? this.convertDate(coll[c].checkInDate) : null;
     		coll[c].checkOutDate = (coll[c].checkOutDate) ? this.convertDate(coll[c].checkOutDate) : null;
+    		coll[c].availableTourismTypes = this.setTourismTypes(coll[c].id_tourismType);
+    		coll[c].availableTransports = this.setTransports(coll[c].id_transport);
+
     	}
     	
         $(this.el).html(Mustache.to_html($(this.indexTemplate).html(), {hs:coll}));

@@ -42,7 +42,7 @@ public class Housed implements Serializable{
 	private Date checkOutDate;
 	
 	private Boolean deleted = false;
-	private Boolean touristTax;
+	private Boolean touristTax = false;
 	
 	private Integer id_tourismType;
 	private Integer id_transport;

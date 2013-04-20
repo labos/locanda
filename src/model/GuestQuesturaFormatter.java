@@ -142,18 +142,7 @@ public class GuestQuesturaFormatter implements Serializable{
 	
 	public void setDataFromHousedForRegione(Housed housed){
 		Guest guest = null;
-		Integer housedTypeCode;
-		Map<Integer, String> tourismType = new HashMap<>();
-		Map<Integer, String> transport = new HashMap<>();
-		tourismType.put(0, "generic tourism");
-		tourismType.put(1, "Affari/Congressuale");
-		tourismType.put(2, "Culturale");
-		tourismType.put(3, "Sportivo");
-		transport.put(0, "transport generic");
-		transport.put(1, "Automobile");
-		transport.put(2, "Aereo");
-		transport.put(3, "Nave");
-		transport.put(4, "Treno");
+		Integer housedTypeCode;	
 		
 		guest = housed.getGuest();
 		
@@ -194,11 +183,8 @@ public class GuestQuesturaFormatter implements Serializable{
 		this.setNumeroDocumento("");
 		this.setLuogoRilascioDocumento("");
 		
-		logger.info("#### tipoTurismo: " + housed.getId_tourismType());
-		logger.info("#### Trasporto: " + housed.getId_transport());
+
 		this.setDataDiPartenza(housed.getCheckOutDate());
-		this.setTipoTurismo(tourismType.get(housed.getId_tourismType()!= null ? (Integer)housed.getId_tourismType() : 0));
-		this.setMezzoDiTrasporto(transport.get(housed.getId_transport()!= null ? (Integer)housed.getId_transport() : 0));
 		housedTypeCode = housed.getHousedType().getCode();
 		
 		if(housedTypeCode.equals(HousedType.FAMILIARE) || housedTypeCode.equals(HousedType.MEMBRO_GRUPPO)){
@@ -207,7 +193,6 @@ public class GuestQuesturaFormatter implements Serializable{
 			this.setLettiDisponibili(0);
 		}
 	
-		this.setTassaSoggiorno(0);
 		this.setCodiceIdPosizione(housed.getId().toString());
 		
 	}

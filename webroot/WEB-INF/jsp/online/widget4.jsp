@@ -46,20 +46,20 @@
     <form action="goOnlineBookingFinal.action" method="post">
       <div id="firstNameDiv" data-role="fieldcontain">
         <label for="firstNo"><s:text name="firstName"/>*</label>
-        <input id="firstNo" name="booking.booker.firstName" type="text" class="required"/>
+        <input id="firstNo" name="onlineGuest.firstName" type="text" class="required"/>
       </div>
       <div id="lastNameDiv" data-role="fieldcontain">
         <label for="lastNo">
           <s:text name="lastName"/>*</label>
-          <input id="lastNo" name="booking.booker.lastName" type="text" class="required"/>
+          <input id="lastNo" name="onlineGuest.lastName" type="text" class="required"/>
       </div>
       <div id="phoneNameDiv" data-role="fieldcontain">
         <label for="phoneNo"><s:text name="phone"/>*</label>
-        <input id="phoneNo" name="booking.booker.phone" type="text" class="required validPhone"/>
+        <input id="phoneNo" name="onlineGuest.phone" type="text" class="required validPhone"/>
       </div>
       <div id="emailNameDiv" data-role="fieldcontain">
         <label for="emailNo"><s:text name="email"/>*</label>
-        <input id="emailNo" name="booking.booker.email" type="text" class="required email"/>
+        <input id="emailNo" name="onlineGuest.email" type="text" class="required email"/>
       </div>
       <div data-role="fieldcontain">
         <button type="submit" data-theme="b" id="btn_guest_next" data-icon="arrow-r">

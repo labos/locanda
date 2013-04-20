@@ -1,8 +1,15 @@
 package model.questura;
 
-import org.apache.solr.client.solrj.beans.Field;
+import java.io.Serializable;
 
-public class Transport {
+import javax.xml.bind.annotation.XmlRootElement;
+
+import org.apache.solr.client.solrj.beans.Field;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
+@XmlRootElement
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class Transport implements Serializable{
 	
 	@Field
 	private Integer id;

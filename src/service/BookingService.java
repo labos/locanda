@@ -19,6 +19,8 @@ import java.util.Date;
 import java.util.List;
 
 import model.Booking;
+import model.Guest;
+
 import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
@@ -39,7 +41,7 @@ public interface BookingService {
 	public Integer countBookingsByIdGuest(Integer id_guest);
 	public Integer countBookingsByIdSeason(Integer id_season);
 	
-	public Integer saveOnlineBooking(Booking booking);
+	public Integer saveOnlineBooking(Booking booking,Guest guest);
 	public Integer saveUpdateBooking(Booking booking); 
 	public Integer updateBooking(Booking booking);
 	public Integer deleteBooking(Integer id);

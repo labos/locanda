@@ -325,11 +325,12 @@ public class BookingServiceImpl implements BookingService {
 		return ret;
 	}
 	
-	public Integer saveOnlineBooking(Booking booking) {
+	public Integer saveOnlineBooking(Booking booking, Guest guest) {
 		Integer ret = 0;
 
 		ret = this.getBookingMapper().insertBooking(booking);
-
+		//set booker
+		this.getBookerService().insert(guest.getId(), booking.getId());
 		this.getExtraItemService().deleteExtraItemsByIdBooking(booking.getId());
 		for (ExtraItem extraItem : booking.getExtraItems()) {
 			extraItem.setId_booking(booking.getId());
