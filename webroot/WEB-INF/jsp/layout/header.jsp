@@ -41,6 +41,10 @@
    <s:param name="request_locale" >en</s:param>
    <s:param name="redirect" ><s:property value="#redirectLang"/>.action</s:param>
 </s:url>
+<s:url id="localeES" namespace="/" action="locale" >
+   <s:param name="request_locale" >es</s:param>
+   <s:param name="redirect" ><s:property value="#redirectLang"/>.action</s:param>
+</s:url>
 <s:url id="localeIT" namespace="/" action="locale" >
    <s:param name="request_locale" >it</s:param>
      <s:param name="redirect" ><s:property value="#redirectLang"/>.action</s:param>
@@ -62,6 +66,7 @@
         			<div class="langMenu">
        	  				<s:a href="%{localeIT}" cssClass="flag_it"></s:a>
           				<s:a href="%{localeEN}" cssClass="flag_en"></s:a>
+          				<s:a href="%{localeES}" cssClass="flag_es"></s:a>
         			</div>
       			</div>
       			<h1>

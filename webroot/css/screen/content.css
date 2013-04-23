@@ -2,7 +2,7 @@
  * "Yet Another Multicolumn Layout" - (X)HTML/CSS Framework
  *
  * (en) Uniform design of standard content elements
- * (de) Einheitliche Standardformatierungen für die wichtigten Inhalts-Elemente
+ * (de) Einheitliche Standardformatierungen fÃ¼r die wichtigten Inhalts-Elemente
  *
  * @copyright       Copyright 2005-2010, Dirk Jesse
  * @license         CC-A 2.0 (http://creativecommons.org/licenses/by/2.0/),
@@ -21,18 +21,18 @@
   * Fonts
   *
   * (en) global settings of font-families and font-sizes
-  * (de) Globale Einstellungen für Zeichensatz und Schriftgrößen
+  * (de) Globale Einstellungen fÃ¼r Zeichensatz und SchriftgrÃ¶ÃŸen
   *
   * @section content-global-settings
   */
 
   /* (en) reset font size for all elements to standard (16 Pixel) */
-  /* (de) Alle Schriftgrößen auf Standardgröße (16 Pixel) zurücksetzen */
+  /* (de) Alle SchriftgrÃ¶ÃŸen auf StandardgrÃ¶ÃŸe (16 Pixel) zurÃ¼cksetzen */
   html * { font-size:100.01%; }
 
  /**
   * (en) reset monospaced elements to font size 16px in all browsers
-  * (de) Schriftgröße von monospaced Elemente in allen Browsern auf 16 Pixel setzen
+  * (de) SchriftgrÃ¶ÃŸe von monospaced Elemente in allen Browsern auf 16 Pixel setzen
   *
   * @see: http://webkit.org/blog/67/strange-medium/
   */
@@ -42,14 +42,14 @@
   }
 
   /* (en) base layout gets standard font size 12px */
-  /* (de) Basis-Layout erhält Standardschriftgröße von 12 Pixeln */
+  /* (de) Basis-Layout erhÃ¤lt StandardschriftgrÃ¶ÃŸe von 12 Pixeln */
   body {
     font-family:Arial, Helvetica, sans-serif;
     font-size:75.00%;
     color:#444;
   }
 
-  /*--- Headings | Überschriften ------------------------------------------------------------------------*/
+  /*--- Headings | Ãœberschriften ------------------------------------------------------------------------*/
 
   h1,h2,h3,h4,h5,h6 {
     font-family:verdana, Times, serif;
@@ -126,7 +126,7 @@
   a:visited  { color:#036; }
 
   /* (en) maximum constrast for tab focus - change with great care */
-  /* (en) Maximaler Kontrast für Tab Focus - Ändern Sie diese Regel mit Bedacht */
+  /* (en) Maximaler Kontrast fÃ¼r Tab Focus - Ã„ndern Sie diese Regel mit Bedacht */
   a:focus { text-decoration:underline; color:#000; background: #fff; outline: 3px #f93 solid; }
   a:hover,
   a:active { color:#182E7A; text-decoration:underline; outline: 0 none; }
@@ -172,7 +172,7 @@
   * Tables | Tabellen
   *
   * (en) Generic classes for table-width and design definition
-  * (de) Generische Klassen für die Tabellenbreite und Gestaltungsvorschriften für Tabellen
+  * (de) Generische Klassen fÃ¼r die Tabellenbreite und Gestaltungsvorschriften fÃ¼r Tabellen
   *
   * @section content-tables
   */
@@ -653,6 +653,15 @@ height:16px;
 margin-right:3px;
 width:16px;
 }
+#topnav a.flag_es {
+background:url(../images/flags/es.png) no-repeat scroll;
+display:block;
+float:left;
+height:16px;
+margin-right:3px;
+width:16px;
+}
+
 
 div.langMenu {
 float:left;
@@ -994,7 +1003,7 @@ padding:5px;
 .inview:hover {
 cursor:pointer;
 opacity:.70;
-filter:”alpha(opacity=70)”;
+filter:â€�alpha(opacity=70)â€�;
 -webkit-box-shadow:0 0 16px rgba(50,50,50,0.83);
 -moz-box-shadow:0 0 16px rgba(50,50,50,0.83);
 box-shadow:0 0 16px rgba(50,50,50,0.83);
