@@ -661,7 +661,10 @@ height:16px;
 margin-right:3px;
 width:16px;
 }
+<<<<<<< Upstream, based on origin/locanda-AssTurismo
 
+=======
+>>>>>>> 0f5cb9c Add list of bookings in guests section
 
 div.langMenu {
 float:left;
@@ -1277,4 +1280,23 @@ span.housed-row-tag{
 -webkit-box-shadow: 0px 0px 8px rgba(50, 50, 50, 0.75);
 -moz-box-shadow:    0px 0px 8px rgba(50, 50, 50, 0.75);
 box-shadow:         0px 0px 8px rgba(50, 50, 50, 0.75);
+}
+
+#bookings{
+	width:80%;
+}
+.bookingPreview{
+	background: url("../images/bed.png") no-repeat scroll 3px 3px #DEE8FC;
+    border: 1px solid #88A4D6;
+    border-radius: 5px 5px 5px 5px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: bold;
+    margin-right: auto;
+    margin-top: 5px;
+    padding: 5px 5px 5px 40px;
+}
+.bookingPreview:hover {
+	color:#fff;
+	background-color: #88A4D6;
 }

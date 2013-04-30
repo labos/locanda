@@ -35,6 +35,11 @@ window.EditPriceListView = Backbone.View.extend({
 		     $("#priceList_buttons").hide();
 	            $("#priceList_buttons").html('<button class="btn_save">' + $.i18n("save") + '</button>' + '<button class="btn_reset">' + $.i18n("close") + '</button>');
 	             $(".yform.json").submit(function (event) {
+	                 $(this).bind('submitForm', function(e,data){
+	                 	  if(data.type == "success"){
+	                 	  //switch to read-only mode
+	                 		 $("#priceList_edit").toggle();
+	                 	  }});
 	                 $(this).submitForm();
 	                 return false;
 	             });

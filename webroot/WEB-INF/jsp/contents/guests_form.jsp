@@ -31,6 +31,7 @@
 		editView : function(options) {
 			return new EditGuestView(options);
 		},
+		isDialog:true,
 		idStructure : <s:property value="#session.user.structure.id"/>
 	};
 </script>

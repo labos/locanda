@@ -13,6 +13,8 @@ window.EditGuestView = EditView.extend({
 	MunicipalityOfResidenceCollection: null, //instance of Municipality for residence
 	MunicipalityOfCitizenshipCollection: null, //instance of Municipality for citizenship
 	IdentificationTypeCollection: AllIdentificationTypes, //instance of IdentificationType
+	bookingsListView: null,
+	isDialog: false,
     events: {
         "submit form": "save",
         "click div": "switchMode",
@@ -39,10 +41,12 @@ window.EditGuestView = EditView.extend({
         this.initializeCountriesBirth();
         this.initializeCountriesResidence();
         this.initializeIdentificationTypes();
-        
+        //if guest was opened from colorbox
+        var openedAsDialog = GetQueryStringParams('callback');
+        this.isDialog = openedAsDialog != null ? true : false;
         //if open for editing or select
-        var edit = GetQueryStringParams('editguest');
-        if (edit=='true') {
+        var editGuest = GetQueryStringParams('editguest');
+        if (editGuest == 'true') {
         	$(".btn_add_form").hide();
         	$(".btn_select_guest").hide();
         } else {
@@ -658,9 +662,41 @@ window.EditGuestView = EditView.extend({
      * Render associated views
      */
     renderAssociated: function () {
+        var self = this;
+        //show list of bookings in guests section
+        if(!this.isDialog){
+
+            if (!this.model.isNew() && this.model.get("id") != this.id) {
+        		if(this.bookingsListView == null){
+                    this.bookingsListView = new BookingPreviewListView({
+                        collection: new Bookings(null, {idStructure:Entity.idStructure, idGuest:this.model.get("id")})
+                    });	
+                    this.bookingsListView.collection.fetch();	
+        		}else{
+                    //this.bookingsListView = new BookingPreviewListView({collection: new Bookings(null, {idStructure:Entity.idStructure, idGuest:this.id})});
+                    this.bookingsListView.collection.setIdWrapper(Entity.idStructure);
+                    this.bookingsListView.collection.setGuest(this.model.get("id"));
+                    // listen for changes in model on editing and fetch model if any change occur.
+                    this.bookingsListView.collection.fetch();	
+        		}
+
+                this.bookingsListView.bind("bookingPreviewList:update", function () {
+                	  // now render associated views
+                    if ($("#bookings").is(':empty')) {
+                  	  $("#bookings").html(self.bookingsListView.el);	
+                    }
+                });
+            }
+            if (this.model.isNew()) {
+                this.bookingsListView.unbind("bookingPreviewList:update");
+                this.bookingsListView.disable();          	
+            	
+            }
+            
+        }
+
         // check if model has changed or is new, then update collections in associated views
         if (this.model.isNew() || this.model.get("id") != this.id) {
-            var self = this;
             this.id = this.model.get("id");
 
         }

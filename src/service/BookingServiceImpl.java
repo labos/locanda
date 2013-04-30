@@ -169,6 +169,21 @@ public class BookingServiceImpl implements BookingService {
 	}
 	
 	@Override
+	public List<Booking> findBookingsByIdGuest(Integer id_guest) {
+		List<Booking> bookings = null;
+		Booking booking = null;
+		
+		bookings = new ArrayList<Booking>();
+		for(Housed housed: this.getHousedService().findHousedByIdGuest(id_guest)){
+			booking = this.findBookingById(housed.getId_booking());
+			if(booking != null){
+				bookings.add(booking);		
+			}
+		}
+		return bookings;
+	}
+
+	@Override
 	public Integer countBookingsByIdConvention(Integer id_convention) {
 		return this.getBookingMapper().countBookingsByIdConvention(id_convention);
 	}

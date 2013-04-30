@@ -31,6 +31,7 @@
 		editView : function(options) {
 			return new EditGuestView(options);
 		},
+		isDialog:false,
 		idStructure : <s:property value="#session.user.structure.id"/>
 	};
 </script>
@@ -48,6 +49,7 @@
 				</button>
 			</div>
 			<div class="subcolumns" id="row-edit-container"></div>
+			<div id="bookings"></div>
 		</div>
 	</div>
 	<!-- end: #col1 -->
@@ -66,10 +68,12 @@
 			</div>
 		</div>
 		<div id="ie_clearing">&nbsp;</div>
+		<div id="event_edit_container"><div style="text-align: center"></div></div>
 		<!-- End: IE Column Clearing -->
 	</div>
 	<!-- end: #col3 -->
 </div>
 
 <jsp:include page="templates/guest.mustache.jsp"/>
+<jsp:include page="templates/bookingPreview.mustache.jsp"/>
 <jsp:include page="layout/footer.jsp"/>

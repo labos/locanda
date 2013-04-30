@@ -59,6 +59,7 @@ $.i18n.en.strings = {
     search: "Search",
     rooms: "Rooms",
     guests: "Guests",
+   	guestWithoutBookings: "No bookings",
     newBookingForRoom: "New Booking for Room",
     modifyBooking: "Modify Booking",
     dateInRequired: "Please Set a Date!",

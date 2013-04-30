@@ -1,0 +1,42 @@
+<html>
+<head>
+	<!-- Change HREF to point to your copy of qunit.css -->
+    <link rel="stylesheet" type="text/css" href="js/funcunit/qunit/qunit.css" />
+    <!-- Change SRC to point to your copy of funcunit.js -->
+	<script type='text/javascript' src='js/funcunit/funcunit.js'></script>
+<script type='text/javascript' src='js/lib/jquery.min.js'></script>
+<script type='text/javascript' src='js/lib/jquery-ui-1.8.9.custom.min.js'></script>
+<script type='text/javascript' src="js/lib/jquerymx-1.0.custom.js"></script>
+<script type='text/javascript' src='js/lib/ftod.js'></script>
+<script type='text/javascript' src='js/lib/jquery.form.js'></script>
+<script type='text/javascript' src="js/lib/jquery.i18n.js"></script>
+<script type='text/javascript' src="js/lib/underscore-min.js"></script>
+<script type='text/javascript' src="js/lib/backbone.js"></script>
+<script type='text/javascript' src="js/lib/mustache.js"></script>
+<script type='text/javascript' src="js/models/booking.js"></script>
+<script type='text/javascript' src="js/collections/booking.js"></script>
+<script type='text/javascript' src="js/views/bookingPreview.js"></script>
+	<!-- Change SRC to point to your test.js -->
+	<script type='text/javascript'>
+	module("Convention sanity check", {
+		  setup: function() {
+		    // opens the page you want to test
+		    S.open("findAllGuest.action?sect=guests");
+		  }
+		});
+
+		test("add model to collection", function(){
+	        var periodsListView = new BookingPreviewListView({collection: new Bookings(null,{idStructure:1,idGuest:2})});
+		});
+
+	</script>
+	<title>Locanda Test Suite</title>
+</head>
+<body>
+    <h1 id="qunit-header">Locanda Test Suite</h1>
+	<h2 id="qunit-banner"></h2>
+	<div id="qunit-testrunner-toolbar"></div>
+	<h2 id="qunit-userAgent"></h2>
+    <ol id="qunit-tests"></ol>
+</body>
+</html>

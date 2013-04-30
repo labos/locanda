@@ -72,3 +72,7 @@ if (Entity.name == "planner") {
 if (Entity.name == "export") {
     steal("../views/housed.js");
 }
+if (Entity.name == "guest" && !Entity.isDialog) {
+   steal("../models/housed.js","../models/tourismType.js","../models/transport.js","../models/booking.js").then("../collections/tourismType.js","../collections/transport.js","../collections/booking.js","../collections/housed.js").then("../../css/jquery.weekcalendar.css","../views/bookingPreview.js","../views/housed.js").
+   then("../controllers/booking_controller.js").then("../../css/jquery.weekcalendar.css","../../css/calendar.css");
+}

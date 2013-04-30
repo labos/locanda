@@ -33,6 +33,7 @@ public interface BookingService {
 	public List<Booking> findAllBookingsByStartDateAndLengthOfStay(Integer id_structure, Date startDate, Integer lengthOfStay);
 	public List<Integer> findBookingIdsByIdBooker(Integer id_booker);
 	public List<Booking> findBookingsByIdBooker(Integer id_booker);
+	public List<Booking> findBookingsByIdGuest(Integer id_guest);
 	public List<Booking> findBookingIdsByIdHousedGroupLeader(Integer id_housed);
 	
 	public Integer countBookingsByIdConvention(Integer id_convention);
