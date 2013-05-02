@@ -45,8 +45,8 @@
 							  </s:iterator>
               		  	  	</select>
               		  	  </div>
-                  	  	  <div class="c33l">
-                  	  	    <div class="subcl type-text"><span>&euro;: </span><s:property value="#eachExtraItem.unitaryPrice" />
+                  	  	  <div class="c40l">
+                  	  	    <div class="subcl type-text"><span>&euro;: </span><s:property value="#eachExtraItem.unitaryPrice" />&nbsp;<s:text name="unitaryPrice" />
                   	  	     <input type="hidden"  name="booking.extraItems[<s:property value="#itemStatus.index"/>].unitaryPrice" value="<s:property value="#eachExtraItem.unitaryPrice" />"/>
                   	        </div>
                   	  	  </div>
