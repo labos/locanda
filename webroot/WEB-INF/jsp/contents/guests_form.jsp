@@ -77,7 +77,7 @@
 					<s:text name="selectGuest" />
 				</button>
 			</div>
-			<div class="subcolumns" id="row-edit-container"></div>
+			<div class="subcolumns" id="row-edit-container" style="padding-bottom:40px"></div>
 		</div>
 	</div>
 	<!-- end: #col1 -->

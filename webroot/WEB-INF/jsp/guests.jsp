@@ -48,7 +48,7 @@
 					<s:text name="addNew" />
 				</button>
 			</div>
-			<div class="subcolumns" id="row-edit-container"></div>
+			<div class="subcolumns" id="row-edit-container" style="padding-bottom:40px"></div>
 			<div id="bookings"></div>
 		</div>
 	</div>

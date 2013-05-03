@@ -75,7 +75,7 @@
 							<select id="FormIdentificationTypePlace" aria-required="true"></select>
 	      		      	</div>
              	 	</div>
-                  	<div class="type-button">
+                  	<div class="type-button" style="position:absolute !important;bottom:0;">
                 	  	<button class="btn_save"><s:text name="save"/></button>
                 	  	<button class="btn_reset"><s:text name="cancel"/></button>
                     </div>
