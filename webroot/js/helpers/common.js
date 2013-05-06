@@ -143,7 +143,7 @@ $(document).ready(function () {
                 animated: 'bounceslide',
                 autoHeight: false
             });
-            $("#accordion2").accordion({
+            $("#accordion2,#accordion3").accordion({
                 collapsible: true,
                 active: true,
                 animated: 'bounceslide',

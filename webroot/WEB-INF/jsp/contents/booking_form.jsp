@@ -236,7 +236,13 @@ width:80%;
                    	  </option>
                    	</s:iterator>
                    	</select>
-                  </div>  
+                  </div>
+                   <div id="accordion3">
+                		<h2><a href="#top_accordion"><s:text name="notes"></s:text></a></h2>  
+                  <div class="type-select extraCheckList"><label for=""><s:text name="notes" />:</label>
+                      	<textarea rows="5" cols="5" name="booking.notes"><s:property value="booking.notes"/></textarea>     	  
+                  </div>
+                  </div>
                            
                 </fieldset>
                 </div>

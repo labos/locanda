@@ -881,8 +881,9 @@ CREATE TABLE `structure` (
   `zipCode` varchar(255) DEFAULT NULL,
   `notes` varchar(255) DEFAULT NULL,
   `id_user` int(11) DEFAULT NULL,
+  `mobile` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --

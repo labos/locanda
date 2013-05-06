@@ -64,6 +64,10 @@
                 	<input type="text" class="required validPhone" name="phone" id="FormPhone" value="{{phone}}" aria-required="true" />
               	  </div>
               	  <div class="type-text">
+                  	<label for="FormMobile"><s:text name="mobile"/></label> 
+                		<input type="text" class="validPhone" name="mobile" id="FormMobile" value="{{mobile}}" />
+                  </div> 
+              	  <div class="type-text">
 					<label for="FormFax"><s:text name="fax"/></label>
                 	<input type="text" class="validPhone" name="fax" id="FormFax" value="{{fax}}" aria-required="true" />
               	  </div>
@@ -133,6 +137,10 @@
 					<div class="type-text">	
                   		<strong><s:text name="phone"/>:</strong>
                 		<span>{{phone}}</span>
+                  	</div>
+					<div class="type-text">	
+                  		<strong><s:text name="mobile"/>:</strong>
+                		<span>{{mobile}}</span>
                   	</div>
 					<div class="type-text">	
                   		<strong><s:text name="fax"/>:</strong>

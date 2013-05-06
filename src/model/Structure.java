@@ -52,6 +52,8 @@ public class Structure implements Serializable {
 	private String notes;
 	@Field
 	private Integer id_user;
+	@Field
+	private String mobile;
 	
 	private List<Image> images;
 	private List<Facility> facilities;
@@ -141,6 +143,12 @@ public class Structure implements Serializable {
 	}
 	public void setId_user(Integer id_user) {
 		this.id_user = id_user;
+	}
+	public String getMobile() {
+		return mobile;
+	}
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
 	}
 	
 	

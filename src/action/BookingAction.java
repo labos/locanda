@@ -431,7 +431,7 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 		
 		convention = booking.getConvention();
 		booking.setId_convention(convention.getId());
-		
+		booking.setNotes(this.getBooking().getNotes());
 		booking.setStatus(this.getBooking().getStatus());		
 		booking.setId_structure(this.getIdStructure());
 		

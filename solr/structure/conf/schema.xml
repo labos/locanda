@@ -37,6 +37,7 @@
 	<field name="country"   		type="string"  	 	indexed="true"  stored="false"  multiValued="false" />
 	<field name="zipCode"   		type="string"  	 	indexed="true"  stored="false"  multiValued="false" /> 
 	<field name="phone"   			type="string"  	 	indexed="true"  stored="false"  multiValued="false" /> 
+	<field name="mobile"   			type="string"  	 	indexed="true"  stored="false"  multiValued="false" />
 	<field name="fax"   			type="string"  	 	indexed="true"  stored="false"  multiValued="false" /> 
 	<field name="email"   			type="string"  	 	indexed="true"  stored="false"  multiValued="false" /> 
 	<field name="url"   			type="string"  	 	indexed="true"  stored="false"  multiValued="false" />
@@ -60,6 +61,7 @@
  <copyField source="country" 	dest="text"/>
  <copyField source="zipCode" 	dest="text"/>
  <copyField source="phone" 		dest="text"/>
+ <copyField source="mobile" 		dest="text"/>
  <copyField source="fax" 		dest="text"/>
  <copyField source="email" 		dest="text"/>
  <copyField source="url" 		dest="text"/>
