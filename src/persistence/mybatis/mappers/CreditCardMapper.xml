@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright 2013 - Sardegna Ricerche, Distretto ICT, Pula, Italy
+
+Licensed under the EUPL, Version 1.1.
+You may not use this work except in compliance with the Licence.
+You may obtain a copy of the Licence at:
+
+http://www.osor.eu/eupl
+
+Unless required by applicable law or agreed to in  writing, software distributed under the Licence is distributed on an "AS IS" basis,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the Licence for the specific language governing permissions and limitations under the Licence.
+In case of controversy the competent court is the Court of Cagliari (Italy).
+-->
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="persistence.mybatis.mappers.CreditCardMapper">
+    <cache/>
+    
+    <sql id="selectCreditCard">
+        SELECT id,cardType,cardNumber,expMonth,expYear,securityCode,firstName,lastName,id_booking FROM creditCard
+    </sql>
+    
+    <select id="findCreditCardById" parameterType="int" resultType="model.CreditCard" >
+        <include refid="selectCreditCard"/> where id = #{id}
+    </select>
+    
+    <select id="findCreditCardByIdBooking" parameterType="int" resultType="model.CreditCard">
+        <include refid="selectCreditCard"/> where id_booking = #{id_booking}
+    </select>  
+    
+    <update id="updateCreditCard" parameterType="model.CreditCard">
+        UPDATE creditCard set
+        cardType= #{cardType},cardNumber= #{cardNumber},expMonth= #{expMonth},expYear= #{expYear},securityCode= #{securityCode},firstName= #{firstName},lastName= #{lastName},id_booking= #{id_booking}
+        WHERE id = #{id}
+    </update>  
+        
+    <insert id="insertCreditCard" useGeneratedKeys="true" keyProperty="id" parameterType="model.CreditCard">
+        insert into creditCard(cardType,cardNumber,expMonth,expYear,securityCode,firstName,lastName,id_booking) values(#{cardType},#{cardNumber},#{expMonth},#{expYear},#{securityCode},#{firstName},#{lastName},#{id_booking})
+    </insert>  
+        
+    <delete id="deleteCreditCard" parameterType="int">
+        DELETE from creditCard where id = #{id}
+    </delete>   
+     
+    <delete id="deleteCreditCardByIdBooking" parameterType="int">
+        DELETE from creditCard where id_booking = #{id_booking}
+    </delete> 
+</mapper>

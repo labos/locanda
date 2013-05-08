@@ -82,8 +82,8 @@
             	</div>
         		<div class="c50l">
 					<div class="type-text">           
-       				  	<label for="FormPhone"><s:text name="phone"/><sup title="<s:text name="thisFileMandatory"/>.">*</sup></label>
-                      	<input type="text" class="required validPhone" name="phone" id="FormPhone" value="{{phone}}" aria-required="true"/>
+       				  	<label for="FormPhone"><s:text name="phone"/></label>
+                      	<input type="text" class="validPhone" name="phone" id="FormPhone" value="{{phone}}" aria-required="true"/>
       		      	</div>
 				  	<div class="type-text">           
        				  	<label for="FormEmail"><s:text name="email"/></label>

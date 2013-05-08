@@ -237,11 +237,11 @@ width:80%;
                    	</s:iterator>
                    	</select>
                   </div>
-                   <div id="accordion3">
+                  <div id="accordion3">
                 		<h2><a href="#top_accordion"><s:text name="notes"></s:text></a></h2>  
-                  <div class="type-select extraCheckList"><label for=""><s:text name="notes" />:</label>
-                      	<textarea rows="5" cols="5" name="booking.notes"><s:property value="booking.notes"/></textarea>     	  
-                  </div>
+	                  <div class="type-select"><label for=""><s:text name="notes" />:</label>
+	                      	<textarea rows="5" cols="5" name="booking.notes"><s:property value="booking.notes"/></textarea>     	  
+	                  </div>
                   </div>
                            
                 </fieldset>
@@ -321,6 +321,55 @@ width:80%;
                     <div class="type-text"><span>Balance Due: </span><div class="c33r"><span class="balance_room" ><s:property value="%{ booking.roomSubtotal + booking.extraSubtotal}"/></span> &euro;<input type="hidden" id="balance_room" value="<s:property value="%{ booking.roomSubtotal + booking.extraSubtotal}"/>" /></div></div>
                   
                   -->
+                  <div id="accordion4">
+                		<h2><a href="#top_accordion"><s:text name="creditCard"></s:text></a></h2>
+                		 <div>
+                		 <!--<div class="subcolumns">
+                		 <a id="eraseCreditCard" title="erase" style="float: right;" href="#bottom_anchor_payment"><img alt="Delete Credit Card" src="images/delete.png"></a>
+                		 </div>  -->
+                		  <div  class="subcolumns">
+                		    <input type="hidden"  name="booking.creditCard.id" value="<s:property value="booking.creditCard.id"/>"/>
+                		   	<div class="c40l"><div class="subcl type-select"><span><s:text name="creditCardType" />:</span><select name="booking.creditCard.cardType" value="<s:property value="booking.creditCard.cardType" />">
+                 		<s:if test="booking.creditCard.id != null">
+                 		<option selected="selected" value="<s:property value="booking.creditCard.cardType"/>"><s:property value="booking.creditCard.cardType"/></option>
+                 		</s:if>
+                 		<option value="visa">Visa</option>
+                 		<option value="mastercard">Master Card</option>
+                 		<option value="amex">American Express</option>
+                 	    <option value="discover">Discover</option>	
+	              		</select></div></div>
+                  	  	<div class="c60l"><div class="subcl type-text"><span><s:text name="creditCardNumber" /></span><input type="text" name="booking.creditCard.cardNumber"  value="<s:property value="booking.creditCard.cardNumber" />" class="digits"/></div></div>            	  	 
+                 	  </div>
+                 	  <div class="subcolumns">
+                 	  	<strong><s:text name="creditCardExpirationDate"></s:text></strong>
+                 	  </div>
+                 	  <div  class="subcolumns"> 	
+                 		<div class="c40l"><div class="subcl type-select" style="border-top:1px solid grey;"><span><s:text name="month" />:</span><select name="booking.creditCard.expMonth" value="<s:property value="booking.creditCard.expMonth" />" class="digits">
+                 		<s:if test="booking.creditCard.id != null">
+                 		<option selected="selected" value="<s:property value="booking.creditCard.expMonth"/>"><s:property value="booking.creditCard.expMonth"/></option>
+                 		</s:if>
+                 		<option value="1">1</option>
+                 		<option value="2">2</option>
+                 		<option value="3">3</option>
+                 		<option value="4">4</option>
+                 		<option value="5">5</option>
+                 		<option value="6">6</option>
+                 		<option value="7">7</option>
+                 		<option value="8">8</option>
+                 		<option value="9">9</option>
+                 		<option value="10">10</option>
+                 		<option value="11">11</option>
+                 		<option value="12">12</option>
+                 		</select></div></div>
+                  	  	<div class="c25l"><div class="subcl type-select"  style="border-top:1px solid grey;"><span><s:text name="year" />:</span><input type="text" name="booking.creditCard.expYear"  value="<s:property value="booking.creditCard.expYear" />" class="validPricePositive" min="" max=""/></div></div>            	  	 
+                 	    <div class="c33l"><!--<div class="subcl type-text"><span><s:text name="creditCardSecurityCode" /></span><input type="text" name="booking.creditCard.securityCode"  value="<s:property value="booking.creditCard.securityCode" />" class="digits" minlength="3" maxlength="3" /></div>--></div>            	  	 
+                 	  </div>
+                 	  <div  class="subcolumns"> 	
+                 		<div class="c50l"><div class="subcl type-text"><span><s:text name="firstName" />:</span><input type="text" name="booking.creditCard.firstName" value="<s:property value="booking.creditCard.firstName" />"  /></div></div>
+                  	  	<div class="c50l"><div class="subcl type-text"><span><s:text name="lastName" /></span><input type="text" name="booking.creditCard.lastName"  value="<s:property value="booking.creditCard.lastName" />" /></div></div>            	  	 
+                 	  </div>
+                 	 </div>
+                  </div>
                   </fieldset>
               	  <div class="type-button">
                		<button class="btn_save"><s:text name="save"/></button>

@@ -23,6 +23,7 @@ import java.util.Map;
 import org.apache.commons.lang.time.DateUtils;
 
 import model.Adjustment;
+import model.CreditCard;
 import model.ExtraItem;
 import model.Booking;
 import model.Extra;
@@ -49,6 +50,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import service.BookingService;
 import service.ConventionService;
+import service.CreditCardService;
 import service.ExtraService;
 import service.GroupLeaderService;
 import service.GuestService;
@@ -99,6 +101,9 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 	private GroupLeaderService groupLeaderService = null;
 	@Autowired
 	private HousedService housedService = null;
+	@Autowired
+	private CreditCardService creditCardService = null;
+	
 	private static Logger logger = Logger.getLogger(Logger.class);
 	
 	@Actions({
@@ -393,6 +398,7 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 		Guest booker = null;
 		Booking booking = null;
 		Convention convention = null;
+		CreditCard creditCard = null;
 		
 		if(!this.checkBookingDates(this.getIdStructure())){
 			return ERROR;
@@ -429,9 +435,12 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 		
 		booking.setId_room(this.getBooking().getRoom().getId());
 		
-		convention = booking.getConvention();
+		convention = this.getBooking().getConvention();
 		booking.setId_convention(convention.getId());
 		booking.setNotes(this.getBooking().getNotes());
+		creditCard = this.getBooking().getCreditCard();
+		booking.setCreditCard(creditCard);
+		logger.info("****** carta di credito " + creditCard.getCardType());
 		booking.setStatus(this.getBooking().getStatus());		
 		booking.setId_structure(this.getIdStructure());
 		
@@ -456,6 +465,7 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 		Integer numNights = 0;
 		Double roomSubtotal = 0.0;
 		Booking booking = null;
+		CreditCard creditCard = new CreditCard();
 		
 		booking = new Booking();
 		this.getSession().put("booking", booking);
@@ -469,6 +479,8 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 		
 		defaultConvention = this.getConventionService().findConventionsByIdStructure(this.getIdStructure()).get(0);
 		booking.setConvention(defaultConvention);
+		
+		booking.setCreditCard(creditCard);
 		
 		roomSubtotal = this.getBookingService().calculateRoomSubtotalForBooking(this.getIdStructure(),booking);
 		booking.setRoomSubtotal(roomSubtotal);
@@ -493,12 +505,15 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 	public String goAddNewBooking() {
 		Convention defaultConvention = null;
 		Booking booking = null;
+		CreditCard creditCard = new CreditCard();
 				
 		booking = new Booking();
 		this.getSession().put("booking", booking);
 						
 		defaultConvention = this.getConventionService().findConventionsByIdStructure(this.getIdStructure()).get(0);
 		booking.setConvention(defaultConvention);	
+		booking.setCreditCard(creditCard);
+		
 		this.setBooking(booking);
 		
 		this.setRooms(this.getRoomService().findRoomsByIdStructure(this.getIdStructure()));
@@ -569,7 +584,7 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 		
 		paymentsSubtotal = this.getBooking().calculatePaymentsSubtotal();
 		this.setPaymentsSubtotal(paymentsSubtotal);		
-		
+			
 		this.updateListNumGuests(booking);
 		return SUCCESS;
 	}
@@ -1012,6 +1027,14 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 
 	public void setHousedService(HousedService housedService) {
 		this.housedService = housedService;
+	}
+
+	public CreditCardService getCreditCardService() {
+		return creditCardService;
+	}
+
+	public void setCreditCardService(CreditCardService creditCardService) {
+		this.creditCardService = creditCardService;
 	}
 
 	public String getDateStart() {

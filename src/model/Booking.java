@@ -45,6 +45,7 @@ public class Booking implements Serializable{
 	private List<Guest> guests = null;
 	private Convention convention = null;
 	private List<ExtraItem> extraItems;
+	private CreditCard creditCard = null;
 	private Integer id_structure = null;
 	private Integer id_convention = null;
 	private Integer id_room = null;
@@ -344,6 +345,14 @@ public class Booking implements Serializable{
 	public void setConvention(Convention convention) {
 		this.convention = convention;
 	}
+	public CreditCard getCreditCard() {
+		return creditCard;
+	}
+
+	public void setCreditCard(CreditCard creditCard) {
+		this.creditCard = creditCard;
+	}
+
 	public List<ExtraItem> getExtraItems() {
 		return extraItems;
 	}

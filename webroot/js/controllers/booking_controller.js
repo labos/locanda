@@ -217,6 +217,10 @@ $(function () {
                     }
                 });
             });
+            
+            // creditcard setting
+            $('input[name="booking.creditCard.expYear"]').attr("min",new Date().getFullYear()).attr("max",new Date().getFullYear() + 100);
+            
             //update of dateOut changing num of nights.
             $("select[name='numNights']").change(function () {
                 $('input[name="booking.dateIn"]').rules("add", {

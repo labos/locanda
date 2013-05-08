@@ -22,6 +22,7 @@ import java.util.List;
 import model.Adjustment;
 import model.Booker;
 import model.Booking;
+import model.CreditCard;
 import model.ExtraItem;
 import model.Guest;
 import model.Housed;
@@ -73,6 +74,8 @@ public class BookingServiceImpl implements BookingService {
 	private GroupLeaderService groupLeaderService = null;
 	@Autowired
 	private HousedExportService housedExportService = null;
+	@Autowired
+	private CreditCardService creditCardService = null;	
 	
 	public Booking findBookingById(Integer id){
 		Booking booking = null;
@@ -82,6 +85,7 @@ public class BookingServiceImpl implements BookingService {
 		List<Adjustment> adjustments = null;
 		List<Payment> payments = null;
 		Convention convention = null;
+		CreditCard creditCard = null;
 		Room room = null;
 		
 		booking = this.getBookingMapper().findBookingById(id);
@@ -105,6 +109,9 @@ public class BookingServiceImpl implements BookingService {
 			
 			convention = this.getConventionService().findConventionById(booking.getId_convention());
 			booking.setConvention(convention);
+			
+			creditCard = this.getCreditCardService().findCreditCardByIdBooking(id);
+			booking.setCreditCard(creditCard);
 		
 			}
 		return booking;
@@ -227,6 +234,7 @@ public class BookingServiceImpl implements BookingService {
 	public Integer saveUpdateBooking(Booking booking) {	
 		Integer ret = 0;
 		Guest oldBooker = null;
+		CreditCard creditCard = null;
 		//System.out.println("saveupdatebooking");
 		
 		ret = this.getBookingMapper().updateBooking(booking);
@@ -252,7 +260,14 @@ public class BookingServiceImpl implements BookingService {
 		for(Payment payment: booking.getPayments()){
 			payment.setId_booking(booking.getId());
 			this.getPaymentService().insertPayment(payment);
-		}		
+		}
+		
+		creditCard = booking.getCreditCard();
+		this.getCreditCardService().deleteCreditCardByIdBooking(booking.getId());
+		if(creditCard != null){
+			creditCard.setId_booking(booking.getId());
+			this.getCreditCardService().insertCreditCard(creditCard);
+		}
 		
 		/*
 		oldBooker = this.getGuestService().findGuestById(booking.getBooker().getId());
@@ -273,9 +288,7 @@ public class BookingServiceImpl implements BookingService {
 			//L'update viene gestito in REST per cui non è necessario fare l'update in questo metodo della action
 			Integer id_guest = booking.getBooker().getId();
 			Integer id_booking = booking.getId();
-			this.getBookerService().insert(id_guest, id_booking);
-			
-			
+			this.getBookerService().insert(id_guest, id_booking);				
 		}
 		return ret;
 	}
@@ -444,5 +457,13 @@ public class BookingServiceImpl implements BookingService {
 
 	public void setHousedExportService(HousedExportService housedExportService) {
 		this.housedExportService = housedExportService;
+	}
+
+	public CreditCardService getCreditCardService() {
+		return creditCardService;
+	}
+
+	public void setCreditCardService(CreditCardService creditCardService) {
+		this.creditCardService = creditCardService;
 	}
 }
