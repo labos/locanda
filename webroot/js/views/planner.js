@@ -303,7 +303,7 @@ $(function () {
                   eventMouseover: function (calEvent, $event) {},
                   eventMouseout: function (calEvent, $event) {},
                   noEvents: function () {},
-                  data: "findAllBookingsJson.action"
+                  data: "findAllBookingsByStartDateAndLengthOfStay.action"
               });
           },
           /**

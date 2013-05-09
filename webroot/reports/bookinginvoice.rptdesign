@@ -536,6 +536,16 @@ WHERE payment.id_booking = ?]]></xml-property>
                         <property name="name">id_user</property>
                         <property name="dataType">integer</property>
                     </structure>
+                    <structure>
+                        <property name="position">13</property>
+                        <property name="name">mobile</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">14</property>
+                        <property name="name">taxNumber</property>
+                        <property name="dataType">string</property>
+                    </structure>
                 </list-property>
             </structure>
             <property name="dataSource">Locanda</property>
@@ -611,6 +621,18 @@ WHERE payment.id_booking = ?]]></xml-property>
                     <property name="name">id_user</property>
                     <property name="nativeName">id_user</property>
                     <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="position">13</property>
+                    <property name="name">mobile</property>
+                    <property name="nativeName">mobile</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">14</property>
+                    <property name="name">taxNumber</property>
+                    <property name="nativeName">taxNumber</property>
+                    <property name="dataType">string</property>
                 </structure>
             </list-property>
             <xml-property name="queryText"><![CDATA[select *
@@ -1510,7 +1532,7 @@ WHERE adjustment.id_booking = ?]]></xml-property>
     </page-setup>
     <body>
         <grid id="741">
-            <property name="height">9.989583333333334in</property>
+            <property name="height">9.34375in</property>
             <property name="width">7.947916666666667in</property>
             <list-property name="boundDataColumns">
                 <structure>
@@ -1587,16 +1609,22 @@ WHERE adjustment.id_booking = ?]]></xml-property>
                                 <expression name="expression" type="javascript">dataSetRow["country"]</expression>
                                 <property name="dataType">string</property>
                             </structure>
+                            <structure>
+                                <property name="name">Column Binding</property>
+                                <expression name="expression" type="javascript">dataSetRow["mobile"]</expression>
+                                <property name="dataType">string</property>
+                                <property name="allowExport">true</property>
+                            </structure>
                         </list-property>
                         <property name="pageBreakInterval">50</property>
                         <column id="434">
                             <property name="width">0.11458333333333333in</property>
                         </column>
                         <column id="435">
-                            <property name="width">1.9375in</property>
+                            <property name="width">1.96875in</property>
                         </column>
                         <column id="436">
-                            <property name="width">1.7708333333333333in</property>
+                            <property name="width">1.7395833333333333in</property>
                         </column>
                         <header>
                             <row id="419">
@@ -1630,6 +1658,7 @@ WHERE adjustment.id_booking = ?]]></xml-property>
                                     <property name="fontFamily">"Times New Roman"</property>
                                     <property name="fontSize">12pt</property>
                                     <data id="526">
+                                        <property name="fontSize">10pt</property>
                                         <property name="fontWeight">bold</property>
                                         <property name="fontStyle">italic</property>
                                         <property name="textAlign">left</property>
@@ -1652,6 +1681,7 @@ WHERE adjustment.id_booking = ?]]></xml-property>
                                     <property name="fontFamily">"Times New Roman"</property>
                                     <property name="fontSize">12pt</property>
                                     <data id="530">
+                                        <property name="fontSize">10pt</property>
                                         <property name="resultSetColumn">address</property>
                                     </data>
                                 </cell>
@@ -1675,16 +1705,19 @@ WHERE adjustment.id_booking = ?]]></xml-property>
                                         <row id="538">
                                             <cell id="539">
                                                 <data id="595">
+                                                    <property name="fontSize">10pt</property>
                                                     <property name="resultSetColumn">zipCode</property>
                                                 </data>
                                             </cell>
                                             <cell id="540">
                                                 <data id="596">
+                                                    <property name="fontSize">10pt</property>
                                                     <property name="resultSetColumn">city</property>
                                                 </data>
                                             </cell>
                                             <cell id="593">
                                                 <data id="597">
+                                                    <property name="fontSize">10pt</property>
                                                     <property name="resultSetColumn">country</property>
                                                 </data>
                                             </cell>
@@ -1711,21 +1744,59 @@ WHERE adjustment.id_booking = ?]]></xml-property>
                                         <property name="height">0.3229166666666667in</property>
                                         <property name="width">2.0104166666666665in</property>
                                         <column id="727">
-                                            <property name="width">0.4479166666666667in</property>
+                                            <property name="width">0.3333333333333333in</property>
                                         </column>
                                         <column id="728">
-                                            <property name="width">1.5625in</property>
+                                            <property name="width">1.6770833333333333in</property>
                                         </column>
                                         <row id="729">
                                             <property name="height">0.3229166666666667in</property>
                                             <cell id="730">
                                                 <label id="732">
+                                                    <property name="fontSize">10pt</property>
+                                                    <property name="textAlign">left</property>
                                                     <text-property name="text">Tel:</text-property>
                                                 </label>
                                             </cell>
                                             <cell id="731">
                                                 <data id="532">
+                                                    <property name="fontSize">10pt</property>
+                                                    <property name="textAlign">left</property>
                                                     <property name="resultSetColumn">phone</property>
+                                                </data>
+                                            </cell>
+                                        </row>
+                                    </grid>
+                                    <grid id="1047">
+                                        <property name="width">1.875in</property>
+                                        <column id="1048">
+                                            <property name="width">0.75in</property>
+                                        </column>
+                                        <column id="1049">
+                                            <property name="width">1.125in</property>
+                                        </column>
+                                        <row id="1050">
+                                            <cell id="1051">
+                                                <property name="textAlign">left</property>
+                                                <label id="1053">
+                                                    <property name="fontSize">10pt</property>
+                                                    <property name="textAlign">right</property>
+                                                    <property name="display">inline</property>
+                                                    <text-property name="text" key="mobile">Mobile</text-property>
+                                                </label>
+                                                <label id="1061">
+                                                    <property name="paddingLeft">0pt</property>
+                                                    <property name="paddingRight">0pt</property>
+                                                    <property name="display">inline</property>
+                                                    <structure name="toc"/>
+                                                    <text-property name="text">:</text-property>
+                                                </label>
+                                            </cell>
+                                            <cell id="1052">
+                                                <data id="1054">
+                                                    <property name="fontSize">10pt</property>
+                                                    <property name="textAlign">left</property>
+                                                    <property name="resultSetColumn">Column Binding</property>
                                                 </data>
                                             </cell>
                                         </row>
@@ -1745,11 +1816,14 @@ WHERE adjustment.id_booking = ?]]></xml-property>
                                         <row id="736">
                                             <cell id="737">
                                                 <label id="739">
+                                                    <property name="fontSize">10pt</property>
                                                     <text-property name="text">Fax:</text-property>
                                                 </label>
                                             </cell>
                                             <cell id="738">
                                                 <data id="534">
+                                                    <property name="fontSize">10pt</property>
+                                                    <property name="textAlign">left</property>
                                                     <property name="resultSetColumn">fax</property>
                                                 </data>
                                             </cell>
@@ -2134,6 +2208,7 @@ WHERE adjustment.id_booking = ?]]></xml-property>
                                     <property name="fontSize">12pt</property>
                                     <property name="paddingLeft">0pt</property>
                                     <data id="972">
+                                        <property name="fontSize">10pt</property>
                                         <property name="dataSet">BookingDataset</property>
                                         <list-property name="boundDataColumns">
                                             <structure>
@@ -2390,6 +2465,7 @@ WHERE adjustment.id_booking = ?]]></xml-property>
                                         <property name="resultSetColumn">firstName</property>
                                     </data>
                                     <data id="973">
+                                        <property name="fontSize">10pt</property>
                                         <property name="dataSet">BookingDataset</property>
                                         <list-property name="boundDataColumns">
                                             <structure>
@@ -2646,6 +2722,7 @@ WHERE adjustment.id_booking = ?]]></xml-property>
                                         <property name="resultSetColumn">lastName</property>
                                     </data>
                                     <data id="974">
+                                        <property name="fontSize">10pt</property>
                                         <property name="dataSet">BookingDataset</property>
                                         <list-property name="boundDataColumns">
                                             <structure>
@@ -2902,6 +2979,7 @@ WHERE adjustment.id_booking = ?]]></xml-property>
                                         <property name="resultSetColumn">address</property>
                                     </data>
                                     <data id="975">
+                                        <property name="fontSize">10pt</property>
                                         <property name="dataSet">BookingDataset</property>
                                         <list-property name="boundDataColumns">
                                             <structure>
@@ -3164,11 +3242,14 @@ WHERE adjustment.id_booking = ?]]></xml-property>
                                     <property name="paddingLeft">0pt</property>
                                     <property name="verticalAlign">bottom</property>
                                     <label id="979">
+                                        <property name="fontSize">10pt</property>
+                                        <property name="display">block</property>
                                         <property name="width">60px</property>
                                         <structure name="toc"/>
-                                        <text-property name="text">Num. Doc.</text-property>
+                                        <text-property name="text">Num.Doc.</text-property>
                                     </label>
                                     <data id="978">
+                                        <property name="fontSize">10pt</property>
                                         <property name="dataSet">BookingDataset</property>
                                         <list-property name="boundDataColumns">
                                             <structure>
@@ -5948,7 +6029,7 @@ WHERE adjustment.id_booking = ?]]></xml-property>
                 </cell>
             </row>
             <row id="759">
-                <property name="height">2.125in</property>
+                <property name="height">1.8645833333333333in</property>
                 <cell id="760">
                     <property name="colSpan">2</property>
                     <property name="rowSpan">1</property>
@@ -6200,7 +6281,7 @@ WHERE adjustment.id_booking = ?]]></xml-property>
                 </cell>
             </row>
             <row id="804">
-                <property name="height">0.9791666666666666in</property>
+                <property name="height">0.59375in</property>
                 <cell id="805"/>
                 <cell id="806">
                     <table id="853">
@@ -6278,6 +6359,18 @@ WHERE adjustment.id_booking = ?]]></xml-property>
                                 <expression name="expression" type="javascript">dataSetRow["id_user"]</expression>
                                 <property name="dataType">integer</property>
                             </structure>
+                            <structure>
+                                <property name="name">mobile</property>
+                                <text-property name="displayName">mobile</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["mobile"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                            <structure>
+                                <property name="name">taxNumber</property>
+                                <text-property name="displayName">taxNumber</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["taxNumber"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
                         </list-property>
                         <column id="860"/>
                         <header>
@@ -6354,5 +6447,200 @@ WHERE adjustment.id_booking = ?]]></xml-property>
                 </cell>
             </row>
         </grid>
+        <table id="1013">
+            <property name="borderTopStyle">solid</property>
+            <property name="borderTopWidth">medium</property>
+            <property name="width">7.645833333333333in</property>
+            <property name="dataSet">StructureDataSet</property>
+            <list-property name="boundDataColumns">
+                <structure>
+                    <property name="name">id</property>
+                    <text-property name="displayName">id</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["id"]</expression>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="name">name</property>
+                    <text-property name="displayName">name</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["name"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">email</property>
+                    <text-property name="displayName">email</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["email"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">url</property>
+                    <text-property name="displayName">url</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["url"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">phone</property>
+                    <text-property name="displayName">phone</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["phone"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">fax</property>
+                    <text-property name="displayName">fax</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["fax"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">address</property>
+                    <text-property name="displayName">address</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["address"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">city</property>
+                    <text-property name="displayName">city</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["city"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">country</property>
+                    <text-property name="displayName">country</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["country"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">zipCode</property>
+                    <text-property name="displayName">zipCode</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["zipCode"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">notes</property>
+                    <text-property name="displayName">notes</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["notes"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">id_user</property>
+                    <text-property name="displayName">id_user</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["id_user"]</expression>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="name">Column Binding</property>
+                    <expression name="expression" type="javascript">dataSetRow["taxNumber"]</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">Column Binding_1</property>
+                    <expression name="expression" type="javascript">row["email"]</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">Column Binding_2</property>
+                    <expression name="expression" type="javascript">row["url"]</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">Column Binding_3</property>
+                    <expression name="expression" type="javascript">row["phone"]</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">Column Binding_4</property>
+                    <expression name="expression" type="javascript">dataSetRow["mobile"]</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+            </list-property>
+            <structure name="toc"/>
+            <column id="1029">
+                <property name="width">0.3541666666666667in</property>
+            </column>
+            <column id="1030">
+                <property name="width">1.6041666666666667in</property>
+            </column>
+            <column id="1031">
+                <property name="width">1.9166666666666667in</property>
+            </column>
+            <column id="1032">
+                <property name="width">1.8854166666666667in</property>
+            </column>
+            <column id="1040">
+                <property name="width">1.8854166666666667in</property>
+            </column>
+            <header>
+                <row id="1014">
+                    <property name="height">0.07291666666666667in</property>
+                    <cell id="1015"/>
+                    <cell id="1016"/>
+                    <cell id="1017"/>
+                    <cell id="1018"/>
+                    <cell id="1037"/>
+                </row>
+            </header>
+            <detail>
+                <row id="1019">
+                    <property name="height">0.5833333333333334in</property>
+                    <cell id="1020"/>
+                    <cell id="1021">
+                        <label id="1036">
+                            <property name="display">block</property>
+                            <text-property name="text" key="taxNumber">PIVA</text-property>
+                        </label>
+                        <data id="1034">
+                            <property name="display">block</property>
+                            <property name="resultSetColumn">Column Binding</property>
+                        </data>
+                    </cell>
+                    <cell id="1022">
+                        <label id="1041">
+                            <property name="display">block</property>
+                            <text-property name="text" key="email">email</text-property>
+                        </label>
+                        <data id="1035">
+                            <property name="display">block</property>
+                            <property name="resultSetColumn">Column Binding_1</property>
+                        </data>
+                    </cell>
+                    <cell id="1023">
+                        <label id="1043">
+                            <property name="display">block</property>
+                            <text-property name="text" key="url">sito</text-property>
+                        </label>
+                        <data id="1042">
+                            <property name="display">block</property>
+                            <property name="resultSetColumn">Column Binding_2</property>
+                        </data>
+                    </cell>
+                    <cell id="1038">
+                        <label id="1044">
+                            <property name="display">block</property>
+                            <text-property name="text" key="phone">phone</text-property>
+                        </label>
+                        <data id="1045">
+                            <property name="display">block</property>
+                            <property name="resultSetColumn">Column Binding_3</property>
+                        </data>
+                        <data id="1046">
+                            <property name="resultSetColumn">Column Binding_4</property>
+                        </data>
+                    </cell>
+                </row>
+            </detail>
+            <footer>
+                <row id="1024">
+                    <property name="height">0.15625in</property>
+                    <cell id="1025"/>
+                    <cell id="1026"/>
+                    <cell id="1027"/>
+                    <cell id="1028"/>
+                    <cell id="1039"/>
+                </row>
+            </footer>
+        </table>
     </body>
 </report>

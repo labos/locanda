@@ -33,6 +33,7 @@ import model.listini.RoomPriceList;
 import model.listini.Season;
 import model.questura.HousedExport;
 
+import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -125,8 +126,38 @@ public class BookingServiceImpl implements BookingService {
 	@Override
 	public List<Booking> findAllBookingsByStartDateAndLengthOfStay(
 			Integer id_structure, Date startDate, Integer lengthOfStay) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Booking> bookings = null;
+		Booking booking = null;
+		Date endDate = DateUtils.addDays(startDate, lengthOfStay);
+
+		bookings = new ArrayList<Booking>();
+		for(Integer id: this.getBookingMapper().findBookingIdsByIdStructure(id_structure)){
+			booking = this.findBookingById(id);
+			if(this.checkifExistBookingInRangeOfDates(booking, startDate, endDate)){
+				bookings.add(booking);			
+			}
+
+		}	
+		return bookings;
+	}
+	
+	@Override
+	public Boolean checkifExistBookingInRangeOfDates(Booking booking, Date startDate, Date endDate){
+		// dateIn|---------------------------------------------------------------------------------------------------------| dateOut   
+		//  dateIn|-------------------------| dateOut          dateIn |-----|dateOut		  dateIn |------------| dateOut 
+		//       	startDate|----------------------------------------------------------------------------|endDate
+		// 
+		if(booking.getDateOut().after(endDate) && booking.getDateIn().compareTo(startDate)<=0){
+			return true;
+		}
+		if(booking.getDateOut().compareTo(endDate) <=0 && (booking.getDateOut().compareTo(startDate)>= 0 ) ){
+			return true;
+		}
+		if(booking.getDateIn().compareTo(startDate)>=0 && booking.getDateIn().compareTo(endDate)<=0){
+			return true;
+		}
+
+		return false;
 	}
 
 	@Override

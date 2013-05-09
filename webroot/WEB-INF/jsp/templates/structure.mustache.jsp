@@ -45,6 +45,10 @@
 						{{#availableCountries}}<option value="{{code}}" {{#selected}}selected="selected"{{/selected}}>{{name}}</option>{{/availableCountries}}
 					</select>
            	 	  </div>
+				<div class="type-text">
+					<label for="FormEmail"><s:text name="email"/><sup title="<s:text name="thisFileMandatory"/>.">*</sup></label>
+                	<input type="text" class="required email" name="email" id="FormEmail" value="{{email}}" aria-required="true" size="20" />
+              	  </div>
 				  <div class="type-button">
                   	<button class="btn_save"><s:text name="save"/></button>
                     <button class="btn_reset btn_cancel_form"><s:text name="cancel"/></button>
@@ -52,16 +56,12 @@
 			</div>
 			<div class="c50l">
               	  <div class="type-text">
-					<label for="FormEmail"><s:text name="email"/><sup title="<s:text name="thisFileMandatory"/>.">*</sup></label>
-                	<input type="text" class="required email" name="email" id="FormEmail" value="{{email}}" aria-required="true" size="20" />
-              	  </div>
-              	  <div class="type-text">
-                	<label for="FormUrl"><s:text name="url"/></label>
-                	<input type="text" name="url" id="FormUrl" value="{{url}}" aria-required="true" />
+                		<label for="FormUrl"><s:text name="url"/></label>
+                		<input type="text" name="url" id="FormUrl" value="{{url}}" aria-required="true" />
               	  </div>
               	  <div class="type-text">
 					<label for="FormPhone"><s:text name="phone"/><sup title="<s:text name="thisFileMandatory"/>.">*</sup></label>
-                	<input type="text" class="required validPhone" name="phone" id="FormPhone" value="{{phone}}" aria-required="true" />
+               	 	<input type="text" class="required validPhone" name="phone" id="FormPhone" value="{{phone}}" aria-required="true" />
               	  </div>
               	  <div class="type-text">
                   	<label for="FormMobile"><s:text name="mobile"/></label> 
@@ -69,12 +69,16 @@
                   </div> 
               	  <div class="type-text">
 					<label for="FormFax"><s:text name="fax"/></label>
-                	<input type="text" class="validPhone" name="fax" id="FormFax" value="{{fax}}" aria-required="true" />
+                		<input type="text" class="validPhone" name="fax" id="FormFax" value="{{fax}}" aria-required="true" />
               	  </div>
               	  <div class="type-text">
+                  	<label for="FormTaxNumber"><s:text name="taxNumber"/></label> 
+                		<input type="text" name="taxNumber" id="FormTaxNumber" value="{{taxNumber}}" />
+                  </div> 
+            	  		<div class="type-text">
                   	<label for="FormNotes"><s:text name="notes"/></label> 
                   	<textarea name="notes" id="FormNotes">{{notes}}</textarea>
-                  </div>    	  	             
+                  </div>   	  	             
             </div>
         </form>
 
@@ -124,12 +128,12 @@
                   		<strong><s:text name="country"/>:</strong>
                 		<span>{{country}}</span>
                   	</div>
-              	</div>
-				<div class="c50l">
                   	<div class="type-text">           
        					<strong><s:text name="email"/>:</strong>
                     	<span>{{email}}</span>
-      		      	</div> 
+      		      	</div>
+              	</div>
+				<div class="c50l">
                   	<div class="type-text">	
                   		<strong><s:text name="url"/>:</strong>
                 		<span>{{url}}</span>
@@ -144,6 +148,10 @@
                   	</div>
 					<div class="type-text">	
                   		<strong><s:text name="fax"/>:</strong>
+                		<span>{{fax}}</span>
+                  	</div>
+					<div class="type-text">	
+                  		<strong><s:text name="taxNumber"/>:</strong>
                 		<span>{{fax}}</span>
                   	</div>
 					<div class="type-text">	

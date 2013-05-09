@@ -41,6 +41,7 @@
 	<field name="fax"   			type="string"  	 	indexed="true"  stored="false"  multiValued="false" /> 
 	<field name="email"   			type="string"  	 	indexed="true"  stored="false"  multiValued="false" /> 
 	<field name="url"   			type="string"  	 	indexed="true"  stored="false"  multiValued="false" />
+	<field name="taxNumber"   			type="string"  	 	indexed="true"  stored="false"  multiValued="false" />
 	<field name="notes"   			type="string"  	 	indexed="true"  stored="false"  multiValued="false" />
 	<field name="id_user"      		type="int"   		indexed="true"  stored="false"  multiValued="false" />
   	<field name="text" 				type="text_general" indexed="true" 	stored="true" 	multiValued="true"  />
@@ -65,5 +66,6 @@
  <copyField source="fax" 		dest="text"/>
  <copyField source="email" 		dest="text"/>
  <copyField source="url" 		dest="text"/>
+ <copyField source="taxNumber" 		dest="text"/>
  <copyField source="notes" 		dest="text"/>
 </schema>

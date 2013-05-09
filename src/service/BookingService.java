@@ -47,4 +47,6 @@ public interface BookingService {
 	public Integer updateBooking(Booking booking);
 	public Integer deleteBooking(Integer id);
 
+	Boolean checkifExistBookingInRangeOfDates(Booking booking, Date startDate, Date endDate);
+
 }

@@ -54,6 +54,8 @@ public class Structure implements Serializable {
 	private Integer id_user;
 	@Field
 	private String mobile;
+	@Field
+	private String taxNumber;
 	
 	private List<Image> images;
 	private List<Facility> facilities;
@@ -149,6 +151,12 @@ public class Structure implements Serializable {
 	}
 	public void setMobile(String mobile) {
 		this.mobile = mobile;
+	}
+	public String getTaxNumber() {
+		return taxNumber;
+	}
+	public void setTaxNumber(String taxNumber) {
+		this.taxNumber = taxNumber;
 	}
 	
 	

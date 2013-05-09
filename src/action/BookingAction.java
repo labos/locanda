@@ -81,7 +81,7 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 	private Double adjustmentsSubtotal = 0.0;
 	private Double paymentsSubtotal = 0.0;
 	private Integer idStructure;
-	private String dateStart = null;
+	private String start = null;
 	private List<Integer> listNumGuests = null;
 	@Autowired
 	private ExtraService extraService = null;
@@ -606,10 +606,12 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 		}) 
 	})
 	public String findAllBookingsByStartDateAndLengthOfStay(){
-		if (this.getDateStart() != null && this.getDateStart().length() > 1) {
-			Date startDateBookings = new Date(Long.parseLong(this.getDateStart()));
-			this.setBookings(this.getBookingService().findBookingsByIdStructure(this.getIdStructure()));
 		
+		if (this.getStart() != null && this.getStart().length() > 1) {
+			Date startDateBookings = new Date(Long.parseLong(this.getStart()) * 1000);
+			logger.info("**** data inizio2 ***" + startDateBookings);
+			this.setBookings(this.getBookingService().findAllBookingsByStartDateAndLengthOfStay(this.getIdStructure(), startDateBookings, 10));
+			return SUCCESS;
 		}
 		return ERROR;
 	
@@ -1037,12 +1039,12 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 		this.creditCardService = creditCardService;
 	}
 
-	public String getDateStart() {
-		return dateStart;
+	public String getStart() {
+		return start;
 	}
 
-	public void setDateStart(String dateStart) {
-		this.dateStart = dateStart;
+	public void setStart(String start) {
+		this.start = start;
 	}
 		
 }
