@@ -315,5 +315,5 @@ window.BookingPreviewListView = Backbone.View.extend({
         });
         this.rowViews = [];
         $(this.el).hide();
-    },
+    }
 });

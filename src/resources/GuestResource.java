@@ -265,6 +265,9 @@ public class GuestResource {
     public Integer delete(@PathParam("id") Integer id){
     	Integer count = 0;		
 		
+    		if(this.getBookingService().countBookingsByIdGuestAsHoused(id) > 0 ){
+    			throw new NotFoundException(I18nUtils.getProperty("guestDeleteBookingError"));
+    		}
 		if(this.getBookingService().countBookingsByIdGuest(id) > 0){
 			throw new NotFoundException(I18nUtils.getProperty("guestDeleteBookingError"));
 		}

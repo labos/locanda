@@ -218,6 +218,14 @@ public class BookingServiceImpl implements BookingService {
 				bookings.add(booking);		
 			}
 		}
+		
+		for(Integer bookingId : this.getBookingMapper().findBookingIdsByIdBooker(id_guest) ){
+			if(!bookings.contains(this.findBookingById(bookingId))){
+				bookings.add(this.findBookingById(bookingId));
+			}
+		}
+		
+		
 		return bookings;
 	}
 
@@ -241,6 +249,11 @@ public class BookingServiceImpl implements BookingService {
 		return this.getBookingMapper().countBookingsByIdGuest(id_guest);
 	}
 	
+	@Override
+	public Integer countBookingsByIdGuestAsHoused(Integer id_guest) {
+		return this.getBookingMapper().countBookingsByIdGuestAsHoused(id_guest);
+	}
+
 	@Override
 	public Integer countBookingsByIdSeason(Integer id_season) {
 		List<Booking> allStructureBookings = null;

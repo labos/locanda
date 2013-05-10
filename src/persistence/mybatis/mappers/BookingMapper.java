@@ -28,6 +28,7 @@ public interface BookingMapper {
 	public Integer countBookingsByIdRoom(Integer id_room);
 	public Integer countBookingsByIdExtra(Integer id_extra);
 	public Integer countBookingsByIdGuest(Integer id_guest);
+	public Integer countBookingsByIdGuestAsHoused(Integer id_guest);
 	public Integer insertBooking(Booking booking);
 	public Integer updateBooking(Booking booking);
 	public Integer deleteBooking(Integer id);

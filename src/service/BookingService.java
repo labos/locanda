@@ -40,6 +40,7 @@ public interface BookingService {
 	public Integer countBookingsByIdRoom(Integer id_room);
 	public Integer countBookingsByIdExtra(Integer id_extra);
 	public Integer countBookingsByIdGuest(Integer id_guest);
+	public Integer countBookingsByIdGuestAsHoused(Integer id_guest);
 	public Integer countBookingsByIdSeason(Integer id_season);
 	
 	public Integer saveOnlineBooking(Booking booking,Guest guest);

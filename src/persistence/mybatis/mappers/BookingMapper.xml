@@ -55,7 +55,11 @@ In case of controversy the competent court is the Court of Cagliari (Italy).
     <select id="countBookingsByIdGuest" parameterType="int" resultType="int">
         select count(id) from booker where id_guest = #{id_guest}
     </select>
-    
+  
+   <select id="countBookingsByIdGuestAsHoused" parameterType="int" resultType="int">
+        select count(id) from housed where id_guest = #{id_guest}
+    </select> 
+     
     <insert id="insertBooking" parameterType="model.Booking" useGeneratedKeys="true" keyProperty="id">
         insert into booking(nrGuests,dateIn,dateOut,roomSubtotal,extraSubtotal,notes,status,id_convention,id_room,id_structure)
         values(#{nrGuests},#{dateIn},#{dateOut},#{roomSubtotal},#{extraSubtotal},#{notes},#{status},#{id_convention},#{id_room},#{id_structure})
