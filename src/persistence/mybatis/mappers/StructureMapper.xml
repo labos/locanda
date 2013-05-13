@@ -39,12 +39,12 @@ In case of controversy the competent court is the Court of Cagliari (Italy).
 	
     <insert id="insertStructure" useGeneratedKeys="true" keyProperty="id" parameterType="model.Structure">
         INSERT INTO
-        structure(name,email,url,phone,fax,address,city,country,zipCode,notes,id_user)
-        values(#{name}, #{email}, #{url}, #{phone}, #{fax}, #{address}, #{city}, #{country}, #{zipCode}, #{notes}, #{id_user}, #{mobile}, #{taxNumber})
+        structure(name,email,url,phone,mobile,fax,address,city,country,zipCode,notes,taxNumber,id_user)
+        values(#{name}, #{email}, #{url}, #{phone}, #{mobile}, #{fax}, #{address}, #{city}, #{country}, #{zipCode}, #{notes}, #{taxNumber}, #{id_user})
     </insert>
     
     <sql id="selectStructure">
-        SELECT id,name,email,url,phone,fax,address,city,country,zipCode,notes,id_user,mobile,taxNumber FROM structure
+        SELECT id,name,email,url,phone,mobile,fax,address,city,country,zipCode,notes,taxNumber,id_user FROM structure
     </sql>
     
 </mapper>
