@@ -352,6 +352,8 @@ public class BookingServiceImpl implements BookingService {
 		this.updateHousedExport(id);
 		this.getHousedService().deleteHousedByIdBooking(id);
 		this.getGroupLeaderService().deleteByIdBooking(id);
+		this.getCreditCardService().deleteCreditCardByIdBooking(id);
+
 		return this.getBookingMapper().deleteBooking(id);
 	}
 	

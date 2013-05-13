@@ -27,6 +27,16 @@ display: none;
 width:80%;
 }
 </style>
+<%@ page import="java.util.Map" %>
+<%@ page import="java.util.HashMap" %>
+<%
+Map<String, String> creditCardMap = new HashMap<String, String>();
+creditCardMap.put("visa", "Visa");
+creditCardMap.put("mastercard", "Master Card");
+creditCardMap.put("amex", "American Express");
+creditCardMap.put("discover", "Discover");
+String cardTypeSelected = (String) request.getAttribute("booking.creditCard.cardType");
+%>
 	<div class="validationErrors"></div>
       <form class="yform json" action="saveUpdateBooking.action">
         <input type="hidden" name="redirect_form" value="false" />
@@ -331,7 +341,7 @@ width:80%;
                 		    <input type="hidden"  name="booking.creditCard.id" value="<s:property value="booking.creditCard.id"/>"/>
                 		   	<div class="c40l"><div class="subcl type-select"><span><s:text name="creditCardType" />:</span><select name="booking.creditCard.cardType" value="<s:property value="booking.creditCard.cardType" />">
                  		<s:if test="booking.creditCard.id != null">
-                 		<option selected="selected" value="<s:property value="booking.creditCard.cardType"/>"><s:property value="booking.creditCard.cardType"/></option>
+                 		<option selected="selected" value="<s:property value="booking.creditCard.cardType"/>"><% 	out.println(creditCardMap.get(cardTypeSelected)); %></option>
                  		</s:if>
                  		<option value="visa">Visa</option>
                  		<option value="mastercard">Master Card</option>
