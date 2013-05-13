@@ -38,7 +38,10 @@ window.EditPriceListView = Backbone.View.extend({
 	                 $(this).bind('submitForm', function(e,data){
 	                 	  if(data.type == "success"){
 	                 	  //switch to read-only mode
-	                 		 $("#priceList_edit").toggle();
+		                        $("#priceList_form").find("input").addClass("noBorder");
+		                        $("#priceList_form").find("input").attr('readonly', 'readonly');
+		                        $(".copy").hide();
+		                        $("#priceList_buttons").hide();
 	                 	  }});
 	                 $(this).submitForm();
 	                 return false;
@@ -103,6 +106,7 @@ window.EditPriceListView = Backbone.View.extend({
 	                        	$(".jstree-leaf").find("a").css({ 'color':'black'})
 	                        	// change selected node
 	                        	$(self).find("a").css({ 'color':'red', 'font-weight': '600'});
+		                        $("#priceList_buttons").hide();
 	                            $(".priceList_table > tbody").html(data);
 	                        },
 	                        error: function (request, state, errors) {
