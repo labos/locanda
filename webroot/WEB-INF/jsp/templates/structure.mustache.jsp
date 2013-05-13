@@ -152,7 +152,7 @@
                   	</div>
 					<div class="type-text">	
                   		<strong><s:text name="taxNumber"/>:</strong>
-                		<span>{{fax}}</span>
+                		<span>{{taxNumber}}</span>
                   	</div>
 					<div class="type-text">	
                   		<strong><s:text name="notes"/>:</strong>
