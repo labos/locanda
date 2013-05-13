@@ -688,9 +688,10 @@ window.EditGuestView = EditView.extend({
                 });
             }
             if (this.model.isNew()) {
+            	if(this.bookingsListView != null){
                 this.bookingsListView.unbind("bookingPreviewList:update");
                 this.bookingsListView.disable();          	
-            	
+            	}
             }
             
         }
