@@ -21,7 +21,7 @@ In case of controversy the competent court is the Court of Cagliari (Italy).
 <mapper namespace="persistence.mybatis.mappers.ImageFileMapper">
     <cache/>
 	
-	<insert id="insert"  parameterType="map">
+	<insert id="insert" parameterType="map">
         insert into imageFile(id_image,id_file) values(#{id_image},#{id_file})
     </insert>      
     
@@ -37,8 +37,8 @@ In case of controversy the competent court is the Court of Cagliari (Italy).
         <include refid="selectImageFile"/> where id = #{id}
     </select> 
      
-    <select id = "findByIdImage" parameterType = "int" resultType="map">
-    	<include refid="selectImageFile"/> where id_image = #{id_image}      	  
+    <select id="findByIdImage" parameterType="int" resultType="map">
+    	<include refid="selectImageFile"/> where id_image = #{id_image}  
     </select>   
      
     <sql id="selectImageFile">

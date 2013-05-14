@@ -1,23 +1,6 @@
-LOCANDA 
+LOCANDA - version 0.3
+
 Thanks for trying Locanda. In this file you'll find some useful information to configure it according to the needs of your structure, and to start using it.
-
-INSTALLATION on a Linux environment:
-   Prerequired software
-     - Java (version ??) or above
-     - Apache Tomcat server (version ??)
-     - MySQL (version ??) or HyperSQL (included in this pachage)
-       Note: locanda is able to use both MySQL and HSQL, you can chose your preferred platform.
-     - A web browser that support javascript
-
-   -Check the correct installation of the packages needed to execute Apache Tomcat and/or MySQL servers.
-   -If you want to use MySQL you need a administrator privileges in order to create a new locanda user and database.
-   -Check that Tomcat and/or MySQL servers are up and running.
-   -(not mandatory) before running the installation scripth make sure that you have ben exported your Tomcat var CATALINA_HOME.  
-   -run the installation script.  
-   -if you have chosed HSQL maybe you need to run the HSQL server and setup the database, please refer documentation 
-    in HSQL directory.
-
-
 
 ACCESS TO LOCANDA
 From the home page (http://localhost:8080/locanda), clicking on the "Login/Signup" button in the top-right part of the page will redirect you to the Login page

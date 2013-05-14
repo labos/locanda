@@ -50,7 +50,7 @@
        <res-ref-name>jdbc/locanda</res-ref-name> 
        <res-type>javax.sql.DataSource</res-type> 
        <res-auth>Container</res-auth> 
-   </resource-ref> 
+    </resource-ref> 
 	
     <filter>
         <filter-name>struts2</filter-name>
@@ -82,10 +82,9 @@
     	<init-param>
               <param-name>com.sun.jersey.api.json.POJOMappingFeature</param-name>
               <param-value>true</param-value>
-        </init-param>
-        
+        </init-param>    
 	</servlet>
-
+	
 	<servlet-mapping>
     	<servlet-name>Jersey Web Application</servlet-name>
     	<url-pattern>/rest/*</url-pattern>

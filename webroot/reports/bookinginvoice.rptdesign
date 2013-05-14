@@ -178,10 +178,10 @@
                     <value>ILYNN</value>
                 </ex-property>
             </list-property>
-            <property name="odaDriverClass">com.mysql.jdbc.Driver</property>
-            <property name="odaURL">jdbc:mysql://localhost:3306/locanda</property>
-            <property name="odaUser">root</property>
-            <encrypted-property name="odaPassword" encryptionID="base64">cm9vdA==</encrypted-property>
+            <property name="odaDriverClass">${DBdriverClassName}</property>
+            <property name="odaURL">${DBurl}</property>
+            <property name="odaUser">${DBusername}</property>
+            <property name="odaPassword">${DBpassword}</property>
             <property name="odaJndiName">java:comp/env/jdbc/locanda</property>
         </oda-data-source>
     </data-sources>
