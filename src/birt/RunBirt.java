@@ -44,7 +44,7 @@ public class RunBirt {
 					.createRunAndRenderTask(design);
 
 			if (req.getParameter("bookid") != null) {
-				task.setParameterValue("bookid", (req.getParameter("bookid")));
+				task.setParameterValue("bookid", Integer.valueOf(req.getParameter("bookid")));
 			}
 
 			if (req.getParameter("structid") != null) {

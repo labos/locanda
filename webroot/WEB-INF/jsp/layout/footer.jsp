@@ -68,6 +68,16 @@ if (locale != null){
 
 <script type='text/javascript' src='js/lang/jquery.<s:property value="#request.locale.getLanguage()" />.json'></script>
 <script>
+I18NSettings = {};
+I18NSettings.datePattern = '<s:property value="#session.datePattern"/>'.replace('yyyy', 'yy').toLowerCase();
+//to avoid undefined warning on pre-login phase...
+if (typeof I18NSettings.datePattern === 'undefined') {
+    I18NSettings.datePattern = "dd/mm/yy";
+}
+//$._.setLocale('<s:property value="#request.locale" />');
+$._.setLocale('<s:property value="#request.locale.getLanguage()" />');
+I18NSettings.language = '<s:property value="#request.locale.getLanguage()" />';
+
 	$(document).ready(function () { <%
     	//code for menu tabs activation
     	String dPageDefault = "planner";
@@ -77,15 +87,6 @@ if (locale != null){
     	%>
     	var text_tab = $("#" + section).children("a").hide().text();
     	$("#" + section).addClass("active").prepend("<strong>" + text_tab + "</strong>");
-    	I18NSettings = {};
-    	I18NSettings.datePattern = '<s:property value="#session.datePattern"/>'.replace('yyyy', 'yy').toLowerCase();
-    	//to avoid undefined warning on pre-login phase...
-    	if (typeof I18NSettings.datePattern === 'undefined') {
-    	    I18NSettings.datePattern = "dd/mm/yy";
-    	}
-    	//$._.setLocale('<s:property value="#request.locale" />');
-    	$._.setLocale('<s:property value="#request.locale.getLanguage()" />');
-    	I18NSettings.language = '<s:property value="#request.locale.getLanguage()" />';
 	});
 </script>
 <script type='text/javascript' src='js/lib/jquery.validate.min.js'></script>

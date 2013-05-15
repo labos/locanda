@@ -18,10 +18,8 @@ package service;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 
 import persistence.mybatis.mappers.ImageFileMapper;
 
@@ -29,7 +27,6 @@ import persistence.mybatis.mappers.ImageFileMapper;
 public class ImageFileServiceImpl implements ImageFileService{	
 	@Autowired
 	private ImageFileMapper imageFileMapper = null;
-	private static Logger logger = Logger.getLogger(Logger.class);
 	
 	@Override
 	public Integer insert(Integer id_image,Integer id_file) {
@@ -55,8 +52,6 @@ public class ImageFileServiceImpl implements ImageFileService{
 	public Integer findIdFileByIdImage(Integer id_image) {
 		Integer ret;
 		
-		logger.info("****** id immagine: " + id_image);
-
 		ret = (Integer)this.getImageFileMapper().findByIdImage(id_image).get("id_file");	
 		return ret;
 	}
