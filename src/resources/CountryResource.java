@@ -14,6 +14,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import service.CountryService;
+import utils.I18nUtils;
 
 @Path("/countries/")
 @Component
@@ -28,6 +29,10 @@ public class CountryResource {
     	List<Country> ret = null;
     	
     	ret = this.getCountryService().findAll();
+    	
+    	for(Country aCountry : ret){
+    		aCountry.setDescription(I18nUtils.getProperty(aCountry.getDescription()));
+    	}
         return ret;
     }
 
