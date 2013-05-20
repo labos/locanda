@@ -965,7 +965,17 @@ CREATE TABLE `tourismType` (
 
 LOCK TABLES `tourismType` WRITE;
 /*!40000 ALTER TABLE `tourismType` DISABLE KEYS */;
-INSERT INTO `tourismType` VALUES (1,'Balneare'),(2,'Enogastronomico'),(3,'Culturale'),(4,'Parchi Tematici'),(5,'Sociale'),(6,'Sportivo'),(7,'Affari/Congressuale'),(8,'Fitness'),(9,'Scolastico'),(10,'Religioso'),(11,'Altro');
+INSERT INTO `tourismType` VALUES (1, 'tourismTypeSeaside'),
+(2, 'tourismTypeFoodAndWine'),
+(3, 'tourismTypeCultural'),
+(4, 'tourismTypeThemeParks'),
+(5, 'tourismTypeSocial'),
+(6, 'tourismTypeSports'),
+(7, 'tourismTypeBusinessCongress'),
+(8, 'tourismTypeFitness'),
+(9, 'tourismTypeSchool'),
+(10, 'tourismTypeReligious'),
+(11, 'tourismTypeOther');
 /*!40000 ALTER TABLE `tourismType` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -989,7 +999,15 @@ CREATE TABLE `transport` (
 
 LOCK TABLES `transport` WRITE;
 /*!40000 ALTER TABLE `transport` DISABLE KEYS */;
-INSERT INTO `transport` VALUES (1,'Automobile'),(2,'Aereo'),(3,'Treno'),(4,'Autobus'),(5,'Barca/Nave'),(6,'Moto'),(7,'Bicicletta'),(8,'Fly & Drive'),(9,'Altro');
+INSERT INTO `transport` VALUES (1, 'transportCar'),
+(2, 'transportAirplane'),
+(3, 'transportTrain'),
+(4, 'transportBus'),
+(5, 'transportShip'),
+(6, 'transportMotorcycle'),
+(7, 'transportBike'),
+(8, 'transportFlyDrive'),
+(9, 'transportOther');   
 /*!40000 ALTER TABLE `transport` ENABLE KEYS */;
 UNLOCK TABLES;
 

@@ -26,6 +26,7 @@ public final class I18nUtils {
         String lang = null;
         
         Object langObject = ActionContext.getContext().getSession().get("WW_TRANS_I18N_LOCALE");
+        logger.info("Sessione trovata per " + key + " :" + ActionContext.getContext().getSession() + "**" + ActionContext.getContext().getSession().get("WW_TRANS_I18N_LOCALE"));
         lang = ( langObject == null)? ActionContext.getContext().getLocale().getLanguage() : langObject.toString();
         
         ResourceBundle resourceBundle = ResourceBundle.getBundle("global_" + lang); 

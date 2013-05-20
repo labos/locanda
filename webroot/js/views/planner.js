@@ -133,7 +133,16 @@ $(function () {
                       
                   },
                   calendarAfterLoad : function(calendar) {
-                	 //nothing
+                	  // set scrolling calendar
+                
+                		  if($("div.wc-scrollable-grid").height() > 300){ 
+                			  
+                			  var self = $("div.wc-scrollable-grid").height(300).css("overflow", "hidden"); 
+                			  self.slimScroll({
+                			        height: '300px'
+                			    });
+                			  }
+
                   },
                   draggable: function (calEvent, $event) {
                       return calEvent.readOnly != true;

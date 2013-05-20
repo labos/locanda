@@ -43,6 +43,7 @@ import service.HousedExportService;
 import service.HousedService;
 import service.TourismTypeService;
 import service.TransportService;
+import utils.I18nUtils;
 
 @Path("/export/")
 @Component
@@ -259,8 +260,8 @@ public class ExportResource {
 			guestQuesturaFormatterLeader.setLettiDisponibili(availableBeds);
 			TourismType tourismType = this.getTourismTypeService().findById(each.getHousedExportLeader().getHoused().getId_tourismType());
 			Transport transport = this.getTransportService().findById(each.getHousedExportLeader().getHoused().getId_transport());
-			guestQuesturaFormatterLeader.setTipoTurismo(tourismType != null? tourismType.getName() : "");
-			guestQuesturaFormatterLeader.setMezzoDiTrasporto(transport != null? transport.getName() : "");
+			guestQuesturaFormatterLeader.setTipoTurismo(tourismType != null? I18nUtils.getProperty(tourismType.getName()) : "");
+			guestQuesturaFormatterLeader.setMezzoDiTrasporto(transport != null? I18nUtils.getProperty(transport.getName()) : "");
 			Integer tourismTax = each.getHousedExportLeader().getHoused().getTouristTax() ? 1 : 0;
 			guestQuesturaFormatterLeader.setTassaSoggiorno(tourismTax);
 			guestQuesturaFormatterLeader.setDataFromHousedForRegione(each.getHousedExportLeader().getHoused());
@@ -278,8 +279,8 @@ public class ExportResource {
 				guestQuesturaFormatter.setModalita(aMember.getMode());
 				TourismType tourismTypeMember = this.getTourismTypeService().findById(aMember.getHoused().getId_tourismType());
 				Transport transportMember = this.getTransportService().findById(aMember.getHoused().getId_transport());
-				guestQuesturaFormatter.setTipoTurismo(tourismTypeMember != null? tourismTypeMember.getName() : "");
-				guestQuesturaFormatter.setMezzoDiTrasporto(transportMember != null? transportMember.getName() : "");
+				guestQuesturaFormatter.setTipoTurismo(tourismTypeMember != null? I18nUtils.getProperty(tourismTypeMember.getName()) : "");
+				guestQuesturaFormatter.setMezzoDiTrasporto(transportMember != null? I18nUtils.getProperty(transportMember.getName()) : "");
 				Integer tourismTaxMember = aMember.getHoused().getTouristTax() ? 1 : 0;
 				guestQuesturaFormatter.setTassaSoggiorno(tourismTaxMember);
 				guestQuesturaFormatter.setDataFromHousedForRegione(aMember.getHoused());
@@ -300,8 +301,8 @@ public class ExportResource {
 			guestQuesturaFormatter.setLettiDisponibili(availableBeds);
 			TourismType tourismTypeSingle = this.getTourismTypeService().findById(each.getHoused().getId_tourismType());
 			Transport transportSingle = this.getTransportService().findById(each.getHoused().getId_transport());
-			guestQuesturaFormatter.setTipoTurismo(tourismTypeSingle != null? tourismTypeSingle.getName() : "");
-			guestQuesturaFormatter.setMezzoDiTrasporto(transportSingle != null? transportSingle.getName() : "");
+			guestQuesturaFormatter.setTipoTurismo(tourismTypeSingle != null? I18nUtils.getProperty(tourismTypeSingle.getName()) : "");
+			guestQuesturaFormatter.setMezzoDiTrasporto(transportSingle != null? I18nUtils.getProperty(transportSingle.getName()) : "");
 			Integer tourismTaxSingle = each.getHoused().getTouristTax() ? 1 : 0;
 			guestQuesturaFormatter.setTassaSoggiorno(tourismTaxSingle);
 			guestQuesturaFormatter.setDataFromHousedForRegione(each.getHoused());

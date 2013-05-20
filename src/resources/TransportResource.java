@@ -14,6 +14,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import service.TransportService;
+import utils.I18nUtils;
 
 @Path("/transports/")
 @Component
@@ -28,6 +29,9 @@ public class TransportResource {
     	List<Transport> ret = null;
     	
     	ret = this.getTransportService().findAll();
+    	for(Transport aTransport : ret){
+    		aTransport.setName(I18nUtils.getProperty(aTransport.getName()));
+    	}
         return ret;
     }
 

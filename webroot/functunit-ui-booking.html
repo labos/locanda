@@ -1,0 +1,822 @@
+<html>
+<head>
+	<!-- Change HREF to point to your copy of qunit.css -->
+    <link rel="stylesheet" type="text/css" href="js/funcunit/qunit/qunit.css" />
+	<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+	<link href="http://wbpreview.com/previews/WB0L805L0/css/bootstrap-responsive.css" rel="stylesheet">
+    <!-- Change SRC to point to your copy of funcunit.js -->
+	<script type='text/javascript' src='js/funcunit/funcunit.js'></script>
+	<script type='text/javascript' src='js/lib/jquery.min.js'></script>
+	<!--<script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js'></script>-->
+	<script type='text/javascript' src='js/lib/jquery-ui-1.8.9.custom.min.js'></script>
+	<script type='text/javascript' src="js/lib/jquerymx-1.0.custom.js"></script>
+	<script type='text/javascript' src='js/lib/ftod.js'></script>
+	<script type="text/javascript" src="js/lib/jstree/jquery.jstree.js"></script>
+	<script type='text/javascript' src='js/lib/jquery.form.js'></script>
+	<script type='text/javascript' src="js/lib/jquery.i18n.js"></script>
+	<script type='text/javascript' src="js/lib/underscore-min.js"></script>
+	<script type='text/javascript' src="js/lib/backbone.js"></script>
+	<script type='text/javascript' src="js/lib/mustache.js"></script>
+	<script type='text/javascript' src='js/lib/jquery.overlay.min.js'></script>
+	<script type='text/javascript' src='js/lib/jquery.colorbox.js'></script>
+	<script type='text/javascript' src='js/lib/jquery.slimscroll.min.js'></script>
+	<!-- Change SRC to point to your test.js -->
+	<script type='text/javascript'>
+    // This view turns a Booking model into HTML. Will create LI elements.
+    $(document).ready( function(){
+    var BookingView = Backbone.View.extend({
+        tagName: 'li',
+
+        events:{
+            'click': 'toggleBooking'
+        },
+
+        initialize: function(){
+
+            // Set up event listeners. The change backbone event
+            // is raised when a property changes (like the checked field)
+			this.indexTemplate = $("#bookingPreview-view-template");
+            //this.listenTo(this.model, 'change', this.render);
+            this.render();
+        },
+
+        render: function(){
+
+            // Create the HTML
+
+			
+            $(this.el).html(Mustache.to_html(this.indexTemplate.html(), {}));
+            
+            // Returning the object is a good practice
+            // that makes chaining possible
+            return this;
+        },
+
+        toggleBooking: function(){
+            this.model.toggle();
+        }
+    });
+
+    // The main view of the application
+    var App = Backbone.View.extend({
+
+        // Base the view on an existing element
+        el: $('#main'),
+
+        initialize: function(){
+			/*
+            // Cache these selectors
+            this.total = $('#total span');
+            this.list = $('#Bookings');
+
+            // Listen for the change event on the collection.
+            // This is equivalent to listening on every one of the 
+            // Booking objects in the collection.
+            this.listenTo(Bookings, 'change', this.render);
+
+            // Create views for every one of the Bookings in the
+            // collection and add them to the page
+
+            services.each(function(Booking){
+
+                var view = new BookingView({ model: Booking });
+                this.list.append(view.render().el);
+
+            }, this);	
+            */
+            // "this" is the context in the callback
+            this.render();
+        },
+
+        render: function(){
+
+            // Calculate the total order amount by agregating
+            // the prices of only the checked elements
+			/*
+            var total = 0;
+
+            _.each(Bookings.getChecked(), function(elem){
+                total += elem.get('price');
+            });
+
+            // Update the total price
+            this.total.text('$'+total);
+			*/
+			var view = new BookingView({});
+			this.el.append(view.el);
+            return this;
+        }
+    });
+
+    new App();
+
+});
+
+	</script>
+	<title>Locanda Test Booking UI</title>
+</head>
+<body>
+	<div id="main"></div>
+
+<script id="bookingPreview-view-template" type="text/x-handlebars-template">
+<div class="navbar navbar-fixed-top m-header">
+		<div class="navbar-inner m-inner">
+			<div class="container-fluid">
+				<a href="./index.html" class="brand m-brand">Booking</a>
+				
+	<form class="form-inline span6">
+									<label>Room: </label>
+									<select>
+										<option>Date</option>
+										<option>Total</option>
+									</select>
+									<label>Date In:</label>
+									<select>
+										<option>Desc</option>
+										<option>Asc</option>
+									</select>
+									<label>Num Nights: </label>
+									<select>
+										<option>Date</option>
+										<option>Total</option>
+									</select>
+									<label>Date Out: </label>
+									<select>
+										<option>Date</option>
+										<option>Total</option>
+									</select>
+								</form>
+
+				<button data-target=".nav-collapse" data-toggle="collapse" class="btn btn-navbar" type="button">
+		            <span class="icon-bar"></span>
+		            <span class="icon-bar"></span>
+		            <span class="icon-bar"></span>
+		        </button>
+		        
+				<div class="nav-collapse collapse">
+
+					<div class="btn-group pull-right open">
+				        <a href="#" data-toggle="dropdown" class="btn dropdown-toggle">
+			          		<i class="icon-user"></i> Provisional
+			          		<span class="caret"></span>
+				        </a>
+				        <ul class="dropdown-menu">
+			          		<li><a href="#"><i class="icon-user"></i>Check in</a></li>
+			          		<li><a href="#"><i class="icon-cog"></i>Check out</a></li>
+	 		 				<li class="divider"></li>
+			          		<li><a href="login.html"><i class="icon-off"></i>Deleted</a></li>
+				        </ul>
+			      	</div>
+	          	</div>
+			</div>
+		</div>
+	</div>
+
+
+
+<aside class="sidebar">
+		<ul class="nav nav-tabs nav-stacked">
+			<li class="active">
+				<a href="index.html">
+					<div>
+						<div class="ico">
+							<img src="./images/ico/ico-home.png">
+						</div>
+						<div class="title">
+							Home
+						</div>
+					</div>
+
+					<div class="arrow">
+						<div class="bubble-arrow-border"></div>
+						<div class="bubble-arrow"></div>
+					</div>
+				</a>
+			</li>
+
+			<li class="">
+				<a href="notification.html">
+					<span class="badge badge-important m-badge-notification">2</span>
+					<div>
+						<div class="ico">
+							<img src="./images/ico/ico-user.gif">
+						</div>
+						<div class="title">
+							Guests
+						</div>
+					</div>
+
+					<div class="arrow">
+						<div class="bubble-arrow-border"></div>
+						<div class="bubble-arrow"></div>
+					</div>
+				</a>
+			</li>
+<li>
+				<a href="form.html">
+					<div>
+						<div class="ico">
+							<img src="./img/ico/ico-setting.gif">
+						</div>
+						<div class="title">
+							Settings
+						</div>
+					</div>
+					<div class="arrow">
+						<div class="bubble-arrow-border"></div>
+						<div class="bubble-arrow"></div>
+					</div>
+				</a>
+			</li>
+			<li>
+				<a href="order.html">
+					<div>
+						<div class="ico">
+							<img src="./images/ico/ico-order.gif">
+						</div>
+						<div class="title">
+							Money
+						</div>
+					</div>
+					<div class="arrow">
+						<div class="bubble-arrow-border"></div>
+						<div class="bubble-arrow"></div>
+					</div>
+				</a>
+			</li>
+			<li class="">
+				<a id="btn-more" href="#" style="display: block;">
+					<div>
+						<div class="ico">
+							<img src="./images/ico/ico-more.png">
+						</div>
+						<div class="title">
+							More
+						</div>
+					</div>
+				</a>
+
+			</li>
+	    </ul>
+	</aside>
+
+
+
+<div class="main-container" style="height: auto;">
+		<div class="container-fluid">
+			<section>
+				<div class="page-header">
+					<h1>Guests</h1>
+				</div>
+				<div class="row-fluid">
+
+					<div class="alert alert-info">
+						<button data-dismiss="alert" class="close">x</button>
+						<strong>Warning!</strong> You have 4 new messages
+						<a href="#">
+							<span class="label label-important">Read it!</span>	
+						</a>
+					</div>
+
+					<div class="alert">
+						<button data-dismiss="alert" class="close">x</button>
+						<strong>Warning!</strong> You have 50 pending orders
+						<a href="#">
+							<span class="label label-info">Check it now!</span>	
+						</a>
+					</div>
+				</div>
+				<div class="row-fluid">
+					<div class="span4 m-widget">
+						<div class="m-widget-header">
+							<h3>Recent orders</h3>
+						</div>
+						<div class="m-widget-body">
+							<table class="table table-striped table-condensed">
+								<thead>
+									<tr>
+										<th>#</th>
+										<th>Name</th>
+										<th>&nbsp;</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>#0001</td>
+										<td><a href="#">Order item 1</a></td>
+										<td class="tr">
+											<a class="btn btn-primary" href="#">View</a>
+										</td>
+									</tr>
+									<tr>
+										<td>#0002</td>
+										<td><a href="#">Order item 2</a></td>
+										<td class="tr">
+											<a class="btn btn-primary" href="#">View</a>
+										</td>
+									</tr>
+									<tr>
+										<td>#0003</td>
+										<td><a href="#">Order item 3</a></td>
+										<td class="tr">
+											<a class="btn btn-primary" href="#">View</a>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+
+					<div class="span8 m-widget">
+						<div class="m-widget-header">
+							<h3>Today stats</h3>
+						</div>
+
+						<div class="m-widget-body">
+							<div class="row-fluid">
+								<a class="span3 m-stats-item" href="#">
+									<span class="m-stats-val">200+</span>
+									Orders
+								</a>
+
+								<a class="span3 m-stats-item" href="#">
+									<span class="m-stats-val">50</span>
+									Pending orders
+								</a>
+
+								<a class="span3 m-stats-item" href="#">
+									<span class="m-stats-val">100+</span>
+									Customers
+								</a>
+
+								<a class="span3 m-stats-item" href="#">
+									<span class="m-stats-val">1000</span>
+									Products
+								</a>			
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+</script>
+
+<style>
+
+body{
+	background-color: #F1F1F1;	
+}
+
+form{
+	margin: 0;
+}
+
+select{
+	width: auto;
+}
+
+.m-inner{
+	background-image: none;
+	background-color: #F1F1F1 !important;
+	padding: 10px 0;
+	box-shadow: none;
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+}
+
+.m-inner .nav > li > a{
+	color: #555;
+}
+
+.m-inner .nav .active > a, .m-inner .nav .active > a:hover{
+	color: white;
+	background-color: #08c;
+}
+
+.m-inner .nav > li > a:hover{
+	color: #08c;
+	text-decoration: none;
+	/*background-color: #08c;*/
+}
+
+.m-top{
+	height: 60px;
+}
+
+.m-search{
+	padding: 5px 5px 5px 0px;
+	margin-left: 0px;
+}
+
+.sidebar{
+	width: 100px;
+	float: left;
+	height: 100%;
+	position: fixed;
+	left: 0;
+	top: 60px;
+	background-color: #F1F1F1;
+	border-right: 1px solid #E5E5E5;
+}
+
+.sidebar .nav{
+	margin-bottom: 0;
+	position: relative;
+}
+
+.sidebar .nav li{
+	width: 100%;
+}
+
+.sidebar .nav-tabs > li > a:hover,
+.sidebar .nav-tabs > li.active > a{
+	background: none;
+	color: #08C !important;
+}
+
+.sidebar .nav-tabs > li.active .arrow{
+	display: block !important;
+}
+
+.sidebar .nav-tabs.nav-stacked > li > a {
+	position: relative;
+	border: none;
+	border-radius: none;
+	-webkit-border-radius: none;
+	-moz-border-radius: none;
+	text-align: center;
+	font-size: 11px;
+	height: 60px;
+	display: block;
+	color: #555;
+}
+.sidebar .nav-tabs.nav-stacked > li.active img,
+.sidebar .nav-tabs.nav-stacked > li > a:hover img{
+	opacity: 1;
+	-moz-opacity: 1;
+	filter:alpha(opacity=1);
+}
+
+.sidebar .nav-tabs.nav-stacked > li > a img{
+	display: inline;
+	opacity: 0.5;
+	-moz-opacity: 0.5;
+	filter:alpha(opacity=5);
+}
+
+.sidebar .nav-tabs.nav-stacked > li:first-child > a{
+	border-radius: 0 !important;
+	-webkit-border-radius: none !important;
+	-moz-border-radius: none !important;	
+}
+
+.sidebar .nav-tabs.nav-stacked > li:last-child > a{
+	border-radius: 0 !important;
+	-webkit-border-radius: none !important;
+	-moz-border-radius: none !important;
+}
+
+.main-container{
+	background-color: white;
+	min-height: 500px;
+	margin-left: 100px;
+	border-top: 1px solid #E5E5E5;
+	border-left: 1px solid #E5E5E5;
+}
+
+.m-login-container{
+	background-color: white;
+	margin-top: 20px;
+	padding-bottom: 20px;
+	border: 1px solid #999;
+	border: 1px solid rgba(0, 0, 0, 0.3);
+	*border: 1px solid #999;
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+	border-radius: 6px;
+	-webkit-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+	-moz-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+	box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+	-webkit-background-clip: padding-box;
+	-moz-background-clip: padding-box;
+	background-clip: padding-box;
+}
+
+.m-brand {
+	text-align: center;
+	width: 100px;
+	padding: 8px 0px 12px !important;
+}
+
+.arrow{
+	display: none;
+}
+
+.bubble-arrow-border{
+	border-color: transparent #E5E5E5 transparent transparent;
+	border-style: solid;
+	border-width: 10px;
+	height:0;
+	width:0;
+	position:absolute;
+	top: 30px;
+	right: 0px;
+}
+
+.bubble-arrow{
+	border-color: transparent #FFF transparent transparent;
+	border-style: solid;
+	border-width: 10px;
+	height:0;
+	width:0;
+	position:absolute;
+	top: 30px;
+	right: -1px;
+}
+
+.m-fluid{
+	margin: 10px 0;
+}
+
+.m-widget{
+	border: 1px solid #E5E5E5;
+	border-radius: 4px;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	padding: 5px;
+}
+
+.m-widget-header{
+	padding: 5px;
+}
+
+.m-widget-header h3	{
+	border-bottom: 1px solid #E5E5E5;
+	color: #333;
+}
+
+.m-widget-body{
+	padding: 5px;
+}
+
+.tc{
+	text-align: center !important;
+}
+
+.tl{
+	text-align: left !important;
+}
+
+.tr{
+	text-align: right !important;
+}
+
+.m-stats-item{
+	padding: 15px;
+	margin-top: 5px;
+	background-color: #08C;
+	color: white;
+	text-decoration: none !important;
+}
+
+a.m-stats-item:hover{
+	text-decoration: none;
+	color: white;
+}
+
+.m-stats-val{
+	display: block;
+	font-size: 16pt;
+	font-weight: bold;
+}
+/* M color set */
+.m-color-1{
+	color: #E5E5E5;
+}
+.m-color-2{
+	color: #555;
+}
+.m-color-3{
+	color: #08C;
+}
+
+.m-color-4{
+	color: #5FD3B3;
+}
+
+.geo_chart{
+	padding: 15px;
+	height: 450px;
+}
+
+.m-sidebar-collapsed{
+	display: none;
+	position: fixed;
+	z-index: 9999;
+}
+
+.m-sidebar-collapsed ul > li > a{
+	background-color: white !important;
+	text-align: center;
+	color: #555;
+}
+
+.m-sidebar-collapsed ul > li > a:hover,
+.m-sidebar-collapsed ul > li.active > a{
+	color: #08c !important;
+}
+
+.m-sidebar-collapsed ul > li > a:hover img{
+	opacity: 1;
+	-moz-opacity: 1;
+	filter:alpha(opacity=1);
+}
+
+.m-sidebar-collapsed ul li img{
+	opacity: 0.5;
+	-moz-opacity: 0.5;
+	filter:alpha(opacity=5);
+}
+
+.m-sidebar-collapsed ul{
+	background-color: white;
+	border: 1px solid #E5E5E5;
+	border-radius: 4px;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+}
+
+.m-sidebar-collapsed .arrow-border{
+	border-color: transparent #969696 transparent transparent;
+	border-style: solid;
+	border-width: 10px;
+	height:0;
+	width:0;
+	position:absolute;
+	top: 30px;
+	left: -19px;
+}
+
+.m-sidebar-collapsed .arrow-inner{
+	border-color: transparent #FFF transparent transparent;
+	border-style: solid;
+	border-width: 10px;
+	height:0;
+	width:0;
+	position:absolute;
+	top: -10px;
+	left: -10px;
+}
+
+.m-badge-notification{
+	position: absolute;
+	top: 5px;
+	right: 20px;
+	z-index: 1000;
+}
+
+.m-botton-group{
+	margin-bottom: 10px
+}
+
+.m-upload-add{
+	text-align: center;
+}
+
+.m-progress{
+	margin-top: 5px;
+	margin-bottom: 0px;
+}
+
+.m-media-container li{
+	position: relative;
+}
+
+.m-media-container li:hover .m-media-action{
+	display: block;	
+}
+
+.m-media-action{
+	display: none;
+	position: absolute;
+	top: 25%;
+	left: 0;
+	width: 100%;
+	text-align: center;
+	background-color: #E5E5E5;
+	padding: 5px 0px;
+}
+
+/*Icon set*/
+.the-icons {
+	margin-left: 0;
+	list-style: none;
+}
+
+.m-icon {
+	background: url(./images/ico/glyphicons.png) no-repeat left top transparent;
+	height: 45px;
+	width: 45px;
+	display: block;
+}
+
+.m-icon.upload {
+	background-position: -40px -950px;
+}
+
+.m-icon.download {
+	background-position: 8px -950px;
+}
+
+.m-icon.refresh {
+	background-position: -85px -375px;
+}
+
+.m-icon.shuffle {
+	background-position: -135px -375px;	
+}
+
+.m-icon.shopping-cart {
+	background-position: -90px -950px;
+}
+
+@media (max-width: 768px){
+	.sidebar{
+		width: 100%;
+		position: initial !important;
+		margin-left: -20px;
+		padding-right: 40px;
+		height: 100%;
+		overflow: auto;
+	}
+
+	.m-top{
+		display: none;
+	}
+
+	.m-search{
+		margin-left: 100px;
+	}
+
+	.sidebar .nav-tabs > li.active .arrow{
+		display: none !important;
+	}
+
+	.main-container{
+		margin-left: 0;
+		padding: 10px;
+	}
+
+	.m-login-container{
+		padding: 20px;
+	}
+}
+
+@media (max-width: 979px){
+	.m-top{
+		display: none;
+	}	
+
+	.sidebar{
+		top: 50px;
+		/*position: initial;*/
+	}
+
+	.navbar .brand {
+		padding-right: 10px;
+		padding-left: 10px;
+		margin: 0 0 0 -25px;
+	}
+
+	.navbar-fixed-top{
+		margin-bottom: 0;
+	}
+
+	.m-login-container{
+		padding: 20px;
+	}
+
+	.nav-collapse .nav > li > a:hover,
+	.nav-collapse .dropdown-menu a:hover {
+		background-color: #08c;
+	}
+
+	.nav-collapse .dropdown-menu a > i{
+		margin-right: 5px;
+	}
+
+	.nav-collapse.in{
+		background-color: #F1F1F1;
+		z-index: 9000;
+	}
+}
+
+</style>    
+    
+    
+    
+<style>
+
+</style>
+</body>
+</html>

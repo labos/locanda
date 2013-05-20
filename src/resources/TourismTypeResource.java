@@ -8,12 +8,14 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import model.questura.TourismType;
+import model.questura.Transport;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import service.TourismTypeService;
+import utils.I18nUtils;
 
 @Path("/tourismTypes/")
 @Component
@@ -28,6 +30,9 @@ public class TourismTypeResource {
     	List<TourismType> ret = null;
     	
     	ret = this.getTourismTypeService().findAll();
+      	for(TourismType aTourismType : ret){
+      		aTourismType.setName(I18nUtils.getProperty(aTourismType.getName()));
+    	}
         return ret;
     }
 
