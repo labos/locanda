@@ -198,6 +198,7 @@ public class ImageResource {
 		} catch (SolrServerException e) {
 			e.printStackTrace();
 		}
+		image.getFile().setData(new byte[0]);
 		return image;
 	}
 	
@@ -229,6 +230,8 @@ public class ImageResource {
 		image.setFile(file);
 		
 		this.getImageService().insert(image);
+		image.getFile().setData(new byte[0]);
+
 		ObjectMapper mapper = new ObjectMapper();
 		try {
 			str = mapper.writeValueAsString(file);
