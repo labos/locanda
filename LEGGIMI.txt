@@ -1,35 +1,43 @@
-LOCANDA - versione 0.3
+LOCANDA - versione 0.4
 
 Grazie per aver provato Locanda. In questo file troverete alcune informazioni utili per configurarlo secondo le esigenze della vostra struttura e per cominciare ad utilizzarlo.
 
 ACCESSO A LOCANDA
 Dalla home page del sistema (raggiungibile all'indirizzo http://localhost:8080/locanda) si procede all'autenticazione con il bottone in alto a destra "Entra/Registrati", che porta alla pagina di Login.
-Se non si è ancora in possesso di un account di accesso al sistema, cliccando sul pulsante "Registrati" si andrà ad un pagina dove poter inserire i propri dati. Al termine di tale procedura, verrà comunicata una password, da utilizzare assieme alla mail appena inserita negli appositi campi.
-Inserendo questi dati nella pagina di Login si raggiungerà  la pagina principale, dove si trova una schermata riassuntiva delle prenotazioni in corso e di quelle passate (se già inserite in precedenza), oltre naturalmente ai menu a tendina mediante i quali accedere a tutte le altre funzionalità  di Locanda.
+Se non si Ã¨ ancora in possesso di un account di accesso al sistema, cliccando sul pulsante "Registrati" si andrÃ  ad un pagina dove poter inserire i propri dati. Al termine di tale procedura, verrÃ  comunicata una password, da utilizzare assieme alla mail appena inserita negli appositi campi.
+Inserendo questi dati nella pagina di Login si raggiungere la pagina principale, dove si trova una schermata riassuntiva delle prenotazioni in corso e di quelle passate (se giÃ  inserite in precedenza), oltre naturalmente ai menu a tendina mediante i quali accedere a tutte le altre funzionalitÃ  di Locanda.
 
 DATI PRESENTI NEL SISTEMA
-E' già  presente una struttura con alcuni dati di esempio, liberamente modificabile con i dati della propria struttura. Tutte le altre entità  (camere, tipologie, stagioni, extra ecc) devono essere inserite dall'utente, tramite le varie sezioni accedibili dal menu.
-Nel caso del listino dei prezzi (camere ed extra), devono essere presenti almeno una stagione ed una tipologia di camera. Il relativo listino verrà  così creato con tutti i prezzi inizializzati a zero. Sarà  quindi compito dell'utente inserire i prezzi desiderati per tutti i giorni della settimana e tutti gli extra, se presenti.
-Alcuni elementi non potranno essere inseriti se non sono stati inseriti precendentemente degli altri. Non è possibile ad esempio creare delle camere se non vi si può associare una tipologia, così come inserire delle prenotazioni se mancano le camere o tutti gli elementi che determinano un listino (stagioni, tipologie, convenzioni). Per quanto riguarda le convenzioni, non è necessario che l'utente ne inserisca almeno una, poichè l'impostazione predefinita, che consente di creare i listini, è "Nessuna convenzione".
+E' giÃ  presente una struttura con alcuni dati di esempio, liberamente modificabile con i dati della propria struttura. Tutte le altre entitÃ  (camere, tipologie, stagioni, extra ecc) devono essere inserite dall'utente, tramite le varie sezioni accedibili dal menu.
+Nel caso del listino dei prezzi (camere ed extra), devono essere presenti almeno una stagione ed una tipologia di camera. Il relativo listino verrÃ  cosÃ¬ creato con tutti i prezzi inizializzati a zero. SarÃ  quindi compito dell'utente inserire i prezzi desiderati per tutti i giorni della settimana e tutti gli extra, se presenti.
+Alcuni elementi non potranno essere inseriti se non sono stati inseriti precendentemente degli altri. Non Ã¨ possibile ad esempio creare delle camere se non vi si puÃ² associare una tipologia, cosÃ¬ come inserire delle prenotazioni se mancano le camere o tutti gli elementi che determinano un listino (stagioni, tipologie, convenzioni).
+Per quanto riguarda le convenzioni, non Ã¨ necessario che l'utente ne inserisca almeno una, poichÃ¨ l'impostazione predefinita, che consente di creare i listini, Ã¨ "Nessuna convenzione".
 
 Per avere quindi tutti i dati necessari per utilizzare il sistema, consigliamo i seguenti step:
--creare una o più stagioni con i relativi periodi
--creare una o più tipologie di camere
--creare una o più camere
--creare eventuali extra con le relative unità di misura (per es: per notte/per persona)
+-creare una o piÃ¹ stagioni con i relativi periodi
+-creare una o piÃ¹ tipologie di camere
+-creare una o piÃ¹ camere
+-creare eventuali extra con le relative unitÃ  di misura (per es: per notte/per persona)
 -configurare i listini dei prezzi delle camere
 -configurare i listini dei prezzi degli extra
 A questo punto si potranno creare dei booking direttamente dal tableau oppure dal pulsante "Nuova prenotazione".
-Si potrà inoltre provare il componente html che permette di raccogliere le prenotazioni online andando nella sezione "Impostazioni->Widget Online" e cliccando su "Prova Widget Online".
+Si potrÃ  inoltre provare il componente html che permette di raccogliere le prenotazioni online andando nella sezione "Impostazioni->Widget Online" e cliccando su "Prova Widget Online".
 
+
+IMMAGINI
+Delle immagini possono essere utilizzate per descrivere le risorse della propria struttura.
+Possono quindi essere associate alla struttura, alla tipologia di camera, alla singola camera, ed ad ogni facility.
 
 FACILITIES
-Con Locanda è possibile inserire le facilities della propria struttura e delle proprie camere, con le relative immagini. Ce ne sono già alcune presenti nel sistema, ma è possibile aggiungerne altre, con proprie immagini. Viene però fornita una galleria di immagini descrittive delle facilities più comuni. Potete utilizzare quelle per creare le vostre nuove facilities. Le potete trovare nella cartella "facilities".
+Con Locanda Ã¨ possibile inserire le facilities della propria struttura e delle proprie camere, con le relative immagini. Ce ne sono giÃ  alcune presenti nel sistema, ma Ã¨ possibile aggiungerne altre, con proprie immagini. Viene perÃ² fornita una galleria di immagini descrittive delle facilities piÃ¹ comuni. Potete utilizzare quelle per creare le vostre nuove facilities. Le potete trovare nella cartella "facilities".
 
 REPORTS
-Dalla versione 0.2 è possibile creare la fattura in formato PDF della prenotazione. E' presente infatti nella pagina della prenotazione un pulsante "Scarica Fattura" che genera la fattura con i dati dell'ultimo salvataggio della prenotazione stessa.
+Dalla versione 0.2 Ã¨ possibile creare la fattura in formato PDF della prenotazione. E' presente infatti nella pagina della prenotazione un pulsante "Scarica Fattura" che genera la fattura con i dati dell'ultimo salvataggio della prenotazione stessa.
 
 RICERCA
-Dalla versione 0.3, ogni risorsa del sistema è ricercabile con un campo di testo semplice e un form di ricerca avanzata, localizzato in alto a sinistra. Tale ricerca è implementata con il motore SOLR, la cui semplice configurazione è descritta nel file di istruzioni di installazione.
+Dalla versione 0.3, ogni risorsa del sistema Ã¨ ricercabile con un campo di testo semplice e un form di ricerca avanzata, localizzato in alto a sinistra. Tale ricerca Ã¨ stata implementata con il motore SOLR, la cui semplice configurazione Ã¨ descritta nel file di istruzioni di installazione.
+
+DATI ALLOGGIATO
+Dalla versione 0.4 Ã¨ possibile specificare per ogni prenotazione, al momento del check-in, i singoli alloggiati che vengono ospitati in una certa stanza.
 
 Buon divertimento con Locanda!

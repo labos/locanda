@@ -1,4 +1,4 @@
-LOCANDA - version 0.3
+LOCANDA - version 0.4
 
 Thanks for trying Locanda. In this file you'll find some useful information to configure it according to the needs of your structure, and to start using it.
 
@@ -22,8 +22,11 @@ To sum up, in order to have all the necessary data to start using Locanda, the f
 
 Now you can insert a booking directly in the planner or by clicking the "New Booking" button.
 Please give a try also to the HTML component that enables another web site to collect bookings and store them in the system; you can find it in the section "Settings->Online Widget", clicking on the link "Try the Online Widget"
-Si potrà inoltre provare il componente html che permette di raccogliere le prenotazioni online andando nella sezione "Impostazioni->Widget Online" e cliccando su "Prova Widget Online".
 
+
+IMAGES
+Images can be used to better describe the resources of your structure.
+They can be associated with the structure, a room type, a single room, a facility.
 
 FACILITIES
 With Locanda you can insert the facilities of your structure and rooms, with an associated image. Some are already present, but you can easily others with your own images. A gallery with the most common and useful facility images is available, so you can use them for your custom facilities. They are in the folder "/facilities".
@@ -33,5 +36,8 @@ Starting from v0.2 is the creation of the booking invoice. In the booking page, 
 
 SEARCH
 Starting from v0.3 each resource of the system can be searched by using a simple text field or an advanced search form, in the top left part of the page. This search is powered by SOLR, which can be easily configured with the help of the installation instructions file
+
+HOUSED
+Starting from v0.4, you can set for each booking, at the check-in, each person housed in that room.
 
 Have fun with Locanda!

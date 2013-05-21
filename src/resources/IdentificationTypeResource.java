@@ -13,6 +13,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import service.IdentificationTypeService;
+import utils.I18nUtils;
 
 @Path("/identificationTypes/")
 @Component
@@ -27,6 +28,12 @@ public class IdentificationTypeResource {
     	List<IdentificationType> ret = null;
     	
     	ret = this.getIdentificationTypeService().findAll();
+    	
+    	for(IdentificationType anIdentificationType : ret){
+    		if (I18nUtils.getProperty(anIdentificationType.getDescription()) != null) {
+    			anIdentificationType.setDescription(I18nUtils.getProperty(anIdentificationType.getDescription()));
+    		}
+    	}
         return ret;
     }
 

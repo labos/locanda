@@ -120,7 +120,7 @@
     <bean id="org.h2.tools.Server-WebServer" class="org.h2.tools.Server" 
     factory-method="createWebServer" depends-on="dataSource" 
     init-method="start" destroy-method="stop" lazy-init="false">
-    <constructor-arg value="-webAllowOthers,-webPort,11111" />
+    <constructor-arg value="-web,-webPort,11111" />
 	</bean>
 
     <!-- define the SqlSessionFactory, notice that configLocation is not needed when you use MapperScannerConfigurer -->

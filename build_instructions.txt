@@ -4,8 +4,8 @@ Locanda Build Guide (with Maven)
 
 -In the project root, there are three .properties file to be customized:
 	-global.properties	-> resources paths
+	-h2.properties 	-> H2 connection parameters (default)
 	-mysql.properties 	-> mySQL connection parameters
-	-h2.properties 	-> H2 connection parameters
 
 -To deploy the webapp, in the shell from the project directory type:
 	-mvn clean install			to create the build in Locanda_Target folder
@@ -21,8 +21,13 @@ Locanda Build Guide (with Maven)
         	<password>tomcat</password>
 		</server>
  
+-When using the default H2 database, you can:
+	-allow the webapp to automatically create an empty H2 DB at the startup, according to the name and path defined in pom.xml, and then use the locanda.hsql dump file to populate it
+	-copy the already populated DB file (h2/locanda.h2.db) in the path defined in pom.xml (the db name must be "locanda" in this case) 
+ 
 -If you wish to use the MySQL db, you can deploy Locanda using the MySQL profile. Just run Maven with the command:
-	-mvn clean tomcat7:deploy -Pmysql
-	and the config files will be set with the proper MySQL parameters of mysql.properties.
-	By activating this profile, the exec plugin will start and populate the MySQL database.
 
+	-mvn clean tomcat7:deploy -Pmysql
+	
+	...and the config files will be set with the proper MySQL parameters from mysql.properties.
+	You need a running MySQL server with a populated locanda DB.
