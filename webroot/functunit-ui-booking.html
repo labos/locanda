@@ -2,13 +2,12 @@
 <head>
 	<!-- Change HREF to point to your copy of qunit.css -->
     <link rel="stylesheet" type="text/css" href="js/funcunit/qunit/qunit.css" />
-	<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link href="http://wbpreview.com/previews/WB0L805L0/css/bootstrap-responsive.css" rel="stylesheet">
-	<link href="http://clabs.co/projects/acme_less/css/glyphicons.css" rel="stylesheet" >
+	
     <!-- Change SRC to point to your copy of funcunit.js -->
 	<script type='text/javascript' src='js/funcunit/funcunit.js'></script>
-	<script type='text/javascript' src='js/lib/jquery.min.js'></script>
-	<!--<script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js'></script>-->
+	<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>	<!--<script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js'></script>-->
 	<script type='text/javascript' src='js/lib/jquery-ui-1.8.9.custom.min.js'></script>
 	<script type='text/javascript' src="js/lib/jquerymx-1.0.custom.js"></script>
 	<script type='text/javascript' src='js/lib/ftod.js'></script>
@@ -21,6 +20,7 @@
 	<script type='text/javascript' src='js/lib/jquery.overlay.min.js'></script>
 	<script type='text/javascript' src='js/lib/jquery.colorbox.js'></script>
 	<script type='text/javascript' src='js/lib/jquery.slimscroll.min.js'></script>
+	<script type='text/javascript' src="js/lib/bootstrap.min.js"></script>
 	<!-- Change SRC to point to your test.js -->
 	<script type='text/javascript'>
     // This view turns a Booking model into HTML. Will create LI elements.
@@ -54,7 +54,7 @@
         },
 
         toggleBooking: function(){
-            this.model.toggle();
+            //this.model.toggle();
         }
     });
 
@@ -105,11 +105,136 @@
 			*/
 			var view = new BookingView({});
 			this.el.append(view.el);
+			/*********** BOOTSTRAP APPLICATION *************/
+			
+			// Init upload modal
+	$('#myModal').modal({
+		show: false
+	});
+
+	// Auto hide more button if sidebar is not full
+	$('#btn-more').hide();
+
+	// Apply bootstrap button plugin
+	$('.btn').button();
+
+
+	// Handle view more button for left sidebar
+	$('#btn-more').bind('click', function(e){
+		e.preventDefault();
+
+		var _this = $(this);
+
+		if($('.m-sidebar-collapsed .nav li').length == 0) {
+			return false;
+		}
+
+		if(_this.data('isShow') != undefined && _this.data('isShow')) {
+			_this.data({isShow: false});
+			$('.m-sidebar-collapsed').fadeOut(); return false;
+		}
+
+		_this.data({isShow: true});
+
+		var _offset = $(this).find('img').offset();
+
+		$('.m-sidebar-collapsed').css({
+			'top': _offset.top - 15 - window.scrollY + 'px',
+			'left': _offset.left + 60 + 'px'
+		}).fadeIn();
+	});
+
+	// get window inner height
+	_windowInnerHeight = $(window).innerHeight();
+	// get init main container height
+	_mainContainerHeight = $('.main-container').innerHeight();
+
+	function updateMainContainerHeight() {
+		// Try to update main container height with available browser height
+		if($('.sidebar').innerHeight() > _mainContainerHeight) {
+			$('.main-container').css({
+				height: $('.sidebar').innerHeight()
+			});
+		} else {
+			$('.main-container').css({
+				height: 'auto'
+			});
+		}
+	}
+
+	$(window).bind('resize', function(e){
+
+		updateMainContainerHeight();
+
+		$('.m-sidebar-collapsed').fadeOut();
+		$('#btn-more').data({isShow: false});
+
+		
+		if($(window).innerWidth() <= 768) {
+			pushSideBarItem($('.m-sidebar-collapsed .nav li').length);
+			return false;
+		}
+
+		var _itemsCount = ($(window).innerHeight() - 60) / 76;
+			_itemsCount = parseInt(_itemsCount, 10);
+
+		// Get current sidebar length
+		var _currSideBarLength = $('.sidebar .nav li').length;
+
+		if(_itemsCount < 2 ) {
+			_itemsCount = 2;
+		}
+
+		if(_currSideBarLength == _itemsCount) {
+			return false;
+		}
+
+
+		if(_currSideBarLength > _itemsCount) {
+			// Pop out
+			popSideBarItem(_currSideBarLength - _itemsCount);
+		} else {
+			// Push in
+			pushSideBarItem(_itemsCount - _currSideBarLength);
+		}
+
+		$('#btn-more').toggle($('.m-sidebar-collapsed .nav li').length > 0);
+
+		if(_currSideBarLength == _itemsCount) {
+			return false;
+		}
+	}).trigger('resize');
+
+	function popSideBarItem(items) {
+
+		_currSideBar = $('.sidebar .nav li');
+
+		for(var i = _currSideBar.length - 2, iCount = 0; iCount < items; i--,iCount++){
+			$('.m-sidebar-collapsed .nav').prepend(_currSideBar[i]);
+		}
+	}
+
+	function pushSideBarItem(items) {
+		_collapseSideBar = $('.m-sidebar-collapsed .nav li');
+
+		for(var i = 0, iCount = 0; iCount < items; i++, iCount++) {
+			$('#btn-more').parents('li').before(_collapseSideBar[i]);
+		}
+	}
+			 $('.btn').button();
+			 $('.dropdown-toggle').dropdown();
+
+			 
+	/************ END BOOTSTRAP APPLICATION **********/
+	
             return this;
         }
     });
 
     new App();
+    
+    
+    
 
 });
 
@@ -262,7 +387,6 @@
 	</aside>
 
 
-
 <div class="main-container" style="height: auto;">
 		<div class="container-fluid">
 			<section>
@@ -270,8 +394,15 @@
 					<h1>Guests</h1>
 				</div>
 
-				<div class="row-fluid">
-					<div class="span5 m-widget">
+<div class="row-fluid">
+<div class="control-group">
+	<button class="btn btn-small"><i class="icon-plus"></i> Add Guest </button>
+  <div class="btn-group">
+  </div>
+</div>
+</div>
+<div class="row-fluid">
+					<div class="span6 m-widget">
 						<div class="m-widget-header">
 							<h3>Guests</h3>
 						</div>
@@ -283,7 +414,7 @@
 										<th>Date In</th>
 										<th>Date Out</th>
 										<th>Sex</th>
-										<th>Tourism type</th>
+										<th>Type</th>
 										<th></th>
 										<th></th>
 									</tr>
@@ -296,10 +427,10 @@
 										<td>M</td>
 										<td><span class="label label-important">cultural</span></td>
 										<td class="tr">
-											<a class="" href="#"><i class="icon-search"></i></a>
+											<button class="btn btn-small"><i class="icon-eye-open"></i> View</button>
 										</td>
 										<td>
-											<a class="" href="#"><i class="icon-remove"></i></a>
+											<a class="" href="#"><i class="icon-trash"></i></a>
 										</td>
 									</tr>
 									<tr>
@@ -309,10 +440,10 @@
 										<td>M</td>
 										<td><span class="label label-important">cultural</span></td>
 										<td class="tr">
-											<a class="btn btn-primary" href="#">View</a>
+											<button class="btn btn-small"><i class="icon-eye-open"></i> View</button>
 										</td>
 										<td>
-											<a class="" href="#"><i class="icon-remove"></i></a>
+											<a class="" href="#"><i class="icon-trash"></i></a>
 										</td>
 									</tr>
 									<tr>
@@ -322,17 +453,16 @@
 										<td>M</td>
 										<td><span class="label label-important">cultural</span></td>
 										<td class="tr">
-											<a class="btn btn-primary" href="#">View</a>
+											<button class="btn btn-small"><i class="icon-eye-open"></i> View</button>
 										</td>
 										<td>
-											<a class="" href="#"><i class="icon-remove"></i></a>
+											<a class="" href="#"><i class="icon-trash"></i></a>
 										</td>
 									</tr>
 								</tbody>
 							</table>
-						</div>
 					</div>
-
+				</div>
 					<div class="span5 m-widget">
 						<div class="m-widget-header">
 							<h3>Booker and Groupleader</h3>
@@ -340,24 +470,68 @@
 
 						<div class="m-widget-body">
 							<div class="row-fluid">
-								<a class="span4 m-stats-item" href="#">
-									<span class="m-stats-val">Franco Pinna</span>
-									booker
-								</a>
+								<div class="span5 m-stats-item" href="#">
+									<button class="btn btn-small"><i class="icon-plus"></i> Add Booker </button>
+								</div>
 
-								<a class="span4 m-stats-item" href="#">
-									<span class="m-stats-val">Mario Spada</span>
-									Group leader
-								</a>
+								<div class="span5 m-stats-item" href="#">
+									<button class="btn btn-small"><i class="icon-plus"></i> Add GroupLeader </button>
+								</div>
 	
 							</div>
 	
 						</div>
 					</div>
+				</div>
+
+
 				<div class="row-fluid">
 
-			</div>
+				<div class="span5 m-widget">
+						<div class="m-widget-header">
+							<h3>Booker and Groupleader</h3>
+						</div>
+
+						<div class="m-widget-body">
+							<div class="row-fluid">
+								<div class="span6 m-stats-item">
+								<a class="span12 m-stats-item" href="#">
+									<span class="m-stats-val">Franco Pinna</span>
+									booker
+								</a>
+								<div class="btn-group">
+										<button class="btn btn-small"><i class="icon-pencil"></i> Edit</button>
+										<button class="btn btn-small"><i class="icon-eye-open"></i> View</button>
+										<button class="btn btn-small"><i class="icon-trash"></i> Delete</button>
+								</div>
+								</div>
+
+								<div class="span6 m-stats-item">
+								<a class="span12 m-stats-item" href="#">
+									<span class="m-stats-val">Mario Spada</span>
+									groupleader
+								</a>
+								<div class="btn-group">
+										<button class="btn btn-small"><i class="icon-pencil"></i> Edit</button>
+										<button class="btn btn-small"><i class="icon-eye-open"></i> View</button>
+										<button class="btn btn-small"><i class="icon-trash"></i> Delete</button>
+								</div>
+								</div>
+	
+							</div>
+	
+						</div>
+					</div>
+
+
+
+
+</div>
+
+				</section>
 				</div>
+
+
 			</div>
 
 </script>
@@ -374,6 +548,13 @@ form{
 
 select{
 	width: auto;
+}
+h3 {
+    font-size: 18px;
+    line-height: 27px;
+}
+.table {
+    font-size: 13px;
 }
 
 .m-inner{
@@ -921,6 +1102,34 @@ a.m-stats-item:hover{
     height: 100%;
     margin: 20px auto;
     width: auto;
+}
+
+
+
+
+
+
+
+
+.btn-warning2 {
+    background-color: #A25986;
+    background-image: -moz-linear-gradient(center top , #B5799E, #A25986);
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+    color: white;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+}
+.btn-warning2:hover, .btn-warning2:active, .btn-warning2.active, .btn-warning2.disabled, .btn-warning2[disabled] {
+    background-color: #A25986;
+    color: white;
+}
+.btn-warning2:active, .btn-warning2.active {
+}
+
+.break {
+    border-left: 1px solid #EDEDED;
+    border-right: 1px solid #FEFEFE;
+    margin: -12px 10px -10px;
+    padding: 12px 0 10px;
 }
 
 </style>    
