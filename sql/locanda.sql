@@ -65,6 +65,7 @@ CREATE TABLE `creditCard` (
   `firstName` varchar(255) DEFAULT NULL,
   `lastName` varchar(255) DEFAULT NULL,
   `securityCode` varchar(255) DEFAULT NULL,
+  `id_booking` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
