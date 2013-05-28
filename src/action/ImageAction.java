@@ -28,8 +28,6 @@ public class ImageAction extends ActionSupport {
 		)
 	)
 	public String findAllImages() {
-
 		return SUCCESS;
 	}
-	
 }

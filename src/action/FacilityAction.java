@@ -28,8 +28,6 @@ public class FacilityAction extends ActionSupport {
 		)
 	)
 	public String findAllFacilities() {
-
 		return SUCCESS;
 	}
-	
 }

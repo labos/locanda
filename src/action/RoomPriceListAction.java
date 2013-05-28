@@ -76,14 +76,12 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware,U
 	@Autowired
 	private ConventionService conventionService = null;
 	
-	
 	@Actions({
 		@Action(value="/goFindAllRoomPriceLists",results = {
 				@Result(name="success",location="/WEB-INF/jsp/roomPriceLists.jsp")
 		}) 
 	})
 	public String goFindAllRoomPriceLists() {
-		
 		return SUCCESS;
 	}
 	
@@ -93,17 +91,13 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware,U
 			)
 		)
 		public String toBlankPage() {
-
 			return SUCCESS;
 		}
 	
 	@Actions({
 		@Action(value="/findAllRoomPriceLists",results = {
-				@Result(type ="json",name="success", params={
-						"root","treeNodes"
-				}),
-				@Result(type ="json",name="error", params={
-						"excludeProperties","session"
+				@Result(type ="json",name="success", params={"root","treeNodes"}),
+				@Result(type ="json",name="error", params={"excludeProperties","session"
 				}),
 				@Result(name="input", location = "/WEB-INF/jsp/validationError.jsp")
 		})
@@ -167,7 +161,6 @@ public class RoomPriceListAction extends ActionSupport implements SessionAware,U
 		})
 	})
 	public String findRoomPriceListItems() {
-		
 		this.setPriceList(this.getRoomPriceListService().findRoomPriceListByIdStructureAndIdSeasonAndIdRoomTypeAndIdConvention(
 				this.getIdStructure(), this.getSeasonId(), this.getRoomTypeId(), this.getConventionId()));
 		return SUCCESS;

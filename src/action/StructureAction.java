@@ -55,10 +55,6 @@ public class StructureAction extends ActionSupport implements SessionAware,UserA
 	private StructureService structureService = null;
 	@Autowired
 	private UserService userService = null;
-//	@Autowired
-//	private ImageService imageService = null;
-//	@Autowired
-//	private FacilityService facilityService = null;
 	
 	@Actions({
 		@Action(value="/goUpdateDetails",results = {
@@ -66,34 +62,8 @@ public class StructureAction extends ActionSupport implements SessionAware,UserA
 		})
 	})
 	public String goUpdateDetails() {
-//		Structure structure = null;
-//		
-//		structure = this.getStructureService().findStructureById(this.getIdStructure());		
-////		structure.setImages(this.getImageService().findCheckedByIdStructure(structure.getId()));
-////		structure.setFacilities(this.getFacilityService().findCheckedByIdStructure(structure.getId()));
-//		
-//		this.setStructure(structure);
 		return SUCCESS;
 	}
-
-//	@Actions({
-//		@Action(value="/updateDetails",results = {
-//				@Result(type ="json",name="success", params={"root","message"}),
-//				@Result(type ="json",name="error", params={"root","message"})
-//		})
-//	})
-//	public String updateDetails() {
-//		User user = null;
-//		
-//		user = (User)this.getSession().get("user");
-//		
-//		this.getStructure().setId_user(user.getId());
-//		this.getStructureService().updateStructure(this.getStructure());
-//		
-//		this.getMessage().setResult(Message.SUCCESS);
-//		this.getMessage().setDescription(getText("structureDetailsUpdatedSuccessAction"));
-//		return SUCCESS;		
-//	}
 	
 	@Actions({
 		@Action(value="/updateAccount",results = {
@@ -177,18 +147,5 @@ public class StructureAction extends ActionSupport implements SessionAware,UserA
 	}
 	public void setUserService(UserService userService) {
 		this.userService = userService;
-	}
-//	public ImageService getImageService() {
-//		return imageService;
-//	}
-//	public void setImageService(ImageService imageService) {
-//		this.imageService = imageService;
-//	}
-//	public FacilityService getFacilityService() {
-//		return facilityService;
-//	}
-//	public void setFacilityService(FacilityService facilityService) {
-//		this.facilityService = facilityService;
-//	}
-	
+	}	
 }

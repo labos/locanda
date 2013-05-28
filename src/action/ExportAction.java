@@ -28,8 +28,6 @@ import com.opensymphony.xwork2.ActionSupport;
 @Result(name="notLogged", location="/WEB-INF/jsp/homeNotLogged.jsp")
 public class ExportAction extends ActionSupport implements SessionAware {
 	private Map<String, Object> session = null;
-//	private Message message = new Message();
-	
 
 	@Actions({
 		@Action(value="/goExport",results = {
@@ -46,11 +44,4 @@ public class ExportAction extends ActionSupport implements SessionAware {
 	public void setSession(Map<String, Object> session) {
 		this.session = session;
 	}
-//	public Message getMessage() {
-//		return message;
-//	}
-//	public void setMessage(Message message) {
-//		this.message = message;
-//	}
-		
 }

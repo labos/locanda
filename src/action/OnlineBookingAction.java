@@ -23,7 +23,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import model.Booker;
 import model.Booking;
 import model.Extra;
 import model.ExtraItem;
@@ -296,12 +295,6 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 		}) 	
 	})
 	public String goOnlinePreviewBookings(){
-		/*User user = null;
-		Structure structure = null;
-		
-		user = (User)session.get("user");
-		structure = user.getStructure();
-		this.setIdStructure(structure.getId());*/
 		return SUCCESS;		
 	}
 
@@ -402,13 +395,10 @@ public class OnlineBookingAction extends ActionSupport implements SessionAware{
 	public void setStructure(Structure structure) {
 		this.structure = structure;
 	}
-
 	public Guest getOnlineGuest() {
 		return onlineGuest;
 	}
-
 	public void setOnlineGuest(Guest onlineGuest) {
 		this.onlineGuest = onlineGuest;
 	}
-	
 }

@@ -163,9 +163,7 @@ public class ExtraPriceListAction extends ActionSupport implements SessionAware,
 		})
 	})
 	public String updateExtraPriceListItems(){
-		ExtraPriceList oldExtraPriceList = null;
 		
-		oldExtraPriceList = this.getExtraPriceListService().findExtraPriceListById(this.getPriceList().getId());
 		for(ExtraPriceListItem each: this.getPriceList().getItems()){
 			this.getExtraPriceListService().updateExtraPriceListItem(each);
 		}
@@ -265,5 +263,4 @@ public class ExtraPriceListAction extends ActionSupport implements SessionAware,
 	public void setIdStructure(Integer idStructure) {
 		this.idStructure = idStructure;
 	}
-	
 }

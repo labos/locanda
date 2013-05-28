@@ -49,14 +49,8 @@ public class RoomFacilityAction extends ActionSupport implements SessionAware,Us
 	private List<Facility> roomFacilities = null;
 	private List<Integer> roomFacilitiesIds = new ArrayList<Integer>();
 	private Integer idRoom;
-	private Room room = null;
-	private Message message = new Message();
 	private Facility facility;
 	private Integer idStructure;
-	@Autowired
-	private StructureService structureService = null;
-	@Autowired
-	private RoomService roomService = null;
 	@Autowired
 	private FacilityService facilityService = null;
 	
@@ -73,68 +67,6 @@ public class RoomFacilityAction extends ActionSupport implements SessionAware,Us
 		}
 		return SUCCESS;
 	}
-	
-	/*
-	@Actions({
-		@Action(value="/updateRoomFacilities", results={
-				@Result(type ="json",name="success", params={"root","message"})					
-			})
-	})
-	public String updateRoomFacilities() {
-		List<Facility>  checkedFacilities = null;
-		
-		this.setRoom(this.getRoomService().findRoomById(this.getIdRoom()));
-		checkedFacilities = this.getFacilityService().findFacilitiesByIds(this.getRoomFacilitiesIds());
-		this.getRoom().setFacilities(checkedFacilities);
-		this.getFacilityService().deleteAllFacilitiesFromRoom(this.getIdRoom());
-		this.getFacilityService().insertRoomFacilities(this.getRoomFacilitiesIds(), this.getIdRoom());
-		
-		this.getMessage().setResult(Message.SUCCESS);
-		this.getMessage().setDescription(getText("facilitiesUpdatedSuccessAction"));
-		return SUCCESS;
-	}
-	*/
-	/*
-	@Actions({
-		@Action(value="/deleteFacility", results={
-				@Result(type ="json",name="success", params={"root","message"}),
-				@Result(type ="json",name="error", params={"root","message"})	
-			})
-	})
-	public String deleteUploadedFacility() {
-				
-		if(this.getFacilityService().deleteUploadedFacility(this.getFacility().getId()) > 0){
-			this.getMessage().setResult(Message.SUCCESS);
-			return SUCCESS;
-		}else{
-			this.getMessage().setResult(Message.ERROR);
-			return ERROR;
-		}
-	}
-*/
-	/*
-	@Actions({
-		@Action(value="/updateFacility", results={
-				@Result(type ="json",name="success", params={
-						"excludeProperties","session,roomFacilities,roomFacilitiesIds,idRoom,room,structureService,roomService,facilityService"
-				}),
-				@Result(type ="json",name="error", params={
-						"excludeProperties","session,roomFacilities,roomFacilitiesIds,idRoom,room,structureService,roomService,facilityService"
-				})	
-			})
-	})
-	public String updateUploadedFacility() {
-		
-		if(this.getFacilityService().updateUploadedFacility(this.getFacility()) > 0){
-			this.setFacility(this.getFacilityService().findFacilityById(this.getFacility().getId()));
-			this.getMessage().setResult(Message.SUCCESS);
-			return SUCCESS;
-		}else{
-			this.setFacility(this.getFacilityService().findFacilityById(this.getFacility().getId()));
-			this.getMessage().setResult(Message.ERROR);
-			return ERROR;
-		}
-	}*/
 		
 	public Map<String, Object> getSession() {
 		return session;
@@ -155,35 +87,11 @@ public class RoomFacilityAction extends ActionSupport implements SessionAware,Us
 	public void setIdRoom(Integer idRoom) {
 		this.idRoom = idRoom;
 	}
-	public Room getRoom() {
-		return room;
-	}
-	public void setRoom(Room room) {
-		this.room = room;
-	}
-	public Message getMessage() {
-		return message;
-	}
-	public void setMessage(Message message) {
-		this.message = message;
-	}
 	public List<Integer> getRoomFacilitiesIds() {
 		return roomFacilitiesIds;
 	}
 	public void setRoomFacilitiesIds(List<Integer> roomFacilitiesIds) {
 		this.roomFacilitiesIds = roomFacilitiesIds;
-	}
-	public StructureService getStructureService() {
-		return structureService;
-	}
-	public void setStructureService(StructureService structureService) {
-		this.structureService = structureService;
-	}
-	public RoomService getRoomService() {
-		return roomService;
-	}
-	public void setRoomService(RoomService roomService) {
-		this.roomService = roomService;
 	}
 	public FacilityService getFacilityService() {
 		return facilityService;
@@ -203,5 +111,4 @@ public class RoomFacilityAction extends ActionSupport implements SessionAware,Us
 	public void setIdStructure(Integer idStructure) {
 		this.idStructure = idStructure;
 	}
-		
 }

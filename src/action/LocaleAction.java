@@ -23,7 +23,6 @@ public class LocaleAction extends ActionSupport{
 	private String sect;
 
 	public String execute() {
-	
 		return "SUCCESS";
 	}
 	
@@ -39,5 +38,4 @@ public class LocaleAction extends ActionSupport{
 	public void setSect(String sect) {
 		this.sect = sect;
 	}
-	
 }
