@@ -72,6 +72,6 @@
     </div>
   </div><!-- /content -->
   <div data-role="footer">
-    <h4>Locanda <s:text name="onlineWidget"/></h4>
+    <h4><s:text name="title"/> <s:text name="onlineWidget"/></h4>
   </div><!-- /header -->
 </div><!-- /page -->

@@ -23,11 +23,11 @@
 <s:url action="createAccount" var="url_createAccount"></s:url>
 <jsp:include page="layout/header.jsp"/>
       <div id="home">
-      	<h1>Locanda - <s:text name="createAccountSuccess"/></h1>
+      	<h1><s:text name="title"/> - <s:text name="createAccountSuccess"/></h1>
       	<p><s:text name="createAccountSuccessMessage"/>:</p>
       	<p>
       	Email: <s:property value="user.email" /><br></br>
-      	Password: locanda
+      	Password: <s:text name="title"/>
       	</p>
       	<p id="home_images"></p>
       </div>

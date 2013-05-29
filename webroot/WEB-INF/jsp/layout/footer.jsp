@@ -30,9 +30,7 @@
 					<img src="images/european_union.png" id="eu" alt="European Union" class="right" height="7%" width="7%" /> 
 					<img src="images/repubblica.png" alt="Repubblica Italiana" class="right" height="7%" width="7%"/> 
 					<img src="images/regione_sardegna.png" alt="Regione Autonoma della Sardegna" class="right" height="7%" width=7%/> 
-					<span class="center">Locanda<br/> 
-						Open Source Booking<br/><br/>
-					</span>
+					<span class="center"><s:text name="titleExtended"/><br/><br/><br/></span>
 				</div>
 				<!-- end: #footer -->
 			</div>

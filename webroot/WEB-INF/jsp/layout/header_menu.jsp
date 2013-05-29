@@ -31,7 +31,7 @@
 	<link rel="stylesheet" type='text/css' href="css/jquery.fileupload-ui.css" />
 	<link rel="stylesheet" type="text/css" href="css/layout_sliding_door.css" />
   	<link rel="shortcut icon" type="image/x-icon" href="images/favicon.png">
-	<title>LOCANDA - Open Source Booking Tool</title>
+	<title><s:text name="titleExtended"/></title>
 
 	<!-- (de) Fuegen Sie hier ihre Meta-Daten ein -->
   	<!--[if lte IE 7]>

@@ -24,7 +24,7 @@
 	<link type='text/css' href='css/south-street/jquery-ui-1.8.9.custom.css' rel='stylesheet' />
 	<link type="text/css" href="css/layout_sliding_door.css" rel="stylesheet"  />
   	<link rel="shortcut icon" type="image/x-icon" href="images/favicon.png">
-  	<title>LOCANDA - Open Source Booking Tool</title><!-- (en) Add your meta data here -->
+  	<title><s:text name="titleExtended"/></title><!-- (en) Add your meta data here -->
   	
   	<!-- (de) Fuegen Sie hier ihre Meta-Daten ein -->
   	<!--[if lte IE 7]>
