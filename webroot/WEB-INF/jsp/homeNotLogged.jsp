@@ -20,7 +20,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <jsp:include page="layout/header.jsp"/>
       <div id="home">
-      	<h1><s:text name="title"/></h1>
+      	<h1><s:text name="titleExtended"/></h1>
       	<p><s:text name="homeWelcomeMessage"/>.</p>
       	<p id="home_images">
       	<a href="<s:property value="url_login"/>">

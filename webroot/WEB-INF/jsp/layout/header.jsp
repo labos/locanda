@@ -71,7 +71,7 @@
       			</div>
       			<h1>
         			<span>
-          				<img src="images/logo_locanda.png" alt="" class="left" height="100%"/>
+          				<img src="images/logo.png" alt="" class="left" height="100%"/>
         			</span>
         			<em>&nbsp;</em>
       			</h1> 

@@ -72,7 +72,7 @@
 				<h1>
 					<a href="<s:property value="url_home"/>?sect=planner">
 						<span>
-							<img src="images/logo_locanda.png" alt="" class="left" height="100%"/>
+							<img src="images/logo.png" alt="" class="left" height="100%"/>
 						</span>	
 					</a>
 					<em>&nbsp;</em>
