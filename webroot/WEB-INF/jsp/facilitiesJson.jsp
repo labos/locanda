@@ -25,14 +25,14 @@
 </head>
 <body>
 <%@ page import="net.sf.json.*" %>
-<%@ page import="model.Facility;" %>
+<%@ page import="model.Facility" %>
 <%
 Facility roomfac = (Facility) request.getAttribute("roomFacility");
 
 //JSONUtil json = new JSONUtil();
 //JSONUtil.serialize(roomfac);
-JSONArray jsonArray = JSONArray.fromObject(roomfac);  
-System.out.println( jsonArray );  
+JSONArray jsonArray = JSONArray.fromObject(roomfac);
+System.out.println( jsonArray );
 %>
 </body>
 </html>

@@ -16,20 +16,20 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.Locale"%>
-<%@ page import="com.opensymphony.xwork2.ActionContext;"%>
+<%@ page import="com.opensymphony.xwork2.ActionContext"%>
 <%@ taglib uri="/struts-tags" prefix="s"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 				<div id="ie_clearing">&nbsp;</div>
 				<!-- End: IE Column Clearing -->
-				
+
 				<!-- begin: #footer -->
 				<div id="footer" role="contentinfo">
-					<img src="images/labos.png" id="labos" alt="Laboratorio Open Source" class="left" height="7%" width="20%"/> 
-					<img src="images/sardegna_ricerche.png" alt="Sardegna Ricerche" class="left" height="7%" width="7%" /> 
-					<img src="images/european_union.png" id="eu" alt="European Union" class="right" height="7%" width="7%" /> 
-					<img src="images/repubblica.png" alt="Repubblica Italiana" class="right" height="7%" width="7%"/> 
-					<img src="images/regione_sardegna.png" alt="Regione Autonoma della Sardegna" class="right" height="7%" width=7%/> 
+					<img src="images/labos.png" id="labos" alt="Laboratorio Open Source" class="left" height="7%" width="20%"/>
+					<img src="images/sardegna_ricerche.png" alt="Sardegna Ricerche" class="left" height="7%" width="7%" />
+					<img src="images/european_union.png" id="eu" alt="European Union" class="right" height="7%" width="7%" />
+					<img src="images/repubblica.png" alt="Repubblica Italiana" class="right" height="7%" width="7%"/>
+					<img src="images/regione_sardegna.png" alt="Regione Autonoma della Sardegna" class="right" height="7%" width=7%/>
 					<span class="center"><s:text name="titleExtended"/><br/><br/><br/></span>
 				</div>
 				<!-- end: #footer -->
@@ -59,7 +59,7 @@
 String lang ="en";
 Locale locale = ActionContext.getContext().getLocale();
 if (locale != null){
-	
+
 	lang = locale.getLanguage();
 }
 %>
@@ -81,7 +81,7 @@ I18NSettings.language = '<s:property value="#request.locale.getLanguage()" />';
     	String dPageDefault = "planner";
    		String dPage = request.getParameter("sect");
     	dPage = (dPage == null) ? dPageDefault : dPage;
-    	out.println("\n var section= \'" + dPage + "\';"); 
+    	out.println("\n var section= \'" + dPage + "\';");
     	%>
     	var text_tab = $("#" + section).children("a").hide().text();
     	$("#" + section).addClass("active").prepend("<strong>" + text_tab + "</strong>");
@@ -102,7 +102,7 @@ I18NSettings.language = '<s:property value="#request.locale.getLanguage()" />';
 	width: 99% !important;
 }
 </style>
-<![endif]-->   
+<![endif]-->
 
 </body>
 </html>

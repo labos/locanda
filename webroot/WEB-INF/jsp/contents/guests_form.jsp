@@ -104,7 +104,7 @@
 <jsp:include page="../templates/guest.mustache.jsp"/>
 
 <%@ page import="java.util.Locale"%>
-<%@ page import="com.opensymphony.xwork2.ActionContext;"%>
+<%@ page import="com.opensymphony.xwork2.ActionContext"%>
 <%@ taglib uri="/struts-tags" prefix="s"%>
 
 				<div id="ie_clearing">&nbsp;</div>
