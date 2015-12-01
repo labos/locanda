@@ -74,7 +74,7 @@
 							<addClasspath>true</addClasspath>
 						</manifest>
 					</archive>
-					<webXml>webroot\WEB-INF\web.xml</webXml>
+					<webXml>webroot/WEB-INF/web.xml</webXml>
 					<webResources>
 						<resource>
 							<directory>webroot</directory>
