@@ -1,4 +1,4 @@
-LOCANDA - version 0.4  Test
+LOCANDA - version 0.4  
 
 Thanks for trying Locanda. In this file you'll find some useful information to configure it according to the needs of your structure, and to start using it.
 
