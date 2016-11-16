@@ -41,3 +41,5 @@ HOUSED
 Starting from v0.4, you can set for each booking, at the check-in, each person housed in that room.
 
 Have fun with Locanda!
+
+
