@@ -41,3 +41,14 @@ HOUSED
 Starting from v0.4, you can set for each booking, at the check-in, each person housed in that room.
 
 Have fun with Locanda!
+
+## How to run the application
+
+First of all you need to use JDK 1.7. I'm using Tomcat 7 as application server, you can download the *CORE* version [here](http://tomcat.apache.org/download-70.cgi).
+
+Now you need to import all libraries specified in pom.xml and run two maven commands:
+* clean
+* install
+
+The install command will create a new folder called Locanda_target in which you can find Locanda.war. Execute this war in your server and, if you had no error, you should see the web application running in your browser (http://localhost:8080/).
+

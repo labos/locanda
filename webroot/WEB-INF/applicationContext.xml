@@ -45,11 +45,14 @@
     <import  resource="applicationContext-infrastructure.xml"/>
     
     <!-- <context:property-placeholder  location="/WEB-INF/solr.properties"/> -->
-	
+
+	<!--
+
 	<bean id="multiCoreContainer" class="org.apache.solr.core.CoreContainer">
 		<constructor-arg><value>${solr.homeDir}</value></constructor-arg>
 		<constructor-arg><value>${solr.configFile}</value></constructor-arg>
 	</bean>
+
 
 	<bean id="solrServerConvention"
 		class="org.apache.solr.client.solrj.embedded.EmbeddedSolrServer">
@@ -104,13 +107,14 @@
 		<constructor-arg ref="multiCoreContainer" />
 		<constructor-arg value="image" />
 	</bean>
-	
+
 	<bean id="solrServerHoused"
 		class="org.apache.solr.client.solrj.embedded.EmbeddedSolrServer">
 		<constructor-arg ref="multiCoreContainer" />
 		<constructor-arg value="housed" />
 	</bean>
-	
+	-->
+
     <!-- enable autowire -->
     <context:annotation-config />
     
