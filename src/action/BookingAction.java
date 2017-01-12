@@ -20,20 +20,10 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+
+import model.*;
 import org.apache.commons.lang.time.DateUtils;
 
-import model.Adjustment;
-import model.CreditCard;
-import model.ExtraItem;
-import model.Booking;
-import model.Extra;
-import model.Guest;
-import model.Housed;
-import model.Payment;
-import model.Room;
-import model.RoomType;
-import model.GroupLeader;
-import model.UserAware;
 import model.internal.Message;
 import model.listini.Convention;
 import model.listini.Season;
@@ -110,7 +100,7 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 		@Action(
 				value="/updateBookingDates",results = {
 				@Result(type ="json",name="success", params={
-						"excludeProperties","session,extraService,guestService,structureService,bookingService,roomService,conventionService,seasonService"
+						"excludeProperties","session,extraService,guestService,structureService,bookingService,roomService,conventionService,seasonService,groupLeaderService,housedService,creditCardService"
 				}),
 				@Result(type ="json",name="error", params={
 						"excludeProperties","session,extraService,guestService,structureService,bookingService,roomService,conventionService,seasonService"
@@ -148,7 +138,7 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 	@Actions({
 		@Action(value="/updateRoom",results = {
 				@Result(type ="json",name="success", params={
-						"excludeProperties","session,extraService,guestService,structureService,bookingService,roomService,conventionService,seasonService"
+						"excludeProperties","session,extraService,guestService,structureService,bookingService,roomService,conventionService,seasonService,groupLeaderService,housedService,creditCardService"
 				}),
 				@Result(type ="json",name="error", params={
 						"excludeProperties","session,extraService,guestService,structureService,bookingService,roomService,conventionService,seasonService"
@@ -207,7 +197,7 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 	@Actions({
 		@Action(value="/updateNrGuests",results = {
 				@Result(type ="json",name="success", params={
-						"excludeProperties","session,extraService,guestService,structureService,bookingService,roomService,conventionService,seasonService"
+						"excludeProperties","session,extraService,guestService,structureService,bookingService,roomService,conventionService,seasonService,groupLeaderService,housedService,creditCardService"
 				}),
 				@Result(type ="json",name="error", params={
 						"excludeProperties","session,extraService,guestService,structureService,bookingService,roomService,conventionService,seasonService"
@@ -228,8 +218,13 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 		this.updateMaxQuantityInBookedExtraItems(booking);	
 		this.updateQuantityInBookedExtraItems(booking);
 		booking.updateExtraSubtotal();
-		this.setBooking(booking);		
-		
+		this.setBooking(booking);
+
+		/*
+		booking.setaBooker(new Booker());
+		booking.setGroupLeader(new Housed());
+		booking.setaGroupLeader(new GroupLeader());
+		*/
 		this.getMessage().setResult(Message.SUCCESS);
 		this.getMessage().setDescription(getText("calculatedPriceAction"));
 		return "success";						
@@ -238,7 +233,7 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 	@Actions({
 		@Action(value="/updateExtras",results = {
 				@Result(type ="json",name="success", params={
-						"excludeProperties","session,extraService,guestService,structureService,bookingService,roomService,conventionService,seasonService"
+						"excludeProperties","session,extraService,guestService,structureService,bookingService,roomService,conventionService,seasonService,groupLeaderService,housedService,creditCardService"
 				}),
 				@Result(type ="json",name="error", params={
 						"excludeProperties","session,extraService,guestService,structureService,bookingService,roomService,conventionService,seasonService"
@@ -280,7 +275,7 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 	@Actions({
 		@Action(value="/updateConvention",results = {
 				@Result(type ="json",name="success", params={
-						"excludeProperties","session,extraService,guestService,structureService,bookingService,roomService,conventionService,seasonService"
+						"excludeProperties","session,extraService,guestService,structureService,bookingService,roomService,conventionService,seasonService,groupLeaderService,housedService,creditCardService"
 				}),
 				@Result(type ="json",name="error", params={
 						"excludeProperties","session,extraService,guestService,structureService,bookingService,roomService,conventionService,seasonService"

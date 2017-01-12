@@ -49,7 +49,14 @@ public class UserAwareInterceptor implements Interceptor{
 				action.setIdStructure(user.getStructure().getId());
 			}
 		}
-		return invocation.invoke();
+
+		String result = "success";
+		try{
+			result = invocation.invoke();
+		} catch(Exception e){
+			e.printStackTrace();
+		}
+		return result;
 	}
 	
 }
