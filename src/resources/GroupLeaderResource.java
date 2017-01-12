@@ -61,6 +61,11 @@ public class GroupLeaderResource {
     	GroupLeader ret = null;
     	
     	ret = this.getGroupLeaderService().findGroupLeaderByIdBooking(id_booking);
+
+		if(ret == null){
+			ret = new GroupLeader();
+		}
+
         return ret;
     }
 
