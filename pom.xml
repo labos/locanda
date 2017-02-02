@@ -7,7 +7,7 @@
 
     <properties>
         <resource.folder>${project.build.directory}/${project.name}_resources</resource.folder>
-        <!--<db.folder>${basedir}/opt/h2/databases</db.folder>-->
+        <!--# GLOBALIZE-->
         <db.folder>/Applications/LocandaServer9/databases</db.folder>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
