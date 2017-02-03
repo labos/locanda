@@ -6,9 +6,9 @@
     <version>0.4</version>
 
     <properties>
-        <resource.folder>${project.build.directory}/${project.name}_resources</resource.folder>
+        <resource.folder>${user.home}/.locanda/</resource.folder>
         <!--# GLOBALIZE-->
-        <db.folder>/Applications/LocandaServer9/databases</db.folder>
+        <db.folder>${user.home}/.locanda/databases</db.folder>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
