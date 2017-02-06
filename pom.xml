@@ -6,9 +6,9 @@
     <version>0.4</version>
 
     <properties>
-        <resource.folder>${user.home}/.locanda/</resource.folder>
-        <!--# GLOBALIZE-->
-        <db.folder>${user.home}/.locanda/databases</db.folder>
+        <resource.folder>./${project.name}_resources</resource.folder>
+        <db.folder>${resource.folder}/databases</db.folder>
+        <solr.folder>${resource.folder}/solr</solr.folder>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -37,7 +37,7 @@
         <directory>${basedir}/${project.name}_target</directory>
         <finalName>${project.name}</finalName>
         <filters>
-            <filter>global.properties</filter>
+            <!--filter>global.properties</filter-->
             <filter>h2.properties</filter>
         </filters>
         <resources>
@@ -49,7 +49,7 @@
             </resource>
             <resource>
                 <directory>${basedir}/solr</directory>
-                <targetPath>${resource.folder}/solr</targetPath>
+                <targetPath>${solr.folder}</targetPath>
             </resource>
             <resource>
                 <directory>${basedir}/h2</directory>

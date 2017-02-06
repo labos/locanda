@@ -49,9 +49,9 @@
 
 	<bean id="multiCoreContainer" class="org.apache.solr.core.CoreContainer">
 		<!--# GLOBALIZE-->
-		<constructor-arg><value>${solr.homeDir}</value></constructor-arg>
+		<constructor-arg><value>${CATALINA_HOME}/webapps/Locanda/WEB-INF/classes/Locanda_resources/solr</value></constructor-arg>
 		<!--# GLOBALIZE-->
-		<constructor-arg><value>${solr.configFile}</value></constructor-arg>
+		<constructor-arg><value>${CATALINA_HOME}/webapps/Locanda/WEB-INF/classes/Locanda_resources/solr/solr.xml</value></constructor-arg>
 	</bean>
 
 
