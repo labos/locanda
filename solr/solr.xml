@@ -28,6 +28,8 @@
   adminPath: RequestHandler path to manage cores.  
     If 'null' (or absent), cores will not be manageable via request handler
   -->
+
+  # GLOBALIZE
   <cores adminPath="/admin/cores">
     <core name="convention" 	instanceDir="convention"/>
     <core name="guest" 			instanceDir="guest"/>

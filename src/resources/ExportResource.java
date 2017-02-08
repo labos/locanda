@@ -36,13 +36,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import service.BookingService;
-import service.ExportService;
-import service.GroupLeaderService;
-import service.HousedExportService;
-import service.HousedService;
-import service.TourismTypeService;
-import service.TransportService;
+import service.*;
 import utils.I18nUtils;
 
 @Path("/export/")
@@ -63,6 +57,9 @@ public class ExportResource {
 	private TourismTypeService tourismTypeService = null;
 	@Autowired
 	private TransportService transportService = null;
+	@Autowired
+	private RoomService roomService = null;
+
 	private static Logger logger = Logger.getLogger(Logger.class);
 
 	@GET
@@ -138,6 +135,7 @@ public class ExportResource {
 		List<HousedExport> housedExportSingleList = null;
 		Integer availableRooms;
 		Integer availableBeds;
+		Integer roomsInStructure;
 		
 	
 		exportDate = new Date(Long.parseLong(date));
@@ -153,6 +151,9 @@ public class ExportResource {
 		
 		//CREO LA LISTA DEGLI HOUSED EXPORT Singoli
 		housedExportSingleList = this.findHousedExportSingleList(housedExportList);
+
+		//ESTRAGGO IL NUMERO DI STANZE NELLA STRUTTURA
+		roomsInStructure = roomService.findAll().size();
 		
 		availableRooms =this.getExportService().calculateAvailableNumberOfRoomsForStructureInDate(idStructure, exportDate);
 		availableBeds = this.getExportService().calculateAvailableNumberOfBedsForStructureInDate(idStructure, exportDate);
@@ -229,6 +230,8 @@ public class ExportResource {
 		List<HousedExport> housedExportSingleList = null;
 		Integer availableRooms;
 		Integer availableBeds;
+		Integer roomsInStructure;
+		Integer bedsInRoom;
 		
 		logger.info("#####FORCE:" + force);
 		exportDate = new Date(Long.parseLong(date));
@@ -246,6 +249,11 @@ public class ExportResource {
 		
 		//CREO LA LISTA DEGLI HOUSED EXPORT Singoli
 		housedExportSingleList = this.findHousedExportSingleList(housedExportList);
+
+		//NUMERO TOTALE DI STANZE NELLA STRUTURA
+		roomsInStructure = this.roomService.findRoomsByIdStructure(idStructure).size();
+
+
 		
 		availableRooms =this.getExportService().calculateAvailableNumberOfRoomsForStructureInDate(idStructure, exportDate);
 		availableBeds = this.getExportService().calculateAvailableNumberOfBedsForStructureInDate(idStructure, exportDate);
@@ -297,7 +305,10 @@ public class ExportResource {
 			each.getHoused().setHousedType(anHousedType);	
 			guestQuesturaFormatter.setModalita(each.getMode());
 			guestQuesturaFormatter.setCamereOccupate(1);
-			guestQuesturaFormatter.setCamereDisponibili(availableRooms);
+			//NUMERO TOTALE DI LETTI NELLA STANZA
+			//Booking booking = this.bookingService.findBookingById(each.getHoused().getGuest().getId());
+			//bedsInRoom = booking.getRoom().getRoomType().getMaxGuests();
+			guestQuesturaFormatter.setCamereDisponibili(roomsInStructure);
 			guestQuesturaFormatter.setLettiDisponibili(availableBeds);
 			TourismType tourismTypeSingle = this.getTourismTypeService().findById(each.getHoused().getId_tourismType());
 			Transport transportSingle = this.getTransportService().findById(each.getHoused().getId_transport());
@@ -306,6 +317,8 @@ public class ExportResource {
 			Integer tourismTaxSingle = each.getHoused().getTouristTax() ? 1 : 0;
 			guestQuesturaFormatter.setTassaSoggiorno(tourismTaxSingle);
 			guestQuesturaFormatter.setDataFromHousedForRegione(each.getHoused());
+			//guestQuesturaFormatter.setDataArrivo(booking.getDateIn());
+			//guestQuesturaFormatter.setDataDiPartenza(booking.getDateOut());
 			sb.append(guestQuesturaFormatter.getRowRegione());
 			
 		}
