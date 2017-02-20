@@ -20,10 +20,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
 
-import model.Booking;
-import model.GroupLeader;
-import model.GuestQuesturaFormatter;
-import model.Housed;
+import model.*;
 import model.questura.HousedExport;
 import model.questura.HousedExportGroup;
 import model.questura.HousedType;
@@ -152,8 +149,15 @@ public class ExportResource {
 		//CREO LA LISTA DEGLI HOUSED EXPORT Singoli
 		housedExportSingleList = this.findHousedExportSingleList(housedExportList);
 
-		//ESTRAGGO IL NUMERO DI STANZE NELLA STRUTTURA
-		roomsInStructure = roomService.findAll().size();
+		//NUMERO TOTALE DI LETTI NELLA STRUTTURA
+		List<Room> roomsList = this.roomService.findRoomsByIdStructure(idStructure);
+		int totalNumberOfbeds = 0;
+		for(Room singleRoom : roomsList){
+			totalNumberOfbeds += this.roomService.findRoomById(singleRoom.getId()).getRoomType().getMaxGuests();
+		}
+
+		//NUMERO TOTALE DI STANZE NELLA STRUTURA
+		roomsInStructure = roomsList.size();
 		
 		availableRooms =this.getExportService().calculateAvailableNumberOfRoomsForStructureInDate(idStructure, exportDate);
 		availableBeds = this.getExportService().calculateAvailableNumberOfBedsForStructureInDate(idStructure, exportDate);
@@ -165,7 +169,7 @@ public class ExportResource {
 			guestQuesturaFormatterLeader.setModalita(each.getHousedExportLeader().getMode());
 			guestQuesturaFormatterLeader.setCamereOccupate(this.calculateNumberOfOccupiedRoomsForGroup(each));
 			guestQuesturaFormatterLeader.setCamereDisponibili(availableRooms);
-			guestQuesturaFormatterLeader.setLettiDisponibili(availableBeds);
+			guestQuesturaFormatterLeader.setLettiDisponibili(totalNumberOfbeds);
 			guestQuesturaFormatterLeader.setNumGiorniPermanenza(this.calculateLengthOfStay(each.getHousedExportLeader()));
 			guestQuesturaFormatterLeader.setDataFromHousedForQuestura(each.getHousedExportLeader().getHoused());
 			sb.append(guestQuesturaFormatterLeader.getRowQuestura(false));
@@ -195,7 +199,7 @@ public class ExportResource {
 			guestQuesturaFormatter.setModalita(each.getMode());
 			guestQuesturaFormatter.setCamereOccupate(1);
 			guestQuesturaFormatter.setCamereDisponibili(availableRooms);
-			guestQuesturaFormatter.setLettiDisponibili(availableBeds);
+			guestQuesturaFormatter.setLettiDisponibili(totalNumberOfbeds);
 			guestQuesturaFormatter.setNumGiorniPermanenza(this.calculateLengthOfStay(each));
 			guestQuesturaFormatter.setDataFromHousedForQuestura(each.getHoused());
 			sb.append(guestQuesturaFormatter.getRowQuestura(false));
@@ -250,8 +254,15 @@ public class ExportResource {
 		//CREO LA LISTA DEGLI HOUSED EXPORT Singoli
 		housedExportSingleList = this.findHousedExportSingleList(housedExportList);
 
+		//NUMERO TOTALE DI LETTI NELLA STRUTTURA
+		List<Room> roomsList = this.roomService.findRoomsByIdStructure(idStructure);
+		int totalNumberOfbeds = 0;
+		for(Room singleRoom : roomsList){
+			totalNumberOfbeds += this.roomService.findRoomById(singleRoom.getId()).getRoomType().getMaxGuests();
+		}
+
 		//NUMERO TOTALE DI STANZE NELLA STRUTURA
-		roomsInStructure = this.roomService.findRoomsByIdStructure(idStructure).size();
+		roomsInStructure = roomsList.size();
 
 
 		
@@ -260,12 +271,12 @@ public class ExportResource {
 		
 		sb = new StringBuilder();
 		
-		for(HousedExportGroup each : housedExportGroupList){			
+		for(HousedExportGroup each : housedExportGroupList){
 			GuestQuesturaFormatter guestQuesturaFormatterLeader = new GuestQuesturaFormatter();
 			guestQuesturaFormatterLeader.setModalita(each.getHousedExportLeader().getMode());
 			guestQuesturaFormatterLeader.setCamereOccupate(this.calculateNumberOfOccupiedRoomsForGroup(each));
 			guestQuesturaFormatterLeader.setCamereDisponibili(availableRooms);
-			guestQuesturaFormatterLeader.setLettiDisponibili(availableBeds);
+			guestQuesturaFormatterLeader.setLettiDisponibili(totalNumberOfbeds);
 			TourismType tourismType = this.getTourismTypeService().findById(each.getHousedExportLeader().getHoused().getId_tourismType());
 			Transport transport = this.getTransportService().findById(each.getHousedExportLeader().getHoused().getId_transport());
 			guestQuesturaFormatterLeader.setTipoTurismo(tourismType != null? I18nUtils.getProperty(tourismType.getName()) : "");
@@ -305,11 +316,8 @@ public class ExportResource {
 			each.getHoused().setHousedType(anHousedType);	
 			guestQuesturaFormatter.setModalita(each.getMode());
 			guestQuesturaFormatter.setCamereOccupate(1);
-			//NUMERO TOTALE DI LETTI NELLA STANZA
-			//Booking booking = this.bookingService.findBookingById(each.getHoused().getGuest().getId());
-			//bedsInRoom = booking.getRoom().getRoomType().getMaxGuests();
 			guestQuesturaFormatter.setCamereDisponibili(roomsInStructure);
-			guestQuesturaFormatter.setLettiDisponibili(availableBeds);
+			guestQuesturaFormatter.setLettiDisponibili(totalNumberOfbeds);
 			TourismType tourismTypeSingle = this.getTourismTypeService().findById(each.getHoused().getId_tourismType());
 			Transport transportSingle = this.getTransportService().findById(each.getHoused().getId_transport());
 			guestQuesturaFormatter.setTipoTurismo(tourismTypeSingle != null? I18nUtils.getProperty(tourismTypeSingle.getName()) : "");
