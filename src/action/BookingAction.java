@@ -429,7 +429,7 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 		//la prenotaizone deve avere un capogruppo
 		if(this.booking.getId() != null && this.getGroupLeaderService().findGroupLeaderByIdBooking(this.booking.getId()) == null){
 			this.getMessage().setResult(Message.ERROR);
-			this.getMessage().setDescription("Selezionare un capogruppo");
+			this.getMessage().setDescription(getText("selectGroupLeader"));
 			return ERROR;
 		}
 		
