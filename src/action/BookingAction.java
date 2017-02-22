@@ -394,6 +394,7 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 		Booking booking = null;
 		Convention convention = null;
 		CreditCard creditCard = null;
+
 		
 		if(!this.checkBookingDates(this.getIdStructure())){
 			return ERROR;
@@ -422,6 +423,13 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 		if(booker.getId() == null){
 			this.getMessage().setResult(Message.ERROR);
 			this.getMessage().setDescription(getText("bookingAddErrorNoBookerAction"));
+			return ERROR;
+		}
+
+		//la prenotaizone deve avere un capogruppo
+		if(this.booking.getId() != null && this.getGroupLeaderService().findGroupLeaderByIdBooking(this.booking.getId()) == null){
+			this.getMessage().setResult(Message.ERROR);
+			this.getMessage().setDescription(getText("selectGroupLeader"));
 			return ERROR;
 		}
 		
