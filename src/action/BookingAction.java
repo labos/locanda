@@ -426,8 +426,10 @@ public class BookingAction extends ActionSupport implements SessionAware,UserAwa
 			return ERROR;
 		}
 
-		//la prenotaizone deve avere un capogruppo
-		if(this.booking.getId() != null && this.getGroupLeaderService().findGroupLeaderByIdBooking(this.booking.getId()) == null){
+		// se c'è più di un ospite, la prenotaizone deve avere un capogruppo/capofamiglia
+		if(this.booking.getId() != null &&
+				this.booking.getNrGuests() > 1 &&
+				this.getGroupLeaderService().findGroupLeaderByIdBooking(this.booking.getId()) == null){
 			this.getMessage().setResult(Message.ERROR);
 			this.getMessage().setDescription(getText("selectGroupLeader"));
 			return ERROR;
