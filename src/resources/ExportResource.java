@@ -265,7 +265,12 @@ public class ExportResource {
 		roomsInStructure = roomsList.size();
 
 
-		
+		/**
+		 * AvailableRooms indica il numero di stanze disponibili quindi stanzeTotali - stanzeOccupate
+		 * availableBeds indica il numero di letti disponibili quindi lettiTotali - lettiOccupati
+		 *
+		 * Ora non vengono utilizzate in seguiito alle modifiche richieste all'applicativo.
+		 */
 		availableRooms =this.getExportService().calculateAvailableNumberOfRoomsForStructureInDate(idStructure, exportDate);
 		availableBeds = this.getExportService().calculateAvailableNumberOfBedsForStructureInDate(idStructure, exportDate);
 		
@@ -275,7 +280,7 @@ public class ExportResource {
 			GuestQuesturaFormatter guestQuesturaFormatterLeader = new GuestQuesturaFormatter();
 			guestQuesturaFormatterLeader.setModalita(each.getHousedExportLeader().getMode());
 			guestQuesturaFormatterLeader.setCamereOccupate(this.calculateNumberOfOccupiedRoomsForGroup(each));
-			guestQuesturaFormatterLeader.setCamereDisponibili(availableRooms);
+			guestQuesturaFormatterLeader.setCamereDisponibili(roomsInStructure);
 			guestQuesturaFormatterLeader.setLettiDisponibili(totalNumberOfbeds);
 			TourismType tourismType = this.getTourismTypeService().findById(each.getHousedExportLeader().getHoused().getId_tourismType());
 			Transport transport = this.getTransportService().findById(each.getHousedExportLeader().getHoused().getId_transport());
