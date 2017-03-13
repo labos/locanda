@@ -47,6 +47,6 @@
             username="${db.username}" 
             password="${db.password}" 
             driverClassName="${db.driverClassName}"
-            url="${db.url}"
+            url="jdbc:h2:${catalina.home}/webapps/Locanda/WEB-INF/classes/Locanda_resources/databases/${db.name};DATABASE_TO_UPPER=FALSE"
 	/>
 </Context>

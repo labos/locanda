@@ -27,7 +27,7 @@
       	<p><s:text name="createAccountSuccessMessage"/>:</p>
       	<p>
       	Email: <s:property value="user.email" /><br></br>
-      	Password: <s:text name="title"/>
+      	Password: locanda
       	</p>
       	<p id="home_images"></p>
       </div>

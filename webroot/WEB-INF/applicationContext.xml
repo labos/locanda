@@ -43,13 +43,17 @@
 
     <!-- import datasource and transaction manager  -->
     <import  resource="applicationContext-infrastructure.xml"/>
-    
-    <!-- <context:property-placeholder  location="/WEB-INF/solr.properties"/> -->
-	
+
+
+    <context:property-placeholder  location="/WEB-INF/solr.properties"/>
+
 	<bean id="multiCoreContainer" class="org.apache.solr.core.CoreContainer">
-		<constructor-arg><value>${solr.homeDir}</value></constructor-arg>
-		<constructor-arg><value>${solr.configFile}</value></constructor-arg>
+		<!--# GLOBALIZE-->
+		<constructor-arg><value>${catalina.home}/webapps/Locanda/WEB-INF/classes/Locanda_resources/solr</value></constructor-arg>
+		<!--# GLOBALIZE-->
+		<constructor-arg><value>${catalina.home}/webapps/Locanda/WEB-INF/classes/Locanda_resources/solr/solr.xml</value></constructor-arg>
 	</bean>
+
 
 	<bean id="solrServerConvention"
 		class="org.apache.solr.client.solrj.embedded.EmbeddedSolrServer">
@@ -104,23 +108,29 @@
 		<constructor-arg ref="multiCoreContainer" />
 		<constructor-arg value="image" />
 	</bean>
-	
+
 	<bean id="solrServerHoused"
 		class="org.apache.solr.client.solrj.embedded.EmbeddedSolrServer">
 		<constructor-arg ref="multiCoreContainer" />
 		<constructor-arg value="housed" />
 	</bean>
-	
+
+
     <!-- enable autowire -->
     <context:annotation-config />
     
     <!-- enable transaction demarcation with annotations -->
     <tx:annotation-driven />
     
-    <bean id="org.h2.tools.Server-WebServer" class="org.h2.tools.Server" 
-    factory-method="createWebServer" depends-on="dataSource" 
-    init-method="start" destroy-method="stop" lazy-init="false">
-    <constructor-arg value="-web,-webPort,11111" />
+    <bean
+            id="org.h2.tools.Server-WebServer"
+            class="org.h2.tools.Server"
+            factory-method="createWebServer"
+            depends-on="dataSource"
+            init-method="start"
+            destroy-method="stop"
+            lazy-init="false">
+    <constructor-arg value="-web,-webPort,11112" />
 	</bean>
 
     <!-- define the SqlSessionFactory, notice that configLocation is not needed when you use MapperScannerConfigurer -->
